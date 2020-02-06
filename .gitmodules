@@ -1,0 +1,3 @@
+[submodule "sgfc"]
+	path = sgfc
+	url = https://bitbucket.org/arnoh/sgfc.git
