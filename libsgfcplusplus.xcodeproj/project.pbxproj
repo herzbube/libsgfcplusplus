@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CD8322A023F1D240009567E4 /* SgfcPlusPlusFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83227623F1D1DB009567E4 /* SgfcPlusPlusFactory.cpp */; };
+		CD8322A123F1D240009567E4 /* SgfcCommandLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83227723F1D1DB009567E4 /* SgfcCommandLine.cpp */; };
+		CD8322A223F1D240009567E4 /* SgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227823F1D1DB009567E4 /* SgfcCommandLine.h */; };
+		CD8322A323F1D240009567E4 /* ISgfcCommandLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83227923F1D1DB009567E4 /* ISgfcCommandLine.cpp */; };
+		CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */; };
+		CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */; };
+		CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322A623F1D30D009567E4 /* ISgfcMessage.h */; };
+		CD8322A923F1D383009567E4 /* ISgfcMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322A823F1D383009567E4 /* ISgfcMessage.cpp */; };
+		CD8322AB23F1DAC4009567E4 /* SgfcMessageType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322AA23F1DAC4009567E4 /* SgfcMessageType.h */; };
+		CD8322AD23F1E51E009567E4 /* SgfcMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322AC23F1E51E009567E4 /* SgfcMessage.cpp */; };
+		CD8322AF23F1E532009567E4 /* SgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322AE23F1E532009567E4 /* SgfcMessage.h */; };
+		CD8322B223F33377009567E4 /* SgfcMessageParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322B023F33377009567E4 /* SgfcMessageParser.h */; };
+		CD8322B323F33377009567E4 /* SgfcMessageParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322B123F33377009567E4 /* SgfcMessageParser.cpp */; };
+		CD8322B623F424C7009567E4 /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83227E23F1D218009567E4 /* gameinfo.c */; };
+		CD8322B823F424E4009567E4 /* strict.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228123F1D218009567E4 /* strict.c */; };
+		CD8322B923F424E7009567E4 /* parse2.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228323F1D218009567E4 /* parse2.c */; };
+		CD8322BA23F424EA009567E4 /* execute.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228523F1D218009567E4 /* execute.c */; };
+		CD8322BB23F424EE009567E4 /* properties.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228623F1D218009567E4 /* properties.c */; };
+		CD8322BC23F424F9009567E4 /* parse.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83229023F1D218009567E4 /* parse.c */; };
+		CD8322BD23F424FC009567E4 /* save.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83229123F1D218009567E4 /* save.c */; };
+		CD8322BE23F42500009567E4 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83229223F1D218009567E4 /* load.c */; };
+		CD8322BF23F4250E009567E4 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228923F1D218009567E4 /* main.c */; };
+		CD8322C323F42662009567E4 /* SgfcMessageStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322C123F42662009567E4 /* SgfcMessageStream.cpp */; };
+		CD8322C423F42662009567E4 /* SgfcMessageStream.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322C223F42662009567E4 /* SgfcMessageStream.h */; };
+		CD8322C523F43262009567E4 /* util.c in Sources */ = {isa = PBXBuildFile; fileRef = CD83228023F1D218009567E4 /* util.c */; settings = {COMPILER_FLAGS = "-x c++"; }; };
+		CD8322C723F48912009567E4 /* SgfcExitCode.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322C623F48912009567E4 /* SgfcExitCode.h */; };
+		CD8322CA23F4B61D009567E4 /* SgfcOptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322C823F4B61C009567E4 /* SgfcOptions.cpp */; };
+		CD8322CB23F4B61D009567E4 /* SgfcOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322C923F4B61D009567E4 /* SgfcOptions.h */; };
+		CD8322CE23F4D24D009567E4 /* SgfcConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322CC23F4D24C009567E4 /* SgfcConstants.h */; };
+		CD8322CF23F4D24D009567E4 /* SgfcConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */; };
+		CD8322D123F4D423009567E4 /* SgfcMessagePart.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322D023F4D423009567E4 /* SgfcMessagePart.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD83227623F1D1DB009567E4 /* SgfcPlusPlusFactory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPlusPlusFactory.cpp; sourceTree = "<group>"; };
+		CD83227723F1D1DB009567E4 /* SgfcCommandLine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcCommandLine.cpp; sourceTree = "<group>"; };
+		CD83227823F1D1DB009567E4 /* SgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcCommandLine.h; sourceTree = "<group>"; };
+		CD83227923F1D1DB009567E4 /* ISgfcCommandLine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcCommandLine.cpp; sourceTree = "<group>"; };
+		CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISgfcCommandLine.h; sourceTree = "<group>"; };
+		CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcPlusPlusFactory.h; sourceTree = "<group>"; };
+		CD83227E23F1D218009567E4 /* gameinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; };
+		CD83227F23F1D218009567E4 /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		CD83228023F1D218009567E4 /* util.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = util.c; sourceTree = "<group>"; usesTabs = 1; };
+		CD83228123F1D218009567E4 /* strict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strict.c; sourceTree = "<group>"; };
+		CD83228223F1D218009567E4 /* all.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = all.h; sourceTree = "<group>"; };
+		CD83228323F1D218009567E4 /* parse2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse2.c; sourceTree = "<group>"; };
+		CD83228423F1D218009567E4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		CD83228523F1D218009567E4 /* execute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = execute.c; sourceTree = "<group>"; };
+		CD83228623F1D218009567E4 /* properties.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = properties.c; sourceTree = "<group>"; };
+		CD83228723F1D218009567E4 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		CD83228823F1D218009567E4 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		CD83228923F1D218009567E4 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		CD83228A23F1D218009567E4 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		CD83228B23F1D218009567E4 /* protos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protos.h; sourceTree = "<group>"; };
+		CD83228D23F1D218009567E4 /* test-reorder.sgf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-reorder.sgf"; sourceTree = "<group>"; };
+		CD83228E23F1D218009567E4 /* test.sgf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.sgf; sourceTree = "<group>"; };
+		CD83228F23F1D218009567E4 /* test-strict.sgf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "test-strict.sgf"; sourceTree = "<group>"; };
+		CD83229023F1D218009567E4 /* parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse.c; sourceTree = "<group>"; };
+		CD83229123F1D218009567E4 /* save.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = save.c; sourceTree = "<group>"; };
+		CD83229223F1D218009567E4 /* load.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = load.c; sourceTree = "<group>"; };
+		CD8322A623F1D30D009567E4 /* ISgfcMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcMessage.h; sourceTree = "<group>"; };
+		CD8322A823F1D383009567E4 /* ISgfcMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcMessage.cpp; sourceTree = "<group>"; };
+		CD8322AA23F1DAC4009567E4 /* SgfcMessageType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessageType.h; sourceTree = "<group>"; };
+		CD8322AC23F1E51E009567E4 /* SgfcMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessage.cpp; sourceTree = "<group>"; };
+		CD8322AE23F1E532009567E4 /* SgfcMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessage.h; sourceTree = "<group>"; };
+		CD8322B023F33377009567E4 /* SgfcMessageParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessageParser.h; sourceTree = "<group>"; };
+		CD8322B123F33377009567E4 /* SgfcMessageParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageParser.cpp; sourceTree = "<group>"; };
+		CD8322C123F42662009567E4 /* SgfcMessageStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageStream.cpp; sourceTree = "<group>"; };
+		CD8322C223F42662009567E4 /* SgfcMessageStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessageStream.h; sourceTree = "<group>"; };
+		CD8322C623F48912009567E4 /* SgfcExitCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcExitCode.h; sourceTree = "<group>"; };
+		CD8322C823F4B61C009567E4 /* SgfcOptions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcOptions.cpp; sourceTree = "<group>"; };
+		CD8322C923F4B61D009567E4 /* SgfcOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcOptions.h; sourceTree = "<group>"; };
+		CD8322CC23F4D24C009567E4 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
+		CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcConstants.cpp; sourceTree = "<group>"; };
+		CD8322D023F4D423009567E4 /* SgfcMessagePart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessagePart.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD72170C23F1C793008373BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD72170523F1C793008373BA = {
+			isa = PBXGroup;
+			children = (
+				CD83227A23F1D1E7009567E4 /* include */,
+				CD83227D23F1D218009567E4 /* sgfc */,
+				CD83227523F1D1DB009567E4 /* src */,
+				CD72170F23F1C793008373BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD72170F23F1C793008373BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD83227523F1D1DB009567E4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				CD83227923F1D1DB009567E4 /* ISgfcCommandLine.cpp */,
+				CD8322A823F1D383009567E4 /* ISgfcMessage.cpp */,
+				CD83227723F1D1DB009567E4 /* SgfcCommandLine.cpp */,
+				CD83227823F1D1DB009567E4 /* SgfcCommandLine.h */,
+				CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */,
+				CD8322CC23F4D24C009567E4 /* SgfcConstants.h */,
+				CD8322AC23F1E51E009567E4 /* SgfcMessage.cpp */,
+				CD8322AE23F1E532009567E4 /* SgfcMessage.h */,
+				CD8322B123F33377009567E4 /* SgfcMessageParser.cpp */,
+				CD8322B023F33377009567E4 /* SgfcMessageParser.h */,
+				CD8322D023F4D423009567E4 /* SgfcMessagePart.h */,
+				CD8322C123F42662009567E4 /* SgfcMessageStream.cpp */,
+				CD8322C223F42662009567E4 /* SgfcMessageStream.h */,
+				CD8322C823F4B61C009567E4 /* SgfcOptions.cpp */,
+				CD8322C923F4B61D009567E4 /* SgfcOptions.h */,
+				CD83227623F1D1DB009567E4 /* SgfcPlusPlusFactory.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		CD83227A23F1D1E7009567E4 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */,
+				CD8322A623F1D30D009567E4 /* ISgfcMessage.h */,
+				CD8322C623F48912009567E4 /* SgfcExitCode.h */,
+				CD8322AA23F1DAC4009567E4 /* SgfcMessageType.h */,
+				CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		CD83227D23F1D218009567E4 /* sgfc */ = {
+			isa = PBXGroup;
+			children = (
+				CD83227E23F1D218009567E4 /* gameinfo.c */,
+				CD83227F23F1D218009567E4 /* CMakeLists.txt */,
+				CD83228023F1D218009567E4 /* util.c */,
+				CD83228123F1D218009567E4 /* strict.c */,
+				CD83228223F1D218009567E4 /* all.h */,
+				CD83228323F1D218009567E4 /* parse2.c */,
+				CD83228423F1D218009567E4 /* Makefile */,
+				CD83228523F1D218009567E4 /* execute.c */,
+				CD83228623F1D218009567E4 /* properties.c */,
+				CD83228723F1D218009567E4 /* README */,
+				CD83228823F1D218009567E4 /* COPYING */,
+				CD83228923F1D218009567E4 /* main.c */,
+				CD83228A23F1D218009567E4 /* .gitignore */,
+				CD83228B23F1D218009567E4 /* protos.h */,
+				CD83228C23F1D218009567E4 /* test-files */,
+				CD83229023F1D218009567E4 /* parse.c */,
+				CD83229123F1D218009567E4 /* save.c */,
+				CD83229223F1D218009567E4 /* load.c */,
+			);
+			path = sgfc;
+			sourceTree = "<group>";
+		};
+		CD83228C23F1D218009567E4 /* test-files */ = {
+			isa = PBXGroup;
+			children = (
+				CD83228D23F1D218009567E4 /* test-reorder.sgf */,
+				CD83228E23F1D218009567E4 /* test.sgf */,
+				CD83228F23F1D218009567E4 /* test-strict.sgf */,
+			);
+			path = "test-files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CD72170A23F1C793008373BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8322CB23F4B61D009567E4 /* SgfcOptions.h in Headers */,
+				CD8322A223F1D240009567E4 /* SgfcCommandLine.h in Headers */,
+				CD8322C723F48912009567E4 /* SgfcExitCode.h in Headers */,
+				CD8322B223F33377009567E4 /* SgfcMessageParser.h in Headers */,
+				CD8322AF23F1E532009567E4 /* SgfcMessage.h in Headers */,
+				CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */,
+				CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */,
+				CD8322C423F42662009567E4 /* SgfcMessageStream.h in Headers */,
+				CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */,
+				CD8322AB23F1DAC4009567E4 /* SgfcMessageType.h in Headers */,
+				CD8322D123F4D423009567E4 /* SgfcMessagePart.h in Headers */,
+				CD8322CE23F4D24D009567E4 /* SgfcConstants.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CD72170D23F1C793008373BA /* libsgfcplusplus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD72171923F1C794008373BA /* Build configuration list for PBXNativeTarget "libsgfcplusplus" */;
+			buildPhases = (
+				CD72170A23F1C793008373BA /* Headers */,
+				CD72170B23F1C793008373BA /* Sources */,
+				CD72170C23F1C793008373BA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libsgfcplusplus;
+			productName = libsgfcplusplus;
+			productReference = CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD72170623F1C793008373BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Patrick Näf";
+				TargetAttributes = {
+					CD72170D23F1C793008373BA = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = CD72170923F1C793008373BA /* Build configuration list for PBXProject "libsgfcplusplus" */;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD72170523F1C793008373BA;
+			productRefGroup = CD72170F23F1C793008373BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD72170D23F1C793008373BA /* libsgfcplusplus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD72170B23F1C793008373BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD8322BD23F424FC009567E4 /* save.c in Sources */,
+				CD8322C523F43262009567E4 /* util.c in Sources */,
+				CD8322C323F42662009567E4 /* SgfcMessageStream.cpp in Sources */,
+				CD8322A323F1D240009567E4 /* ISgfcCommandLine.cpp in Sources */,
+				CD8322CF23F4D24D009567E4 /* SgfcConstants.cpp in Sources */,
+				CD8322AD23F1E51E009567E4 /* SgfcMessage.cpp in Sources */,
+				CD8322CA23F4B61D009567E4 /* SgfcOptions.cpp in Sources */,
+				CD8322A923F1D383009567E4 /* ISgfcMessage.cpp in Sources */,
+				CD8322B823F424E4009567E4 /* strict.c in Sources */,
+				CD8322A023F1D240009567E4 /* SgfcPlusPlusFactory.cpp in Sources */,
+				CD8322B623F424C7009567E4 /* gameinfo.c in Sources */,
+				CD8322B923F424E7009567E4 /* parse2.c in Sources */,
+				CD8322BA23F424EA009567E4 /* execute.c in Sources */,
+				CD8322BE23F42500009567E4 /* load.c in Sources */,
+				CD8322A123F1D240009567E4 /* SgfcCommandLine.cpp in Sources */,
+				CD8322BF23F4250E009567E4 /* main.c in Sources */,
+				CD8322BB23F424EE009567E4 /* properties.c in Sources */,
+				CD8322B323F33377009567E4 /* SgfcMessageParser.cpp in Sources */,
+				CD8322BC23F424F9009567E4 /* parse.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CD72171723F1C794008373BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CD72171823F1C794008373BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CD72171A23F1C794008373BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		CD72171B23F1C794008373BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD72170923F1C793008373BA /* Build configuration list for PBXProject "libsgfcplusplus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD72171723F1C794008373BA /* Debug */,
+				CD72171823F1C794008373BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD72171923F1C794008373BA /* Build configuration list for PBXNativeTarget "libsgfcplusplus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD72171A23F1C794008373BA /* Debug */,
+				CD72171B23F1C794008373BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD72170623F1C793008373BA /* Project object */;
+}
