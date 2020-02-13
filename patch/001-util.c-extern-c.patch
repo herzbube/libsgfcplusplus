@@ -1,0 +1,16 @@
+diff --git a/util.c b/util.c
+index f0eec38..32d8c5e 100644
+--- a/util.c
++++ b/util.c
+@@ -14,8 +14,11 @@
+ #include <ctype.h>
+ #include <string.h>
+ 
++extern "C"
++{
+ #include "all.h"
+ #include "protos.h"
++}
+ 
+ /* #define NO_STRERROR */		/* for dumb pseudo-ANSI compilers */
+ 
