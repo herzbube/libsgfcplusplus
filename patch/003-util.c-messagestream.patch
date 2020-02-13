@@ -1,0 +1,145 @@
+diff --git a/util.c b/util.c
+index 90b469c..3823ac9 100644
+--- a/util.c
++++ b/util.c
+@@ -15,6 +15,7 @@
+ #include <string.h>
+ 
+ #include <stdexcept>
++#include <sstream>
+ 
+ extern "C"
+ {
+@@ -160,6 +161,36 @@ void SearchPos(char *c, struct SGFInfo *sgf, int *x, int *y)
+ }
+ 
+ 
++namespace LibSgfcPlusPlus
++{
++	// PrintError has been modified to send its output to this stringstream
++	// instead of writing it to E_OUTPUT. When SGFC has finished processing the
++	// SGF content and control returns to libsgfc++, the controlling libsgfc++
++	// object calls AcquireSgfcMessageStream() to get hold of the captured
++	// message stream. libsgfc++ then splits the message stream into lines, each
++	// line representing one message that can be parsed separately.
++	//
++	// A solution that sends individual messages back to libsgfc++ for parsing has
++	// been considered, but found to be more difficult to implement because then
++	// it would be necessary to decide when a message ends and the next one begins.
++	// This is non-trivial, because SGFC has been designed so that one call to
++	// PrintError() can generate only a partial message, i.e. a full message might
++	// need several PrintError() calls. Sometimes PrintError() even calls itself
++	// recursively.
++  std::stringstream messageStream("");
++
++  std::string AcquireSgfcMessageStream()
++  {
++    return messageStream.str();
++  }
++
++  void ResetSgfcMessageStream()
++  {
++    messageStream.str("");
++  }
++}
++
++
+ /**************************************************************************
+ *** Function:	PrintError
+ ***				Prints an error message to E_OUTPUT (see #define)
+@@ -257,17 +288,17 @@ int PrintError(U_LONG type, ...)
+ 	if(type & E_SEARCHPOS)				/* print position if required */
+ 	{
+ 		SearchPos(pos, sgfc, &x, &y);
+-		fprintf(E_OUTPUT, "Line:%d Col:%d - ", y, x);
++		LibSgfcPlusPlus::messageStream << "Line:" << y << " Col:" << x << " - ";
+ 	}
+ 
+ 	switch(type & M_ERROR_TYPE)
+ 	{
+-		case E_FATAL_ERROR:	fprintf(E_OUTPUT, "Fatal error %d", (int)(type & M_ERROR_NUM));
++		case E_FATAL_ERROR:	LibSgfcPlusPlus::messageStream << "Fatal error " << (int)(type & M_ERROR_NUM);
+ 							break;
+-		case E_ERROR:		fprintf(E_OUTPUT, "Error %d", (int)(type & M_ERROR_NUM));
++		case E_ERROR:		LibSgfcPlusPlus::messageStream << "Error " << (int)(type & M_ERROR_NUM);
+ 							error_count++;
+ 							break;
+-		case E_WARNING:		fprintf(E_OUTPUT, "Warning %d", (int)(type & M_ERROR_NUM));
++		case E_WARNING:		LibSgfcPlusPlus::messageStream << "Warning " << (int)(type & M_ERROR_NUM);
+ 							warning_count++;
+ 							break;
+ 	}
+@@ -275,40 +306,42 @@ int PrintError(U_LONG type, ...)
+ 	if(type & E_CRITICAL)
+ 	{
+ 		critical_count++;
+-		fprintf(E_OUTPUT, " (critical): ");
++		LibSgfcPlusPlus::messageStream << " (critical): ";
+ 	}
+ 	else
+ 		if(type != E_NO_ERROR)
+-			fprintf(E_OUTPUT, ": ");
++			LibSgfcPlusPlus::messageStream << ": ";
+ 
+ 	if(type != E_NO_ERROR)
+ 	{
+ 		/* print error */
+-		vfprintf(E_OUTPUT, error_mesg[(type & M_ERROR_NUM)-1], arglist);
++		char buffer [1000];
++		vsprintf(buffer, error_mesg[(type & M_ERROR_NUM)-1], arglist);
++		LibSgfcPlusPlus::messageStream << buffer;
+ 
+ 		if(print_c)					/* print accumulated string? */
+ 		{
+-			putc('"', E_OUTPUT);	/* string is not terminated with '\0'!! */
++			LibSgfcPlusPlus::messageStream << "\"";	/* string is not terminated with '\0'!! */
+ 			for(; ill_count; ill_count--)
+ 			{
+-				putc(*illegal, E_OUTPUT);
++				LibSgfcPlusPlus::messageStream << (*illegal);
+ 				illegal++;
+ 			}
+-			fputs("\"\n", E_OUTPUT);
++			LibSgfcPlusPlus::messageStream << "\"\n";
+ 		}
+ 
+ 		if(type & E_ERRNO)			/* print DOS error message? */
+ 		{
+ #ifdef NO_STRERROR					/* strerror() may not be defined! */
+-			fprintf(E_OUTPUT, "error code: %d\n", errno);
++			LibSgfcPlusPlus::messageStream << "error code: " << errno << "\n";
+ #else
+ 			char *err;
+ 
+ 			err = strerror(errno);
+ 			if(err)
+-				fprintf(E_OUTPUT, "%s\n", err);
++				LibSgfcPlusPlus::messageStream << err << "\n";
+ 			else
+-				fprintf(E_OUTPUT, "error code: %d\n", errno);
++				LibSgfcPlusPlus::messageStream << "error code: " << errno << "\n";
+ #endif
+ 			errno = 0;
+ 		}
+@@ -318,10 +351,10 @@ int PrintError(U_LONG type, ...)
+ 			pos2 = SkipText(pos, NULL, ']', 0);
+ 			while(pos <= pos2)
+ 			{
+-				putc(*pos, E_OUTPUT);
++				LibSgfcPlusPlus::messageStream << (*pos);
+ 				pos++;
+ 			}
+-			putc('\n', E_OUTPUT);
++			LibSgfcPlusPlus::messageStream << "\n";
+ 		}
+ 	}
+ 
+@@ -330,7 +363,7 @@ int PrintError(U_LONG type, ...)
+ 	if((type & M_ERROR_TYPE) == E_FATAL_ERROR)	/* fatal one? */
+ 	{
+ 		FreeSGFInfo(sgfc);
+-		throw std::runtime_error("PrintError() called with fatal error");
++		throw std::runtime_error(LibSgfcPlusPlus::messageStream.str());
+ 	}
+ 
+ 	return(TRUE);
