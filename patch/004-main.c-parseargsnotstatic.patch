@@ -1,0 +1,26 @@
+diff --git a/main.c b/main.c
+index 555a4c3..3872238 100644
+--- a/main.c
++++ b/main.c
+@@ -117,7 +117,7 @@ static void PrintHelp(int everything)
+ *** Returns:	TRUE for ok / FALSE for exit program (help printed)
+ **************************************************************************/
+ 
+-static int ParseArgs(int argc, char *argv[])
++int ParseArgs(int argc, char *argv[])
+ {
+ 	int i, n, m;
+ 	char *c, *hlp;
+diff --git a/protos.h b/protos.h
+index 53a4aff..bf60d77 100644
+--- a/protos.h
++++ b/protos.h
+@@ -34,6 +34,8 @@ extern char option_reorder_variations;
+ extern char *option_infile;
+ extern char *option_outfile;
+ 
++int ParseArgs(int argc, char *argv[]);
++
+ 
+ /**** load.c ****/
+ 
