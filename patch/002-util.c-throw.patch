@@ -1,0 +1,22 @@
+diff --git a/util.c b/util.c
+index 32d8c5e..90b469c 100644
+--- a/util.c
++++ b/util.c
+@@ -14,6 +14,8 @@
+ #include <ctype.h>
+ #include <string.h>
+ 
++#include <stdexcept>
++
+ extern "C"
+ {
+ #include "all.h"
+@@ -328,7 +330,7 @@ int PrintError(U_LONG type, ...)
+ 	if((type & M_ERROR_TYPE) == E_FATAL_ERROR)	/* fatal one? */
+ 	{
+ 		FreeSGFInfo(sgfc);
+-		exit(20);							/* say dada */
++		throw std::runtime_error("PrintError() called with fatal error");
+ 	}
+ 
+ 	return(TRUE);
