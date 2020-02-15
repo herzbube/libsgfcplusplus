@@ -1,5 +1,37 @@
+diff --git a/execute.c b/execute.c
+index 589045a..e2b73e6 100644
+--- a/execute.c
++++ b/execute.c
+@@ -220,12 +220,12 @@ int Do_Addstones(struct Node *n, struct Property *p, struct BoardStatus *st)
+ 		v = h.value;
+ 		while(v)
+ 		{
+-			if(x)	fprintf(E_OUTPUT, "[%s]", v->value);
++			if(x)	WriteFormattedStringToLibSgfcPlusPlusMessageStream("[%s]", v->value);
+ 			v = Del_PropValue(&h, v);
+ 		}
+ 
+ 		if(x)
+-			fprintf(E_OUTPUT, "\n");
++			WriteFormattedStringToLibSgfcPlusPlusMessageStream("\n");
+ 	}
+ 
+ 	return(TRUE);
+diff --git a/protos.h b/protos.h
+index 53a4aff..21b062b 100644
+--- a/protos.h
++++ b/protos.h
+@@ -135,6 +135,8 @@ struct Node *Del_Node(struct Node *, U_LONG);
+ 
+ struct Property *New_PropValue(struct Node *, token, char *, char *, int);
+ 
++void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString, ...);
++
+ 
+ /**** strict.c ****/
+ 
 diff --git a/util.c b/util.c
-index 90b469c..3823ac9 100644
+index 90b469c..e173526 100644
 --- a/util.c
 +++ b/util.c
 @@ -15,6 +15,7 @@
@@ -10,7 +42,7 @@ index 90b469c..3823ac9 100644
  
  extern "C"
  {
-@@ -160,6 +161,36 @@ void SearchPos(char *c, struct SGFInfo *sgf, int *x, int *y)
+@@ -160,6 +161,78 @@ void SearchPos(char *c, struct SGFInfo *sgf, int *x, int *y)
  }
  
  
@@ -41,13 +73,55 @@ index 90b469c..3823ac9 100644
 +  {
 +    messageStream.str("");
 +  }
++
++	// Caller must pass a va_list parameter that has been initialized with
++	// va_start(), and caller must clean up the va_list parameter with va_end().
++	// This function modifies the va_list parameter.
++	void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString, va_list arglist)
++	{
++		// Perform a "probing" call to vsnprintf(). We do this so that the function
++		// tells us how long the resulting string would have been, so that we can
++		// allocate a buffer of the correct length. For this we need a copy of
++		// arglist, the copy must be made while the original arglist is still in
++		// its initialized state.
++		va_list arglistCopy;
++		va_copy(arglistCopy, arglist);
++		int lengthOfFormattedStringWithoutNullTerminator = vsnprintf(nullptr, 0, formatString, arglistCopy);
++		va_end(arglistCopy);
++
++		if (lengthOfFormattedStringWithoutNullTerminator >= 0)
++		{
++			size_t bufferSize = lengthOfFormattedStringWithoutNullTerminator + 1;
++			char formattedStringBuffer[bufferSize];
++
++			// No need to call va_start/va-end - that's the responsibility of the caller
++			vsnprintf(formattedStringBuffer, bufferSize, formatString, arglist);
++
++			messageStream << formattedStringBuffer;
++		}
++		else
++		{
++			messageStream
++				<< "WriteFormattedStringToLibSgfcPlusPlusMessageStream error: vsnprintf encountered encoding error, return value was "
++				<< lengthOfFormattedStringWithoutNullTerminator;
++		}
++	}
++}
++
++void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString, ...)
++{
++	va_list arglist;
++
++	va_start(arglist, formatString);
++	LibSgfcPlusPlus::WriteFormattedStringToLibSgfcPlusPlusMessageStream(formatString, arglist);
++	va_end(arglist);
 +}
 +
 +
  /**************************************************************************
  *** Function:	PrintError
  ***				Prints an error message to E_OUTPUT (see #define)
-@@ -257,17 +288,17 @@ int PrintError(U_LONG type, ...)
+@@ -257,17 +330,17 @@ int PrintError(U_LONG type, ...)
  	if(type & E_SEARCHPOS)				/* print position if required */
  	{
  		SearchPos(pos, sgfc, &x, &y);
@@ -69,7 +143,7 @@ index 90b469c..3823ac9 100644
  							warning_count++;
  							break;
  	}
-@@ -275,40 +306,42 @@ int PrintError(U_LONG type, ...)
+@@ -275,40 +348,40 @@ int PrintError(U_LONG type, ...)
  	if(type & E_CRITICAL)
  	{
  		critical_count++;
@@ -85,9 +159,7 @@ index 90b469c..3823ac9 100644
  	{
  		/* print error */
 -		vfprintf(E_OUTPUT, error_mesg[(type & M_ERROR_NUM)-1], arglist);
-+		char buffer [1000];
-+		vsprintf(buffer, error_mesg[(type & M_ERROR_NUM)-1], arglist);
-+		LibSgfcPlusPlus::messageStream << buffer;
++		LibSgfcPlusPlus::WriteFormattedStringToLibSgfcPlusPlusMessageStream(error_mesg[(type & M_ERROR_NUM)-1], arglist);
  
  		if(print_c)					/* print accumulated string? */
  		{
@@ -121,7 +193,7 @@ index 90b469c..3823ac9 100644
  #endif
  			errno = 0;
  		}
-@@ -318,10 +351,10 @@ int PrintError(U_LONG type, ...)
+@@ -318,10 +391,10 @@ int PrintError(U_LONG type, ...)
  			pos2 = SkipText(pos, NULL, ']', 0);
  			while(pos <= pos2)
  			{
@@ -134,7 +206,7 @@ index 90b469c..3823ac9 100644
  		}
  	}
  
-@@ -330,7 +363,7 @@ int PrintError(U_LONG type, ...)
+@@ -330,7 +403,7 @@ int PrintError(U_LONG type, ...)
  	if((type & M_ERROR_TYPE) == E_FATAL_ERROR)	/* fatal one? */
  	{
  		FreeSGFInfo(sgfc);

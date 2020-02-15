@@ -55,7 +55,7 @@
 		CD83228223F1D218009567E4 /* all.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = all.h; sourceTree = "<group>"; };
 		CD83228323F1D218009567E4 /* parse2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse2.c; sourceTree = "<group>"; };
 		CD83228423F1D218009567E4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		CD83228523F1D218009567E4 /* execute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = execute.c; sourceTree = "<group>"; };
+		CD83228523F1D218009567E4 /* execute.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = execute.c; sourceTree = "<group>"; usesTabs = 1; };
 		CD83228623F1D218009567E4 /* properties.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = properties.c; sourceTree = "<group>"; };
 		CD83228723F1D218009567E4 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		CD83228823F1D218009567E4 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
