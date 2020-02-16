@@ -55,11 +55,8 @@ namespace LibSgfcPlusPlus
     bool fatalErrorOccurred = false;
     try
     {
-      // Notes:
-      // - Both of the following functions set the global variable sgfc as a
-      //   side effect
-      // - If a fatal error occurs PrintError() immediately invokes
-      //   FreeSGFInfo()
+      // Both of the following functions set the global variable sgfc as a
+      // side effect
       LoadSGF(this->sgfInfo);
       ParseSGF(this->sgfInfo);
     }
@@ -68,10 +65,8 @@ namespace LibSgfcPlusPlus
       fatalErrorOccurred = true;
     }
 
-    // Set global variable to zero. This makes sure that our data in
-    // this->sgfInfo remains untouched when other SGFC controllers do their
-    // thing. For example, another SGFC controller might trigger a fatal error,
-    // which would cause PrintError() to call FreeSGFInfo().
+    // Reset global variable. This makes sure that our data in this->sgfInfo
+    // remains untouched when other SGFC controllers perform SGFC operations.
     sgfc = nullptr;
 
     FillParseResult();

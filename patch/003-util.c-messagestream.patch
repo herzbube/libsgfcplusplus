@@ -31,7 +31,7 @@ index 53a4aff..21b062b 100644
  /**** strict.c ****/
  
 diff --git a/util.c b/util.c
-index 90b469c..e173526 100644
+index 7f6a210..87de008 100644
 --- a/util.c
 +++ b/util.c
 @@ -15,6 +15,7 @@
@@ -206,10 +206,10 @@ index 90b469c..e173526 100644
  		}
  	}
  
-@@ -330,7 +403,7 @@ int PrintError(U_LONG type, ...)
+@@ -329,7 +402,7 @@ int PrintError(U_LONG type, ...)
+ 
  	if((type & M_ERROR_TYPE) == E_FATAL_ERROR)	/* fatal one? */
  	{
- 		FreeSGFInfo(sgfc);
 -		throw std::runtime_error("PrintError() called with fatal error");
 +		throw std::runtime_error(LibSgfcPlusPlus::messageStream.str());
  	}
