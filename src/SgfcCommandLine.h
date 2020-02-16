@@ -58,7 +58,7 @@ namespace LibSgfcPlusPlus
     void FillParseResult();
     void SetInvalidCommandLineReasonFromParseResults();
 
-    SgfcExitCode GetSgfcExitCodeFromGlobalVariables();
+    SgfcExitCode GetSgfcExitCodeFromParseResult();
 
     void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;

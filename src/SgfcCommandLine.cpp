@@ -77,7 +77,6 @@ namespace LibSgfcPlusPlus
     // Prepare the SGFInfo struct for LoadSGF()
     this->sgfInfo->name = option_infile;
 
-    bool fatalErrorOccurred = false;
     try
     {
       // Both of the following functions set the global variable sgfc as a
@@ -87,7 +86,8 @@ namespace LibSgfcPlusPlus
     }
     catch (std::runtime_error& exception)
     {
-      fatalErrorOccurred = true;
+      // Handle the exception. The SGFC message stream should now hold a
+      // fatal error message that we get access to after FillParseResult().
     }
 
     // Reset global variable. This makes sure that our data in this->sgfInfo
@@ -96,15 +96,8 @@ namespace LibSgfcPlusPlus
 
     FillParseResult();
 
-    if (fatalErrorOccurred)
-    {
-      return SgfcExitCode::FatalError;
-    }
-    else
-    {
-      SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromGlobalVariables();
-      return sgfcExitCode;
-    }
+    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromParseResult();
+    return sgfcExitCode;
   }
 
   SgfcExitCode SgfcCommandLine::LoadSgfContent(const std::string& sgfContent)
@@ -339,11 +332,33 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromGlobalVariables()
+  SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromParseResult()
   {
-    if (error_count > 0)
+    bool warningMessageFound = false;
+    bool errorMessageFound = false;
+    bool fatalErrorMessageFound = false;
+
+    for (const auto& message : this->parseResult)
+    {
+      switch (message->GetMessageType())
+      {
+        case SgfcMessageType::Warning:
+          warningMessageFound = true;
+          break;
+        case SgfcMessageType::Error:
+          errorMessageFound = true;
+          break;
+        case SgfcMessageType::FatalError:
+          fatalErrorMessageFound = true;
+          break;
+      }
+    }
+
+    if (fatalErrorMessageFound)
+      return SgfcExitCode::FatalError;
+    if (errorMessageFound)
       return SgfcExitCode::Error;
-    else if (warning_count > 0)
+    else if (warningMessageFound)
       return SgfcExitCode::Warning;
     else
       return SgfcExitCode::Ok;
