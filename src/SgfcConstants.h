@@ -27,6 +27,8 @@ namespace LibSgfcPlusPlus
     static const std::string ErrorLowerCaseToken;
     static const std::string CriticalToken;
 
+    static const std::string ShortOptionPrefix;
+    static const std::string LongOptionPrefix;
     static const std::string ShortHelpOption;
     static const std::string LongHelpOption;
     static const std::string VersionOption;

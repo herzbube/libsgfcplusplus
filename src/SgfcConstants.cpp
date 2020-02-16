@@ -18,6 +18,8 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::ErrorLowerCaseToken = "error";
   const std::string SgfcConstants::CriticalToken = "(critical):";
 
+  const std::string SgfcConstants::ShortOptionPrefix = "-";
+  const std::string SgfcConstants::LongOptionPrefix = "--";
   const std::string SgfcConstants::ShortHelpOption = "-h";
   const std::string SgfcConstants::LongHelpOption = "--help";
   const std::string SgfcConstants::VersionOption = "--version";

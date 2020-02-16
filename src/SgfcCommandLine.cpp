@@ -179,6 +179,16 @@ namespace LibSgfcPlusPlus
 
     for (const auto& argument : arguments)
     {
+      if (argument.substr(0, SgfcConstants::ShortOptionPrefix.length()) != SgfcConstants::ShortOptionPrefix)
+      {
+        std::string message = "Not an option, argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
+
+        this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
+          SgfcConstants::BannedArgumentMessageID,
+          message);
+        return true;
+      }
+
       if (std::find(bannedArguments.begin(), bannedArguments.end(), argument) != bannedArguments.end())
       {
         std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
