@@ -1,6 +1,7 @@
 // Project includes
 #include "SgfcCommandLine.h"
 #include "SgfcConstants.h"
+#include "SgfcMessage.h"
 #include "SgfcMessageParser.h"
 #include "SgfcMessageStream.h"
 
@@ -18,7 +19,9 @@ extern "C"
 namespace LibSgfcPlusPlus
 {
   SgfcCommandLine::SgfcCommandLine(const std::vector<std::string>& arguments)
-    : sgfInfo(0)
+    : arguments(arguments)
+    , invalidCommandLineReason(nullptr)
+    , sgfInfo(0)
   {
     // TODO: Add multi-threading protection.
 
@@ -32,8 +35,30 @@ namespace LibSgfcPlusPlus
       DeallocateSgfInfo();
   }
 
+  std::vector<std::string> SgfcCommandLine::GetArguments() const
+  {
+    return this->arguments;
+  }
+
+  bool SgfcCommandLine::IsCommandLineValid() const
+  {
+    if (this->invalidCommandLineReason == nullptr)
+      return true;
+    else
+      return false;
+  }
+
+  std::shared_ptr<ISgfcMessage> SgfcCommandLine::GetInvalidCommandLineReason() const
+  {
+    ThrowIfIsCommandLineValidReturnsTrue();
+
+    return this->invalidCommandLineReason;
+  }
+
   SgfcExitCode SgfcCommandLine::LoadSgfFile(const std::string& sgfFilePath)
   {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
     // TODO: Add multi-threading protection.
 
     // Re-apply the outcome of ParseArgs() so that SGFC behaves the same
@@ -84,11 +109,15 @@ namespace LibSgfcPlusPlus
 
   SgfcExitCode SgfcCommandLine::LoadSgfContent(const std::string& sgfContent)
   {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
     throw std::runtime_error("not yet implemented");
   }
 
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetParseResult() const
   {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
     return this->parseResult;
   }
 
@@ -105,7 +134,9 @@ namespace LibSgfcPlusPlus
 
   void SgfcCommandLine::ParseArguments(const std::vector<std::string>& arguments)
   {
-    ThrowIfArgumentsContainBannedArgument(arguments);
+    bool doArgumentsContainBannedArgument = DoArgumentsContainBannedArgument(arguments);
+    if (doArgumentsContainBannedArgument)
+      return;
 
     std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
 
@@ -113,10 +144,10 @@ namespace LibSgfcPlusPlus
     const char* argv[argc];
     InitializeArgv(argv, argvArguments);
 
-    InvokeSgfcParseArgsOrThrow(argc, argv);
+    InvokeSgfcParseArgs(argc, argv);
   }
 
-  void SgfcCommandLine::ThrowIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments) const
+  bool SgfcCommandLine::DoArgumentsContainBannedArgument(const std::vector<std::string>& arguments)
   {
     std::vector<std::string> bannedArguments =
     {
@@ -134,9 +165,15 @@ namespace LibSgfcPlusPlus
       if (std::find(bannedArguments.begin(), bannedArguments.end(), argument) != bannedArguments.end())
       {
         std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
-        throw std::invalid_argument(message);
+
+        this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
+          SgfcConstants::BannedArgumentMessageID,
+          message);
+        return true;
       }
     }
+
+    return false;
   }
 
   std::vector<std::string> SgfcCommandLine::ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const
@@ -165,7 +202,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcCommandLine::InvokeSgfcParseArgsOrThrow(int argc, const char** argv)
+  void SgfcCommandLine::InvokeSgfcParseArgs(int argc, const char** argv)
   {
     // Set SGFC options to their default values as if the command line utility
     // had just started up. This works because we know that at this point the
@@ -197,7 +234,29 @@ namespace LibSgfcPlusPlus
       }
       catch (std::runtime_error& exception)
       {
-        throw std::invalid_argument(exception.what());
+        FillParseResult();
+
+        bool fatalErrorMessageFound = false;
+        for (const auto& message : this->parseResult)
+        {
+          if (message->GetMessageType() == SgfcMessageType::FatalError)
+          {
+            fatalErrorMessageFound = true;
+            this->invalidCommandLineReason = message;
+            break;
+          }
+        }
+
+        if (! fatalErrorMessageFound)
+        {
+          // This should not happen. If it does there was an error parsing the
+          // message text.
+          this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
+            SgfcConstants::ParseArgumentErrorMessageID,
+            "SGFC failed to parse the specified arguments");
+        }
+
+        return;
       }
     }
 
@@ -253,5 +312,17 @@ namespace LibSgfcPlusPlus
       return SgfcExitCode::Warning;
     else
       return SgfcExitCode::Ok;
+  }
+
+  void SgfcCommandLine::ThrowIfIsCommandLineValidReturnsTrue() const
+  {
+    if (this->IsCommandLineValid())
+      throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns true");
+  }
+
+  void SgfcCommandLine::ThrowIfIsCommandLineValidReturnsFalse() const
+  {
+    if (! this->IsCommandLineValid())
+      throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns false");
   }
 }

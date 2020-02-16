@@ -23,7 +23,11 @@ namespace LibSgfcPlusPlus
 
     /// @brief Destroys and cleans up the SgfcCommandLine object.
     virtual ~SgfcCommandLine();
-  
+
+    virtual std::vector<std::string> GetArguments() const;
+    virtual bool IsCommandLineValid() const;
+    virtual std::shared_ptr<ISgfcMessage> GetInvalidCommandLineReason() const;
+
     virtual SgfcExitCode LoadSgfFile(const std::string& sgfFilePath);
     virtual SgfcExitCode LoadSgfContent(const std::string& sgfContent);
   
@@ -33,15 +37,17 @@ namespace LibSgfcPlusPlus
     virtual void SaveSgfContent(std::string& sgfContent) const;
 
   private:
+    std::vector<std::string> arguments;
+    std::shared_ptr<ISgfcMessage> invalidCommandLineReason;
     SgfcOptions sgfcOptions;
     SGFInfo* sgfInfo;
     std::vector<std::shared_ptr<ISgfcMessage>> parseResult;
 
     void ParseArguments(const std::vector<std::string>& arguments);
-    void ThrowIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments) const;
+    bool DoArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
-    void InvokeSgfcParseArgsOrThrow(int argc, const char** argv);
+    void InvokeSgfcParseArgs(int argc, const char** argv);
 
     void AllocateSgfInfo();
     void DeallocateSgfInfo();
@@ -50,5 +56,8 @@ namespace LibSgfcPlusPlus
     void FillParseResult();
 
     SgfcExitCode GetSgfcExitCodeFromGlobalVariables();
+
+    void ThrowIfIsCommandLineValidReturnsTrue() const;
+    void ThrowIfIsCommandLineValidReturnsFalse() const;
   };
 }

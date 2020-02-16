@@ -40,6 +40,12 @@ namespace LibSgfcPlusPlus
     /// from SGFC is parsed, and its ID cannot be determined from the raw
     /// message text.
     static const int UnknownSgfcMessageID;
+    /// @brief Indicates a fatal error due to an SGFC command line argument
+    /// that is banned by libsgfc++.
+    static const int BannedArgumentMessageID;
+    /// @brief Indicates a fatal error that occurred during parsing of the
+    /// SGFC command line argument.
+    static const int ParseArgumentErrorMessageID;
 
     static const int DefaultMessageID;
     static const SgfcMessageType DefaultMessageType;
