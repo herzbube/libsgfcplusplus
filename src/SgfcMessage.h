@@ -34,6 +34,13 @@ namespace LibSgfcPlusPlus
     virtual std::string GetMessageText() const;
     virtual std::string GetRawMessageText() const;
 
+    /// @brief Returns a newly constructed ISgfcMessage object with message type
+    /// SgfcMessageType::FatalError that has the specified message ID and
+    /// message text.
+    static std::shared_ptr<ISgfcMessage> CreateFatalErrorMessage(
+      int messageID,
+      const std::string& messageText);
+
   private:
     int messageID;
     SgfcMessageType messageType;

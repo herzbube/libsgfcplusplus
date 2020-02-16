@@ -71,4 +71,20 @@ namespace LibSgfcPlusPlus
   {
     return this->rawMessageText;
   }
+
+  std::shared_ptr<ISgfcMessage> SgfcMessage::CreateFatalErrorMessage(
+    int messageID,
+    const std::string& messageText)
+  {
+    std::shared_ptr<ISgfcMessage> sgfcMessage = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+      messageID,
+      SgfcMessageType::FatalError,
+      SgfcConstants::DefaultLineNumber,
+      SgfcConstants::DefaultColumnNumber,
+      SgfcConstants::DefaultIsCriticalMessage,
+      messageText,
+      messageText));
+
+    return sgfcMessage;
+  }
 }
