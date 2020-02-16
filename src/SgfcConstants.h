@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes
+#include "../include/SgfcMessageType.h"
+
 // C++ Standard Library includes
 #include <string>
 
@@ -28,5 +31,22 @@ namespace LibSgfcPlusPlus
     static const std::string LongHelpOption;
     static const std::string VersionOption;
     static const std::string InteractiveModeOption;
+
+    /// @brief This constant is used to indicate a message without a valid ID
+    /// but whose origin is not defined. For instance, a default constructed
+    /// ISgfcMessage object has this ID.
+    static const int InvalidMessageID;
+    /// @brief This constant is used when a message that is known to originate
+    /// from SGFC is parsed, and its ID cannot be determined from the raw
+    /// message text.
+    static const int UnknownSgfcMessageID;
+
+    static const int DefaultMessageID;
+    static const SgfcMessageType DefaultMessageType;
+    static const int DefaultLineNumber;
+    static const int DefaultColumnNumber;
+    static const bool DefaultIsCriticalMessage;
+    static const std::string DefaultMessageText;
+    static const std::string DefaultRawMessageText;
   };
 }

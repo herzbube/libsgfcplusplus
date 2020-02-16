@@ -1,8 +1,20 @@
 // Project includes
 #include "SgfcMessage.h"
+#include "SgfcConstants.h"
 
 namespace LibSgfcPlusPlus
 {
+  SgfcMessage::SgfcMessage()
+    : messageID(SgfcConstants::DefaultMessageID)
+    , messageType(SgfcConstants::DefaultMessageType)
+    , lineNumber(SgfcConstants::DefaultLineNumber)
+    , columnNumber(SgfcConstants::DefaultColumnNumber)
+    , isCriticalMessage(SgfcConstants::DefaultIsCriticalMessage)
+    , messageText(SgfcConstants::DefaultMessageText)
+    , rawMessageText(SgfcConstants::DefaultRawMessageText)
+  {
+  }
+
   SgfcMessage::SgfcMessage(
     int messageID,
     SgfcMessageType messageType,

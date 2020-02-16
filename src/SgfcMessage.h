@@ -11,6 +11,7 @@ namespace LibSgfcPlusPlus
   class SgfcMessage : public ISgfcMessage
   {
   public:
+    SgfcMessage();
     SgfcMessage(
       int messageID,
       SgfcMessageType messageType,

@@ -22,4 +22,15 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::LongHelpOption = "--help";
   const std::string SgfcConstants::VersionOption = "--version";
   const std::string SgfcConstants::InteractiveModeOption = "-i";
+
+  const int SgfcConstants::InvalidMessageID = -1;
+  const int SgfcConstants::UnknownSgfcMessageID = -2;
+
+  const int SgfcConstants::DefaultMessageID = SgfcConstants::InvalidMessageID;
+  const SgfcMessageType SgfcConstants::DefaultMessageType = SgfcMessageType::Warning;
+  const int SgfcConstants::DefaultLineNumber = -1;
+  const int SgfcConstants::DefaultColumnNumber = -1;
+  const bool SgfcConstants::DefaultIsCriticalMessage = -1;
+  const std::string SgfcConstants::DefaultMessageText = SgfcConstants::EmptyString;
+  const std::string SgfcConstants::DefaultRawMessageText = SgfcConstants::EmptyString;
 }

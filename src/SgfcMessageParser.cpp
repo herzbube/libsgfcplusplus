@@ -16,12 +16,12 @@ namespace LibSgfcPlusPlus
     std::vector<std::string> tokens =
       SgfcMessageParser::TokenizeRawMessageText(rawMessageText);
 
-    int messageID = -1;
-    SgfcMessageType messageType = SgfcMessageType::Warning;
-    int lineNumber = -1;
-    int columnNumber = -1;
-    bool isCriticalMessage  = false;
-    std::string messageText = SgfcConstants::EmptyString;
+    int messageID = SgfcConstants::UnknownSgfcMessageID;
+    SgfcMessageType messageType = SgfcConstants::DefaultMessageType;
+    int lineNumber = SgfcConstants::DefaultLineNumber;
+    int columnNumber = SgfcConstants::DefaultColumnNumber;
+    bool isCriticalMessage  = SgfcConstants::DefaultIsCriticalMessage;
+    std::string messageText = SgfcConstants::DefaultMessageText;
 
     SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalToken;
 
@@ -98,9 +98,10 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::MessageID:
         {
-          messageID = SgfcMessageParser::GetMessageID(token);
-          if (messageID >= 0)
+          int messageIDFromToken = SgfcMessageParser::GetMessageIDFromToken(token);
+          if (messageIDFromToken != SgfcConstants::InvalidMessageID)
           {
+            messageID = messageIDFromToken;
             expectedMessagePart = SgfcMessagePart::CriticalIndicator;
             foundExpectedMessagePart = true;
           }
@@ -193,7 +194,7 @@ namespace LibSgfcPlusPlus
     return lineOrColumnNumber;
   }
 
-  int SgfcMessageParser::GetMessageID(const std::string& token)
+  int SgfcMessageParser::GetMessageIDFromToken(const std::string& token)
   {
     try
     {
@@ -204,7 +205,7 @@ namespace LibSgfcPlusPlus
     }
     catch (std::exception& exception)
     {
-      return -1;
+      return SgfcConstants::InvalidMessageID;
     }
   }
 }

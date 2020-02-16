@@ -24,6 +24,6 @@ namespace LibSgfcPlusPlus
   private:
     static std::vector<std::string> TokenizeRawMessageText(const std::string& rawMessageText);
     static int GetLineOrColumnNumberFromToken(const std::string& token, const std::string& prefixToStrip);
-    static int GetMessageID(const std::string& token);
+    static int GetMessageIDFromToken(const std::string& token);
   };
 }
