@@ -19,8 +19,9 @@ namespace LibSgfcPlusPlus
     static const std::string ColumnToken;
     static const std::string DashToken;
     static const std::string WarningToken;
-    static const std::string ErrorToken;
-    static const std::string FatalErrorToken;
+    static const std::string ErrorUpperCaseToken;
+    static const std::string FatalToken;
+    static const std::string ErrorLowerCaseToken;
     static const std::string CriticalToken;
 
     static const std::string ShortHelpOption;

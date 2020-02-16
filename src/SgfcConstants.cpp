@@ -13,8 +13,9 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::ColumnToken = "Col:";
   const std::string SgfcConstants::DashToken = "-";
   const std::string SgfcConstants::WarningToken = "Warning";
-  const std::string SgfcConstants::ErrorToken = "Error";
-  const std::string SgfcConstants::FatalErrorToken = "Fatal error";
+  const std::string SgfcConstants::ErrorUpperCaseToken = "Error";
+  const std::string SgfcConstants::FatalToken = "Fatal";
+  const std::string SgfcConstants::ErrorLowerCaseToken = "error";
   const std::string SgfcConstants::CriticalToken = "(critical):";
 
   const std::string SgfcConstants::ShortHelpOption = "-h";

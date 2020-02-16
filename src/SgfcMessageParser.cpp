@@ -23,7 +23,7 @@ namespace LibSgfcPlusPlus
     bool isCriticalMessage  = false;
     std::string messageText = SgfcConstants::EmptyString;
 
-    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalErrorMessageType;
+    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalToken;
 
     while (! tokens.empty())
     {
@@ -34,7 +34,7 @@ namespace LibSgfcPlusPlus
 
       switch (expectedMessagePart)
       {
-        case SgfcMessagePart::LineNumberOrFatalErrorMessageType:
+        case SgfcMessagePart::LineNumberOrFatalToken:
         {
           if (token.find(SgfcConstants::LineToken) == 0)
           {
@@ -42,10 +42,10 @@ namespace LibSgfcPlusPlus
             expectedMessagePart = SgfcMessagePart::ColumnNumber;
             foundExpectedMessagePart = true;
           }
-          else if (token.find(SgfcConstants::FatalErrorToken) == 0)
+          else if (token.find(SgfcConstants::FatalToken) == 0)
           {
             messageType = SgfcMessageType::FatalError;
-            expectedMessagePart = SgfcMessagePart::MessageID;
+            expectedMessagePart = SgfcMessagePart::ErrorLowerCaseToken;
             foundExpectedMessagePart = true;
           }
           break;
@@ -56,6 +56,16 @@ namespace LibSgfcPlusPlus
           {
             columnNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcConstants::ColumnToken);
             expectedMessagePart = SgfcMessagePart::Dash;
+            foundExpectedMessagePart = true;
+          }
+          break;
+        }
+        case SgfcMessagePart::ErrorLowerCaseToken:
+        {
+          if (token.find(SgfcConstants::ErrorLowerCaseToken) == 0)
+          {
+            // Ignore the word
+            expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
           break;
@@ -78,7 +88,7 @@ namespace LibSgfcPlusPlus
             expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
-          else if (token.find(SgfcConstants::ErrorToken) == 0)
+          else if (token.find(SgfcConstants::ErrorUpperCaseToken) == 0)
           {
             messageType = SgfcMessageType::Error;
             expectedMessagePart = SgfcMessagePart::MessageID;
