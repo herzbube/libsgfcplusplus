@@ -30,10 +30,11 @@ namespace LibSgfcPlusPlus
 
     virtual SgfcExitCode LoadSgfFile(const std::string& sgfFilePath);
     virtual SgfcExitCode LoadSgfContent(const std::string& sgfContent);
-  
+
+    virtual bool IsSgfContentValid() const;
     virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
-  
-    virtual void SaveSgfFile(const std::string& fileName) const;
+
+    virtual void SaveSgfFile(const std::string& sgfFilePath) const;
     virtual void SaveSgfContent(std::string& sgfContent) const;
 
   private:
@@ -59,5 +60,6 @@ namespace LibSgfcPlusPlus
 
     void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;
+    void ThrowIfIsSgfContentValidReturnsFalse() const;
   };
 }

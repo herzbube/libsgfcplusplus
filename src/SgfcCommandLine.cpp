@@ -114,6 +114,19 @@ namespace LibSgfcPlusPlus
     throw std::runtime_error("not yet implemented");
   }
 
+  bool SgfcCommandLine::IsSgfContentValid() const
+  {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
+    for (const auto& message : this->parseResult)
+    {
+      if (message->GetMessageType() == SgfcMessageType::FatalError)
+        return false;
+    }
+
+    return true;
+  }
+
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetParseResult() const
   {
     ThrowIfIsCommandLineValidReturnsFalse();
@@ -121,14 +134,18 @@ namespace LibSgfcPlusPlus
     return this->parseResult;
   }
 
-  void SgfcCommandLine::SaveSgfFile(const std::string& fileName) const
+  void SgfcCommandLine::SaveSgfFile(const std::string& sgfFilePath) const
   {
+    ThrowIfIsSgfContentValidReturnsFalse();
+
     // TODO Check if this is called without prior parsing of SGF content
     throw std::runtime_error("not yet implemented");
   }
 
   void SgfcCommandLine::SaveSgfContent(std::string& sgfContent) const
   {
+    ThrowIfIsSgfContentValidReturnsFalse();
+
     throw std::runtime_error("not yet implemented");
   }
 
@@ -324,5 +341,11 @@ namespace LibSgfcPlusPlus
   {
     if (! this->IsCommandLineValid())
       throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns false");
+  }
+
+  void SgfcCommandLine::ThrowIfIsSgfContentValidReturnsFalse() const
+  {
+    if (! this->IsSgfContentValid())
+      throw std::runtime_error("Interface protocol violation: IsSgfContentValid() returns false");
   }
 }
