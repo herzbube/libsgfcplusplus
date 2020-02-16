@@ -311,25 +311,20 @@ namespace LibSgfcPlusPlus
 
   void SgfcCommandLine::SetInvalidCommandLineReasonFromParseResults()
   {
-    bool fatalErrorMessageFound = false;
     for (const auto& message : this->parseResult)
     {
       if (message->GetMessageType() == SgfcMessageType::FatalError)
       {
-        fatalErrorMessageFound = true;
         this->invalidCommandLineReason = message;
-        break;
+        return;
       }
     }
 
-    if (! fatalErrorMessageFound)
-    {
-      // This should not happen. If it does there was an error parsing the
-      // message text.
-      this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-        SgfcConstants::ParseArgumentErrorMessageID,
-        "SGFC failed to parse the specified arguments");
-    }
+    // This should not happen. If it does there was an error parsing the
+    // message text.
+    this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
+      SgfcConstants::ParseArgumentErrorMessageID,
+      "SGFC failed to parse the specified arguments");
   }
 
   SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromParseResult()
