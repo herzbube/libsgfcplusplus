@@ -65,6 +65,11 @@ namespace LibSgfcPlusPlus
     // on each invocation.
     this->sgfcOptions.RestoreOptions();
 
+    // TODO Reset additional global variables
+    // - critical_count, ignored_count, warning_count, error_count (the latter
+    //   two because they influence the return code of this method)
+    // - option_infile, option_outfile
+
     // It is safe to keep the pointer to the internal string buffer as long
     // as the string remains in scope and we don't change the string content.
     // It is safe to remove const'ness because we know that LoadSGF() and
@@ -96,7 +101,7 @@ namespace LibSgfcPlusPlus
 
     FillParseResult();
 
-    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromParseResult();
+    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromMessageCollection(this->parseResult);
     return sgfcExitCode;
   }
 
@@ -127,19 +132,62 @@ namespace LibSgfcPlusPlus
     return this->parseResult;
   }
 
-  void SgfcCommandLine::SaveSgfFile(const std::string& sgfFilePath) const
+  SgfcExitCode SgfcCommandLine::SaveSgfFile(const std::string& sgfFilePath)
   {
     ThrowIfIsSgfContentValidReturnsFalse();
 
-    // TODO Check if this is called without prior parsing of SGF content
+    // TODO: Add multi-threading protection.
+
+    // Re-apply the outcome of ParseArgs() so that SGFC behaves the same
+    // on each invocation.
+    this->sgfcOptions.RestoreOptions();
+
+    // TODO Reset additional global variables
+    // - critical_count, ignored_count, warning_count, error_count (the latter
+    //   two because they influence the return code of this method)
+
+    // It is safe to keep the pointer to the internal string buffer as long
+    // as the string remains in scope and we don't change the string content.
+    // It is safe to remove const'ness because we know that SaveSGF() won't
+    // change the char buffer.
+    option_outfile = const_cast<char*>(sgfFilePath.c_str());
+
+    // Prepare the SGFInfo struct for LoadSGF()
+    this->sgfInfo->name = option_outfile;
+
+    try
+    {
+      // The following function sets the global variable sgfc as a side effect
+      SaveSGF(this->sgfInfo);
+    }
+    catch (std::runtime_error& exception)
+    {
+      // Handle the exception. The SGFC message stream should now hold a
+      // fatal error message that we get access to after FillParseResult().
+    }
+
+    // Reset global variable. This makes sure that our data in this->sgfInfo
+    // remains untouched when other SGFC controllers perform SGFC operations.
+    sgfc = nullptr;
+
+    FillSaveResult();
+
+    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromMessageCollection(this->saveResult);
+    return sgfcExitCode;
+  }
+
+  SgfcExitCode SgfcCommandLine::SaveSgfContent(std::string& sgfContent)
+  {
+    ThrowIfIsSgfContentValidReturnsFalse();
+
     throw std::runtime_error("not yet implemented");
   }
 
-  void SgfcCommandLine::SaveSgfContent(std::string& sgfContent) const
+  std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetSaveResult() const
   {
-    ThrowIfIsSgfContentValidReturnsFalse();
+    ThrowIfIsCommandLineValidReturnsFalse();
 
-    throw std::runtime_error("not yet implemented");
+    return this->saveResult;
   }
 
   void SgfcCommandLine::ParseArguments(const std::vector<std::string>& arguments)
@@ -170,6 +218,8 @@ namespace LibSgfcPlusPlus
       SgfcConstants::VersionOption,
       // Interactive use in a library doesn't make sense
       SgfcConstants::InteractiveModeOption,
+      // The library client decides whether it wants to write the SGF content
+      SgfcConstants::WriteFileEvenIfCriticalErrorOccurs,
     };
 
     for (const auto& argument : arguments)
@@ -297,7 +347,17 @@ namespace LibSgfcPlusPlus
 
   void SgfcCommandLine::FillParseResult()
   {
-    this->parseResult.clear();
+    this->parseResult = GetMessageStreamResult();
+  }
+
+  void SgfcCommandLine::FillSaveResult()
+  {
+    this->saveResult = GetMessageStreamResult();
+  }
+
+  std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetMessageStreamResult() const
+  {
+    std::vector<std::shared_ptr<ISgfcMessage>> result;
 
     SgfcMessageStream messageStream;
     std::vector<std::string> messageStreamLines = messageStream.GetMessageStreamLines();
@@ -305,8 +365,10 @@ namespace LibSgfcPlusPlus
     for (const auto& messageStreamLine : messageStreamLines)
     {
       std::shared_ptr<ISgfcMessage> message = SgfcMessageParser::CreateSgfcMessage(messageStreamLine);
-      this->parseResult.push_back(message);
+      result.push_back(message);
     }
+
+    return result;
   }
 
   void SgfcCommandLine::SetInvalidCommandLineReasonFromParseResults()
@@ -327,13 +389,13 @@ namespace LibSgfcPlusPlus
       "SGFC failed to parse the specified arguments");
   }
 
-  SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromParseResult()
+  SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromMessageCollection(const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection)
   {
     bool warningMessageFound = false;
     bool errorMessageFound = false;
     bool fatalErrorMessageFound = false;
 
-    for (const auto& message : this->parseResult)
+    for (const auto& message : messageCollection)
     {
       switch (message->GetMessageType())
       {

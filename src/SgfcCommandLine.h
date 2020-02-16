@@ -34,8 +34,10 @@ namespace LibSgfcPlusPlus
     virtual bool IsSgfContentValid() const;
     virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
 
-    virtual void SaveSgfFile(const std::string& sgfFilePath) const;
-    virtual void SaveSgfContent(std::string& sgfContent) const;
+    virtual SgfcExitCode SaveSgfFile(const std::string& sgfFilePath);
+    virtual SgfcExitCode SaveSgfContent(std::string& sgfContent);
+
+    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetSaveResult() const;
 
   private:
     std::vector<std::string> arguments;
@@ -43,6 +45,7 @@ namespace LibSgfcPlusPlus
     SgfcOptions sgfcOptions;
     SGFInfo* sgfInfo;
     std::vector<std::shared_ptr<ISgfcMessage>> parseResult;
+    std::vector<std::shared_ptr<ISgfcMessage>> saveResult;
 
     void ParseArguments(const std::vector<std::string>& arguments);
     void SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
@@ -56,9 +59,11 @@ namespace LibSgfcPlusPlus
     void ReallocateSgfInfo();
 
     void FillParseResult();
-    void SetInvalidCommandLineReasonFromParseResults();
+    void FillSaveResult();
+    std::vector<std::shared_ptr<ISgfcMessage>> GetMessageStreamResult() const;
 
-    SgfcExitCode GetSgfcExitCodeFromParseResult();
+    void SetInvalidCommandLineReasonFromParseResults();
+    SgfcExitCode GetSgfcExitCodeFromMessageCollection(const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
 
     void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;
