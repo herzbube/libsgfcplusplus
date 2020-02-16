@@ -52,12 +52,21 @@ namespace LibSgfcPlusPlus
     // Prepare the SGFInfo struct for LoadSGF()
     this->sgfInfo->name = option_infile;
 
-    // Notes:
-    // - Both of the following functions set the global variable sgfc as a side
-    //   effect
-    // - If a fatal error occurs PrintError() immediately invokes FreeSGFInfo()
-    LoadSGF(this->sgfInfo);
-    ParseSGF(this->sgfInfo);
+    bool fatalErrorOccurred = false;
+    try
+    {
+      // Notes:
+      // - Both of the following functions set the global variable sgfc as a
+      //   side effect
+      // - If a fatal error occurs PrintError() immediately invokes
+      //   FreeSGFInfo()
+      LoadSGF(this->sgfInfo);
+      ParseSGF(this->sgfInfo);
+    }
+    catch (std::runtime_error& exception)
+    {
+      fatalErrorOccurred = true;
+    }
 
     // Set global variable to zero. This makes sure that our data in
     // this->sgfInfo remains untouched when other SGFC controllers do their
@@ -67,8 +76,15 @@ namespace LibSgfcPlusPlus
 
     FillParseResult();
 
-    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromGlobalVariables();
-    return sgfcExitCode;
+    if (fatalErrorOccurred)
+    {
+      return SgfcExitCode::FatalError;
+    }
+    else
+    {
+      SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromGlobalVariables();
+      return sgfcExitCode;
+    }
   }
 
   SgfcExitCode SgfcCommandLine::LoadSgfContent(const std::string& sgfContent)
@@ -237,9 +253,9 @@ namespace LibSgfcPlusPlus
   SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromGlobalVariables()
   {
     if (error_count > 0)
-      return SgfcExitCode::Errors;
+      return SgfcExitCode::Error;
     else if (warning_count > 0)
-      return SgfcExitCode::Warnings;
+      return SgfcExitCode::Warning;
     else
       return SgfcExitCode::Ok;
   }

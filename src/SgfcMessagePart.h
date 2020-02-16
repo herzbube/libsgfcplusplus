@@ -18,7 +18,7 @@ namespace LibSgfcPlusPlus
   /// from a fatal error message text.
   enum class SgfcMessagePart
   {
-    LineNumber,
+    LineNumberOrFatalErrorMessageType,
     ColumnNumber,
     Dash,
     MessageType,

@@ -23,7 +23,7 @@ namespace LibSgfcPlusPlus
     bool isCriticalMessage  = false;
     std::string messageText = SgfcConstants::EmptyString;
 
-    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumber;
+    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalErrorMessageType;
 
     while (! tokens.empty())
     {
@@ -34,12 +34,18 @@ namespace LibSgfcPlusPlus
 
       switch (expectedMessagePart)
       {
-        case SgfcMessagePart::LineNumber:
+        case SgfcMessagePart::LineNumberOrFatalErrorMessageType:
         {
           if (token.find(SgfcConstants::LineToken) == 0)
           {
             lineNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcConstants::LineToken);
             expectedMessagePart = SgfcMessagePart::ColumnNumber;
+            foundExpectedMessagePart = true;
+          }
+          else if (token.find(SgfcConstants::FatalErrorToken) == 0)
+          {
+            messageType = SgfcMessageType::FatalError;
+            expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
           break;

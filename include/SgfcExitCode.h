@@ -4,10 +4,6 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcExitCode enumerates all SGFC exit codes supported by the
   /// library.
-  ///
-  /// @note If you know the SGFC documentation very well, then you may note
-  /// that there is no exit code for fatal errors. The reason is that the
-  /// library converts fatal error messages into exceptions.
   enum class SgfcExitCode
   {
     /// @brief The SGFC operation did not generate any warning or error
@@ -16,11 +12,17 @@ namespace LibSgfcPlusPlus
     Ok = 0,
 
     /// @brief The SGFC operation generated one or more warning messages, but
-    /// no error messages.
-    Warnings = 5,
+    /// no fatal error messages and no non-fatal error messages.
+    Warning = 5,
 
-    /// @brief The SGFC operation generated one or more error messages. It may
-    /// have generated 0-n warning messages.
-    Errors = 10,
+    /// @brief The SGFC operation generated one or more error messages, but
+    /// no fatal error messages. It may have generated 0-n warning messages.
+    Error = 10,
+
+    /// @brief The SGFC operation generated a fatal error message. It may have
+    /// generated 0-n warning or error messages. Note that because the SGFC
+    /// operation aborts immediately when a fatal error occurs, there is
+    /// guaranteed to be exactly one fatal error message (i.e. not more than 1).
+    FatalError = 20,
   };
 }
