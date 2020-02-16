@@ -27,7 +27,7 @@ namespace LibSgfcPlusPlus
 
     while (! tokens.empty())
     {
-      const std::string& token = tokens.front();
+      std::string token = tokens.front();
       tokens.erase(tokens.begin());
 
       bool foundExpectedMessagePart = false;
