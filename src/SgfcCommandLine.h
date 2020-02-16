@@ -45,7 +45,8 @@ namespace LibSgfcPlusPlus
     std::vector<std::shared_ptr<ISgfcMessage>> parseResult;
 
     void ParseArguments(const std::vector<std::string>& arguments);
-    bool DoArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
+    void SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
+    void SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::string>& arguments);
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
     void InvokeSgfcParseArgs(int argc, const char** argv);
@@ -55,6 +56,7 @@ namespace LibSgfcPlusPlus
     void ReallocateSgfInfo();
 
     void FillParseResult();
+    void SetInvalidCommandLineReasonFromParseResults();
 
     SgfcExitCode GetSgfcExitCodeFromGlobalVariables();
 

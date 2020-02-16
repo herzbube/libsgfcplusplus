@@ -151,20 +151,22 @@ namespace LibSgfcPlusPlus
 
   void SgfcCommandLine::ParseArguments(const std::vector<std::string>& arguments)
   {
-    bool doArgumentsContainBannedArgument = DoArgumentsContainBannedArgument(arguments);
-    if (doArgumentsContainBannedArgument)
+    SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(arguments);
+    if (! this->IsCommandLineValid())
       return;
 
-    std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
+    SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(arguments);
+    if (! this->IsCommandLineValid())
+      return;
 
-    int argc = static_cast<int>(argvArguments.size());
-    const char* argv[argc];
-    InitializeArgv(argv, argvArguments);
-
-    InvokeSgfcParseArgs(argc, argv);
+    // Capture the changed SGFC option values so that we can re-apply them
+    // later on when we perform a load or save operation. There's no need for
+    // doing that if the command line arguments are not valid, because in that
+    // case a client is not allowed to perform load or save operations.
+    this->sgfcOptions.CaptureOptions();
   }
 
-  bool SgfcCommandLine::DoArgumentsContainBannedArgument(const std::vector<std::string>& arguments)
+  void SgfcCommandLine::SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments)
   {
     std::vector<std::string> bannedArguments =
     {
@@ -186,7 +188,6 @@ namespace LibSgfcPlusPlus
         this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
           SgfcConstants::BannedArgumentMessageID,
           message);
-        return true;
       }
 
       if (std::find(bannedArguments.begin(), bannedArguments.end(), argument) != bannedArguments.end())
@@ -196,11 +197,19 @@ namespace LibSgfcPlusPlus
         this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
           SgfcConstants::BannedArgumentMessageID,
           message);
-        return true;
       }
     }
+  }
 
-    return false;
+  void SgfcCommandLine::SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::string>& arguments)
+  {
+    std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
+
+    int argc = static_cast<int>(argvArguments.size());
+    const char* argv[argc];
+    InitializeArgv(argv, argvArguments);
+
+    InvokeSgfcParseArgs(argc, argv);
   }
 
   std::vector<std::string> SgfcCommandLine::ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const
@@ -262,34 +271,10 @@ namespace LibSgfcPlusPlus
       catch (std::runtime_error& exception)
       {
         FillParseResult();
-
-        bool fatalErrorMessageFound = false;
-        for (const auto& message : this->parseResult)
-        {
-          if (message->GetMessageType() == SgfcMessageType::FatalError)
-          {
-            fatalErrorMessageFound = true;
-            this->invalidCommandLineReason = message;
-            break;
-          }
-        }
-
-        if (! fatalErrorMessageFound)
-        {
-          // This should not happen. If it does there was an error parsing the
-          // message text.
-          this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-            SgfcConstants::ParseArgumentErrorMessageID,
-            "SGFC failed to parse the specified arguments");
-        }
-
-        return;
+        SetInvalidCommandLineReasonFromParseResults();
+        parseResult.clear();
       }
     }
-
-    // Capture the changed SGFC option values so that we can re-apply them
-    // later on
-    this->sgfcOptions.CaptureOptions();
   }
 
   void SgfcCommandLine::AllocateSgfInfo()
@@ -328,6 +313,29 @@ namespace LibSgfcPlusPlus
     {
       std::shared_ptr<ISgfcMessage> message = SgfcMessageParser::CreateSgfcMessage(messageStreamLine);
       this->parseResult.push_back(message);
+    }
+  }
+
+  void SgfcCommandLine::SetInvalidCommandLineReasonFromParseResults()
+  {
+    bool fatalErrorMessageFound = false;
+    for (const auto& message : this->parseResult)
+    {
+      if (message->GetMessageType() == SgfcMessageType::FatalError)
+      {
+        fatalErrorMessageFound = true;
+        this->invalidCommandLineReason = message;
+        break;
+      }
+    }
+
+    if (! fatalErrorMessageFound)
+    {
+      // This should not happen. If it does there was an error parsing the
+      // message text.
+      this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
+        SgfcConstants::ParseArgumentErrorMessageID,
+        "SGFC failed to parse the specified arguments");
     }
   }
 
