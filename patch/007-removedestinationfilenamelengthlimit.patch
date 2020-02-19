@@ -1,0 +1,79 @@
+diff --git a/save.c b/save.c
+index 23baffd..81aae45 100644
+--- a/save.c
++++ b/save.c
+@@ -11,9 +11,16 @@
+ #include <stdlib.h>
+ #include <ctype.h>
+ #include <string.h>
++#include <math.h>
+ 
++#include <stdexcept>
++#include <string>
++
++extern "C"
++{
+ #include "all.h"
+ #include "protos.h"
++}
+ 
+ 
+ static int save_linelen;
+@@ -328,16 +335,38 @@ void SaveSGF(struct SGFInfo *sgf)
+ 	FILE *sfile;
+ 	struct Node *n;
+ 	struct TreeInfo *info;
+-	char *c, name[500];
++	char *c;
+ 	int nl = 0, i = 1;
+ 
+-	sgfc = sgf;					/* set curent SGFInfo context */
++#ifdef MAXIMUM_NUMBER_OF_GAMES
++	const unsigned int maximumNumberOfGames = MAXIMUM_NUMBER_OF_GAMES;
++#else
++	const unsigned int maximumNumberOfGames = 999999;
++#endif
++	const unsigned int numberOfDigitsInFormatString = (unsigned int) log10(maximumNumberOfGames) + 1;
+ 
+-	if(strlen(sgf->name) > 480)
+-		PrintError(FE_DEST_NAME_TOO_LONG);
++	const char* formatString = "%%s_%%0%dd.sgf";
++	int lengthOfFormattedFormatStringWithoutNullTerminator = snprintf(NULL, 0, formatString, numberOfDigitsInFormatString);
++	size_t bufferSizeOfFormatString = lengthOfFormattedFormatStringWithoutNullTerminator + 1;
++	char formatStringFileName[bufferSizeOfFormatString];
++	sprintf(formatStringFileName, formatString, numberOfDigitsInFormatString);
++
++	int lengthOfFormattedFileNameWithoutNullTerminator = snprintf(NULL, 0, formatStringFileName, sgf->name, 0);
++	if (lengthOfFormattedFileNameWithoutNullTerminator < 0)
++	{
++		// Simulate a call to PrintError that generates a fatal error message
++		std::string message = "Fatal error: Encoding error while trying to generate format string from output file name: ";
++		message += sgf->name;
++		WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", message.c_str());
++		throw std::runtime_error(message);
++	}
++	size_t bufferSizeOfName = lengthOfFormattedFileNameWithoutNullTerminator + 1;
++	char name[bufferSizeOfName];
++
++	sgfc = sgf;					/* set curent SGFInfo context */
+ 
+ 	if(option_split_file)
+-		sprintf(name, "%s_%03d.sgf", sgf->name, i);
++		sprintf(name, formatStringFileName, sgf->name, i);
+ 	else
+ 		strcpy(name, sgf->name);
+ 
+@@ -379,8 +408,12 @@ void SaveSGF(struct SGFInfo *sgf)
+ 		if(option_split_file && n)
+ 		{
+ 			fclose(sfile);
++
++			if (i == maximumNumberOfGames)
++				PrintError(FE_DEST_NAME_TOO_LONG);
++
+ 			i++;
+-			sprintf(name, "%s_%03d.sgf", sgf->name, i);
++			sprintf(name, formatStringFileName, sgf->name, i);
+ 
+ 			if(!(sfile = fopen(name, "wb")))
+ 				PrintError(FE_DEST_FILE_OPEN, name);
