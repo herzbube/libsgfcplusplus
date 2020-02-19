@@ -14,47 +14,47 @@ index e2b73e6..1d35407 100644
 +	path_num = 0;
 +}
 diff --git a/main.c b/main.c
-index 3872238..0fc33be 100644
+index b44c40f..8f72230 100644
 --- a/main.c
 +++ b/main.c
-@@ -298,3 +298,35 @@ int main(int argc, char *argv[])
+@@ -295,3 +295,35 @@ int main(int argc, char *argv[])
  	return(ret);
  }
  #endif
 +
 +void ResetGlobalVariablesInMain()
 +{
-+  // Non-static variables - these are declared extern in protos.h
-+  // LoadSGF, ParseSGF and SaveSGF change this
-+  sgfc = NULL;
-+  // ParseArgs changes these
-+  option_warnings = TRUE;
-+  option_keep_head = FALSE;
-+  option_keep_unknown_props = TRUE;
-+  option_keep_obsolete_props = TRUE;
-+  option_del_empty_nodes = FALSE;
-+  option_del_move_markup = FALSE;
-+  option_split_file = FALSE;
-+  option_write_critical = FALSE;
-+  option_interactive = FALSE;
-+  option_linebreaks = 1;
-+  option_softlinebreaks = TRUE;
-+  option_nodelinebreaks = FALSE;
-+  option_expandcpl = FALSE;
-+  option_pass_tt = FALSE;
-+  option_fix_variation = FALSE;
-+  option_findstart = 1;
-+  option_game_signature = FALSE;
-+  option_strict_checking = FALSE;
-+  option_reorder_variations = FALSE;
-+  option_infile = NULL;
-+  option_outfile = NULL;
++	// Non-static variables - these are declared extern in protos.h
++	// LoadSGF, ParseSGF and SaveSGF change this
++	sgfc = NULL;
++	// ParseArgs changes these
++	option_warnings = TRUE;
++	option_keep_head = FALSE;
++	option_keep_unknown_props = TRUE;
++	option_keep_obsolete_props = TRUE;
++	option_del_empty_nodes = FALSE;
++	option_del_move_markup = FALSE;
++	option_split_file = FALSE;
++	option_write_critical = FALSE;
++	option_interactive = FALSE;
++	option_linebreaks = 1;
++	option_softlinebreaks = TRUE;
++	option_nodelinebreaks = FALSE;
++	option_expandcpl = FALSE;
++	option_pass_tt = FALSE;
++	option_fix_variation = FALSE;
++	option_findstart = 1;
++	option_game_signature = FALSE;
++	option_strict_checking = FALSE;
++	option_reorder_variations = FALSE;
++	option_infile = NULL;
++	option_outfile = NULL;
 +
-+  // No need to reset the static variable sgf because it is changed only by
-+  // main(), and libsgfc++ never uses main()
++	// No need to reset the static variable sgf because it is changed only by
++	// main(), and libsgfc++ never uses main()
 +}
 diff --git a/parse2.c b/parse2.c
-index afe8f1b..73460da 100644
+index afe8f1b..cd38075 100644
 --- a/parse2.c
 +++ b/parse2.c
 @@ -681,9 +681,10 @@ static int GetNumber(struct Node *n, struct Property *p, int value, int *d,
@@ -76,14 +76,14 @@ index afe8f1b..73460da 100644
 +
 +void ResetGlobalVariablesInParse2()
 +{
-+  // Static variables used in Init_TreeInfo. Before patching they were locally
-+  // declared Init_TreeInfo, now after patching they are globally declared so
-+  // that we can access them here.
-+  FF_diff = 0;
-+  GM_diff = 0;
++	// Static variables used in Init_TreeInfo. Before patching they were locally
++	// declared Init_TreeInfo, now after patching they are globally declared so
++	// that we can access them here.
++	FF_diff = 0;
++	GM_diff = 0;
 +}
 diff --git a/properties.c b/properties.c
-index 02b022b..c8269d0 100644
+index 02b022b..1be027f 100644
 --- a/properties.c
 +++ b/properties.c
 @@ -160,3 +160,15 @@ struct SGFToken sgf_token[] =
@@ -93,14 +93,14 @@ index 02b022b..c8269d0 100644
 +
 +void ResetGlobalVariablesInProperties(void)
 +{
-+  // Non-static variable - this is declared extern in protos.h
-+  int indexOfProperty = 0;
-+  while (sgf_token[indexOfProperty].id != NULL)
-+  {
-+    // The -y option adds DELETE_PROP
-+    sgf_token[indexOfProperty].flags &= ~DELETE_PROP;
-+    indexOfProperty++;
-+  }
++	// Non-static variable - this is declared extern in protos.h
++	int indexOfProperty = 0;
++	while (sgf_token[indexOfProperty].id != NULL)
++	{
++		// The -y option adds DELETE_PROP
++		sgf_token[indexOfProperty].flags &= ~DELETE_PROP;
++		indexOfProperty++;
++	}
 +}
 diff --git a/protos.h b/protos.h
 index c910700..5ea0d40 100644
@@ -158,7 +158,7 @@ index c910700..5ea0d40 100644
  
  /**** strict.c ****/
 diff --git a/save.c b/save.c
-index ed9f946..b0de670 100644
+index ed9f946..23baffd 100644
 --- a/save.c
 +++ b/save.c
 @@ -135,10 +135,10 @@ static int WritePropValue(char *v, int second, U_SHORT flags, FILE *sfile)
@@ -181,17 +181,17 @@ index ed9f946..b0de670 100644
 +
 +void ResetGlobalVariablesInSave()
 +{
-+  // Static variables changed by WriteChar et al.
-+  // Resetting these is not strictly necessary because SaveSGF already resets
-+  // them.
-+  save_linelen = 0;
-+  save_chars_in_node = 0;
-+  save_eol_in_node = 0;
++	// Static variables changed by WriteChar et al.
++	// Resetting these is not strictly necessary because SaveSGF already resets
++	// them.
++	save_linelen = 0;
++	save_chars_in_node = 0;
++	save_eol_in_node = 0;
 +
-+  // Static variable used in WriteProperty. Before patching it was locally
-+  // declared WriteProperty, now after patching it is globally declared so
-+  // that we can access it here.
-+  gi_written = FALSE;
++	// Static variable used in WriteProperty. Before patching it was locally
++	// declared WriteProperty, now after patching it is globally declared so
++	// that we can access it here.
++	gi_written = FALSE;
 +}
 diff --git a/util.c b/util.c
 index 87de008..78a1b81 100644
