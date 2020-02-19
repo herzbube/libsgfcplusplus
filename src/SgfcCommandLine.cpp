@@ -61,14 +61,10 @@ namespace LibSgfcPlusPlus
 
     // TODO: Add multi-threading protection.
 
-    // Re-apply the outcome of ParseArgs() so that SGFC behaves the same
-    // on each invocation.
+    // Reset global variables, then re-apply the outcome of ParseArgs() so that
+    // SGFC behaves the same on each invocation.
+    ResetGlobalVariables();
     this->sgfcOptions.RestoreOptions();
-
-    // TODO Reset additional global variables
-    // - critical_count, ignored_count, warning_count, error_count (the latter
-    //   two because they influence the return code of this method)
-    // - option_infile, option_outfile
 
     // It is safe to keep the pointer to the internal string buffer as long
     // as the string remains in scope and we don't change the string content.
@@ -138,13 +134,10 @@ namespace LibSgfcPlusPlus
 
     // TODO: Add multi-threading protection.
 
-    // Re-apply the outcome of ParseArgs() so that SGFC behaves the same
-    // on each invocation.
+    // Reset global variables, then re-apply the outcome of ParseArgs() so that
+    // SGFC behaves the same on each invocation.
+    ResetGlobalVariables();
     this->sgfcOptions.RestoreOptions();
-
-    // TODO Reset additional global variables
-    // - critical_count, ignored_count, warning_count, error_count (the latter
-    //   two because they influence the return code of this method)
 
     // It is safe to keep the pointer to the internal string buffer as long
     // as the string remains in scope and we don't change the string content.
@@ -318,6 +311,16 @@ namespace LibSgfcPlusPlus
         parseResult.clear();
       }
     }
+  }
+
+  void SgfcCommandLine::ResetGlobalVariables()
+  {
+    ResetGlobalVariablesInMain();
+    ResetGlobalVariablesInSave();
+    ResetGlobalVariablesInProperties();
+    ResetGlobalVariablesInParse2();
+    ResetGlobalVariablesInExecute();
+    ResetGlobalVariablesInUtil();
   }
 
   void SgfcCommandLine::AllocateSgfInfo()

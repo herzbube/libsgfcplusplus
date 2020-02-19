@@ -58,6 +58,8 @@ namespace LibSgfcPlusPlus
     void DeallocateSgfInfo();
     void ReallocateSgfInfo();
 
+    void ResetGlobalVariables();
+
     void FillParseResult();
     void FillSaveResult();
     std::vector<std::shared_ptr<ISgfcMessage>> GetMessageStreamResult() const;
