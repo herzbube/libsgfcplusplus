@@ -1,5 +1,5 @@
 diff --git a/main.c b/main.c
-index 555a4c3..3872238 100644
+index 555a4c3..b44c40f 100644
 --- a/main.c
 +++ b/main.c
 @@ -117,7 +117,7 @@ static void PrintHelp(int everything)
@@ -11,8 +11,18 @@ index 555a4c3..3872238 100644
  {
  	int i, n, m;
  	char *c, *hlp;
+@@ -225,9 +225,6 @@ static int ParseArgs(int argc, char *argv[])
+ 		}
+ 	}
+ 
+-	if(!option_infile)
+-		PrintError(FE_MISSING_SOURCE_FILE);
+-
+ 	return(TRUE);
+ }
+ 
 diff --git a/protos.h b/protos.h
-index 53a4aff..bf60d77 100644
+index 21b062b..c910700 100644
 --- a/protos.h
 +++ b/protos.h
 @@ -34,6 +34,8 @@ extern char option_reorder_variations;
