@@ -213,6 +213,9 @@ namespace LibSgfcPlusPlus
       SgfcConstants::InteractiveModeOption,
       // The library client decides whether it wants to write the SGF content
       SgfcConstants::WriteFileEvenIfCriticalErrorOccurs,
+      // SGFC needs to be patched so that it does not print game signatures to
+      // stdout but instead lets libsgfc++ capture the output.
+      SgfcConstants::PrintGameSignature,
     };
 
     for (const auto& argument : arguments)

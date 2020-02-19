@@ -34,6 +34,7 @@ namespace LibSgfcPlusPlus
     static const std::string VersionOption;
     static const std::string InteractiveModeOption;
     static const std::string WriteFileEvenIfCriticalErrorOccurs;
+    static const std::string PrintGameSignature;
 
     /// @brief This constant is used to indicate a message without a valid ID
     /// but whose origin is not defined. For instance, a default constructed

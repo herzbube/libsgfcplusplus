@@ -25,6 +25,7 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::VersionOption = "--version";
   const std::string SgfcConstants::InteractiveModeOption = "-i";
   const std::string SgfcConstants::WriteFileEvenIfCriticalErrorOccurs = "-c";
+  const std::string SgfcConstants::PrintGameSignature = "-g";
 
   const int SgfcConstants::InvalidMessageID = -1;
   const int SgfcConstants::UnknownSgfcMessageID = -2;

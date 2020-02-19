@@ -60,7 +60,8 @@ namespace LibSgfcPlusPlus
     /// Some command line arguments are not allowed because they do not make
     /// sense when using SGFC in a library context, or in the particular context
     /// of SgfcCommandLine. The following arguments are not allowed:
-    /// "-h", "--help", "--version", "-i", "-c", "infile" and "outfile".
+    /// -h, --help, --version, -i, -c, -g, any non-option arguments (e.g. for
+    /// the input or output file).
     ///
     /// @todo Specify other arguments that are not allowed.
     virtual bool IsCommandLineValid() const = 0;
