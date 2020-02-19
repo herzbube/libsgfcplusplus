@@ -1,0 +1,12 @@
+diff --git a/all.h b/all.h
+index b2aabff..6a9c095 100644
+--- a/all.h
++++ b/all.h
+@@ -15,6 +15,7 @@
+ 									** e.g. for writing a mouse-interface
+ 									** (drag & drop shell)
+ 									*/
++#define VERSION_NO_MAIN
+ 
+ #define EOLCHAR '\n'	/* EndOfLine-Character
+ 						** '\n' for UNIX, AMIGA (SGF standard)
