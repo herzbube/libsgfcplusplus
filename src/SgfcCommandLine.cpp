@@ -74,6 +74,7 @@ namespace LibSgfcPlusPlus
 
     // Free any memory from a previous run, then start with a new struct
     ReallocateSgfInfo();
+    this->sgfcDocument = nullptr;
 
     // Prepare the SGFInfo struct for LoadSGF()
     this->sgfInfo->name = option_infile;
@@ -98,6 +99,12 @@ namespace LibSgfcPlusPlus
     FillParseResult();
 
     SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromMessageCollection(this->parseResult);
+
+    if (sgfcExitCode != SgfcExitCode::FatalError)
+    {
+      this->sgfcDocument = std::shared_ptr<SgfcDocument>(new SgfcDocument(this->sgfInfo));
+    }
+
     return sgfcExitCode;
   }
 
@@ -156,7 +163,7 @@ namespace LibSgfcPlusPlus
     catch (std::runtime_error& exception)
     {
       // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to after FillParseResult().
+      // fatal error message that we get access to after FillSaveResult().
     }
 
     // Reset global variable. This makes sure that our data in this->sgfInfo

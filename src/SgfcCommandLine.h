@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../include/ISgfcCommandLine.h"
+#include "SgfcDocument.h"
 #include "SgfcOptions.h"
 
 // Forward declarations
@@ -44,6 +45,7 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcMessage> invalidCommandLineReason;
     SgfcOptions sgfcOptions;
     SGFInfo* sgfInfo;
+    std::shared_ptr<SgfcDocument> sgfcDocument;
     std::vector<std::shared_ptr<ISgfcMessage>> parseResult;
     std::vector<std::shared_ptr<ISgfcMessage>> saveResult;
 

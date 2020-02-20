@@ -38,6 +38,29 @@
 		CD8322CE23F4D24D009567E4 /* SgfcConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322CC23F4D24C009567E4 /* SgfcConstants.h */; };
 		CD8322CF23F4D24D009567E4 /* SgfcConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */; };
 		CD8322D123F4D423009567E4 /* SgfcMessagePart.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322D023F4D423009567E4 /* SgfcMessagePart.h */; };
+		CD8322D423FD7FA1009567E4 /* SgfcDocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322D223FD7FA1009567E4 /* SgfcDocument.cpp */; };
+		CD8322D523FD7FA1009567E4 /* SgfcDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322D323FD7FA1009567E4 /* SgfcDocument.h */; };
+		CD8322D823FD8B2E009567E4 /* SgfcNode.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322D623FD8B2E009567E4 /* SgfcNode.h */; };
+		CD8322D923FD8B2E009567E4 /* SgfcNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322D723FD8B2E009567E4 /* SgfcNode.cpp */; };
+		CD8322DC23FD8C69009567E4 /* SgfcGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322DA23FD8C69009567E4 /* SgfcGame.h */; };
+		CD8322DD23FD8C69009567E4 /* SgfcGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322DB23FD8C69009567E4 /* SgfcGame.cpp */; };
+		CD8322E023FD8E4B009567E4 /* SgfcProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322DE23FD8E4B009567E4 /* SgfcProperty.h */; };
+		CD8322E123FD8E4B009567E4 /* SgfcProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322DF23FD8E4B009567E4 /* SgfcProperty.cpp */; };
+		CD8322E423FD99B5009567E4 /* SgfcPropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322E223FD99B5009567E4 /* SgfcPropertyValue.h */; };
+		CD8322E523FD99B5009567E4 /* SgfcPropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322E323FD99B5009567E4 /* SgfcPropertyValue.cpp */; };
+		CD8322E723FD9D79009567E4 /* SgfcPropertyValueType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322E623FD9D79009567E4 /* SgfcPropertyValueType.h */; };
+		CD8322E923FDB8F8009567E4 /* SgfcGameType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322E823FDB8F8009567E4 /* SgfcGameType.h */; };
+		CD8322EB23FDC859009567E4 /* SgfcPropertyType.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322EA23FDC859009567E4 /* SgfcPropertyType.h */; };
+		CD8322ED23FF0ECF009567E4 /* ISgfcDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322EC23FF0ECF009567E4 /* ISgfcDocument.h */; };
+		CD8322EF23FF116F009567E4 /* ISgfcGame.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322EE23FF116F009567E4 /* ISgfcGame.h */; };
+		CD8322F123FF135C009567E4 /* ISgfcNode.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322F023FF135C009567E4 /* ISgfcNode.h */; };
+		CD8322F423FF177B009567E4 /* ISgfcPropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322F223FF177B009567E4 /* ISgfcPropertyValue.h */; };
+		CD8322F523FF177B009567E4 /* ISgfcProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322F323FF177B009567E4 /* ISgfcProperty.h */; };
+		CD8322F823FF1E4C009567E4 /* ISgfcDocument.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322F623FF1E4C009567E4 /* ISgfcDocument.cpp */; };
+		CD8322F923FF1E4C009567E4 /* ISgfcGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322F723FF1E4C009567E4 /* ISgfcGame.cpp */; };
+		CD8322FD23FF1E55009567E4 /* ISgfcProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322FA23FF1E55009567E4 /* ISgfcProperty.cpp */; };
+		CD8322FE23FF1E55009567E4 /* ISgfcPropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322FB23FF1E55009567E4 /* ISgfcPropertyValue.cpp */; };
+		CD8322FF23FF1E55009567E4 /* ISgfcNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8322FC23FF1E55009567E4 /* ISgfcNode.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +106,29 @@
 		CD8322CC23F4D24C009567E4 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
 		CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcConstants.cpp; sourceTree = "<group>"; };
 		CD8322D023F4D423009567E4 /* SgfcMessagePart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcMessagePart.h; sourceTree = "<group>"; };
+		CD8322D223FD7FA1009567E4 /* SgfcDocument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcDocument.cpp; sourceTree = "<group>"; };
+		CD8322D323FD7FA1009567E4 /* SgfcDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcDocument.h; sourceTree = "<group>"; };
+		CD8322D623FD8B2E009567E4 /* SgfcNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcNode.h; sourceTree = "<group>"; };
+		CD8322D723FD8B2E009567E4 /* SgfcNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcNode.cpp; sourceTree = "<group>"; };
+		CD8322DA23FD8C69009567E4 /* SgfcGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGame.h; sourceTree = "<group>"; };
+		CD8322DB23FD8C69009567E4 /* SgfcGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGame.cpp; sourceTree = "<group>"; };
+		CD8322DE23FD8E4B009567E4 /* SgfcProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcProperty.h; sourceTree = "<group>"; };
+		CD8322DF23FD8E4B009567E4 /* SgfcProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcProperty.cpp; sourceTree = "<group>"; };
+		CD8322E223FD99B5009567E4 /* SgfcPropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcPropertyValue.h; sourceTree = "<group>"; };
+		CD8322E323FD99B5009567E4 /* SgfcPropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPropertyValue.cpp; sourceTree = "<group>"; };
+		CD8322E623FD9D79009567E4 /* SgfcPropertyValueType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcPropertyValueType.h; sourceTree = "<group>"; };
+		CD8322E823FDB8F8009567E4 /* SgfcGameType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGameType.h; sourceTree = "<group>"; };
+		CD8322EA23FDC859009567E4 /* SgfcPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcPropertyType.h; sourceTree = "<group>"; };
+		CD8322EC23FF0ECF009567E4 /* ISgfcDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcDocument.h; sourceTree = "<group>"; };
+		CD8322EE23FF116F009567E4 /* ISgfcGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGame.h; sourceTree = "<group>"; };
+		CD8322F023FF135C009567E4 /* ISgfcNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcNode.h; sourceTree = "<group>"; };
+		CD8322F223FF177B009567E4 /* ISgfcPropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcPropertyValue.h; sourceTree = "<group>"; };
+		CD8322F323FF177B009567E4 /* ISgfcProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcProperty.h; sourceTree = "<group>"; };
+		CD8322F623FF1E4C009567E4 /* ISgfcDocument.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcDocument.cpp; sourceTree = "<group>"; };
+		CD8322F723FF1E4C009567E4 /* ISgfcGame.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGame.cpp; sourceTree = "<group>"; };
+		CD8322FA23FF1E55009567E4 /* ISgfcProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcProperty.cpp; sourceTree = "<group>"; };
+		CD8322FB23FF1E55009567E4 /* ISgfcPropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcPropertyValue.cpp; sourceTree = "<group>"; };
+		CD8322FC23FF1E55009567E4 /* ISgfcNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcNode.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,11 +164,20 @@
 			isa = PBXGroup;
 			children = (
 				CD83227923F1D1DB009567E4 /* ISgfcCommandLine.cpp */,
+				CD8322F623FF1E4C009567E4 /* ISgfcDocument.cpp */,
+				CD8322F723FF1E4C009567E4 /* ISgfcGame.cpp */,
 				CD8322A823F1D383009567E4 /* ISgfcMessage.cpp */,
+				CD8322FC23FF1E55009567E4 /* ISgfcNode.cpp */,
+				CD8322FA23FF1E55009567E4 /* ISgfcProperty.cpp */,
+				CD8322FB23FF1E55009567E4 /* ISgfcPropertyValue.cpp */,
 				CD83227723F1D1DB009567E4 /* SgfcCommandLine.cpp */,
 				CD83227823F1D1DB009567E4 /* SgfcCommandLine.h */,
 				CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */,
 				CD8322CC23F4D24C009567E4 /* SgfcConstants.h */,
+				CD8322D223FD7FA1009567E4 /* SgfcDocument.cpp */,
+				CD8322D323FD7FA1009567E4 /* SgfcDocument.h */,
+				CD8322DB23FD8C69009567E4 /* SgfcGame.cpp */,
+				CD8322DA23FD8C69009567E4 /* SgfcGame.h */,
 				CD8322AC23F1E51E009567E4 /* SgfcMessage.cpp */,
 				CD8322AE23F1E532009567E4 /* SgfcMessage.h */,
 				CD8322B123F33377009567E4 /* SgfcMessageParser.cpp */,
@@ -130,9 +185,15 @@
 				CD8322D023F4D423009567E4 /* SgfcMessagePart.h */,
 				CD8322C123F42662009567E4 /* SgfcMessageStream.cpp */,
 				CD8322C223F42662009567E4 /* SgfcMessageStream.h */,
+				CD8322D723FD8B2E009567E4 /* SgfcNode.cpp */,
+				CD8322D623FD8B2E009567E4 /* SgfcNode.h */,
 				CD8322C823F4B61C009567E4 /* SgfcOptions.cpp */,
 				CD8322C923F4B61D009567E4 /* SgfcOptions.h */,
 				CD83227623F1D1DB009567E4 /* SgfcPlusPlusFactory.cpp */,
+				CD8322DF23FD8E4B009567E4 /* SgfcProperty.cpp */,
+				CD8322DE23FD8E4B009567E4 /* SgfcProperty.h */,
+				CD8322E323FD99B5009567E4 /* SgfcPropertyValue.cpp */,
+				CD8322E223FD99B5009567E4 /* SgfcPropertyValue.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -141,10 +202,18 @@
 			isa = PBXGroup;
 			children = (
 				CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */,
+				CD8322EC23FF0ECF009567E4 /* ISgfcDocument.h */,
+				CD8322EE23FF116F009567E4 /* ISgfcGame.h */,
 				CD8322A623F1D30D009567E4 /* ISgfcMessage.h */,
+				CD8322F023FF135C009567E4 /* ISgfcNode.h */,
+				CD8322F323FF177B009567E4 /* ISgfcProperty.h */,
+				CD8322F223FF177B009567E4 /* ISgfcPropertyValue.h */,
 				CD8322C623F48912009567E4 /* SgfcExitCode.h */,
+				CD8322E823FDB8F8009567E4 /* SgfcGameType.h */,
 				CD8322AA23F1DAC4009567E4 /* SgfcMessageType.h */,
 				CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */,
+				CD8322EA23FDC859009567E4 /* SgfcPropertyType.h */,
+				CD8322E623FD9D79009567E4 /* SgfcPropertyValueType.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -191,18 +260,31 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8322F423FF177B009567E4 /* ISgfcPropertyValue.h in Headers */,
 				CD8322CB23F4B61D009567E4 /* SgfcOptions.h in Headers */,
+				CD8322F123FF135C009567E4 /* ISgfcNode.h in Headers */,
+				CD8322ED23FF0ECF009567E4 /* ISgfcDocument.h in Headers */,
+				CD8322E923FDB8F8009567E4 /* SgfcGameType.h in Headers */,
+				CD8322EB23FDC859009567E4 /* SgfcPropertyType.h in Headers */,
 				CD8322A223F1D240009567E4 /* SgfcCommandLine.h in Headers */,
 				CD8322C723F48912009567E4 /* SgfcExitCode.h in Headers */,
+				CD8322E423FD99B5009567E4 /* SgfcPropertyValue.h in Headers */,
 				CD8322B223F33377009567E4 /* SgfcMessageParser.h in Headers */,
+				CD8322F523FF177B009567E4 /* ISgfcProperty.h in Headers */,
 				CD8322AF23F1E532009567E4 /* SgfcMessage.h in Headers */,
 				CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */,
 				CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */,
+				CD8322EF23FF116F009567E4 /* ISgfcGame.h in Headers */,
 				CD8322C423F42662009567E4 /* SgfcMessageStream.h in Headers */,
 				CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */,
 				CD8322AB23F1DAC4009567E4 /* SgfcMessageType.h in Headers */,
+				CD8322DC23FD8C69009567E4 /* SgfcGame.h in Headers */,
+				CD8322D523FD7FA1009567E4 /* SgfcDocument.h in Headers */,
+				CD8322E023FD8E4B009567E4 /* SgfcProperty.h in Headers */,
 				CD8322D123F4D423009567E4 /* SgfcMessagePart.h in Headers */,
 				CD8322CE23F4D24D009567E4 /* SgfcConstants.h in Headers */,
+				CD8322E723FD9D79009567E4 /* SgfcPropertyValueType.h in Headers */,
+				CD8322D823FD8B2E009567E4 /* SgfcNode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,22 +345,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8322DD23FD8C69009567E4 /* SgfcGame.cpp in Sources */,
+				CD8322D923FD8B2E009567E4 /* SgfcNode.cpp in Sources */,
 				CD8322BD23F424FC009567E4 /* save.c in Sources */,
 				CD8322C523F43262009567E4 /* util.c in Sources */,
 				CD8322C323F42662009567E4 /* SgfcMessageStream.cpp in Sources */,
+				CD8322D423FD7FA1009567E4 /* SgfcDocument.cpp in Sources */,
 				CD8322A323F1D240009567E4 /* ISgfcCommandLine.cpp in Sources */,
 				CD8322CF23F4D24D009567E4 /* SgfcConstants.cpp in Sources */,
+				CD8322F823FF1E4C009567E4 /* ISgfcDocument.cpp in Sources */,
 				CD8322AD23F1E51E009567E4 /* SgfcMessage.cpp in Sources */,
+				CD8322F923FF1E4C009567E4 /* ISgfcGame.cpp in Sources */,
 				CD8322CA23F4B61D009567E4 /* SgfcOptions.cpp in Sources */,
 				CD8322A923F1D383009567E4 /* ISgfcMessage.cpp in Sources */,
+				CD8322E523FD99B5009567E4 /* SgfcPropertyValue.cpp in Sources */,
 				CD8322B823F424E4009567E4 /* strict.c in Sources */,
 				CD8322A023F1D240009567E4 /* SgfcPlusPlusFactory.cpp in Sources */,
 				CD8322B623F424C7009567E4 /* gameinfo.c in Sources */,
+				CD8322FF23FF1E55009567E4 /* ISgfcNode.cpp in Sources */,
 				CD8322B923F424E7009567E4 /* parse2.c in Sources */,
 				CD8322BA23F424EA009567E4 /* execute.c in Sources */,
 				CD8322BE23F42500009567E4 /* load.c in Sources */,
 				CD8322A123F1D240009567E4 /* SgfcCommandLine.cpp in Sources */,
+				CD8322FE23FF1E55009567E4 /* ISgfcPropertyValue.cpp in Sources */,
+				CD8322E123FD8E4B009567E4 /* SgfcProperty.cpp in Sources */,
 				CD8322BF23F4250E009567E4 /* main.c in Sources */,
+				CD8322FD23FF1E55009567E4 /* ISgfcProperty.cpp in Sources */,
 				CD8322BB23F424EE009567E4 /* properties.c in Sources */,
 				CD8322B323F33377009567E4 /* SgfcMessageParser.cpp in Sources */,
 				CD8322BC23F424F9009567E4 /* parse.c in Sources */,
