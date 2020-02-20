@@ -67,7 +67,6 @@ namespace LibSgfcPlusPlus
     std::vector<std::shared_ptr<ISgfcMessage>> GetMessageStreamResult() const;
 
     void SetInvalidCommandLineReasonFromParseResults();
-    SgfcExitCode GetSgfcExitCodeFromMessageCollection(const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
 
     void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;

@@ -1,5 +1,9 @@
 #pragma once
 
+// Project includes
+#include "ISgfcCommandLine.h"
+#include "ISgfcDocumentReader.h"
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -30,6 +34,9 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a newly constructed ISgfcCommandLine object that passes
     /// no command line arguments to SGFC.
     static std::shared_ptr<ISgfcCommandLine> CreateSgfcCommandLine();
+
+    /// @brief Returns a newly constructed ISgfcDocumentReader object.
+    static std::shared_ptr<ISgfcDocumentReader> CreateDocumentReader();
 
   private:
     SgfcPlusPlusFactory();

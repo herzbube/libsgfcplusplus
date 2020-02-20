@@ -4,6 +4,7 @@
 #include "SgfcMessage.h"
 #include "SgfcMessageParser.h"
 #include "SgfcMessageStream.h"
+#include "SgfcUtility.h"
 
 // SGFC includes
 extern "C"
@@ -98,7 +99,7 @@ namespace LibSgfcPlusPlus
 
     FillParseResult();
 
-    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromMessageCollection(this->parseResult);
+    SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->parseResult);
 
     if (sgfcExitCode != SgfcExitCode::FatalError)
     {
@@ -119,13 +120,7 @@ namespace LibSgfcPlusPlus
   {
     ThrowIfIsCommandLineValidReturnsFalse();
 
-    for (const auto& message : this->parseResult)
-    {
-      if (message->GetMessageType() == SgfcMessageType::FatalError)
-        return false;
-    }
-
-    return true;
+    return SgfcUtility::GetIsSgfDataValidFromMessageCollection(this->parseResult);
   }
 
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetParseResult() const
@@ -172,7 +167,7 @@ namespace LibSgfcPlusPlus
 
     FillSaveResult();
 
-    SgfcExitCode sgfcExitCode = GetSgfcExitCodeFromMessageCollection(this->saveResult);
+    SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->saveResult);
     return sgfcExitCode;
   }
 
@@ -400,38 +395,6 @@ namespace LibSgfcPlusPlus
     this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
       SgfcConstants::ParseArgumentErrorMessageID,
       "SGFC failed to parse the specified arguments");
-  }
-
-  SgfcExitCode SgfcCommandLine::GetSgfcExitCodeFromMessageCollection(const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection)
-  {
-    bool warningMessageFound = false;
-    bool errorMessageFound = false;
-    bool fatalErrorMessageFound = false;
-
-    for (const auto& message : messageCollection)
-    {
-      switch (message->GetMessageType())
-      {
-        case SgfcMessageType::Warning:
-          warningMessageFound = true;
-          break;
-        case SgfcMessageType::Error:
-          errorMessageFound = true;
-          break;
-        case SgfcMessageType::FatalError:
-          fatalErrorMessageFound = true;
-          break;
-      }
-    }
-
-    if (fatalErrorMessageFound)
-      return SgfcExitCode::FatalError;
-    if (errorMessageFound)
-      return SgfcExitCode::Error;
-    else if (warningMessageFound)
-      return SgfcExitCode::Warning;
-    else
-      return SgfcExitCode::Ok;
   }
 
   void SgfcCommandLine::ThrowIfIsCommandLineValidReturnsTrue() const
