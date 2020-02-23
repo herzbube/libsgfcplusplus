@@ -2,15 +2,7 @@
 #include "SgfcCommandLine.h"
 #include "SgfcUtility.h"
 
-// SGFC includes
-extern "C"
-{
-  #include "../sgfc/all.h"
-  #include "../sgfc/protos.h"
-}
-
 // C++ Standard Library includes
-#include <algorithm>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus

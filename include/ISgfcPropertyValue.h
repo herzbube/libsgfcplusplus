@@ -12,8 +12,8 @@ namespace LibSgfcPlusPlus
   /// values of a property of an SGF node. If the value is a composite value,
   /// it actually consists of two values.
   ///
-  /// ISgfcPropertyValue is immutable, i.e. the ISgfcPropertyValue object is
-  /// constructed it cannot be changed.
+  /// ISgfcPropertyValue is immutable, i.e. once the ISgfcPropertyValue object
+  /// is constructed it cannot be changed.
   class ISgfcPropertyValue
   {
   public:

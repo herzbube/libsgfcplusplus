@@ -25,11 +25,11 @@ namespace LibSgfcPlusPlus
     SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
       backendLoadResult->GetParseResult());
 
-    std::shared_ptr<SgfcDocument> document;
+    std::shared_ptr<ISgfcDocument> document;
     if (sgfcExitCode != SgfcExitCode::FatalError)
-      document = std::shared_ptr<SgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
+      document = std::shared_ptr<ISgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
     else
-      document = std::shared_ptr<SgfcDocument>(new SgfcDocument());
+      document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
 
     std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
       backendLoadResult->GetParseResult(),
