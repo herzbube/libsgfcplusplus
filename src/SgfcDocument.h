@@ -23,6 +23,7 @@ namespace LibSgfcPlusPlus
     SgfcDocument(SGFInfo* sgfInfo);
     virtual ~SgfcDocument();
 
+    virtual bool IsEmpty() const;
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const;
   
   private:

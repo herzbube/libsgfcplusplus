@@ -21,6 +21,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcDocument object.
     virtual ~ISgfcDocument();
 
+    /// @brief Returns true if the document has no content. Returns false if
+    /// the document has some content.
+    ///
+    /// The document is empty if it contains no games.
+    virtual bool IsEmpty() const = 0;
+
     /// @brief Returns a collection of games that together make up the document.
     ///
     /// Different kinds of games may appear within the same document.

@@ -134,6 +134,11 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  bool SgfcDocument::IsEmpty() const
+  {
+    return this->games.empty();
+  }
+
   std::vector<std::shared_ptr<ISgfcGame>> SgfcDocument::GetGames() const
   {
     return this->games;
