@@ -71,6 +71,14 @@
 		CD83230F23FF345E009567E4 /* SgfcDocumentReadResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83230D23FF345E009567E4 /* SgfcDocumentReadResult.cpp */; };
 		CD83231223FF36BC009567E4 /* SgfcUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83231023FF36BC009567E4 /* SgfcUtility.h */; };
 		CD83231323FF36BC009567E4 /* SgfcUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83231123FF36BC009567E4 /* SgfcUtility.cpp */; };
+		CD83231A2401F0B2009567E4 /* SgfcBackendLoadResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8323182401F0B2009567E4 /* SgfcBackendLoadResult.cpp */; };
+		CD83231B2401F0B2009567E4 /* SgfcBackendLoadResult.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8323192401F0B2009567E4 /* SgfcBackendLoadResult.h */; };
+		CD83231E2401F5F3009567E4 /* SgfcBackendSaveResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83231C2401F5F3009567E4 /* SgfcBackendSaveResult.cpp */; };
+		CD83231F2401F5F3009567E4 /* SgfcBackendSaveResult.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83231D2401F5F3009567E4 /* SgfcBackendSaveResult.h */; };
+		CD8323222401F8E4009567E4 /* SgfcBackendDataWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8323202401F8E4009567E4 /* SgfcBackendDataWrapper.cpp */; };
+		CD8323232401F8E4009567E4 /* SgfcBackendDataWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8323212401F8E4009567E4 /* SgfcBackendDataWrapper.h */; };
+		CD83232424020A5F009567E4 /* SgfcBackendController.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8323142401CEC7009567E4 /* SgfcBackendController.h */; };
+		CD83232524020A64009567E4 /* SgfcBackendController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD8323152401CEC7009567E4 /* SgfcBackendController.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +157,14 @@
 		CD83230D23FF345E009567E4 /* SgfcDocumentReadResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcDocumentReadResult.cpp; sourceTree = "<group>"; };
 		CD83231023FF36BC009567E4 /* SgfcUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcUtility.h; sourceTree = "<group>"; };
 		CD83231123FF36BC009567E4 /* SgfcUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcUtility.cpp; sourceTree = "<group>"; };
+		CD8323142401CEC7009567E4 /* SgfcBackendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBackendController.h; sourceTree = "<group>"; };
+		CD8323152401CEC7009567E4 /* SgfcBackendController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendController.cpp; sourceTree = "<group>"; };
+		CD8323182401F0B2009567E4 /* SgfcBackendLoadResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendLoadResult.cpp; sourceTree = "<group>"; };
+		CD8323192401F0B2009567E4 /* SgfcBackendLoadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBackendLoadResult.h; sourceTree = "<group>"; };
+		CD83231C2401F5F3009567E4 /* SgfcBackendSaveResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendSaveResult.cpp; sourceTree = "<group>"; };
+		CD83231D2401F5F3009567E4 /* SgfcBackendSaveResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBackendSaveResult.h; sourceTree = "<group>"; };
+		CD8323202401F8E4009567E4 /* SgfcBackendDataWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendDataWrapper.cpp; sourceTree = "<group>"; };
+		CD8323212401F8E4009567E4 /* SgfcBackendDataWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBackendDataWrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +208,14 @@
 				CD8322FC23FF1E55009567E4 /* ISgfcNode.cpp */,
 				CD8322FA23FF1E55009567E4 /* ISgfcProperty.cpp */,
 				CD8322FB23FF1E55009567E4 /* ISgfcPropertyValue.cpp */,
+				CD8323152401CEC7009567E4 /* SgfcBackendController.cpp */,
+				CD8323142401CEC7009567E4 /* SgfcBackendController.h */,
+				CD8323202401F8E4009567E4 /* SgfcBackendDataWrapper.cpp */,
+				CD8323212401F8E4009567E4 /* SgfcBackendDataWrapper.h */,
+				CD8323182401F0B2009567E4 /* SgfcBackendLoadResult.cpp */,
+				CD8323192401F0B2009567E4 /* SgfcBackendLoadResult.h */,
+				CD83231C2401F5F3009567E4 /* SgfcBackendSaveResult.cpp */,
+				CD83231D2401F5F3009567E4 /* SgfcBackendSaveResult.h */,
 				CD83227723F1D1DB009567E4 /* SgfcCommandLine.cpp */,
 				CD83227823F1D1DB009567E4 /* SgfcCommandLine.h */,
 				CD8322CD23F4D24D009567E4 /* SgfcConstants.cpp */,
@@ -294,6 +318,7 @@
 				CD8322F423FF177B009567E4 /* ISgfcPropertyValue.h in Headers */,
 				CD8322CB23F4B61D009567E4 /* SgfcOptions.h in Headers */,
 				CD8322F123FF135C009567E4 /* ISgfcNode.h in Headers */,
+				CD8323232401F8E4009567E4 /* SgfcBackendDataWrapper.h in Headers */,
 				CD8322ED23FF0ECF009567E4 /* ISgfcDocument.h in Headers */,
 				CD8322E923FDB8F8009567E4 /* SgfcGameType.h in Headers */,
 				CD83231223FF36BC009567E4 /* SgfcUtility.h in Headers */,
@@ -302,6 +327,7 @@
 				CD8322EB23FDC859009567E4 /* SgfcPropertyType.h in Headers */,
 				CD8322A223F1D240009567E4 /* SgfcCommandLine.h in Headers */,
 				CD8322C723F48912009567E4 /* SgfcExitCode.h in Headers */,
+				CD83231F2401F5F3009567E4 /* SgfcBackendSaveResult.h in Headers */,
 				CD8322E423FD99B5009567E4 /* SgfcPropertyValue.h in Headers */,
 				CD8322B223F33377009567E4 /* SgfcMessageParser.h in Headers */,
 				CD8322F523FF177B009567E4 /* ISgfcProperty.h in Headers */,
@@ -312,6 +338,8 @@
 				CD8322EF23FF116F009567E4 /* ISgfcGame.h in Headers */,
 				CD8322C423F42662009567E4 /* SgfcMessageStream.h in Headers */,
 				CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */,
+				CD83232424020A5F009567E4 /* SgfcBackendController.h in Headers */,
+				CD83231B2401F0B2009567E4 /* SgfcBackendLoadResult.h in Headers */,
 				CD8322AB23F1DAC4009567E4 /* SgfcMessageType.h in Headers */,
 				CD8322DC23FD8C69009567E4 /* SgfcGame.h in Headers */,
 				CD8322D523FD7FA1009567E4 /* SgfcDocument.h in Headers */,
@@ -383,6 +411,7 @@
 				CD8322DD23FD8C69009567E4 /* SgfcGame.cpp in Sources */,
 				CD8322D923FD8B2E009567E4 /* SgfcNode.cpp in Sources */,
 				CD83230723FF32DA009567E4 /* ISgfcDocumentReader.cpp in Sources */,
+				CD8323222401F8E4009567E4 /* SgfcBackendDataWrapper.cpp in Sources */,
 				CD83230623FF32DA009567E4 /* ISgfcDocumentReadResult.cpp in Sources */,
 				CD8322BD23F424FC009567E4 /* save.c in Sources */,
 				CD83231323FF36BC009567E4 /* SgfcUtility.cpp in Sources */,
@@ -396,9 +425,11 @@
 				CD8322F923FF1E4C009567E4 /* ISgfcGame.cpp in Sources */,
 				CD8322CA23F4B61D009567E4 /* SgfcOptions.cpp in Sources */,
 				CD8322A923F1D383009567E4 /* ISgfcMessage.cpp in Sources */,
+				CD83232524020A64009567E4 /* SgfcBackendController.cpp in Sources */,
 				CD8322E523FD99B5009567E4 /* SgfcPropertyValue.cpp in Sources */,
 				CD8322B823F424E4009567E4 /* strict.c in Sources */,
 				CD8322A023F1D240009567E4 /* SgfcPlusPlusFactory.cpp in Sources */,
+				CD83231E2401F5F3009567E4 /* SgfcBackendSaveResult.cpp in Sources */,
 				CD8322B623F424C7009567E4 /* gameinfo.c in Sources */,
 				CD8322FF23FF1E55009567E4 /* ISgfcNode.cpp in Sources */,
 				CD8322B923F424E7009567E4 /* parse2.c in Sources */,
@@ -407,6 +438,7 @@
 				CD8322A123F1D240009567E4 /* SgfcCommandLine.cpp in Sources */,
 				CD8322FE23FF1E55009567E4 /* ISgfcPropertyValue.cpp in Sources */,
 				CD8322E123FD8E4B009567E4 /* SgfcProperty.cpp in Sources */,
+				CD83231A2401F0B2009567E4 /* SgfcBackendLoadResult.cpp in Sources */,
 				CD83230F23FF345E009567E4 /* SgfcDocumentReadResult.cpp in Sources */,
 				CD8322BF23F4250E009567E4 /* main.c in Sources */,
 				CD8322FD23FF1E55009567E4 /* ISgfcProperty.cpp in Sources */,

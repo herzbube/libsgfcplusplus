@@ -2,11 +2,7 @@
 
 // Project includes
 #include "../include/ISgfcCommandLine.h"
-#include "SgfcDocument.h"
-#include "SgfcOptions.h"
-
-// Forward declarations
-struct SGFInfo;
+#include "SgfcBackendController.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -41,34 +37,10 @@ namespace LibSgfcPlusPlus
     virtual std::vector<std::shared_ptr<ISgfcMessage>> GetSaveResult() const;
 
   private:
-    std::vector<std::string> arguments;
-    std::shared_ptr<ISgfcMessage> invalidCommandLineReason;
-    SgfcOptions sgfcOptions;
-    SGFInfo* sgfInfo;
-    std::shared_ptr<SgfcDocument> sgfcDocument;
-    std::vector<std::shared_ptr<ISgfcMessage>> parseResult;
-    std::vector<std::shared_ptr<ISgfcMessage>> saveResult;
+    std::shared_ptr<SgfcBackendController> backendController;
+    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult;
+    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult;
 
-    void ParseArguments(const std::vector<std::string>& arguments);
-    void SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
-    void SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::string>& arguments);
-    std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const;
-    void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
-    void InvokeSgfcParseArgs(int argc, const char** argv);
-
-    void AllocateSgfInfo();
-    void DeallocateSgfInfo();
-    void ReallocateSgfInfo();
-
-    void ResetGlobalVariables();
-
-    void FillParseResult();
-    void FillSaveResult();
-    std::vector<std::shared_ptr<ISgfcMessage>> GetMessageStreamResult() const;
-
-    void SetInvalidCommandLineReasonFromParseResults();
-
-    void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;
     void ThrowIfIsSgfContentValidReturnsFalse() const;
   };
