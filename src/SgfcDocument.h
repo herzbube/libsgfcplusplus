@@ -25,7 +25,8 @@ namespace LibSgfcPlusPlus
 
     virtual bool IsEmpty() const;
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const;
-  
+    virtual void DebugPrintToConsole() const;
+
   private:
     std::string rawContent;
     std::string leadingContent;
@@ -36,5 +37,7 @@ namespace LibSgfcPlusPlus
     void RecursiveParseDepthFirst(std::shared_ptr<ISgfcNode> parentNode, Node* sgfParentNode);
     void ParseProperties(std::shared_ptr<ISgfcNode> node, Node* sgfNode);
     SgfcPropertyType GetSgfcPropertyTypeFromSgfProperty(Property* sgfProperty);
+
+    void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const;
   };
 }

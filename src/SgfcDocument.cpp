@@ -7,6 +7,7 @@
 
 // C++ Standard Library includes
 #include <sstream>
+#include <iostream>
 
 // SGFC includes
 extern "C"
@@ -326,6 +327,61 @@ namespace LibSgfcPlusPlus
         std::stringstream message;
         message << "Unexpected SGFC token value: " << sgfProperty->id;
         throw std::logic_error(message.str());
+    }
+  }
+
+  void SgfcDocument::DebugPrintToConsole() const
+  {
+    int gameCount = 0;
+    for (const auto& sgfcGame : GetGames())
+    {
+      gameCount++;
+      std::cout << "Game " << gameCount << std::endl;
+
+      std::vector<std::shared_ptr<ISgfcNode>> stack;
+
+      std::shared_ptr<ISgfcNode> rootNode = sgfcGame->GetRootNode();
+      stack.push_back(rootNode);
+
+      while (stack.size() > 0)
+      {
+        std::shared_ptr<ISgfcNode> node = stack.back();
+        stack.pop_back();
+
+        DebugPrintNodeToConsole(node);
+
+        std::shared_ptr<ISgfcNode> firstChild = node->GetFirstChild();
+        if (firstChild)
+        {
+          stack.push_back(firstChild);
+
+          std::shared_ptr<ISgfcNode> nextSibling = firstChild->GetNextSibling();
+          while (nextSibling)
+          {
+            stack.push_back(nextSibling);
+            nextSibling = nextSibling->GetNextSibling();
+          }
+        }
+      }
+    }
+  }
+
+  void SgfcDocument::DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const
+  {
+    std::cout << "  Node" << std::endl;
+    for (const auto& property : node->GetProperties())
+    {
+      std::cout << "    Property type = " << static_cast<int>(property->GetPropertyType()) << std::endl;
+      std::cout << "    Property name = " << property->GetPropertyName() << std::endl;
+      std::cout << "    Property values" << std::endl;
+      for (const auto& propertyValue : property->GetPropertyValues())
+      {
+        std::cout << "      IsCompositeValue = " << propertyValue->IsCompositeValue() << std::endl;
+        std::cout << "      Value type 1 = " << static_cast<int>(propertyValue->GetValueType1()) << std::endl;
+        std::cout << "      Raw value 1 = " << propertyValue->GetRawValue1() << std::endl;
+        std::cout << "      Value type 2 = " << static_cast<int>(propertyValue->GetValueType2()) << std::endl;
+        std::cout << "      Raw value 2 = " << propertyValue->GetRawValue2() << std::endl;
+      }
     }
   }
 }

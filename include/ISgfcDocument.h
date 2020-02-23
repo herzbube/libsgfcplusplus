@@ -31,5 +31,11 @@ namespace LibSgfcPlusPlus
     ///
     /// Different kinds of games may appear within the same document.
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const = 0;
+
+    /// @brief Prints the content of the ISgfcDocument to stdout for debugging
+    /// purposes.
+    ///
+    /// @todo Remove this prior to release.
+    virtual void DebugPrintToConsole() const = 0;
   };
 }
