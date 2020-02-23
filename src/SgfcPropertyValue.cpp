@@ -1,58 +1,46 @@
 // Project includes
 #include "SgfcPropertyValue.h"
+#include "SgfcComposedPropertyValue.h"
+#include "SgfcSinglePropertyValue.h"
 
 namespace LibSgfcPlusPlus
 {
   SgfcPropertyValue::SgfcPropertyValue()
-    : isCompositeValue(false)
-    , valueType1(SgfcPropertyValueType::Unknown)
-    , valueType2(SgfcPropertyValueType::None)
+    : isComposedValue(false)
   {
   }
 
   SgfcPropertyValue::SgfcPropertyValue(const std::string& rawValue)
-    : isCompositeValue(false)
-    , valueType1(SgfcPropertyValueType::Unknown)
-    , rawValue1(rawValue)
-    , valueType2(SgfcPropertyValueType::None)
+    : isComposedValue(false)
   {
+    this->singleValue = std::shared_ptr<ISgfcSinglePropertyValue>(
+      new SgfcSinglePropertyValue(rawValue));
   }
 
   SgfcPropertyValue::SgfcPropertyValue(const std::string& rawValue1, const std::string& rawValue2)
-    : isCompositeValue(true)
-    , valueType1(SgfcPropertyValueType::Unknown)
-    , rawValue1(rawValue1)
-    , valueType2(SgfcPropertyValueType::Unknown)
-    , rawValue2(rawValue2)
+    : isComposedValue(true)
   {
+    this->composedValue = std::shared_ptr<ISgfcComposedPropertyValue>(new SgfcComposedPropertyValue(
+      std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(rawValue1)),
+      std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(rawValue2))));
   }
 
   SgfcPropertyValue::~SgfcPropertyValue()
   {
   }
 
-  bool SgfcPropertyValue::IsCompositeValue() const
+  bool SgfcPropertyValue::IsComposedValue() const
   {
-    return this->isCompositeValue;
+    return this->isComposedValue;
   }
 
-  SgfcPropertyValueType SgfcPropertyValue::GetValueType1() const
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyValue::ToSingleValue() const
   {
-    return this->valueType1;
+    return this->singleValue;
   }
 
-  std::string SgfcPropertyValue::GetRawValue1() const
+  std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValue::ToComposedValue() const
   {
-    return this->rawValue1;
-  }
-
-  SgfcPropertyValueType SgfcPropertyValue::GetValueType2() const
-  {
-    return this->valueType2;
-  }
-
-  std::string SgfcPropertyValue::GetRawValue2() const
-  {
-    return this->rawValue2;
+    return this->composedValue;
   }
 }

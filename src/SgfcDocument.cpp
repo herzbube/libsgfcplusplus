@@ -376,11 +376,22 @@ namespace LibSgfcPlusPlus
       std::cout << "    Property values" << std::endl;
       for (const auto& propertyValue : property->GetPropertyValues())
       {
-        std::cout << "      IsCompositeValue = " << propertyValue->IsCompositeValue() << std::endl;
-        std::cout << "      Value type 1 = " << static_cast<int>(propertyValue->GetValueType1()) << std::endl;
-        std::cout << "      Raw value 1 = " << propertyValue->GetRawValue1() << std::endl;
-        std::cout << "      Value type 2 = " << static_cast<int>(propertyValue->GetValueType2()) << std::endl;
-        std::cout << "      Raw value 2 = " << propertyValue->GetRawValue2() << std::endl;
+        std::cout << "      IsCompositeValue = " << propertyValue->IsComposedValue() << std::endl;
+        if (propertyValue->IsComposedValue())
+        {
+          std::shared_ptr<ISgfcComposedPropertyValue> composedPropertyValue = propertyValue->ToComposedValue();
+          std::cout << "      Value type 1 = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
+          std::cout << "      Raw value 1 = " << composedPropertyValue->GetValue1()->GetRawValue() << std::endl;
+          std::cout << "      Value type 2 = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
+          std::cout << "      Raw value 2 = " << composedPropertyValue->GetValue2()->GetRawValue() << std::endl;
+
+        }
+        else
+        {
+          std::shared_ptr<ISgfcSinglePropertyValue> singlePropertyValue = propertyValue->ToSingleValue();
+          std::cout << "      Value type= " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
+          std::cout << "      Raw value= " << singlePropertyValue->GetRawValue() << std::endl;
+        }
       }
     }
   }

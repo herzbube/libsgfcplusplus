@@ -16,19 +16,14 @@ namespace LibSgfcPlusPlus
     SgfcPropertyValue(const std::string& rawValue1, const std::string& rawValue2);
     virtual ~SgfcPropertyValue();
 
-    virtual bool IsCompositeValue() const;
+    virtual bool IsComposedValue() const;
 
-    virtual SgfcPropertyValueType GetValueType1() const;
-    virtual std::string GetRawValue1() const;
-
-    virtual SgfcPropertyValueType GetValueType2() const;
-    virtual std::string GetRawValue2() const;
+    virtual std::shared_ptr<ISgfcSinglePropertyValue> ToSingleValue() const;
+    virtual std::shared_ptr<ISgfcComposedPropertyValue> ToComposedValue() const;
 
   private:
-    bool isCompositeValue;
-    SgfcPropertyValueType valueType1;
-    std::string rawValue1;
-    SgfcPropertyValueType valueType2;
-    std::string rawValue2;
+    bool isComposedValue;
+    std::shared_ptr<ISgfcSinglePropertyValue> singleValue;
+    std::shared_ptr<ISgfcComposedPropertyValue> composedValue;
   };
 }
