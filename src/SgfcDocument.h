@@ -9,7 +9,6 @@
 // Forward declarations
 struct SGFInfo;
 struct Node;
-struct Property;
 
 namespace LibSgfcPlusPlus
 {
@@ -36,7 +35,6 @@ namespace LibSgfcPlusPlus
 
     void RecursiveParseDepthFirst(std::shared_ptr<ISgfcNode> parentNode, Node* sgfParentNode);
     void ParseProperties(std::shared_ptr<ISgfcNode> node, Node* sgfNode);
-    SgfcPropertyType GetSgfcPropertyTypeFromSgfProperty(Property* sgfProperty);
 
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const;
   };
