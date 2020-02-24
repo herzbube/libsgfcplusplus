@@ -1,7 +1,11 @@
 #pragma once
 
 // Project includes
+#include "ISgfcPropertyValue.h"
 #include "ISgfcSinglePropertyValue.h"
+
+// C++ Standard Library includes
+#include <memory>
 
 namespace LibSgfcPlusPlus
 {
@@ -14,7 +18,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcComposedPropertyValue is immutable, i.e. once the
   /// ISgfcComposedPropertyValue object is constructed it cannot be changed.
-  class ISgfcComposedPropertyValue
+  class ISgfcComposedPropertyValue : public ISgfcPropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcComposedPropertyValue

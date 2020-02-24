@@ -18,6 +18,21 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  bool SgfcSinglePropertyValue::IsComposedValue() const
+  {
+    return false;
+  }
+
+  const ISgfcSinglePropertyValue* SgfcSinglePropertyValue::ToSingleValue() const
+  {
+    return this;
+  }
+
+  const ISgfcComposedPropertyValue* SgfcSinglePropertyValue::ToComposedValue() const
+  {
+    return nullptr;
+  }
+
   SgfcPropertyValueType SgfcSinglePropertyValue::GetValueType() const
   {
     return this->valueType;

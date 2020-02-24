@@ -19,6 +19,21 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  bool SgfcComposedPropertyValue::IsComposedValue() const
+  {
+    return true;
+  }
+
+  const ISgfcSinglePropertyValue* SgfcComposedPropertyValue::ToSingleValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcComposedPropertyValue* SgfcComposedPropertyValue::ToComposedValue() const
+  {
+    return this;
+  }
+
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcComposedPropertyValue::GetValue1() const
   {
     return this->value1;

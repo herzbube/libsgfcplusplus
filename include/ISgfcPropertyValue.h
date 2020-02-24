@@ -1,14 +1,11 @@
 #pragma once
 
-// Project includes
-#include "ISgfcComposedPropertyValue.h"
-#include "ISgfcSinglePropertyValue.h"
-
-// C++ Standard Library includes
-#include <memory>
-
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcComposedPropertyValue;
+  class ISgfcSinglePropertyValue;
+
   /// @brief The ISgfcPropertyValue interface provides access to one of the
   /// values of a property of an SGF node.
   ///
@@ -29,11 +26,13 @@ namespace LibSgfcPlusPlus
     virtual bool IsComposedValue() const = 0;
 
     /// @brief Returns @e nullptr if IsComposedValue() returns true. Returns an
-    /// ISgfcSinglePropertyValue object if IsComposedValue() returns false.
-    virtual std::shared_ptr<ISgfcSinglePropertyValue> ToSingleValue() const = 0;
+    /// ISgfcSinglePropertyValue object if IsComposedValue() returns false. The
+    /// caller is not the owner of the ISgfcSinglePropertyValue object.
+    virtual const ISgfcSinglePropertyValue* ToSingleValue() const = 0;
 
     /// @brief Returns an ISgfcComposedPropertyValue object if IsComposedValue()
-    /// returns true. Returns @e nullptr if IsComposedValue() returns false.
-    virtual std::shared_ptr<ISgfcComposedPropertyValue> ToComposedValue() const = 0;
+    /// returns true. Returns @e nullptr if IsComposedValue() returns false. The
+    /// caller is not the owner of the ISgfcComposedPropertyValue object.
+    virtual const ISgfcComposedPropertyValue* ToComposedValue() const = 0;
   };
 }

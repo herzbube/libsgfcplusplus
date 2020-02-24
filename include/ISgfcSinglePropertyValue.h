@@ -1,6 +1,7 @@
 #pragma once
 
 // Project includes
+#include "ISgfcPropertyValue.h"
 #include "SgfcPropertyValueType.h"
 
 // C++ Standard Library includes
@@ -15,7 +16,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcSinglePropertyValue is immutable, i.e. once the
   /// ISgfcSinglePropertyValue object is constructed it cannot be changed.
-  class ISgfcSinglePropertyValue
+  class ISgfcSinglePropertyValue : public ISgfcPropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcSinglePropertyValue object.

@@ -1,10 +1,11 @@
 // Project includes
+#include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
 #include "SgfcGame.h"
 #include "SgfcNode.h"
 #include "SgfcProperty.h"
 #include "SgfcPropertyDecoder.h"
-#include "SgfcPropertyValue.h"
+#include "SgfcSinglePropertyValue.h"
 
 // C++ Standard Library includes
 #include <iostream>
@@ -104,14 +105,14 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<ISgfcPropertyValue> propertyValue;
         if (sgfPropertyValue->value2 == nullptr)
         {
-          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcPropertyValue(
+          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcSinglePropertyValue(
             sgfPropertyValue->value));
         }
         else
         {
-          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcPropertyValue(
-            sgfPropertyValue->value,
-            sgfPropertyValue->value2));
+          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcComposedPropertyValue(
+            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(sgfPropertyValue->value)),
+            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(sgfPropertyValue->value2))));
         }
 
         propertyValues.push_back(propertyValue);
@@ -194,7 +195,7 @@ namespace LibSgfcPlusPlus
         std::cout << "      IsCompositeValue = " << propertyValue->IsComposedValue() << std::endl;
         if (propertyValue->IsComposedValue())
         {
-          std::shared_ptr<ISgfcComposedPropertyValue> composedPropertyValue = propertyValue->ToComposedValue();
+          const ISgfcComposedPropertyValue* composedPropertyValue = propertyValue->ToComposedValue();
           std::cout << "      Value type 1 = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
           std::cout << "      Raw value 1 = " << composedPropertyValue->GetValue1()->GetRawValue() << std::endl;
           std::cout << "      Value type 2 = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
@@ -203,7 +204,7 @@ namespace LibSgfcPlusPlus
         }
         else
         {
-          std::shared_ptr<ISgfcSinglePropertyValue> singlePropertyValue = propertyValue->ToSingleValue();
+          const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
           std::cout << "      Value type= " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
           std::cout << "      Raw value= " << singlePropertyValue->GetRawValue() << std::endl;
         }
