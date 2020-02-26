@@ -2,6 +2,10 @@
 
 // Project includes
 #include "../include/SgfcPropertyType.h"
+#include "ISgfcPropertyValueTypeDescriptor.h"
+
+// C++ Standard Library includes
+#include <memory>
 
 // Forward declarations
 struct Property;
@@ -15,6 +19,8 @@ namespace LibSgfcPlusPlus
   {
   public:
     static SgfcPropertyType GetSgfcPropertyTypeFromSgfProperty(Property* sgfProperty);
+    static std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptorForPropertyType(
+      SgfcPropertyType propertyType);
 
   private:
     SgfcPropertyDecoder();
