@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcSimpleTextPropertyValue is immutable, i.e. once the
   /// ISgfcSimpleTextPropertyValue object is constructed it cannot be changed.
-  class ISgfcSimpleTextPropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcSimpleTextPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcSimpleTextPropertyValue

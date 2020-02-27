@@ -12,7 +12,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcColorPropertyValue is immutable, i.e. once the
   /// ISgfcColorPropertyValue object is constructed it cannot be changed.
-  class ISgfcColorPropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcColorPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcColorPropertyValue object.

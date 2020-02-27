@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcMovePropertyValue is immutable, i.e. once the
   /// ISgfcMovePropertyValue object is constructed it cannot be changed.
-  class ISgfcMovePropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcMovePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcMovePropertyValue object.

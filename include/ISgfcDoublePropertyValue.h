@@ -12,7 +12,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcDoublePropertyValue is immutable, i.e. once the
   /// ISgfcDoublePropertyValue object is constructed it cannot be changed.
-  class ISgfcDoublePropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcDoublePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDoublePropertyValue object.

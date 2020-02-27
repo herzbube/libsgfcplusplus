@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcPointPropertyValue is immutable, i.e. once the
   /// ISgfcPointPropertyValue object is constructed it cannot be changed.
-  class ISgfcPointPropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcPointPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcPointPropertyValue object.

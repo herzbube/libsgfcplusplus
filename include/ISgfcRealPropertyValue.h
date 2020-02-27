@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcRealPropertyValue is immutable, i.e. once the
   /// ISgfcRealPropertyValue object is constructed it cannot be changed.
-  class ISgfcRealPropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcRealPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcRealPropertyValue object.

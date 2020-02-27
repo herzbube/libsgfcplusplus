@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcStonePropertyValue is immutable, i.e. once the
   /// ISgfcStonePropertyValue object is constructed it cannot be changed.
-  class ISgfcStonePropertyValue : public ISgfcSinglePropertyValue
+  class ISgfcStonePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcStonePropertyValue object.

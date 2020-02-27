@@ -8,7 +8,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcSinglePropertyValue class provides an implementation of the
   /// ISgfcSinglePropertyValue interface. See the interface header file for
   /// documentation.
-  class SgfcSinglePropertyValue : public ISgfcSinglePropertyValue
+  class SgfcSinglePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     SgfcSinglePropertyValue(bool hasTypedValue, const std::string& rawValue);
