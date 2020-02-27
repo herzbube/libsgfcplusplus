@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDoublePropertyValue class provides an implementation of
   /// the ISgfcDoublePropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcDoublePropertyValue : public SgfcSinglePropertyValue, ISgfcDoublePropertyValue
+  class SgfcDoublePropertyValue : public SgfcSinglePropertyValue, public ISgfcDoublePropertyValue
   {
   public:
     SgfcDoublePropertyValue(const std::string& rawValue, SgfcDouble doubleValue);

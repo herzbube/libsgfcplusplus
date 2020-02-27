@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcTextPropertyValue class provides an implementation of
   /// the ISgfcTextPropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcTextPropertyValue : public SgfcSinglePropertyValue, ISgfcTextPropertyValue
+  class SgfcTextPropertyValue : public SgfcSinglePropertyValue, public ISgfcTextPropertyValue
   {
   public:
     SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue);

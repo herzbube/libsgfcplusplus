@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcRealPropertyValue class provides an implementation of
   /// the ISgfcRealPropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcRealPropertyValue : public SgfcSinglePropertyValue, ISgfcRealPropertyValue
+  class SgfcRealPropertyValue : public SgfcSinglePropertyValue, public ISgfcRealPropertyValue
   {
   public:
     SgfcRealPropertyValue(const std::string& rawValue, double realValue);

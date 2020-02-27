@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcStonePropertyValue class provides an implementation of
   /// the ISgfcStonePropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcStonePropertyValue : public SgfcSinglePropertyValue, ISgfcStonePropertyValue
+  class SgfcStonePropertyValue : public SgfcSinglePropertyValue, public ISgfcStonePropertyValue
   {
   public:
     SgfcStonePropertyValue(const std::string& rawValue);

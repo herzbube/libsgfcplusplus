@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcMovePropertyValue class provides an implementation of
   /// the ISgfcMovePropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcMovePropertyValue : public SgfcSinglePropertyValue, ISgfcMovePropertyValue
+  class SgfcMovePropertyValue : public SgfcSinglePropertyValue, public ISgfcMovePropertyValue
   {
   public:
     SgfcMovePropertyValue(const std::string& rawValue);

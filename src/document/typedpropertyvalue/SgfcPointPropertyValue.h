@@ -9,7 +9,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcPointPropertyValue class provides an implementation of
   /// the ISgfcPointPropertyValue interface. See the interface header file
   /// for documentation.
-  class SgfcPointPropertyValue : public SgfcSinglePropertyValue, ISgfcPointPropertyValue
+  class SgfcPointPropertyValue : public SgfcSinglePropertyValue, public ISgfcPointPropertyValue
   {
   public:
     SgfcPointPropertyValue(const std::string& rawValue);
