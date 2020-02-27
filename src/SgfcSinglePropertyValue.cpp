@@ -1,15 +1,14 @@
 // Project includes
 #include "SgfcSinglePropertyValue.h"
 
+// C++ Standard Library includes
+#include <sstream>
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue()
-    : valueType(SgfcPropertyValueType::Unknown)
-  {
-  }
-
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue)
-    : valueType(SgfcPropertyValueType::Unknown)
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(bool hasTypedValue, const std::string& rawValue)
+    : hasTypedValue(hasTypedValue)
     , rawValue(rawValue)
   {
   }
@@ -33,13 +32,68 @@ namespace LibSgfcPlusPlus
     return nullptr;
   }
 
-  SgfcPropertyValueType SgfcSinglePropertyValue::GetValueType() const
+  bool SgfcSinglePropertyValue::HasTypedValue() const
   {
-    return this->valueType;
+    return this->hasTypedValue;
   }
 
   std::string SgfcSinglePropertyValue::GetRawValue() const
   {
     return this->rawValue;
+  }
+
+  const ISgfcNumberPropertyValue* SgfcSinglePropertyValue::ToNumberValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcRealPropertyValue* SgfcSinglePropertyValue::ToRealValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcDoublePropertyValue* SgfcSinglePropertyValue::ToDoubleValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcColorPropertyValue* SgfcSinglePropertyValue::ToColorValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcSimpleTextPropertyValue* SgfcSinglePropertyValue::ToSimpleTextValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcTextPropertyValue* SgfcSinglePropertyValue::ToTextValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcPointPropertyValue* SgfcSinglePropertyValue::ToPointValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcMovePropertyValue* SgfcSinglePropertyValue::ToMoveValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcStonePropertyValue* SgfcSinglePropertyValue::ToStoneValue() const
+  {
+    return nullptr;
+  }
+
+  void SgfcSinglePropertyValue::ThrowIfHasNotTypedValue() const
+  {
+    if (! HasTypedValue())
+    {
+      std::stringstream message;
+      message << "Property value object has no typed property value. Value type: " << static_cast<int>(GetValueType());
+      throw std::logic_error(message.str());
+    }
   }
 }

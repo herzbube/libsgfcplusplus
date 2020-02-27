@@ -28,9 +28,8 @@ namespace LibSgfcPlusPlus
     Point,
     Move,
     Stone,
-    /// @brief The property value has an unknown type. The property could even
-    /// have no value at all. This is used for the values of any property not
-    /// defined in the SGF standard.
+    /// @brief The property value has an unknown type. This is used for
+    /// non-empty values of any property not defined in the SGF standard.
     Unknown,
   };
 }

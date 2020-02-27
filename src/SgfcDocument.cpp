@@ -5,7 +5,7 @@
 #include "SgfcNode.h"
 #include "SgfcProperty.h"
 #include "SgfcPropertyDecoder.h"
-#include "SgfcSinglePropertyValue.h"
+#include "SgfcUnknownPropertyValue.h"
 
 // C++ Standard Library includes
 #include <iostream>
@@ -105,14 +105,14 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<ISgfcPropertyValue> propertyValue;
         if (sgfPropertyValue->value2 == nullptr)
         {
-          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcSinglePropertyValue(
+          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcUnknownPropertyValue(
             sgfPropertyValue->value));
         }
         else
         {
           propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcComposedPropertyValue(
-            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(sgfPropertyValue->value)),
-            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(sgfPropertyValue->value2))));
+            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(sgfPropertyValue->value)),
+            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(sgfPropertyValue->value2))));
         }
 
         propertyValues.push_back(propertyValue);

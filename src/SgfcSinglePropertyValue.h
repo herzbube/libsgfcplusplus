@@ -11,19 +11,35 @@ namespace LibSgfcPlusPlus
   class SgfcSinglePropertyValue : public ISgfcSinglePropertyValue
   {
   public:
-    SgfcSinglePropertyValue();
-    SgfcSinglePropertyValue(const std::string& rawValue);
+    SgfcSinglePropertyValue(bool hasTypedValue, const std::string& rawValue);
     virtual ~SgfcSinglePropertyValue();
 
     virtual bool IsComposedValue() const;
     virtual const ISgfcSinglePropertyValue* ToSingleValue() const;
     virtual const ISgfcComposedPropertyValue* ToComposedValue() const;
 
-    virtual SgfcPropertyValueType GetValueType() const;
+    virtual bool HasTypedValue() const;
     virtual std::string GetRawValue() const;
 
+    virtual const ISgfcNumberPropertyValue* ToNumberValue() const;
+    virtual const ISgfcRealPropertyValue* ToRealValue() const;
+    virtual const ISgfcDoublePropertyValue* ToDoubleValue() const;
+    virtual const ISgfcColorPropertyValue* ToColorValue() const;
+    virtual const ISgfcSimpleTextPropertyValue* ToSimpleTextValue() const;
+    virtual const ISgfcTextPropertyValue* ToTextValue() const;
+    virtual const ISgfcPointPropertyValue* ToPointValue() const;
+    virtual const ISgfcMovePropertyValue* ToMoveValue() const;
+    virtual const ISgfcStonePropertyValue* ToStoneValue() const;
+
+  protected:
+    /// @brief Throws std::logic_error if HasTypedValue() returns false.
+    ///
+    /// This is a convenience method that subclasses may invoke in their getter
+    /// method that returns the typed property value.
+    void ThrowIfHasNotTypedValue() const;
+
   private:
-    SgfcPropertyValueType valueType;
+    bool hasTypedValue;
     std::string rawValue;
   };
 }
