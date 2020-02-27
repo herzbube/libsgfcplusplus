@@ -1,7 +1,7 @@
 // Project includes
 #include "../include/SgfcPlusPlusFactory.h"
-#include "SgfcCommandLine.h"
-#include "SgfcDocumentReader.h"
+#include "sgfc/frontend/SgfcCommandLine.h"
+#include "sgfc/frontend/SgfcDocumentReader.h"
 
 namespace LibSgfcPlusPlus
 {
