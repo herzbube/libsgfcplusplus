@@ -17,7 +17,7 @@ namespace LibSgfcPlusPlus
     virtual ~SgfcRealPropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;
-    virtual double GetRealValue() const = 0;
+    virtual double GetRealValue() const;
     virtual const ISgfcRealPropertyValue* ToRealValue() const;
 
   private:
