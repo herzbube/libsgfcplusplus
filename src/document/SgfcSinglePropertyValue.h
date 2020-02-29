@@ -28,7 +28,6 @@ namespace LibSgfcPlusPlus
 
     virtual bool IsComposedValue() const;
     virtual const ISgfcSinglePropertyValue* ToSingleValue() const;
-    virtual const ISgfcComposedPropertyValue* ToComposedValue() const;
 
     virtual bool HasTypedValue() const;
     virtual std::string GetTypeConversionErrorMessage() const;

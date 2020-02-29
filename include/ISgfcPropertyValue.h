@@ -28,11 +28,11 @@ namespace LibSgfcPlusPlus
     /// @brief Returns @e nullptr if IsComposedValue() returns true. Returns an
     /// ISgfcSinglePropertyValue object if IsComposedValue() returns false. The
     /// caller is not the owner of the ISgfcSinglePropertyValue object.
-    virtual const ISgfcSinglePropertyValue* ToSingleValue() const = 0;
+    virtual const ISgfcSinglePropertyValue* ToSingleValue() const;
 
     /// @brief Returns an ISgfcComposedPropertyValue object if IsComposedValue()
     /// returns true. Returns @e nullptr if IsComposedValue() returns false. The
     /// caller is not the owner of the ISgfcComposedPropertyValue object.
-    virtual const ISgfcComposedPropertyValue* ToComposedValue() const = 0;
+    virtual const ISgfcComposedPropertyValue* ToComposedValue() const;
   };
 }

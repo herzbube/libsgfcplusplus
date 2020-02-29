@@ -34,11 +34,6 @@ namespace LibSgfcPlusPlus
     return this;
   }
 
-  const ISgfcComposedPropertyValue* SgfcSinglePropertyValue::ToComposedValue() const
-  {
-    return nullptr;
-  }
-
   bool SgfcSinglePropertyValue::HasTypedValue() const
   {
     return this->hasTypedValue;

@@ -10,4 +10,14 @@ namespace LibSgfcPlusPlus
   ISgfcPropertyValue::~ISgfcPropertyValue()
   {
   }
+
+  const ISgfcSinglePropertyValue* ISgfcPropertyValue::ToSingleValue() const
+  {
+    return nullptr;
+  }
+
+  const ISgfcComposedPropertyValue* ISgfcPropertyValue::ToComposedValue() const
+  {
+    return nullptr;
+  }
 }
