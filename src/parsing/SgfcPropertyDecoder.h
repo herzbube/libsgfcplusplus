@@ -22,46 +22,58 @@ namespace LibSgfcPlusPlus
   class SgfcPropertyDecoder
   {
   public:
-    /// @brief Returns the SgfcPropertyType value that corresponds to the
-    /// SGF property @a sgfProperty.
-    static SgfcPropertyType GetSgfcPropertyTypeFromSgfProperty(Property* sgfProperty);
+    /// @brief Initializes a newly constructed SgfcPropertyDecoder object. The
+    /// object parses the specified SGF property @a sgfProperty and its values.
+    SgfcPropertyDecoder(const Property* sgfProperty);
+    
+    /// @brief Destroys and cleans up the SgfcPropertyDecoder object.
+    virtual ~SgfcPropertyDecoder();
 
-    /// @brief Parses the specified SGF property @a sgfProperty and returns a
-    /// list with the property's values.
+    /// @brief Returns the SgfcPropertyType value that corresponds to the
+    /// SGF property with which SgfcPropertyDecoder was constructed.
+    SgfcPropertyType GetPropertyType() const;
+
+    /// @brief Returns the raw string name of the SGF property with which
+    /// SgfcPropertyDecoder was constructed.
+    std::string GetPropertyName() const;
+
+    /// @brief Parses the SGF property with which SgfcPropertyDecoder was
+    /// constructed and returns a list with the property's values.
     ///
     /// This method relies on certain pre-processing performed by SGFC. Notably:
     /// - Non-string values are trimmed (essential for Double and Color values)
-    static std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValuesFromSgfProperty(
-      Property* sgfProperty);
+    std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
 
   private:
-    SgfcPropertyDecoder();
-    virtual ~SgfcPropertyDecoder();
+    const Property* sgfProperty;
+    SgfcPropertyType propertyType;
 
-    static std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptorForPropertyType(
-      SgfcPropertyType propertyType);
+    SgfcPropertyType GetSgfcPropertyTypeForSgfProperty(const Property* sgfProperty) const;
 
-    static std::vector<std::shared_ptr<ISgfcPropertyValue>> GetSgfcPropertyValuesFromSgfPropertyValue(
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptorForPropertyType(
+      SgfcPropertyType propertyType) const;
+
+    std::vector<std::shared_ptr<ISgfcPropertyValue>> GetSgfcPropertyValuesFromSgfPropertyValue(
       PropValue* sgfPropertyValue,
-      std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor);
+      std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor) const;
 
-    static std::shared_ptr<ISgfcPropertyValue> GetSgfcPropertyValueFromSgfPropertyValue(
+    std::shared_ptr<ISgfcPropertyValue> GetSgfcPropertyValueFromSgfPropertyValue(
       PropValue* sgfPropertyValue,
-      std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor);
+      std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor) const;
 
-    static std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcPropertyValueFromSgfPropertyValue(
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer,
-      SgfcPropertyValueType propertyValueType);
+      SgfcPropertyValueType propertyValueType) const;
 
-    static std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcNumberPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer);
-    static std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcRealPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer);
-    static std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcDoublePropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer);
-    static std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcColorPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer);
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcNumberPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcRealPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcDoublePropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcColorPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
 
-    static bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue);
+    bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
   };
 }

@@ -94,11 +94,11 @@ namespace LibSgfcPlusPlus
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyType propertyType =
-        SgfcPropertyDecoder::GetSgfcPropertyTypeFromSgfProperty(sgfProperty);
-      std::string propertyName = sgfProperty->idstr;
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues =
-        SgfcPropertyDecoder::GetPropertyValuesFromSgfProperty(sgfProperty);
+      SgfcPropertyDecoder propertyDecoder(sgfProperty);
+
+      SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
+      std::string propertyName = propertyDecoder.GetPropertyName();
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
       std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
         propertyType,

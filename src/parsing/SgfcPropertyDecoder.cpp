@@ -1,6 +1,7 @@
 // Project includes
 #include "../../include/SgfcColor.h"
 #include "../../include/SgfcDouble.h"
+#include "../../include/SgfcGameType.h"
 #include "../document/typedpropertyvalue/SgfcColorPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcDoublePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcMovePropertyValue.h"
@@ -98,7 +99,9 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<SgfcPropertyElistValueTypeDescriptor> DescriptorElistOfPoint = std::shared_ptr<SgfcPropertyElistValueTypeDescriptor>(
     new SgfcPropertyElistValueTypeDescriptor(DescriptorListOfPoint));
 
-  SgfcPropertyDecoder::SgfcPropertyDecoder()
+  SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty)
+    : sgfProperty(sgfProperty)
+    , propertyType(GetSgfcPropertyTypeForSgfProperty(sgfProperty))
   {
   }
 
@@ -106,9 +109,14 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  SgfcPropertyType SgfcPropertyDecoder::GetSgfcPropertyTypeFromSgfProperty(Property* sgfProperty)
+  SgfcPropertyType SgfcPropertyDecoder::GetPropertyType() const
   {
-    switch (sgfProperty->id)
+    return this->propertyType;
+  }
+
+  SgfcPropertyType SgfcPropertyDecoder::GetSgfcPropertyTypeForSgfProperty(const Property* sgfProperty) const
+  {
+    switch (this->sgfProperty->id)
     {
       case TKN_NONE:
         return SgfcPropertyType::Unknown;
@@ -292,8 +300,12 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  std::vector<std::shared_ptr<ISgfcPropertyValue>> SgfcPropertyDecoder::GetPropertyValuesFromSgfProperty(
-    Property* sgfProperty)
+  std::string SgfcPropertyDecoder::GetPropertyName() const
+  {
+    return this->sgfProperty->idstr;
+  }
+
+  std::vector<std::shared_ptr<ISgfcPropertyValue>> SgfcPropertyDecoder::GetPropertyValues() const
   {
     std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
 
@@ -307,11 +319,10 @@ namespace LibSgfcPlusPlus
       return propertyValues;
     }
 
-    SgfcPropertyType propertyType =
-      SgfcPropertyDecoder::GetSgfcPropertyTypeFromSgfProperty(sgfProperty);
+    SgfcPropertyType propertyType = GetPropertyType();
 
     std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor =
-      SgfcPropertyDecoder::GetValueTypeDescriptorForPropertyType(propertyType);
+      GetValueTypeDescriptorForPropertyType(propertyType);
 
     SgfcPropertyValueTypeDescriptorType descriptorType = valueTypeDescriptor->GetDescriptorType();
     switch (descriptorType)
@@ -323,9 +334,9 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType1 =
           dualValueTypeDescriptor->GetDescriptorValueType1();
         std::shared_ptr<ISgfcPropertyValue> propertyValueType1 =
-          SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType1);
+          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType1);
 
-        bool doesPropertyValueType1HaveTypedValues = SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(propertyValueType1);
+        bool doesPropertyValueType1HaveTypedValues = DoesSgfcPropertyHaveTypedValues(propertyValueType1);
         if (doesPropertyValueType1HaveTypedValues)
         {
           // Property value had the first of the two possible value types. We
@@ -338,9 +349,9 @@ namespace LibSgfcPlusPlus
           std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType2 =
             dualValueTypeDescriptor->GetDescriptorValueType2();
           std::shared_ptr<ISgfcPropertyValue> propertyValueType2 =
-            SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType2);
+            GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType2);
 
-          bool doesPropertyValueType2HaveTypedValues = SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(propertyValueType2);
+          bool doesPropertyValueType2HaveTypedValues = DoesSgfcPropertyHaveTypedValues(propertyValueType2);
           if (doesPropertyValueType2HaveTypedValues)
           {
             // Property value had the second of the two possible value types
@@ -368,7 +379,7 @@ namespace LibSgfcPlusPlus
             valueTypeDescriptor->ToElistValueTypeDescriptor()->GetDescriptorListValueType()->GetDescriptorElementValueType();
 
           propertyValues =
-            SgfcPropertyDecoder::GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
+            GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
         }
 
         break;
@@ -379,7 +390,7 @@ namespace LibSgfcPlusPlus
           valueTypeDescriptor->ToListValueTypeDescriptor()->GetDescriptorElementValueType();
 
         propertyValues =
-          SgfcPropertyDecoder::GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
+          GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
 
         break;
       }
@@ -387,7 +398,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyValueTypeDescriptorType::BasicValueType:
       {
         std::shared_ptr<ISgfcPropertyValue> propertyValue =
-          SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, valueTypeDescriptor);
+          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, valueTypeDescriptor);
 
         if (propertyValue == nullptr)
         {
@@ -414,7 +425,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcPropertyValueTypeDescriptor> SgfcPropertyDecoder::GetValueTypeDescriptorForPropertyType(
-    SgfcPropertyType propertyType)
+    SgfcPropertyType propertyType) const
   {
     switch (propertyType)
     {
@@ -704,14 +715,14 @@ namespace LibSgfcPlusPlus
   /// SgfcPropertyComposedValueTypeDescriptor).
   std::vector<std::shared_ptr<ISgfcPropertyValue>> SgfcPropertyDecoder::GetSgfcPropertyValuesFromSgfPropertyValue(
     PropValue* sgfPropertyValue,
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor)
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor) const
   {
     std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
 
     while (sgfPropertyValue)
     {
       std::shared_ptr<ISgfcPropertyValue> propertyValue =
-        SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
+        GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
 
       propertyValues.push_back(propertyValue);
 
@@ -727,7 +738,7 @@ namespace LibSgfcPlusPlus
   /// SgfcPropertyComposedValueTypeDescriptor).
   std::shared_ptr<ISgfcPropertyValue> SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
     PropValue* sgfPropertyValue,
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor)
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor) const
   {
     SgfcPropertyValueTypeDescriptorType descriptorType = valueTypeDescriptor->GetDescriptorType();
     switch (descriptorType)
@@ -746,10 +757,10 @@ namespace LibSgfcPlusPlus
         SgfcPropertyValueType basicValueType2 =
           composedValueTypeDescriptor->GetDescriptorValueType2()->ToBasicValueTypeDescriptor()->GetValueType();
 
-        std::shared_ptr<ISgfcSinglePropertyValue> propertyValue1 = SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
+        std::shared_ptr<ISgfcSinglePropertyValue> propertyValue1 = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value,
           basicValueType1);
-        std::shared_ptr<ISgfcSinglePropertyValue> propertyValue2 = SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
+        std::shared_ptr<ISgfcSinglePropertyValue> propertyValue2 = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value2,
           basicValueType2);
 
@@ -779,7 +790,7 @@ namespace LibSgfcPlusPlus
           return nullptr;
         }
 
-        std::shared_ptr<ISgfcPropertyValue> propertyValue = SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
+        std::shared_ptr<ISgfcPropertyValue> propertyValue = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value,
           basicValueType);
 
@@ -799,7 +810,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer,
-    SgfcPropertyValueType propertyValueType)
+    SgfcPropertyValueType propertyValueType) const
   {
     std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
 
@@ -854,7 +865,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcNumberPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer)
+    const char* rawPropertyValueBuffer) const
   {
     // std::from_chars() only recognizes the minus sign, not the plus sign
     if (*rawPropertyValueBuffer == '+')
@@ -893,7 +904,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcRealPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer)
+    const char* rawPropertyValueBuffer) const
   {
     // std::from_chars() only recognizes the minus sign, not the plus sign
     if (*rawPropertyValueBuffer == '+')
@@ -931,7 +942,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcDoublePropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer)
+    const char* rawPropertyValueBuffer) const
   {
     std::string rawPropertyValue = rawPropertyValueBuffer;
 
@@ -965,7 +976,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcColorPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer)
+    const char* rawPropertyValueBuffer) const
   {
     std::string rawPropertyValue = rawPropertyValueBuffer;
 
@@ -998,7 +1009,8 @@ namespace LibSgfcPlusPlus
     return propertyValue;
   }
 
-  bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue)
+  bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(
+    const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const
   {
     if (propertyValue->IsComposedValue())
     {
