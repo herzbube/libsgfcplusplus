@@ -77,34 +77,34 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyValueTypeDescriptorType::DualValueType. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    virtual const SgfcPropertyDualValueTypeDescriptor* ToDualValueTypeDescriptor() const = 0;
+    virtual const SgfcPropertyDualValueTypeDescriptor* ToDualValueTypeDescriptor() const;
 
     /// @brief Returns an SgfcPropertyListValueTypeDescriptor object if
     /// GetDescriptorType() returns
     /// SgfcPropertyValueTypeDescriptorType::ElistValueType. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    virtual const SgfcPropertyElistValueTypeDescriptor* ToElistValueTypeDescriptor() const = 0;
+    virtual const SgfcPropertyElistValueTypeDescriptor* ToElistValueTypeDescriptor() const;
 
     /// @brief Returns an SgfcPropertyElistValueTypeDescriptor object if
     /// GetDescriptorType() returns
     /// SgfcPropertyValueTypeDescriptorType::ListValueType. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    virtual const SgfcPropertyListValueTypeDescriptor* ToListValueTypeDescriptor() const = 0;
+    virtual const SgfcPropertyListValueTypeDescriptor* ToListValueTypeDescriptor() const;
 
     /// @brief Returns an SgfcPropertyComposedValueTypeDescriptor object if
     /// GetDescriptorType() returns
     /// SgfcPropertyValueTypeDescriptorType::ComposedValueType. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    virtual const SgfcPropertyComposedValueTypeDescriptor* ToComposedValueTypeDescriptor() const = 0;
+    virtual const SgfcPropertyComposedValueTypeDescriptor* ToComposedValueTypeDescriptor() const;
 
     /// @brief Returns an SgfcPropertyBasicValueTypeDescriptor object if
     /// GetDescriptorType() returns
     /// SgfcPropertyValueTypeDescriptorType::BasicValueType. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    virtual const SgfcPropertyBasicValueTypeDescriptor* ToBasicValueTypeDescriptor() const = 0;
+    virtual const SgfcPropertyBasicValueTypeDescriptor* ToBasicValueTypeDescriptor() const;
   };
 }

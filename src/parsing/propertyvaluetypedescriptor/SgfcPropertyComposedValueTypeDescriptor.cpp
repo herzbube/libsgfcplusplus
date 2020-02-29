@@ -35,29 +35,9 @@ namespace LibSgfcPlusPlus
     return SgfcPropertyValueTypeDescriptorType::ComposedValueType;
   }
 
-  const SgfcPropertyDualValueTypeDescriptor* SgfcPropertyComposedValueTypeDescriptor::ToDualValueTypeDescriptor() const
-  {
-    return nullptr;
-  }
-
-  const SgfcPropertyElistValueTypeDescriptor* SgfcPropertyComposedValueTypeDescriptor::ToElistValueTypeDescriptor() const
-  {
-    return nullptr;
-  }
-
-  const SgfcPropertyListValueTypeDescriptor* SgfcPropertyComposedValueTypeDescriptor::ToListValueTypeDescriptor() const
-  {
-    return nullptr;
-  }
-
   const SgfcPropertyComposedValueTypeDescriptor* SgfcPropertyComposedValueTypeDescriptor::ToComposedValueTypeDescriptor() const
   {
     return this;
-  }
-
-  const SgfcPropertyBasicValueTypeDescriptor* SgfcPropertyComposedValueTypeDescriptor::ToBasicValueTypeDescriptor() const
-  {
-    return nullptr;
   }
 
   std::shared_ptr<ISgfcPropertyValueTypeDescriptor> SgfcPropertyComposedValueTypeDescriptor::GetDescriptorValueType1() const

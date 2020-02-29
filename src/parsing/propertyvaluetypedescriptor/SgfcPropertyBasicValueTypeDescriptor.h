@@ -35,11 +35,6 @@ namespace LibSgfcPlusPlus
     virtual ~SgfcPropertyBasicValueTypeDescriptor();
 
     virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const;
-
-    virtual const SgfcPropertyDualValueTypeDescriptor* ToDualValueTypeDescriptor() const;
-    virtual const SgfcPropertyElistValueTypeDescriptor* ToElistValueTypeDescriptor() const;
-    virtual const SgfcPropertyListValueTypeDescriptor* ToListValueTypeDescriptor() const;
-    virtual const SgfcPropertyComposedValueTypeDescriptor* ToComposedValueTypeDescriptor() const;
     virtual const SgfcPropertyBasicValueTypeDescriptor* ToBasicValueTypeDescriptor() const;
 
     /// @brief Returns the value type defined by the
