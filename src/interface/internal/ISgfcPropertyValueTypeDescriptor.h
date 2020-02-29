@@ -24,10 +24,26 @@ namespace LibSgfcPlusPlus
   ///
   /// With the exception of SgfcPropertyBasicValueTypeDescriptor, all
   /// implementations of ISgfcPropertyValueTypeDescriptor are composed of one
-  /// or more other ISgfcPropertyValueTypeDescriptor objects. The concept allows
-  /// arbitrary nesting of descriptors, with the goal that the descriptor
-  /// for a specific property can ultimately be broken down into one or more
-  /// descriptors of a basic value type.
+  /// or more other ISgfcPropertyValueTypeDescriptor objects. The goal is that
+  /// the descriptor for a specific property can ultimately be broken down into
+  /// one or more SgfcPropertyBasicValueTypeDescriptor.
+  ///
+  /// In theory the concept allows arbitrary nesting of descriptors. In practice
+  /// the nesting is restricted by the current implementation of the decoder
+  /// that parses property values. The restrictions are these:
+  /// - SgfcPropertyDualValueTypeDescriptor,
+  ///   SgfcPropertyElistValueTypeDescriptor and
+  ///   SgfcPropertyListValueTypeDescriptor can only be composed of
+  ///   SgfcPropertyBasicValueTypeDescriptor and/or
+  ///   SgfcPropertyComposedValueTypeDescriptor.
+  /// - SgfcPropertyComposedValueTypeDescriptor can only be composed of
+  ///   SgfcPropertyBasicValueTypeDescriptor.
+  ///
+  /// The decoder implementation (and therefore the restrictions it imposes)
+  /// are geared towards what is possible according to the definitions in the
+  /// SGF standard. If a future version of the SGF standard allows more complex
+  /// descriptor combinations, the decoder implementation will have to be
+  /// expanded.
   ///
   /// @example The "AR" property contains a list of composed Point/Point values.
   /// The top-level descriptor for the property therefore is an

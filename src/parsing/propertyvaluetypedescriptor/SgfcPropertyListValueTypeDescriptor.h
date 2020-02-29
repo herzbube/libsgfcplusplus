@@ -17,6 +17,11 @@ namespace LibSgfcPlusPlus
   /// GetDescriptorElementValueType() returns a descriptor for the list element
   /// value type.
   ///
+  /// @note The descriptor must be either an
+  /// SgfcPropertyBasicValueTypeDescriptor or an
+  /// SgfcPropertyComposedValueTypeDescriptor object. In both cases the basic
+  /// value types must not be SgfcPropertyValueType::None.
+  ///
   /// @note A list type property has at least one value. Properties which allow
   /// zero values are "elists".
   ///
@@ -31,6 +36,11 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed
     /// SgfcPropertyListValueTypeDescriptor object.
+    ///
+    /// @exception std::logic_error Is thrown if the descriptor object is
+    /// neither an SgfcPropertyBasicValueTypeDescriptor nor an
+    /// SgfcPropertyComposedValueTypeDescriptor object, or if the basic value
+    /// type is SgfcPropertyValueType::None.
     SgfcPropertyListValueTypeDescriptor(
       std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorElementValueType);
 

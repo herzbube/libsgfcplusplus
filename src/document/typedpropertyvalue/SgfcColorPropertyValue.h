@@ -13,7 +13,7 @@ namespace LibSgfcPlusPlus
   {
   public:
     SgfcColorPropertyValue(const std::string& rawValue, SgfcColor colorValue);
-    SgfcColorPropertyValue(const std::string& rawValue);
+    SgfcColorPropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage);
     virtual ~SgfcColorPropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;

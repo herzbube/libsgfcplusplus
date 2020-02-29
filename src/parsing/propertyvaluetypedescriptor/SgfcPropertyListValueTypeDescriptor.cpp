@@ -1,5 +1,9 @@
 // Project includes
 #include "SgfcPropertyListValueTypeDescriptor.h"
+#include "SgfcPropertyBasicValueTypeDescriptor.h"
+
+// C++ Standard Library includes
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
@@ -7,6 +11,22 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorElementValueType)
     : descriptorElementValueType(descriptorElementValueType)
   {
+    if (this->descriptorElementValueType->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::BasicValueType &&
+        this->descriptorElementValueType->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::ComposedValueType)
+    {
+      throw std::logic_error("The descriptor object is neither an SgfcPropertyBasicValueTypeDescriptor nor an SgfcPropertyComposedValueTypeDescriptor object");
+    }
+
+    // No need to check the value type for
+    // SgfcPropertyComposedValueTypeDescriptor objects - the
+    // SgfcPropertyComposedValueTypeDescriptor constructor already performs the
+    // check.
+
+    if (this->descriptorElementValueType->GetDescriptorType() == SgfcPropertyValueTypeDescriptorType::BasicValueType &&
+        this->descriptorElementValueType->ToBasicValueTypeDescriptor()->GetValueType() == SgfcPropertyValueType::None)
+    {
+      throw std::logic_error("One or both of the two descriptor objects have value type SgfcPropertyValueType::None");
+    }
   }
 
   SgfcPropertyListValueTypeDescriptor::~SgfcPropertyListValueTypeDescriptor()

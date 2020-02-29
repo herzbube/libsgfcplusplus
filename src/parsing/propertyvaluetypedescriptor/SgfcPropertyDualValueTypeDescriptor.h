@@ -19,6 +19,10 @@ namespace LibSgfcPlusPlus
   /// the first possible value type, GetDescriptorValueType2() returns a
   /// descriptor for the second possible value type.
   ///
+  /// @note The two descriptors must be either
+  /// SgfcPropertyBasicValueTypeDescriptor or
+  /// SgfcPropertyComposedValueTypeDescriptor objects.
+  ///
   /// @example The "SZ" property value either is a single number, or it is a
   /// composed Number/Number. GetDescriptorValueType1() in this case returns an
   /// SgfcPropertyBasicValueTypeDescriptor object which has the basic value
@@ -31,6 +35,10 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed
     /// SgfcPropertyDualValueTypeDescriptor object.
+    ///
+    /// @exception std::logic_error Is thrown if one or both of the
+    /// two descriptor objects are neither SgfcPropertyBasicValueTypeDescriptor
+    /// nor SgfcPropertyComposedValueTypeDescriptor objects.
     SgfcPropertyDualValueTypeDescriptor(
       std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType1,
       std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType2);

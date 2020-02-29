@@ -18,21 +18,23 @@ namespace LibSgfcPlusPlus
   /// for the value type of the first value, GetDescriptorValueType2() returns a
   /// descriptor for the value type of the second value.
   ///
+  /// @note The two descriptors must be SgfcPropertyBasicValueTypeDescriptor
+  /// objects, and their value types must not be SgfcPropertyValueType::None.
+  ///
   /// @example The "AP" property value is composed of two SimpleText values
   /// separated by a ":" character. Both GetDescriptorValueType1() and
   /// GetDescriptorValueType2() in this case return
   /// SgfcPropertyBasicValueTypeDescriptor objects which both have the basic
   /// value type SgfcPropertyValueType::SimpleText.
-  ///
-  /// @note The example is simple, so it should be noted that in other cases the
-  /// two value type descriptors do not necessarily describe the same value
-  /// type, nor are they restricted to the SgfcPropertyBasicValueTypeDescriptor
-  /// type.
   class SgfcPropertyComposedValueTypeDescriptor : public ISgfcPropertyValueTypeDescriptor
   {
   public:
     /// @brief Initializes a newly constructed
     /// SgfcPropertyComposedValueTypeDescriptor object.
+    ///
+    /// @exception std::logic_error Is thrown if one or both of the two
+    /// descriptor objects are not SgfcPropertyBasicValueTypeDescriptor objects,
+    /// or if the basic value type is SgfcPropertyValueType::None.
     SgfcPropertyComposedValueTypeDescriptor(
       std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType1,
       std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType2);

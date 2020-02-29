@@ -13,7 +13,7 @@ namespace LibSgfcPlusPlus
   {
   public:
     SgfcDoublePropertyValue(const std::string& rawValue, SgfcDouble doubleValue);
-    SgfcDoublePropertyValue(const std::string& rawValue);
+    SgfcDoublePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage);
     virtual ~SgfcDoublePropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;

@@ -8,6 +8,10 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::EmptyString = "";
   const std::string SgfcConstants::SpaceCharacter = " ";
   const char SgfcConstants::NewlineCharacter = '\n';
+  const std::string SgfcConstants::DoubleNormalString = "1";
+  const std::string SgfcConstants::DoubleEmphasizedString = "2";
+  const std::string SgfcConstants::ColorBlackString = "B";
+  const std::string SgfcConstants::ColorWhiteString = "W";
 
   const std::string SgfcConstants::LineToken = "Line:";
   const std::string SgfcConstants::ColumnToken = "Col:";

@@ -1,6 +1,5 @@
 // Project includes
 #include "../parsing/SgfcPropertyDecoder.h"
-#include "typedpropertyvalue/SgfcUnknownPropertyValue.h"
 #include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
 #include "SgfcGame.h"
@@ -95,30 +94,11 @@ namespace LibSgfcPlusPlus
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyType propertyType = SgfcPropertyDecoder::GetSgfcPropertyTypeFromSgfProperty(sgfProperty);
+      SgfcPropertyType propertyType =
+        SgfcPropertyDecoder::GetSgfcPropertyTypeFromSgfProperty(sgfProperty);
       std::string propertyName = sgfProperty->idstr;
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
-
-      PropValue* sgfPropertyValue = sgfProperty->value;
-      while (sgfPropertyValue)
-      {
-        std::shared_ptr<ISgfcPropertyValue> propertyValue;
-        if (sgfPropertyValue->value2 == nullptr)
-        {
-          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcUnknownPropertyValue(
-            sgfPropertyValue->value));
-        }
-        else
-        {
-          propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcComposedPropertyValue(
-            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(sgfPropertyValue->value)),
-            std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(sgfPropertyValue->value2))));
-        }
-
-        propertyValues.push_back(propertyValue);
-
-        sgfPropertyValue = sgfPropertyValue->next;
-      }
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues =
+        SgfcPropertyDecoder::GetPropertyValuesFromSgfProperty(sgfProperty);
 
       std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
         propertyType,
@@ -190,24 +170,36 @@ namespace LibSgfcPlusPlus
       std::cout << "    Property type = " << static_cast<int>(property->GetPropertyType()) << std::endl;
       std::cout << "    Property name = " << property->GetPropertyName() << std::endl;
       std::cout << "    Property values" << std::endl;
+
+      bool propertyHasAtLeastOneValue = false;
       for (const auto& propertyValue : property->GetPropertyValues())
       {
-        std::cout << "      IsCompositeValue = " << propertyValue->IsComposedValue() << std::endl;
+        propertyHasAtLeastOneValue = true;
+
+        std::cout << "      IsComposedValue = " << propertyValue->IsComposedValue() << std::endl;
         if (propertyValue->IsComposedValue())
         {
           const ISgfcComposedPropertyValue* composedPropertyValue = propertyValue->ToComposedValue();
-          std::cout << "      Value type 1 = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
-          std::cout << "      Raw value 1 = " << composedPropertyValue->GetValue1()->GetRawValue() << std::endl;
-          std::cout << "      Value type 2 = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
-          std::cout << "      Raw value 2 = " << composedPropertyValue->GetValue2()->GetRawValue() << std::endl;
-
+          std::cout << "      Value type 1      = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
+          std::cout << "      Has typed value 1 = " << composedPropertyValue->GetValue1()->HasTypedValue() << std::endl;
+          std::cout << "      Raw value 1       = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
+          std::cout << "      Value type 2      = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
+          std::cout << "      Has typed value 2 = \"" << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
+          std::cout << "      Raw value 2       = " << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
         }
         else
         {
           const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
-          std::cout << "      Value type= " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
-          std::cout << "      Raw value= " << singlePropertyValue->GetRawValue() << std::endl;
+          std::cout << "      Value type      = " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
+          std::cout << "      Has typed value = " << singlePropertyValue->HasTypedValue() << std::endl;
+          std::cout << "      Raw value       = \"" << singlePropertyValue->GetRawValue() << "\"" << std::endl;
         }
+      }
+
+      if (! propertyHasAtLeastOneValue)
+      {
+        std::cout << "      Property has no values" << std::endl;
+
       }
     }
   }

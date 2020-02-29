@@ -21,6 +21,10 @@ namespace LibSgfcPlusPlus
   /// SgfcPropertyListValueTypeDescriptor, which in turn is composed of another
   /// descriptor that defines the value type of the list elements.
   ///
+  /// @note The SgfcPropertyListValueTypeDescriptor object must be composed of
+  /// either an SgfcPropertyBasicValueTypeDescriptor or an
+  /// SgfcPropertyComposedValueTypeDescriptor object.
+  ///
   /// SgfcPropertyElistValueTypeDescriptor could also be expressed with an
   /// SgfcPropertyDualValueTypeDescriptor. SgfcPropertyElistValueTypeDescriptor
   /// exists as a dedicated type only because the SGF standard explicitly names

@@ -1,6 +1,9 @@
 // Project includes
 #include "SgfcPropertyDualValueTypeDescriptor.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcPropertyDualValueTypeDescriptor::SgfcPropertyDualValueTypeDescriptor(
@@ -9,6 +12,13 @@ namespace LibSgfcPlusPlus
     : descriptorValueType1(descriptorValueType1)
     , descriptorValueType2(descriptorValueType2)
   {
+    if ((this->descriptorValueType1->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::BasicValueType &&
+         this->descriptorValueType1->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::ComposedValueType) ||
+        (this->descriptorValueType2->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::BasicValueType &&
+         this->descriptorValueType2->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::ComposedValueType))
+    {
+      throw std::logic_error("One or both of the two descriptor objects are neither SgfcPropertyBasicValueTypeDescriptor nor SgfcPropertyComposedValueTypeDescriptor objects");
+    }
   }
 
   SgfcPropertyDualValueTypeDescriptor::~SgfcPropertyDualValueTypeDescriptor()

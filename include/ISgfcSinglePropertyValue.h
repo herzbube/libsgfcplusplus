@@ -80,6 +80,20 @@ namespace LibSgfcPlusPlus
     /// definition, but HasTypedValue() will return false.
     virtual bool HasTypedValue() const = 0;
 
+    /// @brief Returns an error message that describes why the raw string value
+    /// returned by GetRawValue() could not be converted to the typed value
+    /// returned by GetValueType().
+    ///
+    /// Invoking this method makes sense only if GetValueType() returns a value
+    /// other than SgfcPropertyValueType::Unknown, because only in this case
+    /// does libsgfc++ attempt a conversion. In addition, HasTypedValue()
+    /// obviously must return false to indicate that a type conversion error
+    /// occurred.
+    ///
+    /// Returns an empty string if GetValueType() returns
+    /// SgfcPropertyValueType::Unknown or if HasTypedValue() returns false.
+    virtual std::string GetTypeConversionErrorMessage() const = 0;
+
     /// @brief Returns the property value as a raw string.
     ///
     /// @todo Return the value without escaped characters.

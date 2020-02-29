@@ -13,7 +13,6 @@ namespace LibSgfcPlusPlus
   {
   public:
     SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue);
-    SgfcTextPropertyValue(const std::string& rawValue);
     virtual ~SgfcTextPropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;

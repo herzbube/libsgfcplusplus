@@ -11,7 +11,19 @@ namespace LibSgfcPlusPlus
   class SgfcSinglePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
-    SgfcSinglePropertyValue(bool hasTypedValue, const std::string& rawValue);
+    /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
+    /// that has the raw property string value @a rawValue. HasTypedValue()
+    /// returns true and GetTypeConversionErrorMessage() returns an empty
+    /// string.
+    SgfcSinglePropertyValue(const std::string& rawValue);
+
+    /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
+    /// that has the raw property string value @a rawValue. HasTypedValue()
+    /// returns false and GetTypeConversionErrorMessage() returns
+    /// @a typeConversionErrorMessage.
+    SgfcSinglePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage);
+
+    /// @brief Destroys and cleans up the SgfcSinglePropertyValue object.
     virtual ~SgfcSinglePropertyValue();
 
     virtual bool IsComposedValue() const;
@@ -19,6 +31,8 @@ namespace LibSgfcPlusPlus
     virtual const ISgfcComposedPropertyValue* ToComposedValue() const;
 
     virtual bool HasTypedValue() const;
+    virtual std::string GetTypeConversionErrorMessage() const;
+
     virtual std::string GetRawValue() const;
 
     virtual const ISgfcNumberPropertyValue* ToNumberValue() const;
@@ -40,6 +54,7 @@ namespace LibSgfcPlusPlus
 
   private:
     bool hasTypedValue;
+    std::string typeConversionErrorMessage;
     std::string rawValue;
   };
 }

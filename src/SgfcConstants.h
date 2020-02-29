@@ -17,6 +17,10 @@ namespace LibSgfcPlusPlus
     static const std::string EmptyString;
     static const std::string SpaceCharacter;
     static const char NewlineCharacter;
+    static const std::string DoubleNormalString;
+    static const std::string DoubleEmphasizedString;
+    static const std::string ColorBlackString;
+    static const std::string ColorWhiteString;
 
     static const std::string LineToken;
     static const std::string ColumnToken;

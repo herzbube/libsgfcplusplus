@@ -7,8 +7,15 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue(bool hasTypedValue, const std::string& rawValue)
-    : hasTypedValue(hasTypedValue)
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue)
+    : hasTypedValue(true)
+    , rawValue(rawValue)
+  {
+  }
+
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage)
+    : hasTypedValue(false)
+    , typeConversionErrorMessage(typeConversionErrorMessage)
     , rawValue(rawValue)
   {
   }
@@ -35,6 +42,11 @@ namespace LibSgfcPlusPlus
   bool SgfcSinglePropertyValue::HasTypedValue() const
   {
     return this->hasTypedValue;
+  }
+
+  std::string SgfcSinglePropertyValue::GetTypeConversionErrorMessage() const
+  {
+    return this->typeConversionErrorMessage;
   }
 
   std::string SgfcSinglePropertyValue::GetRawValue() const
