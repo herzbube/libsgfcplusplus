@@ -4,6 +4,10 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcDouble enumerates the values that a property value of type
   /// SgfcPropertyValueType::Double can have.
+  ///
+  /// @important Do not rely on the numeric value underlying each enumeration
+  /// member. Specifically, do not attempt to map the numeric value to the
+  /// Double representation in the SGF content.
   enum class SgfcDouble
   {
     /// @brief The property value signifies "normal" importance. Example: If the
