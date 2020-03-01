@@ -3,7 +3,9 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcPropertyType enumerates all property types defined by the SGF
-  /// standard.
+  /// standard, plus a small number of non-standard property types that are
+  /// specially handled by SGFC. The enum value SgfcPropertyType::Unknown is
+  /// used for all other non-standard properties.
   enum class SgfcPropertyType
   {
     // ----------------------------------------------------------------------
@@ -413,7 +415,7 @@ namespace LibSgfcPlusPlus
     KI,
 
     /// @brief The property type is unknown, i.e. the property is a custom
-    /// property not defined in the SGF standard.
+    /// property not defined by the SGF standard.
     Unknown,
   };
 }

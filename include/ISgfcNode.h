@@ -15,10 +15,10 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed ISgfcNode object.
-     ISgfcNode();
+    ISgfcNode();
 
-     /// @brief Destroys and cleans up the ISgfcNode object.
-     virtual ~ISgfcNode();
+    /// @brief Destroys and cleans up the ISgfcNode object.
+    virtual ~ISgfcNode();
 
     /// @brief Returns the node's first child node.
     /// The node may be @e nullptr.

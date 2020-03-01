@@ -856,7 +856,7 @@ namespace LibSgfcPlusPlus
       {
         if (sgfPropertyValue->value2 == nullptr)
         {
-          // TODO: SGFC gave as a single value, but we expected composed value
+          // TODO: SGFC gave us a single value, but we expected composed value
         }
 
         const SgfcPropertyComposedValueTypeDescriptor* composedValueTypeDescriptor =
@@ -883,7 +883,7 @@ namespace LibSgfcPlusPlus
       {
         if (sgfPropertyValue->value2 != nullptr)
         {
-          // TODO: SGFC gave as a composed value, but we expected a single value
+          // TODO: SGFC gave us a composed value, but we expected a single value
         }
 
         SgfcPropertyValueType basicValueType =
@@ -893,7 +893,7 @@ namespace LibSgfcPlusPlus
         {
           if (sgfPropertyValue->value != SgfcConstants::EmptyString)
           {
-            // TODO: SGFC gave as a non-empty value, but we expected an empty value
+            // TODO: SGFC gave us a non-empty value, but we expected an empty value
           }
 
           return nullptr;

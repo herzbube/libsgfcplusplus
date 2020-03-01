@@ -24,10 +24,10 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed ISgfcProperty object.
-     ISgfcProperty();
+    ISgfcProperty();
 
-     /// @brief Destroys and cleans up the ISgfcProperty object.
-     virtual ~ISgfcProperty();
+    /// @brief Destroys and cleans up the ISgfcProperty object.
+    virtual ~ISgfcProperty();
 
     /// @brief Returns the type of the property. Returns
     /// SgfcPropertyType::Unknown if the property is a custom property that is
