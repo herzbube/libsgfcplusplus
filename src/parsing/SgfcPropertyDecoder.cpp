@@ -99,9 +99,10 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<SgfcPropertyElistValueTypeDescriptor> DescriptorElistOfPoint = std::shared_ptr<SgfcPropertyElistValueTypeDescriptor>(
     new SgfcPropertyElistValueTypeDescriptor(DescriptorListOfPoint));
 
-  SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty)
+  SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType)
     : sgfProperty(sgfProperty)
     , propertyType(GetPropertyTypeInternal())
+    , gameType(gameType)
     , valueTypeDescriptor(GetValueTypeDescriptor())
   {
   }
@@ -426,7 +427,7 @@ namespace LibSgfcPlusPlus
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyDecoder propertyDecoder(sgfProperty);
+      SgfcPropertyDecoder propertyDecoder(sgfProperty, SgfcGameType::Unknown);
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
       if (propertyType != SgfcPropertyType::GM)
       {
@@ -639,88 +640,168 @@ namespace LibSgfcPlusPlus
       // Game of Go properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::HA:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Go)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::KM:
-        return DescriptorReal;
+        if (this->gameType == SgfcGameType::Go)
+          return DescriptorReal;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::TB:
-        return DescriptorElistOfPoint;
+        if (this->gameType == SgfcGameType::Go)
+          return DescriptorElistOfPoint;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::TW:
-        return DescriptorElistOfPoint;
+        if (this->gameType == SgfcGameType::Go)
+          return DescriptorElistOfPoint;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Game of Backgammon properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::CO:
-        return DescriptorSimpleText;
+        if (this->gameType == SgfcGameType::Backgammon)
+          return DescriptorSimpleText;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::CV:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Backgammon)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::DI:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Backgammon)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::MI:
-        return DescriptorListOfComposedSimpleTextAndSimpleText;
+        if (this->gameType == SgfcGameType::Backgammon)
+          return DescriptorListOfComposedSimpleTextAndSimpleText;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Game of Lines of Action properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::IY:
-        return DescriptorSimpleText;
+        if (this->gameType == SgfcGameType::LinesOfAction)
+          return DescriptorSimpleText;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::SU:
-        return DescriptorSimpleText;
+        if (this->gameType == SgfcGameType::LinesOfAction)
+          return DescriptorSimpleText;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Game of Hex properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::IS:
-        return DescriptorListOfComposedSimpleTextAndSimpleText;
+        if (this->gameType == SgfcGameType::Hex)
+          return DescriptorListOfComposedSimpleTextAndSimpleText;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Game of Amazons properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::AA:
-        return DescriptorListOfMove;
+        if (this->gameType == SgfcGameType::Amazons)
+          return DescriptorListOfMove;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Game of Octi properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::BO:
-        return DescriptorListOfMove;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfMove;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::WO:
-        return DescriptorListOfMove;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfMove;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::NP:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::NR:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::NS:
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::CS:
-        return DescriptorListOfStone;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfStone;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::MS:
-        return DescriptorListOfStone;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfStone;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::SS:
-        return DescriptorListOfStone;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfStone;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::TS:
-        return DescriptorListOfStone;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfStone;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::RP:
-        return DescriptorListOfStone;
+        if (this->gameType == SgfcGameType::Octi)
+          return DescriptorListOfStone;
+        else
+          return DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Properties for more than one game
       // ----------------------------------------------------------------------
-      // Lines of Action (GM[9]) and Octi (GM[19])
       case SgfcPropertyType::AS:
-        /// @todo For the game of Octi in FF4 this is defined as
-        /// DescriptorListOfComposedStoneAndPoint.
-        return DescriptorSimpleText;
-      // Lines of Action (GM[9]) and Hex (GM[11])
+        switch (this->gameType)
+        {
+          case SgfcGameType::Octi:
+            return DescriptorListOfComposedStoneAndPoint;
+          case SgfcGameType::LinesOfAction:
+            return DescriptorSimpleText;
+          default:
+            return DescriptorUnknown;
+        }
       case SgfcPropertyType::IP:
-        return DescriptorSimpleText;
+        switch (this->gameType)
+        {
+          case SgfcGameType::LinesOfAction:
+          case SgfcGameType::Hex:
+            return DescriptorSimpleText;
+          default:
+            return DescriptorUnknown;
+        }
 
       // ----------------------------------------------------------------------
       // Non-standard properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::KI:
-        // The type comes from the SGFC README.
-        return DescriptorNumber;
+        if (this->gameType == SgfcGameType::Go)
+          // The type comes from the SGFC README.
+          return DescriptorNumber;
+        else
+          return DescriptorUnknown;
       case SgfcPropertyType::Unknown:
         return DescriptorUnknown;
 

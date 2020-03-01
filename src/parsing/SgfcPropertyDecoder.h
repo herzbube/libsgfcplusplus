@@ -26,7 +26,9 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcPropertyDecoder object. The
     /// object parses the specified SGF property @a sgfProperty and its values.
-    SgfcPropertyDecoder(const Property* sgfProperty);
+    /// The specified game type @a gameType is important for interpreting
+    /// game-specific properties.
+    SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType);
     
     /// @brief Destroys and cleans up the SgfcPropertyDecoder object.
     virtual ~SgfcPropertyDecoder();
@@ -69,6 +71,7 @@ namespace LibSgfcPlusPlus
   private:
     const Property* sgfProperty;
     SgfcPropertyType propertyType;
+    SgfcGameType gameType;
     std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor;
 
     SgfcPropertyType GetPropertyTypeInternal() const;

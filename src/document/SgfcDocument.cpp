@@ -42,19 +42,25 @@ namespace LibSgfcPlusPlus
     while (sgfRootNode)
     {
       std::shared_ptr<ISgfcNode> rootNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
-      ParseProperties(rootNode, sgfRootNode);
+
+      SgfcGameType gameType = SgfcPropertyDecoder::GetGameTypeFromNode(sgfRootNode);
+
+      ParseProperties(rootNode, sgfRootNode, gameType);
 
       std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
       this->games.push_back(game);
 
-      RecursiveParseDepthFirst(rootNode, sgfRootNode);
+      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType);
 
       sgfRootNode = sgfRootNode->sibling;
       sgfTreeInfo = sgfTreeInfo->next;
     }
   }
 
-  void SgfcDocument::RecursiveParseDepthFirst(std::shared_ptr<ISgfcNode> parentNode, Node* sgfParentNode)
+  void SgfcDocument::RecursiveParseDepthFirst(
+    std::shared_ptr<ISgfcNode> parentNode,
+    Node* sgfParentNode,
+    SgfcGameType gameType)
   {
     Node* sgfFirstChildNode = sgfParentNode->child;
     if (sgfFirstChildNode == nullptr)
@@ -63,9 +69,9 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcNode> firstChildNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
     parentNode->SetFirstChild(firstChildNode);
     firstChildNode->SetParent(parentNode);
-    ParseProperties(firstChildNode, sgfFirstChildNode);
+    ParseProperties(firstChildNode, sgfFirstChildNode, gameType);
 
-    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode);
+    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType);
 
     Node* sgfPreviousSiblingNode = sgfFirstChildNode;
     std::shared_ptr<ISgfcNode> previousSiblingNode = firstChildNode;
@@ -76,9 +82,9 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> nextSiblingNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
       nextSiblingNode->SetParent(parentNode);
       previousSiblingNode->SetNextSibling(nextSiblingNode);
-      ParseProperties(nextSiblingNode, sgfNextSiblingNode);
+      ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType);
 
-      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode);
+      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType);
 
       sgfPreviousSiblingNode = sgfNextSiblingNode;
       previousSiblingNode = nextSiblingNode;
@@ -87,14 +93,17 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcDocument::ParseProperties(std::shared_ptr<ISgfcNode> node, Node* sgfNode)
+  void SgfcDocument::ParseProperties(
+    std::shared_ptr<ISgfcNode> node,
+    Node* sgfNode,
+    SgfcGameType gameType)
   {
     std::vector<std::shared_ptr<ISgfcProperty>> properties;
 
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyDecoder propertyDecoder(sgfProperty);
+      SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType);
 
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
       std::string propertyName = propertyDecoder.GetPropertyName();

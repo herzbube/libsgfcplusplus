@@ -33,8 +33,14 @@ namespace LibSgfcPlusPlus
     std::string trailingContent;
     std::vector<std::shared_ptr<ISgfcGame>> games;
 
-    void RecursiveParseDepthFirst(std::shared_ptr<ISgfcNode> parentNode, Node* sgfParentNode);
-    void ParseProperties(std::shared_ptr<ISgfcNode> node, Node* sgfNode);
+    void RecursiveParseDepthFirst(
+      std::shared_ptr<ISgfcNode> parentNode,
+      Node* sgfParentNode,
+      SgfcGameType gameType);
+    void ParseProperties(
+      std::shared_ptr<ISgfcNode> node,
+      Node* sgfNode,
+      SgfcGameType gameType);
 
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const;
   };
