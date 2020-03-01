@@ -2,6 +2,7 @@
 
 // Project includes
 #include "ISgfcNode.h"
+#include "SgfcGameType.h"
 
 // C++ Standard Library includes
 #include <memory>
@@ -20,6 +21,9 @@ namespace LibSgfcPlusPlus
 
     /// @brief Destroys and cleans up the ISgfcGame object.
     virtual ~ISgfcGame();
+
+    /// @brief Returns the game type.
+    virtual SgfcGameType GetGameType() const = 0;
 
     /// @brief Returns the game tree's root node.
     virtual std::shared_ptr<ISgfcNode> GetRootNode() const = 0;

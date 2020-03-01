@@ -3,17 +3,19 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGame::SgfcGame()
-  {
-  }
-
-  SgfcGame::SgfcGame(std::shared_ptr<ISgfcNode> rootNode)
-    : rootNode(rootNode)
+  SgfcGame::SgfcGame(SgfcGameType gameType, std::shared_ptr<ISgfcNode> rootNode)
+    : gameType(gameType)
+    , rootNode(rootNode)
   {
   }
 
   SgfcGame::~SgfcGame()
   {
+  }
+
+  SgfcGameType SgfcGame::GetGameType() const
+  {
+    return this->gameType;
   }
 
   std::shared_ptr<ISgfcNode> SgfcGame::GetRootNode() const
