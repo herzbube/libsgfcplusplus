@@ -626,9 +626,10 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::SC:
         return DescriptorListOfMove;
       case SgfcPropertyType::SE:
-        /// @todo For the game of Lines of Action in FF4 this is defined as
-        /// DescriptorPoint.
-        return DescriptorListOfMove;
+        if (this->gameType == SgfcGameType::LinesOfAction)
+          return DescriptorPoint;
+        else
+          return DescriptorListOfMove;
       case SgfcPropertyType::SI:
         return DescriptorDouble;
       case SgfcPropertyType::TC:
