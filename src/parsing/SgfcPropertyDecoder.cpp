@@ -101,7 +101,8 @@ namespace LibSgfcPlusPlus
 
   SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty)
     : sgfProperty(sgfProperty)
-    , propertyType(GetSgfcPropertyTypeForSgfProperty(sgfProperty))
+    , propertyType(GetPropertyTypeInternal())
+    , valueTypeDescriptor(GetValueTypeDescriptor())
   {
   }
 
@@ -114,7 +115,7 @@ namespace LibSgfcPlusPlus
     return this->propertyType;
   }
 
-  SgfcPropertyType SgfcPropertyDecoder::GetSgfcPropertyTypeForSgfProperty(const Property* sgfProperty) const
+  SgfcPropertyType SgfcPropertyDecoder::GetPropertyTypeInternal() const
   {
     switch (this->sgfProperty->id)
     {
@@ -319,17 +320,13 @@ namespace LibSgfcPlusPlus
       return propertyValues;
     }
 
-    SgfcPropertyType propertyType = GetPropertyType();
-
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor =
-      GetValueTypeDescriptorForPropertyType(propertyType);
-
-    SgfcPropertyValueTypeDescriptorType descriptorType = valueTypeDescriptor->GetDescriptorType();
+    SgfcPropertyValueTypeDescriptorType descriptorType = this->valueTypeDescriptor->GetDescriptorType();
     switch (descriptorType)
     {
       case SgfcPropertyValueTypeDescriptorType::DualValueType:
       {
-        const SgfcPropertyDualValueTypeDescriptor* dualValueTypeDescriptor = valueTypeDescriptor->ToDualValueTypeDescriptor();
+        const SgfcPropertyDualValueTypeDescriptor* dualValueTypeDescriptor =
+          this->valueTypeDescriptor->ToDualValueTypeDescriptor();
 
         std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType1 =
           dualValueTypeDescriptor->GetDescriptorValueType1();
@@ -376,7 +373,7 @@ namespace LibSgfcPlusPlus
         else
         {
           std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor =
-            valueTypeDescriptor->ToElistValueTypeDescriptor()->GetDescriptorListValueType()->GetDescriptorElementValueType();
+            this->valueTypeDescriptor->ToElistValueTypeDescriptor()->GetDescriptorListValueType()->GetDescriptorElementValueType();
 
           propertyValues =
             GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
@@ -387,7 +384,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyValueTypeDescriptorType::ListValueType:
       {
         std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptor =
-          valueTypeDescriptor->ToListValueTypeDescriptor()->GetDescriptorElementValueType();
+          this->valueTypeDescriptor->ToListValueTypeDescriptor()->GetDescriptorElementValueType();
 
         propertyValues =
           GetSgfcPropertyValuesFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
@@ -398,7 +395,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyValueTypeDescriptorType::BasicValueType:
       {
         std::shared_ptr<ISgfcPropertyValue> propertyValue =
-          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, valueTypeDescriptor);
+          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, this->valueTypeDescriptor);
 
         if (propertyValue == nullptr)
         {
@@ -456,10 +453,9 @@ namespace LibSgfcPlusPlus
     return SgfcGameType::Unknown;
   }
 
-  std::shared_ptr<ISgfcPropertyValueTypeDescriptor> SgfcPropertyDecoder::GetValueTypeDescriptorForPropertyType(
-    SgfcPropertyType propertyType) const
+  std::shared_ptr<ISgfcPropertyValueTypeDescriptor> SgfcPropertyDecoder::GetValueTypeDescriptor() const
   {
-    switch (propertyType)
+    switch (this->propertyType)
     {
       // ----------------------------------------------------------------------
       // Standard properties from FF4
@@ -733,7 +729,7 @@ namespace LibSgfcPlusPlus
       // ----------------------------------------------------------------------
       default:
         std::stringstream message;
-        message << "Unexpected property type value: " << static_cast<int>(propertyType);
+        message << "Unexpected property type value: " << static_cast<int>(this->propertyType);
         throw std::logic_error(message.str());
     }
   }

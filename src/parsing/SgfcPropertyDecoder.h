@@ -69,11 +69,10 @@ namespace LibSgfcPlusPlus
   private:
     const Property* sgfProperty;
     SgfcPropertyType propertyType;
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor;
 
-    SgfcPropertyType GetSgfcPropertyTypeForSgfProperty(const Property* sgfProperty) const;
-
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptorForPropertyType(
-      SgfcPropertyType propertyType) const;
+    SgfcPropertyType GetPropertyTypeInternal() const;
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptor() const;
 
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetSgfcPropertyValuesFromSgfPropertyValue(
       PropValue* sgfPropertyValue,
