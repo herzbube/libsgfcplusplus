@@ -3,7 +3,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcRealPropertyValue::SgfcRealPropertyValue(const std::string& rawValue, double realValue)
+  SgfcRealPropertyValue::SgfcRealPropertyValue(const std::string& rawValue, SgfcReal realValue)
     : SgfcSinglePropertyValue(rawValue)
     , realValue(realValue)
   {
@@ -24,7 +24,7 @@ namespace LibSgfcPlusPlus
     return SgfcPropertyValueType::Real;
   }
 
-  double SgfcRealPropertyValue::GetRealValue() const
+  SgfcReal SgfcRealPropertyValue::GetRealValue() const
   {
     ThrowIfHasNotTypedValue();
     return this->realValue;

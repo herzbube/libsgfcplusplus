@@ -12,15 +12,15 @@ namespace LibSgfcPlusPlus
   class SgfcRealPropertyValue : public SgfcSinglePropertyValue, public ISgfcRealPropertyValue
   {
   public:
-    SgfcRealPropertyValue(const std::string& rawValue, double realValue);
+    SgfcRealPropertyValue(const std::string& rawValue, SgfcReal realValue);
     SgfcRealPropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage);
     virtual ~SgfcRealPropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;
-    virtual double GetRealValue() const;
+    virtual SgfcReal GetRealValue() const;
     virtual const ISgfcRealPropertyValue* ToRealValue() const;
 
   private:
-    double realValue;
+    SgfcReal realValue;
   };
 }

@@ -2,6 +2,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -24,6 +25,6 @@ namespace LibSgfcPlusPlus
     /// number.
     ///
     /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
-    virtual long GetNumberValue() const = 0;
+    virtual SgfcNumber GetNumberValue() const = 0;
   };
 }

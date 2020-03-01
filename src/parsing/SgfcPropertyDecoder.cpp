@@ -982,7 +982,7 @@ namespace LibSgfcPlusPlus
 
     std::string rawPropertyValue = rawPropertyValueBuffer;
 
-    long numberValue;
+    SgfcNumber numberValue;
     std::from_chars_result result = std::from_chars(
       rawPropertyValue.c_str(),
       rawPropertyValue.c_str() + rawPropertyValue.size(),
@@ -1029,7 +1029,7 @@ namespace LibSgfcPlusPlus
       // GetSgfcNumberPropertyValueFromSgfPropertyValue(). Unfortunately at the
       // time of writing clang still only has integer support for
       // std::from_chars.
-      double realValue = stod(rawPropertyValue);
+      SgfcReal realValue = stod(rawPropertyValue);
       propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
        rawPropertyValue,
        realValue));
@@ -1134,7 +1134,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  SgfcGameType SgfcPropertyDecoder::MapNumberValueToGameType(long gameTypeAsNumber)
+  SgfcGameType SgfcPropertyDecoder::MapNumberValueToGameType(SgfcNumber gameTypeAsNumber)
   {
     switch (gameTypeAsNumber)
     {

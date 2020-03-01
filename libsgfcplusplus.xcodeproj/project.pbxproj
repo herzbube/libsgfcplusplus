@@ -115,6 +115,7 @@
 		CD21C54224084D5B00998A14 /* SgfcUtility.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C4E324084D5B00998A14 /* SgfcUtility.h */; };
 		CD21C54324084D5B00998A14 /* SgfcConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C4E424084D5B00998A14 /* SgfcConstants.h */; };
 		CD21C54424084D5B00998A14 /* SgfcConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */; };
+		CD21C546240C10B300998A14 /* SgfcTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C545240C10B300998A14 /* SgfcTypedefs.h */; };
 		CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */; };
 		CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */; };
 		CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322A623F1D30D009567E4 /* ISgfcMessage.h */; };
@@ -251,6 +252,7 @@
 		CD21C4E324084D5B00998A14 /* SgfcUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcUtility.h; sourceTree = "<group>"; };
 		CD21C4E424084D5B00998A14 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
 		CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcConstants.cpp; sourceTree = "<group>"; };
+		CD21C545240C10B300998A14 /* SgfcTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcTypedefs.h; sourceTree = "<group>"; };
 		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISgfcCommandLine.h; sourceTree = "<group>"; };
 		CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcPlusPlusFactory.h; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */,
 				CD8322EA23FDC859009567E4 /* SgfcPropertyType.h */,
 				CD8322E623FD9D79009567E4 /* SgfcPropertyValueType.h */,
+				CD21C545240C10B300998A14 /* SgfcTypedefs.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				CD21C43B2408096D00998A14 /* ISgfcDoublePropertyValue.h in Headers */,
 				CD21C53F24084D5B00998A14 /* ISgfcPropertyValueTypeDescriptor.h in Headers */,
 				CD8322F123FF135C009567E4 /* ISgfcNode.h in Headers */,
+				CD21C546240C10B300998A14 /* SgfcTypedefs.h in Headers */,
 				CD21C52824084D5B00998A14 /* SgfcStonePropertyValue.h in Headers */,
 				CD21C42D2407CEE700998A14 /* ISgfcNumberPropertyValue.h in Headers */,
 				CD21C4452408098D00998A14 /* ISgfcRealPropertyValue.h in Headers */,

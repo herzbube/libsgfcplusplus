@@ -5,6 +5,7 @@
 #include "../../include/SgfcGameType.h"
 #include "../../include/SgfcPropertyType.h"
 #include "../../include/SgfcPropertyValueType.h"
+#include "../../include/SgfcTypedefs.h"
 #include "../interface/internal/ISgfcPropertyValueTypeDescriptor.h"
 
 // C++ Standard Library includes
@@ -100,6 +101,6 @@ namespace LibSgfcPlusPlus
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
 
-    static SgfcGameType MapNumberValueToGameType(long gameTypeAsNumber);
+    static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
   };
 }

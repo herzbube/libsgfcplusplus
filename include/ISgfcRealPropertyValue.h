@@ -2,6 +2,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -24,6 +25,6 @@ namespace LibSgfcPlusPlus
     /// number.
     ///
     /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
-    virtual double GetRealValue() const = 0;
+    virtual SgfcReal GetRealValue() const = 0;
   };
 }
