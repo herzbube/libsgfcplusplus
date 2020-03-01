@@ -43,4 +43,6 @@ namespace LibSgfcPlusPlus
   const bool SgfcConstants::DefaultIsCriticalMessage = -1;
   const std::string SgfcConstants::DefaultMessageText = SgfcConstants::EmptyString;
   const std::string SgfcConstants::DefaultRawMessageText = SgfcConstants::EmptyString;
+
+  const SgfcGameType SgfcConstants::DefaultGameType = SgfcGameType::Go;
 }

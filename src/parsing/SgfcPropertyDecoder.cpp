@@ -424,6 +424,38 @@ namespace LibSgfcPlusPlus
     return propertyValues;
   }
 
+  SgfcGameType SgfcPropertyDecoder::GetGameTypeFromNode(const Node* sgfNode)
+  {
+    Property* sgfProperty = sgfNode->prop;
+    while (sgfProperty)
+    {
+      SgfcPropertyDecoder propertyDecoder(sgfProperty);
+      SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
+      if (propertyType != SgfcPropertyType::GM)
+      {
+        sgfProperty = sgfProperty->next;
+        continue;
+      }
+
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
+      if (propertyValues.size() == 0)
+        return SgfcConstants::DefaultGameType;
+
+      std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
+      const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
+      if (! singlePropertyValue->HasTypedValue())
+          return SgfcGameType::Unknown;
+
+      return SgfcPropertyDecoder::MapNumberValueToGameType(
+        singlePropertyValue->ToNumberValue()->GetNumberValue());
+    }
+
+    // SgfcPropertyType::GM is not present. This is not the same as when the
+    // property is present but has no value, so we can't return
+    // SgfcConstants::DefaultGameType.
+    return SgfcGameType::Unknown;
+  }
+
   std::shared_ptr<ISgfcPropertyValueTypeDescriptor> SgfcPropertyDecoder::GetValueTypeDescriptorForPropertyType(
     SgfcPropertyType propertyType) const
   {
@@ -1022,6 +1054,95 @@ namespace LibSgfcPlusPlus
     {
       const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
       return singlePropertyValue->HasTypedValue();
+    }
+  }
+
+  SgfcGameType SgfcPropertyDecoder::MapNumberValueToGameType(long gameTypeAsNumber)
+  {
+    switch (gameTypeAsNumber)
+    {
+      case 1:
+        return SgfcGameType::Go;
+      case 2:
+        return SgfcGameType::Othello;
+      case 3:
+        return SgfcGameType::Chess;
+      case 4:
+        return SgfcGameType::GomokuAndRenju;
+      case 5:
+        return SgfcGameType::NineMensMorris;
+      case 6:
+        return SgfcGameType::Backgammon;
+      case 7:
+        return SgfcGameType::ChineseChess;
+      case 8:
+        return SgfcGameType::Shogi;
+      case 9:
+        return SgfcGameType::LinesOfAction;
+      case 10:
+        return SgfcGameType::Ataxx;
+      case 11:
+        return SgfcGameType::Hex;
+      case 12:
+        return SgfcGameType::Jungle;
+      case 13:
+        return SgfcGameType::Neutron;
+      case 14:
+        return SgfcGameType::PhilosophersFootball;
+      case 15:
+        return SgfcGameType::Quadrature;
+      case 16:
+        return SgfcGameType::Trax;
+      case 17:
+        return SgfcGameType::Tantrix;
+      case 18:
+        return SgfcGameType::Amazons;
+      case 19:
+        return SgfcGameType::Octi;
+      case 20:
+        return SgfcGameType::Gess;
+      case 21:
+        return SgfcGameType::Twixt;
+      case 22:
+        return SgfcGameType::Zertz;
+      case 23:
+        return SgfcGameType::Plateau;
+      case 24:
+        return SgfcGameType::Yinsh;
+      case 25:
+        return SgfcGameType::Punct;
+      case 26:
+        return SgfcGameType::Gobblet;
+      case 27:
+        return SgfcGameType::Hive;
+      case 28:
+        return SgfcGameType::Exxit;
+      case 29:
+        return SgfcGameType::Hnefatal;
+      case 30:
+        return SgfcGameType::Kuba;
+      case 31:
+        return SgfcGameType::Tripples;
+      case 32:
+        return SgfcGameType::Chase;
+      case 33:
+        return SgfcGameType::TumblingDown;
+      case 34:
+        return SgfcGameType::Sahara;
+      case 35:
+        return SgfcGameType::Byte;
+      case 36:
+        return SgfcGameType::Focus;
+      case 37:
+        return SgfcGameType::Dvonn;
+      case 38:
+        return SgfcGameType::Tamsk;
+      case 39:
+        return SgfcGameType::Gipf;
+      case 40:
+        return SgfcGameType::Kropki;
+      default:
+        return SgfcGameType::Unknown;
     }
   }
 }

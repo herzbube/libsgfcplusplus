@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../include/SgfcMessageType.h"
+#include "../include/SgfcGameType.h"
 
 // C++ Standard Library includes
 #include <string>
@@ -62,5 +63,11 @@ namespace LibSgfcPlusPlus
     static const bool DefaultIsCriticalMessage;
     static const std::string DefaultMessageText;
     static const std::string DefaultRawMessageText;
+
+    /// @brief The default game type if the SgfcPropertyType::GM property exists
+    /// but has no value.
+    ///
+    /// The SGF standard defines this to be SgfcGameType::Go.
+    static const SgfcGameType DefaultGameType;
   };
 }

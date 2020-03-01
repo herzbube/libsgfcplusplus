@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../include/ISgfcPropertyValue.h"
+#include "../../include/SgfcGameType.h"
 #include "../../include/SgfcPropertyType.h"
 #include "../../include/SgfcPropertyValueType.h"
 #include "../interface/internal/ISgfcPropertyValueTypeDescriptor.h"
@@ -11,6 +12,7 @@
 #include <vector>
 
 // Forward declarations
+struct Node;
 struct Property;
 struct PropValue;
 
@@ -44,6 +46,26 @@ namespace LibSgfcPlusPlus
     /// - Non-string values are trimmed (essential for Double and Color values)
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
 
+    /// @brief Probes the SGF node @a sgfNode for a property of type
+    /// SgfcPropertyType::GM and returns an SgfcGameType value that corresponds
+    /// to the result of the probing.
+    ///
+    /// @param sgfNode The SGF node to be probed. The node should be the root
+    /// node of a game because SgfcPropertyType::GM can be expected to be
+    /// present in that node.
+    ///
+    /// @retval SgfcGameType If the property is present and has a value defined
+    ///         in the SGF standard, returns the SgfcGameType value that
+    ///         corresponds to the property value. The value is guaranteed not
+    ///         to be SgfcGameType::Unknown.
+    /// @retval SgfcConstants::DefaultGameType If the property is present and
+    ///         has no value. The value is guaranteed not to be
+    ///         SgfcGameType::Unknown.
+    /// @retval SgfcGameType::Unknown If the property is present and has a value
+    ///         that is not defined in the SGF standard, or if the property is
+    ///         not present.
+    static SgfcGameType GetGameTypeFromNode(const Node* sgfNode);
+
   private:
     const Property* sgfProperty;
     SgfcPropertyType propertyType;
@@ -75,5 +97,7 @@ namespace LibSgfcPlusPlus
       const char* rawPropertyValueBuffer) const;
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
+
+    static SgfcGameType MapNumberValueToGameType(long gameTypeAsNumber);
   };
 }
