@@ -116,6 +116,7 @@
 		CD21C54324084D5B00998A14 /* SgfcConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C4E424084D5B00998A14 /* SgfcConstants.h */; };
 		CD21C54424084D5B00998A14 /* SgfcConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */; };
 		CD21C546240C10B300998A14 /* SgfcTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C545240C10B300998A14 /* SgfcTypedefs.h */; };
+		CD21C548240C188200998A14 /* ISgfcGoMovePropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C547240C188200998A14 /* ISgfcGoMovePropertyValue.h */; };
 		CD21C54A240C195A00998A14 /* ISgfcGoPointPropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C549240C195A00998A14 /* ISgfcGoPointPropertyValue.h */; };
 		CD21C54C240C31A500998A14 /* ISgfcGoPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C54B240C31A500998A14 /* ISgfcGoPoint.h */; };
 		CD21C54E240C4B0200998A14 /* SgfcCoordinateSystem.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C54D240C4B0200998A14 /* SgfcCoordinateSystem.h */; };
@@ -126,6 +127,21 @@
 		CD21C559240C5AB000998A14 /* SgfcGoPointPropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C557240C551800998A14 /* SgfcGoPointPropertyValue.h */; };
 		CD21C55E240C5AF800998A14 /* SgfcGoPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C55C240C5AF800998A14 /* SgfcGoPoint.cpp */; };
 		CD21C55F240C5AF800998A14 /* SgfcGoPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C55D240C5AF800998A14 /* SgfcGoPoint.h */; };
+		CD21C5612410035700998A14 /* ISgfcGoStonePropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C5602410035700998A14 /* ISgfcGoStonePropertyValue.h */; };
+		CD21C563241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C562241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp */; };
+		CD21C565241004C700998A14 /* ISgfcGoStonePropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C564241004C700998A14 /* ISgfcGoStonePropertyValue.cpp */; };
+		CD21C5682410053000998A14 /* SgfcGoMovePropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C5662410053000998A14 /* SgfcGoMovePropertyValue.h */; };
+		CD21C5692410053000998A14 /* SgfcGoMovePropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C5672410053000998A14 /* SgfcGoMovePropertyValue.cpp */; };
+		CD21C56C2410053600998A14 /* SgfcGoStonePropertyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C56A2410053500998A14 /* SgfcGoStonePropertyValue.h */; };
+		CD21C56D2410053600998A14 /* SgfcGoStonePropertyValue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C56B2410053600998A14 /* SgfcGoStonePropertyValue.cpp */; };
+		CD21C56F241006A100998A14 /* ISgfcGoStone.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C56E241006A100998A14 /* ISgfcGoStone.h */; };
+		CD21C571241008B400998A14 /* ISgfcGoStone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C570241008B400998A14 /* ISgfcGoStone.cpp */; };
+		CD21C574241008DB00998A14 /* SgfcGoStone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C572241008DB00998A14 /* SgfcGoStone.cpp */; };
+		CD21C575241008DB00998A14 /* SgfcGoStone.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C573241008DB00998A14 /* SgfcGoStone.h */; };
+		CD21C577241015C100998A14 /* ISgfcGoMove.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C576241015C100998A14 /* ISgfcGoMove.h */; };
+		CD21C5792410197F00998A14 /* ISgfcGoMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C5782410197F00998A14 /* ISgfcGoMove.cpp */; };
+		CD21C57C241019AB00998A14 /* SgfcGoMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C57A241019AA00998A14 /* SgfcGoMove.cpp */; };
+		CD21C57D241019AB00998A14 /* SgfcGoMove.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C57B241019AB00998A14 /* SgfcGoMove.h */; };
 		CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */; };
 		CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */; };
 		CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322A623F1D30D009567E4 /* ISgfcMessage.h */; };
@@ -263,6 +279,7 @@
 		CD21C4E424084D5B00998A14 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
 		CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcConstants.cpp; sourceTree = "<group>"; };
 		CD21C545240C10B300998A14 /* SgfcTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcTypedefs.h; sourceTree = "<group>"; };
+		CD21C547240C188200998A14 /* ISgfcGoMovePropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoMovePropertyValue.h; sourceTree = "<group>"; };
 		CD21C549240C195A00998A14 /* ISgfcGoPointPropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoPointPropertyValue.h; sourceTree = "<group>"; };
 		CD21C54B240C31A500998A14 /* ISgfcGoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoPoint.h; sourceTree = "<group>"; };
 		CD21C54D240C4B0200998A14 /* SgfcCoordinateSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcCoordinateSystem.h; sourceTree = "<group>"; };
@@ -273,6 +290,21 @@
 		CD21C557240C551800998A14 /* SgfcGoPointPropertyValue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcGoPointPropertyValue.h; sourceTree = "<group>"; };
 		CD21C55C240C5AF800998A14 /* SgfcGoPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGoPoint.cpp; sourceTree = "<group>"; };
 		CD21C55D240C5AF800998A14 /* SgfcGoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGoPoint.h; sourceTree = "<group>"; };
+		CD21C5602410035700998A14 /* ISgfcGoStonePropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoStonePropertyValue.h; sourceTree = "<group>"; };
+		CD21C562241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGoMovePropertyValue.cpp; sourceTree = "<group>"; };
+		CD21C564241004C700998A14 /* ISgfcGoStonePropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGoStonePropertyValue.cpp; sourceTree = "<group>"; };
+		CD21C5662410053000998A14 /* SgfcGoMovePropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGoMovePropertyValue.h; sourceTree = "<group>"; };
+		CD21C5672410053000998A14 /* SgfcGoMovePropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGoMovePropertyValue.cpp; sourceTree = "<group>"; };
+		CD21C56A2410053500998A14 /* SgfcGoStonePropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGoStonePropertyValue.h; sourceTree = "<group>"; };
+		CD21C56B2410053600998A14 /* SgfcGoStonePropertyValue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGoStonePropertyValue.cpp; sourceTree = "<group>"; };
+		CD21C56E241006A100998A14 /* ISgfcGoStone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoStone.h; sourceTree = "<group>"; };
+		CD21C570241008B400998A14 /* ISgfcGoStone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGoStone.cpp; sourceTree = "<group>"; };
+		CD21C572241008DB00998A14 /* SgfcGoStone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGoStone.cpp; sourceTree = "<group>"; };
+		CD21C573241008DB00998A14 /* SgfcGoStone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGoStone.h; sourceTree = "<group>"; };
+		CD21C576241015C100998A14 /* ISgfcGoMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGoMove.h; sourceTree = "<group>"; };
+		CD21C5782410197F00998A14 /* ISgfcGoMove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGoMove.cpp; sourceTree = "<group>"; };
+		CD21C57A241019AA00998A14 /* SgfcGoMove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGoMove.cpp; sourceTree = "<group>"; };
+		CD21C57B241019AB00998A14 /* SgfcGoMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGoMove.h; sourceTree = "<group>"; };
 		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISgfcCommandLine.h; sourceTree = "<group>"; };
 		CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcPlusPlusFactory.h; sourceTree = "<group>"; };
@@ -470,8 +502,12 @@
 				CD21C4DD24084D5B00998A14 /* ISgfcDocumentReadResult.cpp */,
 				CD21C4CF24084D5B00998A14 /* ISgfcDoublePropertyValue.cpp */,
 				CD21C4D224084D5B00998A14 /* ISgfcGame.cpp */,
+				CD21C5782410197F00998A14 /* ISgfcGoMove.cpp */,
+				CD21C562241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp */,
 				CD21C553240C547E00998A14 /* ISgfcGoPoint.cpp */,
 				CD21C551240C546E00998A14 /* ISgfcGoPointPropertyValue.cpp */,
+				CD21C570241008B400998A14 /* ISgfcGoStone.cpp */,
+				CD21C564241004C700998A14 /* ISgfcGoStonePropertyValue.cpp */,
 				CD21C4D124084D5B00998A14 /* ISgfcMessage.cpp */,
 				CD21C4D524084D5B00998A14 /* ISgfcMovePropertyValue.cpp */,
 				CD21C4DC24084D5B00998A14 /* ISgfcNode.cpp */,
@@ -502,8 +538,12 @@
 		CD21C555240C551800998A14 /* go */ = {
 			isa = PBXGroup;
 			children = (
+				CD21C5672410053000998A14 /* SgfcGoMovePropertyValue.cpp */,
+				CD21C5662410053000998A14 /* SgfcGoMovePropertyValue.h */,
 				CD21C556240C551800998A14 /* SgfcGoPointPropertyValue.cpp */,
 				CD21C557240C551800998A14 /* SgfcGoPointPropertyValue.h */,
+				CD21C56B2410053600998A14 /* SgfcGoStonePropertyValue.cpp */,
+				CD21C56A2410053500998A14 /* SgfcGoStonePropertyValue.h */,
 			);
 			path = go;
 			sourceTree = "<group>";
@@ -519,8 +559,12 @@
 		CD21C55B240C5AF800998A14 /* go */ = {
 			isa = PBXGroup;
 			children = (
+				CD21C57A241019AA00998A14 /* SgfcGoMove.cpp */,
+				CD21C57B241019AB00998A14 /* SgfcGoMove.h */,
 				CD21C55C240C5AF800998A14 /* SgfcGoPoint.cpp */,
 				CD21C55D240C5AF800998A14 /* SgfcGoPoint.h */,
+				CD21C572241008DB00998A14 /* SgfcGoStone.cpp */,
+				CD21C573241008DB00998A14 /* SgfcGoStone.h */,
 			);
 			path = go;
 			sourceTree = "<group>";
@@ -571,8 +615,12 @@
 				CD83230223FF2CE7009567E4 /* ISgfcDocumentReadResult.h */,
 				CD21C43A2408096D00998A14 /* ISgfcDoublePropertyValue.h */,
 				CD8322EE23FF116F009567E4 /* ISgfcGame.h */,
+				CD21C576241015C100998A14 /* ISgfcGoMove.h */,
+				CD21C547240C188200998A14 /* ISgfcGoMovePropertyValue.h */,
 				CD21C54B240C31A500998A14 /* ISgfcGoPoint.h */,
 				CD21C549240C195A00998A14 /* ISgfcGoPointPropertyValue.h */,
+				CD21C56E241006A100998A14 /* ISgfcGoStone.h */,
+				CD21C5602410035700998A14 /* ISgfcGoStonePropertyValue.h */,
 				CD8322A623F1D30D009567E4 /* ISgfcMessage.h */,
 				CD21C43C2408097600998A14 /* ISgfcMovePropertyValue.h */,
 				CD8322F023FF135C009567E4 /* ISgfcNode.h */,
@@ -646,6 +694,7 @@
 				CD21C559240C5AB000998A14 /* SgfcGoPointPropertyValue.h in Headers */,
 				CD21C51F24084D5B00998A14 /* SgfcMovePropertyValue.h in Headers */,
 				CD21C43B2408096D00998A14 /* ISgfcDoublePropertyValue.h in Headers */,
+				CD21C56C2410053600998A14 /* SgfcGoStonePropertyValue.h in Headers */,
 				CD21C53F24084D5B00998A14 /* ISgfcPropertyValueTypeDescriptor.h in Headers */,
 				CD8322F123FF135C009567E4 /* ISgfcNode.h in Headers */,
 				CD21C546240C10B300998A14 /* SgfcTypedefs.h in Headers */,
@@ -663,11 +712,14 @@
 				CD21C4012402B7E000998A14 /* ISgfcSinglePropertyValue.h in Headers */,
 				CD21C51C24084D5B00998A14 /* SgfcSimpleTextPropertyValue.h in Headers */,
 				CD21C51424084D5B00998A14 /* SgfcGame.h in Headers */,
+				CD21C5682410053000998A14 /* SgfcGoMovePropertyValue.h in Headers */,
+				CD21C57D241019AB00998A14 /* SgfcGoMove.h in Headers */,
 				CD21C51524084D5B00998A14 /* SgfcNumberPropertyValue.h in Headers */,
 				CD21C50A24084D5B00998A14 /* SgfcProperty.h in Headers */,
 				CD83230123FF27F0009567E4 /* ISgfcDocumentReader.h in Headers */,
 				CD83230323FF2CE7009567E4 /* ISgfcDocumentReadResult.h in Headers */,
 				CD21C52524084D5B00998A14 /* SgfcPointPropertyValue.h in Headers */,
+				CD21C577241015C100998A14 /* ISgfcGoMove.h in Headers */,
 				CD21C4EB24084D5B00998A14 /* SgfcPropertyValueTypeDescriptorType.h in Headers */,
 				CD8322EB23FDC859009567E4 /* SgfcPropertyType.h in Headers */,
 				CD8322C723F48912009567E4 /* SgfcExitCode.h in Headers */,
@@ -679,6 +731,7 @@
 				CD21C51E24084D5B00998A14 /* SgfcUnknownPropertyValue.h in Headers */,
 				CD21C4FD24084D5B00998A14 /* SgfcMessage.h in Headers */,
 				CD21C52024084D5B00998A14 /* SgfcColorPropertyValue.h in Headers */,
+				CD21C56F241006A100998A14 /* ISgfcGoStone.h in Headers */,
 				CD21C4462408098D00998A14 /* ISgfcSimpleTextPropertyValue.h in Headers */,
 				CD21C55F240C5AF800998A14 /* SgfcGoPoint.h in Headers */,
 				CD21C54224084D5B00998A14 /* SgfcUtility.h in Headers */,
@@ -695,10 +748,12 @@
 				CD21C54C240C31A500998A14 /* ISgfcGoPoint.h in Headers */,
 				CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */,
 				CD21C50024084D5B00998A14 /* SgfcBackendSaveResult.h in Headers */,
+				CD21C5612410035700998A14 /* ISgfcGoStonePropertyValue.h in Headers */,
 				CD8322EF23FF116F009567E4 /* ISgfcGame.h in Headers */,
 				CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */,
 				CD21C4472408098D00998A14 /* ISgfcStonePropertyValue.h in Headers */,
 				CD21C4EE24084D5B00998A14 /* SgfcPropertyComposedValueTypeDescriptor.h in Headers */,
+				CD21C575241008DB00998A14 /* SgfcGoStone.h in Headers */,
 				CD8322AB23F1DAC4009567E4 /* SgfcMessageType.h in Headers */,
 				CD21C4F224084D5B00998A14 /* SgfcPropertyDecoder.h in Headers */,
 				CD21C52424084D5B00998A14 /* SgfcDoublePropertyValue.h in Headers */,
@@ -711,6 +766,7 @@
 				CD21C4392408095D00998A14 /* ISgfcColorPropertyValue.h in Headers */,
 				CD21C4EC24084D5B00998A14 /* SgfcPropertyListValueTypeDescriptor.h in Headers */,
 				CD21C52924084D5B00998A14 /* SgfcSinglePropertyValue.h in Headers */,
+				CD21C548240C188200998A14 /* ISgfcGoMovePropertyValue.h in Headers */,
 				CD21C44B2408104300998A14 /* SgfcColor.h in Headers */,
 				CD21C50924084D5B00998A14 /* SgfcBackendLoadResult.h in Headers */,
 				CD8322E723FD9D79009567E4 /* SgfcPropertyValueType.h in Headers */,
@@ -792,6 +848,7 @@
 				CD21C54424084D5B00998A14 /* SgfcConstants.cpp in Sources */,
 				CD21C51124084D5B00998A14 /* SgfcGame.cpp in Sources */,
 				CD21C53824084D5B00998A14 /* ISgfcPropertyValue.cpp in Sources */,
+				CD21C574241008DB00998A14 /* SgfcGoStone.cpp in Sources */,
 				CD21C53024084D5B00998A14 /* ISgfcStonePropertyValue.cpp in Sources */,
 				CD21C52224084D5B00998A14 /* SgfcRealPropertyValue.cpp in Sources */,
 				CD8322BD23F424FC009567E4 /* save.c in Sources */,
@@ -799,9 +856,11 @@
 				CD21C53924084D5B00998A14 /* ISgfcSinglePropertyValue.cpp in Sources */,
 				CD21C50524084D5B00998A14 /* SgfcOptions.cpp in Sources */,
 				CD21C51D24084D5B00998A14 /* SgfcUnknownPropertyValue.cpp in Sources */,
+				CD21C563241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp in Sources */,
 				CD21C4EA24084D5B00998A14 /* SgfcPropertyDualValueTypeDescriptor.cpp in Sources */,
 				CD8322C523F43262009567E4 /* util.c in Sources */,
 				CD21C4F924084D5B00998A14 /* SgfcMessageStream.cpp in Sources */,
+				CD21C571241008B400998A14 /* ISgfcGoStone.cpp in Sources */,
 				CD21C53E24084D5B00998A14 /* ISgfcCommandLine.cpp in Sources */,
 				CD21C53B24084D5B00998A14 /* ISgfcColorPropertyValue.cpp in Sources */,
 				CD21C52D24084D5B00998A14 /* ISgfcProperty.cpp in Sources */,
@@ -814,9 +873,12 @@
 				CD21C50224084D5B00998A14 /* SgfcBackendController.cpp in Sources */,
 				CD21C4E924084D5B00998A14 /* SgfcPropertyComposedValueTypeDescriptor.cpp in Sources */,
 				CD8322B923F424E7009567E4 /* parse2.c in Sources */,
+				CD21C5692410053000998A14 /* SgfcGoMovePropertyValue.cpp in Sources */,
+				CD21C565241004C700998A14 /* ISgfcGoStonePropertyValue.cpp in Sources */,
 				CD8322BA23F424EA009567E4 /* execute.c in Sources */,
 				CD21C51224084D5B00998A14 /* SgfcSinglePropertyValue.cpp in Sources */,
 				CD21C51824084D5B00998A14 /* SgfcNumberPropertyValue.cpp in Sources */,
+				CD21C5792410197F00998A14 /* ISgfcGoMove.cpp in Sources */,
 				CD21C51624084D5B00998A14 /* SgfcStonePropertyValue.cpp in Sources */,
 				CD21C53A24084D5B00998A14 /* ISgfcSimpleTextPropertyValue.cpp in Sources */,
 				CD21C54024084D5B00998A14 /* ISgfcPropertyValueTypeDescriptor.cpp in Sources */,
@@ -828,6 +890,7 @@
 				CD21C53224084D5B00998A14 /* ISgfcGame.cpp in Sources */,
 				CD21C4F424084D5B00998A14 /* SgfcDocumentReader.cpp in Sources */,
 				CD21C53124084D5B00998A14 /* ISgfcMessage.cpp in Sources */,
+				CD21C56D2410053600998A14 /* SgfcGoStonePropertyValue.cpp in Sources */,
 				CD8322BE23F42500009567E4 /* load.c in Sources */,
 				CD8322BF23F4250E009567E4 /* main.c in Sources */,
 				CD21C51A24084D5B00998A14 /* SgfcSimpleTextPropertyValue.cpp in Sources */,
@@ -835,6 +898,7 @@
 				CD21C53424084D5B00998A14 /* ISgfcPointPropertyValue.cpp in Sources */,
 				CD21C53624084D5B00998A14 /* ISgfcDocumentReader.cpp in Sources */,
 				CD21C552240C546E00998A14 /* ISgfcGoPointPropertyValue.cpp in Sources */,
+				CD21C57C241019AB00998A14 /* SgfcGoMove.cpp in Sources */,
 				CD21C4ED24084D5B00998A14 /* SgfcPropertyBasicValueTypeDescriptor.cpp in Sources */,
 				CD21C51924084D5B00998A14 /* SgfcTextPropertyValue.cpp in Sources */,
 				CD21C54124084D5B00998A14 /* SgfcUtility.cpp in Sources */,
