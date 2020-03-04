@@ -26,4 +26,9 @@ namespace LibSgfcPlusPlus
   {
     return this;
   }
+
+  const ISgfcGoStonePropertyValue* SgfcStonePropertyValue::ToGoStoneValue() const
+  {
+    return nullptr;
+  }
 }
