@@ -300,7 +300,7 @@ namespace LibSgfcPlusPlus
       default:
         // If we get here a "case" statement is missing
         std::stringstream message;
-        message << "Unexpected SGFC token value: " << sgfProperty->id;
+        message << "GetPropertyTypeInternal: Unexpected SGFC token value " << sgfProperty->id << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());
     }
   }
@@ -417,7 +417,7 @@ namespace LibSgfcPlusPlus
       default:
       {
         std::stringstream message;
-        message << "Unexpected descriptor type: " << static_cast<int>(descriptorType);
+        message << "GetPropertyValues: Unexpected descriptor type " << static_cast<int>(descriptorType) << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());
       }
     }
@@ -814,7 +814,7 @@ namespace LibSgfcPlusPlus
       // ----------------------------------------------------------------------
       default:
         std::stringstream message;
-        message << "Unexpected property type value: " << static_cast<int>(this->propertyType);
+        message << "GetValueTypeDescriptor: Unexpected property type value " << static_cast<int>(this->propertyType) << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());
     }
   }
@@ -915,7 +915,7 @@ namespace LibSgfcPlusPlus
       default:
       {
         std::stringstream message;
-        message << "Unexpected descriptor type: " << static_cast<int>(descriptorType);
+        message << "GetSgfcPropertyValueFromSgfPropertyValue: Unexpected descriptor type: " << static_cast<int>(descriptorType);
         throw std::logic_error(message.str());
       }
     }
@@ -996,7 +996,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyValueType::None:
       default:
         std::stringstream message;
-        message << "Unexpected property value type: " << static_cast<int>(propertyValueType);
+        message << "GetSgfcPropertyValueFromSgfPropertyValue: Unexpected property value type: " << static_cast<int>(propertyValueType);
         throw std::logic_error(message.str());
     }
 
@@ -1286,7 +1286,7 @@ namespace LibSgfcPlusPlus
         // are allowed because for those properties the property type specifies
         // which color the placed stone has or which player made the move.
         std::stringstream message;
-        message << "Unable to determine color for property type " << static_cast<int>(this->propertyType) << " (" << this->sgfProperty->idstr << ")";
+        message << "GetColorForPropertyType: Unable to determine color for property type " << static_cast<int>(this->propertyType) << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());
     }
   }
