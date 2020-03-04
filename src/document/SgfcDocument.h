@@ -43,5 +43,6 @@ namespace LibSgfcPlusPlus
       SgfcGameType gameType);
 
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const;
+    void DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
   };
 }
