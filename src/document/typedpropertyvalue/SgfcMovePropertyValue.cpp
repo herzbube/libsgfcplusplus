@@ -26,4 +26,9 @@ namespace LibSgfcPlusPlus
   {
     return this;
   }
+
+  const ISgfcGoMovePropertyValue* SgfcMovePropertyValue::ToGoMoveValue() const
+  {
+    return nullptr;
+  }
 }

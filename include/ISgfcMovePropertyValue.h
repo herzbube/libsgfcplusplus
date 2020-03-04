@@ -5,6 +5,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcGoMovePropertyValue;
+
   /// @brief The ISgfcMovePropertyValue interface provides access to one of
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Move.
@@ -26,8 +29,15 @@ namespace LibSgfcPlusPlus
     /// The SGF standard does not provide a universal definition of how a move
     /// value should look like. Instead it says that the interpretation of
     /// move values is game specific.
-    ///
-    /// @todo Define at least a representation for Go moves (ISgfcMove).
     virtual std::string GetRawMoveValue() const = 0;
+
+    /// @brief Returns an ISgfcGoMovePropertyValue object if the game tree that
+    /// this property value is associated with has SgfcGameType::Go. Returns
+    /// @e nullptr otherwise. The caller is not the owner of the returned
+    /// object.
+    ///
+    /// @todo There should be a method that allows the user to check whether
+    /// this method returns nullptr. Example: GetGameType().
+    virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const = 0;
   };
 }
