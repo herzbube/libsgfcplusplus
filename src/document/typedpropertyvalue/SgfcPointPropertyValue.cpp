@@ -26,4 +26,9 @@ namespace LibSgfcPlusPlus
   {
     return this;
   }
+
+  const ISgfcGoPointPropertyValue* SgfcPointPropertyValue::ToGoPointValue() const
+  {
+    return nullptr;
+  }
 }
