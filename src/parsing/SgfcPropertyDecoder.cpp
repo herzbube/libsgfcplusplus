@@ -12,7 +12,9 @@
 #include "../document/typedpropertyvalue/SgfcStonePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcTextPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcUnknownPropertyValue.h"
+#include "../document/typedpropertyvalue/go/SgfcGoMovePropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h"
+#include "../document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h"
 #include "../document/SgfcComposedPropertyValue.h"
 #include "../SgfcConstants.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
@@ -962,12 +964,30 @@ namespace LibSgfcPlusPlus
         }
         break;
       case SgfcPropertyValueType::Move:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-         rawPropertyValueBuffer));
+        if (this->gameType == SgfcGameType::Go)
+        {
+          SgfcColor color = GetColorForPropertyType();
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+           rawPropertyValueBuffer, color));
+        }
+        else
+        {
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
+           rawPropertyValueBuffer));
+        }
         break;
       case SgfcPropertyValueType::Stone:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-         rawPropertyValueBuffer));
+        if (this->gameType == SgfcGameType::Go)
+        {
+          SgfcColor color = GetColorForPropertyType();
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
+           rawPropertyValueBuffer, color));
+        }
+        else
+        {
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
+           rawPropertyValueBuffer));
+        }
         break;
       case SgfcPropertyValueType::Unknown:
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(
@@ -1232,4 +1252,43 @@ namespace LibSgfcPlusPlus
         return SgfcGameType::Unknown;
     }
   }
+
+  SgfcColor SgfcPropertyDecoder::GetColorForPropertyType() const
+  {
+    switch (this->propertyType)
+    {
+      case SgfcPropertyType::B:
+      case SgfcPropertyType::AB:
+      case SgfcPropertyType::GB:
+      case SgfcPropertyType::BR:
+      case SgfcPropertyType::BT:
+      case SgfcPropertyType::PB:
+      case SgfcPropertyType::BL:
+      case SgfcPropertyType::OB:
+      case SgfcPropertyType::TB:
+      case SgfcPropertyType::BO:
+        return SgfcColor::Black;
+      case SgfcPropertyType::W:
+      case SgfcPropertyType::AW:
+      case SgfcPropertyType::GW:
+      case SgfcPropertyType::WR:
+      case SgfcPropertyType::WT:
+      case SgfcPropertyType::PW:
+      case SgfcPropertyType::WL:
+      case SgfcPropertyType::OW:
+      case SgfcPropertyType::TW:
+      case SgfcPropertyType::WO:
+        return SgfcColor::White;
+      default:
+        // If we get here the caller made a mistake. The method must only
+        // be called for properties that have a color associated with them.
+        // Notably, all properties that have the value types Stone and Move
+        // are allowed because for those properties the property type specifies
+        // which color the placed stone has or which player made the move.
+        std::stringstream message;
+        message << "Unable to determine color for property type " << static_cast<int>(this->propertyType) << " (" << this->sgfProperty->idstr << ")";
+        throw std::logic_error(message.str());
+    }
+  }
+
 }

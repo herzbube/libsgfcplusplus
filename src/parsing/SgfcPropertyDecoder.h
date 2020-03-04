@@ -102,5 +102,7 @@ namespace LibSgfcPlusPlus
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
 
     static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
+
+    SgfcColor GetColorForPropertyType() const;
   };
 }
