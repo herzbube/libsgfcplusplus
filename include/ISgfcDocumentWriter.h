@@ -1,0 +1,50 @@
+#pragma once
+
+// C++ Standard Library includes
+#include <memory>
+#include <string>
+
+namespace LibSgfcPlusPlus
+{
+  // Forward declarations
+  class ISgfcDocument;
+  class ISgfcDocumentWriteResult;
+
+  /// @brief The ISgfcDocumentWriter interface provides functions to generate
+  /// SGF data from ISgfcDocument objects and to either write that data to the
+  /// file system or make it available as an in-memory string.
+  /// ISgfcDocumentWriter operates the SGFC backend to achieve its task. Use
+  /// SgfcPlusPlusFactory to construct new ISgfcDocumentWriter objects.
+  class ISgfcDocumentWriter
+  {
+  public:
+    /// @brief Initializes a newly constructed ISgfcDocumentWriter object.
+    ISgfcDocumentWriter();
+
+    /// @brief Destroys and cleans up the ISgfcDocumentWriter object.
+    virtual ~ISgfcDocumentWriter();
+
+    /// @brief Writes the content of @a document to a single .sgf file located
+    /// at the specified path.
+    ///
+    /// @return An ISgfcDocumentWriteResult object that provides the result of
+    /// the write operation.
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfFile(
+      std::shared_ptr<ISgfcDocument> document,
+      const std::string& sgfFilePath) = 0;
+
+    /// @brief Writes the content of @a document into the specified string
+    /// object @a sgfContent.
+    ///
+    /// The implementation of this method saves the SGF data generated from
+    /// @a document to a temporary file and then loads the content of that file
+    /// into the specified string object @a sgfContent. After the load operation
+    /// the implementation deletes the temporary file.
+    ///
+    /// @return An ISgfcDocumentWriteResult object that provides the result of
+    /// the write operation.
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfContent(
+      std::shared_ptr<ISgfcDocument> document,
+      std::string& sgfContent) = 0;
+  };
+}

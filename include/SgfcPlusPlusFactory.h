@@ -3,6 +3,7 @@
 // Project includes
 #include "ISgfcCommandLine.h"
 #include "ISgfcDocumentReader.h"
+#include "ISgfcDocumentWriter.h"
 
 // C++ Standard Library includes
 #include <memory>
@@ -37,6 +38,9 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcDocumentReader object.
     static std::shared_ptr<ISgfcDocumentReader> CreateDocumentReader();
+
+    /// @brief Returns a newly constructed ISgfcDocumentWriter object.
+    static std::shared_ptr<ISgfcDocumentWriter> CreateDocumentWriter();
 
   private:
     SgfcPlusPlusFactory();

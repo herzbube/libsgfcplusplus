@@ -22,6 +22,10 @@ namespace LibSgfcPlusPlus
   ///   further data structures.
   /// - Any amount of times: Parse the SGFInfo object after it was populated
   ///   by an SGFC backend load operation.
+  /// - Only once: Populate the empty SGFInfo object with data structures that
+  ///   contain the SGF data to be passed to SGFC for writing.
+  ///   SgfcBackendDataWrapper becomes responsible for deallocating the data
+  ///   structures.
   /// - Only once: Pass the SGFInfo object to the SGFC backend for a save
   ///   operation. The SGFC backend will modify some of the data in the SGFInfo
   ///   object, so parsing the object before and after a save operation will
