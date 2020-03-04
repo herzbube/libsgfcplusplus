@@ -7,6 +7,7 @@
 #include <string>
 
 // Forward declarations
+class ISgfcGoPoint;
 struct SGFInfo;
 struct Node;
 
@@ -43,6 +44,7 @@ namespace LibSgfcPlusPlus
       SgfcGameType gameType);
 
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const;
-    void DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
+    void DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
+    void DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const;
   };
 }

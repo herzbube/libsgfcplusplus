@@ -1,7 +1,13 @@
 // Project includes
+#include "../../include/ISgfcGoMove.h"
+#include "../../include/ISgfcGoMovePropertyValue.h"
 #include "../../include/ISgfcGoPoint.h"
 #include "../../include/ISgfcGoPointPropertyValue.h"
+#include "../../include/ISgfcGoStone.h"
+#include "../../include/ISgfcGoStonePropertyValue.h"
+#include "../../include/ISgfcMovePropertyValue.h"
 #include "../../include/ISgfcPointPropertyValue.h"
+#include "../../include/ISgfcStonePropertyValue.h"
 #include "../parsing/SgfcPropertyDecoder.h"
 #include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
@@ -198,11 +204,11 @@ namespace LibSgfcPlusPlus
           std::cout << "      Value type 1      = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
           std::cout << "      Has typed value 1 = " << composedPropertyValue->GetValue1()->HasTypedValue() << std::endl;
           std::cout << "      Raw value 1       = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
-          DebugPrintPropertyValueToConsole(composedPropertyValue->GetValue1().get());
+          DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue1().get());
           std::cout << "      Value type 2      = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
           std::cout << "      Has typed value 2 = \"" << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
           std::cout << "      Raw value 2       = " << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
-          DebugPrintPropertyValueToConsole(composedPropertyValue->GetValue2().get());
+          DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue2().get());
         }
         else
         {
@@ -210,7 +216,7 @@ namespace LibSgfcPlusPlus
           std::cout << "      Value type      = " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
           std::cout << "      Has typed value = " << singlePropertyValue->HasTypedValue() << std::endl;
           std::cout << "      Raw value       = \"" << singlePropertyValue->GetRawValue() << "\"" << std::endl;
-          DebugPrintPropertyValueToConsole(singlePropertyValue);
+          DebugPrintGoPropertyValueToConsole(singlePropertyValue);
         }
       }
 
@@ -222,45 +228,77 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcDocument::DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const
+  void SgfcDocument::DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const
   {
     if (propertyValue->GetValueType() == SgfcPropertyValueType::Point)
     {
       const ISgfcPointPropertyValue* pointValue = propertyValue->ToPointValue();
       const ISgfcGoPointPropertyValue* goPointValue = pointValue->ToGoPointValue();
       std::cout << "      Is Go Point = " << (goPointValue != nullptr) << std::endl;
-      if (goPointValue != nullptr)
-      {
-        std::shared_ptr<ISgfcGoPoint> goPoint = goPointValue->GetGoPoint();
+      if (goPointValue == nullptr)
+        return;
 
-        std::vector<SgfcCoordinateSystem> coordinateSystems
-        {
-          SgfcCoordinateSystem::UpperLeftOrigin,
-          SgfcCoordinateSystem::LowerLeftOrigin,
-        };
-        for (SgfcCoordinateSystem coordinateSystem : coordinateSystems)
-        {
-          int coordinateSystemAsInt = static_cast<int>(coordinateSystem);
-          std::cout << "        Coordinate system " << coordinateSystemAsInt << std::endl;
-          std::cout << "          GetXPosition = " << goPoint->GetXPosition(coordinateSystem) << std::endl;
-          std::cout << "          GetYPosition = " << goPoint->GetYPosition(coordinateSystem) << std::endl;
-        }
-        std::vector<SgfcGoPointNotation> notations
-        {
-          SgfcGoPointNotation::Sgf,
-          SgfcGoPointNotation::Figure,
-          SgfcGoPointNotation::Hybrid,
-        };
-        for (SgfcGoPointNotation notation : notations)
-        {
-          int notationAsInt = static_cast<int>(notation);
-          std::cout << "        Notation " << notationAsInt << std::endl;
-          std::cout << "          HasPosition = " << goPoint->HasPosition(notation) << std::endl;
-          std::cout << "          GetPosition = " << goPoint->GetPosition(notation) << std::endl;
-          std::cout << "          GetXPosition = " << goPoint->GetXPosition(notation) << std::endl;
-          std::cout << "          GetYPosition = " << goPoint->GetYPosition(notation) << std::endl;
-        }
-      }
+      std::shared_ptr<ISgfcGoPoint> goPoint = goPointValue->GetGoPoint();
+      DebugPrintGoPointValueToConsole(goPoint.get());
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Stone)
+    {
+      const ISgfcStonePropertyValue* stoneValue = propertyValue->ToStoneValue();
+      const ISgfcGoStonePropertyValue* goStoneValue = stoneValue->ToGoStoneValue();
+      std::cout << "      Is Go Stone = " << (goStoneValue != nullptr) << std::endl;
+      if (goStoneValue == nullptr)
+        return;
+
+      std::shared_ptr<ISgfcGoStone> goStone = goStoneValue->GetGoStone();
+      std::cout << "        Stone color = " << static_cast<int>(goStone->GetColor()) << std::endl;
+
+      std::shared_ptr<ISgfcGoPoint> location = goStone->GetLocation();
+      DebugPrintGoPointValueToConsole(location.get());
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Move)
+    {
+      const ISgfcMovePropertyValue* moveValue = propertyValue->ToMoveValue();
+      const ISgfcGoMovePropertyValue* goMoveValue = moveValue->ToGoMoveValue();
+      std::cout << "      Is Go Move = " << (goMoveValue != nullptr) << std::endl;
+      if (goMoveValue == nullptr)
+        return;
+
+      std::shared_ptr<ISgfcGoMove> goMove = goMoveValue->GetGoMove();
+      std::cout << "        Player color = " << static_cast<int>(goMove->GetPlayerColor()) << std::endl;
+
+      std::shared_ptr<ISgfcGoPoint> location = goMove->GetStoneLocation();
+      DebugPrintGoPointValueToConsole(location.get());
+    }
+  }
+
+  void SgfcDocument::DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const
+  {
+    std::vector<SgfcCoordinateSystem> coordinateSystems
+    {
+      SgfcCoordinateSystem::UpperLeftOrigin,
+      SgfcCoordinateSystem::LowerLeftOrigin,
+    };
+    for (SgfcCoordinateSystem coordinateSystem : coordinateSystems)
+    {
+      int coordinateSystemAsInt = static_cast<int>(coordinateSystem);
+      std::cout << "        Coordinate system " << coordinateSystemAsInt << std::endl;
+      std::cout << "          GetXPosition = " << goPoint->GetXPosition(coordinateSystem) << std::endl;
+      std::cout << "          GetYPosition = " << goPoint->GetYPosition(coordinateSystem) << std::endl;
+    }
+    std::vector<SgfcGoPointNotation> notations
+    {
+      SgfcGoPointNotation::Sgf,
+      SgfcGoPointNotation::Figure,
+      SgfcGoPointNotation::Hybrid,
+    };
+    for (SgfcGoPointNotation notation : notations)
+    {
+      int notationAsInt = static_cast<int>(notation);
+      std::cout << "        Notation " << notationAsInt << std::endl;
+      std::cout << "          HasPosition = " << goPoint->HasPosition(notation) << std::endl;
+      std::cout << "          GetPosition = " << goPoint->GetPosition(notation) << std::endl;
+      std::cout << "          GetXPosition = " << goPoint->GetXPosition(notation) << std::endl;
+      std::cout << "          GetYPosition = " << goPoint->GetYPosition(notation) << std::endl;
     }
   }
 }
