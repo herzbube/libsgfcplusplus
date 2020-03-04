@@ -476,7 +476,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::AB:
         return DescriptorListOfStone;
       case SgfcPropertyType::AE:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::AW:
         return DescriptorListOfStone;
       case SgfcPropertyType::PL:
@@ -511,7 +511,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::AR:
         return DescriptorComposedPointAndPoint;
       case SgfcPropertyType::CR:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::DD:
         return DescriptorElistOfPoint;
       case SgfcPropertyType::LB:
@@ -519,13 +519,13 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::LN:
         return DescriptorComposedPointAndPoint;
       case SgfcPropertyType::MA:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::SL:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::SQ:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::TR:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
 
       case SgfcPropertyType::AP:
         return DescriptorComposedSimpleTextAndSimpleText;
