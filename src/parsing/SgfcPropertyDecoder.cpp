@@ -12,6 +12,7 @@
 #include "../document/typedpropertyvalue/SgfcStonePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcTextPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcUnknownPropertyValue.h"
+#include "../document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h"
 #include "../document/SgfcComposedPropertyValue.h"
 #include "../SgfcConstants.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
@@ -949,8 +950,16 @@ namespace LibSgfcPlusPlus
          rawPropertyValueBuffer));
         break;
       case SgfcPropertyValueType::Point:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-         rawPropertyValueBuffer));
+        if (this->gameType == SgfcGameType::Go)
+        {
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
+           rawPropertyValueBuffer));
+        }
+        else
+        {
+          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
+           rawPropertyValueBuffer));
+        }
         break;
       case SgfcPropertyValueType::Move:
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
