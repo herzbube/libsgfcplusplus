@@ -91,7 +91,8 @@ namespace LibSgfcPlusPlus
     catch (std::runtime_error& exception)
     {
       // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to after FillParseResult().
+      // fatal error message that we get access to after
+      // GetMessageStreamResult().
     }
 
     std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = GetMessageStreamResult();

@@ -14,6 +14,7 @@
 #include "SgfcGame.h"
 #include "SgfcNode.h"
 #include "SgfcProperty.h"
+
 // C++ Standard Library includes
 #include <iostream>
 
@@ -84,7 +85,7 @@ namespace LibSgfcPlusPlus
     Node* sgfPreviousSiblingNode = sgfFirstChildNode;
     std::shared_ptr<ISgfcNode> previousSiblingNode = firstChildNode;
 
-    Node* sgfNextSiblingNode = sgfPreviousSiblingNode->sibling;
+    Node* sgfNextSiblingNode = sgfFirstChildNode->sibling;
     while (sgfNextSiblingNode != nullptr)
     {
       std::shared_ptr<ISgfcNode> nextSiblingNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
