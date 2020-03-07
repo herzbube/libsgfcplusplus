@@ -96,6 +96,8 @@ namespace LibSgfcPlusPlus
 
     std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = GetMessageStreamResult();
 
+    sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
+
     std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
       std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(parseSgfResult, sgfDataWrapper));
     return backendLoadResult;
@@ -114,24 +116,53 @@ namespace LibSgfcPlusPlus
     ResetGlobalVariables();
     this->sgfcOptions.RestoreOptions();
 
-    // It is safe to keep the pointer to the internal string buffer as long
-    // as the string remains in scope and we don't change the string content.
-    // It is safe to remove const'ness because we know that SaveSGF() won't
-    // change the char buffer.
-    option_outfile = const_cast<char*>(sgfFilePath.c_str());
+    bool parseSgfWasSuccessful = true;
 
-    // Prepare the SGFInfo struct for SaveSGF()
-    sgfDataWrapper->GetSgfData()->name = option_outfile;
-
-    try
+    if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
     {
-      // The following function sets the global variable sgfc as a side effect
-      SaveSGF(sgfDataWrapper->GetSgfData());
+      try
+      {
+        // Both of the following functions set the global variable sgfc as a
+        // side effect
+        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+        ParseSGF(sgfDataWrapper->GetSgfData());
+      }
+      catch (std::runtime_error& exception)
+      {
+        // Handle the exception. The SGFC message stream should now hold a
+        // fatal error message that we get access to after
+        // GetMessageStreamResult().
+        parseSgfWasSuccessful = false;
+      }
+
+      sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
     }
-    catch (std::runtime_error& exception)
+
+    // Don't attempt to save if parsing was not successful
+    // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
+    // we skip saving also for critical errors?
+    if (parseSgfWasSuccessful)
     {
-      // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to after FillSaveResult().
+      // It is safe to keep the pointer to the internal string buffer as long
+      // as the string remains in scope and we don't change the string content.
+      // It is safe to remove const'ness because we know that SaveSGF() won't
+      // change the char buffer.
+      option_outfile = const_cast<char*>(sgfFilePath.c_str());
+
+      // Prepare the SGFInfo struct for SaveSGF()
+      sgfDataWrapper->GetSgfData()->name = option_outfile;
+
+      try
+      {
+        // The following function sets the global variable sgfc as a side effect
+        SaveSGF(sgfDataWrapper->GetSgfData());
+      }
+      catch (std::runtime_error& exception)
+      {
+        // Handle the exception. The SGFC message stream should now hold a
+        // fatal error message that we get access to after
+        // GetMessageStreamResult().
+      }
     }
 
     std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = GetMessageStreamResult();
