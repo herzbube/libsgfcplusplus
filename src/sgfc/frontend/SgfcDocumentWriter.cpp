@@ -5,7 +5,7 @@
 #include "SgfcDocumentWriteResult.h"
 
 // C++ Standard Library includes
-#include <stdexcept>
+#include <iostream>
 
 namespace LibSgfcPlusPlus
 {
@@ -41,5 +41,13 @@ namespace LibSgfcPlusPlus
     std::string& sgfContent)
   {
     throw std::runtime_error("not yet implemented");
+  }
+
+  void SgfcDocumentWriter::DebugPrintToConsole(
+    std::shared_ptr<ISgfcDocument> document) const
+  {
+    SgfcDocumentEncoder encoder(document);
+    std::string sgfContent = encoder.Encode();
+    std::cout << sgfContent;
   }
 }

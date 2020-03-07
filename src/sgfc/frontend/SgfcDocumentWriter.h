@@ -21,6 +21,8 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent);
+    virtual void DebugPrintToConsole(
+      std::shared_ptr<ISgfcDocument> document) const;
 
   private:
     std::shared_ptr<SgfcBackendController> backendController;

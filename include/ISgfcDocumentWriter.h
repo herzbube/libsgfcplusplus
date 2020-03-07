@@ -46,5 +46,15 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent) = 0;
+
+    /// @brief Encodes the content of @a document into an SGF content stream
+    /// and prints that stream to stdout for debugging purposes.
+    ///
+    /// This is useful to see the SGF content that the writer would pass to
+    /// SGFC for parsing and writing.
+    ///
+    /// @todo Remove this prior to release.
+    virtual void DebugPrintToConsole(
+      std::shared_ptr<ISgfcDocument> document) const = 0;
   };
 }
