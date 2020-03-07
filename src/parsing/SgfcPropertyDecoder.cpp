@@ -91,6 +91,8 @@ namespace LibSgfcPlusPlus
     new SgfcPropertyListValueTypeDescriptor(DescriptorComposedSimpleTextAndSimpleText));
   std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfComposedStoneAndPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
     new SgfcPropertyListValueTypeDescriptor(DescriptorComposedStoneAndPoint));
+  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfComposedPointAndPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
+    new SgfcPropertyListValueTypeDescriptor(DescriptorComposedPointAndPoint));
 
   // Dual value type descriptors
   std::shared_ptr<SgfcPropertyDualValueTypeDescriptor> DescriptorNumberOrComposedNumberAndNumber = std::shared_ptr<SgfcPropertyDualValueTypeDescriptor>(
@@ -509,7 +511,7 @@ namespace LibSgfcPlusPlus
         return DescriptorDouble;
 
       case SgfcPropertyType::AR:
-        return DescriptorComposedPointAndPoint;
+        return DescriptorListOfComposedPointAndPoint;
       case SgfcPropertyType::CR:
         return DescriptorListOfPoint;
       case SgfcPropertyType::DD:
@@ -517,7 +519,7 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::LB:
         return DescriptorListOfComposedPointAndSimpleText;
       case SgfcPropertyType::LN:
-        return DescriptorComposedPointAndPoint;
+        return DescriptorListOfComposedPointAndPoint;
       case SgfcPropertyType::MA:
         return DescriptorListOfPoint;
       case SgfcPropertyType::SL:
