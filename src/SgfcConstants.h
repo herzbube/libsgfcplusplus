@@ -18,6 +18,14 @@ namespace LibSgfcPlusPlus
     static const std::string EmptyString;
     static const std::string SpaceCharacter;
     static const char NewlineCharacter;
+    static const std::string IndentationWhitespace;
+
+    static const std::string GameTreeBeginToken;
+    static const std::string GameTreeEndToken;
+    static const std::string NodeBeginToken;
+    static const std::string PropertyValueBeginToken;
+    static const std::string PropertyValueEndToken;
+    static const std::string ComposedValueSeparatorToken;
     static const std::string DoubleNormalString;
     static const std::string DoubleEmphasizedString;
     static const std::string ColorBlackString;

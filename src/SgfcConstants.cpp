@@ -8,6 +8,14 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::EmptyString = "";
   const std::string SgfcConstants::SpaceCharacter = " ";
   const char SgfcConstants::NewlineCharacter = '\n';
+  const std::string SgfcConstants::IndentationWhitespace = "  ";
+
+  const std::string SgfcConstants::GameTreeBeginToken = "(";
+  const std::string SgfcConstants::GameTreeEndToken = ")";
+  const std::string SgfcConstants::NodeBeginToken = ";";
+  const std::string SgfcConstants::PropertyValueBeginToken = "[";
+  const std::string SgfcConstants::PropertyValueEndToken = "]";
+  const std::string SgfcConstants::ComposedValueSeparatorToken = ":";
   const std::string SgfcConstants::DoubleNormalString = "1";
   const std::string SgfcConstants::DoubleEmphasizedString = "2";
   const std::string SgfcConstants::ColorBlackString = "B";
