@@ -29,7 +29,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
-    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfFile(
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
       const std::string& sgfFilePath) = 0;
 
@@ -43,7 +43,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
-    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfContent(
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent) = 0;
   };

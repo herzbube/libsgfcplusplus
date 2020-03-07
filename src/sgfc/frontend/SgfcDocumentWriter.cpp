@@ -17,7 +17,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::SaveSgfFile(
+  std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfFile(
     std::shared_ptr<ISgfcDocument> document,
     const std::string& sgfFilePath)
   {
@@ -35,7 +35,7 @@ namespace LibSgfcPlusPlus
 
   }
 
-  std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::SaveSgfContent(
+  std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfContent(
     std::shared_ptr<ISgfcDocument> document,
     std::string& sgfContent)
   {

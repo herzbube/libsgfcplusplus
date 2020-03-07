@@ -15,10 +15,10 @@ namespace LibSgfcPlusPlus
     SgfcDocumentWriter();
     virtual ~SgfcDocumentWriter();
 
-    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfFile(
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
       const std::string& sgfFilePath);
-    virtual std::shared_ptr<ISgfcDocumentWriteResult> SaveSgfContent(
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent);
 
