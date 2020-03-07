@@ -34,10 +34,12 @@ namespace LibSgfcPlusPlus
     static const std::string PropertyValueBeginToken;
     static const std::string PropertyValueEndToken;
     static const std::string ComposedValueSeparatorToken;
+    static const std::string EscapeCharacterToken;
     //@}
 
     /// @name String constants defined by the SGF standard for specific property values
     //@{
+    static const std::string NoneString;
     static const std::string DoubleNormalString;
     static const std::string DoubleEmphasizedString;
     static const std::string ColorBlackString;
