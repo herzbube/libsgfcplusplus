@@ -1,5 +1,6 @@
 // Project includes
 #include "../../document/SgfcDocument.h"
+#include "../../parsing/SgfcDocumentEncoder.h"
 #include "SgfcDocumentWriter.h"
 #include "SgfcDocumentWriteResult.h"
 
@@ -21,10 +22,11 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcDocument> document,
     const std::string& sgfFilePath)
   {
-    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
-      std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
+    SgfcDocumentEncoder encoder(document);
+    std::string sgfContent = encoder.Encode();
 
-    // TODO: Populate sgfDataWrapper with data from document.
+    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
+      std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
 
     std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
       this->backendController->SaveSgfFile(sgfFilePath, sgfDataWrapper);
@@ -32,7 +34,6 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcDocumentWriteResult> result = std::shared_ptr<ISgfcDocumentWriteResult>(new SgfcDocumentWriteResult(
       backendSaveResult->GetSaveResult()));
     return result;
-
   }
 
   std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfContent(
