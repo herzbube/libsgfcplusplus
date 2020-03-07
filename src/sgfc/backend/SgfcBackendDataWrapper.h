@@ -1,5 +1,11 @@
 #pragma once
 
+// Project includes
+#include "SgfcBackendDataState.h"
+
+// C++ Standard Library includes
+#include <string>
+
 // Forward declarations
 struct SGFInfo;
 
@@ -39,8 +45,15 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcBackendDataWrapper object
-    /// that wraps an empty SGFInfo data structure.
+    /// that wraps an empty SGFInfo data structure. The data state is
+    /// SgfcBackendDataState::NotLoaded.
     SgfcBackendDataWrapper();
+
+    /// @brief Initializes a newly constructed SgfcBackendDataWrapper object
+    /// that wraps an SGFInfo data structure that contains a file buffer with
+    /// a duplicate of the content of @a sgfContent. The data state is
+    /// SgfcBackendDataState::PartiallyLoaded.
+    SgfcBackendDataWrapper(const std::string& sgfContent);
 
     /// @brief Destroys and cleans up the SgfcBackendDataWrapper object.
     virtual ~SgfcBackendDataWrapper();
@@ -51,5 +64,12 @@ namespace LibSgfcPlusPlus
 
   private:
     SGFInfo* sgfData;
+    SgfcBackendDataState dataState;
+
+    void InitializeFileBuffer(const std::string& sgfContent) const;
+
+    friend class SgfcBackendController;
+    SgfcBackendDataState GetDataState() const;
+    void SetDataState(SgfcBackendDataState dataState);
   };
 }

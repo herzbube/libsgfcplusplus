@@ -16,11 +16,19 @@ namespace LibSgfcPlusPlus
 {
   SgfcBackendDataWrapper::SgfcBackendDataWrapper()
     : sgfData(new SGFInfo())
+    , dataState(SgfcBackendDataState::NotLoaded)
   {
     // Immediately zero the struct so that FreeSGFInfo() inside the destructor
     // works. This is important in case the destructor runs immediately after
     // the constructor, without SGF content being generated.
     memset(this->sgfData, 0, sizeof(struct SGFInfo));
+  }
+
+  SgfcBackendDataWrapper::SgfcBackendDataWrapper(const std::string& sgfContent)
+    : SgfcBackendDataWrapper()
+  {
+    InitializeFileBuffer(sgfContent);
+    this->dataState = SgfcBackendDataState::PartiallyLoaded;
   }
 
   SgfcBackendDataWrapper::~SgfcBackendDataWrapper()
@@ -33,5 +41,39 @@ namespace LibSgfcPlusPlus
   SGFInfo* SgfcBackendDataWrapper::GetSgfData() const
   {
     return this->sgfData;
+  }
+
+  SgfcBackendDataState SgfcBackendDataWrapper::GetDataState() const
+  {
+    return this->dataState;
+  }
+
+  void SgfcBackendDataWrapper::SetDataState(SgfcBackendDataState dataState)
+  {
+    this->dataState = dataState;
+  }
+
+  /// @brief Sets up the SGFInfo object with a newly allocated buffer which
+  /// duplicates the content of @a sgfContent.
+  ///
+  /// This method simulates that part of LoadSGF() which loads the entire
+  /// .sgf file into memory and configures the SGFInfo structure with the
+  /// resulting buffer.
+  ///
+  /// The state of the SGFInfo object when this method returns is incomplete.
+  /// Someone needs to invoke LoadSGFFromFileBuffer() to bring the SGFInfo
+  /// object into the state it normally has after LoadSGF(). The next step then
+  /// usually is invoking ParseSGF().
+  void SgfcBackendDataWrapper::InitializeFileBuffer(const std::string& sgfContent) const
+  {
+    long sgfContentSize = sgfContent.size();
+    SaveMalloc(char *, sgfData->buffer, sgfContentSize, "source file buffer");
+
+    memcpy(sgfData->buffer, sgfContent.c_str(), sgfContentSize);
+
+    sgfData->b_end = sgfData->buffer + sgfContentSize;
+    sgfData->current = sgfData->buffer;
+
+    // sgfData->start will be set by LoadSGFFromFileBuffer
   }
 }
