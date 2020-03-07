@@ -97,7 +97,7 @@ namespace LibSgfcPlusPlus
       sgfPreviousSiblingNode = sgfNextSiblingNode;
       previousSiblingNode = nextSiblingNode;
 
-      sgfNextSiblingNode = sgfNextSiblingNode->next;
+      sgfNextSiblingNode = sgfNextSiblingNode->sibling;
     }
   }
 
