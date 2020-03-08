@@ -944,15 +944,21 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcColorPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::SimpleText:
+      {
+        std::string rawValueWithoutEscapeCharacters = RemoveEscapeCharacters(rawPropertyValueBuffer);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
-         rawPropertyValueBuffer,
-         rawPropertyValueBuffer));
+          rawValueWithoutEscapeCharacters,
+          rawValueWithoutEscapeCharacters));
         break;
+      }
       case SgfcPropertyValueType::Text:
+      {
+        std::string rawValueWithoutEscapeCharacters = RemoveEscapeCharacters(rawPropertyValueBuffer);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
-         rawPropertyValueBuffer,
-         rawPropertyValueBuffer));
+          rawValueWithoutEscapeCharacters,
+          rawValueWithoutEscapeCharacters));
         break;
+      }
       case SgfcPropertyValueType::Point:
         if (this->gameType == SgfcGameType::Go)
         {
@@ -1293,4 +1299,23 @@ namespace LibSgfcPlusPlus
     }
   }
 
+  std::string SgfcPropertyDecoder::RemoveEscapeCharacters(const std::string& rawPropertyValue) const
+  {
+    std::string result = std::regex_replace(
+      rawPropertyValue,
+      SgfcConstants::EscapedPropertyValueEndTokenRegex,
+      SgfcConstants::PropertyValueEndToken);
+
+    result = std::regex_replace(
+      result,
+      SgfcConstants::EscapedComposedValueSeparatorTokenRegex,
+      SgfcConstants::ComposedValueSeparatorToken);
+
+    result = std::regex_replace(
+      result,
+      SgfcConstants::EscapedEscapeCharacterRegex,
+      SgfcConstants::EscapeCharacterToken);
+
+    return result;
+  }
 }

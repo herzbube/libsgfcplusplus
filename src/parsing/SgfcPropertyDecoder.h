@@ -104,5 +104,7 @@ namespace LibSgfcPlusPlus
     static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
 
     SgfcColor GetColorForPropertyType() const;
+
+    std::string RemoveEscapeCharacters(const std::string& rawPropertyValue) const;
   };
 }

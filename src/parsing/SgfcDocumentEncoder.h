@@ -6,10 +6,12 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcComposedPropertyValue;
   class ISgfcDocument;
   class ISgfcNode;
   class ISgfcProperty;
   class ISgfcPropertyValue;
+  class ISgfcSinglePropertyValue;
 
   /// @brief The SgfcDocumentEncoder class encodes the content of an
   /// ISgfcDocument object into an in-memory string buffer that contains the
@@ -65,6 +67,16 @@ namespace LibSgfcPlusPlus
       std::stringstream& sgfContentStream,
       int indentationLevel) const;
 
+    void EncodeComposedPropertyValue(
+      const ISgfcComposedPropertyValue* composedPropertyValue,
+      std::stringstream& sgfContentStream,
+      int indentationLevel) const;
+
+    void EncodeSinglePropertyValue(
+      const ISgfcSinglePropertyValue* singlePropertyValue,
+      std::stringstream& sgfContentStream,
+      int indentationLevel) const;
+
     void EncodeGameTreeBeginOrEnd(
       const std::string& beginOrEndToken,
       std::stringstream& sgfContentStream,
@@ -73,5 +85,8 @@ namespace LibSgfcPlusPlus
     void EncodeIndentation(
       int indentationLevel,
       std::stringstream& sgfContentStream) const;
+
+    std::string AddEscapeCharacters(
+      const std::string& propertyValue) const;
   };
 }

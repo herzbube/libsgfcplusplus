@@ -17,12 +17,44 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::PropertyValueEndToken = "]";
   const std::string SgfcConstants::ComposedValueSeparatorToken = ":";
   const std::string SgfcConstants::EscapeCharacterToken = "\\";
+  const std::string SgfcConstants::EscapedPropertyValueEndToken =
+    SgfcConstants::EscapeCharacterToken +
+    SgfcConstants::PropertyValueEndToken;
+  const std::string SgfcConstants::EscapedComposedValueSeparatorToken =
+    SgfcConstants::EscapeCharacterToken +
+    SgfcConstants::ComposedValueSeparatorToken;
+  const std::string SgfcConstants::EscapedEscapeCharacterToken =
+    SgfcConstants::EscapeCharacterToken +
+    SgfcConstants::EscapeCharacterToken;
 
   const std::string NoneString = SgfcConstants::EmptyString;
   const std::string SgfcConstants::DoubleNormalString = "1";
   const std::string SgfcConstants::DoubleEmphasizedString = "2";
   const std::string SgfcConstants::ColorBlackString = "B";
   const std::string SgfcConstants::ColorWhiteString = "W";
+
+  const std::regex SgfcConstants::EscapedPropertyValueEndTokenRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
+    SgfcConstants::EscapeCharacterToken +   // Make the following token a literal for the regex
+    SgfcConstants::PropertyValueEndToken);  // The literal as it appears in the SGF content
+  const std::regex SgfcConstants::EscapedComposedValueSeparatorTokenRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
+    SgfcConstants::ComposedValueSeparatorToken);
+  const std::regex SgfcConstants::EscapedEscapeCharacterRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
+  const std::regex SgfcConstants::UnescapedPropertyValueEndTokenRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following token a literal for the regex
+    SgfcConstants::PropertyValueEndToken);  // The literal as it appears in the SGF content
+  const std::regex SgfcConstants::UnescapedComposedValueSeparatorTokenRegex(
+    SgfcConstants::ComposedValueSeparatorToken);
+  const std::regex SgfcConstants::UnescapedEscapeCharacterRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
 
   const std::string SgfcConstants::LineToken = "Line:";
   const std::string SgfcConstants::ColumnToken = "Col:";
