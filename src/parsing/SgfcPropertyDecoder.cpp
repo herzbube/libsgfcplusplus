@@ -945,7 +945,7 @@ namespace LibSgfcPlusPlus
         break;
       case SgfcPropertyValueType::SimpleText:
       {
-        std::string rawValueWithoutEscapeCharacters = RemoveEscapeCharacters(rawPropertyValueBuffer);
+        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
           rawValueWithoutEscapeCharacters,
           rawValueWithoutEscapeCharacters));
@@ -953,7 +953,7 @@ namespace LibSgfcPlusPlus
       }
       case SgfcPropertyValueType::Text:
       {
-        std::string rawValueWithoutEscapeCharacters = RemoveEscapeCharacters(rawPropertyValueBuffer);
+        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
           rawValueWithoutEscapeCharacters,
           rawValueWithoutEscapeCharacters));
@@ -967,8 +967,9 @@ namespace LibSgfcPlusPlus
         }
         else
         {
+          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-           rawPropertyValueBuffer));
+           rawValueWithoutEscapeCharacters));
         }
         break;
       case SgfcPropertyValueType::Move:
@@ -980,8 +981,9 @@ namespace LibSgfcPlusPlus
         }
         else
         {
+          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-           rawPropertyValueBuffer));
+           rawValueWithoutEscapeCharacters));
         }
         break;
       case SgfcPropertyValueType::Stone:
@@ -993,8 +995,9 @@ namespace LibSgfcPlusPlus
         }
         else
         {
+          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-           rawPropertyValueBuffer));
+           rawValueWithoutEscapeCharacters));
         }
         break;
       case SgfcPropertyValueType::Unknown:
@@ -1299,23 +1302,32 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  std::string SgfcPropertyDecoder::RemoveEscapeCharacters(const std::string& rawPropertyValue) const
+  std::string SgfcPropertyDecoder::RemoveSimpleTextAndTextEscapeCharacters(
+    const std::string& rawPropertyValue) const
   {
-    std::string result = std::regex_replace(
-      rawPropertyValue,
-      SgfcConstants::EscapedPropertyValueEndTokenRegex,
-      SgfcConstants::PropertyValueEndToken);
+    std::string result = RemoveMandatoryEscapeCharacters(rawPropertyValue);
 
     result = std::regex_replace(
       result,
       SgfcConstants::EscapedComposedValueSeparatorTokenRegex,
       SgfcConstants::ComposedValueSeparatorToken);
 
+    // Escape characters must be removed last so that we don't remove the escape
+    // characters from other escape sequences.
     result = std::regex_replace(
       result,
       SgfcConstants::EscapedEscapeCharacterRegex,
       SgfcConstants::EscapeCharacterToken);
 
     return result;
+  }
+
+  std::string SgfcPropertyDecoder::RemoveMandatoryEscapeCharacters(
+    const std::string& rawPropertyValue) const
+  {
+    return std::regex_replace(
+      rawPropertyValue,
+      SgfcConstants::EscapedPropertyValueEndTokenRegex,
+      SgfcConstants::PropertyValueEndToken);
   }
 }

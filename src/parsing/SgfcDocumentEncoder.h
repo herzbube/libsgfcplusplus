@@ -86,7 +86,9 @@ namespace LibSgfcPlusPlus
       int indentationLevel,
       std::stringstream& sgfContentStream) const;
 
-    std::string AddEscapeCharacters(
+    std::string AddSimpleTextAndTextEscapeCharacters(
+      const std::string& propertyValue) const;
+    std::string AddMandatoryEscapeCharacters(
       const std::string& propertyValue) const;
   };
 }

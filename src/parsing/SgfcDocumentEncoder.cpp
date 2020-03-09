@@ -165,12 +165,34 @@ namespace LibSgfcPlusPlus
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
-    std::string rawValueWithEscapeCharacters =
-      AddEscapeCharacters(singlePropertyValue->GetRawValue());
+    switch (singlePropertyValue->GetValueType())
+    {
+      case SgfcPropertyValueType::SimpleText:
+      case SgfcPropertyValueType::Text:
+        // TODO: Handle newlines
+        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(singlePropertyValue->GetRawValue());
+        break;
 
-    // TODO: Handle newlines
+      // An application-specific value type might contain anything at all. We
+      // can't perform the same escaping as for SimpleText/Text, though, because
+      // we have no idea how the unknown value type is structured.
+      case SgfcPropertyValueType::Unknown:  // fall-through intentional
 
-    sgfContentStream << rawValueWithEscapeCharacters;
+      // For unknown game types the following value types can contain anything
+      // at all, quite similar to SgfcPropertyValueType::Unknown.
+      // TODO: Do not escape for SgfcGameType::Go
+      case SgfcPropertyValueType::Point:
+      case SgfcPropertyValueType::Move:
+      case SgfcPropertyValueType::Stone:
+        sgfContentStream << AddMandatoryEscapeCharacters(singlePropertyValue->GetRawValue());
+        break;
+
+      // All other value types have strict requirements and don't need
+      // escaping
+      default:
+        sgfContentStream << singlePropertyValue->GetRawValue();
+        break;
+    }
   }
 
   void SgfcDocumentEncoder::EncodeGameTreeBeginOrEnd(
@@ -196,7 +218,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  std::string SgfcDocumentEncoder::AddEscapeCharacters(const std::string& propertyValue) const
+  std::string SgfcDocumentEncoder::AddSimpleTextAndTextEscapeCharacters(const std::string& propertyValue) const
   {
     // Escape characters already present must be escaped first so that we don't
     // escape the escape characters from other escape sequences.
@@ -204,11 +226,6 @@ namespace LibSgfcPlusPlus
       propertyValue,
       SgfcConstants::UnescapedEscapeCharacterRegex,
       SgfcConstants::EscapedEscapeCharacterToken);
-
-    result = std::regex_replace(
-      result,
-      SgfcConstants::UnescapedPropertyValueEndTokenRegex,
-      SgfcConstants::EscapedPropertyValueEndToken);
 
     // There's no logic here to check whether this belongs to a composed
     // property value and needs escaping at all. It would make things overly
@@ -221,6 +238,14 @@ namespace LibSgfcPlusPlus
       SgfcConstants::UnescapedComposedValueSeparatorTokenRegex,
       SgfcConstants::EscapedComposedValueSeparatorToken);
 
-    return result;
+    return AddMandatoryEscapeCharacters(result);
+  }
+
+  std::string SgfcDocumentEncoder::AddMandatoryEscapeCharacters(const std::string& propertyValue) const
+  {
+    return std::regex_replace(
+      propertyValue,
+      SgfcConstants::UnescapedPropertyValueEndTokenRegex,
+      SgfcConstants::EscapedPropertyValueEndToken);
   }
 }

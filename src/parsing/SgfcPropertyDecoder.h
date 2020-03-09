@@ -105,6 +105,7 @@ namespace LibSgfcPlusPlus
 
     SgfcColor GetColorForPropertyType() const;
 
-    std::string RemoveEscapeCharacters(const std::string& rawPropertyValue) const;
+    std::string RemoveSimpleTextAndTextEscapeCharacters(const std::string& rawPropertyValue) const;
+    std::string RemoveMandatoryEscapeCharacters(const std::string& rawPropertyValue) const;
   };
 }
