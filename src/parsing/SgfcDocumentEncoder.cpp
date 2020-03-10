@@ -2,7 +2,7 @@
 #include "../../include/ISgfcDocument.h"
 #include "../../include/ISgfcComposedPropertyValue.h"
 #include "../../include/ISgfcSinglePropertyValue.h"
-#include "../SgfcConstants.h"
+#include "../SgfcPrivateConstants.h"
 #include "SgfcDocumentEncoder.h"
 
 // C++ Standard Library includes
@@ -31,7 +31,7 @@ namespace LibSgfcPlusPlus
     {
       auto rootNode = game->GetRootNode();
 
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
       indentationLevel++;
 
       EncodeNode(rootNode.get(), sgfContentStream, indentationLevel);
@@ -39,7 +39,7 @@ namespace LibSgfcPlusPlus
       RecursiveParseDepthFirst(rootNode, sgfContentStream, indentationLevel);
 
       indentationLevel--;
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
 
       rootNode = rootNode->GetNextSibling();
     }
@@ -64,7 +64,7 @@ namespace LibSgfcPlusPlus
 
     if (hasSibling)
     {
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
       indentationLevel++;
     }
 
@@ -75,13 +75,13 @@ namespace LibSgfcPlusPlus
     if (hasSibling)
     {
       indentationLevel--;
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
     }
 
     std::shared_ptr<ISgfcNode> nextSiblingNode = firstChildNode->GetNextSibling();
     while (nextSiblingNode != nullptr)
     {
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
       indentationLevel++;
 
       EncodeNode(nextSiblingNode.get(), sgfContentStream, indentationLevel);
@@ -89,7 +89,7 @@ namespace LibSgfcPlusPlus
       RecursiveParseDepthFirst(nextSiblingNode, sgfContentStream, indentationLevel);
 
       indentationLevel--;
-      EncodeGameTreeBeginOrEnd(SgfcConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
+      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
 
       nextSiblingNode = nextSiblingNode->GetNextSibling();
     }
@@ -102,7 +102,7 @@ namespace LibSgfcPlusPlus
   {
     EncodeIndentation(indentationLevel, sgfContentStream);
 
-    sgfContentStream << SgfcConstants::NodeBeginToken;
+    sgfContentStream << SgfcPrivateConstants::NodeBeginToken;
 
     for (auto property : node->GetProperties())
     {
@@ -130,7 +130,7 @@ namespace LibSgfcPlusPlus
     }
 
     if (propertyHasNoValues)
-      sgfContentStream << SgfcConstants::PropertyValueBeginToken << SgfcConstants::PropertyValueEndToken;
+      sgfContentStream << SgfcPrivateConstants::PropertyValueBeginToken << SgfcPrivateConstants::PropertyValueEndToken;
   }
 
   void SgfcDocumentEncoder::EncodePropertyValue(
@@ -138,14 +138,14 @@ namespace LibSgfcPlusPlus
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
-    sgfContentStream << SgfcConstants::PropertyValueBeginToken;
+    sgfContentStream << SgfcPrivateConstants::PropertyValueBeginToken;
 
     if (propertyValue->IsComposedValue())
       EncodeComposedPropertyValue(propertyValue->ToComposedValue(), sgfContentStream, indentationLevel);
     else
       EncodeSinglePropertyValue(propertyValue->ToSingleValue(), sgfContentStream, indentationLevel);
 
-    sgfContentStream << SgfcConstants::PropertyValueEndToken;
+    sgfContentStream << SgfcPrivateConstants::PropertyValueEndToken;
   }
 
   void SgfcDocumentEncoder::EncodeComposedPropertyValue(
@@ -155,7 +155,7 @@ namespace LibSgfcPlusPlus
   {
     EncodeSinglePropertyValue(composedPropertyValue->GetValue1().get(), sgfContentStream, indentationLevel);
 
-    sgfContentStream << SgfcConstants::ComposedValueSeparatorToken;
+    sgfContentStream << SgfcPrivateConstants::ComposedValueSeparatorToken;
 
     EncodeSinglePropertyValue(composedPropertyValue->GetValue2().get(), sgfContentStream, indentationLevel);
   }
@@ -213,7 +213,7 @@ namespace LibSgfcPlusPlus
   {
     while (indentationLevel > 0)
     {
-      sgfContentStream << SgfcConstants::IndentationWhitespace;
+      sgfContentStream << SgfcPrivateConstants::IndentationWhitespace;
       indentationLevel--;
     }
   }
@@ -224,8 +224,8 @@ namespace LibSgfcPlusPlus
     // escape the escape characters from other escape sequences.
     std::string result = std::regex_replace(
       propertyValue,
-      SgfcConstants::UnescapedEscapeCharacterRegex,
-      SgfcConstants::EscapedEscapeCharacterToken);
+      SgfcPrivateConstants::UnescapedEscapeCharacterRegex,
+      SgfcPrivateConstants::EscapedEscapeCharacterToken);
 
     // There's no logic here to check whether this belongs to a composed
     // property value and needs escaping at all. It would make things overly
@@ -235,8 +235,8 @@ namespace LibSgfcPlusPlus
     // remove any unnecessary escape characters.
     result = std::regex_replace(
       result,
-      SgfcConstants::UnescapedComposedValueSeparatorTokenRegex,
-      SgfcConstants::EscapedComposedValueSeparatorToken);
+      SgfcPrivateConstants::UnescapedComposedValueSeparatorTokenRegex,
+      SgfcPrivateConstants::EscapedComposedValueSeparatorToken);
 
     return AddMandatoryEscapeCharacters(result);
   }
@@ -245,7 +245,7 @@ namespace LibSgfcPlusPlus
   {
     return std::regex_replace(
       propertyValue,
-      SgfcConstants::UnescapedPropertyValueEndTokenRegex,
-      SgfcConstants::EscapedPropertyValueEndToken);
+      SgfcPrivateConstants::UnescapedPropertyValueEndTokenRegex,
+      SgfcPrivateConstants::EscapedPropertyValueEndToken);
   }
 }

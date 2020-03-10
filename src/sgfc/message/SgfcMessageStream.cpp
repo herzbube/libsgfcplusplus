@@ -1,5 +1,5 @@
 // Project includes
-#include "../../SgfcConstants.h"
+#include "../../SgfcPrivateConstants.h"
 #include "SgfcMessageStream.h"
 
 // C++ Standardd Library includes
@@ -30,7 +30,7 @@ namespace LibSgfcPlusPlus
   // ----------------------------------------------------------------------
 
   SgfcMessageStream::SgfcMessageStream()
-    : rawMessageStreamContent(SgfcConstants::EmptyString)
+    : rawMessageStreamContent(SgfcPrivateConstants::EmptyString)
     , messageStreamLines()
   {
     // TODO: Add multi-threading protection.
@@ -51,7 +51,7 @@ namespace LibSgfcPlusPlus
     std::stringstream messageStream(this->rawMessageStreamContent);
     std::string line;
 
-    while (std::getline(messageStream, line, SgfcConstants::NewlineCharacter))
+    while (std::getline(messageStream, line, SgfcPrivateConstants::NewlineCharacter))
     {
       this->messageStreamLines.push_back(line);
     }

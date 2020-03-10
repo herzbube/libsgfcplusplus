@@ -2,7 +2,6 @@
 
 // Project includes
 #include "../include/SgfcMessageType.h"
-#include "../include/SgfcGameType.h"
 
 // C++ Standard Library includes
 #include <string>
@@ -10,15 +9,11 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcConstants class is a container class for constants.
-  class SgfcConstants
+  /// @brief The SgfcPrivateConstants class is a container class for
+  /// library-internal constants.
+  class SgfcPrivateConstants
   {
   public:
-    /// @name libsgfc++ constants
-    //@{
-    static const std::string LibraryName;
-    //@}
-
     /// @name General string constants
     //@{
     static const std::string EmptyString;
@@ -40,15 +35,6 @@ namespace LibSgfcPlusPlus
     static const std::string EscapedPropertyValueEndToken;
     static const std::string EscapedComposedValueSeparatorToken;
     static const std::string EscapedEscapeCharacterToken;
-    //@}
-
-    /// @name String constants defined by the SGF standard for specific property values
-    //@{
-    static const std::string NoneString;
-    static const std::string DoubleNormalString;
-    static const std::string DoubleEmphasizedString;
-    static const std::string ColorBlackString;
-    static const std::string ColorWhiteString;
     //@}
 
     /// @name Regular expression constants
@@ -116,15 +102,6 @@ namespace LibSgfcPlusPlus
     static const bool DefaultIsCriticalMessage;
     static const std::string DefaultMessageText;
     static const std::string DefaultRawMessageText;
-    //@}
-
-    /// @name Constants for defaults defined by the SGF standard
-    //@{
-    /// @brief The default game type if the SgfcPropertyType::GM property exists
-    /// but has no value.
-    ///
-    /// The SGF standard defines this to be SgfcGameType::Go.
-    static const SgfcGameType DefaultGameType;
     //@}
   };
 }

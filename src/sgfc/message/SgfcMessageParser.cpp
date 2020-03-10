@@ -1,6 +1,6 @@
 // Project includes
 #include "../../interface/internal/SgfcMessagePart.h"
-#include "../../SgfcConstants.h"
+#include "../../SgfcPrivateConstants.h"
 #include "SgfcMessage.h"
 #include "SgfcMessageParser.h"
 
@@ -16,12 +16,12 @@ namespace LibSgfcPlusPlus
     std::vector<std::string> tokens =
       SgfcMessageParser::TokenizeRawMessageText(rawMessageText);
 
-    int messageID = SgfcConstants::UnknownSgfcMessageID;
-    SgfcMessageType messageType = SgfcConstants::DefaultMessageType;
-    int lineNumber = SgfcConstants::DefaultLineNumber;
-    int columnNumber = SgfcConstants::DefaultColumnNumber;
-    bool isCriticalMessage  = SgfcConstants::DefaultIsCriticalMessage;
-    std::string messageText = SgfcConstants::DefaultMessageText;
+    int messageID = SgfcPrivateConstants::UnknownSgfcMessageID;
+    SgfcMessageType messageType = SgfcPrivateConstants::DefaultMessageType;
+    int lineNumber = SgfcPrivateConstants::DefaultLineNumber;
+    int columnNumber = SgfcPrivateConstants::DefaultColumnNumber;
+    bool isCriticalMessage  = SgfcPrivateConstants::DefaultIsCriticalMessage;
+    std::string messageText = SgfcPrivateConstants::DefaultMessageText;
 
     SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalToken;
 
@@ -36,13 +36,13 @@ namespace LibSgfcPlusPlus
       {
         case SgfcMessagePart::LineNumberOrFatalToken:
         {
-          if (token.find(SgfcConstants::LineToken) == 0)
+          if (token.find(SgfcPrivateConstants::LineToken) == 0)
           {
-            lineNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcConstants::LineToken);
+            lineNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcPrivateConstants::LineToken);
             expectedMessagePart = SgfcMessagePart::ColumnNumber;
             foundExpectedMessagePart = true;
           }
-          else if (token.find(SgfcConstants::FatalToken) == 0)
+          else if (token.find(SgfcPrivateConstants::FatalToken) == 0)
           {
             messageType = SgfcMessageType::FatalError;
             expectedMessagePart = SgfcMessagePart::ErrorLowerCaseToken;
@@ -52,9 +52,9 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::ColumnNumber:
         {
-          if (token.find(SgfcConstants::ColumnToken) == 0)
+          if (token.find(SgfcPrivateConstants::ColumnToken) == 0)
           {
-            columnNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcConstants::ColumnToken);
+            columnNumber = SgfcMessageParser::GetLineOrColumnNumberFromToken(token, SgfcPrivateConstants::ColumnToken);
             expectedMessagePart = SgfcMessagePart::Dash;
             foundExpectedMessagePart = true;
           }
@@ -62,7 +62,7 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::ErrorLowerCaseToken:
         {
-          if (token.find(SgfcConstants::ErrorLowerCaseToken) == 0)
+          if (token.find(SgfcPrivateConstants::ErrorLowerCaseToken) == 0)
           {
             // Ignore the word
             expectedMessagePart = SgfcMessagePart::MessageID;
@@ -72,7 +72,7 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::Dash:
         {
-          if (token.find(SgfcConstants::DashToken) == 0)
+          if (token.find(SgfcPrivateConstants::DashToken) == 0)
           {
             // Ignore the dash
             expectedMessagePart = SgfcMessagePart::MessageType;
@@ -82,13 +82,13 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::MessageType:
         {
-          if (token.find(SgfcConstants::WarningToken) == 0)
+          if (token.find(SgfcPrivateConstants::WarningToken) == 0)
           {
             messageType = SgfcMessageType::Warning;
             expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
-          else if (token.find(SgfcConstants::ErrorUpperCaseToken) == 0)
+          else if (token.find(SgfcPrivateConstants::ErrorUpperCaseToken) == 0)
           {
             messageType = SgfcMessageType::Error;
             expectedMessagePart = SgfcMessagePart::MessageID;
@@ -99,7 +99,7 @@ namespace LibSgfcPlusPlus
         case SgfcMessagePart::MessageID:
         {
           int messageIDFromToken = SgfcMessageParser::GetMessageIDFromToken(token);
-          if (messageIDFromToken != SgfcConstants::InvalidMessageID)
+          if (messageIDFromToken != SgfcPrivateConstants::InvalidMessageID)
           {
             messageID = messageIDFromToken;
             expectedMessagePart = SgfcMessagePart::CriticalIndicator;
@@ -109,7 +109,7 @@ namespace LibSgfcPlusPlus
         }
         case SgfcMessagePart::CriticalIndicator:
         {
-          if (token.find(SgfcConstants::CriticalToken) == 0)
+          if (token.find(SgfcPrivateConstants::CriticalToken) == 0)
           {
             isCriticalMessage = true;
             expectedMessagePart = SgfcMessagePart::MessageText;
@@ -131,7 +131,7 @@ namespace LibSgfcPlusPlus
           // simply using a single space character. This means that the
           // reconstituted message text can differ from the original raw message
           // text in the amount or kind of whitespace used.
-          messageText += SgfcConstants::SpaceCharacter + token;
+          messageText += SgfcPrivateConstants::SpaceCharacter + token;
           foundExpectedMessagePart = true;
           break;
         }
@@ -205,7 +205,7 @@ namespace LibSgfcPlusPlus
     }
     catch (std::exception& exception)
     {
-      return SgfcConstants::InvalidMessageID;
+      return SgfcPrivateConstants::InvalidMessageID;
     }
   }
 }

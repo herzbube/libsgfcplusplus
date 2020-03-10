@@ -1,5 +1,6 @@
 // Project includes
-#include "../../SgfcConstants.h"
+#include "../../../include/SgfcConstants.h"
+#include "../../SgfcPrivateConstants.h"
 #include "../message/SgfcMessage.h"
 #include "../message/SgfcMessageParser.h"
 #include "../message/SgfcMessageStream.h"
@@ -198,26 +199,26 @@ namespace LibSgfcPlusPlus
     {
       // We don't want these arguments because they would cause ParseArgs() to
       // output something on stdout
-      SgfcConstants::ShortHelpOption,
-      SgfcConstants::LongHelpOption,
-      SgfcConstants::VersionOption,
+      SgfcPrivateConstants::ShortHelpOption,
+      SgfcPrivateConstants::LongHelpOption,
+      SgfcPrivateConstants::VersionOption,
       // Interactive use in a library doesn't make sense
-      SgfcConstants::InteractiveModeOption,
+      SgfcPrivateConstants::InteractiveModeOption,
       // The library client decides whether it wants to write the SGF content
-      SgfcConstants::WriteFileEvenIfCriticalErrorOccurs,
+      SgfcPrivateConstants::WriteFileEvenIfCriticalErrorOccurs,
       // SGFC needs to be patched so that it does not print game signatures to
       // stdout but instead lets libsgfc++ capture the output.
-      SgfcConstants::PrintGameSignature,
+      SgfcPrivateConstants::PrintGameSignature,
     };
 
     for (const auto& argument : arguments)
     {
-      if (argument.substr(0, SgfcConstants::ShortOptionPrefix.length()) != SgfcConstants::ShortOptionPrefix)
+      if (argument.substr(0, SgfcPrivateConstants::ShortOptionPrefix.length()) != SgfcPrivateConstants::ShortOptionPrefix)
       {
         std::string message = "Not an option, argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
         this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-          SgfcConstants::BannedArgumentMessageID,
+          SgfcPrivateConstants::BannedArgumentMessageID,
           message);
       }
 
@@ -226,7 +227,7 @@ namespace LibSgfcPlusPlus
         std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
         this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-          SgfcConstants::BannedArgumentMessageID,
+          SgfcPrivateConstants::BannedArgumentMessageID,
           message);
       }
     }
@@ -342,7 +343,7 @@ namespace LibSgfcPlusPlus
     // This should not happen. If it does there was an error parsing the
     // message text.
     this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-      SgfcConstants::ParseArgumentErrorMessageID,
+      SgfcPrivateConstants::ParseArgumentErrorMessageID,
       "SGFC failed to parse the specified arguments");
   }
 

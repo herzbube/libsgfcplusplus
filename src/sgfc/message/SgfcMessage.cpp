@@ -1,17 +1,17 @@
 // Project includes
-#include "../../SgfcConstants.h"
+#include "../../SgfcPrivateConstants.h"
 #include "SgfcMessage.h"
 
 namespace LibSgfcPlusPlus
 {
   SgfcMessage::SgfcMessage()
-    : messageID(SgfcConstants::DefaultMessageID)
-    , messageType(SgfcConstants::DefaultMessageType)
-    , lineNumber(SgfcConstants::DefaultLineNumber)
-    , columnNumber(SgfcConstants::DefaultColumnNumber)
-    , isCriticalMessage(SgfcConstants::DefaultIsCriticalMessage)
-    , messageText(SgfcConstants::DefaultMessageText)
-    , rawMessageText(SgfcConstants::DefaultRawMessageText)
+    : messageID(SgfcPrivateConstants::DefaultMessageID)
+    , messageType(SgfcPrivateConstants::DefaultMessageType)
+    , lineNumber(SgfcPrivateConstants::DefaultLineNumber)
+    , columnNumber(SgfcPrivateConstants::DefaultColumnNumber)
+    , isCriticalMessage(SgfcPrivateConstants::DefaultIsCriticalMessage)
+    , messageText(SgfcPrivateConstants::DefaultMessageText)
+    , rawMessageText(SgfcPrivateConstants::DefaultRawMessageText)
   {
   }
 
@@ -79,9 +79,9 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcMessage> sgfcMessage = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
       messageID,
       SgfcMessageType::FatalError,
-      SgfcConstants::DefaultLineNumber,
-      SgfcConstants::DefaultColumnNumber,
-      SgfcConstants::DefaultIsCriticalMessage,
+      SgfcPrivateConstants::DefaultLineNumber,
+      SgfcPrivateConstants::DefaultColumnNumber,
+      SgfcPrivateConstants::DefaultIsCriticalMessage,
       messageText,
       messageText));
 

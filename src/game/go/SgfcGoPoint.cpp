@@ -1,6 +1,6 @@
 // Project includes
 #include "SgfcGoPoint.h"
-#include "../../SgfcConstants.h"
+#include "../../SgfcPrivateConstants.h"
 
 // C++ Standard Library includes
 #include <sstream>
@@ -63,7 +63,7 @@ namespace LibSgfcPlusPlus
   std::string SgfcGoPoint::GetPosition(SgfcGoPointNotation goPointNotation) const
   {
     if (! HasPosition(goPointNotation))
-      return SgfcConstants::EmptyString;
+      return SgfcPrivateConstants::EmptyString;
 
     switch (goPointNotation)
     {
@@ -72,7 +72,7 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->figureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcConstants::EmptyString;
+        return SgfcPrivateConstants::EmptyString;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -81,7 +81,7 @@ namespace LibSgfcPlusPlus
   std::string SgfcGoPoint::GetXPosition(SgfcGoPointNotation goPointNotation) const
   {
     if (! HasPosition(goPointNotation))
-      return SgfcConstants::EmptyString;
+      return SgfcPrivateConstants::EmptyString;
 
     switch (goPointNotation)
     {
@@ -90,7 +90,7 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->xCompoundFigureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcConstants::EmptyString;
+        return SgfcPrivateConstants::EmptyString;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -99,7 +99,7 @@ namespace LibSgfcPlusPlus
   std::string SgfcGoPoint::GetYPosition(SgfcGoPointNotation goPointNotation) const
   {
     if (! HasPosition(goPointNotation))
-      return SgfcConstants::EmptyString;
+      return SgfcPrivateConstants::EmptyString;
 
     switch (goPointNotation)
     {
@@ -108,7 +108,7 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->yCompoundFigureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcConstants::EmptyString;
+        return SgfcPrivateConstants::EmptyString;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -137,7 +137,7 @@ namespace LibSgfcPlusPlus
     std::stringstream stream;
     stream << this->xPositionUpperLeftOrigin;
     this->xCompoundFigureNotation = stream.str();
-    stream.str(SgfcConstants::EmptyString);
+    stream.str(SgfcPrivateConstants::EmptyString);
     stream << this->yPositionUpperLeftOrigin;
     this->yCompoundFigureNotation = stream.str();
     this->figureNotation = this->xCompoundFigureNotation + "-" + this->yCompoundFigureNotation;

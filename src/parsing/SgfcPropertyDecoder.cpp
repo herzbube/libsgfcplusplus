@@ -1,5 +1,6 @@
 // Project includes
 #include "../../include/SgfcColor.h"
+#include "../../include/SgfcConstants.h"
 #include "../../include/SgfcDouble.h"
 #include "../../include/SgfcGameType.h"
 #include "../document/typedpropertyvalue/SgfcColorPropertyValue.h"
@@ -16,7 +17,7 @@
 #include "../document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h"
 #include "../document/SgfcComposedPropertyValue.h"
-#include "../SgfcConstants.h"
+#include "../SgfcPrivateConstants.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyComposedValueTypeDescriptor.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyDualValueTypeDescriptor.h"
@@ -455,7 +456,7 @@ namespace LibSgfcPlusPlus
 
     // SgfcPropertyType::GM is not present. This is not the same as when the
     // property is present but has no value, so we can't return
-    // SgfcConstants::DefaultGameType.
+    // SgfcPrivateConstants::DefaultGameType.
     return SgfcGameType::Unknown;
   }
 
@@ -897,7 +898,7 @@ namespace LibSgfcPlusPlus
 
         if (basicValueType == SgfcPropertyValueType::None)
         {
-          if (sgfPropertyValue->value != SgfcConstants::EmptyString)
+          if (sgfPropertyValue->value != SgfcPrivateConstants::EmptyString)
           {
             // TODO: SGFC gave us a non-empty value, but we expected an empty value
           }
@@ -1327,8 +1328,8 @@ namespace LibSgfcPlusPlus
     // Soft line breaks have to be removed according to the SGF standard
     std::string result = std::regex_replace(
       rawPropertyValue,
-      SgfcConstants::EscapedLineEndingsRegex,
-      SgfcConstants::EmptyString);
+      SgfcPrivateConstants::EscapedLineEndingsRegex,
+      SgfcPrivateConstants::EmptyString);
 
     // Hard line breaks have to be replaced by a space characters according to
     // the SGF standard
@@ -1336,8 +1337,8 @@ namespace LibSgfcPlusPlus
     // them before we would replace soft line breaks too.
     return std::regex_replace(
       result,
-      SgfcConstants::UnescapedLineEndingsRegex,
-      SgfcConstants::SpaceCharacter);
+      SgfcPrivateConstants::UnescapedLineEndingsRegex,
+      SgfcPrivateConstants::SpaceCharacter);
   }
 
   std::string SgfcPropertyDecoder::RemoveTextLineBreaks(
@@ -1346,8 +1347,8 @@ namespace LibSgfcPlusPlus
     // Soft line breaks have to be removed according to the SGF standard
     return std::regex_replace(
       rawPropertyValue,
-      SgfcConstants::EscapedLineEndingsRegex,
-      SgfcConstants::EmptyString);
+      SgfcPrivateConstants::EscapedLineEndingsRegex,
+      SgfcPrivateConstants::EmptyString);
 
     // Hard line breaks are preserved according to the SGF standard
   }
@@ -1359,15 +1360,15 @@ namespace LibSgfcPlusPlus
 
     result = std::regex_replace(
       result,
-      SgfcConstants::EscapedComposedValueSeparatorTokenRegex,
-      SgfcConstants::ComposedValueSeparatorToken);
+      SgfcPrivateConstants::EscapedComposedValueSeparatorTokenRegex,
+      SgfcPrivateConstants::ComposedValueSeparatorToken);
 
     // Escape characters must be removed last so that we don't remove the escape
     // characters from other escape sequences.
     result = std::regex_replace(
       result,
-      SgfcConstants::EscapedEscapeCharacterRegex,
-      SgfcConstants::EscapeCharacterToken);
+      SgfcPrivateConstants::EscapedEscapeCharacterRegex,
+      SgfcPrivateConstants::EscapeCharacterToken);
 
     return result;
   }
@@ -1377,7 +1378,7 @@ namespace LibSgfcPlusPlus
   {
     return std::regex_replace(
       rawPropertyValue,
-      SgfcConstants::EscapedPropertyValueEndTokenRegex,
-      SgfcConstants::PropertyValueEndToken);
+      SgfcPrivateConstants::EscapedPropertyValueEndTokenRegex,
+      SgfcPrivateConstants::PropertyValueEndToken);
   }
 }
