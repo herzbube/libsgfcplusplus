@@ -945,7 +945,20 @@ namespace LibSgfcPlusPlus
         break;
       case SgfcPropertyValueType::SimpleText:
       {
-        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
+        // We have to remove line breaks ourselves because of a bug in SGFC.
+        // If the SimpleText value is the second value of a composed value then
+        // SGFC does not detect and remove hard and soft line breaks in all
+        // cases. If it's the first value of a composed value, then SGFC seems
+        // to be able to handle line breaks correctly. Examples:
+        // - Property "AP": SGFC detects neither hard nor soft line breaks.
+        // - Property "LB": SGFC detects soft line breaks, but not hard line
+        //   breaks.
+        // TODO: Currently we treat all SimpleText values for line breaks, but
+        // we should do it only if the SimpleText value is the second value of
+        // a composed value.
+        std::string rawValueWithoutLineBreaks = RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
+
+        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
           rawValueWithoutEscapeCharacters,
           rawValueWithoutEscapeCharacters));
@@ -953,6 +966,12 @@ namespace LibSgfcPlusPlus
       }
       case SgfcPropertyValueType::Text:
       {
+        // When compared to how SimpleText values are processed above, then in
+        // theory we would have to invoke RemoveTextLineBreaks() here. In
+        // practice no line break removal is necessary for Text values because
+        // there is no property which has a composed value with Text as one (or
+        // both) of the two value types.
+
         std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
           rawValueWithoutEscapeCharacters,
@@ -1300,6 +1319,37 @@ namespace LibSgfcPlusPlus
         message << "GetColorForPropertyType: Unable to determine color for property type " << static_cast<int>(this->propertyType) << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());
     }
+  }
+
+  std::string SgfcPropertyDecoder::RemoveSimpleTextLineBreaks(
+    const std::string& rawPropertyValue) const
+  {
+    // Soft line breaks have to be removed according to the SGF standard
+    std::string result = std::regex_replace(
+      rawPropertyValue,
+      SgfcConstants::EscapedLineEndingsRegex,
+      SgfcConstants::EmptyString);
+
+    // Hard line breaks have to be replaced by a space characters according to
+    // the SGF standard
+    // Note: Process hard line breaks after soft line breaks. If w processed
+    // them before we would replace soft line breaks too.
+    return std::regex_replace(
+      result,
+      SgfcConstants::UnescapedLineEndingsRegex,
+      SgfcConstants::SpaceCharacter);
+  }
+
+  std::string SgfcPropertyDecoder::RemoveTextLineBreaks(
+    const std::string& rawPropertyValue) const
+  {
+    // Soft line breaks have to be removed according to the SGF standard
+    return std::regex_replace(
+      rawPropertyValue,
+      SgfcConstants::EscapedLineEndingsRegex,
+      SgfcConstants::EmptyString);
+
+    // Hard line breaks are preserved according to the SGF standard
   }
 
   std::string SgfcPropertyDecoder::RemoveSimpleTextAndTextEscapeCharacters(

@@ -8,6 +8,7 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::EmptyString = "";
   const std::string SgfcConstants::SpaceCharacter = " ";
   const char SgfcConstants::NewlineCharacter = '\n';
+  const char SgfcConstants::CarriageReturnCharacter = '\r';
   const std::string SgfcConstants::IndentationWhitespace = "  ";
 
   const std::string SgfcConstants::GameTreeBeginToken = "(";
@@ -33,6 +34,7 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::ColorBlackString = "B";
   const std::string SgfcConstants::ColorWhiteString = "W";
 
+  const std::string SgfcConstants::LineEndingsPattern = "(\\n|\\r|\\r\\n)";
   const std::regex SgfcConstants::EscapedPropertyValueEndTokenRegex(
     SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
@@ -47,6 +49,10 @@ namespace LibSgfcPlusPlus
     SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
     SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
+  const std::regex SgfcConstants::EscapedLineEndingsRegex(
+    SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
+    SgfcConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
+    SgfcConstants::LineEndingsPattern);
   const std::regex SgfcConstants::UnescapedPropertyValueEndTokenRegex(
     SgfcConstants::EscapeCharacterToken +   // Make the following token a literal for the regex
     SgfcConstants::PropertyValueEndToken);  // The literal as it appears in the SGF content
@@ -55,6 +61,8 @@ namespace LibSgfcPlusPlus
   const std::regex SgfcConstants::UnescapedEscapeCharacterRegex(
     SgfcConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
+  const std::regex SgfcConstants::UnescapedLineEndingsRegex(
+    SgfcConstants::LineEndingsPattern);
 
   const std::string SgfcConstants::LineToken = "Line:";
   const std::string SgfcConstants::ColumnToken = "Col:";
