@@ -8,6 +8,7 @@
 #include "../../include/ISgfcMovePropertyValue.h"
 #include "../../include/ISgfcPointPropertyValue.h"
 #include "../../include/ISgfcStonePropertyValue.h"
+#include "../../include/ISgfcTreeBuilder.h"
 #include "../parsing/SgfcPropertyDecoder.h"
 #include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
@@ -59,7 +60,8 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
       this->games.push_back(game);
 
-      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType);
+      std::shared_ptr<ISgfcTreeBuilder> treeBuilder = game->GetTreeBuilder();
+      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType, treeBuilder);
 
       sgfRootNode = sgfRootNode->sibling;
       sgfTreeInfo = sgfTreeInfo->next;
@@ -69,34 +71,27 @@ namespace LibSgfcPlusPlus
   void SgfcDocument::RecursiveParseDepthFirst(
     std::shared_ptr<ISgfcNode> parentNode,
     Node* sgfParentNode,
-    SgfcGameType gameType)
+    SgfcGameType gameType,
+    std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
   {
     Node* sgfFirstChildNode = sgfParentNode->child;
     if (sgfFirstChildNode == nullptr)
       return;
 
     std::shared_ptr<ISgfcNode> firstChildNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
-    parentNode->SetFirstChild(firstChildNode);
-    firstChildNode->SetParent(parentNode);
+    treeBuilder->SetFirstChild(parentNode, firstChildNode);
     ParseProperties(firstChildNode, sgfFirstChildNode, gameType);
 
-    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType);
-
-    Node* sgfPreviousSiblingNode = sgfFirstChildNode;
-    std::shared_ptr<ISgfcNode> previousSiblingNode = firstChildNode;
+    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType, treeBuilder);
 
     Node* sgfNextSiblingNode = sgfFirstChildNode->sibling;
     while (sgfNextSiblingNode != nullptr)
     {
       std::shared_ptr<ISgfcNode> nextSiblingNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
-      nextSiblingNode->SetParent(parentNode);
-      previousSiblingNode->SetNextSibling(nextSiblingNode);
+      treeBuilder->AppendChild(parentNode, nextSiblingNode);
       ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType);
 
-      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType);
-
-      sgfPreviousSiblingNode = sgfNextSiblingNode;
-      previousSiblingNode = nextSiblingNode;
+      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType, treeBuilder);
 
       sgfNextSiblingNode = sgfNextSiblingNode->sibling;
     }

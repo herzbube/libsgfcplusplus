@@ -10,6 +10,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcTreeBuilder;
+
   /// @brief The ISgfcGame interface provides access to the data of one SGF
   /// game, in the form of a tree of ISgfcNode objects. Each branch in the tree
   /// is a variation in game play. A tree without branches is a game without
@@ -66,5 +69,9 @@ namespace LibSgfcPlusPlus
     /// @brief Sets the game tree's root node to @a rootNode. The previous
     /// root node, and with it the entire previous game tree, is discarded.
     virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode) = 0;
+
+    /// @brief Returns an ISgfcTreeBuilder object that can be used to
+    /// manipulate the game tree.
+    virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const = 0;
   };
 }

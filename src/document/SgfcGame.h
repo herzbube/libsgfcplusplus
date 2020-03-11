@@ -23,8 +23,12 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcNode> GetRootNode() const;
     virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode);
 
+    virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const;
+    void SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder);
+
   private:
     SgfcGameType gameType;
     std::shared_ptr<ISgfcNode> rootNode;
+    std::shared_ptr<ISgfcTreeBuilder> treeBuilder;
   };
 }

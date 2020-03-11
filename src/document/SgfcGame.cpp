@@ -11,12 +11,14 @@ namespace LibSgfcPlusPlus
   SgfcGame::SgfcGame()
     : gameType(SgfcGameType::Unknown)
     , rootNode(nullptr)
+    , treeBuilder(nullptr)
   {
   }
 
   SgfcGame::SgfcGame(std::shared_ptr<ISgfcNode> rootNode)
     : gameType(SgfcGameType::Unknown)
     , rootNode(rootNode)
+    , treeBuilder(nullptr)
   {
   }
 
@@ -90,5 +92,15 @@ namespace LibSgfcPlusPlus
   void SgfcGame::SetRootNode(std::shared_ptr<ISgfcNode> rootNode)
   {
     this->rootNode = rootNode;
+  }
+
+  std::shared_ptr<ISgfcTreeBuilder> SgfcGame::GetTreeBuilder() const
+  {
+    return this->treeBuilder;
+  }
+
+  void SgfcGame::SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
+  {
+    this->treeBuilder = treeBuilder;
   }
 }

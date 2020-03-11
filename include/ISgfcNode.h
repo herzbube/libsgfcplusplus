@@ -10,7 +10,8 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcNode interface provides access to the data of a single
-  /// SGF node in a tree of SGF nodes.
+  /// SGF node in a tree of SGF nodes. ISgfcNode also provides methods to
+  /// navigate the game tree.
   class ISgfcNode
   {
   public:
@@ -20,42 +21,77 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcNode object.
     virtual ~ISgfcNode();
 
-    /// @brief Returns the node's first child node.
-    /// The node may be @e nullptr.
+    /// @brief Returns the node's first child node. Returns @e nullptr if
+    /// the node has no children.
     virtual std::shared_ptr<ISgfcNode> GetFirstChild() const = 0;
 
-    /// @brief Sets the node's first child node to @a firstChild.
-    /// @a firstChild may be @e nullptr.
-    ///
-    /// The previous first child node and the entire sub tree dangling from
-    /// it, is discarded.
-    virtual void SetFirstChild(std::shared_ptr<ISgfcNode> firstChild) = 0;
+    /// @brief Returns the node's last child node. Returns @e nullptr if
+    /// the node has no children.
+    virtual std::shared_ptr<ISgfcNode> GetLastChild() const = 0;
 
-    /// @brief Returns the node's next sibling node.
-    /// The node may be @e nullptr.
+    /// @brief Returns a collection of child nodes of the node. The collection
+    /// is ordered, beginning with the first child node and ending with the
+    /// last child node. The collection is empty if the node has no children.
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetChildren() const = 0;
+
+    /// @brief Returns true if the node has one or more children. Returns
+    /// false if the node has no children.
+    virtual bool HasChildren() const = 0;
+
+    /// @brief Returns the node's next sibling node. Returns @e nullptr if
+    /// the node has no next sibling node, i.e. if the node is the last child
+    /// of its parent.
     virtual std::shared_ptr<ISgfcNode> GetNextSibling() const = 0;
 
-    /// @brief Sets the node's next sibling node to @a nextSibling.
-    /// @a nextSibling may be @e nullptr.
-    ///
-    /// The previous next sibling node, the siblings behind that, and the sub
-    /// trees dangling from all of these siblings, are discarded.
-    virtual void SetNextSibling(std::shared_ptr<ISgfcNode> nextSibling) = 0;
+    /// @brief Returns true if the node has a next sibling node. Returns false
+    /// if the node has no next sibling node, i.e. if the node is the last child
+    /// of its parent.
+    virtual bool HasNextSibling() const = 0;
 
-    /// @brief Returns the node's parent node.
-    /// The node may be @e nullptr.
+    /// @brief Returns the node's previous sibling node. Returns @e nullptr if
+    /// the node has no previous sibling node, i.e. if the node is the first
+    /// child of its parent.
+    virtual std::shared_ptr<ISgfcNode> GetPreviousSibling() const = 0;
+
+    /// @brief Returns true if the node has a previous sibling node. Returns
+    /// false if the node has no previous sibling node, i.e. if the node is the
+    /// first child of its parent.
+    virtual bool HasPreviousSibling() const = 0;
+
+    /// @brief Returns the node's parent node. Returns @e nullptr if the node
+    /// has no parent node, i.e. if the node is the root node of a game tree.
     virtual std::shared_ptr<ISgfcNode> GetParent() const = 0;
 
-    /// @brief Sets the node's parent node to @a parent.
-    /// @a parent may be @e nullptr.
+    /// @brief Returns true if the node has a parent node. Returns false if the
+    /// node has no parent node, i.e. if the node is the root node of a game
+    /// tree.
+    virtual bool HasParent() const = 0;
+
+    /// @brief Returns true if the node is a descendant of @a node, i.e. if the
+    /// node is anywhere below @a node in the game tree. Returns false if the
+    /// node is not a descendant of @a node.
     ///
-    /// If @a parent is @e nullptr then this node and the entire sub tree
-    /// dangling from it, is discarded once no one holds a reference to it
-    /// anymore.
-    virtual void SetParent(std::shared_ptr<ISgfcNode> parent) = 0;
+    /// @exception std::invalid_argument Is thrown if @a node is @e nullptr.
+    virtual bool IsDescendantOf(std::shared_ptr<ISgfcNode> node) const = 0;
+
+    /// @brief Returns true if the node is an ancestor of @a node, i.e. if the
+    /// node is a direct or indirect parent of @a node. Returns false if the
+    /// node is not an ancestor of @a node.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a node is @e nullptr.
+    virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const = 0;
+
+    /// @brief Returns the root node of the game tree that contains the node.
+    /// Returns @e nullptr if the node is already the root node.
+    virtual std::shared_ptr<ISgfcNode> GetRoot() const = 0;
+
+    /// @brief Returns true if the node is the root node of a game tree. Returns
+    /// false if the node is not the root node of a game tree.
+    virtual bool IsRoot() const = 0;
 
     /// @brief Returns a collection with the properties of the node. The
-    /// collection may be empty. The collection has no particular order.
+    /// collection is empty if the node has no properties. The collection has
+    /// no particular order.
     ///
     /// The SGF standard does not define an order in which properties have to
     /// appear within a node. In fact, it explicitly states that different

@@ -16,9 +16,44 @@ namespace LibSgfcPlusPlus
     return this->firstChild;
   }
 
-  void SgfcNode::SetFirstChild(std::shared_ptr<ISgfcNode> firstChild)
+  void SgfcNode::SetFirstChild(std::shared_ptr<ISgfcNode> node)
   {
-    this->firstChild = firstChild;
+    this->firstChild = node;
+  }
+
+  std::shared_ptr<ISgfcNode> SgfcNode::GetLastChild() const
+  {
+    auto child = this->firstChild;
+
+    while (child)
+    {
+      if (child->HasNextSibling())
+        child = child->GetNextSibling();
+      else
+        return child;
+    }
+
+    return nullptr;
+  }
+
+  std::vector<std::shared_ptr<ISgfcNode>> SgfcNode::GetChildren() const
+  {
+    std::vector<std::shared_ptr<ISgfcNode>> children;
+
+    auto child = this->firstChild;
+
+    while (child)
+    {
+      children.push_back(child);
+      child = child->GetNextSibling();
+    }
+
+    return children;
+  }
+
+  bool SgfcNode::HasChildren() const
+  {
+    return (this->firstChild != nullptr);
   }
 
   std::shared_ptr<ISgfcNode> SgfcNode::GetNextSibling() const
@@ -26,19 +61,118 @@ namespace LibSgfcPlusPlus
     return this->nextSibling;
   }
 
-  void SgfcNode::SetNextSibling(std::shared_ptr<ISgfcNode> nextSibling)
+  void SgfcNode::SetNextSibling(std::shared_ptr<ISgfcNode> node)
   {
-    this->nextSibling = nextSibling;
+    this->nextSibling = node;
+  }
+
+  bool SgfcNode::HasNextSibling() const
+  {
+    return (this->nextSibling != nullptr);
+  }
+
+  std::shared_ptr<ISgfcNode> SgfcNode::GetPreviousSibling() const
+  {
+    auto parentLocked = this->parent.lock();
+    if (parentLocked == nullptr)
+      return nullptr;
+
+    auto child = parentLocked->GetFirstChild();
+    if (child.get() == this)
+      return nullptr;
+
+    while (child)
+    {
+      auto nextSibling = child->GetNextSibling();
+      if (nextSibling.get() == this)
+        return child;
+      else
+        child = nextSibling;
+    }
+
+    return nullptr;
+  }
+
+  bool SgfcNode::HasPreviousSibling() const
+  {
+    // An implementation that is more efficient is not possible
+    return (this->GetPreviousSibling() != nullptr);
   }
 
   std::shared_ptr<ISgfcNode> SgfcNode::GetParent() const
   {
-    return this->parent;
+    return this->parent.lock();
   }
 
-  void SgfcNode::SetParent(std::shared_ptr<ISgfcNode> parent)
+  void SgfcNode::SetParent(std::shared_ptr<ISgfcNode> node)
   {
-    this->parent = parent;
+    this->parent = node;
+  }
+
+  bool SgfcNode::HasParent() const
+  {
+    return (this->parent.lock() != nullptr);
+  }
+
+  bool SgfcNode::IsDescendantOf(std::shared_ptr<ISgfcNode> node) const
+  {
+    if (node == nullptr)
+      throw std::invalid_argument("IsDescendantOf failed: Node argument is null");
+
+    auto parent = this->GetParent();
+
+    while (parent)
+    {
+      if (parent == node)
+        return true;
+      else
+        parent = parent->GetParent();
+    }
+
+    return false;
+  }
+
+  bool SgfcNode::IsAncestorOf(std::shared_ptr<ISgfcNode> node) const
+  {
+    if (node == nullptr)
+      throw std::invalid_argument("IsAncestorOf failed: Node argument is null");
+
+    auto parent = node->GetParent();
+
+    while (parent)
+    {
+      if (parent.get() == this)
+        return true;
+      else
+        parent = parent->GetParent();
+    }
+
+    return false;
+  }
+
+  std::shared_ptr<ISgfcNode> SgfcNode::GetRoot() const
+  {
+    auto parent = this->parent.lock();
+    while (parent)
+    {
+      if (parent->HasParent())
+        parent = parent->GetParent();
+      else
+        return parent;
+    }
+
+    // Actually we would like to return this object because the node is already
+    // the root node. Unfortunately we can't, because returning a new
+    // std::shared_ptr that contains this object would create a second source of
+    // ownership for this object - the first source was when the library's main
+    // factory created this object and handed it out wrapped in a
+    // std::shared_ptr.
+    return nullptr;
+  }
+
+  bool SgfcNode::IsRoot() const
+  {
+    return (this->parent.lock() == nullptr);
   }
 
   std::vector<std::shared_ptr<ISgfcProperty>> SgfcNode::GetProperties() const
