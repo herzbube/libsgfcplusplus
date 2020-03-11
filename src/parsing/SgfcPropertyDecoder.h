@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../include/ISgfcPropertyValue.h"
+#include "../../include/SgfcColor.h"
 #include "../../include/SgfcGameType.h"
 #include "../../include/SgfcPropertyType.h"
 #include "../../include/SgfcPropertyValueType.h"
@@ -69,6 +70,20 @@ namespace LibSgfcPlusPlus
     ///         not present.
     static SgfcGameType GetGameTypeFromNode(const Node* sgfNode);
 
+    /// @brief Maps the Number value @a gameTypeAsNumber to an SgfcGameType
+    /// enumeration value and returns the mapped value. Returns
+    /// SgfcGameType::Unknown if the Number value cannot be mapped, which is
+    /// the case if the Number value does not correspond to one of the values
+    /// defined in the SGF standard.
+    static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
+
+    /// @brief Maps the property name @a propertyName to an SgfcPropertyType
+    /// enumeration value and returns the mapped value. Returns
+    /// SgfcPropertyType::Unknown if the Number value cannot be mapped, which is
+    /// the case if the property name is not one of the names defined in the
+    /// SGF standard.
+    static SgfcPropertyType MapPropertyNameToPropertyType(const std::string& propertyName);
+
   private:
     const Property* sgfProperty;
     SgfcPropertyType propertyType;
@@ -100,8 +115,6 @@ namespace LibSgfcPlusPlus
       const char* rawPropertyValueBuffer) const;
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
-
-    static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
 
     SgfcColor GetColorForPropertyType() const;
 
