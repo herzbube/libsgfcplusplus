@@ -55,6 +55,12 @@ namespace LibSgfcPlusPlus
     ///         the root node, or if the game has no root node.
     virtual SgfcNumber GetGameTypeAsNumber() const = 0;
 
+    /// @brief Returns true if the game has a root node. Returns false if the
+    /// game has no root node.
+    virtual bool HasRootNode() const = 0;
+
+    /// @brief Returns the game tree's root node. Returns @e nullptr if
+    /// HasRootNode() returns false.
     virtual std::shared_ptr<ISgfcNode> GetRootNode() const = 0;
 
     /// @brief Sets the game tree's root node to @a rootNode. The previous

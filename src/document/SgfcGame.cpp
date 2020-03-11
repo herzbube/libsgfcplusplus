@@ -77,6 +77,11 @@ namespace LibSgfcPlusPlus
     return SgfcConstants::GameTypeNone;
   }
 
+  bool SgfcGame::HasRootNode() const
+  {
+    return (this->rootNode != nullptr);
+  }
+
   std::shared_ptr<ISgfcNode> SgfcGame::GetRootNode() const
   {
     return this->rootNode;
