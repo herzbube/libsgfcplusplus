@@ -11,7 +11,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The ISgfcProperty class provides access to the data of a single
+  /// @brief The ISgfcProperty interface provides access to the data of a single
   /// property of an SGF node. One property has 0-n values.
   ///
   /// @todo Accept properties not defined in the standard. This is
@@ -50,8 +50,6 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the values of the property.
     ///
-    /// @todo Add the possibility to change the property values.
-    ///
     /// @todo Is it possible that a property can have zero values? The EBNF in
     /// the standard says that at least one value must be present, but the list
     /// of value types includes "None", which is defined to be an empty string.
@@ -60,5 +58,10 @@ namespace LibSgfcPlusPlus
     /// an empty list, or do we return a list with one element whose value is
     /// an empty string?
     virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const = 0;
+
+    /// @brief Sets the values of the property to @a propertyValues. The
+    /// previous values are discarded.
+    virtual void SetPropertyValues(
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
   };
 }

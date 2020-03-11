@@ -3,8 +3,11 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcProperty::SgfcProperty()
-    : propertyType(SgfcPropertyType::Unknown)
+  SgfcProperty::SgfcProperty(
+    SgfcPropertyType propertyType,
+    const std::string& propertyName)
+    : propertyType(propertyType)
+    , propertyName(propertyName)
   {
   }
 
@@ -35,5 +38,11 @@ namespace LibSgfcPlusPlus
   std::vector<std::shared_ptr<ISgfcPropertyValue>> SgfcProperty::GetPropertyValues() const
   {
     return this->propertyValues;
+  }
+
+  void SgfcProperty::SetPropertyValues(
+    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+  {
+    this->propertyValues = propertyValues;
   }
 }
