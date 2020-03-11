@@ -129,6 +129,8 @@ namespace LibSgfcPlusPlus
       case TKN_NONE:
         return SgfcPropertyType::Unknown;
       case TKN_UNKNOWN:
+        // TODO: The token enumeration does not have values for all properties
+        // that we support.
         return SgfcPropertyType::Unknown;
       case TKN_B:
         return SgfcPropertyType::B;

@@ -18,6 +18,7 @@
 
 // C++ Standard Library includes
 #include <iostream>
+#include <stdexcept>
 
 // SGFC includes
 extern "C"
@@ -185,12 +186,15 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> rootNode = sgfcGame->GetRootNode();
       stack.push_back(rootNode);
 
+      int nodeCount = 0;
       while (stack.size() > 0)
       {
+        nodeCount++;
+
         std::shared_ptr<ISgfcNode> node = stack.back();
         stack.pop_back();
 
-        DebugPrintNodeToConsole(node);
+        DebugPrintNodeToConsole(node, nodeCount);
 
         std::shared_ptr<ISgfcNode> firstChild = node->GetFirstChild();
         if (firstChild)
@@ -208,11 +212,15 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcDocument::DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node) const
+  void SgfcDocument::DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node, int nodeNumber) const
   {
-    std::cout << "  Node" << std::endl;
+    std::cout << "  Node " << nodeNumber << std::endl;
+
+    bool nodeHasAtLeastOneProperty = false;
     for (const auto& property : node->GetProperties())
     {
+      nodeHasAtLeastOneProperty = true;
+
       std::cout << "    Property type = " << static_cast<int>(property->GetPropertyType()) << std::endl;
       std::cout << "    Property name = " << property->GetPropertyName() << std::endl;
 
@@ -251,8 +259,12 @@ namespace LibSgfcPlusPlus
       if (! propertyHasAtLeastOneValue)
       {
         std::cout << "      Property has no values" << std::endl;
-
       }
+    }
+
+    if (! nodeHasAtLeastOneProperty)
+    {
+      std::cout << "    Node has no properties" << std::endl;
     }
   }
 
