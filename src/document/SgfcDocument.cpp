@@ -144,6 +144,38 @@ namespace LibSgfcPlusPlus
     return this->games;
   }
 
+  void SgfcDocument::SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games)
+  {
+    this->games = games;
+  }
+
+  void SgfcDocument::AppendGame(std::shared_ptr<ISgfcGame> game)
+  {
+    if (game == nullptr)
+      throw std::invalid_argument("AppendGame failed: Game argument is null");
+
+    auto result = std::find(std::begin(this->games), std::end(this->games), game);
+    if (result != std::end(this->games))
+      throw std::invalid_argument("AppendGame failed: Game is already part of the document");
+
+    this->games.push_back(game);
+  }
+
+  void SgfcDocument::RemoveGame(std::shared_ptr<ISgfcGame> game)
+  {
+    // This works because std::shared_ptr::operator==() compares pointer values
+    auto result = std::find(std::begin(this->games), std::end(this->games), game);
+    if (result == std::end(this->games))
+      throw std::invalid_argument("RemoveGame failed: Game is not part of the document");
+
+    this->games.erase(result);
+  }
+
+  void SgfcDocument::RemoveAllGames()
+  {
+    this->games.clear();
+  }
+
   void SgfcDocument::DebugPrintToConsole() const
   {
     int gameCount = 0;
