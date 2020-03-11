@@ -11,10 +11,14 @@ namespace LibSgfcPlusPlus
   class SgfcGame : public ISgfcGame
   {
   public:
-    SgfcGame(SgfcGameType gameType, std::shared_ptr<ISgfcNode> rootNode);
+    SgfcGame();
+    SgfcGame(std::shared_ptr<ISgfcNode> rootNode);
     virtual ~SgfcGame();
 
+    virtual bool HasGameType() const;
     virtual SgfcGameType GetGameType() const;
+    virtual SgfcNumber GetGameTypeAsNumber() const;
+
     virtual std::shared_ptr<ISgfcNode> GetRootNode() const;
     virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode);
 

@@ -56,7 +56,7 @@ namespace LibSgfcPlusPlus
 
       ParseProperties(rootNode, sgfRootNode, gameType);
 
-      std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(gameType, rootNode));
+      std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
       this->games.push_back(game);
 
       RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType);
