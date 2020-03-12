@@ -20,6 +20,9 @@ struct PropValue;
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class SgfcPropertyMetaInfo;
+
   /// @brief The SgfcPropertyDecoder class parses the raw strings that SGFC
   /// provides for SGF properties and their values, and generates proper
   /// objects from those parsing activities.
@@ -86,12 +89,9 @@ namespace LibSgfcPlusPlus
 
   private:
     const Property* sgfProperty;
-    SgfcPropertyType propertyType;
-    SgfcGameType gameType;
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor;
+    std::shared_ptr<SgfcPropertyMetaInfo> propertyMetaInfo;
 
     SgfcPropertyType GetPropertyTypeInternal() const;
-    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> GetValueTypeDescriptor() const;
 
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetSgfcPropertyValuesFromSgfPropertyValue(
       PropValue* sgfPropertyValue,
