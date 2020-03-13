@@ -633,6 +633,7 @@
 		CD294196241C1FCB00BCDA24 /* factory */ = {
 			isa = PBXGroup;
 			children = (
+				CD21C4C824084D5B00998A14 /* SgfcPlusPlusFactory.cpp */,
 				CD294198241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp */,
 				CD294197241C1FCB00BCDA24 /* SgfcPropertyValueFactory.h */,
 			);
@@ -667,7 +668,6 @@
 				CD21C47C24084D5A00998A14 /* parsing */,
 				CD21C48B24084D5A00998A14 /* sgfc */,
 				CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */,
-				CD21C4C824084D5B00998A14 /* SgfcPlusPlusFactory.cpp */,
 				CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */,
 				CD21C4E424084D5B00998A14 /* SgfcPrivateConstants.h */,
 				CD21C4E224084D5B00998A14 /* SgfcUtility.cpp */,

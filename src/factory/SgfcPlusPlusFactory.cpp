@@ -1,16 +1,16 @@
 // Project includes
-#include "../include/SgfcConstants.h"
-#include "../include/SgfcPlusPlusFactory.h"
-#include "document/SgfcDocument.h"
-#include "document/SgfcGame.h"
-#include "document/SgfcNode.h"
-#include "document/SgfcProperty.h"
-#include "document/SgfcTreeBuilder.h"
-#include "factory/SgfcPropertyValueFactory.h"
-#include "parsing/SgfcPropertyDecoder.h"
-#include "sgfc/frontend/SgfcCommandLine.h"
-#include "sgfc/frontend/SgfcDocumentReader.h"
-#include "sgfc/frontend/SgfcDocumentWriter.h"
+#include "../../include/SgfcConstants.h"
+#include "../../include/SgfcPlusPlusFactory.h"
+#include "../document/SgfcDocument.h"
+#include "../document/SgfcGame.h"
+#include "../document/SgfcNode.h"
+#include "../document/SgfcProperty.h"
+#include "../document/SgfcTreeBuilder.h"
+#include "../parsing/SgfcPropertyDecoder.h"
+#include "../sgfc/frontend/SgfcCommandLine.h"
+#include "../sgfc/frontend/SgfcDocumentReader.h"
+#include "../sgfc/frontend/SgfcDocumentWriter.h"
+#include "SgfcPropertyValueFactory.h"
 
 // C++ Standard Library includes
 #include <sstream>
