@@ -750,7 +750,7 @@ namespace LibSgfcPlusPlus
         << "Raw property string value is not a Color value. The SGF standard allows these values: "
         << SgfcConstants::ColorBlackString << " or " << SgfcConstants::ColorWhiteString;
 
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
+      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
        rawPropertyValue,
        message.str()));
     }
