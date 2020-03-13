@@ -4,7 +4,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcUnknownPropertyValue::SgfcUnknownPropertyValue(const std::string& rawValue)
-    : SgfcSinglePropertyValue(rawValue)
+    : SgfcSinglePropertyValue(rawValue, false)
   {
   }
 

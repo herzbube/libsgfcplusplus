@@ -7,8 +7,8 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue)
-    : hasTypedValue(true)
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, bool hasTypedValue)
+    : hasTypedValue(hasTypedValue)
     , rawValue(rawValue)
   {
   }

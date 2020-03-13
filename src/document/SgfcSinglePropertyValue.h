@@ -13,9 +13,9 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
     /// that has the raw property string value @a rawValue. HasTypedValue()
-    /// returns true and GetTypeConversionErrorMessage() returns an empty
-    /// string.
-    SgfcSinglePropertyValue(const std::string& rawValue);
+    /// returns @a hasTypedValue and GetTypeConversionErrorMessage() returns an
+    /// empty string.
+    SgfcSinglePropertyValue(const std::string& rawValue, bool hasTypedValue);
 
     /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
     /// that has the raw property string value @a rawValue. HasTypedValue()

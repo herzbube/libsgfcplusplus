@@ -4,7 +4,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcColorPropertyValue::SgfcColorPropertyValue(const std::string& rawValue, SgfcColor colorValue)
-    : SgfcSinglePropertyValue(rawValue)
+    : SgfcSinglePropertyValue(rawValue, true)
     , colorValue(colorValue)
   {
   }

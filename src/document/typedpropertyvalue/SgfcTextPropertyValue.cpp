@@ -4,7 +4,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcTextPropertyValue::SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue)
-    : SgfcSinglePropertyValue(rawValue)
+    : SgfcSinglePropertyValue(rawValue, true)
     , textValue(textValue)
   {
   }

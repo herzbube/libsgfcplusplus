@@ -4,7 +4,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcPointPropertyValue::SgfcPointPropertyValue(const std::string& rawValue)
-    : SgfcSinglePropertyValue(rawValue)
+    : SgfcSinglePropertyValue(rawValue, true)
   {
   }
 

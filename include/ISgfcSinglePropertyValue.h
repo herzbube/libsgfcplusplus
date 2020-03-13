@@ -67,11 +67,11 @@ namespace LibSgfcPlusPlus
     /// "Available as a typed value" means that ISgfcSinglePropertyValue can be
     /// cast to a concrete type and that type can then be used to retrieve the
     /// typed value. Example: GetValueType() returns
-    /// SgfcPropertyValueType::Number. ToNumberValue() is therefore invoked to
-    /// obtain an ISgfcSinglePropertyValue object, and
-    /// ISgfcNumberPropertyValue::GetNumberValue() is then invoked to retrieve
-    /// the signed integer number that corresponds to the raw string value that
-    /// GetRawValue() returns.
+    /// SgfcPropertyValueType::Number. ToNumberValue() can therefore be invoked
+    /// to obtain an ISgfcSinglePropertyValue object, and
+    /// ISgfcNumberPropertyValue::GetNumberValue() can then be invoked to
+    /// retrieve the signed integer number that corresponds to the raw string
+    /// value that GetRawValue() returns.
     ///
     /// When libsgfc++ parses SGF content it attempts to interpret the raw
     /// property string value according to the value type defined for the
