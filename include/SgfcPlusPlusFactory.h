@@ -14,6 +14,7 @@ namespace LibSgfcPlusPlus
 {
   // Forward declarations
   class ISgfcCommandLine;
+  class ISgfcPropertyValueFactory;
 
   /// @brief The SgfcPlusPlusFactory class is a class that contains only static
   /// functions. The functions are used to construct various library objects.
@@ -117,6 +118,11 @@ namespace LibSgfcPlusPlus
     static std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+
+    /// @brief Returns a newly constructed ISgfcPropertyValueFactory object
+    /// that can be used to create objects of every known sub-type of
+    /// ISgfcPropertyValue.
+    static std::shared_ptr<ISgfcPropertyValueFactory> CreatePropertyValueFactory();
 
   private:
     SgfcPlusPlusFactory();

@@ -6,6 +6,7 @@
 #include "document/SgfcNode.h"
 #include "document/SgfcProperty.h"
 #include "document/SgfcTreeBuilder.h"
+#include "factory/SgfcPropertyValueFactory.h"
 #include "parsing/SgfcPropertyDecoder.h"
 #include "sgfc/frontend/SgfcCommandLine.h"
 #include "sgfc/frontend/SgfcDocumentReader.h"
@@ -134,5 +135,12 @@ namespace LibSgfcPlusPlus
     property->SetPropertyValues(propertyValues);
 
     return property;
+  }
+
+  std::shared_ptr<ISgfcPropertyValueFactory> SgfcPlusPlusFactory::CreatePropertyValueFactory()
+  {
+    std::shared_ptr<ISgfcPropertyValueFactory> factory = std::shared_ptr<ISgfcPropertyValueFactory>(
+      new SgfcPropertyValueFactory());
+    return factory;
   }
 }
