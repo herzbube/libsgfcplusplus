@@ -165,6 +165,8 @@
 		CD294191241C0BCC00BCDA24 /* ISgfcPropertyValueFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD294190241C0BCC00BCDA24 /* ISgfcPropertyValueFactory.cpp */; };
 		CD294199241C1FCB00BCDA24 /* SgfcPropertyValueFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD294197241C1FCB00BCDA24 /* SgfcPropertyValueFactory.h */; };
 		CD29419A241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD294198241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp */; };
+		CD29419D241C25B500BCDA24 /* SgfcValueConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = CD29419B241C25B500BCDA24 /* SgfcValueConverter.h */; };
+		CD29419E241C25B500BCDA24 /* SgfcValueConverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD29419C241C25B500BCDA24 /* SgfcValueConverter.cpp */; };
 		CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */; };
 		CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */; };
 		CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322A623F1D30D009567E4 /* ISgfcMessage.h */; };
@@ -351,6 +353,8 @@
 		CD294190241C0BCC00BCDA24 /* ISgfcPropertyValueFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcPropertyValueFactory.cpp; sourceTree = "<group>"; };
 		CD294197241C1FCB00BCDA24 /* SgfcPropertyValueFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcPropertyValueFactory.h; sourceTree = "<group>"; };
 		CD294198241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPropertyValueFactory.cpp; sourceTree = "<group>"; };
+		CD29419B241C25B500BCDA24 /* SgfcValueConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcValueConverter.h; sourceTree = "<group>"; };
+		CD29419C241C25B500BCDA24 /* SgfcValueConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcValueConverter.cpp; sourceTree = "<group>"; };
 		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISgfcCommandLine.h; sourceTree = "<group>"; };
 		CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcPlusPlusFactory.h; sourceTree = "<group>"; };
@@ -408,6 +412,8 @@
 				CD21C58F241048CB00998A14 /* SgfcDocumentEncoder.h */,
 				CD21C47D24084D5A00998A14 /* SgfcPropertyDecoder.cpp */,
 				CD21C48A24084D5A00998A14 /* SgfcPropertyDecoder.h */,
+				CD29419C241C25B500BCDA24 /* SgfcValueConverter.cpp */,
+				CD29419B241C25B500BCDA24 /* SgfcValueConverter.h */,
 			);
 			path = parsing;
 			sourceTree = "<group>";
@@ -821,6 +827,7 @@
 				CD21C50824084D5B00998A14 /* SgfcBackendController.h in Headers */,
 				CD21C50E24084D5B00998A14 /* SgfcComposedPropertyValue.h in Headers */,
 				CD21C54E240C4B0200998A14 /* SgfcCoordinateSystem.h in Headers */,
+				CD29419D241C25B500BCDA24 /* SgfcValueConverter.h in Headers */,
 				CD29418D241AB74700BCDA24 /* SgfcPropertyMetaInfo.h in Headers */,
 				CD21C550240C4C8300998A14 /* SgfcGoPointNotation.h in Headers */,
 				CD29418F241AEE5100BCDA24 /* ISgfcPropertyValueFactory.h in Headers */,
@@ -941,6 +948,7 @@
 				CD21C51124084D5B00998A14 /* SgfcGame.cpp in Sources */,
 				CD21C53824084D5B00998A14 /* ISgfcPropertyValue.cpp in Sources */,
 				CD21C574241008DB00998A14 /* SgfcGoStone.cpp in Sources */,
+				CD29419E241C25B500BCDA24 /* SgfcValueConverter.cpp in Sources */,
 				CD294189241933C600BCDA24 /* SgfcTreeBuilder.cpp in Sources */,
 				CD29419A241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp in Sources */,
 				CD21C53024084D5B00998A14 /* ISgfcStonePropertyValue.cpp in Sources */,

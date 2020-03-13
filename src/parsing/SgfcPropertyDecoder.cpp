@@ -25,6 +25,7 @@
 #include "propertyvaluetypedescriptor/SgfcPropertyElistValueTypeDescriptor.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyListValueTypeDescriptor.h"
 #include "SgfcPropertyDecoder.h"
+#include "SgfcValueConverter.h"
 
 // SGFC includes
 extern "C"
@@ -36,7 +37,6 @@ extern "C"
 // C++ Standard Library includes
 #include <sstream>
 #include <stdexcept>
-#include <charconv>
 
 namespace LibSgfcPlusPlus
 {
@@ -616,146 +616,109 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcNumberPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    // std::from_chars() only recognizes the minus sign, not the plus sign
-    if (*rawPropertyValueBuffer == '+')
-      rawPropertyValueBuffer++;
-
-    std::string rawPropertyValue = rawPropertyValueBuffer;
+    SgfcValueConverter valueConverter;
 
     SgfcNumber numberValue;
-    std::from_chars_result result = std::from_chars(
-      rawPropertyValue.c_str(),
-      rawPropertyValue.c_str() + rawPropertyValue.size(),
-      numberValue);
+    std::string outTypeConversionErrorMessage;
 
-    std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
+    bool success = valueConverter.TryConvertStringToNumberValue(
+      rawPropertyValueBuffer,
+      numberValue,
+      outTypeConversionErrorMessage);
 
-    switch (result.ec)
+    if (success)
     {
-      case std::errc::invalid_argument:
-         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
-          rawPropertyValue,
-          "Raw property string value is not an integer value"));
-        break;
-      case std::errc::result_out_of_range:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
-         rawPropertyValue,
-         "Raw property string value is an integer value that is out of range"));
-        break;
-      default:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
-         rawPropertyValue,
-         numberValue));
-        break;
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
+        rawPropertyValueBuffer,
+        numberValue));
     }
-
-    return propertyValue;
+    else
+    {
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
+        rawPropertyValueBuffer,
+        outTypeConversionErrorMessage));
+    }
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcRealPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    // std::from_chars() only recognizes the minus sign, not the plus sign
-    if (*rawPropertyValueBuffer == '+')
-      rawPropertyValueBuffer++;
+    SgfcValueConverter valueConverter;
 
-    std::string rawPropertyValue = rawPropertyValueBuffer;
+    SgfcReal realValue;
+    std::string outTypeConversionErrorMessage;
 
-    std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
+    bool success = valueConverter.TryConvertStringToRealValue(
+      rawPropertyValueBuffer,
+      realValue,
+      outTypeConversionErrorMessage);
 
-    try
+    if (success)
     {
-      // We would like to use std::from_chars, just like we do in
-      // GetSgfcNumberPropertyValueFromSgfPropertyValue(). Unfortunately at the
-      // time of writing clang still only has integer support for
-      // std::from_chars.
-      SgfcReal realValue = stod(rawPropertyValue);
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
-       rawPropertyValue,
-       realValue));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
+        rawPropertyValueBuffer,
+        realValue));
     }
-    catch (std::invalid_argument& exception)
+    else
     {
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
-       rawPropertyValue,
-       "Raw property string value is not a floating point value"));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
+        rawPropertyValueBuffer,
+        outTypeConversionErrorMessage));
     }
-    catch (std::out_of_range& exception)
-    {
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
-       rawPropertyValue,
-       "Raw property string value is a floating point value that is out of range"));
-    }
-
-    return propertyValue;
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcDoublePropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    std::string rawPropertyValue = rawPropertyValueBuffer;
+    SgfcValueConverter valueConverter;
 
-    std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
+    SgfcDouble doubleValue;
+    std::string outTypeConversionErrorMessage;
 
-    if (rawPropertyValueBuffer == SgfcConstants::DoubleNormalString)
+    bool success = valueConverter.TryConvertStringToDoubleValue(
+      rawPropertyValueBuffer,
+      doubleValue,
+      outTypeConversionErrorMessage);
+
+    if (success)
     {
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
-       rawPropertyValue,
-       SgfcDouble::Normal));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
+        rawPropertyValueBuffer,
+        doubleValue));
     }
-    else if (rawPropertyValueBuffer == SgfcConstants::DoubleEmphasizedString)
-      {
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
-         rawPropertyValue,
-         SgfcDouble::Emphasized));
-      }
     else
     {
-      std::stringstream message;
-      message
-        << "Raw property string value is not a Double value. The SGF standard allows these values: "
-        << SgfcConstants::DoubleNormalString << " or " << SgfcConstants::DoubleEmphasizedString;
-
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
-       rawPropertyValue,
-       message.str()));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
+        rawPropertyValueBuffer,
+        outTypeConversionErrorMessage));
     }
-
-    return propertyValue;
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcColorPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    std::string rawPropertyValue = rawPropertyValueBuffer;
+    SgfcValueConverter valueConverter;
 
-    std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
+    SgfcColor colorValue;
+    std::string outTypeConversionErrorMessage;
 
-    if (rawPropertyValueBuffer == SgfcConstants::ColorBlackString)
+    bool success = valueConverter.TryConvertStringToColorValue(
+      rawPropertyValueBuffer,
+      colorValue,
+      outTypeConversionErrorMessage);
+
+    if (success)
     {
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
-       rawPropertyValue,
-       SgfcColor::Black));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
+        rawPropertyValueBuffer,
+        colorValue));
     }
-    else if (rawPropertyValueBuffer == SgfcConstants::ColorWhiteString)
-      {
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
-         rawPropertyValue,
-         SgfcColor::White));
-      }
     else
     {
-      std::stringstream message;
-      message
-        << "Raw property string value is not a Color value. The SGF standard allows these values: "
-        << SgfcConstants::ColorBlackString << " or " << SgfcConstants::ColorWhiteString;
-
-      propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
-       rawPropertyValue,
-       message.str()));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
+        rawPropertyValueBuffer,
+        outTypeConversionErrorMessage));
     }
-
-    return propertyValue;
   }
 
   bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(
