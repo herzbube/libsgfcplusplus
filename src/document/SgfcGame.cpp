@@ -47,36 +47,21 @@ namespace LibSgfcPlusPlus
     if (this->rootNode == nullptr)
       return SgfcConstants::GameTypeNone;
 
-    for (const auto& property : this->rootNode->GetProperties())
-    {
-      if (property->GetPropertyType() != SgfcPropertyType::GM)
-        continue;
+    auto property = this->rootNode->GetProperty(SgfcPropertyType::GM);
+    if (property == nullptr)
+      return SgfcConstants::GameTypeNone;
 
-      // TODO: ISgfcProperty should provide support for properties that are
-      // known to hold only a single value.
-      for (const auto& propertyValue : property->GetPropertyValues())
-      {
-        if (! propertyValue->IsComposedValue())
-        {
-          const auto* singleValue = propertyValue->ToSingleValue();
-          if (singleValue->HasTypedValue())
-          {
-            if (singleValue->GetValueType() == SgfcPropertyValueType::Number)
-            {
-              return singleValue->ToNumberValue()->GetNumberValue();
-            }
-          }
-        }
+    // We are interested only in the first value because the property is
+    // supposed to have only one value.
+    auto propertyValue = property->GetPropertyValue();
+    if (propertyValue == nullptr || propertyValue->IsComposedValue())
+      return SgfcConstants::GameTypeNone;
 
-        // We are interested only in the first value because the property is
-        // supposed to have only one value. If that value is not a Number
-        // value then we break off here - something is wrong in that case and
-        // we should not pretend otherwise.
-        return SgfcConstants::GameTypeNone;
-      }
-    }
-
-    return SgfcConstants::GameTypeNone;
+    const auto* singleValue = propertyValue->ToSingleValue();
+    if (singleValue->HasTypedValue() && singleValue->GetValueType() == SgfcPropertyValueType::Number)
+      return singleValue->ToNumberValue()->GetNumberValue();
+    else
+      return SgfcConstants::GameTypeNone;
   }
 
   bool SgfcGame::HasRootNode() const
