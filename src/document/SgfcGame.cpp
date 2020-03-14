@@ -1,6 +1,7 @@
 // Project includes
-#include "../../include/ISgfcProperty.h"
+#include "../../include/ISgfcComposedPropertyValue.h"
 #include "../../include/ISgfcNumberPropertyValue.h"
+#include "../../include/ISgfcProperty.h"
 #include "../../include/ISgfcSinglePropertyValue.h"
 #include "../../include/SgfcConstants.h"
 #include "../parsing/SgfcPropertyDecoder.h"
@@ -62,6 +63,76 @@ namespace LibSgfcPlusPlus
       return singleValue->ToNumberValue()->GetNumberValue();
     else
       return SgfcConstants::GameTypeNone;
+  }
+
+  bool SgfcGame::HasBoardSize() const
+  {
+    SgfcBoardSize boardSize = GetBoardSize();
+    return (boardSize != SgfcConstants::BoardSizeNone);
+  }
+
+  SgfcBoardSize SgfcGame::GetBoardSize() const
+  {
+    if (this->rootNode == nullptr)
+      return SgfcConstants::BoardSizeNone;
+
+    auto property = this->rootNode->GetProperty(SgfcPropertyType::SZ);
+    if (property == nullptr)
+      return SgfcConstants::BoardSizeNone;
+
+    // We are interested only in the first value because the property is
+    // supposed to have only one value.
+    auto propertyValue = property->GetPropertyValue();
+    if (propertyValue == nullptr)
+    {
+      switch (GetGameType())
+      {
+        case SgfcGameType::Go:
+          return SgfcConstants::BoardSizeDefaultGo;
+        case SgfcGameType::Chess:
+          return SgfcConstants::BoardSizeDefaultChess;
+        default:
+          return SgfcConstants::BoardSizeNone;
+      }
+    }
+
+    if (propertyValue->IsComposedValue())
+    {
+      const auto* composedValue = propertyValue->ToComposedValue();
+
+      SgfcNumber numberOfColumns = -1;
+      SgfcNumber numberOfRows = -1;
+
+      auto singleValue1 = composedValue->GetValue1();
+      if (singleValue1->HasTypedValue())
+      {
+        if (singleValue1->GetValueType() == SgfcPropertyValueType::Number)
+          numberOfColumns = singleValue1->ToNumberValue()->GetNumberValue();
+      }
+      auto singleValue2 = composedValue->GetValue2();
+      if (singleValue2->HasTypedValue())
+      {
+        if (singleValue2->GetValueType() == SgfcPropertyValueType::Number)
+          numberOfRows = singleValue2->ToNumberValue()->GetNumberValue();
+      }
+
+      if (numberOfColumns != -1 && numberOfRows != -1)
+        return { numberOfColumns, numberOfRows };
+    }
+    else
+    {
+      const auto* singleValue = propertyValue->ToSingleValue();
+      if (singleValue->HasTypedValue())
+      {
+        if (singleValue->GetValueType() == SgfcPropertyValueType::Number)
+        {
+          SgfcNumber numberOfColumnsAndRows = singleValue->ToNumberValue()->GetNumberValue();
+          return { numberOfColumnsAndRows, numberOfColumnsAndRows };
+        }
+      }
+    }
+
+    return SgfcConstants::BoardSizeNone;
   }
 
   bool SgfcGame::HasRootNode() const
