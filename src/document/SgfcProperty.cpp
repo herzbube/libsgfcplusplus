@@ -45,4 +45,13 @@ namespace LibSgfcPlusPlus
   {
     this->propertyValues = propertyValues;
   }
+
+  std::shared_ptr<ISgfcPropertyValue> SgfcProperty::GetPropertyValue() const
+  {
+    auto it = this->propertyValues.cbegin();
+    if (it != this->propertyValues.cend())
+      return *it;
+    else
+      return nullptr;
+  }
 }

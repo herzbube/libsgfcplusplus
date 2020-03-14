@@ -63,5 +63,11 @@ namespace LibSgfcPlusPlus
     /// previous values are discarded.
     virtual void SetPropertyValues(
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
+
+    /// @brief Returns the property's first value if the property has any
+    /// values. Returns @e nullptr if the property has no values.
+    ///
+    /// This is a convenience method for properties that can have only value.
+    virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const = 0;
   };
 }
