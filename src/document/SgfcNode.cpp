@@ -1,6 +1,10 @@
 // Project includes
 #include "SgfcNode.h"
 
+// C++ Standard Library includes
+#include <map>
+#include <sstream>
+
 namespace LibSgfcPlusPlus
 {
   SgfcNode::SgfcNode()
@@ -182,6 +186,26 @@ namespace LibSgfcPlusPlus
 
   void SgfcNode::SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties)
   {
+    std::map<SgfcPropertyType, bool> propertyTypeMap;
+
+    for (const auto& property : this->properties)
+    {
+      if (property == nullptr)
+        throw std::invalid_argument("SetProperties failed: Properties collection contains nullptr element");
+
+      auto propertyType = property->GetPropertyType();
+      if (propertyTypeMap.find(propertyType) != propertyTypeMap.end())
+      {
+        std::stringstream message;
+        message
+          << "SetProperties failed: Properties collection contains element with duplicate property type "
+          << static_cast<int>(propertyType);
+        throw std::invalid_argument(message.str());
+      }
+
+      propertyTypeMap[propertyType] = true;
+    }
+
     this->properties = properties;
   }
 }

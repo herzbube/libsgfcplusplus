@@ -97,11 +97,18 @@ namespace LibSgfcPlusPlus
     /// appear within a node. In fact, it explicitly states that different
     /// applications may use different ordering, and that the order may change
     /// every time that the SGF data is saved.
+    ///
+    /// The SGF standard defines that only one of each property is allowed per
+    /// node.
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const = 0;
 
     /// @brief Sets the properties of the node to the collection @a properties.
     /// The collection may be empty. The order in which properties appear in
-    /// the collection is irrelevant.
+    /// the collection is irrelevant. No SgfcPropertyType may appear more than
+    /// once in the collection.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a properties contains
+    /// @e nullptr elements or if an SgfcPropertyType appears more than once.
     virtual void SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties) = 0;
   };
 }
