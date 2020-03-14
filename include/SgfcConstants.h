@@ -1,6 +1,7 @@
 #pragma once
 
 // Project includes
+#include "SgfcBoardSize.h"
 #include "SgfcGameType.h"
 #include "SgfcPropertyType.h"
 #include "SgfcTypedefs.h"
@@ -33,13 +34,34 @@ namespace LibSgfcPlusPlus
     static const std::map<SgfcGameType, SgfcNumber> GameTypeToGameTypeAsNumberMap;
     //@}
 
-    /// @name Constants for defaults defined by the SGF standard
+    /// @name Other constants for values defined by the SGF standard
     //@{
     /// @brief The default game type if the SgfcPropertyType::GM property exists
     /// but has no value.
     ///
     /// The SGF standard defines this to be SgfcGameType::Go.
     static const SgfcGameType DefaultGameType;
+
+    /// @brief The minimum board size that is allowed for SgfcPropertyType::SZ.
+    ///
+    /// The SGF standard defines this to be 1x1.
+    static const SgfcBoardSize BoardSizeMinimum;
+
+    /// @brief The maximum board size that is allowed for SgfcPropertyType::SZ
+    /// if the game type is SgfcGameType::Go.
+    ///
+    /// The SGF standard defines this to be 52x52.
+    static const SgfcBoardSize BoardSizeMaximumGo;
+
+    /// @brief The default board size if the game type is SgfcGameType::Go.
+    ///
+    /// The SGF standard defines this to be 19x19.
+    static const SgfcBoardSize BoardSizeDefaultGo;
+
+    /// @brief The default board size if the game type is SgfcGameType::Chess.
+    ///
+    /// The SGF standard defines this to be 8x8.
+    static const SgfcBoardSize BoardSizeDefaultChess;
     //@}
 
     /// @name Other constants
@@ -50,6 +72,13 @@ namespace LibSgfcPlusPlus
     /// the SgfcPropertyType::GM property is not present in a game's root ndoe,
     /// or if the game has no root node.
     static const SgfcNumber GameTypeNone;
+
+    /// @brief A board size value denoting "no board size".
+    ///
+    /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
+    /// SgfcPropertyType::SZ property is not present in a game's root ndoe,
+    /// or if the game has no root node.
+    static const SgfcBoardSize BoardSizeNone;
     //@}
   };
 }
