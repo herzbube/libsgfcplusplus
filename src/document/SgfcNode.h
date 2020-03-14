@@ -36,6 +36,7 @@ namespace LibSgfcPlusPlus
 
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const;
     virtual void SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties);
+    virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const;
 
   private:
     std::shared_ptr<ISgfcNode> firstChild;

@@ -208,4 +208,15 @@ namespace LibSgfcPlusPlus
 
     this->properties = properties;
   }
+
+  std::shared_ptr<ISgfcProperty> SgfcNode::GetProperty(SgfcPropertyType propertyType) const
+  {
+    for (const auto& property : this->properties)
+    {
+      if (property->GetPropertyType() == propertyType)
+        return property;
+    }
+
+    return nullptr;
+  }
 }

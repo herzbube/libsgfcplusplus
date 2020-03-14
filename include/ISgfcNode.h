@@ -110,5 +110,13 @@ namespace LibSgfcPlusPlus
     /// @exception std::invalid_argument Is thrown if @a properties contains
     /// @e nullptr elements or if an SgfcPropertyType appears more than once.
     virtual void SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties) = 0;
+
+    /// @brief Returns the property with the specified type @a propertyType if
+    /// the node has such a property. Returns @e nullptr if the node has no
+    /// such property.
+    ///
+    /// The SGF standard defines that only one of each property is allowed per
+    /// node.
+    virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const = 0;
   };
 }
