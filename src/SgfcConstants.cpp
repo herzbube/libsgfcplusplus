@@ -319,11 +319,11 @@ namespace LibSgfcPlusPlus
   };
 
   const SgfcGameType SgfcConstants::DefaultGameType = SgfcGameType::Go;
-  const SgfcBoardSize BoardSizeMinimum = { 1, 1 };
-  const SgfcBoardSize BoardSizeMaximum = { 52, 52 };
-  const SgfcBoardSize BoardSizeDefaultGo = { 19, 19 };
-  const SgfcBoardSize BoardSizeDefaultChess = { 8, 8 };
+  const SgfcBoardSize SgfcConstants::BoardSizeMinimum = { 1, 1 };
+  const SgfcBoardSize SgfcConstants::BoardSizeMaximumGo = { 52, 52 };
+  const SgfcBoardSize SgfcConstants::BoardSizeDefaultGo = { 19, 19 };
+  const SgfcBoardSize SgfcConstants::BoardSizeDefaultChess = { 8, 8 };
 
   const SgfcNumber SgfcConstants::GameTypeNone = -1;
-  const SgfcBoardSize BoardSizeNone = { -1, -1 };
+  const SgfcBoardSize SgfcConstants::BoardSizeNone = { -1, -1 };
 }
