@@ -28,7 +28,12 @@ namespace LibSgfcPlusPlus
     static const std::string DoubleEmphasizedString;
     static const std::string ColorBlackString;
     static const std::string ColorWhiteString;
+    /// @brief Maps property names as defined by the SGF standard to values from
+    /// the enumeration SgfcPropertyType.
     static const std::map<std::string, SgfcPropertyType> PropertyNameToPropertyTypeMap;
+    /// @brief Maps values from the enumeration SgfcPropertyType to property
+    /// names as defined by the SGF standard. SgfcPropertyType::Unknown does
+    /// not appear in the map.
     static const std::map<SgfcPropertyType, std::string> PropertyTypeToPropertyNameMap;
     static const std::map<SgfcNumber, SgfcGameType> GameTypeAsNumberToGameTypeMap;
     static const std::map<SgfcGameType, SgfcNumber> GameTypeToGameTypeAsNumberMap;

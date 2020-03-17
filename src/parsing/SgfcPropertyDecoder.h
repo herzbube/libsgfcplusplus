@@ -80,13 +80,6 @@ namespace LibSgfcPlusPlus
     /// defined in the SGF standard.
     static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
 
-    /// @brief Maps the property name @a propertyName to an SgfcPropertyType
-    /// enumeration value and returns the mapped value. Returns
-    /// SgfcPropertyType::Unknown if the Number value cannot be mapped, which is
-    /// the case if the property name is not one of the names defined in the
-    /// SGF standard.
-    static SgfcPropertyType MapPropertyNameToPropertyType(const std::string& propertyName);
-
   private:
     const Property* sgfProperty;
     std::shared_ptr<SgfcPropertyMetaInfo> propertyMetaInfo;

@@ -747,16 +747,6 @@ namespace LibSgfcPlusPlus
       return SgfcGameType::Unknown;
   }
 
-  SgfcPropertyType SgfcPropertyDecoder::MapPropertyNameToPropertyType(const std::string& propertyName)
-  {
-    auto it = SgfcConstants::PropertyNameToPropertyTypeMap.find(propertyName);
-
-    if (it != SgfcConstants::PropertyNameToPropertyTypeMap.cend())
-      return it->second;
-    else
-      return SgfcPropertyType::Unknown;
-  }
-
   SgfcColor SgfcPropertyDecoder::GetColorForPropertyType() const
   {
     SgfcPropertyType propertyType = this->propertyMetaInfo->GetPropertyType();

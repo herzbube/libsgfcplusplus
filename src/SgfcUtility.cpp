@@ -1,8 +1,39 @@
 // Project includes
+#include "../include/SgfcConstants.h"
 #include "SgfcUtility.h"
+
+// C++ Standard Library includes
+#include <sstream>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
+  std::string SgfcUtility::MapPropertyTypeToPropertyName(SgfcPropertyType propertyType)
+  {
+    auto it = SgfcConstants::PropertyTypeToPropertyNameMap.find(propertyType);
+
+    if (it == SgfcConstants::PropertyTypeToPropertyNameMap.cend())
+    {
+      std::stringstream message;
+      message << "Property type argument has unsupported value: " << static_cast<int>(propertyType);
+      throw std::invalid_argument(message.str());
+    }
+
+    std::string propertyName = it->second;
+    return propertyName;
+  }
+
+  SgfcPropertyType SgfcUtility::MapPropertyNameToPropertyType(const std::string& propertyName)
+  {
+    auto it = SgfcConstants::PropertyNameToPropertyTypeMap.find(propertyName);
+
+    if (it != SgfcConstants::PropertyNameToPropertyTypeMap.cend())
+      return it->second;
+    else
+      return SgfcPropertyType::Unknown;
+
+  }
+
   SgfcExitCode SgfcUtility::GetSgfcExitCodeFromMessageCollection(
     const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection)
   {

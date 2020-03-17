@@ -10,11 +10,8 @@
 #include "../sgfc/frontend/SgfcCommandLine.h"
 #include "../sgfc/frontend/SgfcDocumentReader.h"
 #include "../sgfc/frontend/SgfcDocumentWriter.h"
+#include "../SgfcUtility.h"
 #include "SgfcPropertyValueFactory.h"
-
-// C++ Standard Library includes
-#include <sstream>
-#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
@@ -86,16 +83,8 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(SgfcPropertyType propertyType)
   {
-    auto it = SgfcConstants::PropertyTypeToPropertyNameMap.find(propertyType);
+    std::string propertyName = SgfcUtility::MapPropertyTypeToPropertyName(propertyType);
 
-    if (it == SgfcConstants::PropertyTypeToPropertyNameMap.cend())
-    {
-      std::stringstream message;
-      message << "Property type argument has unsupported value: " << static_cast<int>(propertyType);
-      throw std::invalid_argument(message.str());
-    }
-
-    std::string propertyName = it->second;
     std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
       propertyType,
       propertyName));
@@ -116,8 +105,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(const std::string& propertyName)
   {
-    SgfcPropertyType propertyType =
-      SgfcPropertyDecoder::MapPropertyNameToPropertyType(propertyName);
+    SgfcPropertyType propertyType = SgfcUtility::MapPropertyNameToPropertyType(propertyName);
 
     std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
       propertyType,
