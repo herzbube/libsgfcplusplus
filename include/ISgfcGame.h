@@ -64,7 +64,7 @@ namespace LibSgfcPlusPlus
     ///
     /// The game has no board size if GetBoardSize() returns
     /// SgfcConstants::BoardSizeNone.
-    virtual bool HasBoardSize() const;
+    virtual bool HasBoardSize() const = 0;
 
     /// @brief Returns the board size found in the root node property of type
     /// SgfcPropertyType::SZ, as an SgfcBoardSize value. Returns a game-specific
@@ -81,7 +81,7 @@ namespace LibSgfcPlusPlus
     ///         if the game has no root node. Also if the property is present
     ///         and has no value, but GetGameType() returns neither
     ///         SgfcGameType::Go nor SgfcGameType::Chess.
-    virtual SgfcBoardSize GetBoardSize() const;
+    virtual SgfcBoardSize GetBoardSize() const = 0;
 
     /// @brief Returns true if the game has a root node. Returns false if the
     /// game has no root node.
