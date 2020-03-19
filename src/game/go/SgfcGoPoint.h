@@ -27,16 +27,21 @@ namespace LibSgfcPlusPlus
   private:
     unsigned int xPositionUpperLeftOrigin;
     unsigned int yPositionUpperLeftOrigin;
+    unsigned int yPositionLowerLeftOrigin;
     std::string sgfNotation;
     std::string xCompoundSgfNotation;
     std::string yCompoundSgfNotation;
     std::string figureNotation;
     std::string xCompoundFigureNotation;
     std::string yCompoundFigureNotation;
+    std::string hybridNotation;
+    std::string xCompoundHybridNotation;
+    std::string yCompoundHybridNotation;
 
-    void DecomposeSgfNotation(const std::string& sgfNotation);
+    void DecomposeSgfNotation(const std::string& sgfNotation, SgfcBoardSize boardSize);
     bool IsValidSgfCharacter(char character) const;
     unsigned int MapSgfCharacterToPosition(char character) const;
+    std::string MapPositionToXCompountHybridNotation(unsigned int position);
 
     void ThrowInvalidCoordinateSystem(SgfcCoordinateSystem coordinateSystem) const;
     void ThrowInvalidGoPointNotation(SgfcGoPointNotation goPointNotation) const;

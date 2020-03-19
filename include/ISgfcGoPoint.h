@@ -38,14 +38,10 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the 1-based numeric x-axis position of the point in the
     /// desired coordinate system @a coordinateSystem.
-    ///
-    /// @todo SgfcCoordinateSystem::LowerLeftOrigin is currently not supported.
     virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
 
     /// @brief Returns the 1-based numeric y-axis position of the point in the
     /// desired coordinate system @a coordinateSystem.
-    ///
-    /// @todo SgfcCoordinateSystem::LowerLeftOrigin is currently not supported.
     virtual unsigned int GetYPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
 
     /// @brief Returns true if GetPosition(), GetXPosition() and GetYPosition()
@@ -57,29 +53,21 @@ namespace LibSgfcPlusPlus
     /// SgfcGoPointNotation enum value for a definition of the notation and its
     /// limitations. Notably, the "A1" hybrid notation cannot represent
     /// point locations with an x- or y-axis position greater than 25.
-    ///
-    /// @todo SgfcGoPointNotation::Hybrid is currently not supported.
     virtual bool HasPosition(SgfcGoPointNotation goPointNotation) const = 0;
 
     /// @brief Returns the position of the point as a single string value in
     /// the desired notation @a goPointNotation. Returns an empty string if
     /// HasPosition() returns false for @a goPointNotation.
-    ///
-    /// @todo SgfcGoPointNotation::Hybrid is currently not supported.
     virtual std::string GetPosition(SgfcGoPointNotation goPointNotation) const = 0;
 
     /// @brief Returns the x-axis compound of the point's position in the
     /// desired notation @a goPointNotation. Returns an empty string if
     /// HasPosition() returns false for @a goPointNotation.
-    ///
-    /// @todo SgfcGoPointNotation::Hybrid is currently not supported.
     virtual std::string GetXPosition(SgfcGoPointNotation goPointNotation) const = 0;
 
     /// @brief Returns the y-axis compound of the point's position in the
     /// desired notation @a goPointNotation. Returns an empty string if
     /// HasPosition() returns false for @a goPointNotation.
-    ///
-    /// @todo SgfcGoPointNotation::Hybrid is currently not supported.
     virtual std::string GetYPosition(SgfcGoPointNotation goPointNotation) const = 0;
   };
 }

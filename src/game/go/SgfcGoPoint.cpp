@@ -11,8 +11,9 @@ namespace LibSgfcPlusPlus
   SgfcGoPoint::SgfcGoPoint(const std::string& sgfNotation, SgfcBoardSize boardSize)
     : xPositionUpperLeftOrigin(0)
     , yPositionUpperLeftOrigin(0)
+    , yPositionLowerLeftOrigin(0)
   {
-    DecomposeSgfNotation(sgfNotation);
+    DecomposeSgfNotation(sgfNotation, boardSize);
   }
 
   SgfcGoPoint::~SgfcGoPoint()
@@ -26,7 +27,7 @@ namespace LibSgfcPlusPlus
       case SgfcCoordinateSystem::UpperLeftOrigin:
         return this->xPositionUpperLeftOrigin;
       case SgfcCoordinateSystem::LowerLeftOrigin:
-        return 0;
+        return this->xPositionUpperLeftOrigin;
       default:
         ThrowInvalidCoordinateSystem(coordinateSystem);
     }
@@ -39,7 +40,7 @@ namespace LibSgfcPlusPlus
       case SgfcCoordinateSystem::UpperLeftOrigin:
         return this->yPositionUpperLeftOrigin;
       case SgfcCoordinateSystem::LowerLeftOrigin:
-        return 0;
+        return this->yPositionLowerLeftOrigin;
       default:
         ThrowInvalidCoordinateSystem(coordinateSystem);
     }
@@ -52,9 +53,9 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Sgf:
         return ! this->sgfNotation.empty();
       case SgfcGoPointNotation::Figure:
-        return ! this->sgfNotation.empty();
+        return ! this->figureNotation.empty();
       case SgfcGoPointNotation::Hybrid:
-        return false;
+        return ! this->hybridNotation.empty();
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -72,7 +73,7 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->figureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcPrivateConstants::EmptyString;
+        return this->hybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -90,7 +91,7 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->xCompoundFigureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcPrivateConstants::EmptyString;
+        return this->xCompoundHybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
@@ -108,13 +109,13 @@ namespace LibSgfcPlusPlus
       case SgfcGoPointNotation::Figure:
         return this->yCompoundFigureNotation;
       case SgfcGoPointNotation::Hybrid:
-        return SgfcPrivateConstants::EmptyString;
+        return this->yCompoundHybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
     }
   }
 
-  void SgfcGoPoint::DecomposeSgfNotation(const std::string& sgfNotation)
+  void SgfcGoPoint::DecomposeSgfNotation(const std::string& sgfNotation, SgfcBoardSize boardSize)
   {
     if (sgfNotation.size() != 2)
       return;
@@ -141,6 +142,15 @@ namespace LibSgfcPlusPlus
     stream << this->yPositionUpperLeftOrigin;
     this->yCompoundFigureNotation = stream.str();
     this->figureNotation = this->xCompoundFigureNotation + "-" + this->yCompoundFigureNotation;
+
+    this->xCompoundHybridNotation = MapPositionToXCompountHybridNotation(this->xPositionUpperLeftOrigin);
+    // Because boardSize must refer to a square board we don't have to look at
+    // the boardSize.Columns
+    this->yPositionLowerLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - this->yPositionUpperLeftOrigin);
+    stream.str(SgfcPrivateConstants::EmptyString);
+    stream << this->yPositionLowerLeftOrigin;
+    this->yCompoundHybridNotation = stream.str();
+    this->hybridNotation = this->xCompoundHybridNotation + this->yCompoundHybridNotation;
   }
 
   bool SgfcGoPoint::IsValidSgfCharacter(char character) const
@@ -161,6 +171,16 @@ namespace LibSgfcPlusPlus
       return character - 'A' + 26 + 1;
     else
       return 0;
+  }
+
+  std::string SgfcGoPoint::MapPositionToXCompountHybridNotation(unsigned int position)
+  {
+    // Position 9 = letter "I" - we want to skip "I"
+    if (position >= 9)
+      position++;
+
+    char character = 'A' + position - 1;
+    return std::string(character, 1);
   }
 
   void SgfcGoPoint::ThrowInvalidCoordinateSystem(SgfcCoordinateSystem coordinateSystem) const
