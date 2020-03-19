@@ -40,8 +40,18 @@ namespace LibSgfcPlusPlus
     /// SgfcConstants::PropertyNameToPropertyTypeMap.
     static SgfcPropertyType MapPropertyNameToPropertyType(const std::string& propertyName);
 
+    /// @brief Returns an SgfcExitCode value that represents the messages
+    /// in @a messageCollection. See the documentation of the individual
+    /// enumeration values for details.
     static SgfcExitCode GetSgfcExitCodeFromMessageCollection(
       const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
+
+    /// @brief Returns whether @a messageCollection, which is the result of an
+    /// SGFC read or write operation, indicate that the piece of SGF data that
+    /// was read or written is valid.
+    ///
+    /// @retval true if the data that was read or written is valid.
+    /// @retval false if the data that was read or written is invalid.
     static bool GetIsSgfDataValidFromMessageCollection(
       const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
   };

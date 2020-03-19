@@ -389,6 +389,9 @@ namespace LibSgfcPlusPlus
         return SgfcConstants::DefaultGameType;
 
       std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
+      if (propertyValue->IsComposedValue())
+        return SgfcGameType::Unknown;
+
       const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
       if (! singlePropertyValue->HasTypedValue())
           return SgfcGameType::Unknown;

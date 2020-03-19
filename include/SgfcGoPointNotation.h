@@ -7,7 +7,7 @@ namespace LibSgfcPlusPlus
   enum class SgfcGoPointNotation
   {
     /// @brief The notation of the SGF standard for representing a Go Point
-    /// location.
+    /// location. Example: "fq".
     ///
     /// The SGF standard defines the following notation:
     /// - The coordinate system's origin is in the upper-left corner of the
@@ -26,6 +26,7 @@ namespace LibSgfcPlusPlus
     Sgf,
 
     /// @brief The "1-1" figure notation for representing a Go Point location.
+    /// Example: "6-17".
     ///
     /// The "1-1" figure notation is defined like this:
     /// - The coordinate system's origin is in the upper-left corner of the
@@ -41,6 +42,7 @@ namespace LibSgfcPlusPlus
     Figure,
 
     /// @brief The "A1" hybrid notation for representing a Go Point location.
+    /// Example: "F17".
     ///
     /// The "A1" hybrid notation is defined like this:
     /// - The coordinate system's origin is in the lower-left corner of the
