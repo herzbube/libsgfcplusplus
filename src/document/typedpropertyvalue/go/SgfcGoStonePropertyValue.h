@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../../../include/ISgfcGoStonePropertyValue.h"
+#include "../../../../include/SgfcBoardSize.h"
 #include "../SgfcStonePropertyValue.h"
 
 namespace LibSgfcPlusPlus
@@ -12,7 +13,7 @@ namespace LibSgfcPlusPlus
   class SgfcGoStonePropertyValue : public SgfcStonePropertyValue, public ISgfcGoStonePropertyValue
   {
   public:
-    SgfcGoStonePropertyValue(const std::string& rawValue, SgfcColor color);
+    SgfcGoStonePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color);
     virtual ~SgfcGoStonePropertyValue();
 
     virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const;

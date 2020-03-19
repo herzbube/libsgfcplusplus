@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../../include/ISgfcGoPoint.h"
+#include "../../../include/SgfcBoardSize.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -11,7 +12,7 @@ namespace LibSgfcPlusPlus
   class SgfcGoPoint : public ISgfcGoPoint
   {
   public:
-    SgfcGoPoint(const std::string& sgfNotation);
+    SgfcGoPoint(const std::string& sgfNotation, SgfcBoardSize boardSize);
     virtual ~SgfcGoPoint();
 
     virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const;

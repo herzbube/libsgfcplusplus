@@ -5,9 +5,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(const std::string& rawValue, SgfcColor color)
+  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color)
     : SgfcStonePropertyValue(rawValue)
-    , goStone(new SgfcGoStone(color, std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(rawValue))))
+    , goStone(new SgfcGoStone(color, std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(rawValue, boardSize))))
   {
   }
 

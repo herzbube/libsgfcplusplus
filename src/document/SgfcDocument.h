@@ -44,11 +44,13 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> parentNode,
       Node* sgfParentNode,
       SgfcGameType gameType,
+      SgfcBoardSize boardSize,
       std::shared_ptr<ISgfcTreeBuilder> treeBuilder);
     void ParseProperties(
       std::shared_ptr<ISgfcNode> node,
       Node* sgfNode,
-      SgfcGameType gameType);
+      SgfcGameType gameType,
+      SgfcBoardSize boardSize);
 
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node, int nodeNumber) const;
     void DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;

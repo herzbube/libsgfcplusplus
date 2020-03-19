@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../include/ISgfcPropertyValue.h"
+#include "../../include/SgfcBoardSize.h"
 #include "../../include/SgfcColor.h"
 #include "../../include/SgfcGameType.h"
 #include "../../include/SgfcPropertyType.h"
@@ -31,10 +32,10 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcPropertyDecoder object. The
     /// object parses the specified SGF property @a sgfProperty and its values.
-    /// The specified game type @a gameType is important for interpreting
-    /// game-specific properties.
-    SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType);
-    
+    /// The specified @a gameType and @a boardSize are important for
+    /// interpreting game-specific properties and their values.
+    SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize);
+
     /// @brief Destroys and cleans up the SgfcPropertyDecoder object.
     virtual ~SgfcPropertyDecoder();
 
@@ -73,6 +74,28 @@ namespace LibSgfcPlusPlus
     ///         not present.
     static SgfcGameType GetGameTypeFromNode(const Node* sgfNode);
 
+    /// @brief Probes the SGF node @a sgfNode for a property of type
+    /// SgfcPropertyType::SZ and returns an SgfcBoardSize value that corresponds
+    /// to the result of the probing. Returns a game-specific default board size
+    /// for a few game types mentioned in the SGF standard if the property is
+    /// present but has no value.
+    ///
+    /// @param sgfNode The SGF node to be probed. The node should be the root
+    /// node of a game because SgfcPropertyType::SZ can be expected to be
+    /// present in that node.
+    ///
+    /// @retval SgfcBoardSize If the property is present and has a valid value.
+    ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone.
+    /// @retval SgfcConstants::DefaultBoardSizeGo If the property is present
+    ///         and has no value, and GetGameType() returns SgfcGameType::Go.
+    /// @retval SgfcConstants::DefaultBoardSizeChess If the property is present
+    ///         and has no value, and GetGameType() returns SgfcGameType::Chess.
+    /// @retval SgfcConstants::BoardSizeNone If the property is not present, or
+    ///         if the game has no root node. Also if the property is present
+    ///         and has no value, but GetGameType() returns neither
+    ///         SgfcGameType::Go nor SgfcGameType::Chess.
+    static SgfcBoardSize GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType);
+
     /// @brief Maps the Number value @a gameTypeAsNumber to an SgfcGameType
     /// enumeration value and returns the mapped value. Returns
     /// SgfcGameType::Unknown if the Number value cannot be mapped, which is
@@ -83,6 +106,7 @@ namespace LibSgfcPlusPlus
   private:
     const Property* sgfProperty;
     std::shared_ptr<SgfcPropertyMetaInfo> propertyMetaInfo;
+    SgfcBoardSize boardSize;
 
     SgfcPropertyType GetPropertyTypeInternal() const;
 

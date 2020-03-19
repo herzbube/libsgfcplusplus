@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../../../include/ISgfcGoPointPropertyValue.h"
+#include "../../../../include/SgfcBoardSize.h"
 #include "../SgfcPointPropertyValue.h"
 
 namespace LibSgfcPlusPlus
@@ -12,7 +13,7 @@ namespace LibSgfcPlusPlus
   class SgfcGoPointPropertyValue : public SgfcPointPropertyValue, public ISgfcGoPointPropertyValue
   {
   public:
-    SgfcGoPointPropertyValue(const std::string& rawValue);
+    SgfcGoPointPropertyValue(const std::string& rawValue, SgfcBoardSize boardSize);
     virtual ~SgfcGoPointPropertyValue();
 
     virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const;

@@ -2,6 +2,7 @@
 
 // Project includes
 #include "../../../../include/ISgfcGoMovePropertyValue.h"
+#include "../../../../include/SgfcBoardSize.h"
 #include "../../../../include/SgfcColor.h"
 #include "../SgfcMovePropertyValue.h"
 
@@ -13,7 +14,7 @@ namespace LibSgfcPlusPlus
   class SgfcGoMovePropertyValue : public SgfcMovePropertyValue, public ISgfcGoMovePropertyValue
   {
   public:
-    SgfcGoMovePropertyValue(const std::string& rawValue, SgfcColor color);
+    SgfcGoMovePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color);
     virtual ~SgfcGoMovePropertyValue();
 
     virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const;

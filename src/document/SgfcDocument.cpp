@@ -55,14 +55,15 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> rootNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
 
       SgfcGameType gameType = SgfcPropertyDecoder::GetGameTypeFromNode(sgfRootNode);
+      SgfcBoardSize boardSize = SgfcPropertyDecoder::GetBoardSizeFromNode(sgfRootNode, gameType);
 
-      ParseProperties(rootNode, sgfRootNode, gameType);
+      ParseProperties(rootNode, sgfRootNode, gameType, boardSize);
 
       std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
       this->games.push_back(game);
 
       std::shared_ptr<ISgfcTreeBuilder> treeBuilder = game->GetTreeBuilder();
-      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType, treeBuilder);
+      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType, boardSize, treeBuilder);
 
       sgfRootNode = sgfRootNode->sibling;
       sgfTreeInfo = sgfTreeInfo->next;
@@ -73,6 +74,7 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcNode> parentNode,
     Node* sgfParentNode,
     SgfcGameType gameType,
+    SgfcBoardSize boardSize,
     std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
   {
     Node* sgfFirstChildNode = sgfParentNode->child;
@@ -81,18 +83,18 @@ namespace LibSgfcPlusPlus
 
     std::shared_ptr<ISgfcNode> firstChildNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
     treeBuilder->SetFirstChild(parentNode, firstChildNode);
-    ParseProperties(firstChildNode, sgfFirstChildNode, gameType);
+    ParseProperties(firstChildNode, sgfFirstChildNode, gameType, boardSize);
 
-    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType, treeBuilder);
+    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType, boardSize, treeBuilder);
 
     Node* sgfNextSiblingNode = sgfFirstChildNode->sibling;
     while (sgfNextSiblingNode != nullptr)
     {
       std::shared_ptr<ISgfcNode> nextSiblingNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
       treeBuilder->AppendChild(parentNode, nextSiblingNode);
-      ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType);
+      ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType, boardSize);
 
-      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType, treeBuilder);
+      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType, boardSize, treeBuilder);
 
       sgfNextSiblingNode = sgfNextSiblingNode->sibling;
     }
@@ -101,14 +103,15 @@ namespace LibSgfcPlusPlus
   void SgfcDocument::ParseProperties(
     std::shared_ptr<ISgfcNode> node,
     Node* sgfNode,
-    SgfcGameType gameType)
+    SgfcGameType gameType,
+    SgfcBoardSize boardSize)
   {
     std::vector<std::shared_ptr<ISgfcProperty>> properties;
 
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType);
+      SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType, boardSize);
 
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
       std::string propertyName = propertyDecoder.GetPropertyName();

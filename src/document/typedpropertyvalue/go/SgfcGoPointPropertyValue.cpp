@@ -4,9 +4,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(const std::string& rawValue)
+  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(const std::string& rawValue, SgfcBoardSize boardSize)
     : SgfcPointPropertyValue(rawValue)
-    , goPoint(new SgfcGoPoint(rawValue))
+    , goPoint(new SgfcGoPoint(rawValue, boardSize))
   {
   }
 

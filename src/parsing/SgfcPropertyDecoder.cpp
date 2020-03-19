@@ -3,6 +3,7 @@
 #include "../../include/SgfcConstants.h"
 #include "../../include/SgfcDouble.h"
 #include "../../include/SgfcGameType.h"
+#include "../document/typedproperty/SgfcBoardSizeProperty.h"
 #include "../document/typedpropertyvalue/SgfcColorPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcDoublePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcMovePropertyValue.h"
@@ -40,9 +41,10 @@ extern "C"
 
 namespace LibSgfcPlusPlus
 {
-  SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType)
+  SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize)
     : sgfProperty(sgfProperty)
     , propertyMetaInfo(new SgfcPropertyMetaInfo(GetPropertyTypeInternal(), gameType))
+    , boardSize(boardSize)
   {
   }
 
@@ -372,7 +374,9 @@ namespace LibSgfcPlusPlus
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
-      SgfcPropertyDecoder propertyDecoder(sgfProperty, SgfcGameType::Unknown);
+      // SgfcConstants::BoardSizeNone is OK because SgfcPropertyType::GM does
+      // not require a valid board size.
+      SgfcPropertyDecoder propertyDecoder(sgfProperty, SgfcGameType::Unknown, SgfcConstants::BoardSizeNone);
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
       if (propertyType != SgfcPropertyType::GM)
       {
@@ -398,6 +402,29 @@ namespace LibSgfcPlusPlus
     // SgfcPrivateConstants::DefaultGameType.
     return SgfcGameType::Unknown;
   }
+
+  SgfcBoardSize SgfcPropertyDecoder::GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType)
+  {
+    Property* sgfProperty = sgfNode->prop;
+    while (sgfProperty)
+    {
+      // SgfcConstants::BoardSizeNone is OK because SgfcPropertyType::SZ does
+      // not require a valid board size.
+      SgfcPropertyDecoder propertyDecoder(sgfProperty, SgfcGameType::Unknown, SgfcConstants::BoardSizeNone);
+      SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
+      if (propertyType != SgfcPropertyType::SZ)
+      {
+        sgfProperty = sgfProperty->next;
+        continue;
+      }
+
+      SgfcBoardSizeProperty boardSizeProperty(propertyDecoder.GetPropertyValues());
+      return boardSizeProperty.GetBoardSize(gameType);
+    }
+
+    return SgfcConstants::BoardSizeNone;
+  }
+
 
   /// @brief This method can handle a list of property values. All values must
   /// have the same value type described by @e elementValueTypeDescriptor.
@@ -562,7 +589,8 @@ namespace LibSgfcPlusPlus
         if (gameType == SgfcGameType::Go)
         {
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
-           rawPropertyValueBuffer));
+           rawPropertyValueBuffer,
+           this->boardSize));
         }
         else
         {
@@ -576,7 +604,7 @@ namespace LibSgfcPlusPlus
         {
           SgfcColor color = GetColorForPropertyType();
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-           rawPropertyValueBuffer, color));
+           rawPropertyValueBuffer, this->boardSize, color));
         }
         else
         {
@@ -590,7 +618,7 @@ namespace LibSgfcPlusPlus
         {
           SgfcColor color = GetColorForPropertyType();
           propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
-           rawPropertyValueBuffer, color));
+           rawPropertyValueBuffer, this->boardSize, color));
         }
         else
         {

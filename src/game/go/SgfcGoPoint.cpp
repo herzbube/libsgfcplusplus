@@ -8,7 +8,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoPoint::SgfcGoPoint(const std::string& sgfNotation)
+  SgfcGoPoint::SgfcGoPoint(const std::string& sgfNotation, SgfcBoardSize boardSize)
     : xPositionUpperLeftOrigin(0)
     , yPositionUpperLeftOrigin(0)
   {
