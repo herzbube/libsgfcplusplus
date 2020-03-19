@@ -8,7 +8,7 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcProperty class provides an implementation of the
   /// ISgfcProperty interface. See the interface header file for
   /// documentation.
-  class SgfcProperty : public ISgfcProperty
+  class SgfcProperty : virtual public ISgfcProperty
   {
   public:
     /// @brief Initializes a newly constructed SgfcProperty object. The property
@@ -36,6 +36,8 @@ namespace LibSgfcPlusPlus
     virtual void SetPropertyValues(
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
     virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const;
+
+    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
 
   private:
     SgfcPropertyType propertyType;

@@ -11,6 +11,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcBoardSizeProperty;
+
   /// @brief The ISgfcProperty interface provides access to the data of a single
   /// property of an SGF node. One property has 0-n values.
   ///
@@ -69,5 +72,10 @@ namespace LibSgfcPlusPlus
     ///
     /// This is a convenience method for properties that can have only value.
     virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const = 0;
+
+    /// @brief Returns an ISgfcBoardSizeProperty object if GetPropertyType()
+    /// returns SgfcPropertyType::SZ. Returns @e nullptr otherwise.
+    /// The caller is not the owner of the returned object.
+    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const = 0;
   };
 }

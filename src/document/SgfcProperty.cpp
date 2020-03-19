@@ -54,4 +54,9 @@ namespace LibSgfcPlusPlus
     else
       return nullptr;
   }
+
+  const ISgfcBoardSizeProperty* SgfcProperty::ToBoardSizeProperty() const
+  {
+    return nullptr;
+  }
 }
