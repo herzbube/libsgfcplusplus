@@ -1,8 +1,10 @@
 // Project includes
+#include "../../include/ISgfcGameTypeProperty.h"
 #include "../../include/SgfcColor.h"
 #include "../../include/SgfcConstants.h"
 #include "../../include/SgfcDouble.h"
 #include "../../include/SgfcGameType.h"
+#include "../../include/SgfcPlusPlusFactory.h"
 #include "../document/typedproperty/SgfcBoardSizeProperty.h"
 #include "../document/typedpropertyvalue/SgfcColorPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcDoublePropertyValue.h"
@@ -385,19 +387,37 @@ namespace LibSgfcPlusPlus
       }
 
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
+
       if (propertyValues.size() == 0)
-        return SgfcConstants::DefaultGameType;
+      {
+        std::shared_ptr<ISgfcGameTypeProperty> property = SgfcPlusPlusFactory::CreateGameTypeProperty();
+        return property->GetGameType();
+      }
+      else
+      {
+        std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
 
-      std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
-      if (propertyValue->IsComposedValue())
-        return SgfcGameType::Unknown;
-
-      const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
-      if (! singlePropertyValue->HasTypedValue())
+        if (propertyValue->IsComposedValue())
           return SgfcGameType::Unknown;
 
-      return SgfcPropertyDecoder::MapNumberValueToGameType(
-        singlePropertyValue->ToNumberValue()->GetNumberValue());
+        // This is just to verify that we actually have an
+        // ISgfcNumberPropertyValue object - if not the factory would throw
+        const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
+        if (numberValue == nullptr)
+            return SgfcGameType::Unknown;
+
+        // Can't use numberValue directly, the factory wants an std::shared_ptr.
+        // std::dynamic_pointer_cast performs a downcast and packages the result
+        // into a shared_ptr, all in one go. Note: We can't use
+        // std::static_pointer_cast because of multiple inheritance.
+        std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
+          std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
+
+        std::shared_ptr<ISgfcGameTypeProperty> property = SgfcPlusPlusFactory::CreateGameTypeProperty(
+          numberValueSharedPtr);
+
+        return property->GetGameType();
+      }
     }
 
     // SgfcPropertyType::GM is not present. This is not the same as when the
