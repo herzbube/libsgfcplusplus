@@ -3,7 +3,9 @@
 // Project includes
 #include "../include/ISgfcMessage.h"
 #include "../include/SgfcExitCode.h"
+#include "../include/SgfcGameType.h"
 #include "../include/SgfcPropertyType.h"
+#include "../include/SgfcTypedefs.h"
 
 // C++ Standard Library includes
 #include <memory>
@@ -39,6 +41,30 @@ namespace LibSgfcPlusPlus
     /// This is a convenience function that looks up @a propertyName in
     /// SgfcConstants::PropertyNameToPropertyTypeMap.
     static SgfcPropertyType MapPropertyNameToPropertyType(const std::string& propertyName);
+
+    /// @brief Returns the SgfcNumber value that corresponds to the SgfcGameType
+    /// value @a gameType. @a gameType must not be SgfcGameType::Unknown.
+    ///
+    /// This is a convenience function that looks up @a gameType in
+    /// SgfcConstants::GameTypeToGameTypeAsNumberMap.
+    ///
+    /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
+    /// if @a gameType does not appear in
+    /// SgfcConstants::GameTypeToGameTypeAsNumberMap. This should only occur if
+    /// @a gameType is SgfcGameType::Unknown, because obviously that game type
+    /// has no corresponding Number value. Otherwise this indicates a
+    /// programming error in the library, i.e. an SgfcGameType value was not
+    /// added to SgfcConstants::GameTypeToGameTypeAsNumberMap.
+    static SgfcNumber MapGameTypeToNumberValue(SgfcGameType gameType);
+
+    /// @brief Returns the SgfcGameType value that corresponds to the Number
+    /// value @a gameTypeAsNumber. Returns SgfcGameType::Unknown if the Number
+    /// value cannot be mapped, which is the case if the Number value does not
+    /// correspond to one of the known values defined by the SGF standard.
+    ///
+    /// This is a convenience function that looks up @a gameTypeAsNumber in
+    /// SgfcConstants::GameTypeAsNumberToGameTypeMap.
+    static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
 
     /// @brief Returns an SgfcExitCode value that represents the messages
     /// in @a messageCollection. See the documentation of the individual

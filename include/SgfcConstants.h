@@ -35,7 +35,12 @@ namespace LibSgfcPlusPlus
     /// names as defined by the SGF standard. SgfcPropertyType::Unknown does
     /// not appear in the map.
     static const std::map<SgfcPropertyType, std::string> PropertyTypeToPropertyNameMap;
+    /// @brief Maps game type Number values as defined by the SGF standard to
+    /// values from the enumeration SgfcGameType.
     static const std::map<SgfcNumber, SgfcGameType> GameTypeAsNumberToGameTypeMap;
+    /// @brief Maps values from the enumeration SgfcGameType to Number values
+    /// as defined by the SGF standard. SgfcGameType::Unknown does not appear
+    /// in the map.
     static const std::map<SgfcGameType, SgfcNumber> GameTypeToGameTypeAsNumberMap;
     //@}
 

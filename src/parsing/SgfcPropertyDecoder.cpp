@@ -768,16 +768,6 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  SgfcGameType SgfcPropertyDecoder::MapNumberValueToGameType(SgfcNumber gameTypeAsNumber)
-  {
-    auto it = SgfcConstants::GameTypeAsNumberToGameTypeMap.find(gameTypeAsNumber);
-
-    if (it != SgfcConstants::GameTypeAsNumberToGameTypeMap.cend())
-      return it->second;
-    else
-      return SgfcGameType::Unknown;
-  }
-
   SgfcColor SgfcPropertyDecoder::GetColorForPropertyType() const
   {
     SgfcPropertyType propertyType = this->propertyMetaInfo->GetPropertyType();

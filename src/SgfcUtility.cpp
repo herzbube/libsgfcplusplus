@@ -31,7 +31,32 @@ namespace LibSgfcPlusPlus
       return it->second;
     else
       return SgfcPropertyType::Unknown;
+  }
 
+  SgfcNumber SgfcUtility::MapGameTypeToNumberValue(SgfcGameType gameType)
+  {
+    auto it = SgfcConstants::GameTypeToGameTypeAsNumberMap.find(gameType);
+
+    if (it == SgfcConstants::GameTypeToGameTypeAsNumberMap.cend())
+    {
+      std::stringstream message;
+      message << "Game type argument has unsupported value: " << static_cast<int>(gameType);
+      throw std::invalid_argument(message.str());
+    }
+
+    SgfcNumber gameTypeAsNumber = it->second;
+    return gameTypeAsNumber;
+
+  }
+
+  SgfcGameType SgfcUtility::MapNumberValueToGameType(SgfcNumber gameTypeAsNumber)
+  {
+    auto it = SgfcConstants::GameTypeAsNumberToGameTypeMap.find(gameTypeAsNumber);
+
+    if (it != SgfcConstants::GameTypeAsNumberToGameTypeMap.cend())
+      return it->second;
+    else
+      return SgfcGameType::Unknown;
   }
 
   SgfcExitCode SgfcUtility::GetSgfcExitCodeFromMessageCollection(

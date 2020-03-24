@@ -96,13 +96,6 @@ namespace LibSgfcPlusPlus
     ///         SgfcGameType::Go nor SgfcGameType::Chess.
     static SgfcBoardSize GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType);
 
-    /// @brief Maps the Number value @a gameTypeAsNumber to an SgfcGameType
-    /// enumeration value and returns the mapped value. Returns
-    /// SgfcGameType::Unknown if the Number value cannot be mapped, which is
-    /// the case if the Number value does not correspond to one of the values
-    /// defined in the SGF standard.
-    static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
-
   private:
     const Property* sgfProperty;
     std::shared_ptr<SgfcPropertyMetaInfo> propertyMetaInfo;
