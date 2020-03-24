@@ -1,11 +1,12 @@
 // Project includes
 #include "../../include/ISgfcBoardSizeProperty.h"
 #include "../../include/ISgfcComposedPropertyValue.h"
+#include "../../include/ISgfcGameTypeProperty.h"
 #include "../../include/ISgfcNumberPropertyValue.h"
 #include "../../include/ISgfcProperty.h"
 #include "../../include/ISgfcSinglePropertyValue.h"
 #include "../../include/SgfcConstants.h"
-#include "../parsing/SgfcPropertyDecoder.h"
+#include "../SgfcUtility.h"
 #include "SgfcGame.h"
 
 namespace LibSgfcPlusPlus
@@ -36,16 +37,23 @@ namespace LibSgfcPlusPlus
 
   SgfcGameType SgfcGame::GetGameType() const
   {
-    SgfcNumber gameTypeAsNumber = GetGameTypeAsNumber();
-
-    if (gameTypeAsNumber == SgfcConstants::GameTypeNone)
+    if (this->rootNode == nullptr)
       return SgfcGameType::Unknown;
 
-    return SgfcPropertyDecoder::MapNumberValueToGameType(gameTypeAsNumber);
+    auto property = this->rootNode->GetProperty(SgfcPropertyType::GM);
+    if (property == nullptr)
+      return SgfcGameType::Unknown;
+
+    return property->ToGameTypeProperty()->GetGameType();
   }
 
   SgfcNumber SgfcGame::GetGameTypeAsNumber() const
   {
+    // We can't base the implementation of this method on the return value of
+    // GetGameType(), because this does allow us to distinguish between the two
+    // cases 1) Property is not present; and 2) Property is present but has no
+    // value.
+
     if (this->rootNode == nullptr)
       return SgfcConstants::GameTypeNone;
 
@@ -53,17 +61,7 @@ namespace LibSgfcPlusPlus
     if (property == nullptr)
       return SgfcConstants::GameTypeNone;
 
-    // We are interested only in the first value because the property is
-    // supposed to have only one value.
-    auto propertyValue = property->GetPropertyValue();
-    if (propertyValue == nullptr || propertyValue->IsComposedValue())
-      return SgfcConstants::GameTypeNone;
-
-    const auto* singleValue = propertyValue->ToSingleValue();
-    if (singleValue->HasTypedValue() && singleValue->GetValueType() == SgfcPropertyValueType::Number)
-      return singleValue->ToNumberValue()->GetNumberValue();
-    else
-      return SgfcConstants::GameTypeNone;
+    return property->ToGameTypeProperty()->GetGameTypeAsNumber();
   }
 
   bool SgfcGame::HasBoardSize() const

@@ -54,7 +54,9 @@ namespace LibSgfcPlusPlus
     /// returns SgfcGameType::Unknown.
     ///
     /// @retval SgfcNumber The Number value of the root node's
-    ///         SgfcPropertyType::GM property
+    ///         SgfcPropertyType::GM property. If the property has no value,
+    ///         returns the Number value that corresponds to
+    ///         SgfcConstants::DefaultGameType.
     /// @retval SgfcConstants::GameTypeNone If the property is not present in
     ///         the root node, or if the game has no root node.
     virtual SgfcNumber GetGameTypeAsNumber() const = 0;
