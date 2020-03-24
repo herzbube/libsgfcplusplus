@@ -55,6 +55,11 @@ namespace LibSgfcPlusPlus
       return nullptr;
   }
 
+  const ISgfcGameTypeProperty* SgfcProperty::ToGameTypeProperty() const
+  {
+    return nullptr;
+  }
+
   const ISgfcBoardSizeProperty* SgfcProperty::ToBoardSizeProperty() const
   {
     return nullptr;

@@ -37,6 +37,7 @@ namespace LibSgfcPlusPlus
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
     virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const;
 
+    virtual const ISgfcGameTypeProperty* ToGameTypeProperty() const;
     virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
 
   private:

@@ -173,6 +173,10 @@
 		CD825CF8241E4F8600ED8963 /* ISgfcBoardSizeProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD825CF7241E4F8600ED8963 /* ISgfcBoardSizeProperty.cpp */; };
 		CD825CFC241E4FB600ED8963 /* SgfcBoardSizeProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD825CFA241E4FB500ED8963 /* SgfcBoardSizeProperty.cpp */; };
 		CD825CFD241E4FB600ED8963 /* SgfcBoardSizeProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD825CFB241E4FB500ED8963 /* SgfcBoardSizeProperty.h */; };
+		CD825D0024242C3A00ED8963 /* SgfcGameTypeProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD825CFE24242C3900ED8963 /* SgfcGameTypeProperty.h */; };
+		CD825D0124242C3A00ED8963 /* SgfcGameTypeProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD825CFF24242C3A00ED8963 /* SgfcGameTypeProperty.cpp */; };
+		CD825D0324242CBD00ED8963 /* ISgfcGameTypeProperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD825D0224242CBD00ED8963 /* ISgfcGameTypeProperty.cpp */; };
+		CD825D0524242CE300ED8963 /* ISgfcGameTypeProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD825D0424242CE300ED8963 /* ISgfcGameTypeProperty.h */; };
 		CD8322A423F1D246009567E4 /* ISgfcCommandLine.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */; };
 		CD8322A523F1D246009567E4 /* SgfcPlusPlusFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */; };
 		CD8322A723F1D30D009567E4 /* ISgfcMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322A623F1D30D009567E4 /* ISgfcMessage.h */; };
@@ -368,6 +372,10 @@
 		CD825CF7241E4F8600ED8963 /* ISgfcBoardSizeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcBoardSizeProperty.cpp; sourceTree = "<group>"; };
 		CD825CFA241E4FB500ED8963 /* SgfcBoardSizeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBoardSizeProperty.cpp; sourceTree = "<group>"; };
 		CD825CFB241E4FB500ED8963 /* SgfcBoardSizeProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBoardSizeProperty.h; sourceTree = "<group>"; };
+		CD825CFE24242C3900ED8963 /* SgfcGameTypeProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcGameTypeProperty.h; sourceTree = "<group>"; };
+		CD825CFF24242C3A00ED8963 /* SgfcGameTypeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcGameTypeProperty.cpp; sourceTree = "<group>"; };
+		CD825D0224242CBD00ED8963 /* ISgfcGameTypeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcGameTypeProperty.cpp; sourceTree = "<group>"; };
+		CD825D0424242CE300ED8963 /* ISgfcGameTypeProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcGameTypeProperty.h; sourceTree = "<group>"; };
 		CD83227B23F1D1E7009567E4 /* ISgfcCommandLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ISgfcCommandLine.h; sourceTree = "<group>"; };
 		CD83227C23F1D1E7009567E4 /* SgfcPlusPlusFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SgfcPlusPlusFactory.h; sourceTree = "<group>"; };
 		CD83227E23F1D218009567E4 /* gameinfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gameinfo.c; sourceTree = "<group>"; };
@@ -581,6 +589,7 @@
 				CD21C58A2410427300998A14 /* ISgfcDocumentWriteResult.cpp */,
 				CD21C4CF24084D5B00998A14 /* ISgfcDoublePropertyValue.cpp */,
 				CD21C4D224084D5B00998A14 /* ISgfcGame.cpp */,
+				CD825D0224242CBD00ED8963 /* ISgfcGameTypeProperty.cpp */,
 				CD21C5782410197F00998A14 /* ISgfcGoMove.cpp */,
 				CD21C562241004BE00998A14 /* ISgfcGoMovePropertyValue.cpp */,
 				CD21C553240C547E00998A14 /* ISgfcGoPoint.cpp */,
@@ -683,6 +692,8 @@
 			children = (
 				CD825CFA241E4FB500ED8963 /* SgfcBoardSizeProperty.cpp */,
 				CD825CFB241E4FB500ED8963 /* SgfcBoardSizeProperty.h */,
+				CD825CFF24242C3A00ED8963 /* SgfcGameTypeProperty.cpp */,
+				CD825CFE24242C3900ED8963 /* SgfcGameTypeProperty.h */,
 			);
 			path = typedproperty;
 			sourceTree = "<group>";
@@ -720,6 +731,7 @@
 				CD21C58024103C9C00998A14 /* ISgfcDocumentWriteResult.h */,
 				CD21C43A2408096D00998A14 /* ISgfcDoublePropertyValue.h */,
 				CD8322EE23FF116F009567E4 /* ISgfcGame.h */,
+				CD825D0424242CE300ED8963 /* ISgfcGameTypeProperty.h */,
 				CD21C576241015C100998A14 /* ISgfcGoMove.h */,
 				CD21C547240C188200998A14 /* ISgfcGoMovePropertyValue.h */,
 				CD21C54B240C31A500998A14 /* ISgfcGoPoint.h */,
@@ -829,6 +841,7 @@
 				CD21C50A24084D5B00998A14 /* SgfcProperty.h in Headers */,
 				CD83230123FF27F0009567E4 /* ISgfcDocumentReader.h in Headers */,
 				CD83230323FF2CE7009567E4 /* ISgfcDocumentReadResult.h in Headers */,
+				CD825D0024242C3A00ED8963 /* SgfcGameTypeProperty.h in Headers */,
 				CD21C591241048CB00998A14 /* SgfcDocumentEncoder.h in Headers */,
 				CD21C52524084D5B00998A14 /* SgfcPointPropertyValue.h in Headers */,
 				CD21C577241015C100998A14 /* ISgfcGoMove.h in Headers */,
@@ -854,6 +867,7 @@
 				CD21C50824084D5B00998A14 /* SgfcBackendController.h in Headers */,
 				CD21C50E24084D5B00998A14 /* SgfcComposedPropertyValue.h in Headers */,
 				CD21C54E240C4B0200998A14 /* SgfcCoordinateSystem.h in Headers */,
+				CD825D0524242CE300ED8963 /* ISgfcGameTypeProperty.h in Headers */,
 				CD29419D241C25B500BCDA24 /* SgfcValueConverter.h in Headers */,
 				CD825CF2241D1CA200ED8963 /* SgfcBoardSize.h in Headers */,
 				CD29418D241AB74700BCDA24 /* SgfcPropertyMetaInfo.h in Headers */,
@@ -979,6 +993,7 @@
 				CD21C53824084D5B00998A14 /* ISgfcPropertyValue.cpp in Sources */,
 				CD21C574241008DB00998A14 /* SgfcGoStone.cpp in Sources */,
 				CD29419E241C25B500BCDA24 /* SgfcValueConverter.cpp in Sources */,
+				CD825D0324242CBD00ED8963 /* ISgfcGameTypeProperty.cpp in Sources */,
 				CD294189241933C600BCDA24 /* SgfcTreeBuilder.cpp in Sources */,
 				CD29419A241C1FCB00BCDA24 /* SgfcPropertyValueFactory.cpp in Sources */,
 				CD21C53024084D5B00998A14 /* ISgfcStonePropertyValue.cpp in Sources */,
@@ -995,6 +1010,7 @@
 				CD8322C523F43262009567E4 /* util.c in Sources */,
 				CD21C4F924084D5B00998A14 /* SgfcMessageStream.cpp in Sources */,
 				CD21C571241008B400998A14 /* ISgfcGoStone.cpp in Sources */,
+				CD825D0124242C3A00ED8963 /* SgfcGameTypeProperty.cpp in Sources */,
 				CD21C53E24084D5B00998A14 /* ISgfcCommandLine.cpp in Sources */,
 				CD21C53B24084D5B00998A14 /* ISgfcColorPropertyValue.cpp in Sources */,
 				CD21C52D24084D5B00998A14 /* ISgfcProperty.cpp in Sources */,
