@@ -6,7 +6,6 @@
 #include "../document/SgfcNode.h"
 #include "../document/SgfcProperty.h"
 #include "../document/SgfcTreeBuilder.h"
-#include "../parsing/SgfcPropertyDecoder.h"
 #include "../sgfc/frontend/SgfcCommandLine.h"
 #include "../sgfc/frontend/SgfcDocumentReader.h"
 #include "../sgfc/frontend/SgfcDocumentWriter.h"
@@ -83,11 +82,20 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(SgfcPropertyType propertyType)
   {
-    std::string propertyName = SgfcUtility::MapPropertyTypeToPropertyName(propertyType);
-
-    std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
       propertyType,
-      propertyName));
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> {} );
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
+    SgfcPropertyType propertyType,
+    std::shared_ptr<ISgfcPropertyValue> propertyValue)
+  {
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
+      propertyType,
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> { propertyValue } );
 
     return property;
   }
@@ -96,20 +104,32 @@ namespace LibSgfcPlusPlus
     SgfcPropertyType propertyType,
     const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
   {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(propertyType);
+    std::string propertyName = SgfcUtility::MapPropertyTypeToPropertyName(propertyType);
 
-    property->SetPropertyValues(propertyValues);
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
+      propertyType,
+      propertyName,
+      propertyValues);
 
     return property;
   }
 
   std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(const std::string& propertyName)
   {
-    SgfcPropertyType propertyType = SgfcUtility::MapPropertyNameToPropertyType(propertyName);
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
+      propertyName,
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> {} );
 
-    std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
-      propertyType,
-      propertyName));
+    return property;
+  }
+
+  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
+    const std::string& propertyName,
+    std::shared_ptr<ISgfcPropertyValue> propertyValue)
+  {
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
+      propertyName,
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> { propertyValue } );
 
     return property;
   }
@@ -118,7 +138,27 @@ namespace LibSgfcPlusPlus
     const std::string& propertyName,
     const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
   {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(propertyName);
+    SgfcPropertyType propertyType = SgfcUtility::MapPropertyNameToPropertyType(propertyName);
+
+    std::shared_ptr<ISgfcProperty> property = CreateProperty(
+      propertyType,
+      propertyName,
+      propertyValues);
+
+    return property;
+  }
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
+    SgfcPropertyType propertyType,
+    const std::string& propertyName,
+    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+  {
+    std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
+      propertyType,
+      propertyName));
 
     property->SetPropertyValues(propertyValues);
 
