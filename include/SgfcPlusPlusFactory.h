@@ -14,6 +14,8 @@ namespace LibSgfcPlusPlus
 {
   // Forward declarations
   class ISgfcCommandLine;
+  class ISgfcGameTypeProperty;
+  class ISgfcNumberPropertyValue;
   class ISgfcPropertyValueFactory;
 
   /// @brief The SgfcPlusPlusFactory class is a class that contains only static
@@ -146,6 +148,21 @@ namespace LibSgfcPlusPlus
     static std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+
+    /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
+    /// has no vaue. The property is not associated with any node.
+    static std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty();
+
+    /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
+    /// has the specified property value @a propertyValue. The property is not
+    /// associated with any node. The ISgfcProperty object takes ownership of
+    /// the ISgfcNumberPropertyValue object @a propertyValue.
+    ///
+    /// @exception std::invalid_argument is thrown if @a propertyValue is
+    /// null or if the @a propertyValue object's method HasTypedValue() returns
+    /// false.
+    static std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
 
     /// @brief Returns a newly constructed ISgfcPropertyValueFactory object
     /// that can be used to create objects of every known sub-type of

@@ -1,6 +1,7 @@
 // Project includes
 #include "../../include/SgfcConstants.h"
 #include "../../include/SgfcPlusPlusFactory.h"
+#include "../document/typedproperty/SgfcGameTypeProperty.h"
 #include "../document/SgfcDocument.h"
 #include "../document/SgfcGame.h"
 #include "../document/SgfcNode.h"
@@ -147,6 +148,20 @@ namespace LibSgfcPlusPlus
 
     return property;
   }
+
+  std::shared_ptr<ISgfcGameTypeProperty> SgfcPlusPlusFactory::CreateGameTypeProperty()
+  {
+    std::shared_ptr<ISgfcGameTypeProperty> property =
+      std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty());
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcGameTypeProperty> SgfcPlusPlusFactory::CreateGameTypeProperty(
+    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue)
+  {
+    std::shared_ptr<ISgfcGameTypeProperty> property =
+      std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty(propertyValue));
 
     return property;
   }
