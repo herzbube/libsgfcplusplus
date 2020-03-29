@@ -1,5 +1,6 @@
 // Project includes
 #include "../../include/ISgfcGameTypeProperty.h"
+#include "../../include/ISgfcPropertyFactory.h"
 #include "../../include/SgfcColor.h"
 #include "../../include/SgfcConstants.h"
 #include "../../include/SgfcDouble.h"
@@ -388,9 +389,11 @@ namespace LibSgfcPlusPlus
 
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
+      auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+
       if (propertyValues.size() == 0)
       {
-        std::shared_ptr<ISgfcGameTypeProperty> property = SgfcPlusPlusFactory::CreateGameTypeProperty();
+        std::shared_ptr<ISgfcGameTypeProperty> property = propertyFactory->CreateGameTypeProperty();
         return property->GetGameType();
       }
       else
@@ -413,7 +416,7 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
           std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
 
-        std::shared_ptr<ISgfcGameTypeProperty> property = SgfcPlusPlusFactory::CreateGameTypeProperty(
+        std::shared_ptr<ISgfcGameTypeProperty> property = propertyFactory->CreateGameTypeProperty(
           numberValueSharedPtr);
 
         return property->GetGameType();

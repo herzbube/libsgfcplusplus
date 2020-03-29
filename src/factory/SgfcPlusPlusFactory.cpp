@@ -1,16 +1,13 @@
 // Project includes
-#include "../../include/SgfcConstants.h"
 #include "../../include/SgfcPlusPlusFactory.h"
-#include "../document/typedproperty/SgfcGameTypeProperty.h"
 #include "../document/SgfcDocument.h"
 #include "../document/SgfcGame.h"
 #include "../document/SgfcNode.h"
-#include "../document/SgfcProperty.h"
 #include "../document/SgfcTreeBuilder.h"
 #include "../sgfc/frontend/SgfcCommandLine.h"
 #include "../sgfc/frontend/SgfcDocumentReader.h"
 #include "../sgfc/frontend/SgfcDocumentWriter.h"
-#include "../SgfcUtility.h"
+#include "SgfcPropertyFactory.h"
 #include "SgfcPropertyValueFactory.h"
 
 namespace LibSgfcPlusPlus
@@ -81,103 +78,11 @@ namespace LibSgfcPlusPlus
     return node;
   }
 
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(SgfcPropertyType propertyType)
+  std::shared_ptr<ISgfcPropertyFactory> SgfcPlusPlusFactory::CreatePropertyFactory()
   {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyType,
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> {} );
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
-    SgfcPropertyType propertyType,
-    std::shared_ptr<ISgfcPropertyValue> propertyValue)
-  {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyType,
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> { propertyValue } );
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
-    SgfcPropertyType propertyType,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
-  {
-    std::string propertyName = SgfcUtility::MapPropertyTypeToPropertyName(propertyType);
-
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyType,
-      propertyName,
-      propertyValues);
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(const std::string& propertyName)
-  {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyName,
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> {} );
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
-    const std::string& propertyName,
-    std::shared_ptr<ISgfcPropertyValue> propertyValue)
-  {
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyName,
-      std::vector<std::shared_ptr<ISgfcPropertyValue>> { propertyValue } );
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
-    const std::string& propertyName,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
-  {
-    SgfcPropertyType propertyType = SgfcUtility::MapPropertyNameToPropertyType(propertyName);
-
-    std::shared_ptr<ISgfcProperty> property = CreateProperty(
-      propertyType,
-      propertyName,
-      propertyValues);
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcGameTypeProperty> SgfcPlusPlusFactory::CreateGameTypeProperty()
-  {
-    std::shared_ptr<ISgfcGameTypeProperty> property =
-      std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty());
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcGameTypeProperty> SgfcPlusPlusFactory::CreateGameTypeProperty(
-    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue)
-  {
-    std::shared_ptr<ISgfcGameTypeProperty> property =
-      std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty(propertyValue));
-
-    return property;
-  }
-
-  std::shared_ptr<ISgfcProperty> SgfcPlusPlusFactory::CreateProperty(
-    SgfcPropertyType propertyType,
-    const std::string& propertyName,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
-  {
-    std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
-      propertyType,
-      propertyName));
-
-    property->SetPropertyValues(propertyValues);
-
-    return property;
+    std::shared_ptr<ISgfcPropertyFactory> factory = std::shared_ptr<ISgfcPropertyFactory>(
+      new SgfcPropertyFactory());
+    return factory;
   }
 
   std::shared_ptr<ISgfcPropertyValueFactory> SgfcPlusPlusFactory::CreatePropertyValueFactory()

@@ -6,6 +6,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcNumberPropertyValue;
+
   /// @brief The SgfcGameTypeProperty class provides an implementation of
   /// the ISgfcGameTypeProperty interface. See the interface header file
   /// for documentation.

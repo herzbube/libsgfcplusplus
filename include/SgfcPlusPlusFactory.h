@@ -14,8 +14,7 @@ namespace LibSgfcPlusPlus
 {
   // Forward declarations
   class ISgfcCommandLine;
-  class ISgfcGameTypeProperty;
-  class ISgfcNumberPropertyValue;
+  class ISgfcPropertyFactory;
   class ISgfcPropertyValueFactory;
 
   /// @brief The SgfcPlusPlusFactory class is a class that contains only static
@@ -73,96 +72,11 @@ namespace LibSgfcPlusPlus
     /// of @a parentNode. The node is appended as the last child to @a parent.
     static std::shared_ptr<ISgfcNode> CreateChildNode(std::shared_ptr<ISgfcNode> parentNode);
 
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property type @a propertyType. The property has no values.
-    /// The property is not associated with any node.
-    ///
-    /// @exception std::invalid_argument Is thrown if @a propertyType is
-    /// SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(SgfcPropertyType propertyType);
 
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property type @a propertyType and the specified property
-    /// value @a propertyValue. The property is not associated with any node.
-    /// The ISgfcProperty object takes ownership of the ISgfcPropertyValue
-    /// object @a propertyValue.
-    ///
-    /// @exception std::invalid_argument Is thrown if @a propertyType is
-    /// SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(
-      SgfcPropertyType propertyType,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue);
-
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property type @a propertyType and the specified property
-    /// values @a propertyValues. The property is not associated with any node.
-    /// The ISgfcProperty object takes ownership of the ISgfcPropertyValue
-    /// objects in @a propertyValues.
-    ///
-    /// @exception std::invalid_argument Is thrown if @a propertyType is
-    /// SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(
-      SgfcPropertyType propertyType,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
-
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property name @a propertyName. The property type is inferred
-    /// from the property name. The property has no values. The property is not
-    /// associated with any node.
-    ///
-    /// Attempts to map @a propertyName to a value in the enumeration
-    /// SgfcPropertyType. If the mapping succeeds the result of invoking this
-    /// method is the same as invoking the overload that takes an
-    /// SgfcPropertyType value. If the mapping fails then the resulting
-    /// ISgfcProperty object has SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(const std::string& propertyName);
-
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property name @a propertyName and the specified property
-    /// value @a propertyValue. The property type is inferred from the
-    /// property name. The property is not associated with any node.
-    /// The ISgfcProperty object takes ownership of the ISgfcPropertyValue
-    /// object @a propertyValue.
-    ///
-    /// Attempts to map @a propertyName to a value in the enumeration
-    /// SgfcPropertyType. If the mapping succeeds the result of invoking this
-    /// method is the same as invoking the overload that takes an
-    /// SgfcPropertyType value. If the mapping fails then the resulting
-    /// ISgfcProperty object has SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(
-      const std::string& propertyName,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue);
-
-    /// @brief Returns a newly constructed ISgfcProperty object that has the
-    /// specified property name @a propertyName and the specified property
-    /// values @a propertyValues. The property type is inferred from the
-    /// property name. The property is not associated with any node.
-    /// The ISgfcProperty object takes ownership of the ISgfcPropertyValue
-    /// objects in @a propertyValues.
-    ///
-    /// Attempts to map @a propertyName to a value in the enumeration
-    /// SgfcPropertyType. If the mapping succeeds the result of invoking this
-    /// method is the same as invoking the overload that takes an
-    /// SgfcPropertyType value. If the mapping fails then the resulting
-    /// ISgfcProperty object has SgfcPropertyType::Unknown.
-    static std::shared_ptr<ISgfcProperty> CreateProperty(
-      const std::string& propertyName,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
-
-    /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
-    /// has no vaue. The property is not associated with any node.
-    static std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty();
-
-    /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
-    /// has the specified property value @a propertyValue. The property is not
-    /// associated with any node. The ISgfcProperty object takes ownership of
-    /// the ISgfcNumberPropertyValue object @a propertyValue.
-    ///
-    /// @exception std::invalid_argument is thrown if @a propertyValue is
-    /// null or if the @a propertyValue object's method HasTypedValue() returns
-    /// false.
-    static std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(
-      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
+    /// @brief Returns a newly constructed ISgfcPropertyFactory object
+    /// that can be used to create ISgfcProperty objects, and objects of every
+    /// known sub-type of ISgfcProperty.
+    static std::shared_ptr<ISgfcPropertyFactory> CreatePropertyFactory();
 
     /// @brief Returns a newly constructed ISgfcPropertyValueFactory object
     /// that can be used to create objects of every known sub-type of
@@ -172,10 +86,5 @@ namespace LibSgfcPlusPlus
   private:
     SgfcPlusPlusFactory();
     ~SgfcPlusPlusFactory();
-
-    static std::shared_ptr<ISgfcProperty> CreateProperty(
-      SgfcPropertyType propertyType,
-      const std::string& propertyName,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
   };
 }
