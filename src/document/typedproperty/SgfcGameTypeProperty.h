@@ -16,13 +16,13 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcGameTypeProperty object. The
-    /// property has no values.
+    /// property has no value.
     SgfcGameTypeProperty();
 
     /// @brief Initializes a newly constructed SgfcGameTypeProperty object. The
     /// property has the specified property value @a propertyValue.
     ///
-    /// @exception std::invalid_argument is thrown if @a propertyValue is
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
     /// null or if the @a propertyValue object's method HasTypedValue() returns
     /// false.
     SgfcGameTypeProperty(

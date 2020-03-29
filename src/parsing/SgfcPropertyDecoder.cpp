@@ -493,7 +493,6 @@ namespace LibSgfcPlusPlus
     return SgfcConstants::BoardSizeNone;
   }
 
-
   /// @brief This method can handle a list of property values. All values must
   /// have the same value type described by @e elementValueTypeDescriptor.
   ///

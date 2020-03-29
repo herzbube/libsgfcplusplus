@@ -140,15 +140,15 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) = 0;
 
     /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
-    /// has no vaue. The property is not associated with any node.
+    /// has no value. The property is not associated with any node.
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty() = 0;
 
     /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
     /// has the specified property value @a propertyValue. The property is not
-    /// associated with any node. The ISgfcProperty object takes ownership of
-    /// the ISgfcNumberPropertyValue object @a propertyValue.
+    /// associated with any node. The ISgfcGameTypeProperty object takes
+    /// ownership of the ISgfcNumberPropertyValue object @a propertyValue.
     ///
-    /// @exception std::invalid_argument is thrown if @a propertyValue is
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
     /// null or if the @a propertyValue object's method HasTypedValue() returns
     /// false.
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(

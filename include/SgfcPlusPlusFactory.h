@@ -72,7 +72,6 @@ namespace LibSgfcPlusPlus
     /// of @a parentNode. The node is appended as the last child to @a parent.
     static std::shared_ptr<ISgfcNode> CreateChildNode(std::shared_ptr<ISgfcNode> parentNode);
 
-
     /// @brief Returns a newly constructed ISgfcPropertyFactory object
     /// that can be used to create ISgfcProperty objects, and objects of every
     /// known sub-type of ISgfcProperty.
