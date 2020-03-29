@@ -38,6 +38,15 @@ namespace LibSgfcPlusPlus
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
     //@}
 
+    /// @name Concrete property types - ISgfcBoardSizeProperty
+    //@{
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty();
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
+      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue);
+    //@}
+
     /// @name Concrete property types - ISgfcGameTypeProperty
     //@{
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty();

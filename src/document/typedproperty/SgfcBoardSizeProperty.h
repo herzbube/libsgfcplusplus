@@ -6,6 +6,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcNumberPropertyValue;
+
   /// @brief The SgfcBoardSizeProperty class provides an implementation of
   /// the ISgfcBoardSizeProperty interface. See the interface header file
   /// for documentation.
@@ -13,13 +16,33 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcBoardSizeProperty object. The
-    /// property has no values.
+    /// property has no value.
     SgfcBoardSizeProperty();
 
     /// @brief Initializes a newly constructed SgfcBoardSizeProperty object. The
-    /// property has the specified property values @a propertyValues.
+    /// property has the specified property value @a propertyValue.
+    ///
+    /// This constructor constructs an ISgfcBoardSizeProperty object that
+    /// describes a square board.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// null or if the @a propertyValue object's method HasTypedValue() returns
+    /// false.
     SgfcBoardSizeProperty(
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
+
+    /// @brief Initializes a newly constructed SgfcBoardSizeProperty object. The
+    /// property has the specified property value @a propertyValue.
+    ///
+    /// This overload constructs an ISgfcBoardSizeProperty object that
+    /// describes a rectangular board.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// null or if the @a propertyValue object is not composed of two
+    /// ISgfcNumberPropertyValue objects, or if any of the
+    /// ISgfcNumberPropertyValue object's method HasTypedValue() returns false.
+    SgfcBoardSizeProperty(
+      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue);
 
     /// @brief Destroys and cleans up the SgfcBoardSizeProperty object.
     virtual ~SgfcBoardSizeProperty();

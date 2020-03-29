@@ -11,6 +11,8 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcComposedPropertyValue;
+  class ISgfcBoardSizeProperty;
   class ISgfcGameTypeProperty;
   class ISgfcNumberPropertyValue;
   class ISgfcProperty;
@@ -103,6 +105,39 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
+
+    /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
+    /// has no value. The property is not associated with any node.
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty() = 0;
+
+    /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
+    /// has the specified property value @a propertyValue. The property is not
+    /// associated with any node. The ISgfcBoardSizeProperty object takes
+    /// ownership of the ISgfcNumberPropertyValue object @a propertyValue.
+    ///
+    /// This overload constructs an ISgfcBoardSizeProperty object that
+    /// describes a square board.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// null or if the @a propertyValue object's method HasTypedValue() returns
+    /// false.
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) = 0;
+
+    /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
+    /// has the specified property value @a propertyValue. The property is not
+    /// associated with any node. The ISgfcBoardSizeProperty object takes
+    /// ownership of the ISgfcComposedPropertyValue object @a propertyValue.
+    ///
+    /// This overload constructs an ISgfcBoardSizeProperty object that
+    /// describes a rectangular board.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// null or if the @a propertyValue object is not composed of two
+    /// ISgfcNumberPropertyValue objects, or if any of the
+    /// ISgfcNumberPropertyValue object's method HasTypedValue() returns false.
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
+      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) = 0;
 
     /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
     /// has no vaue. The property is not associated with any node.

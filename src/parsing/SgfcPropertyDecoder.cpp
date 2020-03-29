@@ -1,4 +1,5 @@
 // Project includes
+#include "../../include/ISgfcBoardSizeProperty.h"
 #include "../../include/ISgfcGameTypeProperty.h"
 #include "../../include/ISgfcPropertyFactory.h"
 #include "../../include/SgfcColor.h"
@@ -6,7 +7,6 @@
 #include "../../include/SgfcDouble.h"
 #include "../../include/SgfcGameType.h"
 #include "../../include/SgfcPlusPlusFactory.h"
-#include "../document/typedproperty/SgfcBoardSizeProperty.h"
 #include "../document/typedpropertyvalue/SgfcColorPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcDoublePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcMovePropertyValue.h"
@@ -444,8 +444,50 @@ namespace LibSgfcPlusPlus
         continue;
       }
 
-      SgfcBoardSizeProperty boardSizeProperty(propertyDecoder.GetPropertyValues());
-      return boardSizeProperty.GetBoardSize(gameType);
+      std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
+
+      auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+
+      if (propertyValues.size() == 0)
+      {
+        std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty();
+        return property->GetBoardSize(gameType);
+      }
+      else
+      {
+        std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
+
+        try
+        {
+          if (propertyValue->IsComposedValue())
+          {
+            std::shared_ptr<ISgfcComposedPropertyValue> composedValueSharedPtr =
+              std::dynamic_pointer_cast<ISgfcComposedPropertyValue>(propertyValue);
+
+            std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty(
+              composedValueSharedPtr);
+
+            return property->GetBoardSize(gameType);
+          }
+          else
+          {
+            std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
+              std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
+
+            std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty(
+              numberValueSharedPtr);
+
+            return property->GetBoardSize(gameType);
+          }
+        }
+        catch (std::logic_error&)
+        {
+          // The factory throws a logic_error in several cases. It's much too
+          // complicated to check all these cases before using the factory,
+          // so we let the factory do the checks and handle the exception here.
+          return SgfcConstants::BoardSizeNone;
+        }
+      }
     }
 
     return SgfcConstants::BoardSizeNone;

@@ -1,4 +1,5 @@
 // Project includes
+#include "../document/typedproperty/SgfcBoardSizeProperty.h"
 #include "../document/typedproperty/SgfcGameTypeProperty.h"
 #include "../document/SgfcProperty.h"
 #include "../SgfcUtility.h"
@@ -80,6 +81,32 @@ namespace LibSgfcPlusPlus
       propertyType,
       propertyName,
       propertyValues);
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty()
+  {
+    std::shared_ptr<ISgfcBoardSizeProperty> property =
+      std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty());
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty(
+    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue)
+  {
+    std::shared_ptr<ISgfcBoardSizeProperty> property =
+      std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty(propertyValue));
+
+    return property;
+  }
+
+  std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty(
+    std::shared_ptr<ISgfcComposedPropertyValue> propertyValue)
+  {
+    std::shared_ptr<ISgfcBoardSizeProperty> property =
+      std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty(propertyValue));
 
     return property;
   }
