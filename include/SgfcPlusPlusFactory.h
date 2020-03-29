@@ -1,10 +1,5 @@
 #pragma once
 
-// Project includes
-#include "ISgfcCommandLine.h"
-#include "ISgfcDocumentReader.h"
-#include "ISgfcDocumentWriter.h"
-
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -14,6 +9,11 @@ namespace LibSgfcPlusPlus
 {
   // Forward declarations
   class ISgfcCommandLine;
+  class ISgfcDocument;
+  class ISgfcDocumentReader;
+  class ISgfcDocumentWriter;
+  class ISgfcGame;
+  class ISgfcNode;
   class ISgfcPropertyFactory;
   class ISgfcPropertyValueFactory;
 
