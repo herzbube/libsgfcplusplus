@@ -79,8 +79,8 @@ namespace LibSgfcPlusPlus
     static std::shared_ptr<ISgfcPropertyFactory> CreatePropertyFactory();
 
     /// @brief Returns a newly constructed ISgfcPropertyValueFactory object
-    /// that can be used to create objects of every known sub-type of
-    /// ISgfcPropertyValue.
+    /// that can be used to create ISgfcPropertyValue objects, and objects of
+    /// every known sub-type of ISgfcPropertyValue.
     static std::shared_ptr<ISgfcPropertyValueFactory> CreatePropertyValueFactory();
 
   private:

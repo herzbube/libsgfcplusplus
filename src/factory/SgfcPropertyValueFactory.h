@@ -93,6 +93,6 @@ namespace LibSgfcPlusPlus
       SgfcColor color,
       const std::string& pointValue,
       SgfcBoardSize boardSize) const;
-  //@}
+    //@}
   };
 }

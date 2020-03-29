@@ -29,7 +29,8 @@ namespace LibSgfcPlusPlus
   class ISgfcTextPropertyValue;
 
   /// @brief The ISgfcPropertyValueFactory interface provides factory methods
-  /// for creating objects of every known sub-type of ISgfcPropertyValue.
+  /// for creating ISgfcPropertyValue objects, and objects of every known
+  /// sub-type of ISgfcPropertyValue.
   class ISgfcPropertyValueFactory
   {
   public:
