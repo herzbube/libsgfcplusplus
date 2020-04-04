@@ -7,8 +7,10 @@
 #include "../../include/ISgfcGoStonePropertyValue.h"
 #include "../../include/ISgfcMovePropertyValue.h"
 #include "../../include/ISgfcPointPropertyValue.h"
+#include "../../include/ISgfcPropertyFactory.h"
 #include "../../include/ISgfcStonePropertyValue.h"
 #include "../../include/ISgfcTreeBuilder.h"
+#include "../../include/SgfcPlusPlusFactory.h"
 #include "../parsing/SgfcPropertyDecoder.h"
 #include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
@@ -106,6 +108,8 @@ namespace LibSgfcPlusPlus
     SgfcGameType gameType,
     SgfcBoardSize boardSize)
   {
+    auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+
     std::vector<std::shared_ptr<ISgfcProperty>> properties;
 
     Property* sgfProperty = sgfNode->prop;
@@ -114,14 +118,21 @@ namespace LibSgfcPlusPlus
       SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType, boardSize);
 
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
-      std::string propertyName = propertyDecoder.GetPropertyName();
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
-      std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
-        propertyType,
-        propertyName,
-        propertyValues));
-      properties.push_back(property);
+      if (propertyType == SgfcPropertyType::Unknown)
+      {
+        std::string propertyName = propertyDecoder.GetPropertyName();
+        auto property = propertyFactory->CreateProperty(propertyName, propertyValues);
+        properties.push_back(property);
+      }
+      else
+      {
+        // TODO: This can throw std::invalid_argument. Either we deal with this
+        // (here or in an outer layer), or we document on the public interface.
+        auto property = propertyFactory->CreateProperty(propertyType, propertyValues);
+        properties.push_back(property);
+      }
 
       sgfProperty = sgfProperty->next;
     }
