@@ -1,3 +1,6 @@
 [submodule "sgfc"]
 	path = sgfc
 	url = https://bitbucket.org/arnoh/sgfc.git
+[submodule "test/Catch2"]
+	path = test/Catch2
+	url = https://github.com/catchorg/Catch2.git
