@@ -1,4 +1,6 @@
 // Project includes
+#include "../../include/ISgfcComposedPropertyValue.h"
+#include "../../include/ISgfcGame.h"
 #include "../../include/ISgfcGoMove.h"
 #include "../../include/ISgfcGoMovePropertyValue.h"
 #include "../../include/ISgfcGoPoint.h"
@@ -6,17 +8,15 @@
 #include "../../include/ISgfcGoStone.h"
 #include "../../include/ISgfcGoStonePropertyValue.h"
 #include "../../include/ISgfcMovePropertyValue.h"
+#include "../../include/ISgfcNode.h"
 #include "../../include/ISgfcPointPropertyValue.h"
+#include "../../include/ISgfcProperty.h"
 #include "../../include/ISgfcPropertyFactory.h"
 #include "../../include/ISgfcStonePropertyValue.h"
 #include "../../include/ISgfcTreeBuilder.h"
 #include "../../include/SgfcPlusPlusFactory.h"
 #include "../parsing/SgfcPropertyDecoder.h"
-#include "SgfcComposedPropertyValue.h"
 #include "SgfcDocument.h"
-#include "SgfcGame.h"
-#include "SgfcNode.h"
-#include "SgfcProperty.h"
 
 // C++ Standard Library includes
 #include <iostream>
@@ -54,7 +54,7 @@ namespace LibSgfcPlusPlus
     TreeInfo* sgfTreeInfo = sgfInfo->tree;
     while (sgfRootNode)
     {
-      std::shared_ptr<ISgfcNode> rootNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
+      auto rootNode = SgfcPlusPlusFactory::CreateNode();
 
       SgfcGameType gameType = SgfcPropertyDecoder::GetGameTypeFromNode(sgfRootNode);
       SgfcBoardSize boardSize = SgfcPropertyDecoder::GetBoardSizeFromNode(sgfRootNode, gameType);
@@ -83,7 +83,7 @@ namespace LibSgfcPlusPlus
     if (sgfFirstChildNode == nullptr)
       return;
 
-    std::shared_ptr<ISgfcNode> firstChildNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
+    auto firstChildNode = SgfcPlusPlusFactory::CreateNode();
     treeBuilder->SetFirstChild(parentNode, firstChildNode);
     ParseProperties(firstChildNode, sgfFirstChildNode, gameType, boardSize);
 
@@ -92,7 +92,7 @@ namespace LibSgfcPlusPlus
     Node* sgfNextSiblingNode = sgfFirstChildNode->sibling;
     while (sgfNextSiblingNode != nullptr)
     {
-      std::shared_ptr<ISgfcNode> nextSiblingNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
+      auto nextSiblingNode = SgfcPlusPlusFactory::CreateNode();
       treeBuilder->AppendChild(parentNode, nextSiblingNode);
       ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType, boardSize);
 
