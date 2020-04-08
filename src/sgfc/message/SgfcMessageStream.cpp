@@ -15,14 +15,14 @@ namespace LibSgfcPlusPlus
   /// most recent parsing of SGF content.
   ///
   /// This is a function prototype. The function is defined in SGFC, in the
-  /// modified util.cpp.
+  /// modified util.c.
   std::string AcquireSgfcMessageStream();
 
   /// @brief Resets the message stream stored in SGFC so that SGFC starts with
   /// a clean slate when it parses SGF content the next time.
   ///
   /// This is a function prototype. The function is defined in SGFC, in the
-  /// modified util.cpp.
+  /// modified util.c.
   void ResetSgfcMessageStream();
 
   // ----------------------------------------------------------------------

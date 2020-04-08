@@ -40,18 +40,46 @@ namespace LibSgfcPlusPlus
     virtual ~SgfcPropertyDecoder();
 
     /// @brief Returns the SgfcPropertyType value that corresponds to the
-    /// SGF property with which SgfcPropertyDecoder was constructed.
+    /// SGF property with which SgfcPropertyDecoder was constructed. Returns
+    /// SgfcPropertyType::Unknown for properties that are not defined in the
+    /// SGF standard.
     SgfcPropertyType GetPropertyType() const;
 
     /// @brief Returns the raw string name of the SGF property with which
     /// SgfcPropertyDecoder was constructed.
     std::string GetPropertyName() const;
 
-    /// @brief Parses the SGF property with which SgfcPropertyDecoder was
-    /// constructed and returns a list with the property's values.
+    /// @brief Returns a list with the values of the SGF property with which
+    /// SgfcPropertyDecoder was constructed.
     ///
-    /// This method relies on certain pre-processing performed by SGFC. Notably:
+    /// If GetPropertyType() returns SgfcPropertyType::Unknown all
+    /// ISgfcSinglePropertyValue objects contain uninterpreted raw values only
+    /// and their GetValueType() method returns SgfcPropertyValueType::Unknown.
+    /// This is because the property is not defined in the SGF standard, so
+    /// SgfcPropertyDecoder does not know the type the raw values should have.
+    ///
+    /// If GetPropertyType() something other than SgfcPropertyType::Unknown,
+    /// the property is defined in the SGF standard and SgfcPropertyDecoder
+    /// attempts to convert the raw string values into values of the types
+    /// required by the property according to the SGF standard. In all cases the
+    /// GetValueType() method of ISgfcSinglePropertyValue objects returns the
+    /// value type as defined by the SGF standard. The outcome of the conversion
+    /// attempt determines the other properties of ISgfcSinglePropertyValue
+    /// objects:
+    /// - If SgfcPropertyDecoder fails to convert the raw string value, the
+    ///   ISgfcSinglePropertyValue objects' HasTypedValue() method returns false
+    ///   and the GetTypeConversionErrorMessage() method returns a message that
+    ///   describes the reason for the conversion failure.
+    /// - If SgfcPropertyDecoder succeeds to convert the raw string value, the
+    ///   ISgfcSinglePropertyValue objects' HasTypedValue() method returns true
+    ///   and one of the numerous To...() methods can be used to cast the
+    ///   object to a concrete type.
+    ///
+    /// @note This method relies on certain pre-processing performed by SGFC.
+    /// Notably:
     /// - Non-string values are trimmed (essential for Double and Color values)
+    ///
+    /// @todo Possibly replicate this documentation on the public interface?
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
 
     /// @brief Probes the SGF node @a sgfNode for a property of type
