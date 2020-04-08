@@ -155,6 +155,7 @@
 		CD21C5932411BEBE00998A14 /* SgfcBackendDataState.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C5922411BEBE00998A14 /* SgfcBackendDataState.h */; };
 		CD21C59524181F4000998A14 /* SgfcConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = CD21C59424181F4000998A14 /* SgfcConstants.h */; };
 		CD21C597241821D900998A14 /* SgfcPrivateConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */; };
+		CD28E056243E46FC00207A12 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD28E055243E46FC00207A12 /* main.cpp */; };
 		CD2941832419309100BCDA24 /* ISgfcTreeBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = CD2941822419309100BCDA24 /* ISgfcTreeBuilder.h */; };
 		CD2941852419338800BCDA24 /* ISgfcTreeBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2941842419338800BCDA24 /* ISgfcTreeBuilder.cpp */; };
 		CD294188241933C600BCDA24 /* SgfcTreeBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = CD294186241933C600BCDA24 /* SgfcTreeBuilder.h */; };
@@ -173,6 +174,7 @@
 		CD55DC312435120C002168CC /* SgfcSgfContent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD55DC2F2435120C002168CC /* SgfcSgfContent.h */; };
 		CD55DC3324354675002168CC /* ISgfcSgfContent.h in Headers */ = {isa = PBXBuildFile; fileRef = CD55DC3224354675002168CC /* ISgfcSgfContent.h */; };
 		CD55DC3524354A00002168CC /* ISgfcSgfContent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD55DC3424354A00002168CC /* ISgfcSgfContent.cpp */; };
+		CD55DC44243E3CDD002168CC /* SgfcMessageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */; };
 		CD825CF2241D1CA200ED8963 /* SgfcBoardSize.h in Headers */ = {isa = PBXBuildFile; fileRef = CD825CF1241D1CA200ED8963 /* SgfcBoardSize.h */; };
 		CD825CF4241D20A000ED8963 /* SgfcBoardSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */; };
 		CD825CF6241E4E5800ED8963 /* ISgfcBoardSizeProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD825CF5241E4E5800ED8963 /* ISgfcBoardSizeProperty.h */; };
@@ -213,6 +215,18 @@
 		CD83230123FF27F0009567E4 /* ISgfcDocumentReader.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83230023FF27F0009567E4 /* ISgfcDocumentReader.h */; };
 		CD83230323FF2CE7009567E4 /* ISgfcDocumentReadResult.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83230223FF2CE7009567E4 /* ISgfcDocumentReadResult.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CD55DC38243E3BCD002168CC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CD21C3FE2402B7BE00998A14 /* ISgfcComposedPropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcComposedPropertyValue.h; sourceTree = "<group>"; };
@@ -363,6 +377,7 @@
 		CD21C5922411BEBE00998A14 /* SgfcBackendDataState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBackendDataState.h; sourceTree = "<group>"; };
 		CD21C59424181F4000998A14 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
 		CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPrivateConstants.cpp; sourceTree = "<group>"; };
+		CD28E055243E46FC00207A12 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CD2941822419309100BCDA24 /* ISgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcTreeBuilder.h; sourceTree = "<group>"; };
 		CD2941842419338800BCDA24 /* ISgfcTreeBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcTreeBuilder.cpp; sourceTree = "<group>"; };
 		CD294186241933C600BCDA24 /* SgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcTreeBuilder.h; sourceTree = "<group>"; };
@@ -381,6 +396,8 @@
 		CD55DC2F2435120C002168CC /* SgfcSgfContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcSgfContent.h; sourceTree = "<group>"; };
 		CD55DC3224354675002168CC /* ISgfcSgfContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcSgfContent.h; sourceTree = "<group>"; };
 		CD55DC3424354A00002168CC /* ISgfcSgfContent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcSgfContent.cpp; sourceTree = "<group>"; };
+		CD55DC3A243E3BCD002168CC /* unittests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = unittests; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageTest.cpp; sourceTree = "<group>"; };
 		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD825CF1241D1CA200ED8963 /* SgfcBoardSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBoardSize.h; sourceTree = "<group>"; };
 		CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SgfcBoardSize.cpp; path = game/SgfcBoardSize.cpp; sourceTree = "<group>"; };
@@ -434,6 +451,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD55DC37243E3BCD002168CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD72170C23F1C793008373BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -705,12 +729,22 @@
 			path = save;
 			sourceTree = "<group>";
 		};
+		CD55DC42243E3CA5002168CC /* test */ = {
+			isa = PBXGroup;
+			children = (
+				CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */,
+				CD28E055243E46FC00207A12 /* main.cpp */,
+			);
+			path = test;
+			sourceTree = "<group>";
+		};
 		CD72170523F1C793008373BA = {
 			isa = PBXGroup;
 			children = (
 				CD83227A23F1D1E7009567E4 /* include */,
 				CD83227D23F1D218009567E4 /* sgfc */,
 				CD83227523F1D1DB009567E4 /* src */,
+				CD55DC42243E3CA5002168CC /* test */,
 				CD72170F23F1C793008373BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -719,6 +753,7 @@
 			isa = PBXGroup;
 			children = (
 				CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */,
+				CD55DC3A243E3BCD002168CC /* unittests */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -959,6 +994,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		CD55DC39243E3BCD002168CC /* unittests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD55DC3E243E3BCD002168CC /* Build configuration list for PBXNativeTarget "unittests" */;
+			buildPhases = (
+				CD55DC36243E3BCD002168CC /* Sources */,
+				CD55DC37243E3BCD002168CC /* Frameworks */,
+				CD55DC38243E3BCD002168CC /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = unittests;
+			productName = unittests;
+			productReference = CD55DC3A243E3BCD002168CC /* unittests */;
+			productType = "com.apple.product-type.tool";
+		};
 		CD72170D23F1C793008373BA /* libsgfcplusplus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD72171923F1C794008373BA /* Build configuration list for PBXNativeTarget "libsgfcplusplus" */;
@@ -985,6 +1037,9 @@
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Patrick Näf";
 				TargetAttributes = {
+					CD55DC39243E3BCD002168CC = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
 					CD72170D23F1C793008373BA = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -1004,11 +1059,21 @@
 			projectRoot = "";
 			targets = (
 				CD72170D23F1C793008373BA /* libsgfcplusplus */,
+				CD55DC39243E3BCD002168CC /* unittests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD55DC36243E3BCD002168CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD28E056243E46FC00207A12 /* main.cpp in Sources */,
+				CD55DC44243E3CDD002168CC /* SgfcMessageTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD72170B23F1C793008373BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1120,6 +1185,42 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		CD55DC3F243E3BCD002168CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					test/Catch2/single_include,
+					include,
+					src,
+				);
+				OTHER_LDFLAGS = (
+					"-l",
+					libsgfcplusplus,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CD55DC40243E3BCD002168CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = (
+					test/Catch2/single_include,
+					include,
+					src,
+				);
+				OTHER_LDFLAGS = (
+					"-l",
+					libsgfcplusplus,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		CD72171723F1C794008373BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1262,6 +1363,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD55DC3E243E3BCD002168CC /* Build configuration list for PBXNativeTarget "unittests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD55DC3F243E3BCD002168CC /* Debug */,
+				CD55DC40243E3BCD002168CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CD72170923F1C793008373BA /* Build configuration list for PBXProject "libsgfcplusplus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
