@@ -61,7 +61,7 @@ namespace LibSgfcPlusPlus
 
       ParseProperties(rootNode, sgfRootNode, gameType, boardSize);
 
-      std::shared_ptr<ISgfcGame> game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
+      auto game = SgfcPlusPlusFactory::CreateGame(rootNode);
       this->games.push_back(game);
 
       std::shared_ptr<ISgfcTreeBuilder> treeBuilder = game->GetTreeBuilder();
