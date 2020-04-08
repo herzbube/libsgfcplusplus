@@ -51,6 +51,9 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a newly constructed ISgfcDocument object. The
     /// ISgfcDocument content consists of the specified game @a game. The
     /// ISgfcDocument object takes ownership of @a game.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a game is
+    /// @e nullptr.
     static std::shared_ptr<ISgfcDocument> CreateDocument(std::shared_ptr<ISgfcGame> game);
 
     /// @brief Returns a newly constructed ISgfcGame object. The game type is
@@ -62,15 +65,14 @@ namespace LibSgfcPlusPlus
     /// root node is @a rootNode. The game type depends on the content of the
     /// root node. The game is not associated with any document. The ISgfcGame
     /// object takes ownership of @a rootNode.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a rootNode is
+    /// @e nullptr.
     static std::shared_ptr<ISgfcGame> CreateGame(std::shared_ptr<ISgfcNode> rootNode);
 
     /// @brief Returns a newly constructed ISgfcNode object that has no parent,
     /// child or sibling and is not associated with any game.
     static std::shared_ptr<ISgfcNode> CreateNode();
-
-    /// @brief Returns a newly constructed ISgfcNode object that is a child node
-    /// of @a parentNode. The node is appended as the last child to @a parent.
-    static std::shared_ptr<ISgfcNode> CreateChildNode(std::shared_ptr<ISgfcNode> parentNode);
 
     /// @brief Returns a newly constructed ISgfcPropertyFactory object
     /// that can be used to create ISgfcProperty objects, and objects of every
