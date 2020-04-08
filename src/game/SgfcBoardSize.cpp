@@ -1,5 +1,3 @@
-#pragma once
-
 // Project includes
 #include "../../include/SgfcBoardSize.h"
 

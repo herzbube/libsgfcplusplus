@@ -378,6 +378,7 @@
 		CD21C59424181F4000998A14 /* SgfcConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcConstants.h; sourceTree = "<group>"; };
 		CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPrivateConstants.cpp; sourceTree = "<group>"; };
 		CD28E055243E46FC00207A12 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CD28E057243E7B2700207A12 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		CD2941822419309100BCDA24 /* ISgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcTreeBuilder.h; sourceTree = "<group>"; };
 		CD2941842419338800BCDA24 /* ISgfcTreeBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcTreeBuilder.cpp; sourceTree = "<group>"; };
 		CD294186241933C600BCDA24 /* SgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcTreeBuilder.h; sourceTree = "<group>"; };
@@ -400,7 +401,7 @@
 		CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageTest.cpp; sourceTree = "<group>"; };
 		CD72170E23F1C793008373BA /* liblibsgfcplusplus.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = liblibsgfcplusplus.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD825CF1241D1CA200ED8963 /* SgfcBoardSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcBoardSize.h; sourceTree = "<group>"; };
-		CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SgfcBoardSize.cpp; path = game/SgfcBoardSize.cpp; sourceTree = "<group>"; };
+		CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBoardSize.cpp; sourceTree = "<group>"; };
 		CD825CF5241E4E5800ED8963 /* ISgfcBoardSizeProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcBoardSizeProperty.h; sourceTree = "<group>"; };
 		CD825CF7241E4F8600ED8963 /* ISgfcBoardSizeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcBoardSizeProperty.cpp; sourceTree = "<group>"; };
 		CD825CFA241E4FB500ED8963 /* SgfcBoardSizeProperty.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBoardSizeProperty.cpp; sourceTree = "<group>"; };
@@ -689,6 +690,7 @@
 			isa = PBXGroup;
 			children = (
 				CD21C55B240C5AF800998A14 /* go */,
+				CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */,
 			);
 			path = game;
 			sourceTree = "<group>";
@@ -775,10 +777,10 @@
 				CD21C4A624084D5B00998A14 /* document */,
 				CD294196241C1FCB00BCDA24 /* factory */,
 				CD21C55A240C5AF800998A14 /* game */,
-				CD825CF3241D20A000ED8963 /* SgfcBoardSize.cpp */,
 				CD21C4C924084D5B00998A14 /* interface */,
 				CD21C47C24084D5A00998A14 /* parsing */,
 				CD21C48B24084D5A00998A14 /* sgfc */,
+				CD28E057243E7B2700207A12 /* CMakeLists.txt */,
 				CD21C4E524084D5B00998A14 /* SgfcConstants.cpp */,
 				CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */,
 				CD21C4E424084D5B00998A14 /* SgfcPrivateConstants.h */,

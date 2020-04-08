@@ -1,6 +1,6 @@
 // Project includes
+#include "../../../include/ISgfcGoStone.h"
 #include "SgfcGoMove.h"
-#include "ISgfcGoStone.h"
 
 namespace LibSgfcPlusPlus
 {
