@@ -1,9 +1,11 @@
 // Project includes
+#include "../../../include/ISgfcSgfContent.h"
 #include "../../../include/SgfcConstants.h"
 #include "../../SgfcPrivateConstants.h"
 #include "../message/SgfcMessage.h"
 #include "../message/SgfcMessageParser.h"
 #include "../message/SgfcMessageStream.h"
+#include "../save/SgfcSaveStream.h"
 #include "SgfcBackendController.h"
 
 // SGFC includes
@@ -14,6 +16,7 @@ extern "C"
 }
 
 // C++ Standard Library includes
+#include <fstream>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus
@@ -167,7 +170,23 @@ namespace LibSgfcPlusPlus
       }
     }
 
+    std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents = GetSaveStreamResult();
     std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = GetMessageStreamResult();
+
+    for (auto sgfContent : sgfContents)
+    {
+      bool success = SaveSgfContentToFilesystem(sgfContent);
+      if (! success)
+      {
+        std::string messageString = "Writing SGF file failed: " + sgfContent->GetFileName();
+
+        auto message = SgfcMessage::CreateFatalErrorMessage(
+          SgfcPrivateConstants::SaveSgfContentToFilesystemErrorMessageID,
+          messageString);
+
+        saveSgfResult.push_back(message);
+      }
+    }
 
     std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
       std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveSgfResult));
@@ -326,6 +345,32 @@ namespace LibSgfcPlusPlus
     }
 
     return result;
+  }
+
+  std::vector<std::shared_ptr<ISgfcSgfContent>> SgfcBackendController::GetSaveStreamResult() const
+  {
+    SgfcSaveStream saveStream;
+    return saveStream.GetSgfContents();
+  }
+
+  bool SgfcBackendController::SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const
+  {
+    std::string fileName = sgfContent->GetFileName();
+
+    std::ofstream out(fileName);
+    if (out.fail())
+      return false;  // SGFC generates fatal error FE_DEST_FILE_OPEN for this
+
+    out << sgfContent->GetSgfContent();
+    out.close();
+
+    // Because of buffering we don't check immediately after outputting the
+    // SGF content. Closing the stream flushes it, so afterwards the fail bit
+    // is guaranteed to be set if an error occurred.
+    if (out.fail())
+      return false;  // SGFC generates fatal error FE_DEST_FILE_WRITE for this
+
+    return true;
   }
 
   void SgfcBackendController::SetInvalidCommandLineReasonFromParseArgsResults(

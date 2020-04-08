@@ -78,6 +78,7 @@ namespace LibSgfcPlusPlus
   const int SgfcPrivateConstants::UnknownSgfcMessageID = -2;
   const int SgfcPrivateConstants::BannedArgumentMessageID = -3;
   const int SgfcPrivateConstants::ParseArgumentErrorMessageID = -4;
+  const int SgfcPrivateConstants::SaveSgfContentToFilesystemErrorMessageID = -5;
 
   const int SgfcPrivateConstants::DefaultMessageID = SgfcPrivateConstants::InvalidMessageID;
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::Warning;
