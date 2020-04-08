@@ -1,0 +1,76 @@
+diff --git a/load.c b/load.c
+index 0d25cbc..7f66218 100644
+--- a/load.c
++++ b/load.c
+@@ -200,7 +200,7 @@ static int SkipValues(int print_error)
+ *** Returns:	-
+ **************************************************************************/
+ 
+-void CopyValue(char *d, char *s, size_t size, int printerror)
++void CopyValue(char *d, const char *s, size_t size, int printerror)
+ {
+ 	while(size--)
+ 	{
+@@ -229,8 +229,8 @@ void CopyValue(char *d, char *s, size_t size, int printerror)
+ **************************************************************************/
+ 
+ struct PropValue *Add_PropValue(struct Property *p, char *buffer,
+-								char *value, size_t size,
+-								char *value2, size_t size2)
++								const char *value, size_t size,
++								const char *value2, size_t size2)
+ {
+ 	struct PropValue *newv;
+ 
+diff --git a/protos.h b/protos.h
+index 4accc01..bfe3e6b 100644
+--- a/protos.h
++++ b/protos.h
+@@ -41,9 +41,9 @@ void ResetGlobalVariablesInMain(void);
+ 
+ /**** load.c ****/
+ 
+-void CopyValue(char *, char *, size_t , int );
+-struct PropValue *Add_PropValue(struct Property *, char *, char *,
+-								size_t, char *, size_t);
++void CopyValue(char *, const char *, size_t , int );
++struct PropValue *Add_PropValue(struct Property *, char *, const char *,
++								size_t, const char *, size_t);
+ struct Property *Add_Property(struct Node *, token , char *, char *);
+ struct Node *NewNode(struct Node * , int);
+ 
+@@ -147,7 +147,7 @@ struct PropValue *Del_PropValue(struct Property *, struct PropValue *);
+ struct Property *Del_Property(struct Node *, struct Property *);
+ struct Node *Del_Node(struct Node *, U_LONG);
+ 
+-struct Property *New_PropValue(struct Node *, token, char *, char *, int);
++struct Property *New_PropValue(struct Node *, token, const char *, const char *, int);
+ 
+ void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString, ...);
+ void ResetGlobalVariablesInUtil(void);
+diff --git a/save.c b/save.c
+index ef302cb..ccfe080 100644
+--- a/save.c
++++ b/save.c
+@@ -145,7 +145,7 @@ static int WriteChar(char c, int spc)
+ *** Returns:	TRUE or FALSE
+ **************************************************************************/
+ 
+-static int WritePropValue(char *v, int second, U_SHORT flags)
++static int WritePropValue(const char *v, int second, U_SHORT flags)
+ {
+ 	U_SHORT fl;
+ 
+diff --git a/util.c b/util.c
+index 78a1b81..36c4c0b 100644
+--- a/util.c
++++ b/util.c
+@@ -868,7 +868,7 @@ struct Node *Del_Node(struct Node *n, U_LONG error_code)
+ **************************************************************************/
+ 
+ struct Property *New_PropValue(struct Node *n, token id,
+-							   char *value, char *value2, int unique)
++							   const char *value, const char *value2, int unique)
+ {
+ 	struct Property *p;
+ 	struct PropValue *v;
