@@ -43,6 +43,27 @@ There is also [Fuego](http://fuego.sourceforge.net/), which similar to GNU Go co
 
 At this point I decided that a new library project was required. I still had the choice between adapting/wrapping SGF and Fuego. I went for SGFC because it is more robust and can handle files in older SGF formats.
 
+## How to build and test
+
+The project requires CMake 3.10 or newer to build.
+
+After cloning the repository you must first initialize its Git submodules:
+
+    cd /path/to/project
+    git submodule update --init --recursive
+
+Now you're ready to build. These commands should do it:
+
+    mkdir build
+    cd build
+    # If you want a debug build then replace "Release" with "Debug"
+    cmake -DCMAKE_BUILD_TYPE=Release ..
+    cmake --build .
+
+After building you can run tests from the `build` folder with this command:
+
+    ctest
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).

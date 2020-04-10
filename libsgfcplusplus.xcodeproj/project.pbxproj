@@ -379,6 +379,10 @@
 		CD21C596241821D900998A14 /* SgfcPrivateConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcPrivateConstants.cpp; sourceTree = "<group>"; };
 		CD28E055243E46FC00207A12 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CD28E057243E7B2700207A12 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		CD28E058243E8F4100207A12 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		CD28E059243E923A00207A12 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		CD28E05A243E924500207A12 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		CD28E05C2440D43F00207A12 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		CD2941822419309100BCDA24 /* ISgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcTreeBuilder.h; sourceTree = "<group>"; };
 		CD2941842419338800BCDA24 /* ISgfcTreeBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ISgfcTreeBuilder.cpp; sourceTree = "<group>"; };
 		CD294186241933C600BCDA24 /* SgfcTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SgfcTreeBuilder.h; sourceTree = "<group>"; };
@@ -708,6 +712,14 @@
 			path = go;
 			sourceTree = "<group>";
 		};
+		CD28E05B2440D43F00207A12 /* example */ = {
+			isa = PBXGroup;
+			children = (
+				CD28E05C2440D43F00207A12 /* CMakeLists.txt */,
+			);
+			path = example;
+			sourceTree = "<group>";
+		};
 		CD294196241C1FCB00BCDA24 /* factory */ = {
 			isa = PBXGroup;
 			children = (
@@ -734,6 +746,7 @@
 		CD55DC42243E3CA5002168CC /* test */ = {
 			isa = PBXGroup;
 			children = (
+				CD28E058243E8F4100207A12 /* CMakeLists.txt */,
 				CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */,
 				CD28E055243E46FC00207A12 /* main.cpp */,
 			);
@@ -743,10 +756,13 @@
 		CD72170523F1C793008373BA = {
 			isa = PBXGroup;
 			children = (
+				CD28E05B2440D43F00207A12 /* example */,
 				CD83227A23F1D1E7009567E4 /* include */,
 				CD83227D23F1D218009567E4 /* sgfc */,
 				CD83227523F1D1DB009567E4 /* src */,
 				CD55DC42243E3CA5002168CC /* test */,
+				CD28E059243E923A00207A12 /* CMakeLists.txt */,
+				CD28E05A243E924500207A12 /* LICENSE */,
 				CD72170F23F1C793008373BA /* Products */,
 			);
 			sourceTree = "<group>";
