@@ -64,6 +64,10 @@ After building you can run tests from the `build` folder with this command:
 
     ctest
 
+After the tests have run successfully you install the shared and static libraries plus the library header files to a destination folder of your choice. The library files are installed in a subfolder named `lib`, the header files in a subfolder named `include`.
+
+    cmake --install . --prefix /path/to/destfolder
+
 ## Xcode build
 
 In the previous section you have seen how to generate a Makefile-based build system. Cmake can also generate an Xcode project, like this:

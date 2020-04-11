@@ -88,3 +88,36 @@ add_library (
   $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
   ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
 )
+
+# Here we associate the public header files with the library targets. This
+# causes CMake to install them automatically, without us having to define a
+# special install rule. By associating the same set of header files with both
+# libraries we make sure that the header files will be installed even if the
+# user chooses to build and install only one of the libraries. If the user
+# builds and installs both libraries, then the header files will get installed
+# twice.
+set_property (
+  TARGET ${SHARED_LIBRARY_TARGET_NAME}
+  PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+)
+set_property (
+  TARGET ${STATIC_LIBRARY_TARGET_NAME}
+  PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+)
+
+# Install the shared and static library artifacts. If we wanted to we could
+# specify special rules for different file types (e.g. for the library files,
+# or for the include files), but we don't. If we wanted we could also specify
+# a special DESTINATION subfolder, but we don't - by omitting the DESTINATION
+# option we allow CMake to set sensible defaults (e.g. "lib" subfolder for
+# library files, "include" subfolder for the public header files).
+install (
+  TARGETS
+  ${SHARED_LIBRARY_TARGET_NAME}
+  ${STATIC_LIBRARY_TARGET_NAME}
+
+  # This lets the user build and install only one of the two libraries, e.g.
+  #   cmake --build . --target libsgfc++_static
+  #   cmake --install . --prefix /path/to/destfolder
+  OPTIONAL
+)
