@@ -64,6 +64,22 @@ After building you can run tests from the `build` folder with this command:
 
     ctest
 
+## Xcode build
+
+In the previous section you have seen how to generate a Makefile-based build system. Cmake can also generate an Xcode project, like this:
+
+    cd build
+    cmake -G Xcode ..
+    
+    # Launch Xcode with the generated project
+    open libsgfc++.xcodeproj
+
+The `ALL_BUILD` target in the Xcode project builds both the shared and the static libraries.
+
+The `RUN_TESTS` target builds the unit test target and executes a custom post-build script that is supposed to run the test, but currently this doesn't seem to work. I therefore recommend building the unit test target (`libsgfc++-test`) and selecting "Product > Run" to execute the test runner. This always works, and Xcode is even nice enough to pop up an output pane that shows you the output of the command line test runner.
+
+The `ZERO_CHECK` target checks whether your `CMakeLists.txt` files have changed and if necessary updates the Xcode project with the changes.
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).
