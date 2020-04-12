@@ -64,9 +64,15 @@ After building you can run tests from the `build` folder with this command:
 
     ctest
 
-After the tests have run successfully you install the shared and static libraries plus the library header files to a destination folder of your choice. The library files are installed in a subfolder named `lib`, the header files in a subfolder named `include`.
+After the tests have run successfully you install the build products to a destination folder of your choice.
 
     cmake --install . --prefix /path/to/destfolder
+
+The following things will be installed:
+
+- Subfolder `lib`: A shared library and a static library.
+- Subfolder `include`: The library's public header files.
+- Subfolder `Frameworks`: A shared library framework and a static library framework.
 
 ## Xcode build
 
@@ -78,9 +84,9 @@ In the previous section you have seen how to generate a Makefile-based build sys
     # Launch Xcode with the generated project
     open libsgfc++.xcodeproj
 
-The `ALL_BUILD` target in the Xcode project builds both the shared and the static libraries.
+The `ALL_BUILD` target in the Xcode project builds all targets, i.e. both the shared and the static libraries, the shared and static library frameworks, and the unit tests.
 
-The `RUN_TESTS` target builds the unit test target and executes a custom post-build script that is supposed to run the test, but currently this doesn't seem to work. I therefore recommend building the unit test target (`libsgfc++-test`) and selecting "Product > Run" to execute the test runner. This always works, and Xcode is even nice enough to pop up an output pane that shows you the output of the command line test runner.
+The `RUN_TESTS` target builds the unit test target and executes a custom post-build script that is supposed to run the test. The post-build script currently doesn't seem to work. It is therefore recommended building the unit test target (`libsgfc++-test`) and selecting "Product > Run" to execute the test runner. This always works, and Xcode is even nice enough to pop up an output pane that shows you the output of the command line test runner.
 
 The `ZERO_CHECK` target checks whether your `CMakeLists.txt` files have changed and if necessary updates the Xcode project with the changes.
 

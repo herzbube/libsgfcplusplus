@@ -89,13 +89,51 @@ add_library (
   ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
 )
 
-# Here we associate the public header files with the library targets. This
-# causes CMake to install them automatically, without us having to define a
-# special install rule. By associating the same set of header files with both
-# libraries we make sure that the header files will be installed even if the
-# user chooses to build and install only one of the libraries. If the user
-# builds and installs both libraries, then the header files will get installed
-# twice.
+# For macOS and iOS we also provide a shared library framework and a static
+# library framework. They are composed of the exact same stuff as the regular
+# libraries.
+add_library (
+  ${SHARED_FRAMEWORK_TARGET_NAME}
+  SHARED
+  $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+  ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
+  # Furtherdown we invoke set_property() to set the targets' PUBLIC_HEADER
+  # property. For the shared and static library targets this works fine and
+  # causes CMake to copy the header files to their proper destination at
+  # installation time. For the framework targets, just setting the PUBLIC_HEADER
+  # property alone is not sufficient: We also have to list the public headers
+  # here in this add_library() invocation, otherwise CMake does not copy them
+  # into the framework bundle at build time. This workaround can be found on
+  # the CMake mailing list [1] in a thread dating from 2015.
+  # [1] http://cmake.3232098.n2.nabble.com/OS-X-framework-headers-with-capital-letters-td7591087.html
+  ${HEADERS_PUBLIC}
+)
+add_library (
+  ${STATIC_FRAMEWORK_TARGET_NAME}
+  STATIC
+  $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+  ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
+  # For an explanation of this line, see the comment above in the add_library()
+  # command for SHARED_FRAMEWORK_TARGET_NAME.
+  ${HEADERS_PUBLIC}
+)
+
+# Here we associate the public header files with the library and framework
+# targets. This causes CMake to install them automatically, without us having
+# to define a special install rule.
+# - For frameworks this is necessary because each framework gets its own copy
+#   of the header files.
+# - For the libraries we would need only one association because when installed
+#   both libraries share the same set of header files. We still associate the
+#   files with both library targets, to make sure that the header files will be
+#   installed even if the user chooses to build and install only one of the
+#   libraries. If the user builds and installs both libraries, then the header
+#   files will get installed twice.
+#
+# Note: It's not possible to make the association with all targets at the same
+# time with only one single invocation of set_target_properties(). For unknown
+# reasons this does not work, it only copies one single header file to be copied
+# instead of the the entire set.
 set_property (
   TARGET ${SHARED_LIBRARY_TARGET_NAME}
   PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
@@ -104,20 +142,67 @@ set_property (
   TARGET ${STATIC_LIBRARY_TARGET_NAME}
   PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
 )
+set_property (
+  TARGET ${SHARED_FRAMEWORK_TARGET_NAME}
+  PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+)
+set_property (
+  TARGET ${STATIC_FRAMEWORK_TARGET_NAME}
+  PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+)
 
-# Install the shared and static library artifacts. If we wanted to we could
-# specify special rules for different file types (e.g. for the library files,
-# or for the include files), but we don't. If we wanted we could also specify
-# a special DESTINATION subfolder, but we don't - by omitting the DESTINATION
-# option we allow CMake to set sensible defaults (e.g. "lib" subfolder for
-# library files, "include" subfolder for the public header files).
+# Set the targets' output names, which in some cases deviate from the target
+# name.
+set_target_properties (
+  ${SHARED_LIBRARY_TARGET_NAME}
+  PROPERTIES
+  OUTPUT_NAME "${SHARED_LIBRARY_OUTPUT_NAME}"
+)
+set_target_properties (
+  ${STATIC_LIBRARY_TARGET_NAME}
+  PROPERTIES
+  OUTPUT_NAME "${STATIC_LIBRARY_OUTPUT_NAME}"
+)
+set_target_properties (
+  ${SHARED_FRAMEWORK_TARGET_NAME}
+  PROPERTIES
+  OUTPUT_NAME "${SHARED_FRAMEWORK_OUTPUT_NAME}"
+)
+set_target_properties (
+  ${STATIC_FRAMEWORK_TARGET_NAME}
+  PROPERTIES
+  OUTPUT_NAME "${STATIC_FRAMEWORK_OUTPUT_NAME}"
+)
+
+# Mark the framework targets as frameworks. Because of this CMake generates
+# the framework bundle folder structure on macOS/iOS.
+# TODO: Set more properties. Check out this example:
+# https://cmake.org/cmake/help/latest/prop_tgt/FRAMEWORK.html
+set_target_properties (
+  ${SHARED_FRAMEWORK_TARGET_NAME}
+  ${STATIC_FRAMEWORK_TARGET_NAME}
+  PROPERTIES
+  FRAMEWORK TRUE
+)
+
+# Install all artifcats.
 install (
   TARGETS
   ${SHARED_LIBRARY_TARGET_NAME}
   ${STATIC_LIBRARY_TARGET_NAME}
+  ${SHARED_FRAMEWORK_TARGET_NAME}
+  ${STATIC_FRAMEWORK_TARGET_NAME}
 
-  # This lets the user build and install only one of the two libraries, e.g.
+  # This lets the user build and install only one of the targets, e.g.
   #   cmake --build . --target libsgfc++_static
   #   cmake --install . --prefix /path/to/destfolder
+  # Note that this setting applies to all artifact types because there isn't
+  # an artifact type selector in front of it.
   OPTIONAL
+
+  # Here we start setting properties for the "Framework" artifact type.
+  FRAMEWORK
+  # Libraries and header files have default destinations ("lib", "include") but
+  # frameworks don't.
+  DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
 )
