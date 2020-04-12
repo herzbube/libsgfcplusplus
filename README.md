@@ -90,6 +90,33 @@ The `RUN_TESTS` target builds the unit test target and executes a custom post-bu
 
 The `ZERO_CHECK` target checks whether your `CMakeLists.txt` files have changed and if necessary updates the Xcode project with the changes.
 
+## Cross-compiling for iOS
+
+Cross-compiling for iOS is mentioned and explained in the `cmake-toolchains` man page, which is also available [from the CMake website](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-ios-tvos-or-watchos).
+
+These commands create a Release configuration build of the library for iOS on a macOS machine where Xcode is installed:
+
+    cmake .. -G Xcode \
+      -DCMAKE_SYSTEM_NAME=iOS \
+      "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" \
+      -DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO \
+      -DCMAKE_IOS_INSTALL_COMBINED=YES \
+      -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=<identity> \
+      -DCMAKE_OSX_DEPLOYMENT_TARGET=10.0 \
+      -DCMAKE_INSTALL_PREFIX=install
+
+    cmake --build . --config Release --target install
+
+Notes:
+
+- We list two architectures: `x86_64` for the simulator build, and `arm64` for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use `lipo -info /path/to/file` to check what's inside such a file.
+- Setting the `ONLY_ACTIVE_ARCH` flag to `NO` is important so that Xcode really builds those architectures we just mentioned. If we didn't set this Xcode would only build the architecture in the `NATIVE_ARCH` Xcode build setting.
+- Setting the CMake property `IOS_INSTALL_COMBINED` to `YES` causes the targets to be built  for both the device SDK and the simulator SDK. It's not known why exactly this is needed in addition to the previous settings.
+- The `CODE_SIGN_IDENTITY` must be set because the shared library and the shared library framework both need to be codesigned when built for the device. You can find out your codesigning identy with this command: `xcrun security find-identity -v -p codesigning`. It's the long hex string at the start of the output.
+- The deployment target is set to iOS 10.0 because the unit test library (Catch2) header contains code that is available only since that version of iOS.
+- It's important that the build is made with the target `install` because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with `cmake --install`), CMake will be unable to find the generated library files. The reason fo these quirks is not known.
+- Because we do the build and the installation all in one step, we can't specify the installation prefix during that step (the `--prefix` option cannot be used with `cmake --build`). For this reason we set `INSTALL_PREFIX` during configuration.
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).
