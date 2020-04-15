@@ -136,6 +136,26 @@ Notes:
 - It's important that the build is made with the target `install` because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with `cmake --install`), CMake will be unable to find the generated library files. The reason fo these quirks is not known.
 - Because we do the build and the installation all in one step, we can't specify the installation prefix during that step (the `--prefix` option cannot be used with `cmake --build`). For this reason we set `INSTALL_PREFIX` during configuration.
 
+## Codesigning when building for iOS
+
+For iOS builds the project default is to **not** build the shared library, shared library framework, unit tests or the examples. The reason is that when built for the device these binaries all require codesigning, but since the project does not provide a codesigning identity the build would just fail.
+
+The following example shows how you can force the shared library to be built with a codesigning identity of your own.
+
+    cmake .. -G Xcode \
+      [...]  # same options as shown in the cross-compiling section
+      -DENABLE_SHARED_LIBRARY=YES \
+      -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=<identity>
+
+**Note:** You can find out your codesigning identy with this command: `xcrun security find-identity -v -p codesigning`. It's the long hex string at the start of the output.
+
+## Deployment target and bundle identifier when building for iOS
+
+Should you try to build unit tests or the examples for iOS (by setting `ENABLE_TESTS` or `ENEABLE_EXAMPLES` to `YES`) you will encounter two obstacles.
+
+1. The unit test library (Catch2) header contains code that is available only since iOS 10.0. Because of this you have to set the deployment target to 10.0. This tells the compiler to generate binaries that at runtime require iOS 10.0 as the minimum iOS version. The deployment target is set with the CMake option `-DCMAKE_OSX_DEPLOYMENT_TARGET=10.0`.
+1. The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the [CMake documentation for MACOSX_BUNDLE](https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html).
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).

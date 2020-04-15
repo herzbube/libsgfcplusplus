@@ -33,3 +33,11 @@ add_test (
   NAME "all"
   COMMAND ${TEST_EXECUTABLE_TARGET_NAME}
 )
+
+# TODO: Find out how to build bundles on iOS. The following sets the bundle
+# identifier, but this alone is not sufficient.
+#set_target_properties(
+#  ${TEST_EXECUTABLE_TARGET_NAME}
+#  PROPERTIES
+#  XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "ch.herzbube.libsgfcplusplus-test"
+#)
