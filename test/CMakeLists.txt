@@ -19,7 +19,7 @@ add_executable (
 # library, but this would be a bit slower.
 target_link_libraries (
   ${TEST_EXECUTABLE_TARGET_NAME}
-  ${SHARED_LIBRARY_TARGET_NAME}
+  ${LINK_LIBRARY_TARGET_NAME}
 )
 
 # We must define at least one test for "make test" to do anything.

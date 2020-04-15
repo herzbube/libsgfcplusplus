@@ -142,6 +142,38 @@ if ( NOT DEFINED ENABLE_EXAMPLES )
   endif()
 endif()
 
+# Set variables that depend on which parts of the build have been enabled
+if ( ${ENABLE_SHARED_LIBRARY} OR ${ENABLE_STATIC_LIBRARY} OR ${ENABLE_SHARED_FRAMEWORK} OR ${ENABLE_STATIC_FRAMEWORK} )
+  set ( AT_LEAST_ONE_LIBRARY_IS_ENABLED YES )
+else()
+  set ( AT_LEAST_ONE_LIBRARY_IS_ENABLED NO )
+endif()
+
+# Prefer shared library/framework over static library/framework
+if ( ${ENABLE_SHARED_LIBRARY} )
+  set ( LINK_LIBRARY_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_SHARED_FRAMEWORK )
+  set ( LINK_LIBRARY_TARGET_NAME ${SHARED_FRAMEWORK_TARGET_NAME} )
+elseif ( ENABLE_STATIC_LIBRARY )
+  set ( LINK_LIBRARY_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_STATIC_FRAMEWORK )
+  set ( LINK_LIBRARY_TARGET_NAME ${STATIC_FRAMEWORK_TARGET_NAME} )
+else()
+  set ( LINK_LIBRARY_TARGET_NAME "" )
+endif()
+
+# Perform some logic checks
+if ( ${ENABLE_TESTS} OR ${ENABLE_EXAMPLES} )
+  message ( CHECK_START "Check whether tests and examples can be built" )
+  if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
+    message ( CHECK_PASS "yes")
+    message ( STATUS "Tests and examples will be linked against target ${LINK_LIBRARY_TARGET_NAME}" )
+  else()
+    message ( CHECK_FAIL "no: all libraries have been disabled" )
+    message ( FATAL_ERROR "Tests and examples need to be linked against a library" )
+  endif()
+endif()
+
 # Add subfolders to the build that must contain other CMakeLists.txt files.
 # Any targets defined in these files are included in the normal build (i.e.
 # "make all"), unless EXCLUDE_FROM_ALL is specified.
@@ -150,7 +182,7 @@ endif()
 # IMPORTANT: These commands should appear at the end of this CMakeLists.txt
 # because other commands further up have an impact on what is inside the
 # subfolders' CMakeLists.txt files (e.g. setting CMAKE_CXX_STANDARD).
-if ( ${ENABLE_SHARED_LIBRARY} OR ${ENABLE_STATIC_LIBRARY} OR ${ENABLE_SHARED_FRAMEWORK} OR ${ENABLE_STATIC_FRAMEWORK} )
+if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
   add_subdirectory ( "src" )
 endif()
 if ( ${ENABLE_TESTS} )
