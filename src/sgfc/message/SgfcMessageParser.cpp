@@ -1,5 +1,6 @@
 // Project includes
 #include "../../../include/SgfcConstants.h"
+#include "../../../include/ISgfcMessage.h"
 #include "../../interface/internal/SgfcMessagePart.h"
 #include "../../SgfcPrivateConstants.h"
 #include "SgfcMessage.h"
@@ -134,7 +135,18 @@ namespace LibSgfcPlusPlus
           // simply using a single space character. This means that the
           // reconstituted message text can differ from the original raw message
           // text in the amount or kind of whitespace used.
-          messageText += SgfcPrivateConstants::SpaceCharacter + token;
+          if (messageText.empty())
+          {
+            // We get here if in the previous iteration we DID find the
+            // optional CriticalIndicator
+            messageText = token;
+          }
+          else
+          {
+            // We get here if in the previous iteration we didn't find the
+            // optional CriticalIndicator
+            messageText += SgfcPrivateConstants::SpaceCharacter + token;
+          }
           foundExpectedMessagePart = true;
           break;
         }
