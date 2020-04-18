@@ -1,10 +1,13 @@
 // Project includes
+#include "../../../include/SgfcConstants.h"
 #include "../../interface/internal/SgfcMessagePart.h"
 #include "../../SgfcPrivateConstants.h"
 #include "SgfcMessage.h"
 #include "SgfcMessageParser.h"
 
 // C++ Standard Library includes
+#include <cassert>
+#include <limits>
 #include <sstream>
 
 namespace LibSgfcPlusPlus
@@ -16,10 +19,10 @@ namespace LibSgfcPlusPlus
     std::vector<std::string> tokens =
       SgfcMessageParser::TokenizeRawMessageText(rawMessageText);
 
-    int messageID = SgfcPrivateConstants::UnknownSgfcMessageID;
+    int messageID = SgfcConstants::UnknownSgfcMessageID;
     SgfcMessageType messageType = SgfcPrivateConstants::DefaultMessageType;
-    int lineNumber = SgfcPrivateConstants::DefaultLineNumber;
-    int columnNumber = SgfcPrivateConstants::DefaultColumnNumber;
+    int lineNumber = SgfcConstants::InvalidLineNumber;
+    int columnNumber = SgfcConstants::InvalidColumnNumber;
     bool isCriticalMessage  = SgfcPrivateConstants::DefaultIsCriticalMessage;
     std::string messageText = SgfcPrivateConstants::DefaultMessageText;
 
@@ -99,7 +102,7 @@ namespace LibSgfcPlusPlus
         case SgfcMessagePart::MessageID:
         {
           int messageIDFromToken = SgfcMessageParser::GetMessageIDFromToken(token);
-          if (messageIDFromToken != SgfcPrivateConstants::InvalidMessageID)
+          if (messageIDFromToken != SgfcConstants::InvalidMessageID)
           {
             messageID = messageIDFromToken;
             expectedMessagePart = SgfcMessagePart::CriticalIndicator;
@@ -155,6 +158,51 @@ namespace LibSgfcPlusPlus
       }
     }
 
+    // The SgfcMessage constructor throws an exception if the parameters do not
+    // satisfy the specification in the ISgfcMessage interface documentation.
+    // The specification was written after studying the SGFC documentation how
+    // SGFC messages can look like, but we can't be 100% sure that the SGFC
+    // implementation matches their documentation. The following block is a bit
+    // of defensive code that manipulates the data we get from parsing the
+    // SGFC message to make sure that the SgfcMessage constructor does not
+    // throw an exception. We should not affect the library client with an
+    // exception that is caused by a relatively trivial interfacing issue - it's
+    // much more important that the client can read and write SGF data.
+    if (messageType == SgfcMessageType::FatalError)
+    {
+      if (lineNumber != SgfcConstants::InvalidLineNumber)
+      {
+        lineNumber = SgfcConstants::InvalidLineNumber;
+        assert(false);
+      }
+
+      if (columnNumber != SgfcConstants::InvalidColumnNumber)
+      {
+        columnNumber = SgfcConstants::InvalidColumnNumber;
+        assert(false);
+      }
+
+      if (isCriticalMessage)
+      {
+        isCriticalMessage = false;
+        assert(false);
+      }
+    }
+    else
+    {
+      if (lineNumber < 1)
+      {
+        lineNumber = std::numeric_limits<int>::max();
+        assert(false);
+      }
+
+      if (columnNumber < 1)
+      {
+        columnNumber = std::numeric_limits<int>::max();
+        assert(false);
+      }
+    }
+
     std::shared_ptr<ISgfcMessage> sgfcMessage = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
       messageID,
       messageType,
@@ -205,7 +253,7 @@ namespace LibSgfcPlusPlus
     }
     catch (std::exception& exception)
     {
-      return SgfcPrivateConstants::InvalidMessageID;
+      return SgfcConstants::InvalidMessageID;
     }
   }
 }

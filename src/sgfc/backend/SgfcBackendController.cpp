@@ -180,9 +180,9 @@ namespace LibSgfcPlusPlus
       {
         std::string messageString = "Writing SGF file failed: " + sgfContent->GetFileName();
 
-        auto message = SgfcMessage::CreateFatalErrorMessage(
-          SgfcPrivateConstants::SaveSgfContentToFilesystemErrorMessageID,
-          messageString);
+        auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+          SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
+          messageString));
 
         saveSgfResult.push_back(message);
       }
@@ -236,18 +236,18 @@ namespace LibSgfcPlusPlus
       {
         std::string message = "Not an option, argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
-        this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-          SgfcPrivateConstants::BannedArgumentMessageID,
-          message);
+        this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+          SgfcConstants::BannedArgumentMessageID,
+          message));
       }
 
       if (std::find(bannedArguments.begin(), bannedArguments.end(), argument) != bannedArguments.end())
       {
         std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
-        this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-          SgfcPrivateConstants::BannedArgumentMessageID,
-          message);
+        this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+          SgfcConstants::BannedArgumentMessageID,
+          message));
       }
     }
   }
@@ -387,9 +387,9 @@ namespace LibSgfcPlusPlus
 
     // This should not happen. If it does there was an error parsing the
     // message text.
-    this->invalidCommandLineReason = SgfcMessage::CreateFatalErrorMessage(
-      SgfcPrivateConstants::ParseArgumentErrorMessageID,
-      "SGFC failed to parse the specified arguments");
+    this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+      SgfcConstants::ParseArgumentErrorMessageID,
+      "SGFC failed to parse the specified arguments"));
   }
 
   void SgfcBackendController::ThrowIfIsCommandLineValidReturnsTrue() const

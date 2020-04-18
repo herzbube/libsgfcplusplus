@@ -74,17 +74,8 @@ namespace LibSgfcPlusPlus
   const std::string SgfcPrivateConstants::WriteFileEvenIfCriticalErrorOccurs = "-c";
   const std::string SgfcPrivateConstants::PrintGameSignature = "-g";
 
-  const int SgfcPrivateConstants::InvalidMessageID = -1;
-  const int SgfcPrivateConstants::UnknownSgfcMessageID = -2;
-  const int SgfcPrivateConstants::BannedArgumentMessageID = -3;
-  const int SgfcPrivateConstants::ParseArgumentErrorMessageID = -4;
-  const int SgfcPrivateConstants::SaveSgfContentToFilesystemErrorMessageID = -5;
-
-  const int SgfcPrivateConstants::DefaultMessageID = SgfcPrivateConstants::InvalidMessageID;
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::Warning;
-  const int SgfcPrivateConstants::DefaultLineNumber = -1;
-  const int SgfcPrivateConstants::DefaultColumnNumber = -1;
-  const bool SgfcPrivateConstants::DefaultIsCriticalMessage = -1;
+  const bool SgfcPrivateConstants::DefaultIsCriticalMessage = false;
   const std::string SgfcPrivateConstants::DefaultMessageText = SgfcPrivateConstants::EmptyString;
   const std::string SgfcPrivateConstants::DefaultRawMessageText = SgfcPrivateConstants::EmptyString;
 }
