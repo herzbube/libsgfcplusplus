@@ -455,6 +455,8 @@
 		CD83230023FF27F0009567E4 /* ISgfcDocumentReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcDocumentReader.h; sourceTree = "<group>"; };
 		CD83230223FF2CE7009567E4 /* ISgfcDocumentReadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcDocumentReadResult.h; sourceTree = "<group>"; };
 		CD83A45B244BAF8D004D2485 /* SgfcMessageParserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageParserTest.cpp; sourceTree = "<group>"; };
+		CD83A45E244C9CA5004D2485 /* SourcesList.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = SourcesList.cmake; sourceTree = "<group>"; };
+		CD83A45F244CA68F004D2485 /* SourcesList.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = SourcesList.cmake; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -749,6 +751,7 @@
 			isa = PBXGroup;
 			children = (
 				CD28E058243E8F4100207A12 /* CMakeLists.txt */,
+				CD83A45E244C9CA5004D2485 /* SourcesList.cmake */,
 				CD83A45B244BAF8D004D2485 /* SgfcMessageParserTest.cpp */,
 				CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */,
 				CD28E055243E46FC00207A12 /* main.cpp */,
@@ -805,6 +808,7 @@
 				CD21C4E424084D5B00998A14 /* SgfcPrivateConstants.h */,
 				CD21C4E224084D5B00998A14 /* SgfcUtility.cpp */,
 				CD21C4E324084D5B00998A14 /* SgfcUtility.h */,
+				CD83A45F244CA68F004D2485 /* SourcesList.cmake */,
 			);
 			path = src;
 			sourceTree = "<group>";

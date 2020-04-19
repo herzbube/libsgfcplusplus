@@ -1,18 +1,19 @@
-# Because we don't list files explicitly, if a file is added or removed we need
-# to run
-#  touch CMakeLists.txt
-# in the project root folder to trigger re-generation of the build system.
-# TODO Don't do globbing. The argument that convinces me is that someone
-# downstream might get into trouble if for some reason they don't have a clean
-# source tree.
-# TODO Maybe we should also add header files and other stuff? Test what happens
-# if we generate an Xcode or VisualStudio project. At least the header files
-# should be part of the projects.
-file ( GLOB_RECURSE SOURCES *.cpp )
-file ( GLOB_RECURSE HEADERS_PRIVATE *.h )
-file ( GLOB_RECURSE HEADERS_PUBLIC ../include/*.h )
-file ( GLOB_RECURSE SOURCES_SGFC ../sgfc/*.c )
-file ( GLOB_RECURSE HEADERS_SGFC ../sgfc/*.h )
+include( ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME} )
+if ( NOT DEFINED SOURCES )
+  message ( FATAL_ERROR "List of source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
+if ( NOT DEFINED HEADERS_PRIVATE )
+  message ( FATAL_ERROR "List of private header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
+if ( NOT DEFINED HEADERS_PUBLIC )
+  message ( FATAL_ERROR "List of public header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
+if ( NOT DEFINED SOURCES_SGFC )
+  message ( FATAL_ERROR "List of SGFC source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
+if ( NOT DEFINED HEADERS_SGFC )
+  message ( FATAL_ERROR "List of SGFC header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
 
 # SGFC is written in C, but because libsgfc++ patches the SGFC source code the
 # files listed here now contain C++ snippets and therefore must be built with
@@ -46,7 +47,7 @@ set ( SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY SgfcUtility.cpp )
 list (
   REMOVE_ITEM
   SOURCES
-  ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
+  ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
 )
 
 # This is an "object library" target: It compiles the sources but doesn't
