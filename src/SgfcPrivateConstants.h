@@ -21,6 +21,11 @@ namespace LibSgfcPlusPlus
     static const char NewlineCharacter;
     static const char CarriageReturnCharacter;
     static const std::string IndentationWhitespace;
+    /// @brief The line ending used by SGFC. Currently this is used by SGFC only
+    /// when it writes SGF content. Currently SGFC does not use this when it
+    /// writes messages with PrintError() - in that case it always uses
+    /// SgfcPrivateConstants::NewlineCharacter.
+    static const std::string EndOfLineStringUsedBySgfc;
     //@}
 
     /// @name String constants defined by the SGF standard to structure the file format

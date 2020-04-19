@@ -8,6 +8,13 @@ namespace LibSgfcPlusPlus
   const char SgfcPrivateConstants::NewlineCharacter = '\n';
   const char SgfcPrivateConstants::CarriageReturnCharacter = '\r';
   const std::string SgfcPrivateConstants::IndentationWhitespace = "  ";
+  // We use the same preprocessor logic here that is also used in WriteChar()
+  // in save.c.
+#if EOLCHAR
+  const std::string SgfcPrivateConstants::EndOfLineStringUsedBySgfc = EOLCHAR;
+#else
+  const std::string SgfcPrivateConstants::EndOfLineStringUsedBySgfc = "\r\n";
+#endif
 
   const std::string SgfcPrivateConstants::GameTreeBeginToken = "(";
   const std::string SgfcPrivateConstants::GameTreeEndToken = ")";

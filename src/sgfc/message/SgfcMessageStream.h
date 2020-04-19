@@ -17,7 +17,12 @@ namespace LibSgfcPlusPlus
   class SgfcMessageStream
   {
   public:
+    /// @brief Initializes a newly constructed SgfcMessageStream object.
+    /// Immediately acquires the message stream content, then clears the
+    /// message stream in SGFC.
     SgfcMessageStream();
+
+    /// @brief Destroys and cleans up the SgfcMessageStream object.
     virtual ~SgfcMessageStream();
 
     /// @brief Returns the message stream content that SgfcMessageStream
