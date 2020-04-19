@@ -74,7 +74,7 @@ namespace LibSgfcPlusPlus
   const std::string SgfcPrivateConstants::WriteFileEvenIfCriticalErrorOccurs = "-c";
   const std::string SgfcPrivateConstants::PrintGameSignature = "-g";
 
-  const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::Warning;
+  const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::FatalError;
   const bool SgfcPrivateConstants::DefaultIsCriticalMessage = false;
   const std::string SgfcPrivateConstants::DefaultMessageText = SgfcPrivateConstants::EmptyString;
   const std::string SgfcPrivateConstants::DefaultRawMessageText = SgfcPrivateConstants::EmptyString;

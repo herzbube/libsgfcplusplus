@@ -12,6 +12,7 @@ include_directories (
 add_executable (
   ${TEST_EXECUTABLE_TARGET_NAME}
   main.cpp
+  SgfcMessageParserTest.cpp
   SgfcMessageTest.cpp
 )
 

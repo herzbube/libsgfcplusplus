@@ -214,6 +214,7 @@
 		CD8322F523FF177B009567E4 /* ISgfcProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = CD8322F323FF177B009567E4 /* ISgfcProperty.h */; };
 		CD83230123FF27F0009567E4 /* ISgfcDocumentReader.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83230023FF27F0009567E4 /* ISgfcDocumentReader.h */; };
 		CD83230323FF2CE7009567E4 /* ISgfcDocumentReadResult.h in Headers */ = {isa = PBXBuildFile; fileRef = CD83230223FF2CE7009567E4 /* ISgfcDocumentReadResult.h */; };
+		CD83A45D244BAF9D004D2485 /* SgfcMessageParserTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD83A45B244BAF8D004D2485 /* SgfcMessageParserTest.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -453,6 +454,7 @@
 		CD8322F323FF177B009567E4 /* ISgfcProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcProperty.h; sourceTree = "<group>"; };
 		CD83230023FF27F0009567E4 /* ISgfcDocumentReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcDocumentReader.h; sourceTree = "<group>"; };
 		CD83230223FF2CE7009567E4 /* ISgfcDocumentReadResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISgfcDocumentReadResult.h; sourceTree = "<group>"; };
+		CD83A45B244BAF8D004D2485 /* SgfcMessageParserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageParserTest.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -747,6 +749,7 @@
 			isa = PBXGroup;
 			children = (
 				CD28E058243E8F4100207A12 /* CMakeLists.txt */,
+				CD83A45B244BAF8D004D2485 /* SgfcMessageParserTest.cpp */,
 				CD55DC43243E3CDD002168CC /* SgfcMessageTest.cpp */,
 				CD28E055243E46FC00207A12 /* main.cpp */,
 			);
@@ -1087,6 +1090,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD83A45D244BAF9D004D2485 /* SgfcMessageParserTest.cpp in Sources */,
 				CD28E056243E46FC00207A12 /* main.cpp in Sources */,
 				CD55DC44243E3CDD002168CC /* SgfcMessageTest.cpp in Sources */,
 			);
