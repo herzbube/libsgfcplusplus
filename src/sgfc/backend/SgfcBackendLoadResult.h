@@ -20,6 +20,8 @@ namespace LibSgfcPlusPlus
     SgfcBackendLoadResult(
       std::vector<std::shared_ptr<ISgfcMessage>> parseResult,
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper);
+
+    /// @brief Destroys and cleans up the SgfcBackendLoadResult object.
     virtual ~SgfcBackendLoadResult();
 
     /// @brief Returns a collection of ISgfcMessage objects which together form

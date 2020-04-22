@@ -18,6 +18,8 @@ namespace LibSgfcPlusPlus
     /// with the specified results.
     SgfcBackendSaveResult(
       std::vector<std::shared_ptr<ISgfcMessage>> saveResult);
+
+    /// @brief Destroys and cleans up the SgfcBackendSaveResult object.
     virtual ~SgfcBackendSaveResult();
 
     /// @brief Returns a collection of ISgfcMessage objects which together form

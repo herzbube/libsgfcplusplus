@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// Calling the RestoreOptions() method of a newly constructed SgfcOptions
   /// object (i.e. before its CaptureOptions() method is called for the first
-  /// time) can be used to put reconfigure SGFC with its default option values,
+  /// time) can be used to reconfigure SGFC with its default option values,
   /// as if the command line utility had just started up. This should be used
   /// every time just before SGFC is instructed to parse command line arguments.
   class SgfcOptions

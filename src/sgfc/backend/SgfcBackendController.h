@@ -57,12 +57,57 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcBackendController object.
     virtual ~SgfcBackendController();
 
+    /// @brief Returns the SGFC command line arguments that were used to
+    /// construct the SgfcBackendController object. The collection is empty if
+    /// the SgfcBackendController object was constructed with the default
+    /// constructor.
     std::vector<std::string> GetArguments() const;
+
+    /// @brief Returns true if the SGFC command line arguments that
+    /// GetArguments() returns are valid. Returns false if they are not valid.
+    ///
+    /// Some command line arguments are not allowed because they do not make
+    /// sense when using SGFC in a library context, or in the particular context
+    /// of SgfcCommandLine. The following arguments are not allowed:
+    /// -h, --help, --version, -i, -c, -g, any non-option arguments (e.g. for
+    /// the input or output file).
+    ///
+    /// @todo Specify other arguments that are not allowed.
     bool IsCommandLineValid() const;
+
+    /// @brief Returns an ISgfcMessage object with message type
+    /// #SgfcMessageType::FatalError that describes why the SGFC command
+    /// line arguments that GetArguments() returns are not valid. This method
+    /// may only be invoked if IsCommandLineValid() returns false.
+    ///
+    /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
+    /// true.
     std::shared_ptr<ISgfcMessage> GetInvalidCommandLineReason() const;
 
+    /// @brief Loads a single .sgf file from the specified path and puts it
+    /// through the SGFC parser. This method may only be invoked if
+    /// IsCommandLineValid() returns true.
+    ///
+    /// @return An SgfcBackendLoadResult object that holds the result of the
+    /// load operation. Notably if the operation was successful the result
+    /// object contains the SGF content that was loaded.
+    ///
+    /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
+    /// false.
     std::shared_ptr<SgfcBackendLoadResult> LoadSgfFile(
       const std::string& sgfFilePath);
+
+    /// @brief Saves the SGF content that is encapsulated by @a sgfDataWrapper
+    /// to the .sgf file at the specified path @a sgfFilePath. This method may
+    /// only be invoked if IsCommandLineValid() returns true.
+    ///
+    /// If a file already exists at the specified path it is overwritten.
+    ///
+    /// @return An SgfcBackendSaveResult object that holds the result of the
+    /// save operation.
+    ///
+    /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
+    /// false.
     std::shared_ptr<SgfcBackendSaveResult> SaveSgfFile(
       const std::string& sgfFilePath,
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper);
