@@ -14,8 +14,9 @@ namespace LibSgfcPlusPlus
   const int SgfcConstants::UnknownSgfcMessageID = std::numeric_limits<int>::max();
   const int SgfcConstants::InvalidMessageID = -1;
   const int SgfcConstants::ArgumentIsNotAllowedMessageID = -2;
-  const int SgfcConstants::ParseArgumentErrorMessageID = -3;
-  const int SgfcConstants::SaveSgfContentToFilesystemErrorMessageID = -4;
+  const int SgfcConstants::ArgumentIsNotAnOptionMessageID = -3;
+  const int SgfcConstants::ParseArgumentErrorMessageID = -4;
+  const int SgfcConstants::SaveSgfContentToFilesystemErrorMessageID = -5;
 
   const int SgfcConstants::InvalidLineNumber = -1;
   const int SgfcConstants::InvalidColumnNumber = -1;

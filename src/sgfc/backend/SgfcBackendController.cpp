@@ -232,12 +232,14 @@ namespace LibSgfcPlusPlus
 
     for (const auto& argument : arguments)
     {
+      // We have to filter out non-option arguments because ParseArgs() would
+      // accept them as a file name
       if (argument.substr(0, SgfcPrivateConstants::ShortOptionPrefix.length()) != SgfcPrivateConstants::ShortOptionPrefix)
       {
-        std::string message = "Not an option, argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
+        std::string message = "Argument is not an option: " + argument;
 
         this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::ArgumentIsNotAllowedMessageID,
+          SgfcConstants::ArgumentIsNotAnOptionMessageID,
           message));
       }
 
