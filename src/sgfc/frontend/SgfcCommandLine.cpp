@@ -94,12 +94,12 @@ namespace LibSgfcPlusPlus
   void SgfcCommandLine::ThrowIfIsCommandLineValidReturnsFalse() const
   {
     if (! this->IsCommandLineValid())
-      throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns false");
+      throw std::logic_error("Interface protocol violation: IsCommandLineValid() returns false");
   }
 
   void SgfcCommandLine::ThrowIfIsSgfContentValidReturnsFalse() const
   {
     if (! this->IsSgfContentValid())
-      throw std::runtime_error("Interface protocol violation: IsSgfContentValid() returns false");
+      throw std::logic_error("Interface protocol violation: IsSgfContentValid() returns false");
   }
 }

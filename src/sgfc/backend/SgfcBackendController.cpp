@@ -395,12 +395,12 @@ namespace LibSgfcPlusPlus
   void SgfcBackendController::ThrowIfIsCommandLineValidReturnsTrue() const
   {
     if (this->IsCommandLineValid())
-      throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns true");
+      throw std::logic_error("Interface protocol violation: IsCommandLineValid() returns true");
   }
 
   void SgfcBackendController::ThrowIfIsCommandLineValidReturnsFalse() const
   {
     if (! this->IsCommandLineValid())
-      throw std::runtime_error("Interface protocol violation: IsCommandLineValid() returns false");
+      throw std::logic_error("Interface protocol violation: IsCommandLineValid() returns false");
   }
 }
