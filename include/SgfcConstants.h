@@ -37,8 +37,8 @@ namespace LibSgfcPlusPlus
     /// libsgfc++.
     static const int InvalidMessageID;
     /// @brief Indicates a fatal error due to an SGFC command line argument
-    /// that is banned by libsgfc++.
-    static const int BannedArgumentMessageID;
+    /// that is not allowed by libsgfc++.
+    static const int ArgumentIsNotAllowedMessageID;
     /// @brief Indicates that a fatal error occurred when SGFC parsed command
     /// line arguments, but libsgfc++ was unable to obtain the fatal error
     /// message from SGFC.

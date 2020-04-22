@@ -100,7 +100,7 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
   {
     WHEN( "A negative message ID is used" )
     {
-      messageID = SgfcConstants::BannedArgumentMessageID;
+      messageID = SgfcConstants::ArgumentIsNotAnOptionMessageID;
 
       THEN( "The SgfcMessage constructor throws an exception" )
       {
@@ -222,7 +222,7 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 
 SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]" )
 {
-  int messageID = SgfcConstants::BannedArgumentMessageID;
+  int messageID = SgfcConstants::ArgumentIsNotAnOptionMessageID;
   std::string messageText = "message text";
 
   SgfcMessageType expectedMessageType = SgfcMessageType::FatalError;

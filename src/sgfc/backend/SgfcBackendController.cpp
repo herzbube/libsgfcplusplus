@@ -237,7 +237,7 @@ namespace LibSgfcPlusPlus
         std::string message = "Not an option, argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
         this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::BannedArgumentMessageID,
+          SgfcConstants::ArgumentIsNotAllowedMessageID,
           message));
       }
 
@@ -246,7 +246,7 @@ namespace LibSgfcPlusPlus
         std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
 
         this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::BannedArgumentMessageID,
+          SgfcConstants::ArgumentIsNotAllowedMessageID,
           message));
       }
     }
