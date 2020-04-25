@@ -115,7 +115,6 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
         // 3 = SGFC error code "could not open source file"
         REQUIRE( errorMessage->GetMessageID() == 3 );
         REQUIRE( errorMessage->GetMessageText().length() > 0 );
-        REQUIRE( errorMessage->GetMessageText() == "aa" );
       }
     }
   }

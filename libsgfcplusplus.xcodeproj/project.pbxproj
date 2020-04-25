@@ -463,6 +463,7 @@
 		CD83A460244CAD88004D2485 /* SgfcMessageStreamTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcMessageStreamTest.cpp; sourceTree = "<group>"; };
 		CD83A463244D0FD1004D2485 /* SgfcBackendDataWrapperTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendDataWrapperTest.cpp; sourceTree = "<group>"; };
 		CD83A46624509B2C004D2485 /* SgfcBackendControllerTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SgfcBackendControllerTest.cpp; sourceTree = "<group>"; };
+		CD83A46B24525A14004D2485 /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .travis.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +777,7 @@
 				CD83227D23F1D218009567E4 /* sgfc */,
 				CD83227523F1D1DB009567E4 /* src */,
 				CD55DC42243E3CA5002168CC /* test */,
+				CD83A46B24525A14004D2485 /* .travis.yml */,
 				CD28E059243E923A00207A12 /* CMakeLists.txt */,
 				CD28E05A243E924500207A12 /* LICENSE */,
 				CD72170F23F1C793008373BA /* Products */,

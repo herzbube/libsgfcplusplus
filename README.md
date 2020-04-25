@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/herzbube/libsgfcplusplus.svg?branch=master)](https://travis-ci.com/herzbube/libsgfcplusplus)
+[![Github Releases](https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/releases)
+[![Github Releases](https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE)
+
 ## What is it?
 
 libsgfc++ is a C++ wrapper library around [SGFC](https://www.red-bean.com/sgf/sgfc/). As such, libsgfc++ offers the same functionality as SGFC:
@@ -43,6 +47,15 @@ There is also [Fuego](http://fuego.sourceforge.net/), which similar to GNU Go co
 
 At this point I decided that a new library project was required. I still had the choice between adapting/wrapping SGF and Fuego. I went for SGFC because it is more robust and can handle files in older SGF formats.
 
+## Dependencies
+
+This project only has two dependencies:
+
+- The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/).
+- The only other dependency this project has is the unit test library [Catch2](https://github.com/catchorg/Catch2).
+
+Both dependencies are integrated via Git submodule.
+
 ## How to build and test
 
 The project requires CMake 3.10 or newer to build.
@@ -51,6 +64,12 @@ After cloning the repository you must first initialize its Git submodules:
 
     cd /path/to/project
     git submodule update --init --recursive
+
+In the next step you apply some patches to SGFC:
+
+    cd sgfc
+    for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
+    cd ..
 
 Now you're ready to build. These commands should do it:
 

@@ -1,0 +1,47 @@
+language: cpp
+os: osx
+# For the initial attempt, use the same Xcode version that is also used on the
+# developer machine.
+osx_image: xcode11.2
+
+# All macOS images ship with cmake 3.11.3
+# TODO: What about other environments?
+
+# On Linux, build with both compilers
+#os:
+#  - linux
+#compiler:
+#  - clang
+#  - gcc
+
+# Our dependencies are covered by Git submodules. We don't have to clone Git
+# submodules, Travis already does that by default. Since we have no other
+# dependencies we skip the installation phase. Note that this is not strictly
+# necessary because for language C++ there isn't a default install.
+install: skip
+
+before_script:
+  - echo ------------------------------------------------------------
+  - echo Patching SGFC
+  - echo ------------------------------------------------------------
+  - cd sgfc
+  - for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
+  - cd ..
+  - echo ------------------------------------------------------------
+  - echo Running CMake to create build system
+  - echo ------------------------------------------------------------
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Release ..
+  - cd ..
+
+script:
+  # Build the project
+  - cd build
+  - cmake --build .
+  # Execute unit tests. We could run "ctest", but invoking the Catch2 test
+  # runner directly provides better feedback.
+  - ./test/libsgfc++-test
+  # Perform a dummy deploy to test the CMake install routine. We do it in the
+  # script phase (not the deploy phase) so that the build breaks if this fails.
+  - cmake --install . --prefix install
