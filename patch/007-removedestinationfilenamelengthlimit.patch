@@ -1,5 +1,5 @@
 diff --git a/save.c b/save.c
-index 23baffd..81aae45 100644
+index 23baffd..b1d7df9 100644
 --- a/save.c
 +++ b/save.c
 @@ -11,9 +11,16 @@
@@ -19,7 +19,7 @@ index 23baffd..81aae45 100644
  
  
  static int save_linelen;
-@@ -328,16 +335,38 @@ void SaveSGF(struct SGFInfo *sgf)
+@@ -328,66 +335,114 @@ void SaveSGF(struct SGFInfo *sgf)
  	FILE *sfile;
  	struct Node *n;
  	struct TreeInfo *info;
@@ -40,40 +40,139 @@ index 23baffd..81aae45 100644
 +	const char* formatString = "%%s_%%0%dd.sgf";
 +	int lengthOfFormattedFormatStringWithoutNullTerminator = snprintf(NULL, 0, formatString, numberOfDigitsInFormatString);
 +	size_t bufferSizeOfFormatString = lengthOfFormattedFormatStringWithoutNullTerminator + 1;
-+	char formatStringFileName[bufferSizeOfFormatString];
-+	sprintf(formatStringFileName, formatString, numberOfDigitsInFormatString);
-+
-+	int lengthOfFormattedFileNameWithoutNullTerminator = snprintf(NULL, 0, formatStringFileName, sgf->name, 0);
-+	if (lengthOfFormattedFileNameWithoutNullTerminator < 0)
-+	{
-+		// Simulate a call to PrintError that generates a fatal error message
-+		std::string message = "Fatal error: Encoding error while trying to generate format string from output file name: ";
-+		message += sgf->name;
-+		WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", message.c_str());
-+		throw std::runtime_error(message);
-+	}
-+	size_t bufferSizeOfName = lengthOfFormattedFileNameWithoutNullTerminator + 1;
-+	char name[bufferSizeOfName];
-+
-+	sgfc = sgf;					/* set curent SGFInfo context */
++	char* formatStringFileName = new char[bufferSizeOfFormatString];
  
- 	if(option_split_file)
+-	if(option_split_file)
 -		sprintf(name, "%s_%03d.sgf", sgf->name, i);
-+		sprintf(name, formatStringFileName, sgf->name, i);
- 	else
- 		strcpy(name, sgf->name);
+-	else
+-		strcpy(name, sgf->name);
++	try
++	{
++		sprintf(formatStringFileName, formatString, numberOfDigitsInFormatString);
  
-@@ -379,8 +408,12 @@ void SaveSGF(struct SGFInfo *sgf)
- 		if(option_split_file && n)
- 		{
- 			fclose(sfile);
+-	sfile = fopen(name, "wb");
+-	if(!sfile)
+-		PrintError(FE_DEST_FILE_OPEN, name);
++		int lengthOfFormattedFileNameWithoutNullTerminator = snprintf(NULL, 0, formatStringFileName, sgf->name, 0);
++		if (lengthOfFormattedFileNameWithoutNullTerminator < 0)
++		{
++			// Simulate a call to PrintError that generates a fatal error message
++			std::string message = "Fatal error: Encoding error while trying to generate format string from output file name: ";
++			message += sgf->name;
++			WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", message.c_str());
++			throw std::runtime_error(message);
++		}
+ 
+-	if(option_keep_head)
+-	{
+-		*sgf->start = '\n';
++		size_t bufferSizeOfName = lengthOfFormattedFileNameWithoutNullTerminator + 1;
++		char* name = new char[bufferSizeOfName];
+ 
+-		for(c = sgf->buffer; c <= sgf->start; c++)
+-			if(fputc((*c), sfile) == EOF)
++		try
++		{
++			sgfc = sgf;					/* set curent SGFInfo context */
 +
-+			if (i == maximumNumberOfGames)
-+				PrintError(FE_DEST_NAME_TOO_LONG);
++			if(option_split_file)
++				sprintf(name, formatStringFileName, sgf->name, i);
++			else
++				strcpy(name, sgf->name);
 +
- 			i++;
++			sfile = fopen(name, "wb");
++			if(!sfile)
++				PrintError(FE_DEST_FILE_OPEN, name);
++
++			if(option_keep_head)
+ 			{
+-				fclose(sfile);
+-				PrintError(FE_DEST_FILE_WRITE, name);
++				*sgf->start = '\n';
++
++				for(c = sgf->buffer; c <= sgf->start; c++)
++					if(fputc((*c), sfile) == EOF)
++					{
++						fclose(sfile);
++						PrintError(FE_DEST_FILE_WRITE, name);
++					}
+ 			}
+-	}
+ 
+-	save_linelen = 0;
+-	save_chars_in_node = 0;
+-	save_eol_in_node = 0;
++			save_linelen = 0;
++			save_chars_in_node = 0;
++			save_eol_in_node = 0;
+ 
+-	n = sgf->root;
+-	info = sgf->tree;
++			n = sgf->root;
++			info = sgf->tree;
+ 
+-	while(n)
+-	{
+-		if(!WriteTree(info, n, sfile, nl))
+-		{
+-			fclose(sfile);
+-			PrintError(FE_DEST_FILE_WRITE, name);
+-		}
++			while(n)
++			{
++				if(!WriteTree(info, n, sfile, nl))
++				{
++					fclose(sfile);
++					PrintError(FE_DEST_FILE_WRITE, name);
++				}
+ 
+-		nl = 2;
+-		n = n->sibling;
+-		info = info->next;
++				nl = 2;
++				n = n->sibling;
++				info = info->next;
+ 
+-		if(option_split_file && n)
+-		{
+-			fclose(sfile);
+-			i++;
 -			sprintf(name, "%s_%03d.sgf", sgf->name, i);
-+			sprintf(name, formatStringFileName, sgf->name, i);
++				if(option_split_file && n)
++				{
++					fclose(sfile);
  
- 			if(!(sfile = fopen(name, "wb")))
- 				PrintError(FE_DEST_FILE_OPEN, name);
+-			if(!(sfile = fopen(name, "wb")))
+-				PrintError(FE_DEST_FILE_OPEN, name);
++					if (i == maximumNumberOfGames)
++						PrintError(FE_DEST_NAME_TOO_LONG);
++
++					i++;
++					sprintf(name, formatStringFileName, sgf->name, i);
++
++					if(!(sfile = fopen(name, "wb")))
++						PrintError(FE_DEST_FILE_OPEN, name);
++				}
++			}
++
++			fclose(sfile);
+ 		}
++		catch (...)
++		{
++			delete[] name;
++			throw;
++		}
++
++		delete[] name;
++	}
++	catch (...)
++	{
++		delete[] formatStringFileName;
++		throw;
+ 	}
+ 
+-	fclose(sfile);
++	delete[] formatStringFileName;
+ }
+ 
+ void ResetGlobalVariablesInSave()

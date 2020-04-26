@@ -1,5 +1,5 @@
 diff --git a/save.c b/save.c
-index 81aae45..ef302cb 100644
+index b1d7df9..1acd0b1 100644
 --- a/save.c
 +++ b/save.c
 @@ -14,7 +14,9 @@
@@ -303,67 +303,67 @@ index 81aae45..ef302cb 100644
  	struct Node *n;
  	struct TreeInfo *info;
  	char *c;
-@@ -370,20 +414,12 @@ void SaveSGF(struct SGFInfo *sgf)
- 	else
- 		strcpy(name, sgf->name);
+@@ -376,20 +420,12 @@ void SaveSGF(struct SGFInfo *sgf)
+ 			else
+ 				strcpy(name, sgf->name);
  
--	sfile = fopen(name, "wb");
--	if(!sfile)
--		PrintError(FE_DEST_FILE_OPEN, name);
--
- 	if(option_keep_head)
- 	{
- 		*sgf->start = '\n';
- 
- 		for(c = sgf->buffer; c <= sgf->start; c++)
--			if(fputc((*c), sfile) == EOF)
--			{
--				fclose(sfile);
--				PrintError(FE_DEST_FILE_WRITE, name);
--			}
-+			LibSgfcPlusPlus::saveStream << (*c);
- 	}
- 
- 	save_linelen = 0;
-@@ -395,9 +431,14 @@ void SaveSGF(struct SGFInfo *sgf)
- 
- 	while(n)
- 	{
--		if(!WriteTree(info, n, sfile, nl))
-+		if(!WriteTree(info, n, nl))
- 		{
--			fclose(sfile);
-+			// After patching for libsgfc++, WriteTree and its child functions are no
-+			// longer writing the SGF content to a file, so this case cannot occur
-+			// in reality.
-+
-+			LibSgfcPlusPlus::CaptureSaveStreamContent(name);
-+			LibSgfcPlusPlus::ResetSaveStream();
- 			PrintError(FE_DEST_FILE_WRITE, name);
- 		}
- 
-@@ -407,20 +448,19 @@ void SaveSGF(struct SGFInfo *sgf)
- 
- 		if(option_split_file && n)
- 		{
--			fclose(sfile);
-+			LibSgfcPlusPlus::CaptureSaveStreamContent(name);
-+			LibSgfcPlusPlus::ResetSaveStream();
- 
- 			if (i == maximumNumberOfGames)
- 				PrintError(FE_DEST_NAME_TOO_LONG);
- 
- 			i++;
- 			sprintf(name, formatStringFileName, sgf->name, i);
--
--			if(!(sfile = fopen(name, "wb")))
+-			sfile = fopen(name, "wb");
+-			if(!sfile)
 -				PrintError(FE_DEST_FILE_OPEN, name);
+-
+ 			if(option_keep_head)
+ 			{
+ 				*sgf->start = '\n';
+ 
+ 				for(c = sgf->buffer; c <= sgf->start; c++)
+-					if(fputc((*c), sfile) == EOF)
+-					{
+-						fclose(sfile);
+-						PrintError(FE_DEST_FILE_WRITE, name);
+-					}
++					LibSgfcPlusPlus::saveStream << (*c);
+ 			}
+ 
+ 			save_linelen = 0;
+@@ -401,9 +437,14 @@ void SaveSGF(struct SGFInfo *sgf)
+ 
+ 			while(n)
+ 			{
+-				if(!WriteTree(info, n, sfile, nl))
++				if(!WriteTree(info, n, nl))
+ 				{
+-					fclose(sfile);
++					// After patching for libsgfc++, WriteTree and its child functions are no
++					// longer writing the SGF content to a file, so this case cannot occur
++					// in reality.
++
++					LibSgfcPlusPlus::CaptureSaveStreamContent(name);
++					LibSgfcPlusPlus::ResetSaveStream();
+ 					PrintError(FE_DEST_FILE_WRITE, name);
+ 				}
+ 
+@@ -413,20 +454,19 @@ void SaveSGF(struct SGFInfo *sgf)
+ 
+ 				if(option_split_file && n)
+ 				{
+-					fclose(sfile);
++					LibSgfcPlusPlus::CaptureSaveStreamContent(name);
++					LibSgfcPlusPlus::ResetSaveStream();
+ 
+ 					if (i == maximumNumberOfGames)
+ 						PrintError(FE_DEST_NAME_TOO_LONG);
+ 
+ 					i++;
+ 					sprintf(name, formatStringFileName, sgf->name, i);
+-
+-					if(!(sfile = fopen(name, "wb")))
+-						PrintError(FE_DEST_FILE_OPEN, name);
+ 				}
+ 			}
+ 
+-			fclose(sfile);
++			LibSgfcPlusPlus::CaptureSaveStreamContent(name);
++			LibSgfcPlusPlus::ResetSaveStream();
  		}
- 	}
- 
--	fclose(sfile);
-+	LibSgfcPlusPlus::CaptureSaveStreamContent(name);
-+	LibSgfcPlusPlus::ResetSaveStream();
- }
- 
- void ResetGlobalVariablesInSave()
+ 		catch (...)
+ 		{

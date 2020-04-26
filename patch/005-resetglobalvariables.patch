@@ -194,10 +194,10 @@ index ed9f946..23baffd 100644
 +	gi_written = FALSE;
 +}
 diff --git a/util.c b/util.c
-index 87de008..78a1b81 100644
+index 1bac533..5107b0e 100644
 --- a/util.c
 +++ b/util.c
-@@ -245,13 +245,14 @@ void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString
+@@ -255,13 +255,14 @@ void WriteFormattedStringToLibSgfcPlusPlusMessageStream(const char* formatString
  ***				(may quit program, if error is fatal!)
  **************************************************************************/
  
@@ -215,7 +215,7 @@ index 87de008..78a1b81 100644
  	va_list arglist;
  
  	va_start(arglist, type);
-@@ -888,3 +889,26 @@ struct Property *New_PropValue(struct Node *n, token id,
+@@ -898,3 +899,26 @@ struct Property *New_PropValue(struct Node *n, token id,
  
  	return(p);
  }

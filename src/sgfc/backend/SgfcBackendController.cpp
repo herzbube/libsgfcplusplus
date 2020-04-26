@@ -259,10 +259,21 @@ namespace LibSgfcPlusPlus
     std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
 
     int argc = static_cast<int>(argvArguments.size());
-    const char* argv[argc];
-    InitializeArgv(argv, argvArguments);
+    const char** argv = new const char*[argc];
 
-    InvokeSgfcParseArgs(argc, argv);
+    try
+    {
+      InitializeArgv(argv, argvArguments);
+
+      InvokeSgfcParseArgs(argc, argv);
+    }
+    catch (...)
+    {
+      delete[] argv;
+      throw;
+    }
+
+    delete[] argv;
   }
 
   std::vector<std::string> SgfcBackendController::ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const
