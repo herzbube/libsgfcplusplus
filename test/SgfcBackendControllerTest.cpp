@@ -95,7 +95,11 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
 {
   // TODO: Find a cross-platform solution
   char filename[] = "/tmp/libsgfcplusplus-sgfcbackendcontroller-unittest.sgf.XXXXXXXXXX";
+#ifdef _MSC_VER
+  _mktemp(filename);
+#else
   mktemp(filename);
+#endif
   std::string tempFilePath = filename;  // the file is guaranteed to not exist
 
   GIVEN( "The file does not exist" )
