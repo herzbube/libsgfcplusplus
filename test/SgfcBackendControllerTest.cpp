@@ -6,7 +6,11 @@
 #include <catch2/catch.hpp>
 
 // C++ Standard Library includes
-#include <cstdlib>
+#ifdef _MSC_VER
+  #include <io.h>
+#else
+  #include <cstdlib>
+#endif
 
 using namespace LibSgfcPlusPlus;
 
