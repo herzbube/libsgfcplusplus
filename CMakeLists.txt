@@ -39,6 +39,15 @@ message ( STATUS ${PROJECT_DESCRIPTION} )
 message ( STATUS ${PROJECT_HOMEPAGE_URL} )
 message ( STATUS ${SEPARATOR_LINE} )
 
+# Print some platform-specific information that may help with identifying build
+# issues
+if ( ${MSVC} )
+  message ( STATUS "MSVC_VERSION = ${MSVC_VERSION}" )
+  # Disable warning C4996 which complains about sprintf and strcpy being unsafe.
+  # These functions are used by SGFC. TODO: Add MSVC-specific patches that
+  # use sprintf_s and strcpy_s.
+endif()
+
 # Specify the C++ standard
 # We need at least C++17 because of literal initializers like this:
 #   const SgfcBoardSize SgfcConstants::BoardSizeMinimum = { 1, 1 };
