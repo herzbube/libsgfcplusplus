@@ -43,9 +43,6 @@ message ( STATUS ${SEPARATOR_LINE} )
 # issues
 if ( ${MSVC} )
   message ( STATUS "MSVC_VERSION = ${MSVC_VERSION}" )
-  # Disable warning C4996 which complains about sprintf and strcpy being unsafe.
-  # These functions are used by SGFC. TODO: Add MSVC-specific patches that
-  # use sprintf_s and strcpy_s.
 endif()
 
 # Specify the C++ standard
