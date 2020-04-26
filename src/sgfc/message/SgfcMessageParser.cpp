@@ -263,7 +263,7 @@ namespace LibSgfcPlusPlus
       // all digits until the first non-digit character.
       return std::stoi(token);
     }
-    catch (std::exception& exception)
+    catch (std::exception&)
     {
       return SgfcConstants::InvalidMessageID;
     }

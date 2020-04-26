@@ -77,12 +77,12 @@ namespace LibSgfcPlusPlus
       outRealValue = stod(stringValueCopy);
       return true;
     }
-    catch (std::invalid_argument& exception)
+    catch (std::invalid_argument&)
     {
       outTypeConversionErrorMessage = "Raw property string value is not a floating point value";
       return false;
     }
-    catch (std::out_of_range& exception)
+    catch (std::out_of_range&)
     {
       outTypeConversionErrorMessage = "Raw property string value is a floating point value that is out of range";
       return false;

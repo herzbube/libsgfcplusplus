@@ -92,7 +92,7 @@ namespace LibSgfcPlusPlus
       LoadSGF(sgfDataWrapper->GetSgfData());
       ParseSGF(sgfDataWrapper->GetSgfData());
     }
-    catch (std::runtime_error& exception)
+    catch (std::runtime_error&)
     {
       // Handle the exception. The SGFC message stream should now hold a
       // fatal error message that we get access to after
@@ -132,7 +132,7 @@ namespace LibSgfcPlusPlus
         LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
         ParseSGF(sgfDataWrapper->GetSgfData());
       }
-      catch (std::runtime_error& exception)
+      catch (std::runtime_error&)
       {
         // Handle the exception. The SGFC message stream should now hold a
         // fatal error message that we get access to after
@@ -162,7 +162,7 @@ namespace LibSgfcPlusPlus
         // The following function sets the global variable sgfc as a side effect
         SaveSGF(sgfDataWrapper->GetSgfData());
       }
-      catch (std::runtime_error& exception)
+      catch (std::runtime_error&)
       {
         // Handle the exception. The SGFC message stream should now hold a
         // fatal error message that we get access to after
@@ -291,7 +291,7 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const
   {
-    for (int indexOfArgument = 0; indexOfArgument < argvArguments.size(); indexOfArgument++)
+    for (unsigned int indexOfArgument = 0; indexOfArgument < argvArguments.size(); indexOfArgument++)
     {
       const char* arg = argvArguments[indexOfArgument].c_str();
 
@@ -326,7 +326,7 @@ namespace LibSgfcPlusPlus
         //   error. These are -h, --help and --version. These are all in the
         //   list of banned arguments.
       }
-      catch (std::runtime_error& exception)
+      catch (std::runtime_error&)
       {
         std::vector<std::shared_ptr<ISgfcMessage>> parseArgsResult = GetMessageStreamResult();
         SetInvalidCommandLineReasonFromParseArgsResults(parseArgsResult);

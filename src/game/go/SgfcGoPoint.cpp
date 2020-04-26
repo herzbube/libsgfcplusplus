@@ -30,6 +30,9 @@ namespace LibSgfcPlusPlus
         return this->xPositionUpperLeftOrigin;
       default:
         ThrowInvalidCoordinateSystem(coordinateSystem);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return this->xPositionUpperLeftOrigin;
     }
   }
 
@@ -43,6 +46,9 @@ namespace LibSgfcPlusPlus
         return this->yPositionLowerLeftOrigin;
       default:
         ThrowInvalidCoordinateSystem(coordinateSystem);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return this->yPositionUpperLeftOrigin;
     }
   }
 
@@ -58,6 +64,9 @@ namespace LibSgfcPlusPlus
         return ! this->hybridNotation.empty();
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return ! this->sgfNotation.empty();
     }
   }
 
@@ -76,6 +85,9 @@ namespace LibSgfcPlusPlus
         return this->hybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return this->sgfNotation;
     }
   }
 
@@ -94,6 +106,9 @@ namespace LibSgfcPlusPlus
         return this->xCompoundHybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return this->xCompoundSgfNotation;
     }
   }
 
@@ -112,6 +127,9 @@ namespace LibSgfcPlusPlus
         return this->yCompoundHybridNotation;
       default:
         ThrowInvalidGoPointNotation(goPointNotation);
+        // Some compilers don't see that we just threw an exception, so this
+        // dummy return statement makes them happy.
+        return this->yCompoundSgfNotation;
     }
   }
 
