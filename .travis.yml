@@ -1,18 +1,36 @@
+# As of writing this the different environments use the following versions
+# of CMake:
+# - All macOS images ship with version 3.11.3
+# - The Windows environment has version is 3.16.2
+# - Both Ubuntu Bionic and Ubuntu Xenial provide version 3.12.4
+
 language: cpp
-os: osx
-# For the initial attempt, use the same Xcode version that is also used on the
-# developer machine.
+
+# Since this is a cross-platform library we want to build on all three of the
+# major operating systems.
+os:
+  - linux
+  - osx
+  - windows
+
+# We strive to build with relatively new versions of each environment because
+# we want to use modern compilers (we need at least C++17, see CMakeLists.txt).
+# There is only one environment for Windows so we don't have to choose.
+dist: bionic
 osx_image: xcode11.2
 
-# All macOS images ship with cmake 3.11.3
-# TODO: What about other environments?
+# The library should not only be cross-platform, it should also not rely on any
+# particular compiler.
+compiler:
+  - clang
+  - gcc
 
-# On Linux, build with both compilers
-#os:
-#  - linux
-#compiler:
-#  - clang
-#  - gcc
+# According to the Travis CI docs, gcc is an alias for clang on macOS. So let's
+# be nice to Travis and remove that combination from the build matrix.
+jobs:
+  exclude:
+    - os: osx
+      compiler: gcc
 
 # Our dependencies are covered by Git submodules. We don't have to clone Git
 # submodules, Travis already does that by default. Since we have no other
