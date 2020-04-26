@@ -25,11 +25,17 @@ compiler:
   - clang
   - gcc
 
-# According to the Travis CI docs, gcc is an alias for clang on macOS. So let's
-# be nice to Travis and remove that combination from the build matrix.
 jobs:
   exclude:
+    # According to the Travis CI docs, gcc is an alias for clang on macOS. So
+    # let's be nice to Travis and remove that combination from the build matrix.
     - os: osx
+      compiler: gcc
+    # The Windows environment uses the MSVC compiler anyway, regardless of
+    # which value the compiler key has (that's fine, by the way, the project
+    # wants to be compiler-agnostic). As for macOS, let's be nice and remove the
+    # unnecessary duplicate from the build matrix.
+    - os: Windows
       compiler: gcc
 
 # Our dependencies are covered by Git submodules. We don't have to clone Git
