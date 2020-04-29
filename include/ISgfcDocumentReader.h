@@ -3,6 +3,9 @@
 // Project includes
 #include "ISgfcDocumentReadResult.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -14,7 +17,7 @@ namespace LibSgfcPlusPlus
   /// in-memory data. ISgfcDocumentReader operates the SGFC backend to achieve
   /// its task. Use SgfcPlusPlusFactory to construct new ISgfcDocumentReader
   /// objects.
-  class ISgfcDocumentReader
+  class SGFCPLUSPLUS_EXPORT ISgfcDocumentReader
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDocumentReader object.

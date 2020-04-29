@@ -4,6 +4,9 @@
 #include "SgfcCoordinateSystem.h"
 #include "SgfcGoPointNotation.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <string>
 
@@ -27,7 +30,7 @@ namespace LibSgfcPlusPlus
   /// - One getter method that provides the location as a single string value.
   /// - And two getter methods that provide the x-axis and y-axis compounds of
   ///   the location, respectively, as two separate string values.
-  class ISgfcGoPoint
+  class SGFCPLUSPLUS_EXPORT ISgfcGoPoint
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGoPoint object.

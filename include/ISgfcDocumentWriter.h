@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -15,7 +18,7 @@ namespace LibSgfcPlusPlus
   /// file system or make it available as an in-memory string.
   /// ISgfcDocumentWriter operates the SGFC backend to achieve its task. Use
   /// SgfcPlusPlusFactory to construct new ISgfcDocumentWriter objects.
-  class ISgfcDocumentWriter
+  class SGFCPLUSPLUS_EXPORT ISgfcDocumentWriter
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDocumentWriter object.

@@ -3,6 +3,9 @@
 // Project includes
 #include "ISgfcGame.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <vector>
@@ -12,7 +15,7 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcDocument interface provides access to a collection of
   /// SGF games. When you read an SGF file, the SGF data in that file becomes
   /// an ISgfcDocument.
-  class ISgfcDocument
+  class SGFCPLUSPLUS_EXPORT ISgfcDocument
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDocument object.

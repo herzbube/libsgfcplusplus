@@ -3,6 +3,9 @@
 // Project includes
 #include "SgfcMessageType.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <string>
 
@@ -18,7 +21,7 @@ namespace LibSgfcPlusPlus
   /// libsgfc++ makes an effort to parse the raw message text so that it can
   /// make the message content available to clients in a structured manner via
   /// ISgfcMessage.
-  class ISgfcMessage
+  class SGFCPLUSPLUS_EXPORT ISgfcMessage
   {
   public:
     /// @brief Initializes a newly constructed ISgfcMessage object.

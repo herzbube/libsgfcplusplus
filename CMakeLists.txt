@@ -55,6 +55,15 @@ set ( CMAKE_CXX_STANDARD_REQUIRED True )
 # Specify the C standard. This comes from SGFC's own CMakeLists.txt.
 set ( CMAKE_C_STANDARD 11 )
 
+# On non-Windows platforms the default is for all symbols to be visible, i.e.
+# a library consumer might use an internal class and the linker would not
+# complain. We change this default here so that all platforms behave the same.
+# Setting the following two variables changes the CMake-wide default so that
+# when a new target is added (e.g. withh add_library) it will be initialized
+# with the proper setting.
+set ( CMAKE_CXX_VISIBILITY_PRESET hidden )
+set ( CMAKE_VISIBILITY_INLINES_HIDDEN 1 )
+
 # Enable testing for this folder and all subfolders. Because this appears in
 # the top-level CMakeLists.txt file it enables testing for the entire project.
 # CMakeLists.txt in sub-folders can now add tests with the add_test() command.
@@ -65,8 +74,10 @@ enable_testing ()
 # Define a base name that is used throughout the build system to form the
 # filesystem name of the build artifacts. Notably this determines the name of
 # the generated shared library file, static library file and test executable
-# file.
-set ( LIBRARY_BASENAME ${PROJECT_NAME} )
+# file. Macro names related to the export header file are also derived from
+# the base name. The base name shhould not contain the "++" characters from the
+# project name to avoid compiler warnings and unexpected filesystem behaviour.
+set ( LIBRARY_BASENAME libsgfcplusplus )
 
 # Define target names
 set ( OBJECT_LIBRARY_TARGET_NAME ${LIBRARY_BASENAME}_objects )
@@ -163,13 +174,16 @@ if ( ${ENABLE_SHARED_LIBRARY} OR ${ENABLE_STATIC_LIBRARY} OR ${ENABLE_SHARED_FRA
 else()
   set ( AT_LEAST_ONE_LIBRARY_IS_ENABLED NO )
 endif()
+if ( ${ENABLE_STATIC_LIBRARY} OR ${ENABLE_STATIC_FRAMEWORK} )
+  set ( AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED YES )
+else()
+  set ( AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED NO )
+endif()
 
-# Prefer shared library/framework over static library/framework
-if ( ${ENABLE_SHARED_LIBRARY} )
-  set ( LINK_LIBRARY_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME} )
-elseif ( ENABLE_SHARED_FRAMEWORK )
-  set ( LINK_LIBRARY_TARGET_NAME ${SHARED_FRAMEWORK_TARGET_NAME} )
-elseif ( ENABLE_STATIC_LIBRARY )
+# Unit tests of course also test library-internal classes. The symbols for these
+# internal classes are not visible in shared libraries. The unit test target
+# therefore must link against a static library to gain access to all symbols.
+if ( ENABLE_STATIC_LIBRARY )
   set ( LINK_LIBRARY_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME} )
 elseif ( ENABLE_STATIC_FRAMEWORK )
   set ( LINK_LIBRARY_TARGET_NAME ${STATIC_FRAMEWORK_TARGET_NAME} )
@@ -180,12 +194,12 @@ endif()
 # Perform some logic checks
 if ( ${ENABLE_TESTS} OR ${ENABLE_EXAMPLES} )
   message ( CHECK_START "Check whether tests and examples can be built" )
-  if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
+  if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
     message ( CHECK_PASS "yes")
     message ( STATUS "Tests and examples will be linked against target ${LINK_LIBRARY_TARGET_NAME}" )
   else()
-    message ( CHECK_FAIL "no: all libraries have been disabled" )
-    message ( FATAL_ERROR "Tests and examples need to be linked against a library" )
+    message ( CHECK_FAIL "no: all static libraries have been disabled" )
+    message ( FATAL_ERROR "Tests and examples need to be linked against a static library" )
   endif()
 endif()
 

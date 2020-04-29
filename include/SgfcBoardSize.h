@@ -3,6 +3,9 @@
 // Project includes
 #include "SgfcTypedefs.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcBoardSize struct is a simple type that can hold the value
@@ -14,7 +17,7 @@ namespace LibSgfcPlusPlus
   /// hold only a single SgfcNumber value. SgfcBoardSize is not that flexible,
   /// it always stores two values. In case of a square board the two values hold
   /// the same numeric value.
-  struct SgfcBoardSize
+  struct SGFCPLUSPLUS_EXPORT SgfcBoardSize
   {
   public:
     /// @brief The number of columns of the board. The default is 1, which is

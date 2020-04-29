@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcGameType enumerates all game types defined by the SGF standard.
@@ -9,7 +12,7 @@ namespace LibSgfcPlusPlus
   /// @important Do not rely on the numeric value underlying each enumeration
   /// member. Specifically, do not attempt to map the numeric value to the game
   /// type's representation in the SGF content.
-  enum class SgfcGameType
+  enum class SGFCPLUSPLUS_EXPORT SgfcGameType
   {
     Go,
     Othello,

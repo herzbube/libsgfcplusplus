@@ -4,6 +4,9 @@
 #include "ISgfcMessage.h"
 #include "SgfcExitCode.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -41,7 +44,7 @@ namespace LibSgfcPlusPlus
   /// - It may not save SGF content that was found to be invalid during loading,
   ///   or save SGF content without prior loading any content. Use
   ///   IsSgfContentValid() to check this.
-  class ISgfcCommandLine
+  class SGFCPLUSPLUS_EXPORT ISgfcCommandLine
   {
   public:
     /// @brief Initializes a newly constructed ISgfcCommandLine object.

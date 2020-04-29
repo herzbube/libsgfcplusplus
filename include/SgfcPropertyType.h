@@ -1,12 +1,15 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcPropertyType enumerates all property types defined by the SGF
   /// standard, plus a small number of non-standard property types that are
   /// specially handled by SGFC. The enum value SgfcPropertyType::Unknown is
   /// used for all other non-standard properties.
-  enum class SgfcPropertyType
+  enum class SGFCPLUSPLUS_EXPORT SgfcPropertyType
   {
     // ----------------------------------------------------------------------
     // Standard properties from FF4

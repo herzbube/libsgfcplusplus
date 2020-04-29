@@ -3,6 +3,7 @@ if ( NOT DEFINED SOURCES )
   message ( FATAL_ERROR "List of source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
 
+# TODO: Use target_include_directories instead of include_directories
 include_directories (
   Catch2/single_include
   # The tests treat libsgfc++ itself as a third-party library, so the next two

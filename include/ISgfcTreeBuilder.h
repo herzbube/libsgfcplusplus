@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -11,7 +14,7 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcTreeBuilder interface provides methods to manipulate the
   /// nodes of a game tree.
-  class ISgfcTreeBuilder
+  class SGFCPLUSPLUS_EXPORT ISgfcTreeBuilder
   {
   public:
     /// @brief Initializes a newly constructed ISgfcTreeBuilder object.

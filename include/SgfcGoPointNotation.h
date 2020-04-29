@@ -1,10 +1,13 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcGoPointNotation enumerates all notations supported for
   /// representing a Point location for GoGameType::Go.
-  enum class SgfcGoPointNotation
+  enum class SGFCPLUSPLUS_EXPORT SgfcGoPointNotation
   {
     /// @brief The notation of the SGF standard for representing a Go Point
     /// location. Example: "fq".

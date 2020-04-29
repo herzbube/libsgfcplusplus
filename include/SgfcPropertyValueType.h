@@ -1,10 +1,13 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcPropertyValueType enumerates the basic SGF property value
   /// types.
-  enum class SgfcPropertyValueType
+  enum class SGFCPLUSPLUS_EXPORT SgfcPropertyValueType
   {
     /// @brief The property has no value.
     None,

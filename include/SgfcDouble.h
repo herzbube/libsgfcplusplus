@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcDouble enumerates the values that a property value of type
@@ -8,7 +11,7 @@ namespace LibSgfcPlusPlus
   /// @important Do not rely on the numeric value underlying each enumeration
   /// member. Specifically, do not attempt to map the numeric value to the
   /// Double representation in the SGF content.
-  enum class SgfcDouble
+  enum class SGFCPLUSPLUS_EXPORT SgfcDouble
   {
     /// @brief The property value signifies "normal" importance. Example: If the
     /// property SgfcPropertyType::GB has this value, then it means

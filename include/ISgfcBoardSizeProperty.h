@@ -5,13 +5,16 @@
 #include "SgfcBoardSize.h"
 #include "SgfcGameType.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcBoardSizeProperty interface is a specialization of
   /// ISgfcProperty for SgfcPropertyType::SZ. It simplifies access to the
   /// property value and provides the value in the form of an SgfcBoardSize
   /// object.
-  class ISgfcBoardSizeProperty : virtual public ISgfcProperty
+  class SGFCPLUSPLUS_EXPORT ISgfcBoardSizeProperty : virtual public ISgfcProperty
   {
   public:
     /// @brief Initializes a newly constructed ISgfcBoardSizeProperty object.

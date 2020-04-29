@@ -160,6 +160,41 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
   )
 endif()
 
+# CMake ties the function to generate an export header file to a target. We
+# have four targets but want to generate the header file only once, so here we
+# choose a target. It doesn't matter which one we choose because we will
+# override the file and preprocessor macro naming.
+if ( ${ENABLE_SHARED_LIBRARY} )
+  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_SHARED_FRAMEWORK )
+  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_FRAMEWORK_TARGET_NAME} )
+elseif ( ENABLE_STATIC_LIBRARY )
+  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_STATIC_FRAMEWORK )
+  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_FRAMEWORK_TARGET_NAME} )
+else()
+  message ( FATAL_ERROR "Failed to generate export header, no target found because none of the libraries is being built" )
+endif()
+
+# Generate the export header file.
+set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
+set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
+set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
+include ( GenerateExportHeader )
+generate_export_header (
+  ${EXPORT_HEADER_TARGET_NAME}
+
+  # The target name is variable, but we need to have a static base name that
+  # does not change, so that the source code can use preprocessor macros with
+  # stable names.
+  BASE_NAME ${EXPORT_HEADER_BASE_NAME}
+
+  # The default header file name looks ugly: sgfcplusplus_export.h
+  # Let's define a file name that looks more in line with the rest of the
+  # project.
+  EXPORT_FILE_NAME ${EXPORT_HEADER_FILE_NAME}
+)
+
 # Here we associate the public header files with the library and framework
 # targets. This causes CMake to install them automatically, without us having
 # to define a special install rule.
@@ -251,6 +286,79 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
   )
 endif()
 
+# Define additional folders where to look for include files.
+# Currently we have only one: The folder where the export header file is
+# located. See further up where we generate that file with
+# generate_export_header().
+target_include_directories (
+  ${OBJECT_LIBRARY_TARGET_NAME}
+  PUBLIC
+  ${EXPORT_HEADER_FILE_FOLDER}
+)
+if ( ${ENABLE_SHARED_LIBRARY} )
+  target_include_directories (
+    ${SHARED_LIBRARY_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
+if ( ${ENABLE_STATIC_LIBRARY} )
+  target_include_directories (
+    ${STATIC_LIBRARY_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
+if ( ${ENABLE_SHARED_FRAMEWORK} )
+  target_include_directories (
+    ${SHARED_FRAMEWORK_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
+if ( ${ENABLE_STATIC_FRAMEWORK} )
+  target_include_directories (
+    ${STATIC_FRAMEWORK_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
+
+# Define additional compile options.
+# - EXPORT_HEADER_EXPORTS_MACRO_NAME macro: Must be defined for the shared
+#   library/framework builds to turn on symbol visibility.
+# - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: Must be defined for the static
+#   library/framework builds to turn off symbol visibility.
+if ( ${ENABLE_SHARED_LIBRARY} )
+  set_target_properties (
+    ${SHARED_LIBRARY_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+)
+endif()
+if ( ${ENABLE_STATIC_LIBRARY} )
+  set_target_properties (
+    ${STATIC_LIBRARY_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+)
+endif()
+if ( ${ENABLE_SHARED_FRAMEWORK} )
+  set_target_properties (
+    ${SHARED_FRAMEWORK_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+)
+endif()
+if ( ${ENABLE_STATIC_FRAMEWORK} )
+  set_target_properties (
+    ${STATIC_FRAMEWORK_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+)
+endif()
+
+# TODO Remove the following block?
 # Install all artifcats.
 #install (
 #  TARGETS

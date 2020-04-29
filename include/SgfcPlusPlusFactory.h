@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -19,7 +22,7 @@ namespace LibSgfcPlusPlus
 
   /// @brief The SgfcPlusPlusFactory class is a class that contains only static
   /// functions. The functions are used to construct various library objects.
-  class SgfcPlusPlusFactory
+  class SGFCPLUSPLUS_EXPORT SgfcPlusPlusFactory
   {
   public:
     /// @brief Returns a newly constructed ISgfcCommandLine object that passes

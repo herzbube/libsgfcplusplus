@@ -6,6 +6,9 @@
 #include "SgfcGameType.h"
 #include "SgfcTypedefs.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -18,7 +21,7 @@ namespace LibSgfcPlusPlus
   /// game, in the form of a tree of ISgfcNode objects. Each branch in the tree
   /// is a variation in game play. A tree without branches is a game without
   /// variations.
-  class ISgfcGame
+  class SGFCPLUSPLUS_EXPORT ISgfcGame
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGame object.

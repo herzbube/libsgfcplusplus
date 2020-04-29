@@ -4,6 +4,9 @@
 #include "ISgfcSinglePropertyValue.h"
 #include "SgfcDouble.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcDoublePropertyValue interface provides access to one of
@@ -12,7 +15,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcDoublePropertyValue is immutable, i.e. once the
   /// ISgfcDoublePropertyValue object is constructed it cannot be changed.
-  class ISgfcDoublePropertyValue : virtual public ISgfcSinglePropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcDoublePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDoublePropertyValue object.

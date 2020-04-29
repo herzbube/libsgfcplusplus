@@ -3,6 +3,9 @@
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcSimpleTextPropertyValue interface provides access to one
@@ -11,7 +14,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcSimpleTextPropertyValue is immutable, i.e. once the
   /// ISgfcSimpleTextPropertyValue object is constructed it cannot be changed.
-  class ISgfcSimpleTextPropertyValue : virtual public ISgfcSinglePropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcSimpleTextPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcSimpleTextPropertyValue

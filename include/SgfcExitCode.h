@@ -1,10 +1,13 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcExitCode enumerates all SGFC exit codes supported by the
   /// library.
-  enum class SgfcExitCode
+  enum class SGFCPLUSPLUS_EXPORT SgfcExitCode
   {
     /// @brief The SGFC operation did not generate any warning or error
     /// messages. If the -d option was specified some messages may have been

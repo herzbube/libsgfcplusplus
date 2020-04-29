@@ -1,5 +1,8 @@
 #pragma once
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
@@ -11,7 +14,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcPropertyValue is immutable, i.e. once the ISgfcPropertyValue object
   /// is constructed it cannot be changed.
-  class ISgfcPropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcPropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcPropertyValue object.

@@ -4,6 +4,9 @@
 #include "ISgfcPropertyValue.h"
 #include "SgfcPropertyValueType.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <string>
 
@@ -32,7 +35,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcSinglePropertyValue is immutable, i.e. once the
   /// ISgfcSinglePropertyValue object is constructed it cannot be changed.
-  class ISgfcSinglePropertyValue : public ISgfcPropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcSinglePropertyValue : public ISgfcPropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcSinglePropertyValue object.

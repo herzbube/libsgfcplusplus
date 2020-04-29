@@ -5,13 +5,16 @@
 #include "SgfcGameType.h"
 #include "SgfcTypedefs.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcGameTypeProperty interface is a specialization of
   /// ISgfcProperty for SgfcPropertyType::GM. It simplifies access to the
   /// property value and provides the value in the form of an SgfcGameType
   /// value.
-  class ISgfcGameTypeProperty : virtual public ISgfcProperty
+  class SGFCPLUSPLUS_EXPORT ISgfcGameTypeProperty : virtual public ISgfcProperty
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGameTypeProperty object.

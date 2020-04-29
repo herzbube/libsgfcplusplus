@@ -3,6 +3,9 @@
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
@@ -14,7 +17,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcStonePropertyValue is immutable, i.e. once the
   /// ISgfcStonePropertyValue object is constructed it cannot be changed.
-  class ISgfcStonePropertyValue : virtual public ISgfcSinglePropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcStonePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcStonePropertyValue object.

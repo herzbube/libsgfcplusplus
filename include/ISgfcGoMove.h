@@ -3,6 +3,9 @@
 // Project includes
 #include "SgfcColor.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -18,7 +21,7 @@ namespace LibSgfcPlusPlus
   /// Go board. ISgfcGoMove uses a reference to an ISgfcGoStone object to record
   /// these two pieces of information. The color of the ISgfcGoStone object
   /// is the color of the player who made the move.
-  class ISgfcGoMove
+  class SGFCPLUSPLUS_EXPORT ISgfcGoMove
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGoMove object.

@@ -6,6 +6,9 @@
 #include "SgfcDouble.h"
 #include "SgfcTypedefs.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -31,7 +34,7 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcPropertyValueFactory interface provides factory methods
   /// for creating ISgfcPropertyValue objects, and objects of every known
   /// sub-type of ISgfcPropertyValue.
-  class ISgfcPropertyValueFactory
+  class SGFCPLUSPLUS_EXPORT ISgfcPropertyValueFactory
   {
   public:
     /// @brief Initializes a newly constructed ISgfcPropertyValueFactory object.

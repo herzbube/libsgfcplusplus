@@ -3,6 +3,9 @@
 // Project includes
 #include "SgfcColor.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -15,7 +18,7 @@ namespace LibSgfcPlusPlus
   /// A stone on a Go board is defined by its color and by its location on the
   /// Go board. ISgfcGoStone stores an SgfcColor value and a reference to an
   /// ISgfcGoPoint object to record these two pieces of information.
-  class ISgfcGoStone
+  class SGFCPLUSPLUS_EXPORT ISgfcGoStone
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGoStone object.

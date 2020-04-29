@@ -4,6 +4,9 @@
 #include "ISgfcPropertyValue.h"
 #include "SgfcPropertyType.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <string>
@@ -24,7 +27,7 @@ namespace LibSgfcPlusPlus
   /// @todo The standard says that "Only one of each property is allowed per
   /// node, e.g. one cannot have two comments in one node." How does SGFC deal
   /// duplicate properties? Do we want to support this as well?
-  class ISgfcProperty
+  class SGFCPLUSPLUS_EXPORT ISgfcProperty
   {
   public:
     /// @brief Initializes a newly constructed ISgfcProperty object.

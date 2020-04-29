@@ -3,6 +3,9 @@
 // Project includes
 #include "ISgfcProperty.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <vector>
@@ -12,7 +15,7 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcNode interface provides access to the data of a single
   /// SGF node in a tree of SGF nodes. ISgfcNode also provides methods to
   /// navigate the game tree.
-  class ISgfcNode
+  class SGFCPLUSPLUS_EXPORT ISgfcNode
   {
   public:
     /// @brief Initializes a newly constructed ISgfcNode object.

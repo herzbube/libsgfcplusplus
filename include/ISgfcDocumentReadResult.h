@@ -5,6 +5,9 @@
 #include "ISgfcMessage.h"
 #include "SgfcExitCode.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 #include <vector>
@@ -16,7 +19,7 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcDocumentReadResult is immutable, i.e. once the
   /// ISgfcDocumentReadResult object is constructed it cannot be changed.
-  class ISgfcDocumentReadResult
+  class SGFCPLUSPLUS_EXPORT ISgfcDocumentReadResult
   {
   public:
     /// @brief Initializes a newly constructed ISgfcDocumentReadResult object.

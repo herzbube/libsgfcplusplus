@@ -6,6 +6,9 @@
 #include "SgfcPropertyType.h"
 #include "SgfcTypedefs.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <map>
 #include <string>
@@ -13,7 +16,7 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcConstants class is a container class for constants.
-  class SgfcConstants
+  class SGFCPLUSPLUS_EXPORT SgfcConstants
   {
   public:
     /// @name libsgfc++ constants

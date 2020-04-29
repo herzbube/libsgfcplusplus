@@ -4,6 +4,9 @@
 #include "ISgfcGoMove.h"
 #include "ISgfcMovePropertyValue.h"
 
+// Project includes (generated)
+#include <SgfcPlusPlusExport.h>
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -12,7 +15,7 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcGoMovePropertyValue interface makes the property value
   /// data of a property of type SgfcPropertyValueType::Move available as
   /// an ISgfcGoMove object.
-  class ISgfcGoMovePropertyValue : virtual public ISgfcMovePropertyValue
+  class SGFCPLUSPLUS_EXPORT ISgfcGoMovePropertyValue : virtual public ISgfcMovePropertyValue
   {
   public:
     /// @brief Initializes a newly constructed ISgfcGoMovePropertyValue object.
