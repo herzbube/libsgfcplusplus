@@ -113,17 +113,6 @@ set ( CMAKE_DEBUG_POSTFIX "d" )
 # filesystem.
 set ( SOURCES_LIST_FILE_NAME "SourcesList.cmake" )
 
-# Define a number of variables required to generate and consume the export
-# header file
-set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
-# Shared library object files must be compiled with this macro defined
-set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
-# Static library object files must be compiled with this macro defined.
-# Anyone who wants to link against the static library or the static library
-# framework must also define this macro. Example: The unit test project.
-set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
-message ( STATUS "Linking against the static library requires the consumer to define this preprocessor macro during the build: ${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}" )
-
 # Define defaults for optional build parts
 if ( NOT DEFINED ENABLE_DEFAULT )
   set ( ENABLE_DEFAULT YES )
@@ -196,6 +185,32 @@ if ( ${ENABLE_STATIC_LIBRARY} OR ${ENABLE_STATIC_FRAMEWORK} )
 else()
   set ( AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED NO )
 endif()
+
+# CMake ties the function to generate an export header file to a target. We
+# have four targets but want to generate the header file only once, so here we
+# choose a target. It doesn't matter which one we choose because we will
+# override the file and preprocessor macro naming.
+if ( ${ENABLE_SHARED_LIBRARY} )
+  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_SHARED_FRAMEWORK )
+  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_FRAMEWORK_TARGET_NAME} )
+elseif ( ENABLE_STATIC_LIBRARY )
+  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME} )
+elseif ( ENABLE_STATIC_FRAMEWORK )
+  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_FRAMEWORK_TARGET_NAME} )
+else()
+  message ( FATAL_ERROR "Failed to generate export header, no target found because none of the libraries is being built" )
+endif()
+
+# Define variables required to generate and consume the export header file
+set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
+# Shared library object files must be compiled with this macro defined
+set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
+# Static library object files must be compiled with this macro defined.
+# Anyone who wants to link against the static library or the static library
+# framework must also define this macro. Example: The unit test project.
+set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
+message ( STATUS "Linking against the static library requires the consumer to define this preprocessor macro during the build: ${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}" )
 
 # Unit tests of course also test library-internal classes. The symbols for these
 # internal classes are not visible in shared libraries. The unit test target

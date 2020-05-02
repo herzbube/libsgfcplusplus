@@ -166,22 +166,6 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
   )
 endif()
 
-# CMake ties the function to generate an export header file to a target. We
-# have four targets but want to generate the header file only once, so here we
-# choose a target. It doesn't matter which one we choose because we will
-# override the file and preprocessor macro naming.
-if ( ${ENABLE_SHARED_LIBRARY} )
-  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME} )
-elseif ( ENABLE_SHARED_FRAMEWORK )
-  set ( EXPORT_HEADER_TARGET_NAME ${SHARED_FRAMEWORK_TARGET_NAME} )
-elseif ( ENABLE_STATIC_LIBRARY )
-  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME} )
-elseif ( ENABLE_STATIC_FRAMEWORK )
-  set ( EXPORT_HEADER_TARGET_NAME ${STATIC_FRAMEWORK_TARGET_NAME} )
-else()
-  message ( FATAL_ERROR "Failed to generate export header, no target found because none of the libraries is being built" )
-endif()
-
 # Generate the export header file.
 include ( GenerateExportHeader )
 generate_export_header (
