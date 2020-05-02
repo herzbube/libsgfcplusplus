@@ -183,9 +183,6 @@ else()
 endif()
 
 # Generate the export header file.
-set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
-set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
-set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
 include ( GenerateExportHeader )
 generate_export_header (
   ${EXPORT_HEADER_TARGET_NAME}

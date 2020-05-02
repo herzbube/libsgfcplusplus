@@ -27,6 +27,14 @@ target_link_libraries (
   ${LINK_LIBRARY_TARGET_NAME}
 )
 
+# The test executable target must define this macro to link against the static
+# library or static library framework
+set_target_properties (
+  ${TEST_EXECUTABLE_TARGET_NAME}
+  PROPERTIES
+  COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+)
+
 # We must define at least one test for "make test" to do anything.
 # The test we define here can also be run with CMake's own ctest utility:
 #   ctest all

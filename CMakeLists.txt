@@ -113,6 +113,17 @@ set ( CMAKE_DEBUG_POSTFIX "d" )
 # filesystem.
 set ( SOURCES_LIST_FILE_NAME "SourcesList.cmake" )
 
+# Define a number of variables required to generate and consume the export
+# header file
+set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
+# Shared library object files must be compiled with this macro defined
+set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
+# Static library object files must be compiled with this macro defined.
+# Anyone who wants to link against the static library or the static library
+# framework must also define this macro. Example: The unit test project.
+set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
+message ( STATUS "Linking against the static library requires the consumer to define this preprocessor macro during the build: ${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}" )
+
 # Define defaults for optional build parts
 if ( NOT DEFINED ENABLE_DEFAULT )
   set ( ENABLE_DEFAULT YES )
