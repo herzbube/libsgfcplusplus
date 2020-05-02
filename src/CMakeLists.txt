@@ -83,30 +83,36 @@ list (
   ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
 )
 
-# This is an "object library" target: It compiles the sources but doesn't
-# aggregate them into an actual shared or static library yet. The purpose of
-# this is to avoid compiling the sources twice, once for the shared library and
-# once for the static library.
-add_library (
-  ${OBJECT_LIBRARY_TARGET_NAME}
-  OBJECT
-  ${SOURCES_SGFC}
-  ${SOURCES}
-  # We list header files here only because we want CMake to add them to an
-  # Xcode or Visual Studio project that it generates.
-  ${HEADERS_SGFC}
-  ${HEADERS_PUBLIC}
-  ${HEADERS_PRIVATE}
-)
-
-# Shared libraries need PIC. Static libraries don't need PIC, so the static
-# library built from the object library will be a bit less performant than it
-# could be. That's the price we pay for compiling only once. If we wanted an
-# ultra-fast static library we would have to compile twice.
-set_property (
-  TARGET ${OBJECT_LIBRARY_TARGET_NAME}
-  PROPERTY POSITION_INDEPENDENT_CODE 1
-)
+# The following two targets are "object library" targets: They compile the
+# sources but don't aggregate them into an actual shared or static library yet.
+# The purpose of this is to avoid compiling the sources twice, once for the
+# shared/static library and once for the shared/static library framework.
+if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
+  add_library (
+    ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
+    OBJECT
+    ${SOURCES_SGFC}
+    ${SOURCES}
+    # We list header files here only because we want CMake to add them to an
+    # Xcode or Visual Studio project that it generates.
+    ${HEADERS_SGFC}
+    ${HEADERS_PUBLIC}
+    ${HEADERS_PRIVATE}
+  )
+endif()
+if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
+  add_library (
+    ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
+    OBJECT
+    ${SOURCES_SGFC}
+    ${SOURCES}
+    # We list header files here only because we want CMake to add them to an
+    # Xcode or Visual Studio project that it generates.
+    ${HEADERS_SGFC}
+    ${HEADERS_PUBLIC}
+    ${HEADERS_PRIVATE}
+  )
+endif()
 
 # Here we finally build the shared and static libraries. We build them
 # from the same set of object files.
@@ -114,7 +120,7 @@ if ( ${ENABLE_SHARED_LIBRARY} )
   add_library (
     ${SHARED_LIBRARY_TARGET_NAME}
     SHARED
-    $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+    $<TARGET_OBJECTS:${SHARED_OBJECT_LIBRARY_TARGET_NAME}>
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
   )
 endif()
@@ -122,7 +128,7 @@ if ( ${ENABLE_STATIC_LIBRARY} )
   add_library (
     ${STATIC_LIBRARY_TARGET_NAME}
     STATIC
-    $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+    $<TARGET_OBJECTS:${STATIC_OBJECT_LIBRARY_TARGET_NAME}>
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
   )
 endif()
@@ -134,7 +140,7 @@ if ( ${ENABLE_SHARED_FRAMEWORK} )
   add_library (
     ${SHARED_FRAMEWORK_TARGET_NAME}
     SHARED
-    $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+    $<TARGET_OBJECTS:${SHARED_OBJECT_LIBRARY_TARGET_NAME}>
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
     # Furtherdown we invoke set_property() to set the targets' PUBLIC_HEADER
     # property. For the shared and static library targets this works fine and
@@ -152,7 +158,7 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
   add_library (
     ${STATIC_FRAMEWORK_TARGET_NAME}
     STATIC
-    $<TARGET_OBJECTS:${OBJECT_LIBRARY_TARGET_NAME}>
+    $<TARGET_OBJECTS:${STATIC_OBJECT_LIBRARY_TARGET_NAME}>
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
     # For an explanation of this line, see the comment above in the add_library()
     # command for SHARED_FRAMEWORK_TARGET_NAME.
@@ -184,9 +190,9 @@ include ( GenerateExportHeader )
 generate_export_header (
   ${EXPORT_HEADER_TARGET_NAME}
 
-  # The target name is variable, but we need to have a static base name that
-  # does not change, so that the source code can use preprocessor macros with
-  # stable names.
+  # EXPORT_HEADER_TARGET_NAME is variable, but we need to have a static base
+  # name that does not change, so that the source code can use preprocessor
+  # macros with stable names.
   BASE_NAME ${EXPORT_HEADER_BASE_NAME}
 
   # The default header file name looks ugly: sgfcplusplus_export.h
@@ -290,11 +296,20 @@ endif()
 # Currently we have only one: The folder where the export header file is
 # located. See further up where we generate that file with
 # generate_export_header().
-target_include_directories (
-  ${OBJECT_LIBRARY_TARGET_NAME}
-  PUBLIC
-  ${EXPORT_HEADER_FILE_FOLDER}
-)
+if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
+  target_include_directories (
+    ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
+if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
+  target_include_directories (
+    ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
+    PUBLIC
+    ${EXPORT_HEADER_FILE_FOLDER}
+  )
+endif()
 if ( ${ENABLE_SHARED_LIBRARY} )
   target_include_directories (
     ${SHARED_LIBRARY_TARGET_NAME}
@@ -329,33 +344,67 @@ endif()
 #   library/framework builds to turn on symbol visibility.
 # - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: Must be defined for the static
 #   library/framework builds to turn off symbol visibility.
+if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
+  set_target_properties (
+    ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+  )
+endif()
+if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
+  set_target_properties (
+    ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
+    PROPERTIES
+    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+  )
+endif()
 if ( ${ENABLE_SHARED_LIBRARY} )
   set_target_properties (
     ${SHARED_LIBRARY_TARGET_NAME}
     PROPERTIES
     COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
-)
+  )
 endif()
 if ( ${ENABLE_STATIC_LIBRARY} )
   set_target_properties (
     ${STATIC_LIBRARY_TARGET_NAME}
     PROPERTIES
     COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
-)
+  )
 endif()
 if ( ${ENABLE_SHARED_FRAMEWORK} )
   set_target_properties (
     ${SHARED_FRAMEWORK_TARGET_NAME}
     PROPERTIES
     COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
-)
+  )
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
   set_target_properties (
     ${STATIC_FRAMEWORK_TARGET_NAME}
     PROPERTIES
     COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
-)
+  )
+endif()
+
+# More compile options: Shared libraries need PIC.
+if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
+  set_property (
+    TARGET ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
+    PROPERTY POSITION_INDEPENDENT_CODE 1
+  )
+endif()
+if ( ${ENABLE_SHARED_LIBRARY} )
+  set_property (
+    TARGET ${SHARED_LIBRARY_TARGET_NAME}
+    PROPERTY POSITION_INDEPENDENT_CODE 1
+  )
+endif()
+if ( ENABLE_SHARED_FRAMEWORK )
+  set_property (
+    TARGET ${STATIC_FRAMEWORK_TARGET_NAME}
+    PROPERTY POSITION_INDEPENDENT_CODE 1
+  )
 endif()
 
 # TODO Remove the following block?
