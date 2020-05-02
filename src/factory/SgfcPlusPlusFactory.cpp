@@ -10,6 +10,9 @@
 #include "SgfcPropertyFactory.h"
 #include "SgfcPropertyValueFactory.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   std::shared_ptr<LibSgfcPlusPlus::ISgfcCommandLine> SgfcPlusPlusFactory::CreateSgfcCommandLine(

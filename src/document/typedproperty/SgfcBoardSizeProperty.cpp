@@ -5,6 +5,9 @@
 #include "../../SgfcUtility.h"
 #include "SgfcBoardSizeProperty.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcBoardSizeProperty::SgfcBoardSizeProperty()

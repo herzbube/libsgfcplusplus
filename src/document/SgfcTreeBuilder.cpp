@@ -2,6 +2,9 @@
 #include "SgfcNode.h"
 #include "SgfcTreeBuilder.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcTreeBuilder::SgfcTreeBuilder(std::weak_ptr<ISgfcGame> game)
