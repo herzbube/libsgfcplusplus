@@ -65,7 +65,7 @@ script:
   - cmake --build .
   # Execute unit tests. We could run "ctest", but invoking the Catch2 test
   # runner directly provides better feedback.
-  - ./test/libsgfcplusplu-test
+  - ./test/libsgfcplusplus-test
   # Perform a dummy deploy to test the CMake install routine. We do it in the
   # script phase (not the deploy phase) so that the build breaks if this fails.
   - cmake --install . --prefix install
