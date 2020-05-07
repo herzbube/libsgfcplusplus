@@ -120,7 +120,9 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->start == nullptr );
 
         REQUIRE( sgfData->buffer != nullptr );
-        REQUIRE( std::string(sgfData->buffer) == contentBuffer );
+        // sgfData->buffer does not have a zero-byte terminator, we must provide
+        // the buffer length
+        REQUIRE( std::string(sgfData->buffer, contentBuffer.size()) == contentBuffer );
         REQUIRE( sgfData->b_end == sgfData->buffer + contentBuffer.size() );
         REQUIRE( sgfData->current == sgfData->buffer );
       }
