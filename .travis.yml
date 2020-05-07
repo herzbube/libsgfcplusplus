@@ -56,16 +56,23 @@ before_script:
   - echo ------------------------------------------------------------
   - mkdir build
   - cd build
+  # Specify the configuration for single-configuration build systems like make.
+  # For multi-configuration build systems like Visual Studio this has no effect.
   - cmake -DCMAKE_BUILD_TYPE=Release ..
   - cd ..
 
 script:
   # Build the project
   - cd build
-  - cmake --build .
+  # Specify the configuration for multi-configuration build systems like
+  # VisualStudio. For single-configuration build systems this would not be
+  # necessary since we specified the configuration already when the build
+  # system was generated.
+  - cmake --build . --config Release
   # Execute unit tests. We could run "ctest", but invoking the Catch2 test
   # runner directly provides better feedback.
   - ./test/libsgfcplusplus-test
   # Perform a dummy deploy to test the CMake install routine. We do it in the
   # script phase (not the deploy phase) so that the build breaks if this fails.
-  - cmake --install . --prefix install
+  # See comment above re: use of --config option.
+  - cmake --install . --config Release --prefix install
