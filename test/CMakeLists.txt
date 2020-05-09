@@ -27,12 +27,17 @@ target_link_libraries (
   ${LINK_LIBRARY_TARGET_NAME}
 )
 
-# The test executable target must define this macro to link against the static
-# library or static library framework
-set_target_properties (
+# Define additional compile options.
+# - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: The test executable target
+#   must define this macro to be able to link against the static library or
+#   static library framework
+# - COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS: Tell the compiler that
+#   C functions may throw exceptions. See main CMake config file for details.
+target_compile_options (
   ${TEST_EXECUTABLE_TARGET_NAME}
-  PROPERTIES
-  COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+  PUBLIC
+  -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+  ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
 )
 
 # We must define at least one test for "make test" to do anything.

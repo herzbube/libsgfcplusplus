@@ -64,6 +64,25 @@ set ( CMAKE_C_STANDARD 11 )
 set ( CMAKE_CXX_VISIBILITY_PRESET hidden )
 set ( CMAKE_VISIBILITY_INLINES_HIDDEN 1 )
 
+# libsgfc++ patches SGFC so that some of its functions throw a C++ exception.
+# This is problematic because SGFC is written in C, and C does not have
+# exceptions. Nevertheless, compilers on the different platforms usually have
+# an option that tells the compiler that C functions (functions declared with
+# "extern C") are allowed to throw C++ exceptions. This causes the compiler to
+# generate code that allows catching those exceptions. Here we define a variable
+# with the compiler-specific option. It is later added to each target's compile
+# options.
+if ( NOT DEFINED COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS )
+  if ( ${MSVC} )
+    set ( COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS "/EHs" )
+  else()
+    # We assume that everything else but MSVC is either Clang or GCC. For those
+    # the compiler option is the same.
+    set ( COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS "-fexceptions" )
+  endif()
+endif()
+message ( STATUS "Compiler option used to specify that C functions may throw exceptions: ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}" )
+
 # Enable testing for this folder and all subfolders. Because this appears in
 # the top-level CMakeLists.txt file it enables testing for the entire project.
 # CMakeLists.txt in sub-folders can now add tests with the add_test() command.

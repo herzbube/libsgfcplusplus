@@ -325,46 +325,54 @@ endif()
 #   library/framework builds to turn on symbol visibility.
 # - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: Must be defined for the static
 #   library/framework builds to turn off symbol visibility.
+# - COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS: Tell the compiler that
+#   C functions may throw exceptions. See main CMake config file for details.
 if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
-  set_target_properties (
+  target_compile_options (
     ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
-  set_target_properties (
+  target_compile_options (
     ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 if ( ${ENABLE_SHARED_LIBRARY} )
-  set_target_properties (
+  target_compile_options (
     ${SHARED_LIBRARY_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 if ( ${ENABLE_STATIC_LIBRARY} )
-  set_target_properties (
+  target_compile_options (
     ${STATIC_LIBRARY_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 if ( ${ENABLE_SHARED_FRAMEWORK} )
-  set_target_properties (
+  target_compile_options (
     ${SHARED_FRAMEWORK_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_EXPORTS_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
-  set_target_properties (
+  target_compile_options (
     ${STATIC_FRAMEWORK_TARGET_NAME}
-    PROPERTIES
-    COMPILE_FLAGS -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    PUBLIC
+    -D${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}
+    ${COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS}
   )
 endif()
 
