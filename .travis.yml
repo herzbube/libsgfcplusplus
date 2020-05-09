@@ -71,7 +71,8 @@ script:
   - cmake --build . --config Release
   # Execute unit tests. We could run "ctest", but invoking the Catch2 test
   # runner directly provides better feedback.
-  - ./test/libsgfcplusplus-test
+  - test "$TRAVIS_OS_NAME" = "windows" && ./test/Release/libsgfcplusplus-test
+  - test "$TRAVIS_OS_NAME" != "windows" && ./test/libsgfcplusplus-test
   # Perform a dummy deploy to test the CMake install routine. We do it in the
   # script phase (not the deploy phase) so that the build breaks if this fails.
   # See comment above re: use of --config option.
