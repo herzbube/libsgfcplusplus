@@ -56,13 +56,14 @@ before_script:
   - echo ------------------------------------------------------------
   - mkdir build
   - cd build
-  # All build systems: Specify the configuration for single-configuration build
-  # systems like make. For multi-configuration build systems like Visual Studio
-  # this has no effect.
-  # For bionic: Define the installation prefix at this stage because we can't
-  # define it later, because bionic has an old CMake version that does not yet
-  # support the --install command line option.
-  - if test "$TRAVIS_OS_NAME" = "bionic"; then cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install; else cmake -DCMAKE_BUILD_TYPE=Release ..; fi
+  # All build environments: Specify the configuration for single-configuration
+  # build systems like make. For multi-configuration build systems like
+  # Visual Studio this has no effect.
+  # For Linux build environment: Define the installation prefix at this stage
+  # because we can't define it later, because the Linux distro Ubuntu Bionic
+  # has an old CMake version that does not yet support the --install command
+  # line option.
+  - if test "$TRAVIS_OS_NAME" = "linux"; then cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install; else cmake -DCMAKE_BUILD_TYPE=Release ..; fi
   - cd ..
 
 script:
@@ -79,7 +80,8 @@ script:
   # Perform a dummy deploy to test the CMake install routine. We do it in the
   # script phase (not the deploy phase) so that the build breaks if this fails.
   # See comment above re: use of --config option.
-  # For bionic: The CMake version is old and does not yet support --install,
-  # so we have to fall back to make. The prefix in this case was defined
-  # when the build system was generated in the before_script phase.
-  - if test "$TRAVIS_OS_NAME" = "bionic"; then make install; else cmake --install . --config Release --prefix install; fi
+  # For Linux build environment: The Linux distro Ubuntu Bionic has an old CMake
+  # version that does not yet support --install, so we have to fall back to
+  # make. The prefix in this case was defined in the before_script phase when
+  # the build system was generated.
+  - if test "$TRAVIS_OS_NAME" = "linux"; then make install; else cmake --install . --config Release --prefix install; fi
