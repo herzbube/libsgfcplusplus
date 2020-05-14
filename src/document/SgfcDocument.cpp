@@ -19,6 +19,7 @@
 #include "SgfcDocument.h"
 
 // C++ Standard Library includes
+#include <algorithm>
 #include <iostream>
 #include <stdexcept>
 

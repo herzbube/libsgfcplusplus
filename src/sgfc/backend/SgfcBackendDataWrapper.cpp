@@ -10,7 +10,7 @@ extern "C"
 }
 
 // C++ Standard Library includes
-#include <string>
+#include <cstring>  // GCC insists on this for memset and memcpy
 
 namespace LibSgfcPlusPlus
 {

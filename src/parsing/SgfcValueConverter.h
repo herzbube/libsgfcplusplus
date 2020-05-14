@@ -6,6 +6,7 @@
 #include "../../include/SgfcTypedefs.h"
 
 // C++ Standard Library includes
+#include <string>
 #include <utility>
 
 namespace LibSgfcPlusPlus

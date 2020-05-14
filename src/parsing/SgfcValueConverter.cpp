@@ -3,7 +3,6 @@
 #include "SgfcValueConverter.h"
 
 // C++ Standard Library includes
-#include <charconv>
 #include <sstream>
 #include <stdexcept>
 
@@ -30,21 +29,23 @@ namespace LibSgfcPlusPlus
 
     std::string stringValueCopy = stringValueBuffer;
 
-    std::from_chars_result result = std::from_chars(
-      stringValueCopy.c_str(),
-      stringValueCopy.c_str() + stringValueCopy.size(),
-      outNumberValue);
-
-    switch (result.ec)
+    try
     {
-      case std::errc::invalid_argument:
-        outTypeConversionErrorMessage = "Raw property string value is not an integer value";
-        return false;
-      case std::errc::result_out_of_range:
-        outTypeConversionErrorMessage = "Raw property string value is an integer value that is out of range";
-        return false;
-      default:
-        return true;
+      // We would like to use std::from_chars. Unfortunately at the time of
+      // writing only very new versions of gcc have support for
+      // std::from_chars, and then only for integers.
+      outNumberValue = stoi(stringValueCopy);
+      return true;
+    }
+    catch (std::invalid_argument&)
+    {
+      outTypeConversionErrorMessage = "Raw property string value is not an integer value";
+      return false;
+    }
+    catch (std::out_of_range&)
+    {
+      outTypeConversionErrorMessage = "Raw property string value is an integer value that is out of range";
+      return false;
     }
   }
 

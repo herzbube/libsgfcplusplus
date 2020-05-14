@@ -16,6 +16,7 @@ extern "C"
 }
 
 // C++ Standard Library includes
+#include <algorithm>
 #include <fstream>
 #include <stdexcept>
 
