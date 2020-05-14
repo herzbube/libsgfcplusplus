@@ -62,7 +62,7 @@ This project only has two dependencies:
 
 Both dependencies are integrated via Git submodule.
 
-## How to build and test
+## How to build
 
 The project requires CMake 3.10 or newer to build.
 
@@ -85,13 +85,27 @@ Now you're ready to build. These commands should do it:
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
 
+## How to test
+
 After building you can run tests from the `build` folder with this command:
 
     ctest
 
-After the tests have run successfully you install the build products to a destination folder of your choice.
+Why does `ctest` report only a single test? This is because CMake sees the Catch2 test runner as a single test, when in fact the test runner is only the "facade" of the project's entire test suite. Execute the Catch2 test runner directly, with something like the following command, to see more detailed results. The command may vary on different platforms.
+
+    ./test/libsgfcplusplus-test
+
+## How to install
+
+After the tests have run successfully you install the build products to a destination folder of your choice. CMake 3.15 and newer include a command line option `--install` which can be used like this:
 
     cmake --install . --prefix /path/to/destfolder
+
+Older CMake versions don't have the `--install` command line option and you must use the generated build system to perform the installation. You also have to define the prefix folder when you generate the build system. Example for `make`:
+
+    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/destfolder ..
+    [...]
+    make install
 
 The following things will be installed:
 
