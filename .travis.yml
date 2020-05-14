@@ -63,7 +63,7 @@ before_script:
   # because we can't define it later, because the Linux distro Ubuntu Bionic
   # has an old CMake version that does not yet support the --install command
   # line option.
-  - if test "$TRAVIS_OS_NAME" = "linux"; then cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install; else cmake -DCMAKE_BUILD_TYPE=Release ..; fi
+  - if test "$TRAVIS_OS_NAME" = "linux"; then cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=install ..; else cmake -DCMAKE_BUILD_TYPE=Release ..; fi
   - cd ..
 
 script:
