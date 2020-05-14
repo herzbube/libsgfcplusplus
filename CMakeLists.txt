@@ -39,8 +39,8 @@ message ( STATUS ${PROJECT_DESCRIPTION} )
 message ( STATUS ${PROJECT_HOMEPAGE_URL} )
 message ( STATUS ${SEPARATOR_LINE} )
 
-# Print some platform-specific information that may help with identifying build
-# issues
+# Print some information that may help with identifying build issues
+message ( STATUS "CMAKE_VERSION = ${CMAKE_VERSION}" )
 if ( ${MSVC} )
   message ( STATUS "MSVC_VERSION = ${MSVC_VERSION}" )
 endif()
@@ -113,6 +113,18 @@ set ( SHARED_LIBRARY_OUTPUT_NAME ${LIBRARY_BASENAME} )
 set ( STATIC_LIBRARY_OUTPUT_NAME ${STATIC_LIBRARY_TARGET_NAME} )
 set ( SHARED_FRAMEWORK_OUTPUT_NAME ${LIBRARY_BASENAME} )
 set ( STATIC_FRAMEWORK_OUTPUT_NAME ${STATIC_LIBRARY_TARGET_NAME} )
+
+# On some systems the module GNUInstallDirs is auto-included, but on other
+# systems it is not, for unknown reasons. Examples where it's auto-included:
+# macOS with CMake 3.11 and Xcode, Windows with CMake 3.16 and VisualStudio.
+# Example where it's not included: Ubuntu 18.04 with CMake 3.12 and GCC (the
+# Travis build system "bionic"). We manually include the module because our
+# install() commands base their destinations on the variables defined by the
+# module (e.g. CMAKE_INSTALL_LIBDIR).
+if ( NOT DEFINED CMAKE_INSTALL_LIBDIR )
+  message ( STATUS "Including module GNUInstallDirs, was not auto-included" )
+  include ( GNUInstallDirs )
+endif()
 
 # The destination folder name to be used for frameworks. Use a relative path
 # here. This is equivalent to "lib" or "include" for library and header
