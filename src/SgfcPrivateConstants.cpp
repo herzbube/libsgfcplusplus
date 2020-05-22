@@ -15,6 +15,11 @@ namespace LibSgfcPlusPlus
 #else
   const std::string SgfcPrivateConstants::EndOfLineStringUsedBySgfc = "\r\n";
 #endif
+#ifdef _MSC_VER
+  const std::string SgfcPrivateConstants::DirectorySeparator = "\\";
+#else
+  const std::string SgfcPrivateConstants::DirectorySeparator = "/";
+#endif
 
   const std::string SgfcPrivateConstants::GameTreeBeginToken = "(";
   const std::string SgfcPrivateConstants::GameTreeEndToken = ")";

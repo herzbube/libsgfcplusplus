@@ -80,5 +80,31 @@ namespace LibSgfcPlusPlus
     /// @retval false if the data that was read or written is invalid.
     static bool GetIsSgfDataValidFromMessageCollection(
       const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
+
+    /// @brief Returns the full path to a folder that is suitable for temporary
+    /// files. The path is guaranteed to exist and to be a directory.
+    ///
+    /// This is a replacement for std::filesystem::temp_directory_path().
+    /// This function was defined in C++17, but is not available on all
+    /// platforms (notably on macOS it is available only from macOS 10.15), so
+    /// we have to roll our own platform-independent function.
+    static std::string GetTempFolderPath();
+
+    /// @brief Joins two filesystem path components together using the
+    /// platform-specific directory separator.
+    static std::string JoinPathComponents(const std::string& component1, const std::string& component2);
+
+    /// @brief Returns true if @a string begins with @a prefix. Returns false
+    /// if @a string does not begin with @a prefix. Comparison is case
+    /// sensitive.
+    static bool StringStartsWith(const std::string& string, const std::string& prefix);
+
+    /// @brief Returns true if @a string ends with @a suffix. Returns false
+    /// if @a string does not end with @a suffix. Comparison is case
+    /// sensitive.
+    static bool StringEndsWith(const std::string& string, const std::string& suffix);
+
+    /// @brief Returns a newly generated random UUID.
+    static std::string CreateUuid();
   };
 }

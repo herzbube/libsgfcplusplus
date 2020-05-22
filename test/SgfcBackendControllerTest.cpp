@@ -1,16 +1,10 @@
 // Library includes
 #include <sgfc/backend/SgfcBackendController.h>
 #include <SgfcConstants.h>
+#include <SgfcUtility.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
-
-// C++ Standard Library includes
-#ifdef _MSC_VER
-  #include <io.h>
-#else
-  #include <cstdlib>
-#endif
 
 using namespace LibSgfcPlusPlus;
 
@@ -97,14 +91,11 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
 
 SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backend][filesystem]" )
 {
-  // TODO: Find a cross-platform solution
-  char filename[] = "/tmp/libsgfcplusplus-sgfcbackendcontroller-unittest.sgf.XXXXXXXXXX";
-#ifdef _MSC_VER
-  _mktemp(filename);
-#else
-  mktemp(filename);
-#endif
-  std::string tempFilePath = filename;  // the file is guaranteed to not exist
+  // Using a random UUID as the filename, it is reasonably safe to assume that
+  // the file does not exist
+  std::string tempFilePath = SgfcUtility::JoinPathComponents(
+    SgfcUtility::GetTempFolderPath(),
+    SgfcUtility::CreateUuid());
 
   GIVEN( "The file does not exist" )
   {
