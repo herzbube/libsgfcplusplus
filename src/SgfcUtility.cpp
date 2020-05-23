@@ -10,7 +10,7 @@
 
 // System includes
 #ifdef _MSC_VER
-  #include <fileapi.h>  // for GetTempPath()
+  #include <Windows.h>  // for GetTempPath()
 //  #include <io.h>
 #else
   #include <cstdlib>    // for std::getenv()
@@ -119,7 +119,7 @@ namespace LibSgfcPlusPlus
     std::string tempFolderPath;
 
 #ifdef _MSC_VER
-    size_t bufferLength = MAX_PATH + 1
+    DWORD bufferLength = MAX_PATH + 1;
     char* buffer = new char[bufferLength];
 
     // The Win32 API works with TCHAR, but since everything else in libsgfc++
@@ -127,13 +127,13 @@ namespace LibSgfcPlusPlus
     // char and string.
 
     DWORD getTempPathResult = GetTempPath(bufferLength, buffer);
-    if (getTempPathResult == 0 || getTempPathResult > bufferLength)
+    if (getTempPathResult == 0 || getTempPathResult > bufferLength)
     {
       delete[] buffer;
       throw std::runtime_error("Win32 API function GetTempPath() failed");
     }
 
-    std::string tempFolderPath = buffer;
+    tempFolderPath = buffer;
     delete[] buffer;
 
 #else
@@ -195,7 +195,7 @@ namespace LibSgfcPlusPlus
     if (suffix.size() > string.size())
       return false;
 
-    int beginComparePosition = string.size() - suffix.size();
+    size_t beginComparePosition = string.size() - suffix.size();
     return (string.compare(beginComparePosition, suffix.size(), suffix) == 0);
   }
 
