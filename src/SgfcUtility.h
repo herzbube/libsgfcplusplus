@@ -106,5 +106,37 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly generated random UUID.
     static std::string CreateUuid();
+
+    /// @brief Makes sure that the file located at @a path in the filesystem
+    /// exists and has zero length. If the file does not exist it is created.
+    /// If the file already exists it is truncated to zero length.
+    ///
+    /// @exception std::runtime_error Is thrown if the file cannot be opened
+    /// for writing for any reason.
+    static void CreateOrTruncateFile(const std::string& path);
+
+    /// @brief Deletes the file located at @a path in the filesystem if it
+    /// exists. Does nothing if the file does not exist.
+    ///
+    /// @retval true if the file exists and was deleted.
+    /// @retval false if the file does not exist.
+    ///
+    /// @exception std::runtime_error Is thrown if the file exists but cannot
+    /// be deleted for any reason.
+    static bool DeleteFileIfExists(const std::string& path);
+
+    /// @brief Appends @a string to the the file located at @a path in the
+    /// filesystem. If the file does not exist it is created.
+    ///
+    /// @exception std::runtime_error Is thrown if the file cannot be opened
+    /// for writing for any reason.
+    static void AppendTextToFile(const std::string& path, const std::string& string);
+
+    /// @brief Reads the entire content of the file located at @a path in the
+    /// filesystem into memory and returns the content as a string.
+    ///
+    /// @exception std::runtime_error Is thrown if the file cannot be opened
+    /// for reading for any reason.
+    static std::string ReadFileContent(const std::string& path);
   };
 }

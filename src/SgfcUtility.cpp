@@ -4,6 +4,8 @@
 #include "SgfcUtility.h"
 
 // C++ Standard Library includes
+#include <cstdio>       // for remove()
+#include <fstream>      // for std::ofstream and std::ifstream
 #include <random>
 #include <sstream>
 #include <stdexcept>
@@ -14,6 +16,7 @@
 //  #include <io.h>
 #else
   #include <cstdlib>    // for std::getenv()
+  #include <unistd.h>   // for access()
 #endif
 
 namespace LibSgfcPlusPlus
@@ -159,7 +162,7 @@ namespace LibSgfcPlusPlus
     // On all platforms we have no guarantee that the folder actually exists.
     // This works purely by convention. Because we intend to replace all this
     // cruft with std::filesystem::temp_directory_path() anyway sooner or later,
-    // this implementation is good enoughh.
+    // this implementation is good enough.
 
     return tempFolderPath;
   }
@@ -222,5 +225,85 @@ namespace LibSgfcPlusPlus
     }
 
     return uuid;
+  }
+
+  void SgfcUtility::CreateOrTruncateFile(const std::string& path)
+  {
+    std::ofstream out(path, std::ios::out | std::ios::trunc);
+
+    if (! out.is_open())
+    {
+      std::stringstream message;
+      message << "Failed to open file for writing: " << path;
+      throw std::runtime_error(message.str());
+    }
+  }
+
+  bool SgfcUtility::DeleteFileIfExists(const std::string& path)
+  {
+#ifdef _MSC_VER
+    errno_t accessResult = _access_s(path.c_str(), 0);
+    if (accessResult != 0)
+    {
+      if (accessResult == ENOENT)
+        return false;
+
+      std::stringstream message;
+      message << "Failed to determine whether file exists: " << path;
+      throw std::runtime_error(message.str());
+    }
+#else
+    int accessResult = access(path.c_str(), F_OK);
+    if (accessResult == -1)
+      return false;
+#endif
+
+    // On all platforms there is a gap between the check for the file's
+    // existence above and its deletion below: Someone could delete the file
+    // after we checked for its existence but before we were able to delete it
+    // ourselves. In this case we throw an exception. Because we intend to
+    // replace all this cruft with std::filesystem::remove() anyway sooner or
+    // later, this implementation is good enough.
+
+    bool removeResult = remove(path.c_str());
+    if (removeResult != 0)
+    {
+      std::stringstream message;
+      message << "Failed to delete file: " << path;
+      throw std::runtime_error(message.str());
+    }
+
+    return true;
+  }
+
+  void SgfcUtility::AppendTextToFile(const std::string& path, const std::string& string)
+  {
+    std::ofstream out(path, std::ios::out | std::ios::app);
+
+    if (! out.is_open())
+    {
+      std::stringstream message;
+      message << "Failed to open file for writing: " << path;
+      throw std::runtime_error(message.str());
+    }
+
+    out << string;
+  }
+
+  std::string SgfcUtility::ReadFileContent(const std::string& path)
+  {
+    std::ifstream in(path);
+
+    if (! in.is_open())
+    {
+      std::stringstream message;
+      message << "Failed to open file for reading: " << path;
+      throw std::runtime_error(message.str());
+    }
+
+    std::stringstream content;
+    content << in.rdbuf();
+
+    return content.str();
   }
 }
