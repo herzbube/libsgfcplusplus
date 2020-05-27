@@ -22,6 +22,8 @@ namespace LibSgfcPlusPlus
     /// @name libsgfc++ constants
     //@{
     static const std::string LibraryName;
+    /// @brief The SGFC version used by the library.
+    static const std::string SgfcVersion;
     //@}
 
     /// @name ISgfcMessage related constants
