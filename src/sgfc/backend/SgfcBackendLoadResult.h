@@ -10,8 +10,8 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcBackendLoadResult class provides provides access to the
-  /// result of a load operation performed by SgfcBackendController.
+  /// @brief The SgfcBackendLoadResult class provides access to the result of
+  /// a load operation performed by SgfcBackendController.
   class SgfcBackendLoadResult
   {
   public:

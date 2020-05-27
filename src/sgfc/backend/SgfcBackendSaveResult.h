@@ -9,8 +9,8 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcBackendSaveResult class provides provides access to the
-  /// result of a save operation performed by SgfcBackendController.
+  /// @brief The SgfcBackendSaveResult class provides access to the result of
+  /// a save operation performed by SgfcBackendController.
   class SgfcBackendSaveResult
   {
   public:
