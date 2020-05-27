@@ -124,6 +124,8 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         // the buffer length
         REQUIRE( std::string(sgfData->buffer, contentBuffer.size()) == contentBuffer );
         REQUIRE( sgfData->b_end == sgfData->buffer + contentBuffer.size() );
+        // current must point to the beginning of the buffer so that parsing
+        // will start from the beginning
         REQUIRE( sgfData->current == sgfData->buffer );
       }
     }
