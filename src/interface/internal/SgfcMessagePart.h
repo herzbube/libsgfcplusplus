@@ -13,9 +13,10 @@ namespace LibSgfcPlusPlus
   /// Line:2 Col:56 - Error 8 (critical): illegal char(s) found: "fsgdf"
   /// Line:35 Col:1 - Warning 35: unknown property <XX> found
   /// Fatal error 2: unknown command line option 'x'
+  /// Error 60: file contains more than one game tree
   enum class SgfcMessagePart
   {
-    LineNumberOrFatalToken,
+    LineNumberOrMessageTypeToken,
     ColumnNumber,
     ErrorLowerCaseToken,
     Dash,

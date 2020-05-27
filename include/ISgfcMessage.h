@@ -49,13 +49,15 @@ namespace LibSgfcPlusPlus
     virtual SgfcMessageType GetMessageType() const = 0;
 
     /// @brief Returns the number of the line (1-based) in the parsed SGF data
-    /// that caused the message. Returns SgfcConstants::InvalidLineNumber for
-    /// fatal errors.
+    /// that caused the message. Returns SgfcConstants::InvalidLineNumber if
+    /// the message does not refer to a specific line in the SGF data (all
+    /// fatal errors, but also some errors and warnings).
     virtual int GetLineNumber() const = 0;
 
     /// @brief Returns the number of the column (1-based) in the parsed SGF data
-    /// that caused the message. Returns SgfcConstants::InvalidColumnNumber for
-    /// fatal errors.
+    /// that caused the message. Returns SgfcConstants::InvalidColumnNumber if
+    /// the message does not refer to a specific column in the SGF data (all
+    /// fatal errors, but also some errors and warnings).
     virtual int GetColumnNumber() const = 0;
 
     /// @brief Returns true if the message describes a critical problem. Only

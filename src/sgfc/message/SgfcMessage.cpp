@@ -37,14 +37,6 @@ namespace LibSgfcPlusPlus
       if (isCriticalMessage)
         throw std::invalid_argument("SgfcMessage constructor failed: Message is marked as critical although message type is SgfcMessageType::FatalError");
     }
-    else
-    {
-      if (lineNumber < 1)
-        throw std::invalid_argument("SgfcMessage constructor failed: Line number is < 1 although message type is not SgfcMessageType::FatalError");
-
-      if (columnNumber < 1)
-        throw std::invalid_argument("SgfcMessage constructor failed: Column number is < 1 although message type is not SgfcMessageType::FatalError");
-    }
   }
 
   SgfcMessage::SgfcMessage(

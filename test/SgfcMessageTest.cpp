@@ -121,18 +121,24 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
     {
       lineNumber = SgfcConstants::InvalidLineNumber;
 
-      THEN( "The SgfcMessage constructor throws an exception" )
+      SgfcMessage message(
+        messageID,
+        messageType,
+        lineNumber,
+        columnNumber,
+        isCriticalMessage,
+        messageText,
+        rawMessageText);
+
+      THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
-        REQUIRE_THROWS_AS(
-          SgfcMessage(
-            messageID,
-            messageType,
-            lineNumber,
-            columnNumber,
-            isCriticalMessage,
-            messageText,
-            rawMessageText),
-          std::invalid_argument);
+        REQUIRE( message.GetMessageID() == messageID );
+        REQUIRE( message.GetMessageType() == messageType );
+        REQUIRE( message.GetLineNumber() == lineNumber );
+        REQUIRE( message.GetColumnNumber() == columnNumber );
+        REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetMessageText() == messageText );
+        REQUIRE( message.GetRawMessageText() == rawMessageText );
       }
     }
 
@@ -140,18 +146,24 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
     {
       columnNumber = SgfcConstants::InvalidColumnNumber;
 
-      THEN( "The SgfcMessage constructor throws an exception" )
+      SgfcMessage message(
+        messageID,
+        messageType,
+        lineNumber,
+        columnNumber,
+        isCriticalMessage,
+        messageText,
+        rawMessageText);
+
+      THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
-        REQUIRE_THROWS_AS(
-          SgfcMessage(
-            messageID,
-            messageType,
-            lineNumber,
-            columnNumber,
-            isCriticalMessage,
-            messageText,
-            rawMessageText),
-          std::invalid_argument);
+        REQUIRE( message.GetMessageID() == messageID );
+        REQUIRE( message.GetMessageType() == messageType );
+        REQUIRE( message.GetLineNumber() == lineNumber );
+        REQUIRE( message.GetColumnNumber() == columnNumber );
+        REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetMessageText() == messageText );
+        REQUIRE( message.GetRawMessageText() == rawMessageText );
       }
     }
 

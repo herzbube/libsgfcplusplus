@@ -27,7 +27,7 @@ namespace LibSgfcPlusPlus
     bool isCriticalMessage  = SgfcPrivateConstants::DefaultIsCriticalMessage;
     std::string messageText = SgfcPrivateConstants::DefaultMessageText;
 
-    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrFatalToken;
+    SgfcMessagePart expectedMessagePart = SgfcMessagePart::LineNumberOrMessageTypeToken;
 
     while (! tokens.empty())
     {
@@ -38,7 +38,7 @@ namespace LibSgfcPlusPlus
 
       switch (expectedMessagePart)
       {
-        case SgfcMessagePart::LineNumberOrFatalToken:
+        case SgfcMessagePart::LineNumberOrMessageTypeToken:
         {
           if (token.find(SgfcPrivateConstants::LineToken) == 0)
           {
@@ -50,6 +50,18 @@ namespace LibSgfcPlusPlus
           {
             messageType = SgfcMessageType::FatalError;
             expectedMessagePart = SgfcMessagePart::ErrorLowerCaseToken;
+            foundExpectedMessagePart = true;
+          }
+          else if (token.find(SgfcPrivateConstants::ErrorUpperCaseToken) == 0)
+          {
+            messageType = SgfcMessageType::Error;
+            expectedMessagePart = SgfcMessagePart::MessageID;
+            foundExpectedMessagePart = true;
+          }
+          else if (token.find(SgfcPrivateConstants::WarningToken) == 0)
+          {
+            messageType = SgfcMessageType::Warning;
+            expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
           break;
@@ -197,20 +209,6 @@ namespace LibSgfcPlusPlus
       if (isCriticalMessage)
       {
         isCriticalMessage = false;
-        assert(false);
-      }
-    }
-    else
-    {
-      if (lineNumber < 1)
-      {
-        lineNumber = std::numeric_limits<int>::max();
-        assert(false);
-      }
-
-      if (columnNumber < 1)
-      {
-        columnNumber = std::numeric_limits<int>::max();
         assert(false);
       }
     }

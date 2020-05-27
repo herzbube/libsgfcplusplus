@@ -48,6 +48,26 @@ SCENARIO( "SgfcMessageParser parses an SGFC message", "[sgfc-message]" )
       }
     }
 
+    WHEN( "A warning message without line/column number is parsed" )
+    {
+      // There's currently no known SGFC warning message without line/column
+      // number, so we just make one up
+      std::string messageText = "foo";
+      std::string rawMessageText = "Warning 255: " + messageText;
+      auto message = SgfcMessageParser::CreateSgfcMessage(rawMessageText);
+
+      THEN( "The SgfcMessage object has the expected values" )
+      {
+        REQUIRE( message->GetMessageID() == 255 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Warning );
+        REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
+        REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetMessageText() == messageText );
+        REQUIRE( message->GetRawMessageText() == rawMessageText );
+      }
+    }
+
     WHEN( "A non-critical error message is parsed" )
     {
       std::string messageText = "lowercase char not allowed in property identifier";
@@ -79,6 +99,24 @@ SCENARIO( "SgfcMessageParser parses an SGFC message", "[sgfc-message]" )
         REQUIRE( message->GetLineNumber() == 2 );
         REQUIRE( message->GetColumnNumber() == 56 );
         REQUIRE( message->IsCriticalMessage() == true );
+        REQUIRE( message->GetMessageText() == messageText );
+        REQUIRE( message->GetRawMessageText() == rawMessageText );
+      }
+    }
+
+    WHEN( "An error message without line/column number is parsed" )
+    {
+      std::string messageText = "file contains more than one game tree";
+      std::string rawMessageText = "Error 60: " + messageText;
+      auto message = SgfcMessageParser::CreateSgfcMessage(rawMessageText);
+
+      THEN( "The SgfcMessage object has the expected values" )
+      {
+        REQUIRE( message->GetMessageID() == 60 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
+        REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
+        REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
         REQUIRE( message->GetMessageText() == messageText );
         REQUIRE( message->GetRawMessageText() == rawMessageText );
       }
