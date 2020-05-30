@@ -13,7 +13,7 @@
 // System includes
 #ifdef _MSC_VER
   #include <Windows.h>  // for GetTempPath()
-//  #include <io.h>
+  #include <io.h>       // for _access_s()
 #else
   #include <cstdlib>    // for std::getenv()
   #include <unistd.h>   // for access()
