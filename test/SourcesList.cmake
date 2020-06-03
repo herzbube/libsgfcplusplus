@@ -6,4 +6,5 @@ set (
   SgfcMessageParserTest.cpp
   SgfcMessageStreamTest.cpp
   SgfcMessageTest.cpp
+  SourcesList.cmake
 )
