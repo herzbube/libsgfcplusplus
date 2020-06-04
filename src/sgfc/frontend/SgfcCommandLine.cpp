@@ -53,12 +53,18 @@ namespace LibSgfcPlusPlus
   {
     ThrowIfIsCommandLineValidReturnsFalse();
 
+    if (this->backendLoadResult == nullptr)
+      return false;
+
     return SgfcUtility::GetIsSgfDataValidFromMessageCollection(this->backendLoadResult->GetParseResult());
   }
 
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetParseResult() const
   {
     ThrowIfIsCommandLineValidReturnsFalse();
+
+    if (this->backendLoadResult == nullptr)
+      return std::vector<std::shared_ptr<ISgfcMessage>>();
 
     return this->backendLoadResult->GetParseResult();
   }
@@ -87,6 +93,9 @@ namespace LibSgfcPlusPlus
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcCommandLine::GetSaveResult() const
   {
     ThrowIfIsCommandLineValidReturnsFalse();
+
+    if (this->backendSaveResult == nullptr)
+      return std::vector<std::shared_ptr<ISgfcMessage>>();
 
     return this->backendSaveResult->GetSaveResult();
   }
