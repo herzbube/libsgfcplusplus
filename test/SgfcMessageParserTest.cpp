@@ -267,5 +267,32 @@ SCENARIO( "SgfcMessageParser parses an SGFC message", "[sgfc-message]" )
         REQUIRE( message->GetRawMessageText() == rawMessageText );
       }
     }
+
+    WHEN( "A message with a non-numeric message ID is parsed" )
+    {
+      struct TestData
+      {
+        std::string RawMessageText;
+        SgfcMessageType MessageType;
+      };
+      auto testData = GENERATE(
+        TestData { "Warning foo: bar", SgfcMessageType::Warning },
+        TestData { "Error foo: bar", SgfcMessageType::Error },
+        TestData { "Fatal error foo: bar", SgfcMessageType::FatalError }
+      );
+
+      auto message = SgfcMessageParser::CreateSgfcMessage(testData.RawMessageText);
+
+      THEN( "The message can be parsed despite the non-numeric message ID" )
+      {
+        REQUIRE( message->GetMessageID() == SgfcConstants::UnknownSgfcMessageID );
+        REQUIRE( message->GetMessageType() == testData.MessageType );
+        REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
+        REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetMessageText() == "foo: bar" );
+        REQUIRE( message->GetRawMessageText() == testData.RawMessageText );
+      }
+    }
   }
 }
