@@ -3,6 +3,7 @@ set (
   main.cpp
   SgfcBackendControllerTest.cpp
   SgfcBackendDataWrapperTest.cpp
+  SgfcCommandLineTest.cpp
   SgfcMessageParserTest.cpp
   SgfcMessageStreamTest.cpp
   SgfcMessageTest.cpp

@@ -151,6 +151,8 @@ namespace LibSgfcPlusPlus
     /// specified string object. This method may only be invoked if
     /// IsSgfContentValid() returns true.
     ///
+    /// The previous content of @a sgfContent is overwritten.
+    ///
     /// The implementation of this method saves the generated SGF content to a
     /// temporary file and then loads the content of that file into the
     /// specified string object. After the load operation the implementation
