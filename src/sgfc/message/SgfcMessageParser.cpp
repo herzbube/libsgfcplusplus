@@ -110,6 +110,12 @@ namespace LibSgfcPlusPlus
             expectedMessagePart = SgfcMessagePart::MessageID;
             foundExpectedMessagePart = true;
           }
+          else if (token.find(SgfcPrivateConstants::FatalToken) == 0)
+          {
+            messageType = SgfcMessageType::FatalError;
+            expectedMessagePart = SgfcMessagePart::ErrorLowerCaseToken;
+            foundExpectedMessagePart = true;
+          }
           break;
         }
         case SgfcMessagePart::MessageID:
@@ -194,18 +200,6 @@ namespace LibSgfcPlusPlus
     // much more important that the client can read and write SGF data.
     if (messageType == SgfcMessageType::FatalError)
     {
-      if (lineNumber != SgfcConstants::InvalidLineNumber)
-      {
-        lineNumber = SgfcConstants::InvalidLineNumber;
-        assert(false);
-      }
-
-      if (columnNumber != SgfcConstants::InvalidColumnNumber)
-      {
-        columnNumber = SgfcConstants::InvalidColumnNumber;
-        assert(false);
-      }
-
       if (isCriticalMessage)
       {
         isCriticalMessage = false;

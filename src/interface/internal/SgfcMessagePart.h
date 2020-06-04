@@ -14,6 +14,7 @@ namespace LibSgfcPlusPlus
   /// Line:35 Col:1 - Warning 35: unknown property <XX> found
   /// Fatal error 2: unknown command line option 'x'
   /// Error 60: file contains more than one game tree
+  /// Line:1 Col:5 - Fatal error 46: unknown file format (only able to handle files up to FF[4])
   enum class SgfcMessagePart
   {
     LineNumberOrMessageTypeToken,

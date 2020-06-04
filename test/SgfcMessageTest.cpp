@@ -94,28 +94,6 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetRawMessageText() == rawMessageText );
       }
     }
-  }
-
-  GIVEN( "Invalid parameter values are used" )
-  {
-    WHEN( "A negative message ID is used" )
-    {
-      messageID = SgfcConstants::ArgumentIsNotAnOptionMessageID;
-
-      THEN( "The SgfcMessage constructor throws an exception" )
-      {
-        REQUIRE_THROWS_AS(
-          SgfcMessage(
-            messageID,
-            messageType,
-            lineNumber,
-            columnNumber,
-            isCriticalMessage,
-            messageText,
-            rawMessageText),
-          std::invalid_argument);
-      }
-    }
 
     WHEN( "An invalid line number is used in a warning message" )
     {
@@ -173,18 +151,24 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
       columnNumber = SgfcConstants::InvalidColumnNumber;
       isCriticalMessage = false;
 
-      THEN( "The SgfcMessage constructor throws an exception" )
+      SgfcMessage message(
+        messageID,
+        messageType,
+        lineNumber,
+        columnNumber,
+        isCriticalMessage,
+        messageText,
+        rawMessageText);
+
+      THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
-        REQUIRE_THROWS_AS(
-          SgfcMessage(
-            messageID,
-            messageType,
-            lineNumber,
-            columnNumber,
-            isCriticalMessage,
-            messageText,
-            rawMessageText),
-          std::invalid_argument);
+        REQUIRE( message.GetMessageID() == messageID );
+        REQUIRE( message.GetMessageType() == messageType );
+        REQUIRE( message.GetLineNumber() == lineNumber );
+        REQUIRE( message.GetColumnNumber() == columnNumber );
+        REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetMessageText() == messageText );
+        REQUIRE( message.GetRawMessageText() == rawMessageText );
       }
     }
 
@@ -193,6 +177,34 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
       messageType = SgfcMessageType::FatalError;
       lineNumber = SgfcConstants::InvalidLineNumber;
       isCriticalMessage = false;
+
+      SgfcMessage message(
+        messageID,
+        messageType,
+        lineNumber,
+        columnNumber,
+        isCriticalMessage,
+        messageText,
+        rawMessageText);
+
+      THEN( "The SgfcMessage object has the values passed to the constructor" )
+      {
+        REQUIRE( message.GetMessageID() == messageID );
+        REQUIRE( message.GetMessageType() == messageType );
+        REQUIRE( message.GetLineNumber() == lineNumber );
+        REQUIRE( message.GetColumnNumber() == columnNumber );
+        REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetMessageText() == messageText );
+        REQUIRE( message.GetRawMessageText() == rawMessageText );
+      }
+    }
+  }
+
+  GIVEN( "Invalid parameter values are used" )
+  {
+    WHEN( "A negative message ID is used" )
+    {
+      messageID = SgfcConstants::ArgumentIsNotAnOptionMessageID;
 
       THEN( "The SgfcMessage constructor throws an exception" )
       {

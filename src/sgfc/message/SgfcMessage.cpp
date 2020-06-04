@@ -28,12 +28,6 @@ namespace LibSgfcPlusPlus
 
     if (messageType == SgfcMessageType::FatalError)
     {
-      if (lineNumber != SgfcConstants::InvalidLineNumber)
-        throw std::invalid_argument("SgfcMessage constructor failed: Line number is not SgfcConstants::InvalidLineNumber although message type is SgfcMessageType::FatalError");
-
-      if (columnNumber != SgfcConstants::InvalidColumnNumber)
-        throw std::invalid_argument("SgfcMessage constructor failed: Column number is not SgfcConstants::InvalidColumnNumber although message type is SgfcMessageType::FatalError");
-
       if (isCriticalMessage)
         throw std::invalid_argument("SgfcMessage constructor failed: Message is marked as critical although message type is SgfcMessageType::FatalError");
     }

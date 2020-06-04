@@ -122,7 +122,7 @@ SCENARIO( "SgfcMessageParser parses an SGFC message", "[sgfc-message]" )
       }
     }
 
-    WHEN( "A fatal error message is parsed" )
+    WHEN( "A fatal error message without line or column number is parsed" )
     {
       std::string messageText = "could not find start mark '(;' - no SGF data found";
       std::string rawMessageText = "Fatal error 7: " + messageText;
@@ -134,6 +134,24 @@ SCENARIO( "SgfcMessageParser parses an SGFC message", "[sgfc-message]" )
         REQUIRE( message->GetMessageType() == SgfcMessageType::FatalError );
         REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
         REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetMessageText() == messageText );
+        REQUIRE( message->GetRawMessageText() == rawMessageText );
+      }
+    }
+
+    WHEN( "A fatal error message with line and column number is parsed" )
+    {
+      std::string messageText = "unknown file format (only able to handle files up to FF[4])";
+      std::string rawMessageText = "Line:1 Col:5 - Fatal error 46: " + messageText;
+      auto message = SgfcMessageParser::CreateSgfcMessage(rawMessageText);
+
+      THEN( "The SgfcMessage object has the expected values" )
+      {
+        REQUIRE( message->GetMessageID() == 46 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::FatalError );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 5 );
         REQUIRE( message->IsCriticalMessage() == false );
         REQUIRE( message->GetMessageText() == messageText );
         REQUIRE( message->GetRawMessageText() == rawMessageText );
