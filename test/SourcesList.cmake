@@ -1,13 +1,13 @@
 set (
   SOURCES
   main.cpp
-  SgfcBackendControllerTest.cpp
-  SgfcBackendDataWrapperTest.cpp
-  SgfcCommandLineTest.cpp
-  SgfcMessageParserTest.cpp
-  SgfcMessageStreamTest.cpp
-  SgfcMessageTest.cpp
-  SgfcSaveStreamTest.cpp
-  SgfcSgfContentTest.cpp
+  sgfc/backend/SgfcBackendControllerTest.cpp
+  sgfc/backend/SgfcBackendDataWrapperTest.cpp
+  sgfc/frontend/SgfcCommandLineTest.cpp
+  sgfc/message/SgfcMessageParserTest.cpp
+  sgfc/message/SgfcMessageStreamTest.cpp
+  sgfc/message/SgfcMessageTest.cpp
+  sgfc/save/SgfcSaveStreamTest.cpp
+  sgfc/save/SgfcSgfContentTest.cpp
   SourcesList.cmake
 )
