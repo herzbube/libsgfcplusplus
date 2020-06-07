@@ -27,9 +27,18 @@ namespace LibSgfcPlusPlus
 
     int indentationLevel = 0;
 
+    int indexOfGame = -1;
     for (auto game : document->GetGames())
     {
+      indexOfGame++;
+
       auto rootNode = game->GetRootNode();
+      if (rootNode == nullptr)
+      {
+        std::stringstream errorMessage;
+        errorMessage << "Document encoding failed: Game at index position " << indexOfGame << " has no root node";
+        throw std::logic_error(errorMessage.str());
+      }
 
       EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
       indentationLevel++;

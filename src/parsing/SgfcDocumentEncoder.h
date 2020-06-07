@@ -21,7 +21,8 @@ namespace LibSgfcPlusPlus
   ///
   /// Implementation note: SgfcDocumentEncoder formats the SGF content that it
   /// generates with indentation and line breaks to make the content human
-  /// readable. SGFC removes that whitespace when it parses the SGF content.
+  /// readable. It is expected that SGFC removes that whitespace when it parses
+  /// the SGF content.
   class SgfcDocumentEncoder
   {
   public:
@@ -42,6 +43,12 @@ namespace LibSgfcPlusPlus
     ///
     /// This method can be invoked any amount of times. It will return a newly
     /// allocated string object on each invocation.
+    ///
+    /// @exception std::logic_error is thrown if the document with which the
+    /// SgfcDocumentEncoder was constructed cannot be encoded into a string due
+    /// to some fundamental error in the object tree. Currently the only known
+    /// case is if the document contains one or more games that have no root
+    /// node.
     std::string Encode() const;
 
   private:

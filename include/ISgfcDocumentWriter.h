@@ -32,6 +32,11 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
+    ///
+    /// @exception std::logic_error is thrown if @a document cannot be encoded
+    /// into a string due to some fundamental error in the object tree.
+    /// Currently the only known case is if the document contains one or more
+    /// games that have no root node.
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
       const std::string& sgfFilePath) = 0;
@@ -46,6 +51,11 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
+    ///
+    /// @exception std::logic_error is thrown if @a document cannot be encoded
+    /// into a string due to some fundamental error in the object tree.
+    /// Currently the only known case is if the document contains one or more
+    /// games that have no root node.
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent) = 0;
