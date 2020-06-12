@@ -23,7 +23,16 @@ namespace LibSgfcPlusPlus
     virtual ~SgfcValueConverter();
 
     /// @brief Attempts to convert the specified string value @a stringValue
-    /// into an SgfcNumber value.
+    /// into an SgfcNumber value. The number is formed by the first sequence of
+    /// digit characters encountered in @a stringValue. Whitespace at the
+    /// beginning is ignored. Plus and minus characters indicate the number's
+    /// sign. The first non-digit, non-sign, non-whitespace character and
+    /// all characters beyond are ignored.
+    ///
+    /// Conversion succeeds if at least one usable digit character is found.
+    /// Conversion fails if no usable digit characters are found.
+    ///
+    /// Example: A floating point number is read up to the decimal point.
     ///
     /// @retval true if conversion succeeds. @a outNumberValue in this case
     ///         holds the converted value. The value of
@@ -42,7 +51,16 @@ namespace LibSgfcPlusPlus
     std::string ConvertNumberValueToString(SgfcNumber numberValue) const;
 
     /// @brief Attempts to convert the specified string value @a stringValue
-    /// into an SgfcReal value.
+    /// into an SgfcReal value. The number is formed by the first sequence of
+    /// digit and decimal point (".") characters encountered in @a stringValue.
+    /// Whitespace at the beginning is ignored. Plus and minus characters
+    /// indicate the number's sign. The first non-digit, non-decimal point,
+    /// non-sign, non-whitespace character and all characters beyond are
+    /// ignored. The only exception is the scientific notation which is also
+    /// recognized.
+    ///
+    /// Conversion succeeds if at least one usable digit character is found.
+    /// Conversion fails if no usable digit characters are found.
     ///
     /// @retval true if conversion succeeds. @a outRealValue in this case
     ///         holds the converted value. The value of

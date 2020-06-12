@@ -1,6 +1,7 @@
 set (
   SOURCES
   main.cpp
+  parsing/SgfcValueConverterTest.cpp
   sgfc/backend/SgfcBackendControllerTest.cpp
   sgfc/backend/SgfcBackendDataWrapperTest.cpp
   sgfc/frontend/SgfcCommandLineTest.cpp
@@ -12,4 +13,6 @@ set (
   sgfc/save/SgfcSaveStreamTest.cpp
   sgfc/save/SgfcSgfContentTest.cpp
   SourcesList.cmake
+  TestDataGenerator.cpp
+  TestDataGenerator.h
 )
