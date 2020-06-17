@@ -33,7 +33,13 @@ namespace LibSgfcPlusPlus
     /// @brief Initializes a newly constructed SgfcPropertyDecoder object. The
     /// object parses the specified SGF property @a sgfProperty and its values.
     /// The specified @a gameType and @a boardSize are important for
-    /// interpreting game-specific properties and their values.
+    /// interpreting certain game-specific properties and their values, but
+    /// are ignored for all other properties and their values.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a sgfProperty is
+    /// nullptr, or if @a sgfProperty->idstr is nullptr, or if
+    /// @a sgfProperty->value is nullptr, or if @a sgfProperty->id holds an
+    /// unexpected enumeration value.
     SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize);
 
     /// @brief Destroys and cleans up the SgfcPropertyDecoder object.
@@ -77,7 +83,24 @@ namespace LibSgfcPlusPlus
     ///
     /// @note This method relies on certain pre-processing performed by SGFC.
     /// Notably:
-    /// - Non-string values are trimmed (essential for Double and Color values)
+    /// - Values that are not SimpleText or Text are trimmed of leading and
+    ///   trailing whitespace. Without trimming this method would be unable to
+    ///   recognize Double and Color values.
+    /// - In SimpleText values, whitespace characters other than space are
+    ///   converted to space (i.e. line breaks are not preserved). In Text
+    ///   values, whitespace characters other than line breaks are converted to
+    ///   space (i.e. line breaks are preserved). In short, this method does not
+    ///   perform any whitespace conversion.
+    /// - In SimpleText and Text values, all unnecessary escape characters
+    ///   are removed. E.g. escaping the "a" character is not necessary, so
+    ///   when SGFC sees "\a" it removes the unnecessary escape character and
+    ///   this method gets to process only "a".
+    ///
+    /// @note This method has its own line break handling, due to two
+    /// shortcomings in SGFC: 1) A bug in SGFC: If a SimpleText value is the
+    /// second value of a composed value then SGFC does not detect and remove
+    /// hard and soft line breaks in all cases. 2) SGFC only handles one kind
+    /// of line break: The one that was predetermined at compile time.
     ///
     /// @todo Possibly replicate this documentation on the public interface?
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
@@ -150,6 +173,10 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcDoublePropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcColorPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcTextPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;

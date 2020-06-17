@@ -146,7 +146,13 @@ namespace LibSgfcPlusPlus
       " \t\r\n",
       "-1",
       "1.0",
-      "3"
+      "3",
+      // SGFC is nice and trims whitespace it encounters when it parses the
+      // SGF content, so in practice our library never gets to see leading or
+      // trailing whitespace. The library therefore treats such whitespace as
+      // invalid, in accordance with the SGF standard.
+      " 1", " 2"
+      "1 ", "2 "
     };
 
     return testData;
@@ -181,6 +187,10 @@ namespace LibSgfcPlusPlus
       "",
       " \t\r\n",
       "b", "w",
+      // SGFC is nice and trims whitespace it encounters when it parses the
+      // SGF content, so in practice our library never gets to see leading or
+      // trailing whitespace. The library therefore treats such whitespace as
+      // invalid, in accordance with the SGF standard.
       " B", " W",
       "B ", "W "
     };
@@ -198,5 +208,54 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::pair<std::string, std::string>> TestDataGenerator::GetSimpleTextStrings()
+  {
+    std::vector<std::pair<std::string, std::string>> testData =
+    {
+      std::pair<std::string, std::string> { "", "" },
+      std::pair<std::string, std::string> { "foo", "foo" },
+      std::pair<std::string, std::string> { "foo bar", "foo bar" },
+      std::pair<std::string, std::string> { "foo  bar", "foo  bar" },
+      // Whitespace characters other than space must be converted to space.
+      // However, the library relies on SGFC doing this conversion, so for the
+      // unit tests we make sure that the library does NOT convert.
+      std::pair<std::string, std::string> { "foo\t\vbar", "foo\t\vbar" },
+      // Each of the line endings mentioned in the SGF standard must be
+      // converted to a single space (even if the line ending consists of two
+      // characters).
+      std::pair<std::string, std::string> { "foo\nbar", "foo bar" },
+      std::pair<std::string, std::string> { "foo\rbar", "foo bar" },
+      std::pair<std::string, std::string> { "foo\r\nbar", "foo bar" },
+      std::pair<std::string, std::string> { "foo\n\rbar", "foo bar" },
+      // Escaped line breaks are removed entirely
+      std::pair<std::string, std::string> { "foo\\\nbar", "foobar" },
+      std::pair<std::string, std::string> { "foo\\\rbar", "foobar" },
+      std::pair<std::string, std::string> { "foo\\\r\nbar", "foobar" },
+      std::pair<std::string, std::string> { "foo\\\n\rbar", "foobar" },
+      // The escape character is removed if it escapes one of the special
+      // characters mentioned in the SGF standard ("]", "\" and ":")
+      std::pair<std::string, std::string> { "foo\\]bar", "foo]bar" },
+      std::pair<std::string, std::string> { "foo\\\\bar", "foo\\bar" },
+      std::pair<std::string, std::string> { "foo\\:bar", "foo:bar" },
+      // The escape character is not removed if it does not escape one of the
+      // special characters mentioned in the SGF standard. The reason is that
+      // the library expects that SGFC removes those unnecessary escape
+      // characters and it therefore does not perform escape character handling
+      // itself.
+      std::pair<std::string, std::string> { "foo\\bar", "foo\\bar" },
+      std::pair<std::string, std::string> { "foo\\[bar", "foo\\[bar" },
+      // We also test whether multiple consecutive escape characters work. There
+      // is no order of precedence, an escape character simply always must act
+      // upon the character that follows it. E.g. "\\:" escapes the escape
+      // character, not the ":" character.
+      std::pair<std::string, std::string> { "foo\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, std::string> { "foo\\\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, std::string> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
+    };
+
+    return testData;
+  }
+
 }
 

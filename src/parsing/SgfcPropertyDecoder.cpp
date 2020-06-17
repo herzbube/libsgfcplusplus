@@ -46,9 +46,22 @@ namespace LibSgfcPlusPlus
 {
   SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize)
     : sgfProperty(sgfProperty)
-    , propertyMetaInfo(new SgfcPropertyMetaInfo(GetPropertyTypeInternal(), gameType))
+    , propertyMetaInfo(nullptr)
     , boardSize(boardSize)
   {
+    if (this->sgfProperty == nullptr)
+      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object is nullptr");
+
+    if (this->sgfProperty->idstr == nullptr)
+      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object's ID string is nullptr");
+
+    // SGFC is supposed to provide us with a non-null PropValue object even if
+    // the property value is SgfcPropertyValueType::None
+    if (this->sgfProperty->value == nullptr)
+      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object's value is nullptr");
+
+    this->propertyMetaInfo = std::shared_ptr<SgfcPropertyMetaInfo>(
+      new SgfcPropertyMetaInfo(GetPropertyTypeInternal(), gameType));
   }
 
   SgfcPropertyDecoder::~SgfcPropertyDecoder()
@@ -244,7 +257,7 @@ namespace LibSgfcPlusPlus
         // If we get here a "case" statement is missing
         std::stringstream message;
         message << "GetPropertyTypeInternal: Unexpected SGFC token value " << sgfProperty->id << " (" << this->sgfProperty->idstr << ")";
-        throw std::logic_error(message.str());
+        throw std::invalid_argument(message.str());
     }
   }
 
@@ -257,15 +270,7 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
 
-    PropValue* sgfPropertyValue = sgfProperty->value;
-    if (sgfPropertyValue == nullptr)
-    {
-      // TODO: This is unexpected - SGFC is supposed to provide us with a
-      // non-null PropValue object even if the property value is
-      // SgfcPropertyValueType::None
-
-      return propertyValues;
-    }
+    PropValue* sgfPropertyValue = this->sgfProperty->value;
 
     std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor =
       this->propertyMetaInfo->GetValueTypeDescriptor();
@@ -569,10 +574,15 @@ namespace LibSgfcPlusPlus
 
         if (basicValueType == SgfcPropertyValueType::None)
         {
-          if (sgfPropertyValue->value != SgfcPrivateConstants::EmptyString)
-          {
-            // TODO: SGFC gave us a non-empty value, but we expected an empty value
-          }
+          // The SGF standard defines value type None to be an empty string.
+          // If the original SGF content contains a non-empty string we expect
+          // SGFC to correct this. We don't check if sgfPropertyValue->value
+          // actually contains an empty string, though, because if it doesn't
+          // we can't really do anything about it. The only thing we could do
+          // is throw an exception, but this would force someone else to handle
+          // that exception, with the only possible handling being to discard
+          // some or even all of the SGF content. It's better to just discard
+          // the superfluous property value here.
 
           return nullptr;
         }
@@ -618,40 +628,11 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcColorPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::SimpleText:
-      {
-        // We have to remove line breaks ourselves because of a bug in SGFC.
-        // If the SimpleText value is the second value of a composed value then
-        // SGFC does not detect and remove hard and soft line breaks in all
-        // cases. If it's the first value of a composed value, then SGFC seems
-        // to be able to handle line breaks correctly. Examples:
-        // - Property "AP": SGFC detects neither hard nor soft line breaks.
-        // - Property "LB": SGFC detects soft line breaks, but not hard line
-        //   breaks.
-        // TODO: Currently we treat all SimpleText values for line breaks, but
-        // we should do it only if the SimpleText value is the second value of
-        // a composed value.
-        std::string rawValueWithoutLineBreaks = RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
-
-        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
-          rawValueWithoutEscapeCharacters,
-          rawValueWithoutEscapeCharacters));
+        propertyValue = GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
-      }
       case SgfcPropertyValueType::Text:
-      {
-        // When compared to how SimpleText values are processed above, then in
-        // theory we would have to invoke RemoveTextLineBreaks() here. In
-        // practice no line break removal is necessary for Text values because
-        // there is no property which has a composed value with Text as one (or
-        // both) of the two value types.
-
-        std::string rawValueWithoutEscapeCharacters = RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
-          rawValueWithoutEscapeCharacters,
-          rawValueWithoutEscapeCharacters));
+        propertyValue = GetSgfcTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
-      }
       case SgfcPropertyValueType::Point:
         if (gameType == SgfcGameType::Go)
         {
@@ -816,6 +797,50 @@ namespace LibSgfcPlusPlus
     }
   }
 
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer) const
+  {
+    // We have to remove line breaks ourselves because of a bug in SGFC.
+    // If the SimpleText value is the second value of a composed value then
+    // SGFC does not detect and remove hard and soft line breaks in all
+    // cases. If it's the first value of a composed value, then SGFC seems
+    // to be able to handle line breaks correctly. Examples:
+    // - Property "AP": SGFC detects neither hard nor soft line breaks in the
+    //   second value of the composed value.
+    // - Property "LB": SGFC detects soft line breaks, but not hard line
+    //   breaks, in the second value of the composed value.
+    // TODO: Currently we treat all SimpleText values for line breaks, but
+    // we should do it only if the SimpleText value is the second value of
+    // a composed value.
+    std::string rawValueWithoutLineBreaks =
+      RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
+
+    std::string rawValueWithoutEscapeCharacters =
+      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
+
+    return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
+      rawPropertyValueBuffer,
+      rawValueWithoutEscapeCharacters));
+  }
+
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcTextPropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer) const
+  {
+    // When compared to how SimpleText values are processed (see
+    // GetSgfcSimpleTextPropertyValueFromSgfPropertyValue()), then in
+    // theory we would have to invoke RemoveTextLineBreaks() here. In
+    // practice no line break removal is necessary for Text values because
+    // there is no property which has a composed value with Text as one (or
+    // both) of the two value types.
+
+    std::string rawValueWithoutEscapeCharacters =
+      RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
+
+    return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
+      rawPropertyValueBuffer,
+      rawValueWithoutEscapeCharacters));
+  }
+
   bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(
     const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const
   {
@@ -906,6 +931,25 @@ namespace LibSgfcPlusPlus
   std::string SgfcPropertyDecoder::RemoveSimpleTextAndTextEscapeCharacters(
     const std::string& rawPropertyValue) const
   {
+    // SGFC removes all unnecessary escape characters from SimpleText and Text
+    // values, so we don't have to deal with them. E.g. escaping the "a"
+    // character is not necessary, so when SGFC sees "\a" it removes the
+    // unnecessary escape character and this method gets to process only "a".
+    //
+    // The characters that need escaping are:
+    // - The property value closing character "]": This needs to be always
+    //   escaped.
+    // - The escape character "\": This needs to be always escaped.
+    // - The composed property value separator character ":": This needs to be
+    //   escaped only in composed property values, and then only if it appears
+    //   in the first value. Consequently, SGFC removes the escape character
+    //   from "\:" if it appears in single property values, and keeps it if it
+    //   appears in a composed property value. SGFC keeps the escape character
+    //   even if it appears in the second value. E.g. if the LB property
+    //   property value looks like this "aa:foo\:bar", then SGFC retains that
+    //   value exactly as-is, although strictly speaking it could simplify
+    //   the value to "aa:foo:bar".
+
     std::string result = RemoveMandatoryEscapeCharacters(rawPropertyValue);
 
     result = std::regex_replace(
@@ -914,7 +958,12 @@ namespace LibSgfcPlusPlus
       SgfcPrivateConstants::ComposedValueSeparatorToken);
 
     // Escape characters must be removed last so that we don't remove the escape
-    // characters from other escape sequences.
+    // characters from other escape sequences. E.g. "\\:" must result in "\:".
+    // Note: There is no order of precedence, an escape character simply always
+    // must act upon the character that follows it. Although the way this
+    // method is implemented does not follow this rule (we first escape the
+    // "]" and ":" characters, then the "\" characters), the outcome is
+    // equivalent.
     result = std::regex_replace(
       result,
       SgfcPrivateConstants::EscapedEscapeCharacterRegex,

@@ -3,12 +3,6 @@
 #include <SgfcConstants.h>
 #include <SgfcUtility.h>
 
-// SGFC includes
-//extern "C"
-//{
-//  #include "../../../sgfc/all.h"
-//}
-
 // Unit test library includes
 #include <catch2/catch.hpp>
 

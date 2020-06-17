@@ -33,6 +33,8 @@ namespace LibSgfcPlusPlus
     static std::vector<std::string> GetInvalidColorStrings();
     static std::vector<std::pair<SgfcColor, std::string>> GetColorValues();
 
+    static std::vector<std::pair<std::string, std::string>> GetSimpleTextStrings();
+
   private:
     TestDataGenerator();
     virtual ~TestDataGenerator();

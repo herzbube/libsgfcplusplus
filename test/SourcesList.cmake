@@ -1,6 +1,7 @@
 set (
   SOURCES
   main.cpp
+  parsing/SgfcPropertyDecoderTest.cpp
   parsing/SgfcValueConverterTest.cpp
   sgfc/backend/SgfcBackendControllerTest.cpp
   sgfc/backend/SgfcBackendDataWrapperTest.cpp

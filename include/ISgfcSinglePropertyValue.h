@@ -51,7 +51,7 @@ namespace LibSgfcPlusPlus
     /// GetValueType() returns the value type that is defined in the SGF
     /// standard. If the actual SGF content does not conform to the SGF
     /// standard, then libsgfc++ will be unable to parse the raw property string
-    /// value. HasTypedValue() return false to indicate such cases. See the
+    /// value. HasTypedValue() returns false to indicate such cases. See the
     /// documentation of HasTypedValue() for more details.
     ///
     /// GetValueType() returns SgfcPropertyValueType::Unknown for values of
@@ -97,11 +97,26 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyValueType::Unknown or if HasTypedValue() returns false.
     virtual std::string GetTypeConversionErrorMessage() const = 0;
 
-    /// @brief Returns the property value as a raw string.
+    /// @brief Returns the property value as a raw string, i.e. as close as
+    /// possible as it appears in the original SGF content.
     ///
-    /// @todo Return the value without escaped characters.
-    ///
-    /// @todo How do we deal with formatting / linebreaks? Soft/hard linebreaks.
+    /// The following processing is applied to the original SGF content before
+    /// it is made available from this getter as raw string:
+    /// - The escape character ("\") is stripped from SimpleText and Text
+    ///   values.
+    /// - Values that are not SimpleText or Text are trimmed of leading and
+    ///   trailing whitespace.
+    /// - In SimpleText values, whitespace characters other than space are
+    ///   converted to space. Exception: Escaped line breaks are removed
+    ///   entirely.
+    /// - In Text values, whitespace characters other than line breaks are
+    ///   converted to space. In addition, escaped line breaks are removed
+    ///   entirely.
+    /// - In SimpleText and Text values, all unnecessary escape characters
+    ///   are removed. E.g. escaping the "a" character is not necessary, so
+    ///   when SGFC sees "\a" it removes the unnecessary escape character and
+    ///   this method gets to process only "a". Necessary escape characters are
+    ///   preserved, though, and appear in the raw string (e.g. "\\" or "\]").
     ///
     /// @todo How do we deal with encodings?
     virtual std::string GetRawValue() const = 0;

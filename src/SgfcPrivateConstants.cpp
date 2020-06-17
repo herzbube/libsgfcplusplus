@@ -38,7 +38,12 @@ namespace LibSgfcPlusPlus
     SgfcPrivateConstants::EscapeCharacterToken +
     SgfcPrivateConstants::EscapeCharacterToken;
 
-  const std::string SgfcPrivateConstants::LineEndingsPattern = "(\\n|\\r|\\r\\n)";
+  // The four line ending types mentioned in the SGF standard in the description
+  // of the Text value type: LF, CR, CRLF and the non-standard LFCR.
+  // Important: The multi-character line endings must appear first so that
+  // they are recognized as one unit. If they appear at the end then the regex
+  // engine matches e.g. "\r\n" as two separate line endings.
+  const std::string SgfcPrivateConstants::LineEndingsPattern = "(\\r\\n|\\n\\r|\\n|\\r)";
   const std::regex SgfcPrivateConstants::EscapedPropertyValueEndTokenRegex(
     SgfcPrivateConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcPrivateConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
@@ -52,7 +57,7 @@ namespace LibSgfcPlusPlus
     SgfcPrivateConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcPrivateConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
     SgfcPrivateConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
-    SgfcPrivateConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
+    SgfcPrivateConstants::EscapeCharacterToken);   // The literal as it appears in the SGF content
   const std::regex SgfcPrivateConstants::EscapedLineEndingsRegex(
     SgfcPrivateConstants::EscapeCharacterToken +   // Make the following escape character a literal for the regex
     SgfcPrivateConstants::EscapeCharacterToken +   // The literal as it appears in the SGF content
