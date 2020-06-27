@@ -83,26 +83,41 @@ namespace LibSgfcPlusPlus
     ///
     /// @note This method relies on certain pre-processing performed by SGFC.
     /// Notably:
-    /// - Values that are not SimpleText or Text are trimmed of leading and
-    ///   trailing whitespace. Without trimming this method would be unable to
-    ///   recognize Double and Color values.
-    /// - In SimpleText values, whitespace characters other than space are
-    ///   converted to space (i.e. line breaks are not preserved). In Text
-    ///   values, whitespace characters other than line breaks are converted to
-    ///   space (i.e. line breaks are preserved). In short, this method does not
-    ///   perform any whitespace conversion.
+    /// - SGFC is expected to trim leading and trailing whitespace from values
+    ///   that are not SimpleText or Text. Without trimming this method would
+    ///   be unable to recognize Double and Color values.
+    /// - In SimpleText values, SGFC is expected to convert whitespace
+    ///   characters other than space to space (i.e. line breaks are not
+    ///   preserved). Due to shortcomings in SGFC's handling of line breaks
+    ///   this method adds its own line break handling, so currently SGFC's
+    ///   line break handling is irrelevant to the implementation of this
+    ///   method. See the next note for details.
+    /// - In Text values, SGFC is expected to convert whitespace characters
+    ///   other than line breaks are converted to space (i.e. line breaks are
+    ///   preserved). SGFC is also expected to remove escaped line breaks.
+    ///   Due to shortcomings in SGFC's handling of line breaks this method
+    ///   adds its own line break handling, so currently SGFC's line break
+    ///   handling is irrelevant to the implementation of this method.
+    ///   See the next note for details.
     /// - In SimpleText and Text values, all unnecessary escape characters
     ///   are removed. E.g. escaping the "a" character is not necessary, so
     ///   when SGFC sees "\a" it removes the unnecessary escape character and
-    ///   this method gets to process only "a".
+    ///   this method gets to process only "a". In short, this method does not
+    ///   perform any escape character handling.
     ///
-    /// @note This method has its own line break handling, due to two
-    /// shortcomings in SGFC: 1) A bug in SGFC: If a SimpleText value is the
-    /// second value of a composed value then SGFC does not detect and remove
-    /// hard and soft line breaks in all cases. 2) SGFC only handles one kind
-    /// of line break: The one that was predetermined at compile time.
+    /// @note This method has its own line break handling for SimpleText and
+    /// Text values, due to two shortcomings in SGFC: 1) A bug in SGFC: If a
+    /// SimpleText value is the second value of a composed value then SGFC does
+    /// not detect and remove hard and soft line breaks in all cases. This
+    /// method is capable of detecting these cases. 2) SGFC only handles one
+    /// kind of line break (e.g. LF, CRLF, ...) in SimpleText and Text values:
+    /// The one that was predetermined at compile time. This method is capable
+    /// of recognizing and handling all kinds of platform-specific line breaks.
     ///
-    /// @todo Possibly replicate this documentation on the public interface?
+    /// @note This documentation has to be replicated on the public interface.
+    /// specifically, the notes regarding the expected pre-processing performed
+    /// by SGFC must be available as well in the documentation of
+    /// ISgfcSinglePropertyValue::GetRawValue().
     std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
 
     /// @brief Probes the SGF node @a sgfNode for a property of type

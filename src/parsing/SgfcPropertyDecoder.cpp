@@ -809,9 +809,11 @@ namespace LibSgfcPlusPlus
     //   second value of the composed value.
     // - Property "LB": SGFC detects soft line breaks, but not hard line
     //   breaks, in the second value of the composed value.
-    // TODO: Currently we treat all SimpleText values for line breaks, but
-    // we should do it only if the SimpleText value is the second value of
-    // a composed value.
+    //
+    // Although the described bug only affects SimpleText values that are the
+    // second value of a composed value, we still remove line breaks for all
+    // SimpleText values, because SGFC only recognizes and handles one kind of
+    // platform-specific line break (e.g. LF, CRLF, ...).
     std::string rawValueWithoutLineBreaks =
       RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
 
@@ -826,15 +828,15 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcTextPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    // When compared to how SimpleText values are processed (see
-    // GetSgfcSimpleTextPropertyValueFromSgfPropertyValue()), then in
-    // theory we would have to invoke RemoveTextLineBreaks() here. In
-    // practice no line break removal is necessary for Text values because
-    // there is no property which has a composed value with Text as one (or
-    // both) of the two value types.
+    // In theory no line break removal is necessary for Text values because
+    // SGFC has no known bug in handling them. In practice we still have to
+    // perform the line break removal, because SGFC only recognizes and handles
+    // one kind of platform-specific line break (e.g. LF, CRLF, ...).
+    std::string rawValueWithoutLineBreaks =
+      RemoveTextLineBreaks(rawPropertyValueBuffer);
 
     std::string rawValueWithoutEscapeCharacters =
-      RemoveSimpleTextAndTextEscapeCharacters(rawPropertyValueBuffer);
+      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
 
     return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
       rawPropertyValueBuffer,

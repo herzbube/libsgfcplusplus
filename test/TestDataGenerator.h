@@ -35,6 +35,8 @@ namespace LibSgfcPlusPlus
 
     static std::vector<std::pair<std::string, std::string>> GetSimpleTextStrings();
 
+    static std::vector<std::pair<std::string, std::string>> GetTextStrings();
+
   private:
     TestDataGenerator();
     virtual ~TestDataGenerator();

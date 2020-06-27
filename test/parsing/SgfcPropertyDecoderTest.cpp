@@ -6,6 +6,7 @@
 #include <ISgfcRealPropertyValue.h>
 #include <ISgfcSimpleTextPropertyValue.h>
 #include <ISgfcSinglePropertyValue.h>
+#include <ISgfcTextPropertyValue.h>
 #include <parsing/SgfcPropertyDecoder.h>
 
 // SGFC includes
@@ -451,6 +452,43 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     }
 
     WHEN( "The property value is an invalid SimpleText string" )
+    {
+      // No tests because there are no invalid SimpleText strings
+    }
+  }
+
+  GIVEN( "The property value type is Text" )
+  {
+    WHEN( "The property value is a valid Text string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetTextStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_GC;
+      sgfProperty.idstr = const_cast<char*>("GC");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the SimpleText string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::GC );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Text );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto textValue = propertySingleValue->ToTextValue();
+        REQUIRE( textValue != nullptr );
+        REQUIRE( textValue->GetTextValue() == testData.second );
+      }
+    }
+
+    WHEN( "The property value is an invalid Text string" )
     {
       // No tests because there are no invalid SimpleText strings
     }

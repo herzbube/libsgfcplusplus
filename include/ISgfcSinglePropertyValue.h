@@ -103,7 +103,7 @@ namespace LibSgfcPlusPlus
     /// The following processing is applied to the original SGF content before
     /// it is made available from this getter as raw string:
     /// - The escape character ("\") is stripped from SimpleText and Text
-    ///   values.
+    ///   values (unless it was escaped itself).
     /// - Values that are not SimpleText or Text are trimmed of leading and
     ///   trailing whitespace.
     /// - In SimpleText values, whitespace characters other than space are
@@ -114,9 +114,9 @@ namespace LibSgfcPlusPlus
     ///   entirely.
     /// - In SimpleText and Text values, all unnecessary escape characters
     ///   are removed. E.g. escaping the "a" character is not necessary, so
-    ///   when SGFC sees "\a" it removes the unnecessary escape character and
-    ///   this method gets to process only "a". Necessary escape characters are
-    ///   preserved, though, and appear in the raw string (e.g. "\\" or "\]").
+    ///   "\a" appears as simply "a" in the raw string. Necessary escape
+    ///   characters are preserved, though, and appear in the raw string
+    ///   (e.g. "\\" or "\]").
     ///
     /// @todo How do we deal with encodings?
     virtual std::string GetRawValue() const = 0;
