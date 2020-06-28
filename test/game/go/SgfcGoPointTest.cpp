@@ -55,7 +55,7 @@ SCENARIO( "SgfcGoPoint is constructed", "[go]" )
     {
       auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
 
-      THEN( "SgfcGoPoint is constructed successfully" )
+      THEN( "The SgfcGoPoint constructor throws an exception" )
       {
         REQUIRE_THROWS_AS(
           SgfcGoPoint("A1", invalidGoBoardSize),
@@ -67,7 +67,7 @@ SCENARIO( "SgfcGoPoint is constructed", "[go]" )
     {
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoPointStrings()) );
 
-      THEN( "SgfcGoPoint is constructed successfully" )
+      THEN( "The SgfcGoPoint constructor throws an exception" )
       {
         REQUIRE_THROWS_AS(
           SgfcGoPoint(testData.first, testData.second),

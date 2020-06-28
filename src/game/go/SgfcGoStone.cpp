@@ -7,6 +7,8 @@ namespace LibSgfcPlusPlus
     : color(color)
     , location(location)
   {
+    if (this->location == nullptr)
+      throw std::invalid_argument("SgfcGoStone constructor failed: location object is nullptr");
   }
 
   SgfcGoStone::~SgfcGoStone()

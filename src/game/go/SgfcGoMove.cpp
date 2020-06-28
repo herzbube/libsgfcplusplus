@@ -5,12 +5,28 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGoMove::SgfcGoMove(std::shared_ptr<ISgfcGoStone> stone)
-    : stone(stone)
+    : playerColor(SgfcColor::Black)
+    , stone(stone)
+  {
+    if (this->stone == nullptr)
+      throw std::invalid_argument("SgfcGoMove constructor failed: stone object is nullptr");
+
+    this->playerColor = this->stone->GetColor();
+  }
+
+  SgfcGoMove::SgfcGoMove(SgfcColor playerColor)
+    : playerColor(playerColor)
+    , stone(nullptr)
   {
   }
 
   SgfcGoMove::~SgfcGoMove()
   {
+  }
+
+  bool SgfcGoMove::IsPassMove() const
+  {
+    return (this->stone == nullptr);
   }
 
   std::shared_ptr<ISgfcGoStone> SgfcGoMove::GetStone() const
@@ -20,11 +36,14 @@ namespace LibSgfcPlusPlus
 
   SgfcColor SgfcGoMove::GetPlayerColor() const
   {
-    return this->stone->GetColor();
+    return this->playerColor;
   }
 
   std::shared_ptr<ISgfcGoPoint> SgfcGoMove::GetStoneLocation() const
   {
-    return this->stone->GetLocation();
+    if (IsPassMove())
+      return nullptr;
+    else
+      return this->stone->GetLocation();
   }
 }

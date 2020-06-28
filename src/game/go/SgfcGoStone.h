@@ -11,7 +11,13 @@ namespace LibSgfcPlusPlus
   class SgfcGoStone : public ISgfcGoStone
   {
   public:
+    /// @brief Initializes a newly constructed SgfcGoStone object. @a color and
+    /// @a location indicate the color and location of the stone.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a location is nullptr.
     SgfcGoStone(SgfcColor color, std::shared_ptr<ISgfcGoPoint> location);
+
+    /// @brief Destroys and cleans up the SgfcGoStone object.
     virtual ~SgfcGoStone();
 
     virtual SgfcColor GetColor() const;

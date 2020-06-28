@@ -1,7 +1,9 @@
 set (
   SOURCES
   main.cpp
+  game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPointTest.cpp
+  game/go/SgfcGoStoneTest.cpp
   parsing/SgfcPropertyDecoderTest.cpp
   parsing/SgfcValueConverterTest.cpp
   sgfc/backend/SgfcBackendControllerTest.cpp
