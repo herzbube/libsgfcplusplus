@@ -41,7 +41,9 @@ namespace LibSgfcPlusPlus
     /// - The "1-1" figure notation of a point location consists of two figures
     ///   separated by a dash character ("-"). The first figure designates the
     ///   x-axis, the second the y-axis. Examples: "1-1", "6-17", "45-3", etc.
-    /// - The "1-1" figure notation can be used for arbitrary board sizes.
+    /// - In theory the "1-1" figure notation can be used for arbitrary board
+    ///   sizes, but in practice SGF limits the board size to a maximum of
+    ///   52x52.
     Figure,
 
     /// @brief The "A1" hybrid notation for representing a Go Point location.
@@ -60,7 +62,7 @@ namespace LibSgfcPlusPlus
     ///   followed by a number without any separator. The letter designates the
     ///   x-axis, the number the y-axis. Examples: "A1", "F17".
     /// - The maximum board size that can be used with the "A1" hybrid notation
-    ///   is 25x25.
+    ///   is 25x25. The maximum is not 26x26 because of the unused letter "I".
     Hybrid,
   };
 }

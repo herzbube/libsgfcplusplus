@@ -202,6 +202,21 @@ namespace LibSgfcPlusPlus
     return (string.compare(beginComparePosition, suffix.size(), suffix) == 0);
   }
 
+  std::vector<std::string> SgfcUtility::SplitString(const std::string& string, char delimiter)
+  {
+    std::vector<std::string> substrings;
+
+    std::stringstream stream(string);
+    std::string substring;
+
+    while (std::getline(stream, substring, delimiter))
+    {
+      substrings.push_back(substring);
+    }
+
+    return substrings;
+  }
+
   std::string SgfcUtility::CreateUuid()
   {
     // The following implementation is more or less a straight copy of this

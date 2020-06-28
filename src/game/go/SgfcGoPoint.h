@@ -12,7 +12,28 @@ namespace LibSgfcPlusPlus
   class SgfcGoPoint : public ISgfcGoPoint
   {
   public:
-    SgfcGoPoint(const std::string& sgfNotation, SgfcBoardSize boardSize);
+    /// @brief Initializes a newly constructed SgfcGoPoint object. The object
+    /// refers to the point specified by @a pointValue. @a boardSize indicates
+    /// the size of the Go board that the Go point is located on.
+    ///
+    /// @a pointValue can be given in any one of the notations enumerated in
+    /// SgfcGoPointNotation.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a boardSize refers to
+    /// a board that is not square, a board with size smaller than the minimum
+    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// board with size larger than the maximum allowed by the SGF standard
+    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a pointValue is
+    /// not given in one of the notations enumerated in SgfcGoPointNotation, or
+    /// if @a pointValue violates one of the restrictions imposed by the used
+    /// notation (e.g. y-axis compound larger than 25 when
+    /// #SgfcGoPointNotation::Hybrid is used), or if @a pointValue refers to an
+    /// invalid location on the board (e.g. an x-axis or y-axis location that
+    /// exceeds the board size specified by @a boardSize, or a compound < 1 when
+    /// #SgfcGoPointNotation::Figure is used).
+    SgfcGoPoint(const std::string& pointValue, SgfcBoardSize boardSize);
+
+    /// @brief Destroys and cleans up the SgfcGoPoint object.
     virtual ~SgfcGoPoint();
 
     virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const;
@@ -38,12 +59,31 @@ namespace LibSgfcPlusPlus
     std::string xCompoundHybridNotation;
     std::string yCompoundHybridNotation;
 
-    void DecomposeSgfNotation(const std::string& sgfNotation, SgfcBoardSize boardSize);
+    void DecomposePointValue(const std::string& pointValue, SgfcBoardSize boardSize);
+
+    void ParseSgfCompoundsOrThrow(const std::string& pointValue, SgfcBoardSize boardSize);
+    void ParseFigureCompoundsOrThrow(const std::string& xCompoundFigureNotation, const std::string& yCompoundFigureNotation, const std::string& pointValue, SgfcBoardSize boardSize);
+    void ParseHybridCompoundsOrThrow(const std::string& pointValue, SgfcBoardSize boardSize);
+
+    void SetPositionOrThrow(int xPositionUpperLeftOrigin, int yPositionUpperLeftOrigin, const std::string& pointValue, SgfcBoardSize boardSize);
+
+    void BuildSgfNotation();
+    void BuildFigureNotation();
+    void BuildHybridNotation();
+
     bool IsValidSgfCharacter(char character) const;
     unsigned int MapSgfCharacterToPosition(char character) const;
-    std::string MapPositionToXCompountHybridNotation(unsigned int position);
+    char MapPositionToSgfCharacter(unsigned int position) const;
+
+    bool IsValidXCompoundHybridNotation(char character) const;
+    unsigned int MapXCompoundHybridNotationToPosition(char character);
+    char MapPositionToXCompoundHybridNotation(unsigned int position);
+
+    bool DoesCompoundStringContainNonDigitCharacters(const std::string& compoundString) const;
+    bool IsDigit(char character) const;
 
     void ThrowInvalidCoordinateSystem(SgfcCoordinateSystem coordinateSystem) const;
     void ThrowInvalidGoPointNotation(SgfcGoPointNotation goPointNotation) const;
+    void ThrowPointValueNotInValidNotation(const std::string& pointValue) const;
   };
 }

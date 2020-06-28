@@ -104,6 +104,10 @@ namespace LibSgfcPlusPlus
     /// sensitive.
     static bool StringEndsWith(const std::string& string, const std::string& suffix);
 
+    /// @brief Splits @a string into substrings using the single character
+    /// @a delimiter as the delimiter.
+    static std::vector<std::string> SplitString(const std::string& string, char delimiter);
+
     /// @brief Returns a newly generated random UUID.
     static std::string CreateUuid();
 

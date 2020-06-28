@@ -1,9 +1,10 @@
 // Project includes
 #include "../../SgfcPrivateConstants.h"
+#include "../../SgfcUtility.h"
 #include "SgfcMessageStream.h"
 
 // C++ Standardd Library includes
-#include <sstream>
+//#include <sstream>
 
 namespace LibSgfcPlusPlus
 {
@@ -48,22 +49,18 @@ namespace LibSgfcPlusPlus
 
   void SgfcMessageStream::SplitRawMessageStreamContentIntoLines()
   {
-    std::stringstream messageStream(this->rawMessageStreamContent);
-    std::string line;
-
     // The SGFC function PrintError() exclusively uses newline characters to
     // delimit lines. This is a bit surprising, since SGFC has support for
     // flexible line endings when it writes SGF content to a file. If this
-    // changes in a future SGFC implementation and and PrintError() starts to
+    // changes in a future SGFC implementation and PrintError() starts to
     // use flexible line endings, too, then we will no longer be able to use
     // std::getline(), as that supports only a single character as the line
     // ending, but on Windows we can have two characters (CRLF). Note that in
     // that case we can use SgfcPrivateConstants::EndOfLineStringUsedBySgfc to
     // find out what line ending SGFC uses.
-    while (std::getline(messageStream, line, SgfcPrivateConstants::NewlineCharacter))
-    {
-      this->messageStreamLines.push_back(line);
-    }
+    this->messageStreamLines = SgfcUtility::SplitString(
+      this->rawMessageStreamContent,
+      SgfcPrivateConstants::NewlineCharacter);
   }
 
   std::vector<std::string> SgfcMessageStream::GetMessageStreamLines() const

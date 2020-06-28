@@ -304,4 +304,118 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> TestDataGenerator::GetGoPointStrings()
+  {
+    std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> testData =
+    {
+      // SgfcGoPointNotation::Sgf
+      // Coordinate system origin is upper-left corner
+      std::make_tuple("as", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
+      std::make_tuple("sa", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      // Uppercase letters start at 26
+      std::make_tuple("Az", SgfcConstants::BoardSizeMaximumGo, 27, 26, 27, 27, true, true, false, "Az", "27-26", ""),
+      std::make_tuple("zA", SgfcConstants::BoardSizeMaximumGo, 26, 27, 26, 26, true, true, false, "zA", "26-27", ""),
+      // Minimum/Maximum board size
+      std::make_tuple("aa", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
+      std::make_tuple("ZZ", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", ""),
+
+      // SgfcGoPointNotation::Figure
+      // Coordinate system origin is upper-left corner
+      std::make_tuple("1-19", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
+      std::make_tuple("19-1", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      // Minimum/Maximum board size
+      std::make_tuple("1-1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
+      std::make_tuple("52-52", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", ""),
+
+      // SgfcGoPointNotation::Hybrid
+      // Coordinate system origin is lower-left corner
+      std::make_tuple("A1", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
+      std::make_tuple("T19", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      // Letter "I" is not used
+      std::make_tuple("H5", SgfcConstants::BoardSizeDefaultGo, 8, 15, 8, 5, true, true, true, "ho", "8-15", "H5"),
+      std::make_tuple("J5", SgfcConstants::BoardSizeDefaultGo, 9, 15, 9, 5, true, true, true, "io", "9-15", "J5"),
+      // Minimum/Maximum board size
+      std::make_tuple("A1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
+      std::make_tuple("Z25", SgfcBoardSize { 25, 25 }, 25, 1, 25, 25, true, true, true, "ya", "25-1", "Z25"),
+
+      // As long as a location can be expressed in Hybrid notation it will be
+      // done, even if the board is larger than the coordinate space that
+      // hybrid notation can cover
+      std::make_tuple("yB", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
+      std::make_tuple("25-28", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
+      std::make_tuple("Z25", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
+      std::make_tuple("yA", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", ""),
+      std::make_tuple("25-27", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", ""),
+      std::make_tuple("zB", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", ""),
+      std::make_tuple("26-28", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", "")
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcBoardSize> TestDataGenerator::GetInvalidGoBoardSizes()
+  {
+    std::vector<SgfcBoardSize> testData =
+    {
+      // Not square
+      SgfcBoardSize { 19, 18 },
+      SgfcBoardSize { 18, 19 },
+      // Below minimum
+      SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns - 1, SgfcConstants::BoardSizeMinimum.Rows - 1 },
+      // Above maximum
+      SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns + 1, SgfcConstants::BoardSizeMaximumGo.Rows + 1 }
+    };
+
+    return testData;
+  }
+
+  std::vector<std::pair<std::string, SgfcBoardSize>> TestDataGenerator::GetInvalidGoPointStrings()
+  {
+    std::vector<std::pair<std::string, SgfcBoardSize>> testData =
+    {
+      // Invalid because the string is not a valid notation
+      std::pair<std::string, SgfcBoardSize> { "", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "foo", SgfcConstants::BoardSizeDefaultGo },
+      // Valid SgfcGoPointNotation::Sgf but exceeds the board size
+      std::pair<std::string, SgfcBoardSize> { "az", SgfcBoardSize { 25, 25 } },
+      std::pair<std::string, SgfcBoardSize> { "za", SgfcBoardSize { 25, 25 } },
+      std::pair<std::string, SgfcBoardSize> { "at", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "ta", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "ab", SgfcConstants::BoardSizeMinimum },
+      std::pair<std::string, SgfcBoardSize> { "ba", SgfcConstants::BoardSizeMinimum },
+      // Invalid SgfcGoPointNotation::Sgf - compounds must be letters
+      std::pair<std::string, SgfcBoardSize> { "a$", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "$a", SgfcConstants::BoardSizeDefaultGo },
+      // Valid SgfcGoPointNotation::Figure but exceeds the board size
+      std::pair<std::string, SgfcBoardSize> { "1-53", SgfcConstants::BoardSizeMaximumGo },
+      std::pair<std::string, SgfcBoardSize> { "53-1", SgfcConstants::BoardSizeMaximumGo },
+      std::pair<std::string, SgfcBoardSize> { "1-20", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "20-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1-2", SgfcConstants::BoardSizeMinimum },
+      std::pair<std::string, SgfcBoardSize> { "2-1", SgfcConstants::BoardSizeMinimum },
+      std::pair<std::string, SgfcBoardSize> { "1-0", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "0-1", SgfcConstants::BoardSizeDefaultGo },
+      // Invalid SgfcGoPointNotation::Figure - compounds must be numeric
+      std::pair<std::string, SgfcBoardSize> { "a-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1-a", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1a-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1-1a", SgfcConstants::BoardSizeDefaultGo },
+      // Looks like SgfcGoPointNotation::Figure, but signed numbers are not recognized
+      std::pair<std::string, SgfcBoardSize> { "-1-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1--1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "+1-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "1-+1", SgfcConstants::BoardSizeDefaultGo },
+      // Invalid SgfcGoPointNotation::Hybrid
+      std::pair<std::string, SgfcBoardSize> { "a1", SgfcConstants::BoardSizeDefaultGo },  // lowercase letters are not allowed
+      std::pair<std::string, SgfcBoardSize> { "A0", SgfcConstants::BoardSizeDefaultGo },  // minimum y-axis position is 1
+      std::pair<std::string, SgfcBoardSize> { "I1", SgfcConstants::BoardSizeDefaultGo },  // letter "I" is unused
+      std::pair<std::string, SgfcBoardSize> { "A26", SgfcConstants::BoardSizeMaximumGo }, // notation cannot address board sizes > 25x25
+      // Looks like SgfcGoPointNotation::Hybrid, but signed numbers are not recognized
+      std::pair<std::string, SgfcBoardSize> { "A-1", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { "A+1", SgfcConstants::BoardSizeDefaultGo }
+    };
+
+    return testData;
+  }
 }

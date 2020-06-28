@@ -1,6 +1,8 @@
 // Project includes
 #include "SgfcGoPoint.h"
 #include "../../SgfcPrivateConstants.h"
+#include "../../SgfcUtility.h"
+#include "../../../include/SgfcConstants.h"
 
 // C++ Standard Library includes
 #include <sstream>
@@ -8,12 +10,33 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoPoint::SgfcGoPoint(const std::string& sgfNotation, SgfcBoardSize boardSize)
+  SgfcGoPoint::SgfcGoPoint(const std::string& pointValue, SgfcBoardSize boardSize)
     : xPositionUpperLeftOrigin(0)
     , yPositionUpperLeftOrigin(0)
     , yPositionLowerLeftOrigin(0)
   {
-    DecomposeSgfNotation(sgfNotation, boardSize);
+    if (! boardSize.IsSquare())
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Board size parameter indicates a non-square board. Columns/Rows = " << boardSize.Columns << " / " << boardSize.Rows;
+      throw std::invalid_argument(message.str());
+    }
+
+    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board smaller than the minimum required by the SGF standard (" << SgfcConstants::BoardSizeMinimum.Columns << "). Size = " << boardSize.Columns;
+      throw std::invalid_argument(message.str());
+    }
+
+    if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board larger than the maximum allowed by the SGF standard (" << SgfcConstants::BoardSizeMaximumGo.Columns << "). Size = " << boardSize.Columns;
+      throw std::invalid_argument(message.str());
+    }
+
+    DecomposePointValue(pointValue, boardSize);
   }
 
   SgfcGoPoint::~SgfcGoPoint()
@@ -133,41 +156,197 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcGoPoint::DecomposeSgfNotation(const std::string& sgfNotation, SgfcBoardSize boardSize)
+  void SgfcGoPoint::DecomposePointValue(const std::string& pointValue, SgfcBoardSize boardSize)
   {
-    if (sgfNotation.size() != 2)
-      return;
+    auto substrings = SgfcUtility::SplitString(pointValue, '-');
+    if (substrings.size() > 2)
+      ThrowPointValueNotInValidNotation(pointValue);
 
-    char xCompoundCharacterSgfNotation = sgfNotation.at(0);
-    char yCompoundCharacterSgfNotation = sgfNotation.at(1);
-    if (! IsValidSgfCharacter(xCompoundCharacterSgfNotation) ||
-        ! IsValidSgfCharacter(yCompoundCharacterSgfNotation))
+    if (substrings.size() == 2)
     {
-      return;
+      ParseFigureCompoundsOrThrow(substrings.front(), substrings.back(), pointValue, boardSize);
+    }
+    else
+    {
+      if (pointValue.size() < 2 || pointValue.size() > 3)
+        ThrowPointValueNotInValidNotation(pointValue);
+
+      if (IsDigit(pointValue.at(1)))
+      {
+        ParseHybridCompoundsOrThrow(pointValue, boardSize);
+      }
+      else
+      {
+        if (pointValue.size() != 2)
+          ThrowPointValueNotInValidNotation(pointValue);
+
+        ParseSgfCompoundsOrThrow(pointValue, boardSize);
+      }
     }
 
-    this->xPositionUpperLeftOrigin = MapSgfCharacterToPosition(xCompoundCharacterSgfNotation);
-    this->yPositionUpperLeftOrigin = MapSgfCharacterToPosition(yCompoundCharacterSgfNotation);
+    BuildSgfNotation();
+    BuildFigureNotation();
+    BuildHybridNotation();
+  }
 
-    this->sgfNotation = sgfNotation;
-    this->xCompoundSgfNotation = xCompoundCharacterSgfNotation;
-    this->yCompoundSgfNotation = yCompoundCharacterSgfNotation;
+  void SgfcGoPoint::ParseSgfCompoundsOrThrow(
+    const std::string& pointValue,
+    SgfcBoardSize boardSize)
+  {
+    char xCompoundCharacterSgfNotation = pointValue.at(0);
+    char yCompoundCharacterSgfNotation = pointValue.at(1);
 
+    if (! IsValidSgfCharacter(xCompoundCharacterSgfNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in SGF notation has invalid x-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    if (! IsValidSgfCharacter(yCompoundCharacterSgfNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in SGF notation has invalid y-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    SetPositionOrThrow(MapSgfCharacterToPosition(xCompoundCharacterSgfNotation),
+                       MapSgfCharacterToPosition(yCompoundCharacterSgfNotation),
+                       pointValue,
+                       boardSize);
+  }
+
+  void SgfcGoPoint::ParseFigureCompoundsOrThrow(
+    const std::string& xCompoundFigureNotation,
+    const std::string& yCompoundFigureNotation,
+    const std::string& pointValue,
+    SgfcBoardSize boardSize)
+  {
+    if (DoesCompoundStringContainNonDigitCharacters(xCompoundFigureNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in Figure notation has non-numeric x-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    if (DoesCompoundStringContainNonDigitCharacters(yCompoundFigureNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in Figure notation has non-numeric y-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    SetPositionOrThrow(stoi(xCompoundFigureNotation),
+                       stoi(yCompoundFigureNotation),
+                       pointValue,
+                       boardSize);
+  }
+
+  void SgfcGoPoint::ParseHybridCompoundsOrThrow(
+    const std::string& pointValue,
+    SgfcBoardSize boardSize)
+  {
+    char xCompoundHybridNotation = pointValue.at(0);
+    std::string yCompoundHybridNotation = pointValue.substr(1);
+
+    if (! IsValidXCompoundHybridNotation(xCompoundHybridNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in Hybrid notation has invalid x-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    if (DoesCompoundStringContainNonDigitCharacters(yCompoundHybridNotation))
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in Hybrid notation has non-numeric y-axis compound. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    unsigned int yPositionLowerLeftOrigin = stoi(yCompoundHybridNotation);
+    if (yPositionLowerLeftOrigin > 25)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value given in Hybrid notation has y-axis compound that exceeds the maximum allowed value. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    unsigned int yPositionUpperLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - yPositionLowerLeftOrigin);
+
+    SetPositionOrThrow(MapXCompoundHybridNotationToPosition(xCompoundHybridNotation),
+                       yPositionUpperLeftOrigin,
+                       pointValue,
+                       boardSize);
+  }
+
+  void SgfcGoPoint::SetPositionOrThrow(
+    int xPositionUpperLeftOrigin,
+    int yPositionUpperLeftOrigin,
+    const std::string& pointValue,
+    SgfcBoardSize boardSize)
+  {
+    if (xPositionUpperLeftOrigin < 1)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value refers to an x-axis location less than 1. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+    else if (xPositionUpperLeftOrigin > boardSize.Columns)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value refers to an x-axis location that exceeds the board size " << boardSize.Columns << ". Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+    else if (yPositionUpperLeftOrigin < 1)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value refers to an y-axis location less than 1. Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+    else if (yPositionUpperLeftOrigin > boardSize.Rows)
+    {
+      std::stringstream message;
+      message << "SgfcGoPoint constructor failed: Point value refers to an y-axis location that exceeds the board size " << boardSize.Columns << ". Point value = " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    this->xPositionUpperLeftOrigin = xPositionUpperLeftOrigin;
+    this->yPositionUpperLeftOrigin = yPositionUpperLeftOrigin;
+    this->yPositionLowerLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - this->yPositionUpperLeftOrigin);
+  }
+
+  void SgfcGoPoint::BuildSgfNotation()
+  {
+    this->xCompoundSgfNotation = MapPositionToSgfCharacter(this->xPositionUpperLeftOrigin);
+    this->yCompoundSgfNotation = MapPositionToSgfCharacter(this->yPositionUpperLeftOrigin);
+    this->sgfNotation = this->xCompoundSgfNotation + this->yCompoundSgfNotation;
+  }
+
+  void SgfcGoPoint::BuildFigureNotation()
+  {
     std::stringstream stream;
     stream << this->xPositionUpperLeftOrigin;
     this->xCompoundFigureNotation = stream.str();
+
     stream.str(SgfcPrivateConstants::EmptyString);
     stream << this->yPositionUpperLeftOrigin;
     this->yCompoundFigureNotation = stream.str();
-    this->figureNotation = this->xCompoundFigureNotation + "-" + this->yCompoundFigureNotation;
 
-    this->xCompoundHybridNotation = MapPositionToXCompountHybridNotation(this->xPositionUpperLeftOrigin);
-    // Because boardSize must refer to a square board we don't have to look at
-    // the boardSize.Columns
-    this->yPositionLowerLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - this->yPositionUpperLeftOrigin);
+    this->figureNotation = this->xCompoundFigureNotation + "-" + this->yCompoundFigureNotation;
+  }
+
+  void SgfcGoPoint::BuildHybridNotation()
+  {
+    if (this->xPositionUpperLeftOrigin > 25 || this->yPositionLowerLeftOrigin > 25)
+      return;
+
+    this->xCompoundHybridNotation = MapPositionToXCompoundHybridNotation(this->xPositionUpperLeftOrigin);
+
+    std::stringstream stream;
     stream.str(SgfcPrivateConstants::EmptyString);
     stream << this->yPositionLowerLeftOrigin;
     this->yCompoundHybridNotation = stream.str();
+
     this->hybridNotation = this->xCompoundHybridNotation + this->yCompoundHybridNotation;
   }
 
@@ -191,14 +370,67 @@ namespace LibSgfcPlusPlus
       return 0;
   }
 
-  std::string SgfcGoPoint::MapPositionToXCompountHybridNotation(unsigned int position)
+  char SgfcGoPoint::MapPositionToSgfCharacter(unsigned int position) const
+  {
+    char characterSgfNotation;
+
+    if (position <= 26)
+      characterSgfNotation = 'a' + position - 1;
+    else
+      characterSgfNotation = 'A' + position - 26 - 1;
+
+    return characterSgfNotation;
+  }
+
+  bool SgfcGoPoint::IsValidXCompoundHybridNotation(char character) const
+  {
+    if (character >= 'A' && character <= 'H')
+      return true;
+    else if (character >= 'J' && character <= 'Z')
+      return true;
+    else
+      return false;
+  }
+
+  unsigned int SgfcGoPoint::MapXCompoundHybridNotationToPosition(char character)
+  {
+    if (character >= 'A' && character <= 'H')
+      return character - 'A' + 1;
+    else if (character >= 'J' && character <= 'Z')
+      return character - 'J' + 8 + 1;
+    else
+      return 0;
+  }
+
+  char SgfcGoPoint::MapPositionToXCompoundHybridNotation(unsigned int position)
   {
     // Position 9 = letter "I" - we want to skip "I"
     if (position >= 9)
       position++;
 
     char character = 'A' + position - 1;
-    return std::string(character, 1);
+
+    return character;
+  }
+
+  bool SgfcGoPoint::DoesCompoundStringContainNonDigitCharacters(const std::string& compoundString) const
+  {
+    for (auto character : compoundString)
+    {
+      if (! IsDigit(character))
+        return true;
+    }
+    return false;
+  }
+
+  bool SgfcGoPoint::IsDigit(char character) const
+  {
+    // Don't use std::isdigit() - we don't want to depend on the locale as to
+    // what counts as a digit and what doesn't
+    if (character >= '0' && character <= '9')
+      return true;
+    else
+      return false;
   }
 
   void SgfcGoPoint::ThrowInvalidCoordinateSystem(SgfcCoordinateSystem coordinateSystem) const
@@ -213,5 +445,12 @@ namespace LibSgfcPlusPlus
     std::stringstream message;
     message << "Unexpected Go point notation. SgfcGoPointNotation value = " << static_cast<int>(goPointNotation);
     throw std::logic_error(message.str());
+  }
+
+  void SgfcGoPoint::ThrowPointValueNotInValidNotation(const std::string& pointValue) const
+  {
+    std::stringstream message;
+    message << "SgfcGoPoint constructor failed: Point value not given in any valid notation. Point value = " << pointValue;
+    throw std::invalid_argument(message.str());
   }
 }

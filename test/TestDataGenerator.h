@@ -1,12 +1,15 @@
 #pragma once
 
 // Library includes
+#include <SgfcBoardSize.h>
 #include <SgfcColor.h>
 #include <SgfcDouble.h>
 #include <SgfcTypedefs.h>
+#include <game/go/SgfcGoPoint.h>
 
 // C++ Standard Library includes
 #include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -36,6 +39,10 @@ namespace LibSgfcPlusPlus
     static std::vector<std::pair<std::string, std::string>> GetSimpleTextStrings();
 
     static std::vector<std::pair<std::string, std::string>> GetTextStrings();
+
+    static std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> GetGoPointStrings();
+    static std::vector<SgfcBoardSize> GetInvalidGoBoardSizes();
+    static std::vector<std::pair<std::string, SgfcBoardSize>> GetInvalidGoPointStrings();
 
   private:
     TestDataGenerator();

@@ -96,7 +96,7 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines this to be SgfcGameType::Go.
     static const SgfcGameType DefaultGameType;
 
-    /// @brief The minimum board size that is allowed for SgfcPropertyType::SZ.
+    /// @brief The minimum board size that is required for SgfcPropertyType::SZ.
     ///
     /// The SGF standard defines this to be 1x1.
     static const SgfcBoardSize BoardSizeMinimum;
