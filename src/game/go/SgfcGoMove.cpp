@@ -2,6 +2,9 @@
 #include "../../../include/ISgfcGoStone.h"
 #include "SgfcGoMove.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcGoMove::SgfcGoMove(std::shared_ptr<ISgfcGoStone> stone)

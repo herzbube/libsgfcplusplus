@@ -1,6 +1,9 @@
 // Project includes
 #include "SgfcGoStone.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcGoStone::SgfcGoStone(SgfcColor color, std::shared_ptr<ISgfcGoPoint> location)
