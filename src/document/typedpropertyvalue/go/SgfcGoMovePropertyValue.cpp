@@ -12,6 +12,12 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(SgfcColor color)
+    : SgfcMovePropertyValue("")
+    , goMove(new SgfcGoMove(color))
+  {
+  }
+
   SgfcGoMovePropertyValue::~SgfcGoMovePropertyValue()
   {
   }

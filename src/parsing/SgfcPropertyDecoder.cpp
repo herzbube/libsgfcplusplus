@@ -651,8 +651,20 @@ namespace LibSgfcPlusPlus
         if (gameType == SgfcGameType::Go)
         {
           SgfcColor color = GetColorForPropertyType();
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-           rawPropertyValueBuffer, this->boardSize, color));
+          if (rawPropertyValueBuffer == SgfcPrivateConstants::EmptyString)
+          {
+            propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+             rawPropertyValueBuffer, this->boardSize, color));
+          }
+          else
+          {
+            // TODO: Verify that SGFC converts "tt" to an empty string if the
+            // board size is smaller than 19x19. According to the SGF standard
+            // "tt" is an FF3 feature. Document that we expect that the
+            // preprocessing is taking place.
+            propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+             color));
+          }
         }
         else
         {

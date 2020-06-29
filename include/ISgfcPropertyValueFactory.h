@@ -123,10 +123,35 @@ namespace LibSgfcPlusPlus
       SgfcBoardSize boardSize) const = 0;
 
     /// @brief Returns a newly constructed ISgfcGoMovePropertyValue object
-    /// that has the string value @a moveValue.
+    /// that has the string value @a moveValue. @a color is the color of the
+    /// player who made the move. The move is not a pass move. @a boardSize
+    /// indicates the size of the Go board that the Go move is played on.
+    ///
+    /// @a moveValue refers to the location (a Go point) of the stone that is
+    /// placed by the move on the board. @a moveValue can be given in any one of
+    /// the notations enumerated in SgfcGoPointNotation.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a boardSize refers to
+    /// a board that is not square, a board with size smaller than the minimum
+    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// board with size larger than the maximum allowed by the SGF standard
+    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a moveValue is
+    /// not given in one of the notations enumerated in SgfcGoPointNotation, or
+    /// if @a moveValue violates one of the restrictions imposed by the used
+    /// notation (e.g. y-axis compound larger than 25 when
+    /// #SgfcGoPointNotation::Hybrid is used), or if @a moveValue refers to an
+    /// invalid location on the board (e.g. an x-axis or y-axis location that
+    /// exceeds the board size specified by @a boardSize, or a compound < 1 when
+    /// #SgfcGoPointNotation::Figure is used).
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       const std::string& moveValue,
       SgfcBoardSize boardSize,
+      SgfcColor color) const = 0;
+
+    /// @brief Returns a newly constructed ISgfcGoMovePropertyValue object
+    /// that has no value. @a color is the color of the player who made the
+    /// move. The move is a pass move.
+    virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       SgfcColor color) const = 0;
 
     /// @brief Returns a newly constructed ISgfcGoStonePropertyValue object

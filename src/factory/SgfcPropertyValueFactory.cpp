@@ -146,6 +146,14 @@ namespace LibSgfcPlusPlus
     return valueObject;
   }
 
+  std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
+    SgfcColor color) const
+  {
+    std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
+      new SgfcGoMovePropertyValue(color));
+    return valueObject;
+  }
+
   std::shared_ptr<ISgfcGoStonePropertyValue> SgfcPropertyValueFactory::CreateGoStonePropertyValue(
     const std::string& stoneValue,
     SgfcBoardSize boardSize,
