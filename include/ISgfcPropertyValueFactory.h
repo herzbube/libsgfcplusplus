@@ -155,7 +155,26 @@ namespace LibSgfcPlusPlus
       SgfcColor color) const = 0;
 
     /// @brief Returns a newly constructed ISgfcGoStonePropertyValue object
-    /// that has the string value @a stoneValue.
+    /// that has the string value @a stoneValue. @a color is the color of the
+    /// stone. @a boardSize indicates the size of the Go board that the Go
+    /// stone is located on.
+    ///
+    /// @a stoneValue refers to the Go point on which the stone is located.
+    /// @a stoneValue can be given in any one of the notations enumerated in
+    /// SgfcGoPointNotation.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a boardSize refers to
+    /// a board that is not square, a board with size smaller than the minimum
+    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// board with size larger than the maximum allowed by the SGF standard
+    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a stoneValue is
+    /// not given in one of the notations enumerated in SgfcGoPointNotation, or
+    /// if @a stoneValue violates one of the restrictions imposed by the used
+    /// notation (e.g. y-axis compound larger than 25 when
+    /// #SgfcGoPointNotation::Hybrid is used), or if @a stoneValue refers to an
+    /// invalid location on the board (e.g. an x-axis or y-axis location that
+    /// exceeds the board size specified by @a boardSize, or a compound < 1 when
+    /// #SgfcGoPointNotation::Figure is used).
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
       const std::string& stoneValue,
       SgfcBoardSize boardSize,

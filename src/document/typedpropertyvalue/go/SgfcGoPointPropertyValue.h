@@ -35,7 +35,7 @@ namespace LibSgfcPlusPlus
     /// #SgfcGoPointNotation::Figure is used).
     SgfcGoPointPropertyValue(const std::string& rawValue, SgfcBoardSize boardSize);
 
-    /// @brief Destroys and cleans up the SgfcGoPoint object.
+    /// @brief Destroys and cleans up the SgfcGoPointPropertyValue object.
     virtual ~SgfcGoPointPropertyValue();
 
     virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const;
