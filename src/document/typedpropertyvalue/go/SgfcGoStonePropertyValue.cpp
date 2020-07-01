@@ -11,6 +11,12 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(const std::string& rawValue, SgfcColor color)
+    : SgfcStonePropertyValue(rawValue)
+    , goStone(new SgfcGoStone(color))
+  {
+  }
+
   SgfcGoStonePropertyValue::~SgfcGoStonePropertyValue()
   {
   }

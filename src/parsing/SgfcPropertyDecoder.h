@@ -114,6 +114,20 @@ namespace LibSgfcPlusPlus
     /// The one that was predetermined at compile time. This method is capable
     /// of recognizing and handling all kinds of platform-specific line breaks.
     ///
+    /// @note If SgfcPropertyDecoder was constructed with SgfcGameType::Go
+    /// the decoding process performs the following game logic validation:
+    /// - If SgfcPropertyDecoder was constructed with
+    ///   SgfcConstants::BoardSizeNone or SgfcConstants::BoardSizeInvalid, any
+    ///   game-specific property value objects (e.g. ISgfcGoPointPropertyValue)
+    ///   that would normally contain an ISgfcGoPoint do not contain such an
+    ///   object. Instead they contain the raw property value only.
+    /// - If SgfcPropertyDecoder was constructed with a valid board size but
+    ///   the property value contains a location that is outside the boundaries
+    ///   of the specified board size, any game-specific property value objects
+    ///   (e.g. ISgfcGoPointPropertyValue) that would normally contain an
+    ///   ISgfcGoPoint do not contain such an object. Instead they contain the
+    ///   raw property value only.
+    ///
     /// @note This documentation has to be replicated on the public interface.
     /// specifically, the notes regarding the expected pre-processing performed
     /// by SGFC must be available as well in the documentation of
@@ -196,6 +210,12 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcTextPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcPointPropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcMovePropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcStonePropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;

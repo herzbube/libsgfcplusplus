@@ -43,15 +43,23 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
       const std::string& pointValue,
       SgfcBoardSize boardSize) const;
+    virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
+      const std::string& pointValue) const;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       const std::string& moveValue,
       SgfcBoardSize boardSize,
+      SgfcColor color) const;
+    virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
+      const std::string& moveValue,
       SgfcColor color) const;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       SgfcColor color) const;
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
       const std::string& stoneValue,
       SgfcBoardSize boardSize,
+      SgfcColor color) const;
+    virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
+      const std::string& stoneValue,
       SgfcColor color) const;
     //@}
 

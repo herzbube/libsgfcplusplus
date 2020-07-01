@@ -40,6 +40,17 @@ namespace LibSgfcPlusPlus
 
     /// @brief Initializes a newly constructed SgfcGoMovePropertyValue object.
     /// The object holds an ISgfcGoMove object that refers to the move
+    /// specified by @a rawValue and @a color. The move is not a pass move. No
+    /// attempt is made to interpret @a rawValue. As a consequence, the
+    /// SgfcGoMovePropertyValue object contains an ISgfcGoMove object that does
+    /// not hold an ISgfcGoPoint object.
+    ///
+    /// @a rawValue refers to the location (a Go point) of the stone that is
+    /// placed by the move on the board.
+    SgfcGoMovePropertyValue(const std::string& rawValue, SgfcColor color);
+
+    /// @brief Initializes a newly constructed SgfcGoMovePropertyValue object.
+    /// The object holds an ISgfcGoMove object that refers to the move
     /// specified by @a color. The move is a pass move.
     SgfcGoMovePropertyValue(SgfcColor color);
 

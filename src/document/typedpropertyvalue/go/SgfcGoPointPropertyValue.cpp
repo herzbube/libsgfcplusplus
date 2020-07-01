@@ -10,6 +10,12 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(const std::string& rawValue)
+    : SgfcPointPropertyValue(rawValue)
+    , goPoint(nullptr)
+  {
+  }
+
   SgfcGoPointPropertyValue::~SgfcGoPointPropertyValue()
   {
   }

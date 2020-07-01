@@ -13,11 +13,15 @@ namespace LibSgfcPlusPlus
 {
   class ISgfcGoPoint;
 
-  /// @brief The ISgfcGoStone interface represents a stone on a Go board.
+  /// @brief The ISgfcGoStone interface represents a Go stone.
   ///
-  /// A stone on a Go board is defined by its color and by its location on the
-  /// Go board. ISgfcGoStone stores an SgfcColor value and a reference to an
+  /// A Go stone on a Go board is defined by its color and by its location on
+  /// the Go board. ISgfcGoStone stores an SgfcColor value and a reference to an
   /// ISgfcGoPoint object to record these two pieces of information.
+  ///
+  /// A Go stone for which the location on the Go board is not known, or that
+  /// is not located on the board at all, does not store a reference to an
+  /// ISgfcGoPoint object.
   class SGFCPLUSPLUS_EXPORT ISgfcGoStone
   {
   public:
@@ -30,7 +34,16 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the color of the stone.
     virtual SgfcColor GetColor() const = 0;
 
-    /// @brief Returns the location of the stone on the Go board.
+    /// @brief Returns true if the stone is located on the board and its
+    /// location is known (GetLocation() does not return @e nullptr). Returns
+    /// false if the location of the stone on the Go board is not known,
+    /// or if the stone is not located on the board at all (GetLocation()
+    /// returns @e nullptr).
+    virtual bool HasLocation() const = 0;
+
+    /// @brief Returns the location of the stone on the Go board. Returns
+    /// @e nullptr if the location of the stone on the Go board is not known,
+    /// or if the stone is not located on the board at all.
     virtual std::shared_ptr<ISgfcGoPoint> GetLocation() const = 0;
   };
 }

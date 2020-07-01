@@ -609,8 +609,6 @@ namespace LibSgfcPlusPlus
     const char* rawPropertyValueBuffer,
     SgfcPropertyValueType propertyValueType) const
   {
-    SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
-
     std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
 
     switch (propertyValueType)
@@ -634,58 +632,13 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::Point:
-        if (gameType == SgfcGameType::Go)
-        {
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
-           rawPropertyValueBuffer,
-           this->boardSize));
-        }
-        else
-        {
-          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-           rawValueWithoutEscapeCharacters));
-        }
+        propertyValue = GetSgfcPointPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::Move:
-        if (gameType == SgfcGameType::Go)
-        {
-          SgfcColor color = GetColorForPropertyType();
-          if (rawPropertyValueBuffer == SgfcPrivateConstants::EmptyString)
-          {
-            propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-             rawPropertyValueBuffer, this->boardSize, color));
-          }
-          else
-          {
-            // TODO: Verify that SGFC converts "tt" to an empty string if the
-            // board size is smaller than 19x19. According to the SGF standard
-            // "tt" is an FF3 feature. Document that we expect that the
-            // preprocessing is taking place.
-            propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-             color));
-          }
-        }
-        else
-        {
-          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-           rawValueWithoutEscapeCharacters));
-        }
+        propertyValue = GetSgfcMovePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::Stone:
-        if (gameType == SgfcGameType::Go)
-        {
-          SgfcColor color = GetColorForPropertyType();
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
-           rawPropertyValueBuffer, this->boardSize, color));
-        }
-        else
-        {
-          std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
-          propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-           rawValueWithoutEscapeCharacters));
-        }
+        propertyValue = GetSgfcStonePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::Unknown:
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(
@@ -853,6 +806,108 @@ namespace LibSgfcPlusPlus
     return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
       rawPropertyValueBuffer,
       rawValueWithoutEscapeCharacters));
+  }
+
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcPointPropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer) const
+  {
+    SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
+
+    if (gameType == SgfcGameType::Go)
+    {
+      try
+      {
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
+         rawPropertyValueBuffer,
+         this->boardSize));
+      }
+      catch (std::invalid_argument&)
+      {
+        // Interpretation of the property value failed. We expect SGFC to
+        // validate point values for us in relation to the board size, but we
+        // don't rely on it.
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
+         rawPropertyValueBuffer));
+      }
+    }
+    else
+    {
+      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
+       rawValueWithoutEscapeCharacters));
+    }
+  }
+
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcMovePropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer) const
+  {
+    SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
+
+    if (gameType == SgfcGameType::Go)
+    {
+      SgfcColor color = GetColorForPropertyType();
+      if (rawPropertyValueBuffer == SgfcPrivateConstants::EmptyString)
+      {
+        // TODO: Verify that SGFC converts "tt" to an empty string if the
+        // board size is smaller than 19x19. According to the SGF standard
+        // "tt" is an FF3 feature. Document that we expect that the
+        // preprocessing is taking place.
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+         color));
+      }
+      else
+      {
+        try
+        {
+          return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+           rawPropertyValueBuffer, this->boardSize, color));
+        }
+        catch (std::invalid_argument&)
+        {
+          // Interpretation of the property value failed. We expect SGFC to
+          // validate move values for us in relation to the board size, but we
+          // don't rely on it.
+          return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
+           rawPropertyValueBuffer, color));
+        }
+      }
+    }
+    else
+    {
+      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
+       rawValueWithoutEscapeCharacters));
+    }
+  }
+
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcStonePropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer) const
+  {
+    SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
+
+    if (gameType == SgfcGameType::Go)
+    {
+      SgfcColor color = GetColorForPropertyType();
+      try
+      {
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
+         rawPropertyValueBuffer, this->boardSize, color));
+      }
+      catch (std::invalid_argument&)
+      {
+        // Interpretation of the property value failed. We expect SGFC to
+        // validate stone values for us in relation to the board size, but w
+        // don't rely on it.
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
+         rawPropertyValueBuffer, color));
+      }
+    }
+    else
+    {
+      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
+       rawValueWithoutEscapeCharacters));
+    }
   }
 
   bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(

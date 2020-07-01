@@ -12,6 +12,12 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(const std::string& rawValue, SgfcColor color)
+    : SgfcMovePropertyValue(rawValue)
+    , goMove(new SgfcGoMove(std::shared_ptr<ISgfcGoStone>(new SgfcGoStone(color))))
+  {
+  }
+
   SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(SgfcColor color)
     : SgfcMovePropertyValue("")
     , goMove(new SgfcGoMove(color))

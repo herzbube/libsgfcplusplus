@@ -136,6 +136,14 @@ namespace LibSgfcPlusPlus
     return valueObject;
   }
 
+  std::shared_ptr<ISgfcGoPointPropertyValue> SgfcPropertyValueFactory::CreateGoPointPropertyValue(
+    const std::string& pointValue) const
+  {
+    std::shared_ptr<ISgfcGoPointPropertyValue> valueObject = std::shared_ptr<ISgfcGoPointPropertyValue>(
+      new SgfcGoPointPropertyValue(pointValue));
+    return valueObject;
+  }
+
   std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
     const std::string& moveValue,
     SgfcBoardSize boardSize,
@@ -143,6 +151,15 @@ namespace LibSgfcPlusPlus
   {
     std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
       new SgfcGoMovePropertyValue(moveValue, boardSize, color));
+    return valueObject;
+  }
+
+  std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
+    const std::string& moveValue,
+    SgfcColor color) const
+  {
+    std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
+      new SgfcGoMovePropertyValue(moveValue, color));
     return valueObject;
   }
 
@@ -161,6 +178,15 @@ namespace LibSgfcPlusPlus
   {
     std::shared_ptr<ISgfcGoStonePropertyValue> valueObject = std::shared_ptr<ISgfcGoStonePropertyValue>(
       new SgfcGoStonePropertyValue(stoneValue, boardSize, color));
+    return valueObject;
+  }
+
+  std::shared_ptr<ISgfcGoStonePropertyValue> SgfcPropertyValueFactory::CreateGoStonePropertyValue(
+    const std::string& stoneValue,
+    SgfcColor color) const
+  {
+    std::shared_ptr<ISgfcGoStonePropertyValue> valueObject = std::shared_ptr<ISgfcGoStonePropertyValue>(
+      new SgfcGoStonePropertyValue(stoneValue, color));
     return valueObject;
   }
 

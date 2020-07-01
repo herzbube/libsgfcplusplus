@@ -14,6 +14,12 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument("SgfcGoStone constructor failed: location object is nullptr");
   }
 
+  SgfcGoStone::SgfcGoStone(SgfcColor color)
+    : color(color)
+    , location(nullptr)
+  {
+  }
+
   SgfcGoStone::~SgfcGoStone()
   {
   }
@@ -21,6 +27,11 @@ namespace LibSgfcPlusPlus
   SgfcColor SgfcGoStone::GetColor() const
   {
     return this->color;
+  }
+
+  bool SgfcGoStone::HasLocation() const
+  {
+    return this->location != nullptr;
   }
 
   std::shared_ptr<ISgfcGoPoint> SgfcGoStone::GetLocation() const

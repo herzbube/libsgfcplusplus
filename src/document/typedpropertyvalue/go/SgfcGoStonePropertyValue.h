@@ -36,6 +36,16 @@ namespace LibSgfcPlusPlus
     /// #SgfcGoPointNotation::Figure is used).
     SgfcGoStonePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color);
 
+    /// @brief Initializes a newly constructed SgfcGoStonePropertyValue object.
+    /// The object holds an ISgfcGoStone object that refers to the stone
+    /// specified by @a rawValue and @a color. No attempt is made to interpret
+    /// @a rawValue. As a consequence, the SgfcGoStonePropertyValue object
+    /// contains an ISgfcGoStone object that does not hold an ISgfcGoPoint
+    /// object.
+    ///
+    /// @a rawValue refers to the Go point on which the stone is located.
+    SgfcGoStonePropertyValue(const std::string& rawValue, SgfcColor color);
+
     /// @brief Destroys and cleans up the SgfcGoStonePropertyValue object.
     virtual ~SgfcGoStonePropertyValue();
 
