@@ -328,6 +328,11 @@ namespace LibSgfcPlusPlus
 
   void SgfcDocument::DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const
   {
+    if (goPoint == nullptr)
+    {
+      std::cout << "        No Go point object" << std::endl;
+      return;
+    }
     std::vector<SgfcCoordinateSystem> coordinateSystems
     {
       SgfcCoordinateSystem::UpperLeftOrigin,
