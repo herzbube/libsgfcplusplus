@@ -7,12 +7,14 @@
 #include <ISgfcGoPoint.h>
 #include <ISgfcGoPointPropertyValue.h>
 #include <ISgfcGoStone.h>
+#include <ISgfcGoStonePropertyValue.h>
 #include <ISgfcMovePropertyValue.h>
 #include <ISgfcNumberPropertyValue.h>
 #include <ISgfcPointPropertyValue.h>
 #include <ISgfcRealPropertyValue.h>
 #include <ISgfcSimpleTextPropertyValue.h>
 #include <ISgfcSinglePropertyValue.h>
+#include <ISgfcStonePropertyValue.h>
 #include <ISgfcTextPropertyValue.h>
 #include <SgfcConstants.h>
 #include <parsing/SgfcPropertyDecoder.h>
@@ -38,6 +40,8 @@ void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcP
 void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
 void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
+void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition);
+void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString);
 
 
 SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
@@ -785,6 +789,119 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       }
     }
   }
+
+  GIVEN( "The property value type is Stone and the game type is not Go" )
+  {
+    WHEN( "The property value is a valid Stone string" )
+    {
+      std::string stoneString = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(stoneString.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AB;
+      sgfProperty.idstr = const_cast<char*>("AB");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::LinesOfAction, SgfcConstants::BoardSizeInvalid);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Stone string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AB );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto stoneValue = propertySingleValue->ToStoneValue();
+        REQUIRE( stoneValue != nullptr );
+        REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+        auto goStoneValue = stoneValue->ToGoStoneValue();
+        REQUIRE( goStoneValue == nullptr );
+      }
+    }
+
+    WHEN( "The property value is an invalid Stone string" )
+    {
+      // No tests because there are no invalid Stone strings for game types != Go
+    }
+  }
+
+  GIVEN( "The property value type is Stone and the game type is Go" )
+  {
+    WHEN( "The property value is a valid Stone string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+
+      // Need a local string variable so that we can store a reference to its
+      // c_str() in the PropValue object
+      auto stoneStringSgfNotation = std::get<9>(testData);
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(stoneStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AB;
+      sgfProperty.idstr = const_cast<char*>("AB");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Stone string value" )
+      {
+        AssertValidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, stoneStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
+      }
+    }
+
+    WHEN( "The property value is a valid Stone string but the board size is invalid" )
+    {
+      auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
+
+      std::string stoneStringSgfNotation = "aa";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(stoneStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AB;
+      sgfProperty.idstr = const_cast<char*>("AB");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcGoStonePropertyValue without ISgfcGoPoint" )
+      {
+        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, stoneStringSgfNotation);
+      }
+    }
+
+    WHEN( "The property value is an invalid Stone string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoPointStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AB;
+      sgfProperty.idstr = const_cast<char*>("AB");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcGoStonePropertyValue without ISgfcGoPoint" )
+      {
+        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, testData.first);
+      }
+    }
+  }
 }
 
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition)
@@ -897,4 +1014,54 @@ void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, Sgfc
   auto goPoint = goStone->GetLocation();
   REQUIRE( goPoint == nullptr );
   REQUIRE( goMove->GetStoneLocation() == nullptr );
+}
+
+void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition)
+{
+  SgfcColor expectedColor = propertyType == SgfcPropertyType::AB ? SgfcColor::Black : SgfcColor::White;
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto stoneValue = propertySingleValue->ToStoneValue();
+  REQUIRE( stoneValue != nullptr );
+  REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+  auto goStoneValue = stoneValue->ToGoStoneValue();
+  REQUIRE( goStoneValue != nullptr );
+  auto goStone = goStoneValue->GetGoStone();
+  REQUIRE( goStone != nullptr );
+  REQUIRE( goStone->GetColor() == expectedColor );
+  auto goPoint = goStone->GetLocation();
+  REQUIRE( goPoint != nullptr );
+  REQUIRE( goPoint->GetXPosition(SgfcCoordinateSystem::UpperLeftOrigin) == xPosition );
+  REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == yPosition );
+}
+
+void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString)
+{
+  SgfcColor expectedColor = propertyType == SgfcPropertyType::AB ? SgfcColor::Black : SgfcColor::White;
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto stoneValue = propertySingleValue->ToStoneValue();
+  REQUIRE( stoneValue != nullptr );
+  REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+  auto goStoneValue = stoneValue->ToGoStoneValue();
+  REQUIRE( goStoneValue != nullptr );
+  auto goStone = goStoneValue->GetGoStone();
+  REQUIRE( goStone != nullptr );
+  REQUIRE( goStone->GetColor() == expectedColor );
+  auto goPoint = goStone->GetLocation();
+  REQUIRE( goPoint == nullptr );
 }
