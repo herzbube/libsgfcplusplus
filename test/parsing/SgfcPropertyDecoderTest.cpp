@@ -2,11 +2,14 @@
 #include "../TestDataGenerator.h"
 #include <ISgfcColorPropertyValue.h>
 #include <ISgfcDoublePropertyValue.h>
+#include <ISgfcGoPointPropertyValue.h>
 #include <ISgfcNumberPropertyValue.h>
+#include <ISgfcPointPropertyValue.h>
 #include <ISgfcRealPropertyValue.h>
 #include <ISgfcSimpleTextPropertyValue.h>
 #include <ISgfcSinglePropertyValue.h>
 #include <ISgfcTextPropertyValue.h>
+#include <SgfcConstants.h>
 #include <parsing/SgfcPropertyDecoder.h>
 
 // SGFC includes
@@ -491,6 +494,155 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     WHEN( "The property value is an invalid Text string" )
     {
       // No tests because there are no invalid SimpleText strings
+    }
+  }
+
+  GIVEN( "The property value type is Point and the game type is not Go" )
+  {
+    WHEN( "The property value is a valid Point string" )
+    {
+      std::string pointString = GENERATE( "", "foo" );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(pointString.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_SE;
+      sgfProperty.idstr = const_cast<char*>("SE");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::LinesOfAction, SgfcConstants::BoardSizeInvalid);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Point string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SE );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == pointString );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto pointValue = propertySingleValue->ToPointValue();
+        REQUIRE( pointValue != nullptr );
+        REQUIRE( pointValue->GetRawPointValue() == pointString );
+        auto goPointValue = pointValue->ToGoPointValue();
+        REQUIRE( goPointValue == nullptr );
+      }
+    }
+
+    WHEN( "The property value is an invalid Point string" )
+    {
+      // No tests because there are no invalid Point strings for game types != Go
+    }
+  }
+
+  GIVEN( "The property value type is Point and the game type is Go" )
+  {
+    WHEN( "The property value is a valid Point string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+
+      // Need a local string variable so that we can store a reference to its
+      // c_str() in the PropValue object
+      auto pointStringSgfNotation = std::get<9>(testData);
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AE;
+      sgfProperty.idstr = const_cast<char*>("AE");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Point string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == pointStringSgfNotation );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto pointValue = propertySingleValue->ToPointValue();
+        REQUIRE( pointValue != nullptr );
+        REQUIRE( pointValue->GetRawPointValue() == pointStringSgfNotation );
+        auto goPointValue = pointValue->ToGoPointValue();
+        REQUIRE( goPointValue != nullptr );
+        auto goPoint = goPointValue->GetGoPoint();
+        REQUIRE( goPoint != nullptr );
+        REQUIRE( goPoint->GetXPosition(SgfcCoordinateSystem::UpperLeftOrigin) == std::get<2>(testData) );
+        REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == std::get<3>(testData) );
+      }
+    }
+
+    WHEN( "The property value is a valid Point string but the board size is invalid" )
+    {
+      auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
+
+      std::string pointStringSgfNotation = "aa";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AE;
+      sgfProperty.idstr = const_cast<char*>("AE");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == pointStringSgfNotation );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto pointValue = propertySingleValue->ToPointValue();
+        REQUIRE( pointValue != nullptr );
+        REQUIRE( pointValue->GetRawPointValue() == pointStringSgfNotation );
+        auto goPointValue = pointValue->ToGoPointValue();
+        REQUIRE( goPointValue != nullptr );
+        auto goPoint = goPointValue->GetGoPoint();
+        REQUIRE( goPoint == nullptr );
+      }
+    }
+
+    WHEN( "The property value is an invalid Point string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoPointStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_AE;
+      sgfProperty.idstr = const_cast<char*>("AE");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto pointValue = propertySingleValue->ToPointValue();
+        REQUIRE( pointValue != nullptr );
+        REQUIRE( pointValue->GetRawPointValue() == testData.first );
+        auto goPointValue = pointValue->ToGoPointValue();
+        REQUIRE( goPointValue != nullptr );
+        auto goPoint = goPointValue->GetGoPoint();
+        REQUIRE( goPoint == nullptr );
+      }
     }
   }
 }
