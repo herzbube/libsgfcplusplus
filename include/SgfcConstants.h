@@ -123,14 +123,14 @@ namespace LibSgfcPlusPlus
     /// @brief A number value denoting "no game type".
     ///
     /// ISgfcGame::GetGameTypeAsNumber() returns this value, for instance, if
-    /// the SgfcPropertyType::GM property is not present in a game's root ndoe,
+    /// the SgfcPropertyType::GM property is not present in a game's root node,
     /// or if the game has no root node.
     static const SgfcNumber GameTypeNone;
 
     /// @brief A board size value denoting "no board size".
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
-    /// SgfcPropertyType::SZ property is not present in a game's root ndoe,
+    /// SgfcPropertyType::SZ property is not present in a game's root node,
     /// or if the game has no root node.
     static const SgfcBoardSize BoardSizeNone;
 

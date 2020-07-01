@@ -64,14 +64,14 @@ namespace LibSgfcPlusPlus
     /// This is because the property is not defined in the SGF standard, so
     /// SgfcPropertyDecoder does not know the type the raw values should have.
     ///
-    /// If GetPropertyType() something other than SgfcPropertyType::Unknown,
-    /// the property is defined in the SGF standard and SgfcPropertyDecoder
-    /// attempts to convert the raw string values into values of the types
-    /// required by the property according to the SGF standard. In all cases the
-    /// GetValueType() method of ISgfcSinglePropertyValue objects returns the
-    /// value type as defined by the SGF standard. The outcome of the conversion
-    /// attempt determines the other properties of ISgfcSinglePropertyValue
-    /// objects:
+    /// If GetPropertyType() returns something other than
+    /// SgfcPropertyType::Unknown, the property is defined in the SGF standard
+    /// and SgfcPropertyDecoder attempts to convert the raw string values into
+    /// values of the types required by the property according to the SGF
+    /// standard. In all cases the GetValueType() method of
+    /// ISgfcSinglePropertyValue objects returns the value type as defined by
+    /// the SGF standard. The outcome of the conversion attempt determines the
+    /// other properties of ISgfcSinglePropertyValue objects:
     /// - If SgfcPropertyDecoder fails to convert the raw string value, the
     ///   ISgfcSinglePropertyValue objects' HasTypedValue() method returns false
     ///   and the GetTypeConversionErrorMessage() method returns a message that

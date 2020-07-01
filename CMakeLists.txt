@@ -59,7 +59,7 @@ set ( CMAKE_C_STANDARD 11 )
 # a library consumer might use an internal class and the linker would not
 # complain. We change this default here so that all platforms behave the same.
 # Setting the following two variables changes the CMake-wide default so that
-# when a new target is added (e.g. withh add_library) it will be initialized
+# when a new target is added (e.g. with add_library) it will be initialized
 # with the proper setting.
 set ( CMAKE_CXX_VISIBILITY_PRESET hidden )
 set ( CMAKE_VISIBILITY_INLINES_HIDDEN 1 )
@@ -94,7 +94,7 @@ enable_testing ()
 # filesystem name of the build artifacts. Notably this determines the name of
 # the generated shared library file, static library file and test executable
 # file. Macro names related to the export header file are also derived from
-# the base name. The base name shhould not contain the "++" characters from the
+# the base name. The base name should not contain the "++" characters from the
 # project name to avoid compiler warnings and unexpected filesystem behaviour.
 set ( LIBRARY_BASENAME libsgfcplusplus )
 

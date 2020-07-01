@@ -215,7 +215,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the Number string value" )
+      THEN( "SgfcPropertyDecoder fails to decode the Number string value" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::MN );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -278,7 +278,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the Real string value" )
+      THEN( "SgfcPropertyDecoder fails to decode the Real string value" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::TM );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -341,7 +341,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the Double string value" )
+      THEN( "SgfcPropertyDecoder fails to decode the Double string value" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DM );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -404,7 +404,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the Color string value" )
+      THEN( "SgfcPropertyDecoder fails to decode the Color string value" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::PL );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -475,7 +475,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the SimpleText string value" )
+      THEN( "SgfcPropertyDecoder successfully decodes the Text string value" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::GC );
         auto propertyValues = propertyDecoder.GetPropertyValues();

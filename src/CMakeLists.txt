@@ -419,7 +419,7 @@ endif()
 #  DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
 #)
 
-# On some systems CMake automatically populates thhe LIBRARY and PUBLIC_HEADER
+# On some systems CMake automatically populates the LIBRARY and PUBLIC_HEADER
 # destinations with values defined by the GNUInstallDirs module (e.g. macOS with
 # CMake 3.11 and Xcode, Windows with CMake 3.16 and VisualStudio). On other
 # systems CMake does not do it automatically (e.g. Ubuntu 18.04 with CMake 3.12
