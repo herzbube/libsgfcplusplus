@@ -165,6 +165,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       // type mandates value type None.
       std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), nullptr, "foo" };
       propertyValue.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_DO;
@@ -189,6 +191,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_MN;
@@ -218,6 +222,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_MN;
@@ -252,6 +258,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_TM;
@@ -281,6 +289,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_TM;
@@ -315,6 +325,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_DM;
@@ -344,6 +356,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_DM;
@@ -378,6 +392,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_PL;
@@ -407,6 +423,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_PL;
@@ -441,6 +459,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_N;
@@ -478,6 +498,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_GC;
@@ -515,6 +537,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(pointString.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_SE;
@@ -558,6 +582,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_AE;
@@ -595,6 +621,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_AE;
@@ -628,6 +656,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_AE;
@@ -664,6 +694,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(moveString.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_B;
@@ -707,6 +739,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_B;
@@ -726,6 +760,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(moveString.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_B;
@@ -747,6 +783,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_B;
@@ -772,6 +810,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
 
       Property sgfProperty;
       sgfProperty.id = TKN_B;
