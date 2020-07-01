@@ -65,54 +65,87 @@ namespace LibSgfcPlusPlus
     auto propertyValue = GetPropertyValue();
 
     if (propertyValue == nullptr)
-    {
-      switch (gameType)
-      {
-        case SgfcGameType::Go:
-          return SgfcConstants::BoardSizeDefaultGo;
-        case SgfcGameType::Chess:
-          return SgfcConstants::BoardSizeDefaultChess;
-        default:
-          return SgfcConstants::BoardSizeNone;
-      }
-    }
+      return GetDefaultBoardSize(gameType);
 
+    SgfcBoardSize boardSize;
     if (propertyValue->IsComposedValue())
-    {
-      const auto* composedValue = propertyValue->ToComposedValue();
-
-      SgfcNumber numberOfColumns = -1;
-      SgfcNumber numberOfRows = -1;
-
-      auto singleValue1 = composedValue->GetValue1();
-      if (singleValue1->HasTypedValue())
-      {
-        if (singleValue1->GetValueType() == SgfcPropertyValueType::Number)
-          numberOfColumns = singleValue1->ToNumberValue()->GetNumberValue();
-      }
-      auto singleValue2 = composedValue->GetValue2();
-      if (singleValue2->HasTypedValue())
-      {
-        if (singleValue2->GetValueType() == SgfcPropertyValueType::Number)
-          numberOfRows = singleValue2->ToNumberValue()->GetNumberValue();
-      }
-
-      if (numberOfColumns != -1 && numberOfRows != -1)
-        return { numberOfColumns, numberOfRows };
-    }
+      boardSize = GetBoardSizeFromComposedValue(propertyValue->ToComposedValue());
     else
+      boardSize = GetBoardSizeFromSingleValue(propertyValue->ToSingleValue());
+
+    bool isBoardSizeValid = IsBoardSizeValid(boardSize, gameType);
+    if (isBoardSizeValid)
+      return boardSize;
+    else
+      return SgfcConstants::BoardSizeInvalid;
+  }
+
+  SgfcBoardSize SgfcBoardSizeProperty::GetDefaultBoardSize(SgfcGameType gameType) const
+  {
+    switch (gameType)
     {
-      const auto* singleValue = propertyValue->ToSingleValue();
-      if (singleValue->HasTypedValue())
+      case SgfcGameType::Go:
+        return SgfcConstants::BoardSizeDefaultGo;
+      case SgfcGameType::Chess:
+        return SgfcConstants::BoardSizeDefaultChess;
+      default:
+        return SgfcConstants::BoardSizeNone;
+    }
+  }
+
+  SgfcBoardSize SgfcBoardSizeProperty::GetBoardSizeFromSingleValue(const ISgfcSinglePropertyValue* singleValue) const
+  {
+    if (! singleValue->HasTypedValue())
+      return SgfcConstants::BoardSizeNone;
+
+    if (singleValue->GetValueType() != SgfcPropertyValueType::Number)
+      return SgfcConstants::BoardSizeNone;
+
+    SgfcNumber numberOfColumnsAndRows = singleValue->ToNumberValue()->GetNumberValue();
+    return { numberOfColumnsAndRows, numberOfColumnsAndRows };
+  }
+
+  SgfcBoardSize SgfcBoardSizeProperty::GetBoardSizeFromComposedValue(const ISgfcComposedPropertyValue* composedValue) const
+  {
+    auto singleValue1 = composedValue->GetValue1();
+    auto singleValue2 = composedValue->GetValue2();
+
+    if (! singleValue1->HasTypedValue() || ! singleValue2->HasTypedValue())
+      return SgfcConstants::BoardSizeNone;
+
+    if (singleValue1->GetValueType() != SgfcPropertyValueType::Number ||
+        singleValue2->GetValueType() != SgfcPropertyValueType::Number)
+    {
+      return SgfcConstants::BoardSizeNone;
+    }
+
+    return
+    {
+      singleValue1->ToNumberValue()->GetNumberValue(),
+      singleValue2->ToNumberValue()->GetNumberValue()
+    };
+  }
+
+  bool SgfcBoardSizeProperty::IsBoardSizeValid(SgfcBoardSize boardSize, SgfcGameType gameType) const
+  {
+    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns ||
+        boardSize.Rows < SgfcConstants::BoardSizeMinimum.Rows)
+    {
+      return false;
+    }
+
+    if (gameType == SgfcGameType::Go)
+    {
+      if (boardSize.Columns != boardSize.Rows)
+        return false;
+
+      if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
+          boardSize.Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
       {
-        if (singleValue->GetValueType() == SgfcPropertyValueType::Number)
-        {
-          SgfcNumber numberOfColumnsAndRows = singleValue->ToNumberValue()->GetNumberValue();
-          return { numberOfColumnsAndRows, numberOfColumnsAndRows };
-        }
+        return false;
       }
     }
 
-    return SgfcConstants::BoardSizeNone;
+    return true;
   }
 }

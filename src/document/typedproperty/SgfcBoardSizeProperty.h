@@ -7,7 +7,9 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcComposedPropertyValue;
   class ISgfcNumberPropertyValue;
+  class ISgfcSinglePropertyValue;
 
   /// @brief The SgfcBoardSizeProperty class provides an implementation of
   /// the ISgfcBoardSizeProperty interface. See the interface header file
@@ -50,5 +52,11 @@ namespace LibSgfcPlusPlus
     virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
 
     virtual SgfcBoardSize GetBoardSize(SgfcGameType gameType) const;
+
+  private:
+    SgfcBoardSize GetDefaultBoardSize(SgfcGameType gameType) const;
+    SgfcBoardSize GetBoardSizeFromSingleValue(const ISgfcSinglePropertyValue* singleValue) const;
+    SgfcBoardSize GetBoardSizeFromComposedValue(const ISgfcComposedPropertyValue* composedValue) const;
+    bool IsBoardSizeValid(SgfcBoardSize boardSize, SgfcGameType gameType) const;
   };
 }

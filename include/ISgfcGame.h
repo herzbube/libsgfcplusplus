@@ -68,7 +68,7 @@ namespace LibSgfcPlusPlus
     /// game has no board size.
     ///
     /// The game has no board size if GetBoardSize() returns
-    /// SgfcConstants::BoardSizeNone.
+    /// SgfcConstants::BoardSizeNone or SgfcConstants::BoardSizeInvalid.
     virtual bool HasBoardSize() const = 0;
 
     /// @brief Returns the board size found in the root node property of type
@@ -77,7 +77,8 @@ namespace LibSgfcPlusPlus
     /// if the property is present but has no value.
     ///
     /// @retval SgfcBoardSize If the property is present and has a valid value.
-    ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone.
+    ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone
+    ///         nor SgfcConstants::BoardSizeInvalid.
     /// @retval SgfcConstants::DefaultBoardSizeGo If the property is present
     ///         and has no value, and GetGameType() returns SgfcGameType::Go.
     /// @retval SgfcConstants::DefaultBoardSizeChess If the property is present
@@ -86,6 +87,10 @@ namespace LibSgfcPlusPlus
     ///         if the game has no root node. Also if the property is present
     ///         and has no value, but GetGameType() returns neither
     ///         SgfcGameType::Go nor SgfcGameType::Chess.
+    /// @retval SgfcConstants::BoardSizeInvalid If the property is present but
+    ///         has an invalid value. A board size is invalid if it violates
+    ///         the constraints defined by the SGF standard. See the
+    ///         documentation of SgfcConstants::BoardSizeInvalid for details.
     virtual SgfcBoardSize GetBoardSize() const = 0;
 
     /// @brief Returns true if the game has a root node. Returns false if the

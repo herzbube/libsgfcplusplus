@@ -342,4 +342,5 @@ namespace LibSgfcPlusPlus
 
   const SgfcNumber SgfcConstants::GameTypeNone = -1;
   const SgfcBoardSize SgfcConstants::BoardSizeNone = { -1, -1 };
+  const SgfcBoardSize SgfcConstants::BoardSizeInvalid = { -2, -2 };
 }

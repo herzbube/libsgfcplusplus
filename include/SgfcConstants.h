@@ -133,6 +133,20 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::SZ property is not present in a game's root ndoe,
     /// or if the game has no root node.
     static const SgfcBoardSize BoardSizeNone;
+
+    /// @brief A board size value denoting "invalid board size".
+    ///
+    /// A board size is invalid if it violates the constraints defined by the
+    /// SGF standard:
+    /// - All game types: If the board size is below the minimum size
+    ///   #BoardSizeMinimum.
+    /// - For SgfcGameType::Go: If the board size is above the maximum size
+    ///   #BoardSizeMaximumGo, or if the board size is not square.
+    ///
+    /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
+    /// SgfcPropertyType::SZ property is present in a game's root node but has
+    /// an invalid size.
+    static const SgfcBoardSize BoardSizeInvalid;
     //@}
   };
 }
