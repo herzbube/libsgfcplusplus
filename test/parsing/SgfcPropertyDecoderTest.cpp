@@ -34,6 +34,8 @@ extern "C"
 using namespace LibSgfcPlusPlus;
 
 
+void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
+void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
 void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
 
@@ -593,23 +595,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder successfully decodes the Point string value" )
       {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
-        auto propertyValues = propertyDecoder.GetPropertyValues();
-        REQUIRE( propertyValues.size() == 1 );
-        auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == pointStringSgfNotation );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
-        REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto pointValue = propertySingleValue->ToPointValue();
-        REQUIRE( pointValue != nullptr );
-        REQUIRE( pointValue->GetRawPointValue() == pointStringSgfNotation );
-        auto goPointValue = pointValue->ToGoPointValue();
-        REQUIRE( goPointValue != nullptr );
-        auto goPoint = goPointValue->GetGoPoint();
-        REQUIRE( goPoint != nullptr );
-        REQUIRE( goPoint->GetXPosition(SgfcCoordinateSystem::UpperLeftOrigin) == std::get<2>(testData) );
-        REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == std::get<3>(testData) );
+        AssertValidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, pointStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
       }
     }
 
@@ -632,21 +618,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
       {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
-        auto propertyValues = propertyDecoder.GetPropertyValues();
-        REQUIRE( propertyValues.size() == 1 );
-        auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == pointStringSgfNotation );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
-        REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto pointValue = propertySingleValue->ToPointValue();
-        REQUIRE( pointValue != nullptr );
-        REQUIRE( pointValue->GetRawPointValue() == pointStringSgfNotation );
-        auto goPointValue = pointValue->ToGoPointValue();
-        REQUIRE( goPointValue != nullptr );
-        auto goPoint = goPointValue->GetGoPoint();
-        REQUIRE( goPoint == nullptr );
+        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, pointStringSgfNotation);
       }
     }
 
@@ -667,21 +639,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
       {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
-        auto propertyValues = propertyDecoder.GetPropertyValues();
-        REQUIRE( propertyValues.size() == 1 );
-        auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
-        REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto pointValue = propertySingleValue->ToPointValue();
-        REQUIRE( pointValue != nullptr );
-        REQUIRE( pointValue->GetRawPointValue() == testData.first );
-        auto goPointValue = pointValue->ToGoPointValue();
-        REQUIRE( goPointValue != nullptr );
-        auto goPoint = goPointValue->GetGoPoint();
-        REQUIRE( goPoint == nullptr );
+        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, testData.first);
       }
     }
   }
@@ -827,6 +785,46 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       }
     }
   }
+}
+
+void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition)
+{
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == pointString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto pointValue = propertySingleValue->ToPointValue();
+  REQUIRE( pointValue != nullptr );
+  REQUIRE( pointValue->GetRawPointValue() == pointString );
+  auto goPointValue = pointValue->ToGoPointValue();
+  REQUIRE( goPointValue != nullptr );
+  auto goPoint = goPointValue->GetGoPoint();
+  REQUIRE( goPoint != nullptr );
+  REQUIRE( goPoint->GetXPosition(SgfcCoordinateSystem::UpperLeftOrigin) == xPosition );
+  REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == yPosition );
+}
+
+void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString)
+{
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == pointString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto pointValue = propertySingleValue->ToPointValue();
+  REQUIRE( pointValue != nullptr );
+  REQUIRE( pointValue->GetRawPointValue() == pointString );
+  auto goPointValue = pointValue->ToGoPointValue();
+  REQUIRE( goPointValue != nullptr );
+  auto goPoint = goPointValue->GetGoPoint();
+  REQUIRE( goPoint == nullptr );
 }
 
 void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition)
