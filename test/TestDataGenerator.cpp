@@ -34,7 +34,8 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::string> testData =
     {
-      "", " \t\r\n",
+      SgfcConstants::NoneValueString,
+      " \t\r\n",
       ".",
       "abc", "$",
       // Overflow
@@ -101,7 +102,8 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::string> testData =
     {
-      "", " \t\r\n",
+      SgfcConstants::NoneValueString,
+      " \t\r\n",
       ".",
       "abc", "$",
       // Overflow: 310 digits
@@ -142,7 +144,7 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::string> testData =
     {
-      "",
+      SgfcConstants::NoneValueString,
       " \t\r\n",
       "-1",
       "1.0",
@@ -184,7 +186,7 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::string> testData =
     {
-      "",
+      SgfcConstants::NoneValueString,
       " \t\r\n",
       "b", "w",
       // SGFC is nice and trims whitespace it encounters when it parses the
@@ -213,7 +215,7 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::pair<std::string, std::string>> testData =
     {
-      std::pair<std::string, std::string> { "", "" },
+      std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
       std::pair<std::string, std::string> { "foo", "foo" },
       std::pair<std::string, std::string> { "foo bar", "foo bar" },
       std::pair<std::string, std::string> { "foo  bar", "foo  bar" },
@@ -261,7 +263,7 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::pair<std::string, std::string>> testData =
     {
-      std::pair<std::string, std::string> { "", "" },
+      std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
       std::pair<std::string, std::string> { "foo", "foo" },
       std::pair<std::string, std::string> { "foo bar", "foo bar" },
       std::pair<std::string, std::string> { "foo  bar", "foo  bar" },
@@ -375,7 +377,7 @@ namespace LibSgfcPlusPlus
     std::vector<std::pair<std::string, SgfcBoardSize>> testData =
     {
       // Invalid because the string is not a valid notation
-      std::pair<std::string, SgfcBoardSize> { "", SgfcConstants::BoardSizeDefaultGo },
+      std::pair<std::string, SgfcBoardSize> { SgfcConstants::NoneValueString, SgfcConstants::BoardSizeDefaultGo },
       std::pair<std::string, SgfcBoardSize> { "foo", SgfcConstants::BoardSizeDefaultGo },
       // Valid SgfcGoPointNotation::Sgf but exceeds the board size
       std::pair<std::string, SgfcBoardSize> { "az", SgfcBoardSize { 25, 25 } },

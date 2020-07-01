@@ -67,7 +67,7 @@ namespace LibSgfcPlusPlus
 
     /// @name String constants defined by the SGF standard
     //@{
-    static const std::string NoneString;
+    static const std::string NoneValueString;
     static const std::string DoubleNormalString;
     static const std::string DoubleEmphasizedString;
     static const std::string ColorBlackString;

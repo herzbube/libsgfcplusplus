@@ -149,11 +149,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     WHEN( "The property value is decoded" )
     {
       PropValue propertyValue;
-      // SGF defines the None value type to be en empty string. We add nullptr
+      // SGF defines the None value type to be an empty string. We add nullptr
       // and an arbitrary string to the list of values because we expect
       // SgfcPropertyDecoder to ignore any property values when the property
       // type mandates value type None.
-      std::vector<const char*> v = { "", nullptr, "foo" };
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), nullptr, "foo" };
       propertyValue.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
 
       Property sgfProperty;
@@ -501,7 +501,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Point string" )
     {
-      std::string pointString = GENERATE( "", "foo" );
+      std::string pointString = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(pointString.c_str());
