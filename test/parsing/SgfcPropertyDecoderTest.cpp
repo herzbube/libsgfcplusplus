@@ -2,7 +2,12 @@
 #include "../TestDataGenerator.h"
 #include <ISgfcColorPropertyValue.h>
 #include <ISgfcDoublePropertyValue.h>
+#include <ISgfcGoMove.h>
+#include <ISgfcGoMovePropertyValue.h>
+#include <ISgfcGoPoint.h>
 #include <ISgfcGoPointPropertyValue.h>
+#include <ISgfcGoStone.h>
+#include <ISgfcMovePropertyValue.h>
 #include <ISgfcNumberPropertyValue.h>
 #include <ISgfcPointPropertyValue.h>
 #include <ISgfcRealPropertyValue.h>
@@ -27,6 +32,11 @@ extern "C"
 #include <utility>
 
 using namespace LibSgfcPlusPlus;
+
+
+void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
+void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
+
 
 SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
 {
@@ -645,4 +655,208 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       }
     }
   }
+
+  GIVEN( "The property value type is Move and the game type is not Go" )
+  {
+    WHEN( "The property value is a valid Move string" )
+    {
+      std::string moveString = GENERATE( SgfcConstants::NoneValueString.c_str(), "foo" );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(moveString.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_B;
+      sgfProperty.idstr = const_cast<char*>("B");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Ataxx, SgfcConstants::BoardSizeInvalid);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Move string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::B );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        REQUIRE( propertySingleValue->GetRawValue() == moveString );
+        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
+        REQUIRE( propertySingleValue->HasTypedValue() == true );
+        auto moveValue = propertySingleValue->ToMoveValue();
+        REQUIRE( moveValue != nullptr );
+        REQUIRE( moveValue->GetRawMoveValue() == moveString );
+        auto goMoveValue = moveValue->ToGoMoveValue();
+        REQUIRE( goMoveValue == nullptr );
+      }
+    }
+
+    WHEN( "The property value is an invalid Move string" )
+    {
+      // No tests because there are no invalid Move strings for game types != Go
+    }
+  }
+
+  GIVEN( "The property value type is Move and the game type is Go" )
+  {
+    WHEN( "The property value is a valid Move string that is not a pass move" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+
+      // Need a local string variable so that we can store a reference to its
+      // c_str() in the PropValue object
+      auto moveStringSgfNotation = std::get<9>(testData);
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_B;
+      sgfProperty.idstr = const_cast<char*>("B");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Move string value" )
+      {
+        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
+      }
+    }
+
+    WHEN( "The property value is a valid Move string that is a pass move" )
+    {
+      std::string moveString = SgfcConstants::MovePassString;
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(moveString.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_B;
+      sgfProperty.idstr = const_cast<char*>("B");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, SgfcConstants::BoardSizeInvalid);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Move string value" )
+      {
+        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveString, -1, -1);
+      }
+    }
+
+    WHEN( "The property value is a valid Move string but the board size is invalid" )
+    {
+      auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
+
+      std::string moveStringSgfNotation = "aa";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_B;
+      sgfProperty.idstr = const_cast<char*>("B");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
+
+      SgfcColor expectedColor = sgfProperty.id == TKN_B ? SgfcColor::Black : SgfcColor::White;
+
+      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
+      {
+        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveStringSgfNotation);
+      }
+    }
+
+    WHEN( "The property value is an invalid Move string" )
+    {
+      auto testData = GENERATE_COPY( filter(
+        // Filter out Move strings that are pass moves - these are valid
+        [](std::pair<std::string, SgfcBoardSize> i) { return i.first != SgfcConstants::MovePassString; },
+        from_range(TestDataGenerator::GetInvalidGoPointStrings())
+      ));
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+
+      Property sgfProperty;
+      sgfProperty.id = TKN_B;
+      sgfProperty.idstr = const_cast<char*>("B");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
+
+      SgfcColor expectedColor = sgfProperty.id == TKN_B ? SgfcColor::Black : SgfcColor::White;
+
+      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
+      {
+        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, testData.first);
+      }
+    }
+  }
+}
+
+void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition)
+{
+  SgfcColor expectedColor = propertyType == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == moveString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto moveValue = propertySingleValue->ToMoveValue();
+  REQUIRE( moveValue != nullptr );
+  REQUIRE( moveValue->GetRawMoveValue() == moveString );
+  auto goMoveValue = moveValue->ToGoMoveValue();
+  REQUIRE( goMoveValue != nullptr );
+  auto goMove = goMoveValue->GetGoMove();
+  REQUIRE( goMove != nullptr );
+  REQUIRE( goMove->GetPlayerColor() == expectedColor );
+  if (moveString == SgfcConstants::MovePassString)
+  {
+    REQUIRE( goMove->IsPassMove() == true );
+    auto goStone = goMove->GetStone();
+    REQUIRE( goStone == nullptr );
+    REQUIRE( goMove->GetStoneLocation() == nullptr );
+  }
+  else
+  {
+    REQUIRE( goMove->IsPassMove() == false );
+    auto goStone = goMove->GetStone();
+    REQUIRE( goStone != nullptr );
+    REQUIRE( goStone->GetColor() == expectedColor );
+    REQUIRE( goMove->GetPlayerColor() == goStone->GetColor() );
+    auto goPoint = goStone->GetLocation();
+    REQUIRE( goPoint != nullptr );
+    REQUIRE( goMove->GetStoneLocation() == goPoint );
+    REQUIRE( goPoint->GetXPosition(SgfcCoordinateSystem::UpperLeftOrigin) == xPosition );
+    REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == yPosition );
+  }
+}
+
+void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString)
+{
+  SgfcColor expectedColor = propertyType == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  auto propertyValues = propertyDecoder.GetPropertyValues();
+  REQUIRE( propertyValues.size() == 1 );
+  auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  REQUIRE( propertySingleValue->GetRawValue() == moveString );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto moveValue = propertySingleValue->ToMoveValue();
+  REQUIRE( moveValue != nullptr );
+  REQUIRE( moveValue->GetRawMoveValue() == moveString );
+  auto goMoveValue = moveValue->ToGoMoveValue();
+  REQUIRE( goMoveValue != nullptr );
+  auto goMove = goMoveValue->GetGoMove();
+  REQUIRE( goMove != nullptr );
+  REQUIRE( goMove->GetPlayerColor() == expectedColor );
+  REQUIRE( goMove->IsPassMove() == false );
+  auto goStone = goMove->GetStone();
+  REQUIRE( goStone != nullptr );
+  REQUIRE( goStone->GetColor() == expectedColor );
+  REQUIRE( goMove->GetPlayerColor() == goStone->GetColor() );
+  auto goPoint = goStone->GetLocation();
+  REQUIRE( goPoint == nullptr );
+  REQUIRE( goMove->GetStoneLocation() == nullptr );
 }

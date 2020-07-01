@@ -846,7 +846,7 @@ namespace LibSgfcPlusPlus
     if (gameType == SgfcGameType::Go)
     {
       SgfcColor color = GetColorForPropertyType();
-      if (rawPropertyValueBuffer == SgfcPrivateConstants::EmptyString)
+      if (rawPropertyValueBuffer == SgfcConstants::MovePassString)
       {
         // TODO: Verify that SGFC converts "tt" to an empty string if the
         // board size is smaller than 19x19. According to the SGF standard
