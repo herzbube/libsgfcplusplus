@@ -103,53 +103,42 @@ SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
       }
     }
 
-    WHEN( "SgfcPropertyDecoder is constructed with an unexpected ID enumeration value" )
-    {
-      sgfProperty.id = static_cast<token>(12345);
-
-      THEN( "The SgfcPropertyDecoder constructor throws an exception" )
-      {
-        REQUIRE_THROWS_AS(
-          SgfcPropertyDecoder(&sgfProperty, gameType, boardSize),
-          std::logic_error);
-      }
-    }
-
     WHEN( "SgfcPropertyDecoder is constructed with mismatching ID string and ID enumeration value" )
     {
       sgfProperty.id = TKN_SZ;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder uses the ID enumeration value to determine the property type" )
+      THEN( "SgfcPropertyDecoder uses the ID string value to determine the property type" )
       {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SZ );
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AB );
         REQUIRE( propertyDecoder.GetPropertyName() == propertyName );
       }
     }
 
-    WHEN( "SgfcPropertyDecoder is constructed with ID enumeration value None or Unknown" )
+    WHEN( "SgfcPropertyDecoder is constructed with an ID string value that is not known" )
     {
-      sgfProperty.id = GENERATE( TKN_NONE, TKN_UNKNOWN );
+      // The ID string value is not known even if it doesn't match case
+      std::string propertyName2 = GENERATE( "", "ab", "XX", "foo" );
+      sgfProperty.idstr = const_cast<char*>(propertyName2.c_str());
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder converts the ID enumeration value to property type Unknown" )
+      THEN( "SgfcPropertyDecoder converts the ID string value to property type Unknown" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::Unknown );
-        REQUIRE( propertyDecoder.GetPropertyName() == propertyName );
+        REQUIRE( propertyDecoder.GetPropertyName() == propertyName2 );
       }
     }
 
-    WHEN( "SgfcPropertyDecoder is constructed with any ID enumeration value that is not None or Unknown" )
+    WHEN( "SgfcPropertyDecoder is constructed with any of the known ID string values" )
     {
-      int firstIdToken = TKN_B;
-      int lastIdToken = TKN_EX;
-      sgfProperty.id = static_cast<token>(GENERATE_COPY( range(firstIdToken, lastIdToken) ));
+      auto mapEntry = GENERATE( from_range(SgfcConstants::PropertyNameToPropertyTypeMap) );
+      sgfProperty.idstr = const_cast<char*>(mapEntry.first.c_str());
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder converts the ID enumeration value to a property type that is not Unknown" )
+      THEN( "SgfcPropertyDecoder converts the ID string value to a matching property type" )
       {
-        REQUIRE( propertyDecoder.GetPropertyType() != SgfcPropertyType::Unknown );
-        REQUIRE( propertyDecoder.GetPropertyName() == propertyName );
+        REQUIRE( propertyDecoder.GetPropertyType() == mapEntry.second );
+        REQUIRE( propertyDecoder.GetPropertyName() == mapEntry.first );
       }
     }
   }
@@ -175,7 +164,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_DO;
       sgfProperty.idstr = const_cast<char*>("DO");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -201,7 +189,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_MN;
       sgfProperty.idstr = const_cast<char*>("MN");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -232,7 +219,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_MN;
       sgfProperty.idstr = const_cast<char*>("MN");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -268,7 +254,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_TM;
       sgfProperty.idstr = const_cast<char*>("TM");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -299,7 +284,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_TM;
       sgfProperty.idstr = const_cast<char*>("TM");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -335,7 +319,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_DM;
       sgfProperty.idstr = const_cast<char*>("DM");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -366,7 +349,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_DM;
       sgfProperty.idstr = const_cast<char*>("DM");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -402,7 +384,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_PL;
       sgfProperty.idstr = const_cast<char*>("PL");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -433,7 +414,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_PL;
       sgfProperty.idstr = const_cast<char*>("PL");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -469,7 +449,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_N;
       sgfProperty.idstr = const_cast<char*>("N");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -508,7 +487,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_GC;
       sgfProperty.idstr = const_cast<char*>("GC");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
@@ -547,7 +525,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_SE;
       sgfProperty.idstr = const_cast<char*>("SE");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::LinesOfAction, SgfcConstants::BoardSizeInvalid);
@@ -592,7 +569,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AE;
       sgfProperty.idstr = const_cast<char*>("AE");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
@@ -615,7 +591,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AE;
       sgfProperty.idstr = const_cast<char*>("AE");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
@@ -636,7 +611,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AE;
       sgfProperty.idstr = const_cast<char*>("AE");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
@@ -660,7 +634,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_B;
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Ataxx, SgfcConstants::BoardSizeInvalid);
@@ -705,7 +678,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_B;
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
@@ -726,7 +698,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_B;
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, SgfcConstants::BoardSizeInvalid);
@@ -749,12 +720,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_B;
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
 
-      SgfcColor expectedColor = sgfProperty.id == TKN_B ? SgfcColor::Black : SgfcColor::White;
+      SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
       {
@@ -776,12 +746,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_B;
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
 
-      SgfcColor expectedColor = sgfProperty.id == TKN_B ? SgfcColor::Black : SgfcColor::White;
+      SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
       {
@@ -802,7 +771,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AB;
       sgfProperty.idstr = const_cast<char*>("AB");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::LinesOfAction, SgfcConstants::BoardSizeInvalid);
@@ -847,7 +815,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AB;
       sgfProperty.idstr = const_cast<char*>("AB");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, std::get<1>(testData));
@@ -870,7 +837,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AB;
       sgfProperty.idstr = const_cast<char*>("AB");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
@@ -891,7 +857,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       propertyValue.next = nullptr;
 
       Property sgfProperty;
-      sgfProperty.id = TKN_AB;
       sgfProperty.idstr = const_cast<char*>("AB");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
