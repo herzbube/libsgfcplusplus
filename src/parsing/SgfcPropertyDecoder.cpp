@@ -357,7 +357,15 @@ namespace LibSgfcPlusPlus
       {
         if (sgfPropertyValue->value2 == nullptr)
         {
-          // TODO: SGFC gave us a single value, but we expected composed value
+          // We expected a composed value (according to the SGF standard's
+          // definition of the property), but SGFC gave us a single value. We
+          // have no choice but to throw an exception. Alas, this forces someone
+          // else to handle that exception, with the only possible handling
+          // being to discard some or even all of the SGF content.
+
+          std::stringstream message;
+          message << "GetSgfcPropertyValueFromSgfPropertyValue: Expected a composed value, but SGFC gave us only a single value";
+          throw std::domain_error(message.str());
         }
 
         const SgfcPropertyComposedValueTypeDescriptor* composedValueTypeDescriptor =
@@ -775,9 +783,10 @@ namespace LibSgfcPlusPlus
       default:
         // If we get here the caller made a mistake. The method must only
         // be called for properties that have a color associated with them.
-        // Notably, all properties that have the value types Stone and Move
-        // are allowed because for those properties the property type specifies
-        // which color the placed stone has or which player made the move.
+        // Notably, for SgfcGameType::Go all properties that have the value
+        // types Stone and Move are allowed because for those properties the
+        // property type specifies which color the placed stone has or which
+        // player made the move.
         std::stringstream message;
         message << "GetColorForPropertyType: Unable to determine color for property type " << static_cast<int>(propertyType) << " (" << this->sgfProperty->idstr << ")";
         throw std::logic_error(message.str());

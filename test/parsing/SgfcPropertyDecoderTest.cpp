@@ -1,6 +1,7 @@
 // Library includes
 #include "../TestDataGenerator.h"
 #include <ISgfcColorPropertyValue.h>
+#include <ISgfcComposedPropertyValue.h>
 #include <ISgfcDoublePropertyValue.h>
 #include <ISgfcGoMove.h>
 #include <ISgfcGoMovePropertyValue.h>
@@ -36,6 +37,7 @@ extern "C"
 using namespace LibSgfcPlusPlus;
 
 
+void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue);
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
 void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition);
 void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
@@ -45,7 +47,27 @@ void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue,
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
 void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition);
 void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString);
+void AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven(const std::string& propertyID, const std::string& rawPropertyValue);
 
+
+// General structure of tests
+// - One SCENARIO for each group of value type descriptor. The grouping of value
+//   type descriptors can be seen in SgfcPropertyMetaInfo.cpp: This file
+//   contains a lot of constant definitions near the top, those constants are
+//   grouped into sections of related value type descriptors.
+//   - One GIVEN for each concrete value type descriptor. Again, see the list of
+//     constants defined in SgfcPropertyMetaInfo.cpp for value type descriptors
+//     that are tested. Basically these are things that are actually described
+//     somewhere in the SGF standard. For instance, a composed value type that
+//     consists of a combination of the Number and Real basic value types is
+//     never described in the SGF standard, so there is no value type descriptor
+//     for it and therefore we don't test it here.
+//     - At least one WHEN for valid values and one WHEN for invalid values
+//       of the basic value type. Possibly additional WHEN for cases where a
+//       special test setup is required. Typically the WHEN uses a data
+//       generator to produce different valid/invalid values
+//       - One THEN for each WHEN that contains the actual assertions
+// - Reusable helper functions with assertions to be invoked from THEN
 
 SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
 {
@@ -462,13 +484,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::SimpleText );
-        REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto simpleTextValue = propertySingleValue->ToSimpleTextValue();
-        REQUIRE( simpleTextValue != nullptr );
-        REQUIRE( simpleTextValue->GetSimpleTextValue() == testData.second );
+
+        AssertValidSimpleTextString(propertySingleValue, testData.first, testData.second);
       }
     }
 
@@ -984,6 +1001,90 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed value type", "[parsing]" )
 {
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  GIVEN( "The property value type is a composition of SimpleText and SimpleText" )
+  {
+    WHEN( "The property value is a composition of two valid SimpleText strings" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetSimpleTextStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = const_cast<char*>(testData.first.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("AP");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the composition of two SimpleText string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AP );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertValidSimpleTextString(propertySingleValue1.get(), testData.first, testData.second);
+        auto propertySingleValue2 = propertyComposedValue->GetValue1();
+        AssertValidSimpleTextString(propertySingleValue2.get(), testData.first, testData.second);
+      }
+    }
+
+    WHEN( "The property value is a composition of one or two invalid SimpleText strings" )
+    {
+      // No tests because there are no invalid SimpleText strings
+    }
+
+    WHEN( "The SGF property object has no second value" )
+    {
+      THEN( "SgfcPropertyDecoder fails to decode the single SimpleText value" )
+      {
+        AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven("AP", "foo");
+      }
+    }
+  }
+
+  GIVEN( "The property value type is a composition of Number and Number" )
+  {
+    // No tests because this value type does not occur standalone - it occurs
+    // only as one of the two options of a dual value type. In other words: the
+    // value type will be tested later in the SCENARIO for dual value types.
+  }
+
+  GIVEN( "The property value type is a composition of Point and Point" )
+  {
+    // No tests because this value type does not occur standalone - it occurs
+    // only in the context of the list value type. In other words: the value
+    // type will be tested later in the SCENARIO for list types consisting of a
+    // composed value type.
+  }
+
+  GIVEN( "The property value type is a composition of Point and SimpleText" )
+  {
+    // No tests because this value type does not occur standalone - it occurs
+    // only in the context of the list value type. In other words: the value
+    // type will be tested later in the SCENARIO for list types consisting of a
+    // composed value type.
+  }
+
+  GIVEN( "The property value type is a composition of Number and SimpleText" )
+  {
+    // No tests because this value type does not occur standalone - it occurs
+    // only as one of the two options of a dual value type. In other words: the
+    // value type will be tested later in the SCENARIO for dual value types.
+  }
+
+  GIVEN( "The property value type is a composition of Stone and Point" )
+  {
+    // No tests because this value type does not occur standalone - it occurs
+    // only in the context of the list value type. In other words: the value
+    // type will be tested later in the SCENARIO for list types consisting of a
+    // composed value type.
+  }
 }
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list type consisting of a composed value type", "[parsing]" )
@@ -996,6 +1097,17 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist value type", "[parsing]" )
 {
+}
+
+void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue)
+{
+  REQUIRE( propertySingleValue->GetRawValue() == expectedRawValue );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::SimpleText );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto simpleTextValue = propertySingleValue->ToSimpleTextValue();
+  REQUIRE( simpleTextValue != nullptr );
+  REQUIRE( simpleTextValue->GetSimpleTextValue() == expectedParsedValue );
 }
 
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition)
@@ -1175,4 +1287,24 @@ void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   REQUIRE( goStone->GetColor() == expectedColor );
   auto goPoint = goStone->GetLocation();
   REQUIRE( goPoint == nullptr );
+}
+
+void AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven(const std::string& propertyID, const std::string& rawPropertyValue)
+{
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  PropValue propertyValue;
+  propertyValue.value = const_cast<char*>(rawPropertyValue.c_str());
+  propertyValue.value2 = nullptr;
+  propertyValue.next = nullptr;
+
+  Property sgfProperty;
+  sgfProperty.idstr = const_cast<char*>(propertyID.c_str());
+  sgfProperty.value = &propertyValue;
+  SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+  REQUIRE_THROWS_AS(
+    propertyDecoder.GetPropertyValues(),
+    std::domain_error);
 }

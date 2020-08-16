@@ -81,6 +81,13 @@ namespace LibSgfcPlusPlus
     ///   and one of the numerous To...() methods can be used to cast the
     ///   object to a concrete type.
     ///
+    /// @exception std::domain_error Is thrown if something about the SGF
+    /// property object passed to the constructor is not as expected. This
+    /// exception should never be thrown, but when it @b is thrown this is an
+    /// indicator for an interfacing problem with SGFC. The exception is known
+    /// to be thrown in the following cases: A composed value is expected, but
+    /// the SGF property object contains only a single value.
+    ///
     /// @note This method relies on certain pre-processing performed by SGFC.
     /// Notably:
     /// - SGFC is expected to trim leading and trailing whitespace from values

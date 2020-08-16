@@ -119,6 +119,8 @@ namespace LibSgfcPlusPlus
       SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType, boardSize);
 
       SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
+      // TODO: This can throw std::domain_error. Either we deal with this
+      // (here or in an outer layer), or we document it on the public interface.
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
       if (propertyType == SgfcPropertyType::Unknown)
