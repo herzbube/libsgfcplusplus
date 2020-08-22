@@ -41,6 +41,7 @@ void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleV
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
 void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition);
 void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
+void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString);
 void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
 void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
 void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString);
@@ -1089,6 +1090,161 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list type consisting of a composed value type", "[parsing]" )
 {
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  GIVEN( "The property value type is a list of composed Point and SimpleText strings and the game type is Go" )
+  {
+    WHEN( "Both the Point strings and the SimpleText strings are valid" )
+    {
+      // We are not particularly interested in testing the correctness of value
+      // parsing, so we don't need a lot of test values
+      std::string pointString1 = "A1";
+      std::string simpleTextString1 = SgfcConstants::NoneValueString;
+      int xPosition1 = 1;
+      int yPosition1 = 19;
+      std::string pointString2 = "16-3";
+      std::string simpleTextString2 = "foo";
+      int xPosition2 = 16;
+      int yPosition2 = 3;
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(pointString2.c_str());
+      propertyValue2.value2 = const_cast<char*>(simpleTextString2.c_str());
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(pointString1.c_str());
+      propertyValue1.value2 = const_cast<char*>(simpleTextString1.c_str());
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("LB");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the list of composed Point and SimpleText string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::LB );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue1 = propertyValues.front()->ToComposedValue();
+        REQUIRE( propertyValues.back()->IsComposedValue() == true );
+        auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
+
+        auto propertySingleValue1a = propertyComposedValue1->GetValue1();
+        AssertValidGoPointString(propertySingleValue1a.get(), pointString1, xPosition1, yPosition1);
+        auto propertySingleValue1b = propertyComposedValue1->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1, simpleTextString1);
+
+        auto propertySingleValue2a = propertyComposedValue2->GetValue1();
+        AssertValidGoPointString(propertySingleValue2a.get(), pointString2, xPosition2, yPosition2);
+        auto propertySingleValue2b = propertyComposedValue2->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2, simpleTextString2);
+      }
+    }
+
+    WHEN( "The Point strings are invalid and the SimpleText strings are valid" )
+    {
+      std::string pointString = "foo";
+      std::string simpleTextString = "bar";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(pointString.c_str());
+      propertyValue.value2 = const_cast<char*>(simpleTextString.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("LB");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::LB );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertInvalidGoPointString(propertySingleValue1.get(), pointString);
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+      }
+    }
+
+    WHEN( "The Point strings are valid and the SimpleText strings are invalid" )
+    {
+      // No tests because there are no invalid SimpleText strings
+    }
+  }
+
+  GIVEN( "The property value type is a list of composed SimpleText and SimpleText strings and the game type is not Go" )
+  {
+    WHEN( "Both SimpleText strings are valid" )
+    {
+      // We are not particularly interested in testing the correctness of value
+      // parsing, so we don't need a lot of test values
+      std::string simpleTextString1a = "foo";
+      std::string simpleTextString1b = SgfcConstants::NoneValueString;
+      std::string simpleTextString2a = ":";
+      std::string simpleTextString2b = "bar";
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(simpleTextString2a.c_str());
+      propertyValue2.value2 = const_cast<char*>(simpleTextString2b.c_str());
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(simpleTextString1a.c_str());
+      propertyValue1.value2 = const_cast<char*>(simpleTextString1b.c_str());
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("MI");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Backgammon, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the list of composed SimpleText and SimpleText string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::MI );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue1 = propertyValues.front()->ToComposedValue();
+        REQUIRE( propertyValues.back()->IsComposedValue() == true );
+        auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
+
+        auto propertySingleValue1a = propertyComposedValue1->GetValue1();
+        AssertValidSimpleTextString(propertySingleValue1a.get(), simpleTextString1a, simpleTextString1a);
+        auto propertySingleValue1b = propertyComposedValue1->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1b, simpleTextString1b);
+
+        auto propertySingleValue2a = propertyComposedValue2->GetValue1();
+        AssertValidSimpleTextString(propertySingleValue2a.get(), simpleTextString2a, simpleTextString2a);
+        auto propertySingleValue2b = propertyComposedValue2->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2b, simpleTextString2b);
+      }
+    }
+
+    WHEN( "One of the two SimpleText strings is invalid or both SimpleText strings are invalid" )
+    {
+      // No tests because there are no invalid SimpleText strings
+    }
+  }
+
+  GIVEN( "The property value type is a list of composed Stone and Point strings and the game type is not Go" )
+  {
+    // TODO: Implement tests. Currently no tests are implemented because it
+    // does not seem important. Tests above already cover the "list of composed
+    // values" scenario. Implementing these tests seems to be merely an
+    // excercise in completeness.
+  }
 }
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual value type", "[parsing]" )
@@ -1142,6 +1298,11 @@ void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
+  AssertInvalidGoPointString(propertySingleValue, pointString);
+}
+
+void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString)
+{
   REQUIRE( propertySingleValue->GetRawValue() == pointString );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
