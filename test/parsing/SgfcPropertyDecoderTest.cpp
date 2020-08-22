@@ -1452,6 +1452,117 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist value type", "[parsing]" )
 {
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  GIVEN( "The property value type is elist of Points" )
+  {
+    WHEN( "The property values are a list of valid Point strings" )
+    {
+      std::string pointStringSgfNotation1 = "aa";
+      std::string pointStringSgfNotation2 = "bb";
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(pointStringSgfNotation2.c_str());
+      propertyValue2.value2 = nullptr;
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(pointStringSgfNotation1.c_str());
+      propertyValue1.value2 = nullptr;
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("DD");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Point string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+        auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
+        AssertValidGoPointString(propertySingleValue1, pointStringSgfNotation1, 1, 1);
+        auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
+        AssertValidGoPointString(propertySingleValue2, pointStringSgfNotation2, 2, 2);
+      }
+    }
+
+    WHEN( "The property values are a list of invalid Point strings" )
+    {
+      std::string invalidPointString1 = "foo";
+      std::string invalidPointString2 = "bar";
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(invalidPointString2.c_str());
+      propertyValue2.value2 = nullptr;
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(invalidPointString1.c_str());
+      propertyValue1.value2 = nullptr;
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("DD");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Point string values but provides them as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+        auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
+        AssertInvalidGoPointString(propertySingleValue1, invalidPointString1);
+        auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
+        AssertInvalidGoPointString(propertySingleValue2, invalidPointString2);
+      }
+    }
+
+    WHEN( "The property has value None" )
+    {
+      PropValue propertyValue;
+      // SGF defines the None value type to be an empty string
+      propertyValue.value = const_cast<char*>(SgfcConstants::NoneValueString.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("DD");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder returns an empty list of property values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 0 );
+      }
+    }
+
+    WHEN( "The property has no value (an SGFC interfacing error)" )
+    {
+      PropValue propertyValue;
+      propertyValue.value = nullptr;
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("DD");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder returns an empty list of property values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
+        REQUIRE_THROWS_AS(
+          propertyDecoder.GetPropertyValues(),
+          std::domain_error);
+      }
+    }
+  }
 }
 
 void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue)

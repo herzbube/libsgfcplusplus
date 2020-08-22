@@ -153,7 +153,13 @@ namespace LibSgfcPlusPlus
       }
       case SgfcPropertyValueTypeDescriptorType::ElistValueType:
       {
-        if (strlen(sgfPropertyValue->value) == 0)
+        if (sgfPropertyValue->value == nullptr)
+        {
+          std::stringstream message;
+          message << "GetPropertyValues: Expected a non-null value for elist value type, but SGFC gave us a null value";
+          throw std::domain_error(message.str());
+        }
+        else if (strlen(sgfPropertyValue->value) == 0)
         {
           // Probing showed that the property has no value
         }

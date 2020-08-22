@@ -85,8 +85,10 @@ namespace LibSgfcPlusPlus
     /// property object passed to the constructor is not as expected. This
     /// exception should never be thrown, but when it @b is thrown this is an
     /// indicator for an interfacing problem with SGFC. The exception is known
-    /// to be thrown in the following cases: A composed value is expected, but
-    /// the SGF property object contains only a single value.
+    /// to be thrown in the following cases: 1) A composed value is expected,
+    /// but the SGF property object contains only a single value. 2) An elist
+    /// value type is processed and the SGF property object contains no value
+    /// at all.
     ///
     /// @note This method relies on certain pre-processing performed by SGFC.
     /// Notably:
