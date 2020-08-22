@@ -37,6 +37,8 @@ extern "C"
 using namespace LibSgfcPlusPlus;
 
 
+void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue);
+void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue);
 void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue);
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
 void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition);
@@ -225,13 +227,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Number );
-        REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto numberValue = propertySingleValue->ToNumberValue();
-        REQUIRE( numberValue != nullptr );
-        REQUIRE( numberValue->GetNumberValue() == testData.second );
+        AssertValidNumberString(propertySingleValue, testData.first, testData.second);
       }
     }
 
@@ -255,15 +251,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == stringValue );
-        REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() > 0 );
-        REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Number );
-        REQUIRE( propertySingleValue->HasTypedValue() == false );
-        auto numberValue = propertySingleValue->ToNumberValue();
-        REQUIRE( numberValue != nullptr );
-        REQUIRE_THROWS_AS(
-          numberValue->GetNumberValue(),
-          std::logic_error);
+        AssertInvalidNumberString(propertySingleValue, stringValue);
       }
     }
   }
@@ -1249,10 +1237,245 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual value type", "[parsing]" )
 {
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  GIVEN( "The property value type is either a Number or a composition of Number and Number" )
+  {
+    WHEN( "The property value is a valid Number string" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidNumberStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("SZ");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Number string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SZ );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        AssertValidNumberString(propertySingleValue, testData.first, testData.second);
+      }
+    }
+
+    WHEN( "The property value is a composition of two valid Number strings" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidNumberStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value2 = const_cast<char*>(testData.first.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("SZ");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the Number string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SZ );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertValidNumberString(propertySingleValue1.get(), testData.first, testData.second);
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
+        AssertValidNumberString(propertySingleValue2.get(), testData.first, testData.second);
+      }
+    }
+
+    WHEN( "The property value is an invalid Number string" )
+    {
+      auto stringValue = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidNumberStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("SZ");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Number string value" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SZ );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+        auto propertySingleValue = propertyValues.front()->ToSingleValue();
+        AssertInvalidNumberString(propertySingleValue, stringValue);
+      }
+    }
+
+    WHEN( "The property value is a composition of two invalid Number strings" )
+    {
+      auto stringValue = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidNumberStrings()) );
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(stringValue.c_str());
+      propertyValue.value2 = const_cast<char*>(stringValue.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("SZ");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Number string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::SZ );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertInvalidNumberString(propertySingleValue1.get(), stringValue);
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
+        AssertInvalidNumberString(propertySingleValue2.get(), stringValue);
+      }
+    }
+  }
+
+  GIVEN( "The property value type is either None or a composition of Number and SimpleText" )
+  {
+    WHEN( "The property value type is None" )
+    {
+      PropValue propertyValue;
+      // SGF defines the None value type to be an empty string. We add nullptr
+      // and an arbitrary string to the list of values because we expect
+      // SgfcPropertyDecoder to ignore any property values when the property
+      // type might be value type None.
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), nullptr, "foo" };
+      propertyValue.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+      propertyValue.value2 = nullptr;
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("FG");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder returns an empty list of property values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::FG );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 0 );
+      }
+    }
+
+    WHEN( "The property value is a composition of a valid Number string and a valid SimpleText string" )
+    {
+      // We are not particularly interested in testing the correctness of value
+      // parsing, so we don't need a lot of test values
+      std::string numberString = "42";
+      SgfcNumber numberValue = 42;
+      std::string simpleTextString = "foo";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(numberString.c_str());
+      propertyValue.value2 = const_cast<char*>(simpleTextString.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("FG");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder successfully decodes the composed Number and SimpleText string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::FG );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertValidNumberString(propertySingleValue1.get(), numberString, numberValue);
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+      }
+    }
+
+    WHEN( "The property value is a composition of an invalid Number string and a valid SimpleText string" )
+    {
+      auto numberString = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidNumberStrings()) );
+      std::string simpleTextString = "foo";
+
+      PropValue propertyValue;
+      propertyValue.value = const_cast<char*>(numberString.c_str());
+      propertyValue.value2 = const_cast<char*>(simpleTextString.c_str());
+      propertyValue.next = nullptr;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("FG");
+      sgfProperty.value = &propertyValue;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+      THEN( "SgfcPropertyDecoder fails to decode the Number string values" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::FG );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
+        auto propertyComposedValue = propertyValues.front()->ToComposedValue();
+
+        auto propertySingleValue1 = propertyComposedValue->GetValue1();
+        AssertInvalidNumberString(propertySingleValue1.get(), numberString);
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+      }
+    }
+
+    WHEN( "The property value is a composition of a valid or invalid Number string and an invalid SimpleText string" )
+    {
+      // No tests because there are no invalid SimpleText strings
+    }
+  }
 }
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist value type", "[parsing]" )
 {
+}
+
+void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue)
+{
+  REQUIRE( propertySingleValue->GetRawValue() == expectedRawValue );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Number );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto numberValue = propertySingleValue->ToNumberValue();
+  REQUIRE( numberValue != nullptr );
+  REQUIRE( numberValue->GetNumberValue() == expectedNumberValue );
+}
+
+void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue)
+{
+  REQUIRE( propertySingleValue->GetRawValue() == expectedRawValue );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() > 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Number );
+  REQUIRE( propertySingleValue->HasTypedValue() == false );
+  auto numberValue = propertySingleValue->ToNumberValue();
+  REQUIRE( numberValue != nullptr );
+  REQUIRE_THROWS_AS(
+    numberValue->GetNumberValue(),
+    std::logic_error);
 }
 
 void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue)
