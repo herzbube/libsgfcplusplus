@@ -102,38 +102,51 @@ namespace LibSgfcPlusPlus
         const SgfcPropertyDualValueTypeDescriptor* dualValueTypeDescriptor =
           valueTypeDescriptor->ToDualValueTypeDescriptor();
 
-        std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType1 =
-          dualValueTypeDescriptor->GetDescriptorValueType1();
-        std::shared_ptr<ISgfcPropertyValue> propertyValueType1 =
-          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType1);
-
-        bool doesPropertyValueType1HaveTypedValues = DoesSgfcPropertyHaveTypedValues(propertyValueType1);
-        if (doesPropertyValueType1HaveTypedValues)
+        // The implementation of SgfcPropertyDualValueTypeDescriptor supports
+        // any one of the following 4 cases:
+        // - Case 1: 2x SgfcPropertyBasicValueTypeDescriptor
+        // - Case 2: 1x SgfcPropertyBasicValueTypeDescriptor +
+        //           1x SgfcPropertyComposedValueTypeDescriptor
+        // - Case 3: 1x SgfcPropertyComposedValueTypeDescriptor +
+        //           1x SgfcPropertyBasicValueTypeDescriptor
+        // - Case 4: 2x SgfcPropertyComposedValueTypeDescriptor
+        //
+        // The following implementation covers only case 2, because the
+        // SGF standard only describes properties that match this case (SZ and
+        // FG) and because, consequently, the current implementation of
+        // SgfcPropertyMetaInfo should only ever return dual value type
+        // descriptors that match this case.
+        if (dualValueTypeDescriptor->GetDescriptorValueType1()->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::BasicValueType)
         {
-          // Property value had the first of the two possible value types. We
-          // don't need to try out the second of the two possible value types.
+          std::stringstream message;
+          message << "GetPropertyValues: Dual value type descriptor hhas unexpected first descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType1()->GetDescriptorType());
+          throw std::logic_error(message.str());
+        }
+        else if (dualValueTypeDescriptor->GetDescriptorValueType2()->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::ComposedValueType)
+        {
+          std::stringstream message;
+          message << "GetPropertyValues: Dual value type descriptor hhas unexpected second descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType2()->GetDescriptorType());
+          throw std::logic_error(message.str());
+        }
 
-          propertyValues.push_back(propertyValueType1);
+        std::shared_ptr<ISgfcPropertyValueTypeDescriptor> valueTypeDescriptor;
+        if (sgfPropertyValue->value2 == nullptr)
+          valueTypeDescriptor = dualValueTypeDescriptor->GetDescriptorValueType1();
+        else
+          valueTypeDescriptor = dualValueTypeDescriptor->GetDescriptorValueType2();
+
+        std::shared_ptr<ISgfcPropertyValue> propertyValue =
+          GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, valueTypeDescriptor);
+
+        if (propertyValue == nullptr)
+        {
+          // nullptr means it was a basic value type descriptor with basic value
+          // type SgfcPropertyValueType::None. We ignore these. Example: The
+          // property "FG".
         }
         else
         {
-          std::shared_ptr<ISgfcPropertyValueTypeDescriptor> descriptorValueType2 =
-            dualValueTypeDescriptor->GetDescriptorValueType2();
-          std::shared_ptr<ISgfcPropertyValue> propertyValueType2 =
-            GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, descriptorValueType2);
-
-          bool doesPropertyValueType2HaveTypedValues = DoesSgfcPropertyHaveTypedValues(propertyValueType2);
-          if (doesPropertyValueType2HaveTypedValues)
-          {
-            // Property value had the second of the two possible value types
-            propertyValues.push_back(propertyValueType1);
-          }
-          else
-          {
-            // Property value did not have any of the two possible value types.
-            // The library client has to deal with the situation.
-            propertyValues.push_back(propertyValueType1);
-          }
+          propertyValues.push_back(propertyValue);
         }
 
         break;
