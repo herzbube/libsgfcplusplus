@@ -156,7 +156,7 @@ namespace LibSgfcPlusPlus
         if (sgfPropertyValue->value == nullptr)
         {
           std::stringstream message;
-          message << "GetPropertyValues: Expected a non-null value for elist value type, but SGFC gave us a null value";
+          message << "GetPropertyValues: Expected an elist value, but SGFC gave us no value";
           throw std::domain_error(message.str());
         }
         else if (strlen(sgfPropertyValue->value) == 0)
@@ -374,6 +374,13 @@ namespace LibSgfcPlusPlus
     {
       case SgfcPropertyValueTypeDescriptorType::ComposedValueType:
       {
+        if (sgfPropertyValue->value == nullptr)
+        {
+          std::stringstream message;
+          message << "GetSgfcPropertyValueFromSgfPropertyValue: Expected a composed value, but SGFC gave us no values";
+          throw std::domain_error(message.str());
+        }
+
         if (sgfPropertyValue->value2 == nullptr)
         {
           // We expected a composed value (according to the SGF standard's
@@ -409,13 +416,22 @@ namespace LibSgfcPlusPlus
       }
       case SgfcPropertyValueTypeDescriptorType::BasicValueType:
       {
-        if (sgfPropertyValue->value2 != nullptr)
-        {
-          // TODO: SGFC gave us a composed value, but we expected a single value
-        }
-
         SgfcPropertyValueType basicValueType =
           valueTypeDescriptor->ToBasicValueTypeDescriptor()->GetValueType();
+
+        if (sgfPropertyValue->value == nullptr)
+        {
+          std::stringstream message;
+          message << "GetSgfcPropertyValueFromSgfPropertyValue: Expected a single value of value type " << static_cast<int>(basicValueType) << ", but SGFC gave us no value";
+          throw std::domain_error(message.str());
+        }
+
+        if (sgfPropertyValue->value2 != nullptr)
+        {
+          std::stringstream message;
+          message << "GetSgfcPropertyValueFromSgfPropertyValue: Expected a single value of value type " << static_cast<int>(basicValueType) << ", but SGFC gave us a composed value";
+          throw std::domain_error(message.str());
+        }
 
         if (basicValueType == SgfcPropertyValueType::None)
         {

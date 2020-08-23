@@ -50,7 +50,9 @@ void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue,
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
 void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition);
 void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString);
-void AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven(const std::string& propertyID, const std::string& rawPropertyValue);
+void AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType);
+void AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType, const std::string& rawPropertyValue, const std::string& rawPropertyValue2);
+void AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType, const std::string& rawPropertyValue);
 
 
 // General structure of tests
@@ -177,16 +179,37 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
 
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      // We use property "DO" because this has a value type None, but even
+      // value type None requires that a value is present (an empty string).
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("DO", SgfcPropertyType::DO);
+    }
+  }
+
+  WHEN( "The SGF property object has a second value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      // Property "MN" has value type Number, so we provide two valid Number
+      // strings. Decoding must fail because all basic value types are single
+      // value.
+      AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven("MN", SgfcPropertyType::MN, "42", "17");
+    }
+  }
+
   GIVEN( "The property value type is None" )
   {
     WHEN( "The property value is decoded" )
     {
       PropValue propertyValue;
-      // SGF defines the None value type to be an empty string. We add nullptr
-      // and an arbitrary string to the list of values because we expect
+      // SGF defines the None value type to be an empty string. We add an
+      // arbitrary string to the list of values because we expect
       // SgfcPropertyDecoder to ignore any property values when the property
       // type mandates value type None.
-      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), nullptr, "foo" };
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
       propertyValue.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
@@ -915,6 +938,25 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list type consisting of a basic value type", "[parsing]" )
 {
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("AE", SgfcPropertyType::AE);
+    }
+  }
+
+  WHEN( "The SGF property object has a second value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      // Property "AE" has value type List of Points, so we provide two valid
+      // Point strings. Decoding must fail because in a list of basic value
+      // types each element is single valus.
+      AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven("AE", SgfcPropertyType::AE, "aa", "bb");
+    }
+  }
+
   GIVEN( "The property value type is List of Points" )
   {
     WHEN( "The property values are decoded" )
@@ -993,6 +1035,22 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
 
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("AP", SgfcPropertyType::AP);
+    }
+  }
+
+  WHEN( "The SGF property object has no second value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven("AP", SgfcPropertyType::AP, "foo");
+    }
+  }
+
   GIVEN( "The property value type is a composition of SimpleText and SimpleText" )
   {
     WHEN( "The property value is a composition of two valid SimpleText strings" )
@@ -1014,11 +1072,13 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AP );
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
+
+        REQUIRE( propertyValues.front()->IsComposedValue() == true );
         auto propertyComposedValue = propertyValues.front()->ToComposedValue();
 
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
         AssertValidSimpleTextString(propertySingleValue1.get(), testData.first, testData.second);
-        auto propertySingleValue2 = propertyComposedValue->GetValue1();
+        auto propertySingleValue2 = propertyComposedValue->GetValue2();
         AssertValidSimpleTextString(propertySingleValue2.get(), testData.first, testData.second);
       }
     }
@@ -1026,14 +1086,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
     WHEN( "The property value is a composition of one or two invalid SimpleText strings" )
     {
       // No tests because there are no invalid SimpleText strings
-    }
-
-    WHEN( "The SGF property object has no second value" )
-    {
-      THEN( "SgfcPropertyDecoder fails to decode the single SimpleText value" )
-      {
-        AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven("AP", "foo");
-      }
     }
   }
 
@@ -1074,12 +1126,39 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
     // type will be tested later in the SCENARIO for list types consisting of a
     // composed value type.
   }
+
+  GIVEN( "The SGF property object has an unexpected structure" )
+  {
+    WHEN( "The SGF property object has no second value" )
+    {
+      THEN( "SgfcPropertyDecoder fails to decode the composed value" )
+      {
+        AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven("AP", SgfcPropertyType::AP, "foo");
+      }
+    }
+  }
 }
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list type consisting of a composed value type", "[parsing]" )
 {
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
+
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("LB", SgfcPropertyType::LB);
+    }
+  }
+
+  WHEN( "The SGF property object has no second value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven("LB", SgfcPropertyType::LB, "A1");
+    }
+  }
 
   GIVEN( "The property value type is a list of composed Point and SimpleText strings and the game type is Go" )
   {
@@ -1240,6 +1319,14 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
 
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("SZ", SgfcPropertyType::SZ);
+    }
+  }
+
   GIVEN( "The property value type is either a Number or a composition of Number and Number" )
   {
     WHEN( "The property value is a valid Number string" )
@@ -1353,14 +1440,16 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
 
   GIVEN( "The property value type is either None or a composition of Number and SimpleText" )
   {
-    WHEN( "The property value type is None" )
+    WHEN( "The property has value None" )
     {
       PropValue propertyValue;
-      // SGF defines the None value type to be an empty string. We add nullptr
-      // and an arbitrary string to the list of values because we expect
-      // SgfcPropertyDecoder to ignore any property values when the property
-      // type might be value type None.
-      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), nullptr, "foo" };
+      // SGF defines the None value type to be an empty string. We add an
+      // arbitrary string to the list of values because we expect
+      // SgfcPropertyDecoder to ignore any property values when it decides
+      // that the property value has value type None (it decide this because
+      // we don't provide a composed value, so for property FG the conclusion
+      // is that the value must have value type None).
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
       propertyValue.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
@@ -1455,6 +1544,25 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist v
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
 
+  WHEN( "The SGF property object has no value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven("DD", SgfcPropertyType::DD);
+    }
+  }
+
+  WHEN( "The SGF property object has a second value (an SGFC interfacing error)" )
+  {
+    THEN( "SgfcPropertyDecoder fails to decode the property value" )
+    {
+      // Property "DD" has value type List of Points, so we provide two valid
+      // Point strings. Decoding must fail because in a list of basic value
+      // types each element is single valus.
+      AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven("DD", SgfcPropertyType::DD, "aa", "bb");
+    }
+  }
+
   GIVEN( "The property value type is elist of Points" )
   {
     WHEN( "The property values are a list of valid Point strings" )
@@ -1539,27 +1647,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist v
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 0 );
-      }
-    }
-
-    WHEN( "The property has no value (an SGFC interfacing error)" )
-    {
-      PropValue propertyValue;
-      propertyValue.value = nullptr;
-      propertyValue.value2 = nullptr;
-      propertyValue.next = nullptr;
-
-      Property sgfProperty;
-      sgfProperty.idstr = const_cast<char*>("DD");
-      sgfProperty.value = &propertyValue;
-      SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
-
-      THEN( "SgfcPropertyDecoder returns an empty list of property values" )
-      {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::DD );
-        REQUIRE_THROWS_AS(
-          propertyDecoder.GetPropertyValues(),
-          std::domain_error);
       }
     }
   }
@@ -1784,7 +1871,56 @@ void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   REQUIRE( goPoint == nullptr );
 }
 
-void AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven(const std::string& propertyID, const std::string& rawPropertyValue)
+void AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType)
+{
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  PropValue propertyValue;
+  propertyValue.value = nullptr;
+  propertyValue.value2 = nullptr;
+  propertyValue.next = nullptr;
+
+  Property sgfProperty;
+  sgfProperty.idstr = const_cast<char*>(propertyID.c_str());
+  sgfProperty.value = &propertyValue;
+  SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  REQUIRE_THROWS_AS(
+    propertyDecoder.GetPropertyValues(),
+    std::domain_error);
+}
+
+void AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven(
+  const std::string& propertyID,
+  SgfcPropertyType propertyType,
+  const std::string& rawPropertyValue,
+  const std::string& rawPropertyValue2)
+{
+  SgfcGameType gameType = SgfcGameType::Go;
+  SgfcBoardSize boardSize = { 19, 19 };
+
+  PropValue propertyValue;
+  propertyValue.value = const_cast<char*>(rawPropertyValue.c_str());
+  propertyValue.value2 = const_cast<char*>(rawPropertyValue2.c_str());
+  propertyValue.next = nullptr;
+
+  Property sgfProperty;
+  sgfProperty.idstr = const_cast<char*>(propertyID.c_str());
+  sgfProperty.value = &propertyValue;
+  SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
+  REQUIRE_THROWS_AS(
+    propertyDecoder.GetPropertyValues(),
+    std::domain_error);
+}
+
+void AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven(
+  const std::string& propertyID,
+  SgfcPropertyType propertyType,
+  const std::string& rawPropertyValue)
 {
   SgfcGameType gameType = SgfcGameType::Go;
   SgfcBoardSize boardSize = { 19, 19 };
@@ -1799,6 +1935,7 @@ void AssertDecodeOfComposedPropertyValueFailsWhenOnlySingleValueIsGiven(const st
   sgfProperty.value = &propertyValue;
   SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
+  REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   REQUIRE_THROWS_AS(
     propertyDecoder.GetPropertyValues(),
     std::domain_error);
