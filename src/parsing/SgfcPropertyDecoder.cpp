@@ -51,15 +51,15 @@ namespace LibSgfcPlusPlus
     , boardSize(boardSize)
   {
     if (this->sgfProperty == nullptr)
-      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object is nullptr");
+      throw std::domain_error("SgfcPropertyDecoder constructor failed: Property object is nullptr");
 
     if (this->sgfProperty->idstr == nullptr)
-      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object's ID string is nullptr");
+      throw std::domain_error("SgfcPropertyDecoder constructor failed: Property object's ID string is nullptr");
 
     // SGFC is supposed to provide us with a non-null PropValue object even if
     // the property value is SgfcPropertyValueType::None
     if (this->sgfProperty->value == nullptr)
-      throw std::invalid_argument("SgfcPropertyDecoder constructor failed: Property object's value is nullptr");
+      throw std::domain_error("SgfcPropertyDecoder constructor failed: Property object's value is nullptr");
 
     this->propertyMetaInfo = std::shared_ptr<SgfcPropertyMetaInfo>(
       new SgfcPropertyMetaInfo(GetPropertyTypeInternal(), gameType));

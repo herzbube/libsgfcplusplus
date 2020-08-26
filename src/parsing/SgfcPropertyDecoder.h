@@ -32,14 +32,17 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcPropertyDecoder object. The
     /// object parses the specified SGF property @a sgfProperty and its values.
+    /// The SGF property's string value is used to determine the property type.
     /// The specified @a gameType and @a boardSize are important for
     /// interpreting certain game-specific properties and their values, but
     /// are ignored for all other properties and their values.
     ///
-    /// @exception std::invalid_argument Is thrown if @a sgfProperty is
-    /// nullptr, or if @a sgfProperty->idstr is nullptr, or if
-    /// @a sgfProperty->value is nullptr, or if @a sgfProperty->id holds an
-    /// unexpected enumeration value.
+    /// @exception std::domain_error Is thrown if something about @a sgfProperty
+    /// is not as expected. This exception should never be thrown, but when it
+    /// @b is thrown this is an indicator for an interfacing problem with SGFC.
+    /// The exception is known to be thrown in the following cases:
+    /// 1) @a sgfProperty is nullptr. 2) @a sgfProperty->idstr is nullptr.
+    /// 3) @a sgfProperty->value is nullptr.
     SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize);
 
     /// @brief Destroys and cleans up the SgfcPropertyDecoder object.

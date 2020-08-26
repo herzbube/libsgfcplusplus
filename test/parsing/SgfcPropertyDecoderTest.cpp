@@ -105,7 +105,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
       {
         REQUIRE_THROWS_AS(
           SgfcPropertyDecoder(nullptr, gameType, boardSize),
-          std::logic_error);
+          std::domain_error);
       }
     }
 
@@ -117,7 +117,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
       {
         REQUIRE_THROWS_AS(
           SgfcPropertyDecoder(&sgfProperty, gameType, boardSize),
-          std::logic_error);
+          std::domain_error);
       }
     }
 
@@ -129,7 +129,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
       {
         REQUIRE_THROWS_AS(
           SgfcPropertyDecoder(&sgfProperty, gameType, boardSize),
-          std::logic_error);
+          std::domain_error);
       }
     }
 
