@@ -60,8 +60,8 @@ namespace LibSgfcPlusPlus
     static std::shared_ptr<ISgfcDocument> CreateDocument(std::shared_ptr<ISgfcGame> game);
 
     /// @brief Returns a newly constructed ISgfcGame object. The game type is
-    /// SgfcGameType::Unknown. The game is not associated with any document.
-    /// The game has no game tree.
+    /// SgfcConstants::DefaultGameType. The game is not associated with any
+    /// document. The game has no game tree.
     static std::shared_ptr<ISgfcGame> CreateGame();
 
     /// @brief Returns a newly constructed ISgfcGame object. The game tree's

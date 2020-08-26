@@ -15,7 +15,6 @@ namespace LibSgfcPlusPlus
     SgfcGame(std::shared_ptr<ISgfcNode> rootNode);
     virtual ~SgfcGame();
 
-    virtual bool HasGameType() const;
     virtual SgfcGameType GetGameType() const;
     virtual SgfcNumber GetGameTypeAsNumber() const;
 

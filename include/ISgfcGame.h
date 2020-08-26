@@ -30,13 +30,6 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcGame object.
     virtual ~ISgfcGame();
 
-    /// @brief Returns true if the game has a game type. Returns false if the
-    /// game has no game type.
-    ///
-    /// The game has no game type if GetGameTypeAsNumber() returns
-    /// SgfcConstants::GameTypeNone.
-    virtual bool HasGameType() const = 0;
-
     /// @brief Returns the game type found in the root node property of type
     /// SgfcPropertyType::GM, as an enumeration value.
     ///
@@ -44,24 +37,36 @@ namespace LibSgfcPlusPlus
     ///         in the SGF standard, returns the SgfcGameType value that
     ///         corresponds to the property value. The value is guaranteed not
     ///         to be SgfcGameType::Unknown.
-    /// @retval SgfcConstants::DefaultGameType If the property is present and
-    ///         has no value. The value is guaranteed not to be
+    /// @retval SgfcConstants::DefaultGameType If the property is not present,
+    ///         or if the game has no root node, or if the property is present
+    ///         but has no value (e.g. while the game tree is being set up
+    ///         programmatically). The value is guaranteed not to be
     ///         SgfcGameType::Unknown.
     /// @retval SgfcGameType::Unknown If the property is present and has a value
-    ///         that is not defined in the SGF standard, or if the property is
-    ///         not present, or if the game has no root node.
+    ///         that is not defined in the SGF standard. Invoke
+    ///         GetGameTypeAsNumber() to obtain the game type as Number value.
+    ///
+    /// @exception std::logic_error Is thrown if a property object for
+    /// SgfcPropertyType::GM is found in the game's root node, but the property
+    /// object is not an instance of ISgfcGameTypeProperty.
     virtual SgfcGameType GetGameType() const = 0;
 
     /// @brief Returns the game type found in the root node property of type
     /// SgfcPropertyType::GM, as a Number value. This is useful if GetGameType()
-    /// returns SgfcGameType::Unknown.
+    /// returns SgfcGameType::Unknown because the Number value is not defined
+    /// in the SGF standard and cannot be mapped to a member of the enumeration
+    /// SgfcGameType.
     ///
     /// @retval SgfcNumber The Number value of the root node's
-    ///         SgfcPropertyType::GM property. If the property has no value,
-    ///         returns the Number value that corresponds to
+    ///         SgfcPropertyType::GM property. If the property is not present,
+    ///         or if the game has no root node, or if the property is present
+    ///         but has no value (e.g. while the game tree is being set up
+    ///         programmatically), this is the Number value that corresponds to
     ///         SgfcConstants::DefaultGameType.
-    /// @retval SgfcConstants::GameTypeNone If the property is not present in
-    ///         the root node, or if the game has no root node.
+    ///
+    /// @exception std::logic_error Is thrown if a property object for
+    /// SgfcPropertyType::GM is found in the game's root node, but the property
+    /// object is not an instance of ISgfcGameTypeProperty.
     virtual SgfcNumber GetGameTypeAsNumber() const = 0;
 
     /// @brief Returns true if the game has a board size. Returns false if the

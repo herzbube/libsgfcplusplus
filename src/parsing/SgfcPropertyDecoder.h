@@ -156,12 +156,17 @@ namespace LibSgfcPlusPlus
     ///         in the SGF standard, returns the SgfcGameType value that
     ///         corresponds to the property value. The value is guaranteed not
     ///         to be SgfcGameType::Unknown.
-    /// @retval SgfcConstants::DefaultGameType If the property is present and
-    ///         has no value. The value is guaranteed not to be
-    ///         SgfcGameType::Unknown.
+    /// @retval SgfcConstants::DefaultGameType If the property is not present.
+    ///         The value is guaranteed not to be SgfcGameType::Unknown.
     /// @retval SgfcGameType::Unknown If the property is present and has a value
-    ///         that is not defined in the SGF standard, or if the property is
-    ///         not present.
+    ///         that is not defined in the SGF standard.
+    ///
+    /// @exception std::domain_error Is thrown if something about @a sgfNode
+    /// is not as expected. This exception should never be thrown, but when it
+    /// @b is thrown this is an indicator for an interfacing problem with SGFC.
+    /// The exception is known to be thrown in the following cases:
+    /// 1) @a sgfNode is nullptr. 2) @a sgfNode contains a GM property that has
+    /// no value, or a value that is not a Number string, or a composed value.
     static SgfcGameType GetGameTypeFromNode(const Node* sgfNode);
 
     /// @brief Probes the SGF node @a sgfNode for a property of type

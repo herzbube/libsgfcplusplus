@@ -216,6 +216,9 @@ namespace LibSgfcPlusPlus
 
   SgfcGameType SgfcPropertyDecoder::GetGameTypeFromNode(const Node* sgfNode)
   {
+    if (sgfNode == nullptr)
+      throw std::domain_error("Node object is nullptr");
+
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
@@ -231,25 +234,32 @@ namespace LibSgfcPlusPlus
 
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
-      auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
-
       if (propertyValues.size() == 0)
       {
-        std::shared_ptr<ISgfcGameTypeProperty> property = propertyFactory->CreateGameTypeProperty();
-        return property->GetGameType();
+        // Valid SGF content should contain either a GM property with a value,
+        // or no GM property at all. SGFC fixes a missing property by adding
+        // one. SGFC also fixes a missing value by adding the default value 1.
+        // So in practice this should never occur.
+        throw std::domain_error("Node object contains a GM property without a value");
       }
       else
       {
         std::shared_ptr<ISgfcPropertyValue> propertyValue = propertyValues.front();
 
+        // This occurs if SgfcPropertyMetaInfo provides the wrong value type
+        // descriptor
         if (propertyValue->IsComposedValue())
-          return SgfcGameType::Unknown;
+          throw std::logic_error("Node object contains a GM property that has a composed valued");
 
-        // This is just to verify that we actually have an
-        // ISgfcNumberPropertyValue object - if not the factory would throw
+        // This occurs if SgfcPropertyMetaInfo provides the wrong value type
+        // descriptor
         const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
         if (numberValue == nullptr)
-            return SgfcGameType::Unknown;
+          throw std::logic_error("Property object is not an instance of ISgfcNumberPropertyValue");
+
+        // This occurs if the property value string is not a Number string
+        if (! numberValue->HasTypedValue())
+          throw std::domain_error("Node object contains a GM property that does not have a Number value");
 
         // Can't use numberValue directly, the factory wants an std::shared_ptr.
         // std::dynamic_pointer_cast performs a downcast and packages the result
@@ -258,6 +268,7 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
           std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
 
+        auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
         std::shared_ptr<ISgfcGameTypeProperty> property = propertyFactory->CreateGameTypeProperty(
           numberValueSharedPtr);
 
@@ -265,10 +276,7 @@ namespace LibSgfcPlusPlus
       }
     }
 
-    // SgfcPropertyType::GM is not present. This is not the same as when the
-    // property is present but has no value, so we can't return
-    // SgfcPrivateConstants::DefaultGameType.
-    return SgfcGameType::Unknown;
+    return SgfcConstants::DefaultGameType;
   }
 
   SgfcBoardSize SgfcPropertyDecoder::GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType)

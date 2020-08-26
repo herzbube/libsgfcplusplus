@@ -30,13 +30,20 @@ namespace LibSgfcPlusPlus
     ///         to the property value. The value is guaranteed not to be
     ///         SgfcGameType::Unknown.
     /// @retval SgfcConstants::DefaultGameType If the property has no value.
-    ///         The value is guaranteed not to be SgfcGameType::Unknown.
+    ///         The value is guaranteed not to be SgfcGameType::Unknown. Note:
+    ///         The property having no value is not something that can naturally
+    ///         occur when SGF content is processed. It may occur in special
+    ///         circumstances, e.g. while a library clients programmatically
+    ///         sets up a game tree.
     /// @retval SgfcGameType::Unknown If the property has a value that is not
-    ///         defined in the SGF standard.
+    ///         defined in the SGF standard. Invoke
+    ///         GetGameTypeAsNumber() to obtain the game type as Number value.
     virtual SgfcGameType GetGameType() const = 0;
 
     /// @brief Returns the property value interpreted as an SgfcNumber value.
-    /// This is useful if GetGameType() returns SgfcGameType::Unknown.
+    /// This is useful if GetGameType() returns SgfcGameType::Unknown because
+    /// the Number value is not defined in the SGF standard and cannot be mapped
+    /// to a member of the enumeration SgfcGameType.
     ///
     /// @retval SgfcNumber The Number value of the property. If the property
     ///         has no value, returns the Number value that corresponds to
