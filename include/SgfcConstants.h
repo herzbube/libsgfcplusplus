@@ -91,8 +91,8 @@ namespace LibSgfcPlusPlus
 
     /// @name Other constants for values defined by the SGF standard
     //@{
-    /// @brief The default game type if the SgfcPropertyType::GM property exists
-    /// but has no value.
+    /// @brief The default game type if the SgfcPropertyType::GM property does
+    /// not exist.
     ///
     /// The SGF standard defines this to be SgfcGameType::Go.
     static const SgfcGameType DefaultGameType;
@@ -121,13 +121,6 @@ namespace LibSgfcPlusPlus
 
     /// @name Other constants
     //@{
-    /// @brief A number value denoting "no game type".
-    ///
-    /// ISgfcGame::GetGameTypeAsNumber() returns this value, for instance, if
-    /// the SgfcPropertyType::GM property is not present in a game's root node,
-    /// or if the game has no root node.
-    static const SgfcNumber GameTypeNone;
-
     /// @brief A board size value denoting "no board size".
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the

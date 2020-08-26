@@ -29,7 +29,6 @@ namespace LibSgfcPlusPlus
     void SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder);
 
   private:
-    SgfcGameType gameType;
     std::shared_ptr<ISgfcNode> rootNode;
     std::shared_ptr<ISgfcTreeBuilder> treeBuilder;
   };

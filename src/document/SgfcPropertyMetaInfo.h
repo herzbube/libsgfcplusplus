@@ -31,13 +31,14 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcPropertyMetaInfo object.
     virtual ~SgfcPropertyMetaInfo();
 
-    /// @brief Returns the type of the property. Returns
-    /// SgfcPropertyType::Unknown if the property is a custom property that is
-    /// not defined in the SGF standard.
+    /// @brief Returns the type of the property that was passed to the
+    /// constructor. The value SgfcPropertyType::Unknown indicates that the
+    /// property is a custom property that is not defined in the SGF standard.
     SgfcPropertyType GetPropertyType() const;
 
     /// @brief Returns the game type for which the property can contain values.
-    /// Returns SgfcGameType::Unknown if the game type is not defined in the
+    /// This is the value that was passed to the constructor. The value
+    /// SgfcGameType::Unknown indicates that the game type is not defined in the
     /// SGF standard.
     ///
     /// The game type is important because for some properties the SGF standard

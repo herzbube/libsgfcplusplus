@@ -12,15 +12,13 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGame::SgfcGame()
-    : gameType(SgfcGameType::Unknown)
-    , rootNode(nullptr)
+    : rootNode(nullptr)
     , treeBuilder(nullptr)
   {
   }
 
   SgfcGame::SgfcGame(std::shared_ptr<ISgfcNode> rootNode)
-    : gameType(SgfcGameType::Unknown)
-    , rootNode(rootNode)
+    : rootNode(rootNode)
     , treeBuilder(nullptr)
   {
   }

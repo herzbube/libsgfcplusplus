@@ -55,7 +55,8 @@ void AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven(const std::str
 void AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType, const std::string& rawPropertyValue);
 
 
-// General structure of tests
+// General structure of tests that exercise
+// SgfcPropertyDecoder::GetPropertyValue():
 // - One SCENARIO for each group of value type descriptor. The grouping of value
 //   type descriptors can be seen in SgfcPropertyMetaInfo.cpp: This file
 //   contains a lot of constant definitions near the top, those constants are

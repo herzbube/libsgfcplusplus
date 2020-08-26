@@ -159,7 +159,7 @@ namespace LibSgfcPlusPlus
           message << "GetPropertyValues: Expected an elist value, but SGFC gave us no value";
           throw std::domain_error(message.str());
         }
-        else if (strlen(sgfPropertyValue->value) == 0)
+        else if (SgfcConstants::NoneValueString == sgfPropertyValue->value)
         {
           // Probing showed that the property has no value
         }
@@ -455,6 +455,23 @@ namespace LibSgfcPlusPlus
 
           return nullptr;
         }
+
+        // Here we expect a value type != SgfcPropertyValueType::None. Should
+        // we do something special if the SGF content gives us an empty string
+        // as the string value? It could be argued that we should return
+        // nullptr, because the SGF standard defines an empty string to be the
+        // equivalent of "no value". This would help clients to better deal
+        // with bad SGF content. On the other hand, filtering out an empty
+        // string value would mean tampering with the SGF data. Currently the
+        // tampering argument seems to be the stronger argument, so we don't
+        // do anything special with empty string values here. The result is that
+        // for thhose value types for which an empty string cannot be converted
+        // to a value of the required type (e.g. SgfcPropertyValueType::Number)
+        // the resulting ISgfcPropertyValue object will have only a raw value
+        // and HasTypedValue() will return false.
+        // Note: If a change to this decision is ever considered, also think
+        // about how to deal with composed value types for which one of the
+        // two values is an empty string.
 
         std::shared_ptr<ISgfcPropertyValue> propertyValue = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value,

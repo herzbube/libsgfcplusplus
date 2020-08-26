@@ -341,7 +341,6 @@ namespace LibSgfcPlusPlus
   const SgfcBoardSize SgfcConstants::BoardSizeDefaultGo = { 19, 19 };
   const SgfcBoardSize SgfcConstants::BoardSizeDefaultChess = { 8, 8 };
 
-  const SgfcNumber SgfcConstants::GameTypeNone = -1;
   const SgfcBoardSize SgfcConstants::BoardSizeNone = { -1, -1 };
   const SgfcBoardSize SgfcConstants::BoardSizeInvalid = { -2, -2 };
 }
