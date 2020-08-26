@@ -174,6 +174,157 @@ SCENARIO( "SgfcPropertyDecoder is constructed", "[parsing]" )
   }
 }
 
+SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPropertyType::GM", "[parsing]" )
+{
+  // Use a game type that is different from SgfcConstants::DefaultGameType so
+  // that tests can notice an error in the "default game type" logic
+  SgfcGameType expectedGameType = SgfcGameType::Backgammon;
+  SgfcNumber expectedGameTypeAsNumber = 6;
+  std::string expectedGameTypeAsNumberString = "6";
+
+  PropValue sgfPropertyValueGM;
+  sgfPropertyValueGM.value = const_cast<char*>(expectedGameTypeAsNumberString.c_str());
+  sgfPropertyValueGM.value2 = nullptr;
+  sgfPropertyValueGM.next = nullptr;
+
+  Property sgfPropertyGM;
+  sgfPropertyGM.idstr = const_cast<char*>("GM");
+  sgfPropertyGM.value = &sgfPropertyValueGM;
+  sgfPropertyGM.next = nullptr;
+
+  PropValue sgfPropertyValueSZ;
+  // We intentionally don't set up the property value to show that probing
+  // completely ignores the property if it doesn't have the right type
+  sgfPropertyValueSZ.value = nullptr;
+  sgfPropertyValueSZ.value2 = nullptr;
+  sgfPropertyValueSZ.next = nullptr;
+
+  Property sgfPropertySZ;
+  sgfPropertySZ.idstr = const_cast<char*>("SZ");
+  sgfPropertySZ.value = &sgfPropertyValueSZ;
+  sgfPropertySZ.next = &sgfPropertyGM;
+
+  Node sgfNode;
+  sgfNode.prop = &sgfPropertySZ;
+
+  GIVEN( "SgfcPropertyDecoder attempts to probe an invalid SGF Node or Property object" )
+  {
+    WHEN( "SgfcPropertyDecoder attempts to probe a nullptr SGF Node object" )
+    {
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetGameTypeFromNode(nullptr),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder attempts to probe an SGF Property object which is of type SgfcPropertyType::GM, but without an SGF PropValue object" )
+    {
+      sgfPropertyGM.value = nullptr;
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by the SgfcPropertyDecoder constructor
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder attempts to probe an SGF Property object which is of type SgfcPropertyType::GM, with an SGF PropValue object that has no value string" )
+    {
+      sgfPropertyValueGM.value = nullptr;
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes a GM property that has a value that is not a Number value" )
+    {
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
+      sgfPropertyValueGM.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes a GM property that has a second value" )
+    {
+      sgfPropertyValueGM.value2 = const_cast<char*>(expectedGameTypeAsNumberString.c_str());
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode),
+          std::domain_error);
+      }
+    }
+  }
+
+  GIVEN( "SgfcPropertyDecoder probes a valid SGF Node and property object" )
+  {
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object without an SGF property object" )
+    {
+      sgfNode.prop = nullptr;
+
+      THEN( "Probing returns SgfcConstants::DefaultGameType" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == SgfcConstants::DefaultGameType );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object with a single SGF property object that is not of type SgfcPropertyType::GM" )
+    {
+      sgfPropertySZ.next = nullptr;
+
+      THEN( "Probing returns SgfcConstants::DefaultGameType" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == SgfcConstants::DefaultGameType );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object with a single SGF property object that is of type SgfcPropertyType::GM" )
+    {
+      sgfNode.prop = &sgfPropertyGM;
+
+      THEN( "Probing returns the game type that corresponds to the property value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == expectedGameType );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes a Node object with multiple SGF property objects, one of which is of type SgfcPropertyType::GM" )
+    {
+      THEN( "Probing returns the game type that corresponds to the value of the property which is of type SgfcPropertyType::GM" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == expectedGameType );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes a GM property that has a value not defined in the SGF standard" )
+    {
+      std::vector<const char*> v = { "-1", "0", "1000" };
+      sgfPropertyValueGM.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+
+      THEN( "Probing returns SgfcGameType::Unknown" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == SgfcGameType::Unknown );
+      }
+    }
+  }
+}
+
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic value type", "[parsing]" )
 {
   SgfcGameType gameType = SgfcGameType::Go;
