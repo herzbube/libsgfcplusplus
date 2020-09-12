@@ -25,7 +25,7 @@ namespace LibSgfcPlusPlus
     if (propertyValue == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Property value is nullptr");
 
-    if (! propertyValue->HasTypedValue())
+    if (! propertyValue->HasTypedValue() || propertyValue->GetValueType() != SgfcPropertyValueType::Number)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Property value is not a Number value");
   }
 
@@ -65,7 +65,7 @@ namespace LibSgfcPlusPlus
     auto propertyValue = GetPropertyValue();
 
     if (propertyValue == nullptr)
-      return GetDefaultBoardSize(gameType);
+      return SgfcUtility::GetDefaultBoardSize(gameType);
 
     SgfcBoardSize boardSize;
     if (propertyValue->IsComposedValue())
@@ -73,34 +73,16 @@ namespace LibSgfcPlusPlus
     else
       boardSize = GetBoardSizeFromSingleValue(propertyValue->ToSingleValue());
 
-    bool isBoardSizeValid = IsBoardSizeValid(boardSize, gameType);
+    bool isBoardSizeValid = SgfcUtility::IsBoardSizeValid(boardSize, gameType);
     if (isBoardSizeValid)
       return boardSize;
     else
       return SgfcConstants::BoardSizeInvalid;
   }
 
-  SgfcBoardSize SgfcBoardSizeProperty::GetDefaultBoardSize(SgfcGameType gameType) const
-  {
-    switch (gameType)
-    {
-      case SgfcGameType::Go:
-        return SgfcConstants::BoardSizeDefaultGo;
-      case SgfcGameType::Chess:
-        return SgfcConstants::BoardSizeDefaultChess;
-      default:
-        return SgfcConstants::BoardSizeNone;
-    }
-  }
-
   SgfcBoardSize SgfcBoardSizeProperty::GetBoardSizeFromSingleValue(const ISgfcSinglePropertyValue* singleValue) const
   {
-    if (! singleValue->HasTypedValue())
-      return SgfcConstants::BoardSizeNone;
-
-    if (singleValue->GetValueType() != SgfcPropertyValueType::Number)
-      return SgfcConstants::BoardSizeNone;
-
+    // Constructor did checks for us
     SgfcNumber numberOfColumnsAndRows = singleValue->ToNumberValue()->GetNumberValue();
     return { numberOfColumnsAndRows, numberOfColumnsAndRows };
   }
@@ -110,42 +92,11 @@ namespace LibSgfcPlusPlus
     auto singleValue1 = composedValue->GetValue1();
     auto singleValue2 = composedValue->GetValue2();
 
-    if (! singleValue1->HasTypedValue() || ! singleValue2->HasTypedValue())
-      return SgfcConstants::BoardSizeNone;
-
-    if (singleValue1->GetValueType() != SgfcPropertyValueType::Number ||
-        singleValue2->GetValueType() != SgfcPropertyValueType::Number)
-    {
-      return SgfcConstants::BoardSizeNone;
-    }
-
     return
     {
+      // Constructor did checks for us
       singleValue1->ToNumberValue()->GetNumberValue(),
       singleValue2->ToNumberValue()->GetNumberValue()
     };
-  }
-
-  bool SgfcBoardSizeProperty::IsBoardSizeValid(SgfcBoardSize boardSize, SgfcGameType gameType) const
-  {
-    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns ||
-        boardSize.Rows < SgfcConstants::BoardSizeMinimum.Rows)
-    {
-      return false;
-    }
-
-    if (gameType == SgfcGameType::Go)
-    {
-      if (boardSize.Columns != boardSize.Rows)
-        return false;
-
-      if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
-          boardSize.Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
-      {
-        return false;
-      }
-    }
-
-    return true;
   }
 }

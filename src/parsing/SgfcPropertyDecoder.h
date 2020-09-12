@@ -174,9 +174,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Probes the SGF node @a sgfNode for a property of type
     /// SgfcPropertyType::SZ and returns an SgfcBoardSize value that corresponds
-    /// to the result of the probing. Returns a game-specific default board size
-    /// for a few game types mentioned in the SGF standard if the property is
-    /// present but has no value.
+    /// to the result of the probing.
     ///
     /// @param sgfNode The SGF node to be probed. The node should be the root
     /// node of a game because SgfcPropertyType::SZ can be expected to be
@@ -185,17 +183,26 @@ namespace LibSgfcPlusPlus
     /// @retval SgfcBoardSize If the property is present and has a valid value.
     ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone
     ///         nor SgfcConstants::BoardSizeInvalid.
-    /// @retval SgfcConstants::DefaultBoardSizeGo If the property is present
-    ///         and has no value, and @a gameType is SgfcGameType::Go.
-    /// @retval SgfcConstants::DefaultBoardSizeChess If the property is present
-    ///         and has no value, and @a gameType is SgfcGameType::Chess.
-    /// @retval SgfcConstants::BoardSizeNone If the property is not present, or
-    ///         if the property is present and has no value, but @a gameType is
-    ///         neither SgfcGameType::Go nor SgfcGameType::Chess.
+    /// @retval SgfcConstants::BoardSizeDefaultGo If the property is not present
+    ///         and @a gameType is SgfcGameType::Go.
+    /// @retval SgfcConstants::BoardSizeDefaultChess If the property is not
+    ///         present and @a gameType is SgfcGameType::Chess.
+    /// @retval SgfcConstants::BoardSizeNone If the property is not present and
+    ///         @a gameType is neither SgfcGameType::Go nor SgfcGameType::Chess.
     /// @retval SgfcConstants::BoardSizeInvalid If the property is present but
     ///         has an invalid value. A board size is invalid if it violates
     ///         the constraints defined by the SGF standard. See the
     ///         documentation of SgfcConstants::BoardSizeInvalid for details.
+    ///
+    /// @exception std::domain_error Is thrown if something about @a sgfNode
+    /// is not as expected. This exception should never be thrown, but when it
+    /// @b is thrown this is an indicator for an interfacing problem with SGFC.
+    /// The exception is known to be thrown in the following cases:
+    /// 1) @a sgfNode is nullptr. 2) @a sgfNode contains an SZ property that has
+    /// no value, or a value that is neither a Number string nor a composed
+    /// value consisting of two Number strings. 3) @a sgfNode contains an
+    /// SZ property that has a composed value although @a gameType is
+    /// SgfcGameType::Go.
     static SgfcBoardSize GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType);
 
   private:

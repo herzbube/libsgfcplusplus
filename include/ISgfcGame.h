@@ -77,25 +77,34 @@ namespace LibSgfcPlusPlus
     virtual bool HasBoardSize() const = 0;
 
     /// @brief Returns the board size found in the root node property of type
-    /// SgfcPropertyType::SZ, as an SgfcBoardSize value. Returns a game-specific
-    /// default board size for a few game types mentioned in the SGF standard
-    /// if the property is present but has no value.
+    /// SgfcPropertyType::SZ, as an SgfcBoardSize value.
     ///
     /// @retval SgfcBoardSize If the property is present and has a valid value.
     ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone
     ///         nor SgfcConstants::BoardSizeInvalid.
-    /// @retval SgfcConstants::DefaultBoardSizeGo If the property is present
-    ///         and has no value, and GetGameType() returns SgfcGameType::Go.
-    /// @retval SgfcConstants::DefaultBoardSizeChess If the property is present
-    ///         and has no value, and GetGameType() returns SgfcGameType::Chess.
-    /// @retval SgfcConstants::BoardSizeNone If the property is not present, or
-    ///         if the game has no root node. Also if the property is present
-    ///         and has no value, but GetGameType() returns neither
-    ///         SgfcGameType::Go nor SgfcGameType::Chess.
+    /// @retval SgfcConstants::BoardSizeDefaultGo If GetGameType() returns
+    ///         SgfcGameType::Go and one of the following is true: The
+    ///         property is not present, or the game has no root node, or the
+    ///         property is present but has no value (e.g. while the game tree
+    ///         is being set up programmatically).
+    /// @retval SgfcConstants::BoardSizeDefaultChess If GetGameType() returns
+    ///         SgfcGameType::Chess and one of the following is true: The
+    ///         property is not present, or the game has no root node, or the
+    ///         property is present but has no value (e.g. while the game tree
+    ///         is being set up programmatically).
+    /// @retval SgfcConstants::BoardSizeNone If GetGameType() returns
+    ///         neither SgfcGameType::Go nor SgfcGameType::Chess and one of the
+    ///         following is true: The property is not present, or the game has
+    ///         no root node, or the property is present but has no value (e.g.
+    ///         while the game tree is being set up programmatically).
     /// @retval SgfcConstants::BoardSizeInvalid If the property is present but
     ///         has an invalid value. A board size is invalid if it violates
     ///         the constraints defined by the SGF standard. See the
     ///         documentation of SgfcConstants::BoardSizeInvalid for details.
+    ///
+    /// @exception std::logic_error Is thrown if a property object for
+    /// SgfcPropertyType::SZ is found in the game's root node, but the property
+    /// object is not an instance of ISgfcBoardSizeProperty.
     virtual SgfcBoardSize GetBoardSize() const = 0;
 
     /// @brief Returns true if the game has a root node. Returns false if the

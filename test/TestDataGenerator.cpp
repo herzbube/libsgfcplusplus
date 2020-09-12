@@ -420,4 +420,97 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcGameType, SgfcBoardSize>> TestDataGenerator::GetValidSZSquareStrings()
+  {
+    std::vector<std::tuple<std::string, SgfcGameType, SgfcBoardSize>> testData =
+    {
+      // For Go any board size is valid as long as it falls between the minimum
+      // and the maximum
+      std::make_tuple("1", SgfcGameType::Go, SgfcConstants::BoardSizeMinimum),
+      std::make_tuple("19", SgfcGameType::Go, SgfcConstants::BoardSizeDefaultGo),
+      std::make_tuple("20", SgfcGameType::Go, SgfcBoardSize {20, 20}),
+      std::make_tuple("52", SgfcGameType::Go, SgfcConstants::BoardSizeMaximumGo),
+      // For non-Go game types any board size is valid as long as it is above
+      // the minimum
+      std::make_tuple("1", SgfcGameType::Chess, SgfcBoardSize {1, 1}),
+      std::make_tuple("8", SgfcGameType::Chess, SgfcBoardSize {8, 8}),
+      std::make_tuple("9", SgfcGameType::Chess, SgfcBoardSize {9, 9}),
+      std::make_tuple("1000", SgfcGameType::Chess, SgfcBoardSize {1000, 1000}),
+      std::make_tuple("1", SgfcGameType::PhilosophersFootball, SgfcBoardSize {1, 1}),
+      std::make_tuple("8", SgfcGameType::PhilosophersFootball, SgfcBoardSize {8, 8}),
+      std::make_tuple("9", SgfcGameType::PhilosophersFootball, SgfcBoardSize {9, 9}),
+      std::make_tuple("1000", SgfcGameType::PhilosophersFootball, SgfcBoardSize {1000, 1000})
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<std::string, SgfcGameType>> TestDataGenerator::GetInvalidSZSquareStrings()
+  {
+    std::vector<std::tuple<std::string, SgfcGameType>> testData =
+    {
+      // For Go any board size that is below the minimum is invalid ...
+      std::make_tuple("-42", SgfcGameType::Go),
+      std::make_tuple("-1", SgfcGameType::Go),
+      std::make_tuple("0", SgfcGameType::Go),
+      // ... as well as any board size that is above the maximum
+      std::make_tuple("53", SgfcGameType::Go),
+      std::make_tuple("1000", SgfcGameType::Go),
+      // For non-Go game types the board size is invalid only if it is below
+      // the minimum. There is no maximum.
+      std::make_tuple("-42", SgfcGameType::Chess),
+      std::make_tuple("-1", SgfcGameType::Chess),
+      std::make_tuple("0", SgfcGameType::Chess),
+      std::make_tuple("-42", SgfcGameType::Kropki),
+      std::make_tuple("-1", SgfcGameType::Kropki),
+      std::make_tuple("0", SgfcGameType::Kropki)
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<std::string, std::string, SgfcGameType, SgfcBoardSize>> TestDataGenerator::GetValidSZRectangularStrings()
+  {
+    std::vector<std::tuple<std::string, std::string, SgfcGameType, SgfcBoardSize>> testData =
+    {
+      // For non-Go game types any board size is valid as long as neither row
+      // nor column fall below the minimum
+      std::make_tuple("1", "1", SgfcGameType::Chess, SgfcBoardSize {1, 1}),
+      std::make_tuple("1", "2", SgfcGameType::Chess, SgfcBoardSize {1, 2}),
+      std::make_tuple("1", "8", SgfcGameType::Chess, SgfcBoardSize {1, 8}),
+      std::make_tuple("8", "8", SgfcGameType::Chess, SgfcBoardSize {8, 8}),
+      std::make_tuple("9", "1000", SgfcGameType::Chess, SgfcBoardSize {9, 1000}),
+      std::make_tuple("9", "1000", SgfcGameType::Chess, SgfcBoardSize {9, 1000}),
+      std::make_tuple("1", "1", SgfcGameType::Zertz, SgfcBoardSize {1, 1}),
+      std::make_tuple("1", "2", SgfcGameType::Zertz, SgfcBoardSize {1, 2}),
+      std::make_tuple("1", "8", SgfcGameType::Zertz, SgfcBoardSize {1, 8}),
+      std::make_tuple("8", "8", SgfcGameType::Zertz, SgfcBoardSize {8, 8}),
+      std::make_tuple("9", "1000", SgfcGameType::Zertz, SgfcBoardSize {9, 1000}),
+      std::make_tuple("9", "1000", SgfcGameType::Zertz, SgfcBoardSize {9, 1000})
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<std::string, std::string, SgfcGameType>> TestDataGenerator::GetInvalidSZRectangularStrings()
+  {
+    std::vector<std::tuple<std::string, std::string, SgfcGameType>> testData =
+    {
+      // A rectangular board is invalid for Go ...
+      std::make_tuple("1", "19", SgfcGameType::Go),
+      // ... even if the two values are the same
+      std::make_tuple("19", "19", SgfcGameType::Go),
+      // For non-Go game types the board size is invalid only if either the
+      // row or column are below the minimum
+      std::make_tuple("-42", "19", SgfcGameType::Chess),
+      std::make_tuple("-1", "19", SgfcGameType::Chess),
+      std::make_tuple("0", "19", SgfcGameType::Chess),
+      std::make_tuple("19", "-42", SgfcGameType::Chess),
+      std::make_tuple("19", "-1", SgfcGameType::Chess),
+      std::make_tuple("19", "0", SgfcGameType::Chess)
+    };
+
+    return testData;
+  }
 }

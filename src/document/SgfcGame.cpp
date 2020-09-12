@@ -54,19 +54,23 @@ namespace LibSgfcPlusPlus
   bool SgfcGame::HasBoardSize() const
   {
     SgfcBoardSize boardSize = GetBoardSize();
-    return (boardSize != SgfcConstants::BoardSizeNone);
+    return (boardSize != SgfcConstants::BoardSizeNone && boardSize != SgfcConstants::BoardSizeInvalid);
   }
 
   SgfcBoardSize SgfcGame::GetBoardSize() const
   {
     if (this->rootNode == nullptr)
-      return SgfcConstants::BoardSizeNone;
+      return SgfcUtility::GetDefaultBoardSize(this->GetGameType());
 
     auto property = this->rootNode->GetProperty(SgfcPropertyType::SZ);
     if (property == nullptr)
-      return SgfcConstants::BoardSizeNone;
+      return SgfcUtility::GetDefaultBoardSize(this->GetGameType());
 
-    return property->ToBoardSizeProperty()->GetBoardSize(this->GetGameType());
+    auto boardSizeProperty = property->ToBoardSizeProperty();
+    if (boardSizeProperty == nullptr)
+      throw std::logic_error("Property object for SgfcPropertyType::SZ is not an instance of ISgfcBoardSizeProperty");
+
+    return boardSizeProperty->GetBoardSize(this->GetGameType());
   }
 
   bool SgfcGame::HasRootNode() const

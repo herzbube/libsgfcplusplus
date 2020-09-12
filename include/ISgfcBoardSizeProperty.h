@@ -24,15 +24,13 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcBoardSizeProperty();
 
     /// @brief Returns the property value interpreted as an SgfcBoardSize value.
-    /// Returns a game-specific default board size for a few game types
-    /// mentioned in the SGF standard if the property has no value.
     ///
     /// @retval SgfcBoardSize If the property has a valid value. The value is
     ///         guaranteed not to be SgfcConstants::BoardSizeNone nor
     ///         SgfcConstants::BoardSizeInvalid.
-    /// @retval SgfcConstants::DefaultBoardSizeGo If the property has no value,
+    /// @retval SgfcConstants::BoardSizeDefaultGo If the property has no value,
     ///         and @a gameType is SgfcGameType::Go.
-    /// @retval SgfcConstants::DefaultBoardSizeChess If the property has no
+    /// @retval SgfcConstants::BoardSizeDefaultChess If the property has no
     ///         value, and @a gameType is SgfcGameType::Chess.
     /// @retval SgfcConstants::BoardSizeNone If the property has no value, but
     ///         @a gameType is neither SgfcGameType::Go nor SgfcGameType::Chess.

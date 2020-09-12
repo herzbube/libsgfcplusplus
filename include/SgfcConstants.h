@@ -125,7 +125,8 @@ namespace LibSgfcPlusPlus
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
     /// SgfcPropertyType::SZ property is not present in a game's root node,
-    /// or if the game has no root node.
+    /// or if the game has no root node, and the game type is not one of the
+    /// few game types with a known default board size.
     static const SgfcBoardSize BoardSizeNone;
 
     /// @brief A board size value denoting "invalid board size".

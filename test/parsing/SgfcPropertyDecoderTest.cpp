@@ -19,6 +19,7 @@
 #include <ISgfcTextPropertyValue.h>
 #include <SgfcConstants.h>
 #include <parsing/SgfcPropertyDecoder.h>
+#include <SgfcUtility.h>
 
 // SGFC includes
 extern "C"
@@ -321,6 +322,299 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
       THEN( "Probing returns SgfcGameType::Unknown" )
       {
         REQUIRE( SgfcPropertyDecoder::GetGameTypeFromNode(&sgfNode) == SgfcGameType::Unknown );
+      }
+    }
+  }
+}
+
+SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPropertyType::SZ", "[parsing]" )
+{
+  // Use a board size that is different from SgfcConstants::BoardSizeDefaultGo
+  // and SgfcConstants::BoardSizeDefaultChess so that tests can notice an error
+  // in the "default board size" logic
+  SgfcBoardSize expectedBoardSizeSquare = { 11, 11 };
+  SgfcNumber expectedBoardSizeSquareAsNumber = 11;
+  std::string expectedBoardSizeSquareAsNumberString = "11";
+  SgfcBoardSize expectedBoardSizeRectangular = { 6, 13 };
+  SgfcNumber expectedBoardSizeRectangularAsNumber1 = 6;
+  SgfcNumber expectedBoardSizeRectangularAsNumber2 = 13;
+  std::string expectedBoardSizeRectangularAsNumberString1 = "6";
+  std::string expectedBoardSizeRectangularAsNumberString2 = "13";
+
+  PropValue sgfPropertyValueSZSquare;
+  sgfPropertyValueSZSquare.value = const_cast<char*>(expectedBoardSizeSquareAsNumberString.c_str());
+  sgfPropertyValueSZSquare.value2 = nullptr;
+  sgfPropertyValueSZSquare.next = nullptr;
+
+  PropValue sgfPropertyValueSZRectangular;
+  sgfPropertyValueSZRectangular.value = const_cast<char*>(expectedBoardSizeRectangularAsNumberString1.c_str());
+  sgfPropertyValueSZRectangular.value2 = const_cast<char*>(expectedBoardSizeRectangularAsNumberString2.c_str());;
+  sgfPropertyValueSZRectangular.next = nullptr;
+
+  Property sgfPropertySZ;
+  sgfPropertySZ.idstr = const_cast<char*>("SZ");
+  sgfPropertySZ.value = &sgfPropertyValueSZSquare;
+  sgfPropertySZ.next = nullptr;
+
+  PropValue sgfPropertyValueGM;
+  // We intentionally don't set up the property value to show that probing
+  // completely ignores the property if it doesn't have the right type
+  sgfPropertyValueGM.value = nullptr;
+  sgfPropertyValueGM.value2 = nullptr;
+  sgfPropertyValueGM.next = nullptr;
+
+  Property sgfPropertyGM;
+  sgfPropertyGM.idstr = const_cast<char*>("GM");
+  sgfPropertyGM.value = &sgfPropertyValueGM;
+  sgfPropertyGM.next = &sgfPropertySZ;
+
+  Node sgfNode;
+  sgfNode.prop = &sgfPropertyGM;
+
+  GIVEN( "SgfcPropertyDecoder attempts to probe an invalid SGF Node or Property object" )
+  {
+    WHEN( "SgfcPropertyDecoder attempts to probe a nullptr SGF Node object" )
+    {
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(nullptr, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder attempts to probe an SGF Property object which is of type SgfcPropertyType:SZ, but without an SGF PropValue object" )
+    {
+      sgfPropertyValueSZSquare.value = nullptr;
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by the SgfcPropertyDecoder constructor
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder attempts to probe an SGF Property object which is of type SgfcPropertyType::SZ, with an SGF PropValue object that has no value string" )
+    {
+      sgfPropertyValueSZSquare.value = nullptr;
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a single value that is not a Number value" )
+    {
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
+      sgfPropertyValueSZSquare.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value of which the first value is not a Number value" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
+      sgfPropertyValueSZRectangular.value = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value of which the second value is not a Number value" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      std::vector<const char*> v = { SgfcConstants::NoneValueString.c_str(), "foo" };
+      sgfPropertyValueSZRectangular.value2 = const_cast<char*>(GENERATE_COPY( from_range(v) ));
+
+      THEN( "Probing throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value but the game type is Go" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      THEN( "Probing throws an exception" )
+      {
+        // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
+        REQUIRE_THROWS_AS(
+          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+          std::domain_error);
+      }
+    }
+  }
+
+  GIVEN( "SgfcPropertyDecoder probes a valid SGF Node and property object" )
+  {
+    // This test case covers SgfcConstants::BoardSizeDefaultGo,
+    // SgfcConstants::BoardSizeDefaultChess or SgfcConstants::BoardSizeNone
+    // being returned if the property is missing
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object without an SGF property object" )
+    {
+      sgfNode.prop = nullptr;
+
+      auto mapEntry = GENERATE( from_range(SgfcConstants::GameTypeToGameTypeAsNumberMap) );
+      auto gameType = mapEntry.first;
+      auto expectedBoardSize = SgfcUtility::GetDefaultBoardSize(gameType);
+
+      THEN( "Probing returns the default board size for the game type as specified by the SGF standard" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, gameType) == expectedBoardSize );
+      }
+    }
+
+    // This test case covers SgfcConstants::BoardSizeDefaultGo,
+    // SgfcConstants::BoardSizeDefaultChess or SgfcConstants::BoardSizeNone
+    // being returned if the property is missing
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object with a single SGF property object that is not of type SgfcPropertyType::SZ" )
+    {
+      sgfPropertyGM.next = nullptr;
+
+      auto mapEntry = GENERATE( from_range(SgfcConstants::GameTypeToGameTypeAsNumberMap) );
+      auto gameType = mapEntry.first;
+      auto expectedBoardSize = SgfcUtility::GetDefaultBoardSize(gameType);
+
+      THEN( "Probing returns the default board size for the game type as specified by the SGF standard" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, gameType) == expectedBoardSize );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SGF Node object with a single SGF property object that is of type SgfcPropertyType::SZ" )
+    {
+      sgfNode.prop = &sgfPropertySZ;
+
+      THEN( "Probing returns the board size type that corresponds to the property value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go) == expectedBoardSizeSquare );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes a Node object with multiple SGF property objects, one of which is of type SgfcPropertyType::SZ" )
+    {
+      THEN( "Probing returns the game type that corresponds to the value of the property which is of type SgfcPropertyType:SZ" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go) == expectedBoardSizeSquare );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a single value" )
+    {
+      THEN( "Probing returns a square board size value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go) == expectedBoardSizeSquare );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      THEN( "Probing returns a rectangular board size value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Dvonn) == expectedBoardSizeRectangular );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a single valid value" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidSZSquareStrings()) );
+
+      // Need a local string variable so that we can store a reference to its
+      // c_str() in the PropValue object
+      auto szString = std::get<0>(testData);
+      sgfPropertyValueSZSquare.value = const_cast<char*>(szString.c_str());
+
+      THEN( "Probing returns a square board size value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<1>(testData)) == std::get<2>(testData) );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a single invalid value" )
+    {
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidSZSquareStrings()) );
+
+      // Need a local string variable so that we can store a reference to its
+      // c_str() in the PropValue object
+      auto szString = std::get<0>(testData);
+      sgfPropertyValueSZSquare.value = const_cast<char*>(szString.c_str());
+
+      THEN( "Probing returns SgfcConstants::BoardSizeInvalid" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<1>(testData)) == SgfcConstants::BoardSizeInvalid );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed valid value" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidSZRectangularStrings()) );
+
+      // Need local string variables so that we can store a reference to their
+      // c_str() in the PropValue object
+      auto szString1 = std::get<0>(testData);
+      auto szString2 = std::get<1>(testData);
+      sgfPropertyValueSZRectangular.value = const_cast<char*>(szString1.c_str());
+      sgfPropertyValueSZRectangular.value2 = const_cast<char*>(szString2.c_str());
+
+      THEN( "Probing returns a rectangular board size value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<2>(testData)) == std::get<3>(testData) );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed invalid value" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidSZRectangularStrings()) );
+
+      // Need local string variables so that we can store a reference to their
+      // c_str() in the PropValue object
+      auto szString1 = std::get<0>(testData);
+      auto szString2 = std::get<1>(testData);
+      sgfPropertyValueSZRectangular.value = const_cast<char*>(szString1.c_str());
+      sgfPropertyValueSZRectangular.value2 = const_cast<char*>(szString2.c_str());
+
+      THEN( "Probing throws an exception for Go and returns SgfcConstants::BoardSizeInvalid for all other game types" )
+      {
+        if (std::get<2>(testData) == SgfcGameType::Go)
+        {
+          // SgfcPropertyDecoder treats Go games differently because it expects
+          // SGFC to already have fixed the SGF data.
+          // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
+          REQUIRE_THROWS_AS(
+            SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
+            std::domain_error);
+        }
+        else
+        {
+          REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<2>(testData)) == SgfcConstants::BoardSizeInvalid );
+        }
       }
     }
   }

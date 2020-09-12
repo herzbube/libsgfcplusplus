@@ -4,6 +4,7 @@
 #include <SgfcBoardSize.h>
 #include <SgfcColor.h>
 #include <SgfcDouble.h>
+#include <SgfcGameType.h>
 #include <SgfcTypedefs.h>
 #include <game/go/SgfcGoPoint.h>
 
@@ -43,6 +44,11 @@ namespace LibSgfcPlusPlus
     static std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> GetGoPointStrings();
     static std::vector<SgfcBoardSize> GetInvalidGoBoardSizes();
     static std::vector<std::pair<std::string, SgfcBoardSize>> GetInvalidGoPointStrings();
+
+    static std::vector<std::tuple<std::string, SgfcGameType, SgfcBoardSize>> GetValidSZSquareStrings();
+    static std::vector<std::tuple<std::string, SgfcGameType>> GetInvalidSZSquareStrings();
+    static std::vector<std::tuple<std::string, std::string, SgfcGameType, SgfcBoardSize>> GetValidSZRectangularStrings();
+    static std::vector<std::tuple<std::string, std::string, SgfcGameType>> GetInvalidSZRectangularStrings();
 
   private:
     TestDataGenerator();

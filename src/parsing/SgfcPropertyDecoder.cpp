@@ -238,8 +238,8 @@ namespace LibSgfcPlusPlus
       {
         // Valid SGF content should contain either a GM property with a value,
         // or no GM property at all. SGFC fixes a missing property by adding
-        // one. SGFC also fixes a missing value by adding the default value 1.
-        // So in practice this should never occur.
+        // one. SGFC also fixes a missing value by adding the default value 1
+        // (i.e. game type Go). So in practice this should never occur.
         throw std::domain_error("Node object contains a GM property without a value");
       }
       else
@@ -255,7 +255,7 @@ namespace LibSgfcPlusPlus
         // descriptor
         const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
         if (numberValue == nullptr)
-          throw std::logic_error("Property object is not an instance of ISgfcNumberPropertyValue");
+          throw std::logic_error("Property value object is not an instance of ISgfcNumberPropertyValue");
 
         // This occurs if the property value string is not a Number string
         if (! numberValue->HasTypedValue())
@@ -281,6 +281,9 @@ namespace LibSgfcPlusPlus
 
   SgfcBoardSize SgfcPropertyDecoder::GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType)
   {
+    if (sgfNode == nullptr)
+      throw std::domain_error("Node object is nullptr");
+
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
@@ -300,8 +303,19 @@ namespace LibSgfcPlusPlus
 
       if (propertyValues.size() == 0)
       {
-        std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty();
-        return property->GetBoardSize(gameType);
+        // Valid SGF content should contain either an SZ property with a value,
+        // or no SZ property at all. SGFC has different error correction
+        // behavour depending on the game type:
+        // - Go games: SGFC fixes a missing SZ property by adding the property
+        //   with value 19. It fixes a missing value by adding the default
+        //   value 19.
+        // - Games that are not Go: SGFC does not add a missing property. It
+        //   fixes a missing value by removing the property. Note that this is
+        //   the behaviour even for Chess games where the SGF standard defines
+        //   a default board size.
+        //
+        // Conclusion: In practice this should never occur.
+        throw std::domain_error("Node object contains an SZ property without a value");
       }
       else
       {
@@ -314,6 +328,21 @@ namespace LibSgfcPlusPlus
             std::shared_ptr<ISgfcComposedPropertyValue> composedValueSharedPtr =
               std::dynamic_pointer_cast<ISgfcComposedPropertyValue>(propertyValue);
 
+            // This occurs if SgfcPropertyMetaInfo provides the wrong value type
+            // descriptor
+            const ISgfcNumberPropertyValue* numberValue1 = composedValueSharedPtr->GetValue1()->ToSingleValue()->ToNumberValue();
+            const ISgfcNumberPropertyValue* numberValue2 = composedValueSharedPtr->GetValue2()->ToSingleValue()->ToNumberValue();
+            if (numberValue1 == nullptr || numberValue2 == nullptr)
+              throw std::logic_error("Either the first or the second property value object is not an instance of ISgfcNumberPropertyValue");
+
+            // If the game type is Go only square boards are allowed, i.e. the
+            // SZ property should have a single value. Alas, SGFC has a bug and
+            // does not fix the SGF content if it has a composed value. We treat
+            // this as an interfacing error and do not attempt to fix the
+            // problem ourselves.
+            if (gameType == SgfcGameType::Go)
+              throw std::domain_error("Node object contains an SZ property with a non-square board even though the game type is Go");
+
             std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty(
               composedValueSharedPtr);
 
@@ -321,6 +350,12 @@ namespace LibSgfcPlusPlus
           }
           else
           {
+            // This occurs if SgfcPropertyMetaInfo provides the wrong value type
+            // descriptor
+            const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
+            if (numberValue == nullptr)
+              throw std::logic_error("Property value object is not an instance of ISgfcNumberPropertyValue");
+
             std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
               std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
 
@@ -330,17 +365,51 @@ namespace LibSgfcPlusPlus
             return property->GetBoardSize(gameType);
           }
         }
-        catch (std::logic_error&)
+        catch (std::invalid_argument&)
         {
-          // The factory throws a logic_error in several cases. It's much too
-          // complicated to check all these cases before using the factory,
-          // so we let the factory do the checks and handle the exception here.
-          return SgfcConstants::BoardSizeNone;
+          // The factory throws an invalid_argument in several cases when the
+          // property value object is somehow malformed. The only way how this
+          // is possible is if the property value object has been created from
+          // a string that is not a Number string.
+          //
+          // SGFC has the following error correction behaviour that prevents
+          // most (but not all) of these cases:
+          // - Go games
+          //   - If the value is a single value but is not a Number string,
+          //     SGFC fixes the problem by setting the default value 19.
+          //   - If the value is a composed value and either the first value,
+          //     or the second value, or both are not Number strings, SGFC
+          //     fixes the problem by setting the default value 19.
+          // - Games that are not Go
+          //   - If the value is a single value but is not a Number string,
+          //     SGFC fixes the problem by removing the property.
+          //   - If the value is a composed value and either the first value
+          //     or both values are not Number strings, SGFC fixes the problem
+          //     by removing the property.
+          //   - If the value is a composed value and the first value is a
+          //     Number string but the second value is not a Number string,
+          //     SGFC does NOT fix the problem!
+          //
+          // So as the last case shows, this CAN occur. Instead of just checking
+          // for exactly this loophole in the SGFC error correction behaviour
+          // we let the factory do all the checks and handle the exception here.
+          if (propertyValue->IsComposedValue())
+            throw std::domain_error("Node object contains an SZ property with a composed value, of which one or both values are not Number values");
+          else
+            throw std::domain_error("Node object contains an SZ property with a single value that is not a Number value");
         }
       }
     }
 
-    return SgfcConstants::BoardSizeNone;
+    switch (gameType)
+    {
+      case SgfcGameType::Go:
+        return SgfcConstants::BoardSizeDefaultGo;
+      case SgfcGameType::Chess:
+        return SgfcConstants::BoardSizeDefaultChess;
+      default:
+        return SgfcConstants::BoardSizeNone;
+    }
   }
 
   /// @brief This method can handle a list of property values. All values must
