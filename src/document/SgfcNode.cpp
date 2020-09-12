@@ -184,17 +184,18 @@ namespace LibSgfcPlusPlus
     return this->properties;
   }
 
-  void SgfcNode::SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties)
+  void SgfcNode::SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties)
   {
     std::map<SgfcPropertyType, bool> propertyTypeMap;
+    std::map<std::string, bool> propertyNameMap;
 
-    for (const auto& property : this->properties)
+    for (const auto& property : properties)
     {
       if (property == nullptr)
         throw std::invalid_argument("SetProperties failed: Properties collection contains nullptr element");
 
       auto propertyType = property->GetPropertyType();
-      if (propertyTypeMap.find(propertyType) != propertyTypeMap.end())
+      if (propertyType != SgfcPropertyType::Unknown && propertyTypeMap.find(propertyType) != propertyTypeMap.end())
       {
         std::stringstream message;
         message
@@ -203,7 +204,18 @@ namespace LibSgfcPlusPlus
         throw std::invalid_argument(message.str());
       }
 
+      auto propertyName = property->GetPropertyName();
+      if (propertyNameMap.find(propertyName) != propertyNameMap.end())
+      {
+        std::stringstream message;
+        message
+          << "SetProperties failed: Properties collection contains element with duplicate property name "
+          << propertyName;
+        throw std::invalid_argument(message.str());
+      }
+
       propertyTypeMap[propertyType] = true;
+      propertyNameMap[propertyName] = true;
     }
 
     this->properties = properties;

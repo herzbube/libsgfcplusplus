@@ -35,7 +35,7 @@ namespace LibSgfcPlusPlus
     virtual bool IsRoot() const;
 
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const;
-    virtual void SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties);
+    virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties);
     virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const;
 
   private:

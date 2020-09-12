@@ -14,7 +14,8 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcNode interface provides access to the data of a single
   /// SGF node in a tree of SGF nodes. ISgfcNode also provides methods to
-  /// navigate the game tree.
+  /// navigate the game tree. ISgfcNode provides no methods to manipulate the
+  /// game tree - use ISgfcTreeBuilder for that purpose.
   class SGFCPLUSPLUS_EXPORT ISgfcNode
   {
   public:
@@ -107,12 +108,15 @@ namespace LibSgfcPlusPlus
 
     /// @brief Sets the properties of the node to the collection @a properties.
     /// The collection may be empty. The order in which properties appear in
-    /// the collection is irrelevant. No SgfcPropertyType may appear more than
-    /// once in the collection.
+    /// the collection is irrelevant. No SgfcPropertyType except
+    /// SgfcPropertyType::Unknown may appear more than  once in the collection.
+    /// No property name may appear more than once in the collection.
     ///
     /// @exception std::invalid_argument Is thrown if @a properties contains
-    /// @e nullptr elements or if an SgfcPropertyType appears more than once.
-    virtual void SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> properties) = 0;
+    /// @e nullptr elements, or if an SgfcPropertyType other than
+    /// SgfcPropertyType::Unknown appears more than once, or if a property name
+    /// appears more than once.
+    virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) = 0;
 
     /// @brief Returns the property with the specified type @a propertyType if
     /// the node has such a property. Returns @e nullptr if the node has no
