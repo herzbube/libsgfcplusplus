@@ -27,14 +27,17 @@ namespace LibSgfcPlusPlus
     /// ISgfcTreeBuilder operate on.
     virtual std::weak_ptr<ISgfcGame> GetGame() const = 0;
 
-    /// @brief Sets the first child node of @a node to @a child.
-    /// @a child may be @e nullptr.
+    /// @brief Sets the first child node of @a node to @a child, replacing
+    /// everything below @a node with @a child (which may be @e nullptr). Use
+    /// InsertChild() if you want to keep the existing nodes below @a node.
     ///
     /// If @a child is already part of the game tree in some other
-    /// location, it is moved from its current location to the new location.
+    /// location, it is moved, together with the entire sub tree dangling from
+    /// it, from its current location to the new location.
     ///
-    /// The previous first child node and the entire sub tree dangling from it,
-    /// is discarded once no one holds a reference to it anymore.
+    /// The previous first child node, the siblings behind that, and the sub
+    /// trees dangling from all of these nodes, are discarded once no one holds
+    /// a reference to them anymore.
     ///
     /// @exception std::invalid_argument Is thrown if @a node is @e nullptr,
     /// if @a child is an ancestor of @a node, or if @a child is equal to
@@ -47,7 +50,12 @@ namespace LibSgfcPlusPlus
     /// be @e nullptr.
     ///
     /// If @a child is already part of the game tree in some other
-    /// location, it is moved from its current location to the new location.
+    /// location, it is moved, together with the entire sub tree dangling from
+    /// it, from its current location to the new location.
+    ///
+    /// This method exists for convenience. The operations it performs can also
+    /// be achieved by invoking Insertchild() and specifying @e nullptr as the
+    /// @a referenceChild argument.
     ///
     /// @exception std::invalid_argument Is thrown if @a node is @e nullptr,
     /// if @a child is @e nullptr, if @a child is an ancestor of @a node, or
@@ -63,10 +71,11 @@ namespace LibSgfcPlusPlus
     ///
     /// If @a referenceChild is @e nullptr then @a child is inserted as the
     /// last child of @a node. The result is the same as if AppendChild() had
-    /// been invoked.
+    /// been invoked on @a node.
     ///
     /// If @a child is already part of the game tree in some other
-    /// location, it is moved from its current location to the new location.
+    /// location, it is moved, together with the entire sub tree dangling from
+    /// it, from its current location to the new location.
     ///
     /// @exception std::invalid_argument Is thrown if @a node is @e nullptr,
     /// if @a child is @e nullptr, if @a referenceChild is not @e nullptr
@@ -79,6 +88,8 @@ namespace LibSgfcPlusPlus
 
     /// @brief Removes @a child from @a node. @a child may not be @e nullptr.
     /// @a child must be a child of the node.
+    ///
+    /// The game tree is relinked to close the gap.
     ///
     /// @a child and the entire sub tree dangling from it, is discarded once
     /// no one holds a reference to it anymore.
@@ -94,7 +105,8 @@ namespace LibSgfcPlusPlus
     /// @a node.
     ///
     /// If @a newChild is already part of the game tree in some other
-    /// location, it is moved from its current location to the new location.
+    /// location, it is moved, together with the entire sub tree dangling from
+    /// it, from its current location to the new location.
     ///
     /// @a oldChild and the entire sub tree dangling from it, is discarded
     /// once no one holds a reference to it anymore.
@@ -108,12 +120,18 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> newChild,
       std::shared_ptr<ISgfcNode> oldChild) const = 0;
 
-    /// @brief Sets the next sibling node of @a node to @a nextSibling. @a node
-    /// must not be the root node of a game tree because by a root node by
-    /// definition can't have siblings. @a nextSibling may be @e nullptr.
+    /// @brief Sets the next sibling node of @a node to @a nextSibling,
+    /// replacing the previous next sibling node, the siblings behind that, and
+    /// the sub trees dangling from all of these siblings with @a nextSibling
+    /// (which may be @e nullptr). Use InsertChild() if you want to keep the
+    /// next sibling nodes.
+    ///
+    /// @a node must not be the root node of a game tree because a root node by
+    /// definition can't have siblings.
     ///
     /// If @a nextSibling is already part of the game tree in some other
-    /// location, it is moved from its current location to the new location.
+    /// location, it is moved, together with the entire sub tree dangling from
+    /// it, from its current location to the new location.
     ///
     /// The previous next sibling node, the siblings behind that, and the sub
     /// trees dangling from all of these siblings, are discarded once no one
@@ -130,17 +148,24 @@ namespace LibSgfcPlusPlus
     /// @brief Sets the parent node of @a node to @a parent.
     /// @a parent may be @e nullptr.
     ///
-    /// If @a parent is not @e nullptr, then @a node is added as the last
-    /// child of @a parent. The result is the same as if AppendChild() had
-    /// been invoked on @a parent with @a node as the argument.
+    /// If @a parent is not @e nullptr and @a node is already a child of
+    /// @a parent, then this method has no effect.
+    ///
+    /// If @a parent is not @e nullptr and @a node is not yet a child of
+    /// @a parent, then @a node is added as the last child of @a parent. The
+    /// result is the same as if AppendChild() had been invoked on @a parent
+    /// with @a node as the argument.
     ///
     /// If @a parent is not @e nullptr and if @a node is already part of the
-    /// game tree in some other location, @a node is moved from its current
-    /// location to the new location.
+    /// game tree in some other location, @a node is moved, together with the
+    /// entire sub tree dangling from it, from its current location to the
+    /// new location.
     ///
     /// If @a parent is @e nullptr then @a node and the entire sub tree
     /// dangling from it, is discarded once no one holds a reference to it
-    /// anymore.
+    /// anymore. The game tree is relinked to close the gap. The result is the
+    /// same as if RemoveChild() had been invoked on the node's parent with
+    /// @a node as the argument.
     ///
     /// @exception std::invalid_argument Is thrown if @a node is @e nullptr,
     /// if @a parent is a descendant of @a node, or if @a parent is equal to

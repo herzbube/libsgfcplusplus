@@ -2,6 +2,7 @@ set (
   SOURCES
   main.cpp
   document/SgfcNodeTest.cpp
+  document/SgfcTreeBuilderTest.cpp
   game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPointTest.cpp
   game/go/SgfcGoStoneTest.cpp

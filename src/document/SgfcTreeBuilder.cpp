@@ -10,6 +10,8 @@ namespace LibSgfcPlusPlus
   SgfcTreeBuilder::SgfcTreeBuilder(std::weak_ptr<ISgfcGame> game)
     : game(game)
   {
+    if (this->game.lock() == nullptr)
+      throw std::invalid_argument("SgfcTreeBuilder constructor failed: game object is nullptr");
   }
 
   SgfcTreeBuilder::~SgfcTreeBuilder()
@@ -41,23 +43,24 @@ namespace LibSgfcPlusPlus
     if (oldFirstChild != nullptr)
     {
       // Modifies not only oldFirstChild, but also node: node->firstChild
-      // becomes something else, possibly nullptr (if node had only one child).
-      RemoveNodeFromCurrentLocation(oldFirstChild);
-
-      // child may have become node->firstChild if child was node's second child
-      // before we invoked RemoveNodeFromCurrentLocation(). If that is the case
-      // then the goal is already achieved.
-      if (node->GetFirstChild() == child)
-        return;
+      // becomes nullptr
+      RemoveNodeAndAllNextSiblingsFromParent(oldFirstChild);
     }
 
-    if (child != nullptr)
+    if (child == nullptr)
     {
-      RemoveNodeFromCurrentLocation(child);
+      // node->firstChild is already nullptr, so if child is also nullptr
+      // we already have achieved the goal
+      return;
     }
+
+    // If child was originally a child of node, then at the moment it has no
+    // parent because of RemoveNodeAndAllNextSiblingsFromParent() above. In that
+    // case we would not have to make the following call.
+    RemoveNodeFromCurrentLocation(child);
 
     auto newParent = node;
-    auto newNextSibling = node->GetFirstChild();
+    auto newNextSibling = node->GetFirstChild();  // always nullptr
     InsertNodeAtNewLocation(child, newParent, newNextSibling);
   }
 
@@ -181,27 +184,36 @@ namespace LibSgfcPlusPlus
     if (node == nextSibling)
       throw std::invalid_argument("SetNextSibling failed: NextSibling is equal to node");
 
+    if (nextSibling != nullptr && nextSibling->IsAncestorOf(node))
+      throw std::invalid_argument("SetNextSibling failed: NextSibling is ancestor of node");
+
     auto oldNextSibling = node->GetNextSibling();
     if (oldNextSibling == nextSibling)
       return;  // nextSibling is already at the correct position
 
+    if (oldNextSibling != nullptr)
+    {
+      // Modifies not only oldNextSibling, but also node: node->nextSibling
+      // becomes nullptr
+      RemoveNodeAndAllNextSiblingsFromParent(oldNextSibling);
+    }
+
     if (nextSibling == nullptr)
     {
-      // oldNextSibling can't be nullptr, otherwise we would have already
-      // returned control to the caller
-      RemoveNodeFromCurrentLocation(oldNextSibling);
+      // node->nextSibling is already nullptr, so if nextSibling is also nullptr
+      // we already have achieved the goal
+      return;
     }
-    else
-    {
-      if (nextSibling->IsAncestorOf(node))
-        throw std::invalid_argument("SetNextSibling failed: NextSibling is ancestor of node");
 
-      RemoveNodeFromCurrentLocation(nextSibling);
+    // If nextSibling was originally an indirect sibling of the node, then at
+    // the moment it has no parent because of
+    // RemoveNodeAndAllNextSiblingsFromParent() above.  In that case we would
+    // not have to make the following call.
+    RemoveNodeFromCurrentLocation(nextSibling);
 
-      auto newParent = node->GetParent();  // can't be nullptr, we checked for root node
-      auto newNextSibling = node->GetNextSibling();  // may be nullptr
-      InsertNodeAtNewLocation(nextSibling, newParent, newNextSibling);
-    }
+    auto newParent = node->GetParent();  // can't be nullptr, we checked for root node
+    auto newNextSibling = node->GetNextSibling();  // always nullptr
+    InsertNodeAtNewLocation(nextSibling, newParent, newNextSibling);
   }
 
   void SgfcTreeBuilder::SetParent(
@@ -269,8 +281,58 @@ namespace LibSgfcPlusPlus
     nodeImplementation->SetNextSibling(nullptr);
   }
 
+  /// @brief Removes @a node and all of its next siblings from their current
+  /// location in the game tree. @a node may be @a nullptr, in which case this
+  /// method does nothing.
+  ///
+  /// When control returns to the caller, @a node and all of its next siblings
+  /// have no parent but retain their first child. The sibling linkage of
+  /// @a node and all of its next siblings is broken so that every node is now
+  /// a valid root node. This is important in case the nodes are subsequently
+  /// re-inserted into a game tree: All SgfcTreeBuilder methods have a condition
+  /// that throws an exception if the node to be inserted already has siblings.
+  ///
+  /// The implementation of this method assumes that all involved node objects
+  /// are instances of SgfcNode. The implementation uses special setter methods
+  /// defined in the SgfcNode class, which are not available in the ISgfcNode
+  /// interface, to manipulate the involved nodes'
+  /// parent / first child / next sibling relationships.
+  void SgfcTreeBuilder::RemoveNodeAndAllNextSiblingsFromParent(std::shared_ptr<ISgfcNode> node) const
+  {
+    if (node == nullptr)
+      return;
+
+    SgfcNode* previousSiblingNodeImplementation = static_cast<SgfcNode*>(node->GetPreviousSibling().get());
+    if (previousSiblingNodeImplementation != nullptr)
+      previousSiblingNodeImplementation->SetNextSibling(nullptr);
+
+    // We must set the parent's first child only after GetPreviousSibling()
+    // has been invoked (see above). Reason: GetPreviousSibling() requires the
+    // parent-to-first child link to be intact.
+    SgfcNode* parentNodeImplementation = static_cast<SgfcNode*>(node->GetParent().get());
+    if (parentNodeImplementation != nullptr)
+    {
+      if (parentNodeImplementation->GetFirstChild() == node)
+        parentNodeImplementation->SetFirstChild(nullptr);
+    }
+
+    SgfcNode* nodeImplementation = static_cast<SgfcNode*>(node.get());
+    while (nodeImplementation != nullptr)
+    {
+      auto nextSiblingImplementation = static_cast<SgfcNode*>(nodeImplementation->GetNextSibling().get());
+
+      nodeImplementation->SetParent(nullptr);
+      nodeImplementation->SetNextSibling(nullptr);
+
+      nodeImplementation = nextSiblingImplementation;
+    }
+  }
+
   /// @brief Inserts @a node at the location in the game tree that is defined
-  /// by @a newParent and @a newNextSibling.
+  /// by @a newParent and @a newNextSibling and relinks the game tree to
+  /// accommodate @a node in its new location. If @a newNextSibling is nullptr
+  /// @a node becomes the last child of @a newParent. @a node may not be
+  /// @e nullptr.
   ///
   /// This method expects that RemoveNodeFromCurrentLocation() has been
   /// previously invoked with @a node, i.e. that @a node is currently not

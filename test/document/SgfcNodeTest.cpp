@@ -1,5 +1,4 @@
 // Library includes
-#include "../TestDataGenerator.h"
 #include <document/SgfcNode.h>
 #include <document/SgfcProperty.h>
 
