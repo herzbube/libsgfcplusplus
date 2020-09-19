@@ -50,8 +50,13 @@ namespace LibSgfcPlusPlus
     static std::vector<std::tuple<std::string, std::string, SgfcGameType, SgfcBoardSize>> GetValidSZRectangularStrings();
     static std::vector<std::tuple<std::string, std::string, SgfcGameType>> GetInvalidSZRectangularStrings();
 
+    static std::vector<std::tuple<SgfcBoardSize, SgfcGameType, SgfcBoardSize>> GetValidBoardSizes();
+    static std::vector<std::tuple<SgfcBoardSize, SgfcGameType>> GetInvalidBoardSizes();
+
   private:
     TestDataGenerator();
     virtual ~TestDataGenerator();
+
+    static SgfcNumber ConvertStringToNumberOrThrow(const std::string& string);
   };
 }

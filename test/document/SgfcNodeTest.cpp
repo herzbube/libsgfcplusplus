@@ -41,15 +41,6 @@ SCENARIO( "SgfcNode is constructed", "[document]" )
         REQUIRE( node.GetProperty(SgfcPropertyType::GM) == nullptr );
       }
     }
-
-    WHEN( "SgfcNode is constructed" )
-    {
-      auto node = SgfcNode();
-
-      THEN( "SgfcNode has default state" )
-      {
-      }
-    }
   }
 }
 

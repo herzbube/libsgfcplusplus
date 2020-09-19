@@ -21,6 +21,8 @@ namespace LibSgfcPlusPlus
     : rootNode(rootNode)
     , treeBuilder(nullptr)
   {
+    if (rootNode == nullptr)
+      throw std::invalid_argument("SgfcGame constructor failed: Root node is nullptr");
   }
 
   SgfcGame::~SgfcGame()

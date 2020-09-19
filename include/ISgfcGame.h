@@ -83,20 +83,23 @@ namespace LibSgfcPlusPlus
     ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone
     ///         nor SgfcConstants::BoardSizeInvalid.
     /// @retval SgfcConstants::BoardSizeDefaultGo If GetGameType() returns
-    ///         SgfcGameType::Go and one of the following is true: The
-    ///         property is not present, or the game has no root node, or the
-    ///         property is present but has no value (e.g. while the game tree
-    ///         is being set up programmatically).
+    ///         SgfcGameType::Go and one of the following is true: The game has
+    ///         no root node, or the game has a root node but the property is
+    ///         not present, or the game has a root node and the property is
+    ///         present but has no value (e.g. while the game tree is being set
+    ///         up programmatically).
     /// @retval SgfcConstants::BoardSizeDefaultChess If GetGameType() returns
-    ///         SgfcGameType::Chess and one of the following is true: The
-    ///         property is not present, or the game has no root node, or the
+    ///         SgfcGameType::Chess and one of the following is true: The game
+    ///         has a root node but the property is not present, or the game has
+    ///         a root node and the property is present but has no value (e.g.
+    ///         while the game tree is being set up programmatically).
+    /// @retval SgfcConstants::BoardSizeNone If GetGameType() returns neither
+    ///         SgfcGameType::Go nor SgfcGameType::Chess (these are the two game
+    ///         types for which the SGF standard defines a default board size)
+    ///         and one of the following is true: The game has a root node but
+    ///         the property is not present, or the game has a root node and the
     ///         property is present but has no value (e.g. while the game tree
     ///         is being set up programmatically).
-    /// @retval SgfcConstants::BoardSizeNone If GetGameType() returns
-    ///         neither SgfcGameType::Go nor SgfcGameType::Chess and one of the
-    ///         following is true: The property is not present, or the game has
-    ///         no root node, or the property is present but has no value (e.g.
-    ///         while the game tree is being set up programmatically).
     /// @retval SgfcConstants::BoardSizeInvalid If the property is present but
     ///         has an invalid value. A board size is invalid if it violates
     ///         the constraints defined by the SGF standard. See the

@@ -39,7 +39,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If @a propertyType is SgfcPropertyType::SZ or SgfcPropertyType::GM, the
     /// returned ISgfcProperty object is an instance of ISgfcBoardSizeProperty
-    /// or ISgfcGamePropertyObject.
+    /// or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
     /// SgfcPropertyType::Unknown.
@@ -53,7 +53,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If @a propertyType is SgfcPropertyType::SZ or SgfcPropertyType::GM, the
     /// returned ISgfcProperty object is an instance of ISgfcBoardSizeProperty
-    /// or ISgfcGamePropertyObject.
+    /// or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
     /// SgfcPropertyType::Unknown, or, in case @a propertyType is
@@ -72,7 +72,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If @a propertyType is SgfcPropertyType::SZ or SgfcPropertyType::GM, the
     /// returned ISgfcProperty object is an instance of ISgfcBoardSizeProperty
-    /// or ISgfcGamePropertyObject.
+    /// or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
     /// SgfcPropertyType::Unknown, or, in case @a propertyType is
@@ -97,7 +97,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If the mapped SgfcPropertyType value is SgfcPropertyType::SZ or
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
-    /// of ISgfcBoardSizeProperty or ISgfcGamePropertyObject.
+    /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName) = 0;
 
@@ -116,7 +116,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If the mapped SgfcPropertyType value is SgfcPropertyType::SZ or
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
-    /// of ISgfcBoardSizeProperty or ISgfcGamePropertyObject.
+    /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if the mapped
     /// SgfcPropertyType value is SgfcPropertyType::SZ or SgfcPropertyType::GM
@@ -142,7 +142,7 @@ namespace LibSgfcPlusPlus
     ///
     /// If the mapped SgfcPropertyType value is SgfcPropertyType::SZ or
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
-    /// of ISgfcBoardSizeProperty or ISgfcGamePropertyObject.
+    /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if the mapped
     /// SgfcPropertyType value is SgfcPropertyType::SZ or SgfcPropertyType::GM

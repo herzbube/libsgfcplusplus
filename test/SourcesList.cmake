@@ -1,6 +1,7 @@
 set (
   SOURCES
   main.cpp
+  document/SgfcGameTest.cpp
   document/SgfcNodeTest.cpp
   document/SgfcTreeBuilderTest.cpp
   game/go/SgfcGoMoveTest.cpp

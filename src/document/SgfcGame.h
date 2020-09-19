@@ -11,8 +11,17 @@ namespace LibSgfcPlusPlus
   class SgfcGame : public ISgfcGame
   {
   public:
+    /// @brief Initializes a newly constructed SgfcGame object. The game has
+    /// no root node.
     SgfcGame();
+
+    /// @brief Initializes a newly constructed SgfcGame object. The game has
+    /// the specified root node @a rootNode.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr.
     SgfcGame(std::shared_ptr<ISgfcNode> rootNode);
+    
+    /// @brief Destroys and cleans up the SgfcGame object.
     virtual ~SgfcGame();
 
     virtual SgfcGameType GetGameType() const;
@@ -26,6 +35,8 @@ namespace LibSgfcPlusPlus
     virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode);
 
     virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const;
+    /// @brief Configures the SgfcGame object with @a treeBuilder, an object
+    /// that can be used to manipulate the game tree.
     void SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder);
 
   private:

@@ -1,5 +1,6 @@
 // Project includes
 #include "TestDataGenerator.h"
+#include <parsing/SgfcValueConverter.h>
 #include <SgfcConstants.h>
 
 namespace LibSgfcPlusPlus
@@ -512,5 +513,99 @@ namespace LibSgfcPlusPlus
     };
 
     return testData;
+  }
+
+  std::vector<std::tuple<SgfcBoardSize, SgfcGameType, SgfcBoardSize>> TestDataGenerator::GetValidBoardSizes()
+  {
+    std::vector<std::tuple<SgfcBoardSize, SgfcGameType, SgfcBoardSize>> testData;
+
+    auto testDataToConvertSquare = GetValidSZSquareStrings();
+    for (auto testDataElementToConvertSquare : testDataToConvertSquare)
+    {
+      SgfcNumber boardSizeColumnAndRow = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<0>(testDataElementToConvertSquare));
+
+      testData.push_back(std::make_tuple(
+        SgfcBoardSize {boardSizeColumnAndRow, boardSizeColumnAndRow},
+        std::get<1>(testDataElementToConvertSquare),
+        std::get<2>(testDataElementToConvertSquare)));
+    }
+
+    auto testDataToConvertRectangular = GetValidSZRectangularStrings();
+    for (auto testDataElementToConvertRectangular : testDataToConvertRectangular)
+    {
+      SgfcNumber boardSizeColumn = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<0>(testDataElementToConvertRectangular));
+      SgfcNumber boardSizeRow = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<1>(testDataElementToConvertRectangular));
+
+      testData.push_back(std::make_tuple(
+        SgfcBoardSize {boardSizeColumn, boardSizeRow},
+        std::get<2>(testDataElementToConvertRectangular),
+        std::get<3>(testDataElementToConvertRectangular)));
+    }
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcBoardSize, SgfcGameType>> TestDataGenerator::GetInvalidBoardSizes()
+  {
+    std::vector<std::tuple<SgfcBoardSize, SgfcGameType>> testData;
+
+    auto testDataToConvertSquare = GetInvalidSZSquareStrings();
+    for (auto testDataElementToConvertSquare : testDataToConvertSquare)
+    {
+      SgfcNumber boardSizeColumnAndRow = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<0>(testDataElementToConvertSquare));
+
+      testData.push_back(std::make_tuple(
+        SgfcBoardSize {boardSizeColumnAndRow, boardSizeColumnAndRow},
+        std::get<1>(testDataElementToConvertSquare)));
+    }
+
+    auto testDataToConvertRectangular = GetInvalidSZRectangularStrings();
+    for (auto testDataElementToConvertRectangular : testDataToConvertRectangular)
+    {
+      SgfcNumber boardSizeColumn = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<0>(testDataElementToConvertRectangular));
+      SgfcNumber boardSizeRow = TestDataGenerator::ConvertStringToNumberOrThrow(
+        std::get<1>(testDataElementToConvertRectangular));
+
+      if (std::get<2>(testDataElementToConvertRectangular) == SgfcGameType::Go && boardSizeColumn == boardSizeRow)
+      {
+        // The test data that we convert contains a special case where a board
+        // size consisting of two string values is invalid for SgfcGameType::Go
+        // even if the two values are the same. This makes sense for raw SGF
+        // content, where the SGF standard mandates that SgfcGameType::Go can
+        // only have a non-composed board size. But here we convert the data
+        // into an SgfcBoardSize value - after the conversion has taken place
+        // the distinction between single and composed values is no longer
+        // possible because SgfcBoardSize always has two values. Because a
+        // receiver of the test data we return from this function cannot handle
+        // the distinction, we filter out that particular element.
+        continue;
+      }
+
+      testData.push_back(std::make_tuple(
+        SgfcBoardSize {boardSizeColumn, boardSizeRow},
+        std::get<2>(testDataElementToConvertRectangular)));
+    }
+
+    return testData;
+  }
+
+  SgfcNumber TestDataGenerator::ConvertStringToNumberOrThrow(const std::string& string)
+  {
+    SgfcValueConverter valueConverter;
+    std::string typeConversionErrorMessage;
+
+    SgfcNumber number;
+    bool conversionResult = valueConverter.TryConvertStringToNumberValue(
+      string, number, typeConversionErrorMessage);
+
+    if (conversionResult)
+      return number;
+    else
+      throw new std::logic_error("Failed to convert test data");
   }
 }
