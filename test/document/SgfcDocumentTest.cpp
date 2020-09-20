@@ -12,6 +12,9 @@ extern "C"
 // Unit test library includes
 #include <catch2/catch.hpp>
 
+// C++ Standard Library includes
+#include <cstring>  //  needed for strlen
+
 using namespace LibSgfcPlusPlus;
 
 
