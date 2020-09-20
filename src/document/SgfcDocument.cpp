@@ -21,6 +21,7 @@
 // C++ Standard Library includes
 #include <algorithm>
 #include <iostream>
+#include <set>
 #include <stdexcept>
 
 // SGFC includes
@@ -38,6 +39,9 @@ namespace LibSgfcPlusPlus
 
   SgfcDocument::SgfcDocument(SGFInfo* sgfInfo)
   {
+    if (sgfInfo == nullptr)
+      throw std::invalid_argument("SgfcDocument constructor failed: SGFInfo object is nullptr");
+
     // sgfInfo->b_end does not point to the last byte in the buffer.
     // sgfInfo->b_end points to the position behind the last byte of the buffer.
     // For instance, if the file is empty then sgfInfo->buffer and
@@ -159,6 +163,14 @@ namespace LibSgfcPlusPlus
 
   void SgfcDocument::SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games)
   {
+    std::set<std::shared_ptr<ISgfcGame>> uniqueGames(games.begin(), games.end());
+    if (uniqueGames.size() != games.size())
+      throw std::invalid_argument("SetGames failed: Game list contains duplicate elements");
+
+    auto result = std::find(std::begin(games), std::end(games), nullptr);
+    if (result != std::end(games))
+      throw std::invalid_argument("SetGames failed: Game list contains nullptr element");
+
     this->games = games;
   }
 

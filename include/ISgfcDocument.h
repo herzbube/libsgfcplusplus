@@ -31,15 +31,14 @@ namespace LibSgfcPlusPlus
     virtual bool IsEmpty() const = 0;
 
     /// @brief Returns a collection of games that together make up the document.
-    ///
-    /// Different kinds of games may appear within the same document.
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const = 0;
 
     /// @brief Sets the collection of games that together make up the document
-    /// to @a games, replacing the previous collection.
+    /// to @a games, replacing the previous collection. @a games may not contain
+    /// @e nullptr. @a games may not contain duplicates.
     ///
-    /// @todo Check for duplicates and @e nullptr to achieve the same
-    /// consistency provided by AppendGame().
+    /// @exception std::invalid_argument Is thrown if @a games contains a
+    /// @e nullptr element, or if @a games contains duplicate elements.
     virtual void SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games) = 0;
 
     /// @brief Adds @a game as the last game to the collection of games that

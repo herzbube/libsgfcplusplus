@@ -19,8 +19,19 @@ namespace LibSgfcPlusPlus
   class SgfcDocument : public ISgfcDocument
   {
   public:
+    /// @brief Initializes a newly constructed SgfcDocument object. The document
+    /// has no content.
     SgfcDocument();
+
+    /// @brief Initializes a newly constructed SgfcDocument object with the
+    /// SGF content in @a sgfInfo. The initialized document contains 0-n
+    /// ISgfcGame objects that represent the game trees found during parsing
+    /// of @a sgfInfo.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a sgfInfo is @e nullptr.
     SgfcDocument(SGFInfo* sgfInfo);
+
+    /// @brief Destroys and cleans up the SgfcDocument object.
     virtual ~SgfcDocument();
 
     virtual bool IsEmpty() const;
