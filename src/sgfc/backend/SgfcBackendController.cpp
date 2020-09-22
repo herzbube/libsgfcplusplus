@@ -18,14 +18,17 @@ extern "C"
 // C++ Standard Library includes
 #include <algorithm>
 #include <fstream>
+#include <mutex>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
+  static std::mutex sgfcMutex;
+
   SgfcBackendController::SgfcBackendController()
     : invalidCommandLineReason(nullptr)
   {
-    // TODO: Add multi-threading protection.
+    std::lock_guard sgfcGuard(sgfcMutex);
 
     ParseArguments(this->arguments);
   }
@@ -34,7 +37,7 @@ namespace LibSgfcPlusPlus
     : arguments(arguments)
     , invalidCommandLineReason(nullptr)
   {
-    // TODO: Add multi-threading protection.
+    std::lock_guard sgfcGuard(sgfcMutex);
 
     ParseArguments(arguments);
   }
@@ -67,7 +70,7 @@ namespace LibSgfcPlusPlus
   {
     ThrowIfIsCommandLineValidReturnsFalse();
 
-    // TODO: Add multi-threading protection.
+    std::lock_guard sgfcGuard(sgfcMutex);
 
     // Reset global variables, then re-apply the outcome of ParseArgs() so that
     // SGFC behaves the same on each invocation.
@@ -115,7 +118,7 @@ namespace LibSgfcPlusPlus
   {
     ThrowIfIsCommandLineValidReturnsFalse();
 
-    // TODO: Add multi-threading protection.
+    std::lock_guard sgfcGuard(sgfcMutex);
 
     // Reset global variables, then re-apply the outcome of ParseArgs() so that
     // SGFC behaves the same on each invocation.
