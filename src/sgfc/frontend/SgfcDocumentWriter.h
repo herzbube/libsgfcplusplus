@@ -26,5 +26,11 @@ namespace LibSgfcPlusPlus
 
   private:
     std::shared_ptr<SgfcBackendController> backendController;
+
+    std::shared_ptr<ISgfcDocumentWriteResult> DeleteTempFileOrCreateWriteResultWithErrorMessage(
+      const std::string& tempFilePath) const;
+    std::shared_ptr<ISgfcDocumentWriteResult> CreateWriteResultWithErrorMessage(
+      int messageID,
+      const std::string& messageText) const;
   };
 }

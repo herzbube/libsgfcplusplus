@@ -8,6 +8,11 @@
 
 using namespace LibSgfcPlusPlus;
 
+
+void AssertErrorLoadResultWhenNoValidSgfContent(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
+void AssertSaveResult(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode, const std::string& actualSgfContent, const std::string& expectedSgfContent);
+
+
 SCENARIO( "SgfcCommandLine is constructed", "[frontend]" )
 {
   GIVEN( "The constructor that takes command line arguments is used" )
@@ -151,17 +156,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
       THEN( "The load operation result indicates failure" )
       {
-        REQUIRE( sgfExitCode == SgfcExitCode::FatalError );
-        REQUIRE( commandLine.IsSgfContentValid() == false );
-
-        auto parseResult = commandLine.GetParseResult();
-        REQUIRE( parseResult.size() == 1 );
-
-        auto errorMessage = parseResult.front();
-        REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 7 = SGFC error code "no SGF data found"
-        REQUIRE( errorMessage->GetMessageID() == 7 );
-        REQUIRE( errorMessage->GetMessageText().length() > 0 );
+        AssertErrorLoadResultWhenNoValidSgfContent(commandLine, sgfExitCode);
       }
     }
 
@@ -323,12 +318,11 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend][filesys
     WHEN( "SgfcCommandLine performs the load operation" )
     {
       SgfcCommandLine commandLine(emptyCommandLineArguments);
+      SgfcExitCode sgfExitCode = commandLine.LoadSgfContent(sgfContent);
 
-      THEN( "The load operation throws an exception" )
+      THEN( "The load operation result indicates failure" )
       {
-        REQUIRE_THROWS_AS(
-          commandLine.LoadSgfContent(sgfContent),
-          std::runtime_error);
+        AssertErrorLoadResultWhenNoValidSgfContent(commandLine, sgfExitCode);
       }
     }
   }
@@ -520,17 +514,40 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesyste
       SgfcExitCode sgfExitCodeLoad = commandLine.LoadSgfFile(tempFilePath);
       REQUIRE( sgfExitCodeLoad == SgfcExitCode::Ok );
       std::string sgfContent;
+      SgfcExitCode sgfcExitCode = commandLine.SaveSgfContent(sgfContent);
 
       THEN( "The save operation throws an exception" )
       {
-        REQUIRE_THROWS_AS(
-          commandLine.SaveSgfContent(sgfContent),
-          std::runtime_error);
-
-        REQUIRE( commandLine.GetSaveResult().size() == 0 );
+        AssertSaveResult(commandLine, sgfcExitCode, sgfContent, expectedStringContentSaved);
       }
     }
 
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
+}
+
+void AssertErrorLoadResultWhenNoValidSgfContent(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode)
+{
+  REQUIRE( sgfExitCode == SgfcExitCode::FatalError );
+  REQUIRE( commandLine.IsSgfContentValid() == false );
+
+  auto parseResult = commandLine.GetParseResult();
+  REQUIRE( parseResult.size() == 1 );
+
+  auto errorMessage = parseResult.front();
+  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  // 7 = SGFC error code "no SGF data found"
+  REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+}
+
+void AssertSaveResult(
+  const SgfcCommandLine& commandLine,
+  SgfcExitCode sgfExitCode,
+  const std::string& actualSgfContent,
+  const std::string& expectedSgfContent)
+{
+  REQUIRE( sgfExitCode == SgfcExitCode::Ok );
+  REQUIRE( commandLine.GetSaveResult().size() == 0 );
+  REQUIRE( actualSgfContent == expectedSgfContent );
 }

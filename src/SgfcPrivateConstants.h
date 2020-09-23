@@ -26,9 +26,19 @@ namespace LibSgfcPlusPlus
     /// writes messages with PrintError() - in that case it always uses
     /// SgfcPrivateConstants::NewlineCharacter.
     static const std::string EndOfLineStringUsedBySgfc;
-    /// This constant contains a platform-specific string that is used as the
-    /// directory separator in filesystem paths.
+    //@}
+
+    /// @name Filesystem related constants
+    //@{
+    /// @brief This constant contains a platform-specific string that is used
+    /// as the directory separator in filesystem paths.
     static const std::string DirectorySeparator;
+    /// @brief The prefix used in names of temporary files created by the
+    /// library.
+    static const std::string TempFilePrefix;
+    /// @brief The suffix used in names of temporary files created by the
+    /// library.
+    static const std::string TempFileSuffix;
     //@}
 
     /// @name String constants defined by the SGF standard to structure the file format

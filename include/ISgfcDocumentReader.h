@@ -41,7 +41,11 @@ namespace LibSgfcPlusPlus
     /// load operation the implementation deletes the temporary file.
     ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
-    /// the read operation.
+    /// the read operation. If an error related to temporary file handling
+    /// occured the read result object contains an empty document and a parse
+    /// result that contains a single message whose ID indicates the nature of
+    /// the problem (e.g.
+    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
     virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) = 0;
   };
 }

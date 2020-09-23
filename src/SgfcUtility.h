@@ -105,6 +105,26 @@ namespace LibSgfcPlusPlus
     /// we have to roll our own platform-independent function.
     static std::string GetTempFolderPath();
 
+    /// @brief Returns the unique base name of a file that is extremely
+    /// unlikely to already exist in the temporary folder returned by
+    /// GetTempPath(). This method never returns the same value twice.
+    ///
+    /// The file name is composed of the following parts:
+    /// - A prefix that indicates that the file origin is this library
+    /// - The ID of the system process that hosts the library
+    /// - A randomly generated UUID
+    /// - A file extension suffix that indicates that the file is a temporary
+    ///   file
+    static std::string GetUniqueTempFileName();
+
+    /// @brief Returns the unique absolute path name of a file that is extremely
+    /// unlikely to already exist in the temporary folder returned by
+    /// GetTempPath(). This method never returns the same value twice.
+    ///
+    /// This is a convenience function that invokes JoinPathComponents() using
+    /// the return values of GetTempFolderPath() and GetUniqueTempFileName().
+    static std::string GetUniqueTempFilePath();
+
     /// @brief Joins two filesystem path components together using the
     /// platform-specific directory separator.
     static std::string JoinPathComponents(const std::string& component1, const std::string& component2);

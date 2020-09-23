@@ -20,5 +20,9 @@ namespace LibSgfcPlusPlus
 
   private:
     std::shared_ptr<SgfcBackendController> backendController;
+
+    std::shared_ptr<ISgfcDocumentReadResult> CreateReadResultWithErrorMessage(
+      int messageID,
+      const std::string& messageText) const;
   };
 }

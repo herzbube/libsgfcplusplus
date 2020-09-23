@@ -43,5 +43,15 @@ namespace LibSgfcPlusPlus
 
     void ThrowIfIsCommandLineValidReturnsFalse() const;
     void ThrowIfIsSgfContentValidReturnsFalse() const;
+
+    bool DeleteTempFileOrCreateAndSetBackendSaveResultWithErrorMessage(
+      const std::string& tempFilePath);
+
+    SgfcExitCode CreateAndSetBackendLoadResultWithErrorMessage(
+      int messageID,
+      const std::string& messageText);
+    SgfcExitCode CreateAndSetBackendSaveResultWithErrorMessage(
+      int messageID,
+      const std::string& messageText);
   };
 }

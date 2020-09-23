@@ -14,9 +14,10 @@
 #ifdef _MSC_VER
   #include <Windows.h>  // for GetTempPath()
   #include <io.h>       // for _access_s()
+  #include <process.h>  // for _getpid()
 #else
   #include <cstdlib>    // for std::getenv()
-  #include <unistd.h>   // for access()
+  #include <unistd.h>   // for access() and getpid()
 #endif
 
 namespace LibSgfcPlusPlus
@@ -158,6 +159,7 @@ namespace LibSgfcPlusPlus
     std::string tempFolderPath;
 
 #ifdef _MSC_VER
+
     DWORD bufferLength = MAX_PATH + 1;
     char* buffer = new char[bufferLength];
 
@@ -201,6 +203,38 @@ namespace LibSgfcPlusPlus
     // this implementation is good enough.
 
     return tempFolderPath;
+  }
+
+  std::string SgfcUtility::GetUniqueTempFileName()
+  {
+    std::stringstream uniqueTempFileName;
+
+    // Example: libsgfc++_838c5afe-369e-4422-a1e7-3a008b57710c.12345.tmp
+    uniqueTempFileName
+      << SgfcPrivateConstants::TempFilePrefix
+      << "_"
+      << SgfcUtility::CreateUuid()
+      << "."
+#ifdef _MSC_VER
+      // Returns an int value
+      << _getpid()
+#else
+      // Returns a pid_t value. We don't care what this resolves to (int,
+      // long, long long?), we simply pass the value to the stream and let it
+      // handle the conversion to string.
+      << getpid()
+#endif
+      << "."
+      << SgfcPrivateConstants::TempFileSuffix;
+
+    return uniqueTempFileName.str();
+  }
+
+  std::string SgfcUtility::GetUniqueTempFilePath()
+  {
+    return SgfcUtility::JoinPathComponents(
+      SgfcUtility::GetTempFolderPath(),
+      SgfcUtility::GetUniqueTempFileName());
   }
 
   std::string SgfcUtility::JoinPathComponents(const std::string& component1, const std::string& component2)

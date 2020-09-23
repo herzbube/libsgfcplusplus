@@ -7,6 +7,10 @@
 
 using namespace LibSgfcPlusPlus;
 
+
+void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult);
+
+
 SCENARIO( "SgfcDocumentReader is constructed", "[frontend]" )
 {
   GIVEN( "The default constructor is used" )
@@ -69,21 +73,7 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
 
       THEN( "The read operation result indicates failure" )
       {
-        REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
-        REQUIRE( readResult->IsSgfDataValid() == false );
-
-        auto parseResult = readResult->GetParseResult();
-        REQUIRE( parseResult.size() == 1 );
-
-        auto errorMessage = parseResult.front();
-        REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 7 = SGFC error code "no SGF data found"
-        REQUIRE( errorMessage->GetMessageID() == 7 );
-        REQUIRE( errorMessage->GetMessageText().length() > 0 );
-
-        auto document = readResult->GetDocument();
-        REQUIRE( document->IsEmpty() == true );
-        REQUIRE( document->GetGames().size() == 0 );
+        AssertErrorReadResultWhenNoValidSgfContent(readResult);
       }
     }
 
@@ -222,15 +212,33 @@ SCENARIO( "SgfcDocumentReader reads SGF content from a string", "[frontend][file
     WHEN( "SgfcDocumentReader performs the read operation" )
     {
       SgfcDocumentReader reader;
+      auto readResult = reader.ReadSgfContent(sgfContent);
 
-      THEN( "The read operation throws an exception" )
+      THEN( "The read operation result indicates failure" )
       {
-        REQUIRE_THROWS_AS(
-          reader.ReadSgfContent(sgfContent),
-          std::runtime_error);
+        AssertErrorReadResultWhenNoValidSgfContent(readResult);
       }
     }
   }
 
   // TODO: Add more tests that produce various compositions of a document
+}
+
+void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult)
+{
+  REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
+  REQUIRE( readResult->IsSgfDataValid() == false );
+
+  auto parseResult = readResult->GetParseResult();
+  REQUIRE( parseResult.size() == 1 );
+
+  auto errorMessage = parseResult.front();
+  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  // 7 = SGFC error code "no SGF data found"
+  REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+
+  auto document = readResult->GetDocument();
+  REQUIRE( document->IsEmpty() == true );
+  REQUIRE( document->GetGames().size() == 0 );
 }

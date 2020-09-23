@@ -50,7 +50,10 @@ namespace LibSgfcPlusPlus
     /// the implementation deletes the temporary file.
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
-    /// the write operation.
+    /// the write operation. If an error related to temporary file handling
+    /// occured the write result object contains a parse result that contains a
+    /// single message whose ID indicates the nature of the problem (e.g.
+    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
     ///
     /// @exception std::logic_error is thrown if @a document cannot be encoded
     /// into a string due to some fundamental error in the object tree.

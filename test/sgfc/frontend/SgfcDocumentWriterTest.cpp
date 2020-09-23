@@ -12,6 +12,10 @@
 
 using namespace LibSgfcPlusPlus;
 
+
+void AssertWriteResult(std::shared_ptr<ISgfcDocumentWriteResult> writeResult, const std::string& actualSgfContent, const std::string& expectedSgfContent);
+
+
 SCENARIO( "SgfcDocumentWriter is constructed", "[frontend]" )
 {
   GIVEN( "The default constructor is used" )
@@ -71,13 +75,8 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to the filesystem", "[frontend]
 
       THEN( "The write operation succeeds" )
       {
-        REQUIRE( writeResult->GetExitCode() == SgfcExitCode::Ok );
-
-        auto parseResult = writeResult->GetParseResult();
-        REQUIRE( parseResult.size() == 0 );
-
         std::string fileContentSaved = SgfcUtility::ReadFileContent(tempFilePath);
-        REQUIRE( fileContentSaved == expectedFileContentSaved );
+        AssertWriteResult(writeResult, fileContentSaved, expectedFileContentSaved);
       }
     }
 
@@ -135,7 +134,7 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][files
       {
         REQUIRE_THROWS_AS(
           writer.WriteSgfContent(document, sgfContent),
-          std::runtime_error);
+          std::logic_error);
       }
     }
   }
@@ -145,18 +144,18 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][files
   auto game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
   document->AppendGame(game);
 
+  std::string expectedSgfContent = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+
   GIVEN( "The string is empty" )
   {
     WHEN( "SgfcDocumentWriter performs the write operation" )
     {
       SgfcDocumentWriter writer;
+      auto writeResult = writer.WriteSgfContent(document, sgfContent);
 
-      // TODO: Should be: The string contains the SGF content
-      THEN( "The write operation throws an exception" )
+      THEN( "The write operation writes the SGF content into the string" )
       {
-        REQUIRE_THROWS_AS(
-          writer.WriteSgfContent(document, sgfContent),
-          std::runtime_error);
+        AssertWriteResult(writeResult, sgfContent, expectedSgfContent);
       }
     }
   }
@@ -165,17 +164,30 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][files
   {
     WHEN( "SgfcDocumentWriter performs the write operation" )
     {
-      SgfcDocumentWriter writer;
+      sgfContent = "foo";
 
-      // TODO: Should be: Overwrites the string content
-      THEN( "The write operation throws an exception" )
+      SgfcDocumentWriter writer;
+      auto writeResult = writer.WriteSgfContent(document, sgfContent);
+
+      THEN( "The write operation overwrites the string content with the SGF content" )
       {
-        REQUIRE_THROWS_AS(
-          writer.WriteSgfContent(document, sgfContent),
-          std::runtime_error);
+        AssertWriteResult(writeResult, sgfContent, expectedSgfContent);
       }
     }
   }
 
   // TODO: Add more tests for various compositions of the document
+}
+
+void AssertWriteResult(
+  std::shared_ptr<ISgfcDocumentWriteResult> writeResult,
+  const std::string& actualSgfContent,
+  const std::string& expectedSgfContent)
+{
+  REQUIRE( writeResult->GetExitCode() == SgfcExitCode::Ok );
+
+  auto parseResult = writeResult->GetParseResult();
+  REQUIRE( parseResult.size() == 0 );
+
+  REQUIRE( actualSgfContent == expectedSgfContent );
 }

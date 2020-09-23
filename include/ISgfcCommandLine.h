@@ -97,6 +97,12 @@ namespace LibSgfcPlusPlus
     /// temporary file and then instructs SGFC to load that file. After the
     /// load operation the implementation deletes the temporary file.
     ///
+    /// If an error related to temporary file handling occurs this method
+    /// returns SgfcMessageType::FatalError and IsSgfContentValid() becomes
+    /// false. GetParseResult() returns a single message whose ID indicates the
+    /// nature of the problem (e.g.
+    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
+    ///
     /// @return An SgfcExitCode value whose numeric value matches one of the
     /// exit codes of SGFC.
     ///
@@ -157,6 +163,11 @@ namespace LibSgfcPlusPlus
     /// temporary file and then loads the content of that file into the
     /// specified string object. After the load operation the implementation
     /// deletes the temporary file.
+    ///
+    /// If an error related to temporary file handling occurs this method
+    /// returns SgfcMessageType::FatalError. GetSaveResult() returns a single
+    /// message whose ID indicates the nature of the problem (e.g.
+    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
     ///
     /// @return An SgfcExitCode value whose numeric value matches one of the
     /// exit codes of SGFC.

@@ -1,6 +1,8 @@
 // Project includes
+#include "../../../include/SgfcConstants.h"
 #include "../../document/SgfcDocument.h"
 #include "../../SgfcUtility.h"
+#include "../message/SgfcMessage.h"
 #include "SgfcDocumentReader.h"
 #include "SgfcDocumentReadResult.h"
 
@@ -39,6 +41,52 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfContent(const std::string& sgfContent)
   {
-    throw std::runtime_error("not yet implemented");
+    std::string tempFilePath = SgfcUtility::GetUniqueTempFilePath();
+
+    try
+    {
+      SgfcUtility::AppendTextToFile(tempFilePath, sgfContent);
+    }
+    catch (std::runtime_error&)
+    {
+      std::string messageText = "Writing SGF content to temporary file failed: " + tempFilePath;
+      auto result = CreateReadResultWithErrorMessage(
+        SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
+        messageText);
+      return result;
+    }
+
+    auto result = ReadSgfFile(tempFilePath);
+
+    try
+    {
+      SgfcUtility::DeleteFileIfExists(tempFilePath);
+    }
+    catch (std::runtime_error&)
+    {
+      std::string messageText = "Deleting temporary file failed: " + tempFilePath;
+      auto result = CreateReadResultWithErrorMessage(
+        SgfcConstants::DeleteFileErrorMessageID,
+        messageText);
+      return result;
+    }
+
+    return result;
+  }
+
+  std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::CreateReadResultWithErrorMessage(
+    int messageID,
+    const std::string& messageText) const
+  {
+    auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+      messageID,
+      messageText));
+
+    std::vector<std::shared_ptr<ISgfcMessage>> parseResult = { message };
+    auto document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+
+    return std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
+      parseResult,
+      document));
   }
 }
