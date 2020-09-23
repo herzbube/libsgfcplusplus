@@ -38,9 +38,6 @@ namespace LibSgfcPlusPlus
     /// this property value is associated with has SgfcGameType::Go. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
-    ///
-    /// @todo There should be a method that allows the user to check whether
-    /// this method returns nullptr. Example: GetGameType().
     virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const = 0;
   };
 }

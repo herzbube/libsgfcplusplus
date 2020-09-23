@@ -34,9 +34,6 @@ namespace LibSgfcPlusPlus
     : rawMessageStreamContent(SgfcPrivateConstants::EmptyString)
     , messageStreamLines()
   {
-    // TODO: Add multi-threading protection.
-    // TODO: Ensure that nobody is stealing the stream content from an SGFC controller.
-
     this->rawMessageStreamContent = AcquireSgfcMessageStream();
     SplitRawMessageStreamContentIntoLines();
 

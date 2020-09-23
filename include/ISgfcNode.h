@@ -109,8 +109,14 @@ namespace LibSgfcPlusPlus
     /// @brief Sets the properties of the node to the collection @a properties.
     /// The collection may be empty. The order in which properties appear in
     /// the collection is irrelevant. No SgfcPropertyType except
-    /// SgfcPropertyType::Unknown may appear more than  once in the collection.
+    /// SgfcPropertyType::Unknown may appear more than once in the collection.
     /// No property name may appear more than once in the collection.
+    ///
+    /// The SGF standard defines that only one of each property is allowed per
+    /// node. This is the reason why this method prevents setting a collection
+    /// that contains duplicate property types or names. Names are checked to
+    /// prevent duplicates of custom properties, which have
+    /// SgfcPropertyType::Unknow.
     ///
     /// @exception std::invalid_argument Is thrown if @a properties contains
     /// @e nullptr elements, or if an SgfcPropertyType other than

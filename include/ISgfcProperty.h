@@ -20,13 +20,6 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcProperty interface provides access to the data of a single
   /// property of an SGF node. One property has 0-n values.
-  ///
-  /// @todo Accept properties not defined in the standard. This is
-  /// allowed by the standard.
-  ///
-  /// @todo The standard says that "Only one of each property is allowed per
-  /// node, e.g. one cannot have two comments in one node." How does SGFC deal
-  /// duplicate properties? Do we want to support this as well?
   class SGFCPLUSPLUS_EXPORT ISgfcProperty
   {
   public:
@@ -55,26 +48,37 @@ namespace LibSgfcPlusPlus
     /// advises against this).
     virtual std::string GetPropertyName() const = 0;
 
-    /// @brief Returns the values of the property.
+    /// @brief Returns a collection with the values of the property. The
+    /// collection is empty if the property has no values. The order in which
+    /// values appear in the collection matches the order in which values were
+    /// specified when the ISgfcProperty was constructed.
     ///
-    /// @todo Is it possible that a property can have zero values? The EBNF in
-    /// the standard says that at least one value must be present, but the list
-    /// of value types includes "None", which is defined to be an empty string.
-    /// The meaning for the file content is clear: Something like XY[] is
-    /// possible. But how does this translate to our OO model? Do we return
-    /// an empty list, or do we return a list with one element whose value is
-    /// an empty string?
+    /// The EBNF in the SGF standard says that at least one value must be
+    /// present. This can be a value that has the value type "None", which is
+    /// defined to be an empty string. The meaning for the file content is
+    /// clear: Something like XY[] is possible. In the library's object model,
+    /// however, a "None" value is translated to an empty collection.
     virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const = 0;
 
     /// @brief Sets the values of the property to @a propertyValues. The
     /// previous values are discarded.
+    ///
+    /// This setter makes no attempt to check the validity of the property
+    /// values. A last-ditch attempt at validation is made by SGFC later when
+    /// the game tree is written to an SGF file or to an SGF content string, but
+    /// this is unlikely to catch all mistakes. It is ultimately the
+    /// responsibility of the library client to take care that the values
+    /// are valid. The consequence of faulty values is that the library client
+    /// might be unable to read in the game tree again after it has been written
+    /// out.
     virtual void SetPropertyValues(
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
 
     /// @brief Returns the property's first value if the property has any
     /// values. Returns @e nullptr if the property has no values.
     ///
-    /// This is a convenience method for properties that can have only value.
+    /// This is a convenience method for properties that can have only a single
+    /// value.
     virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const = 0;
 
     /// @brief Returns an ISgfcGameTypeProperty object if GetPropertyType()

@@ -26,10 +26,26 @@ namespace LibSgfcPlusPlus
     /// of two string values: Either "B" (which means "black") or "W" (which
     /// means "white").
     Color,
+    /// @brief The property value is a simple string of arbitrary length. The
+    /// only whitespace allowed for this string type are space characters.
+    /// Specifically, a SimpleText property value does not contain line breaks.
     SimpleText,
+    /// @brief The property value is a formatted string of arbitrary length.
+    /// The only whitespace allowed for this string type are space characters
+    /// and line break characters.
+    ///
+    /// SGF uses the description "formatted string" to refer to the fact that
+    /// an SGF processing application should retain line breaks when it displays
+    /// the property value.
     Text,
+    /// @brief The property value describes a location on the game board. The
+    /// value's string representation is game specific.
     Point,
+    /// @brief The property value describes a move according to the game rules.
+    /// The value's string representation is game specific.
     Move,
+    /// @brief The property value describes a game piece and its location on the
+    /// game board. The value's string representation is game specific.
     Stone,
     /// @brief The property value has an unknown type. This is used for
     /// non-empty values of any property not defined in the SGF standard.

@@ -26,8 +26,6 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the property value interpreted as a simple text string.
     ///
-    /// @todo Do we need a dedicated type SgfcSimpleText?
-    ///
     /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual std::string GetSimpleTextValue() const = 0;
   };

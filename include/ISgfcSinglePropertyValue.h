@@ -117,8 +117,6 @@ namespace LibSgfcPlusPlus
     ///   "\a" appears as simply "a" in the raw string. Necessary escape
     ///   characters are preserved, though, and appear in the raw string
     ///   (e.g. "\\" or "\]").
-    ///
-    /// @todo How do we deal with encodings?
     virtual std::string GetRawValue() const = 0;
 
     /// @brief Returns an ISgfcNumberPropertyValue object if GetValueType()

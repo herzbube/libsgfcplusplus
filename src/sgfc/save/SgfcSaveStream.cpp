@@ -37,9 +37,6 @@ namespace LibSgfcPlusPlus
 
   SgfcSaveStream::SgfcSaveStream()
   {
-    // TODO: Add multi-threading protection.
-    // TODO: Ensure that nobody is stealing the stream content from an SGFC controller.
-
     std::vector<std::string> saveStreamContents = AcquireSaveStreamContents();
     std::vector<std::string> saveStreamFileNames = AcquireSaveStreamFileNames();
     MakeSgfContents(saveStreamContents, saveStreamFileNames);

@@ -248,9 +248,6 @@ namespace LibSgfcPlusPlus
     /// Allowed values are 1, 3 and 4. The default value is 1.
     ///
     /// This is a root property.
-    ///
-    /// @todo Since SGFC converts to FF4 automatically, and writes FF4 only,
-    /// libsgfc++ should only ever allow 4.
     FF,
     /// @brief The type of game that is stored in the game tree. Property
     /// value type: Number.
@@ -265,8 +262,6 @@ namespace LibSgfcPlusPlus
     /// type: Number.
     ///
     /// This is a root property.
-    ///
-    /// @todo Grok the meaning of this property type.
     ST,
     /// @brief Define the board size. Property value type: Either a single
     /// Number, or a composed Number/Number (i.e. "Number:Number").
@@ -410,11 +405,6 @@ namespace LibSgfcPlusPlus
     /// @brief A private property of the "Smart Game Board" application (SGB),
     /// meaning "integer komi". SGFC converts this to the regular KM property.
     /// Property value type: Number.
-    ///
-    /// @todo Do we ever get to see this property? If not then we can safely
-    /// remove this enumeration value. If yes, then maybe we should still
-    /// remove this enumeration value - after all we want to be conforming to
-    /// a standard.
     KI,
 
     /// @brief The property type is unknown, i.e. the property is a custom

@@ -1,6 +1,6 @@
-# TODO Find out whether we could do with a lower version of CMake. We are
-# requiring 3.10 only because that's the minimum version required by the
-# tutorial of the 3.17 release.
+# We are requiring 3.10 only because that's the minimum version required by the
+# tutorial of the 3.17 release, on which this CMake file is based. We possibly
+# could do with a lower version.
 cmake_minimum_required ( VERSION 3.10 )
 
 # As a side effect this command sets PROJECT_SOURCE_DIR, PROJECT_BINARY_DIR and

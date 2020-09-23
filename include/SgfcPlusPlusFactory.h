@@ -32,8 +32,6 @@ namespace LibSgfcPlusPlus
     /// as you would specify them on the command line. Invoke the
     /// ISgfcCommandLine::IsCommandLineValid() method on the resulting object
     /// to find out whether the arguments are valid.
-    ///
-    /// @todo Specify arguments with types instead of with std::string.
     static std::shared_ptr<ISgfcCommandLine> CreateSgfcCommandLine(
       const std::vector<std::string>& arguments);
 
