@@ -117,6 +117,11 @@ namespace LibSgfcPlusPlus
     ///   when SGFC sees "\a" it removes the unnecessary escape character and
     ///   this method gets to process only "a". In short, this method does not
     ///   perform any escape character handling.
+    /// - In Move values, if the game type is Go and the board size is <= 19x19,
+    ///   SGFC is expected to convert the value "tt" to an empty string.
+    ///   According to the SGF standard an empty string and value "tt" both
+    ///   express a pass move, but in FF4 the "tt" representation is kept only
+    ///   for compatibility with FF3.
     ///
     /// @note This method has its own line break handling for SimpleText and
     /// Text values, due to two shortcomings in SGFC: 1) A bug in SGFC: If a

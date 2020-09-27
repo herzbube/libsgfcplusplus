@@ -117,6 +117,11 @@ namespace LibSgfcPlusPlus
     ///   "\a" appears as simply "a" in the raw string. Necessary escape
     ///   characters are preserved, though, and appear in the raw string
     ///   (e.g. "\\" or "\]").
+    /// - In Move values, if the game type is Go and the board size is <= 19x19,
+    ///   the value "tt" is converted to an empty string. This is in accord with
+    ///   the SGF standard that defines an empty string and value "tt" both
+    ///   to express a pass move, but in FF4 the "tt" representation is kept
+    ///   only for compatibility with FF3.
     virtual std::string GetRawValue() const = 0;
 
     /// @brief Returns an ISgfcNumberPropertyValue object if GetValueType()

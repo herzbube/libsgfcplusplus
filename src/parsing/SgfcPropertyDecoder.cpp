@@ -803,10 +803,13 @@ namespace LibSgfcPlusPlus
       SgfcColor color = GetColorForPropertyType();
       if (rawPropertyValueBuffer == SgfcConstants::MovePassString)
       {
-        // TODO: Verify that SGFC converts "tt" to an empty string if the
-        // board size is smaller than 19x19. According to the SGF standard
-        // "tt" is an FF3 feature. Document that we expect that the
-        // preprocessing is taking place.
+        // For Go the SGF standard defines that black or white pass moves can
+        // have either value "" (an empty string) or "tt". The latter counts as
+        // pass move only for board sizes <= 19, for larger boards "tt" is a
+        // normal move. The SGF standard also mentions that "tt" is kept only
+        // for compatibility with FF3.
+        // Here we rely on SGFC doing the interpretation for us, and for passing
+        // an empty string value to us if it encountered "tt".
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
          color));
       }

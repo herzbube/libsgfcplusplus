@@ -334,6 +334,7 @@ namespace LibSgfcPlusPlus
 
       std::shared_ptr<ISgfcGoMove> goMove = goMoveValue->GetGoMove();
       std::cout << "        Player color = " << static_cast<int>(goMove->GetPlayerColor()) << std::endl;
+      std::cout << "        Is pass move = " << goMove->IsPassMove() << std::endl;
 
       std::shared_ptr<ISgfcGoPoint> location = goMove->GetStoneLocation();
       DebugPrintGoPointValueToConsole(location.get());
