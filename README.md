@@ -2,6 +2,12 @@
 [![Github Releases](https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/releases)
 [![Github Releases](https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE)
 
+## Project status
+
+This software library project has grown out of its inception phase, but is still clearly pre-alpha. Please don't use it in other software projects yet, the API is far from stable.
+
+I have created a number of issues and a few milestones that are supposed to outline the next steps (alpha, beta, 1.0), but there is no due date for any of them.
+
 ## What is it?
 
 libsgfc++ is a C++ wrapper library around [SGFC](https://www.red-bean.com/sgf/sgfc/). As such, libsgfc++ offers the same functionality as SGFC:
