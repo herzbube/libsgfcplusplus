@@ -2,7 +2,6 @@
 
 // Project includes
 #include "../../../include/ISgfcDocumentWriter.h"
-#include "../backend/SgfcBackendController.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -15,6 +14,7 @@ namespace LibSgfcPlusPlus
     SgfcDocumentWriter();
     virtual ~SgfcDocumentWriter();
 
+    virtual std::shared_ptr<ISgfcArguments> GetArguments() const;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
       const std::string& sgfFilePath);
@@ -25,7 +25,7 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcDocument> document) const;
 
   private:
-    std::shared_ptr<SgfcBackendController> backendController;
+    std::shared_ptr<ISgfcArguments> arguments;
 
     std::shared_ptr<ISgfcDocumentWriteResult> DeleteTempFileOrCreateWriteResultWithErrorMessage(
       const std::string& tempFilePath) const;

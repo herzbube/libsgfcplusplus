@@ -2,6 +2,8 @@
 #include "../../../include/SgfcConstants.h"
 #include "../../document/SgfcDocument.h"
 #include "../../SgfcUtility.h"
+#include "../argument/SgfcArguments.h"
+#include "../backend/SgfcBackendController.h"
 #include "../message/SgfcMessage.h"
 #include "SgfcDocumentReader.h"
 #include "SgfcDocumentReadResult.h"
@@ -12,7 +14,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcDocumentReader::SgfcDocumentReader()
-    : backendController(new SgfcBackendController())
+    : arguments(new SgfcArguments())
   {
   }
 
@@ -20,9 +22,16 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  std::shared_ptr<ISgfcArguments> SgfcDocumentReader::GetArguments() const
+  {
+    return this->arguments;
+  }
+
   std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfFile(const std::string& sgfFilePath)
   {
-    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult = this->backendController->LoadSgfFile(sgfFilePath);
+    SgfcBackendController backendController(this->arguments->GetArguments());
+
+    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult = backendController.LoadSgfFile(sgfFilePath);
 
     SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
       backendLoadResult->GetParseResult());

@@ -1,5 +1,6 @@
 // Library includes
 #include <sgfc/frontend/SgfcDocumentReader.h>
+#include <sgfc/argument/SgfcArguments.h>
 #include <SgfcUtility.h>
 
 // Unit test library includes
@@ -20,6 +21,19 @@ SCENARIO( "SgfcDocumentReader is constructed", "[frontend]" )
       THEN( "SgfcDocumentReader is constructed successfully" )
       {
         REQUIRE_NOTHROW( SgfcDocumentReader() );
+      }
+    }
+
+    WHEN( "SgfcDocumentReader is constructed" )
+    {
+      SgfcDocumentReader reader;
+
+      THEN( "SgfcDocumentReader has the expected default state" )
+      {
+        auto arguments = reader.GetArguments();
+        REQUIRE( arguments != nullptr );
+        REQUIRE( arguments->HasArguments() == false );
+        REQUIRE( arguments->GetArguments().size() == 0 );
       }
     }
   }
@@ -222,6 +236,34 @@ SCENARIO( "SgfcDocumentReader reads SGF content from a string", "[frontend][file
   }
 
   // TODO: Add more tests that produce various compositions of a document
+}
+
+SCENARIO("The read operation behaviour is changed by arguments", "[frontend][filesystem]")
+{
+  SgfcDocumentReader reader;
+
+  GIVEN( "All warning messages are disabled" )
+  {
+    reader.GetArguments()->AddArgument(SgfcArgumentType::DisableWarningMessages);
+
+    WHEN( "SgfcDocumentReader performs the read operation" )
+    {
+      // This normally generates warning 17 = SGFC error code "empty value deleted"
+      std::string sgfContent = "(;C[])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The read operation result indicates success" )
+      {
+        REQUIRE( readResult->GetExitCode() == SgfcExitCode::Ok );
+        REQUIRE( readResult->IsSgfDataValid() == true );
+
+        auto parseResult = readResult->GetParseResult();
+        REQUIRE( parseResult.size() == 0 );
+      }
+    }
+  }
+
+  // TODO: Add more tests that excercise the argument types
 }
 
 void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult)

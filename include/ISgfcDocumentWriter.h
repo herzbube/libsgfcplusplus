@@ -10,6 +10,7 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcArguments;
   class ISgfcDocument;
   class ISgfcDocumentWriteResult;
 
@@ -27,8 +28,19 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcDocumentWriter object.
     virtual ~ISgfcDocumentWriter();
 
+    /// @brief Returns an object with the collection of arguments that
+    /// ISgfcDocumentWriter passes on to SGFC whenever it performs a write
+    /// operation.
+    ///
+    /// The collection of arguments is initially empty. Add arguments to the
+    /// collection to change the way how SGFC writes SGF content. The collection
+    /// retains its state between write operations so that repeated write
+    /// operations use the same arguments.
+    virtual std::shared_ptr<ISgfcArguments> GetArguments() const = 0;
+
     /// @brief Writes the content of @a document to a single .sgf file located
-    /// at the specified path.
+    /// at the specified path, using the arguments that GetArguments() currently
+    /// returns.
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
@@ -42,7 +54,8 @@ namespace LibSgfcPlusPlus
       const std::string& sgfFilePath) = 0;
 
     /// @brief Writes the content of @a document into the specified string
-    /// object @a sgfContent.
+    /// object @a sgfContent, using the arguments that GetArguments() currently
+    /// returns.
     ///
     /// The implementation of this method saves the SGF data generated from
     /// @a document to a temporary file and then loads the content of that file

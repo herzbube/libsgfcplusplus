@@ -2,6 +2,7 @@
 #include <document/SgfcDocument.h>
 #include <document/SgfcGame.h>
 #include <document/SgfcNode.h>
+#include <sgfc/argument/SgfcArguments.h>
 #include <sgfc/frontend/SgfcDocumentWriter.h>
 #include <sgfc/frontend/SgfcDocumentWriteResult.h>
 #include <SgfcConstants.h>
@@ -25,6 +26,19 @@ SCENARIO( "SgfcDocumentWriter is constructed", "[frontend]" )
       THEN( "SgfcDocumentWriter is constructed successfully" )
       {
         REQUIRE_NOTHROW( SgfcDocumentWriter() );
+      }
+    }
+
+    WHEN( "SgfcDocumentWriter is constructed" )
+    {
+      SgfcDocumentWriter writer;
+
+      THEN( "SgfcDocumentWriter has the expected default state" )
+      {
+        auto arguments = writer.GetArguments();
+        REQUIRE( arguments != nullptr );
+        REQUIRE( arguments->HasArguments() == false );
+        REQUIRE( arguments->GetArguments().size() == 0 );
       }
     }
   }
@@ -177,6 +191,39 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][files
   }
 
   // TODO: Add more tests for various compositions of the document
+}
+
+SCENARIO("The write operation behaviour is changed by arguments", "[frontend][filesystem]")
+{
+  SgfcDocumentWriter writer;
+  std::string sgfContent;
+
+  auto document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+  auto rootNode = std::shared_ptr<ISgfcNode>(new SgfcNode());
+  auto game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
+  document->AppendGame(game);
+
+  GIVEN( "All warning messages are disabled" )
+  {
+    writer.GetArguments()->AddArgument(SgfcArgumentType::DeleteEmptyNodes);
+    writer.GetArguments()->AddArgument(SgfcArgumentType::DisableWarningMessages);
+
+    WHEN( "SgfcDocumentWriter performs the write operation" )
+    {
+      // SgfcArgumentType::DeleteEmptyNodes deletes the empty root node. It
+      // also normally generates warning 55 = empty node deleted, but we
+      // suppress it.
+      std::string expectedSgfContent = "";
+      auto writeResult = writer.WriteSgfContent(document, sgfContent);
+
+      THEN( "The write operation result indicates success" )
+      {
+        AssertWriteResult(writeResult, sgfContent, expectedSgfContent);
+      }
+    }
+  }
+
+  // TODO: Add more tests that excercise the argument types
 }
 
 void AssertWriteResult(
