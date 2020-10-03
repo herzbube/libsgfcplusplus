@@ -4,6 +4,7 @@
 #include "../document/SgfcGame.h"
 #include "../document/SgfcNode.h"
 #include "../document/SgfcTreeBuilder.h"
+#include "../sgfc/argument/SgfcArguments.h"
 #include "../sgfc/frontend/SgfcCommandLine.h"
 #include "../sgfc/frontend/SgfcDocumentReader.h"
 #include "../sgfc/frontend/SgfcDocumentWriter.h"
@@ -15,6 +16,12 @@
 
 namespace LibSgfcPlusPlus
 {
+  std::shared_ptr<ISgfcArguments> SgfcPlusPlusFactory::CreateSgfcArguments()
+  {
+    std::shared_ptr<ISgfcArguments> arguments = std::shared_ptr<SgfcArguments>(new SgfcArguments());
+    return arguments;
+  }
+
   std::shared_ptr<LibSgfcPlusPlus::ISgfcCommandLine> SgfcPlusPlusFactory::CreateSgfcCommandLine(
     const std::vector<std::string>& arguments)
   {

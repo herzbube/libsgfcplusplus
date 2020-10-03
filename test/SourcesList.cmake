@@ -10,6 +10,7 @@ set (
   game/go/SgfcGoStoneTest.cpp
   parsing/SgfcPropertyDecoderTest.cpp
   parsing/SgfcValueConverterTest.cpp
+  sgfc/argument/SgfcArgumentsTest.cpp
   sgfc/argument/SgfcArgumentTest.cpp
   sgfc/backend/SgfcBackendControllerTest.cpp
   sgfc/backend/SgfcBackendDataWrapperTest.cpp

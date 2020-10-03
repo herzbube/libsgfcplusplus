@@ -11,6 +11,7 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcArguments;
   class ISgfcCommandLine;
   class ISgfcDocument;
   class ISgfcDocumentReader;
@@ -25,6 +26,11 @@ namespace LibSgfcPlusPlus
   class SGFCPLUSPLUS_EXPORT SgfcPlusPlusFactory
   {
   public:
+    /// @brief Returns a newly constructed ISgfcArguments object that initially
+    /// contains no arguments. Use the ISgfcArguments object's add methods to
+    /// populate it with arguments.
+    static std::shared_ptr<ISgfcArguments> CreateSgfcArguments();
+
     /// @brief Returns a newly constructed ISgfcCommandLine object that passes
     /// the specified command line arguments to SGFC.
     ///
