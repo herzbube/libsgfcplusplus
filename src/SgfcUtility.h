@@ -5,6 +5,7 @@
 #include "../include/SgfcBoardSize.h"
 #include "../include/SgfcExitCode.h"
 #include "../include/SgfcGameType.h"
+#include "../include/SgfcArgumentType.h"
 #include "../include/SgfcPropertyType.h"
 #include "../include/SgfcTypedefs.h"
 
@@ -95,6 +96,20 @@ namespace LibSgfcPlusPlus
     /// @retval false if the data that was read or written is invalid.
     static bool GetIsSgfDataValidFromMessageCollection(
       const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection);
+
+    /// @brief Returns the command line option, as defined by the SGFC
+    /// documentation, that corresponds to @a argumentType.
+    ///
+    /// This is a convenience function that looks up @a argumentType in
+    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.
+    ///
+    /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
+    /// if @a argumentType does not appear in
+    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap. In practice this
+    /// should never occur. If it occurs it indicates a programming error in the
+    /// library, i.e. an SgfcArgumentType value was not added to
+    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.
+    static std::string MapArgumentTypeToCmdlineOption(SgfcArgumentType argumentType);
 
     /// @brief Returns the full path to a folder that is suitable for temporary
     /// files. The path is guaranteed to exist and to be a directory.

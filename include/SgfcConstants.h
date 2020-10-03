@@ -41,16 +41,8 @@ namespace LibSgfcPlusPlus
     /// ID is seen by a library client this indicates a coding error in
     /// libsgfc++.
     static const int InvalidMessageID;
-    /// @brief Indicates a fatal error due to an SGFC command line argument
-    /// that is not allowed by libsgfc++.
-    static const int ArgumentIsNotAllowedMessageID;
-    /// @brief Indicates a fatal error due to an SGFC command line argument
-    /// that is not an option (i.e. the argument does not start with "-"
-    /// character).
-    static const int ArgumentIsNotAnOptionMessageID;
-    /// @brief Indicates that a fatal error occurred when SGFC parsed command
-    /// line arguments, but libsgfc++ was unable to obtain the fatal error
-    /// message from SGFC.
+    /// @brief Indicates that a fatal error occurred when SGFC parsed arguments,
+    /// but libsgfc++ was unable to obtain the fatal error message from SGFC.
     static const int ParseArgumentErrorMessageID;
     /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
     /// to save of a piece of SGF content to the file system.

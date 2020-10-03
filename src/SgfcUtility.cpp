@@ -154,6 +154,21 @@ namespace LibSgfcPlusPlus
     return true;
   }
 
+  std::string SgfcUtility::MapArgumentTypeToCmdlineOption(SgfcArgumentType argumentType)
+  {
+    auto it = SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.find(argumentType);
+
+    if (it == SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.cend())
+    {
+      std::stringstream message;
+      message << "Argument type argument has unsupported value: " << static_cast<int>(argumentType);
+      throw std::invalid_argument(message.str());
+    }
+
+    std::string cmdlineOption = it->second;
+    return cmdlineOption;
+  }
+
   std::string SgfcUtility::GetTempFolderPath()
   {
     std::string tempFolderPath;

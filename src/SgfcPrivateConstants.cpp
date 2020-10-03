@@ -85,14 +85,25 @@ namespace LibSgfcPlusPlus
   const std::string SgfcPrivateConstants::ErrorLowerCaseToken = "error";
   const std::string SgfcPrivateConstants::CriticalToken = "(critical):";
 
-  const std::string SgfcPrivateConstants::ShortOptionPrefix = "-";
-  const std::string SgfcPrivateConstants::LongOptionPrefix = "--";
-  const std::string SgfcPrivateConstants::ShortHelpOption = "-h";
-  const std::string SgfcPrivateConstants::LongHelpOption = "--help";
-  const std::string SgfcPrivateConstants::VersionOption = "--version";
-  const std::string SgfcPrivateConstants::InteractiveModeOption = "-i";
-  const std::string SgfcPrivateConstants::WriteFileEvenIfCriticalErrorOccurs = "-c";
-  const std::string SgfcPrivateConstants::PrintGameSignature = "-g";
+  const std::map<SgfcArgumentType, std::string> SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap =
+  {
+    { SgfcArgumentType::BeginningOfSgfData, "-b" },
+    { SgfcArgumentType::DisableMessageNumber, "-d" },
+    { SgfcArgumentType::DisableWarningMessages, "-w" },
+    { SgfcArgumentType::HardLineBreakMode, "-l" },
+    { SgfcArgumentType::LineBreakAtEndOfNode, "-L" },
+    { SgfcArgumentType::NoSoftLineBreaksInTextValues, "-t" },
+    { SgfcArgumentType::DeleteMarkupOnCurrentMove, "-m" },
+    { SgfcArgumentType::DeleteEmptyNodes, "-n" },
+    { SgfcArgumentType::DeleteObsoleteProperties, "-o" },
+    { SgfcArgumentType::DeleteUnknownProperties, "-u" },
+    { SgfcArgumentType::DeletePropertyType, "-y" },
+    { SgfcArgumentType::UseOldPassMoveNotation, "-p" },
+    { SgfcArgumentType::EnableRestrictiveChecking, "-r" },
+    { SgfcArgumentType::CorrectVariationLevelAndRootMoves, "-v" },
+    { SgfcArgumentType::ReverseVariationOrdering, "-z" },
+    { SgfcArgumentType::ExpandCompressedPointLists, "-e" },
+  };
 
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::FatalError;
   const bool SgfcPrivateConstants::DefaultIsCriticalMessage = false;
