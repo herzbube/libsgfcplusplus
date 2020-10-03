@@ -14,6 +14,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcArgument;
+
   /// @brief The ISgfcCommandLine interface is used to operate the SGFC backend
   /// in command line mode. Use SgfcPlusPlusFactory to construct new
   /// ISgfcCommandLine objects.
@@ -55,18 +58,19 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the SGFC command line arguments that were used to
     /// construct the ISgfcCommandLine object.
-    virtual std::vector<std::string> GetArguments() const = 0;
+    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const = 0;
 
     /// @brief Returns true if the SGFC command line arguments that
     /// GetArguments() returns are valid. Returns false if they are not valid.
     ///
-    /// Some command line arguments are not allowed because they do not make
-    /// sense when using SGFC in a library context, or in the particular context
-    /// of SgfcCommandLine. The following arguments are not allowed:
-    /// -h, --help, --version, -i, -c, -g, any non-option arguments (e.g. for
-    /// the input or output file).
+    /// One known case where the command line arguments can be invalid is if
+    /// an illegal parameter is specified for one of the arguments that require
+    /// a parameter. Example: SgfcArgumentType::BeginningOfSgfData requires an
+    /// integer parameter. The argument is invalid if an integer value is
+    /// specified that is not within the accepted range.
     ///
-    /// @todo Specify other arguments that are not allowed.
+    /// There may be other cases. Invoke GetInvalidCommandLineReason() to learn
+    /// the actual reason why the command line arguments are not valid.
     virtual bool IsCommandLineValid() const = 0;
 
     /// @brief Returns an ISgfcMessage object with message type

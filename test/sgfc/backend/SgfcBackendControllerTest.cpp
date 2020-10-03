@@ -1,4 +1,5 @@
 // Library includes
+#include <sgfc/argument/SgfcArgument.h>
 #include <sgfc/backend/SgfcBackendController.h>
 #include <SgfcConstants.h>
 #include <SgfcUtility.h>
@@ -41,10 +42,22 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
     WHEN( "SgfcBackendController is constructed with valid command line arguments" )
     {
       auto expectedArguments = GENERATE(
-        std::vector<std::string> {},
-        std::vector<std::string> { "-n" },
-        std::vector<std::string> { "-n", "-p", "-u" },
-        std::vector<std::string> { "-n", "-n" }
+        std::vector<std::shared_ptr<ISgfcArgument>> {},
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes))
+        },
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::UseOldPassMoveNotation)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteUnknownProperties))
+        },
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes))
+        }
       );
       SgfcBackendController backendController(expectedArguments);
 
@@ -65,16 +78,18 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
     {
       struct TestData
       {
-        std::vector<std::string> CommandLineArguments;
+        std::vector<std::shared_ptr<ISgfcArgument>> CommandLineArguments;
         int InvalidCommandLineReasonMessageID;
       };
       auto testData = GENERATE(
-        TestData { std::vector<std::string> { "foo" }, SgfcConstants::ArgumentIsNotAnOptionMessageID },
-        TestData { std::vector<std::string> { "-h" }, SgfcConstants::ArgumentIsNotAllowedMessageID },
-        // 2 = SGFC error code "unknown command line option"
-        TestData { std::vector<std::string> { "-a" }, 2 },
         // 49 = SGFC error code "bad command line option parameter"
-        TestData { std::vector<std::string> { "-yZZ" }, 49 }
+        TestData
+        {
+          std::vector<std::shared_ptr<ISgfcArgument>>
+          {
+            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+          }, 49
+        }
       );
 
       SgfcBackendController backendController(testData.CommandLineArguments);
@@ -105,7 +120,10 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
 
   GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcBackendController backendController(invalidCommandLineArguments);
 
     WHEN( "SgfcBackendController attempts to perform the load operation" )
@@ -205,8 +223,14 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
 
     WHEN( "SgfcBackendController performs the load operation" )
     {
-      std::vector<std::string> commandLineArguments1 = { "-r" };  // Restrictive checking
-      std::vector<std::string> commandLineArguments2 = { "-w" };  // Disable warnings
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments1 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::EnableRestrictiveChecking))
+      };
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments2 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DisableWarningMessages))
+      };
       SgfcBackendController backendController1(commandLineArguments1);
       SgfcBackendController backendController2(commandLineArguments2);
       SgfcBackendController backendController3;
@@ -257,7 +281,10 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
 
   GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcBackendController backendController(invalidCommandLineArguments);
     std::string contentBuffer;
     auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));

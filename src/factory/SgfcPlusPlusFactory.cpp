@@ -23,16 +23,16 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<LibSgfcPlusPlus::ISgfcCommandLine> SgfcPlusPlusFactory::CreateSgfcCommandLine(
-    const std::vector<std::string>& arguments)
+    std::shared_ptr<ISgfcArguments> arguments)
   {
-    std::shared_ptr<ISgfcCommandLine> commandLine = std::shared_ptr<SgfcCommandLine>(new SgfcCommandLine(arguments));
+    std::shared_ptr<ISgfcCommandLine> commandLine = std::shared_ptr<SgfcCommandLine>(new SgfcCommandLine(arguments->GetArguments()));
     return commandLine;
   }
 
   std::shared_ptr<ISgfcCommandLine> SgfcPlusPlusFactory::CreateSgfcCommandLine()
   {
-    std::vector<std::string> emptyArgumentList;
-    return SgfcPlusPlusFactory::CreateSgfcCommandLine(emptyArgumentList);
+    auto arguments = CreateSgfcArguments();
+    return SgfcPlusPlusFactory::CreateSgfcCommandLine(arguments);
   }
 
   std::shared_ptr<ISgfcDocumentReader> SgfcPlusPlusFactory::CreateDocumentReader()

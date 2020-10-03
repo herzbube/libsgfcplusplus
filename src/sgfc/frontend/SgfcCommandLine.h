@@ -16,12 +16,12 @@ namespace LibSgfcPlusPlus
     ///
     /// See SgfcPlusPlusFactory::CreateSgfcCommandLine() for a documentation
     /// of the contract that this constructor must fulfill (e.g. exceptions).
-    SgfcCommandLine(const std::vector<std::string>& arguments);
+    SgfcCommandLine(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
 
     /// @brief Destroys and cleans up the SgfcCommandLine object.
     virtual ~SgfcCommandLine();
 
-    virtual std::vector<std::string> GetArguments() const;
+    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const;
     virtual bool IsCommandLineValid() const;
     virtual std::shared_ptr<ISgfcMessage> GetInvalidCommandLineReason() const;
 

@@ -9,7 +9,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcCommandLine::SgfcCommandLine(const std::vector<std::string>& arguments)
+  SgfcCommandLine::SgfcCommandLine(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
     : backendController(new SgfcBackendController(arguments))
   {
   }
@@ -18,7 +18,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  std::vector<std::string> SgfcCommandLine::GetArguments() const
+  std::vector<std::shared_ptr<ISgfcArgument>> SgfcCommandLine::GetArguments() const
   {
     return this->backendController->GetArguments();
   }

@@ -33,7 +33,7 @@ namespace LibSgfcPlusPlus
     ParseArguments(this->arguments);
   }
 
-  SgfcBackendController::SgfcBackendController(const std::vector<std::string>& arguments)
+  SgfcBackendController::SgfcBackendController(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
     : arguments(arguments)
     , invalidCommandLineReason(nullptr)
   {
@@ -46,7 +46,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  std::vector<std::string> SgfcBackendController::GetArguments() const
+  std::vector<std::shared_ptr<ISgfcArgument>> SgfcBackendController::GetArguments() const
   {
     return this->arguments;
   }
@@ -197,13 +197,9 @@ namespace LibSgfcPlusPlus
     return backendSaveResult;
   }
 
-  void SgfcBackendController::ParseArguments(const std::vector<std::string>& arguments)
+  void SgfcBackendController::ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
   {
     ResetGlobalVariables();
-
-    SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(arguments);
-    if (! this->IsCommandLineValid())
-      return;
 
     SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(arguments);
     if (! this->IsCommandLineValid())
@@ -216,49 +212,7 @@ namespace LibSgfcPlusPlus
     this->sgfcOptions.CaptureOptions();
   }
 
-  void SgfcBackendController::SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments)
-  {
-    std::vector<std::string> bannedArguments =
-    {
-      // We don't want these arguments because they would cause ParseArgs() to
-      // output something on stdout
-      SgfcPrivateConstants::ShortHelpOption,
-      SgfcPrivateConstants::LongHelpOption,
-      SgfcPrivateConstants::VersionOption,
-      // Interactive use in a library doesn't make sense
-      SgfcPrivateConstants::InteractiveModeOption,
-      // The library client decides whether it wants to write the SGF content
-      SgfcPrivateConstants::WriteFileEvenIfCriticalErrorOccurs,
-      // SGFC needs to be patched so that it does not print game signatures to
-      // stdout but instead lets libsgfc++ capture the output.
-      SgfcPrivateConstants::PrintGameSignature,
-    };
-
-    for (const auto& argument : arguments)
-    {
-      // We have to filter out non-option arguments because ParseArgs() would
-      // accept them as a file name
-      if (argument.substr(0, SgfcPrivateConstants::ShortOptionPrefix.length()) != SgfcPrivateConstants::ShortOptionPrefix)
-      {
-        std::string message = "Argument is not an option: " + argument;
-
-        this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::ArgumentIsNotAnOptionMessageID,
-          message));
-      }
-
-      if (std::find(bannedArguments.begin(), bannedArguments.end(), argument) != bannedArguments.end())
-      {
-        std::string message = "Argument not allowed by " + SgfcConstants::LibraryName + ": " + argument;
-
-        this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::ArgumentIsNotAllowedMessageID,
-          message));
-      }
-    }
-  }
-
-  void SgfcBackendController::SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::string>& arguments)
+  void SgfcBackendController::SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
   {
     std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
 
@@ -280,7 +234,7 @@ namespace LibSgfcPlusPlus
     delete[] argv;
   }
 
-  std::vector<std::string> SgfcBackendController::ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const
+  std::vector<std::string> SgfcBackendController::ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const
   {
     std::vector<std::string> argvArguments =
     {
@@ -288,7 +242,10 @@ namespace LibSgfcPlusPlus
       SgfcConstants::LibraryName,
     };
 
-    argvArguments.insert(argvArguments.end(), arguments.begin(), arguments.end());
+    for (auto argument : arguments)
+    {
+      argvArguments.push_back(argument->ToString());
+    }
 
     return argvArguments;
   }

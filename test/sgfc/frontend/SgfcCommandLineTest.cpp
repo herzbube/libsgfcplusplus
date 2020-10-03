@@ -1,4 +1,5 @@
 // Library includes
+#include <sgfc/argument/SgfcArgument.h>
 #include <sgfc/frontend/SgfcCommandLine.h>
 #include <SgfcConstants.h>
 #include <SgfcUtility.h>
@@ -20,10 +21,22 @@ SCENARIO( "SgfcCommandLine is constructed", "[frontend]" )
     WHEN( "SgfcCommandLine is constructed with valid command line arguments" )
     {
       auto expectedArguments = GENERATE(
-        std::vector<std::string> {},
-        std::vector<std::string> { "-n" },
-        std::vector<std::string> { "-n", "-p", "-u" },
-        std::vector<std::string> { "-n", "-n" }
+        std::vector<std::shared_ptr<ISgfcArgument>> {},
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes))
+        },
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::UseOldPassMoveNotation)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteUnknownProperties))
+        },
+        std::vector<std::shared_ptr<ISgfcArgument>>
+        {
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes)),
+          std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeleteEmptyNodes))
+        }
       );
       SgfcCommandLine commandLine(expectedArguments);
 
@@ -44,16 +57,18 @@ SCENARIO( "SgfcCommandLine is constructed", "[frontend]" )
     {
       struct TestData
       {
-        std::vector<std::string> CommandLineArguments;
+        std::vector<std::shared_ptr<ISgfcArgument>> CommandLineArguments;
         int InvalidCommandLineReasonMessageID;
       };
       auto testData = GENERATE(
-        TestData { std::vector<std::string> { "foo" }, SgfcConstants::ArgumentIsNotAnOptionMessageID },
-        TestData { std::vector<std::string> { "-h" }, SgfcConstants::ArgumentIsNotAllowedMessageID },
-        // 2 = SGFC error code "unknown command line option"
-        TestData { std::vector<std::string> { "-a" }, 2 },
         // 49 = SGFC error code "bad command line option parameter"
-        TestData { std::vector<std::string> { "-yZZ" }, 49 }
+        TestData
+        {
+          std::vector<std::shared_ptr<ISgfcArgument>>
+          {
+            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+          }, 49
+        }
       );
 
       SgfcCommandLine commandLine(testData.CommandLineArguments);
@@ -76,7 +91,7 @@ SCENARIO( "SgfcCommandLine is constructed", "[frontend]" )
 
 SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][filesystem]" )
 {
-  std::vector<std::string> emptyCommandLineArguments;
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
   // Using a random UUID as the filename, it is reasonably safe to assume that
   // the file does not exist
@@ -86,7 +101,10 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
   GIVEN( "SgfcCommandLine was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
 
     WHEN( "SgfcCommandLine attempts to perform the load operation" )
@@ -193,8 +211,14 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
     WHEN( "SgfcCommandLine performs the load operation" )
     {
-      std::vector<std::string> commandLineArguments1 = { "-r" };  // Restrictive checking
-      std::vector<std::string> commandLineArguments2 = { "-w" };  // Disable warnings
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments1 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::EnableRestrictiveChecking))
+      };
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments2 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DisableWarningMessages))
+      };
       SgfcCommandLine commandLine1(commandLineArguments1);
       SgfcCommandLine commandLine2(commandLineArguments2);
       SgfcCommandLine commandLine3(emptyCommandLineArguments);
@@ -273,11 +297,14 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 // SgfcCommandLine saves the SGF content to a temporary file
 SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend][filesystem]" )
 {
-  std::vector<std::string> emptyCommandLineArguments;
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
   GIVEN( "SgfcCommandLine was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
 
     WHEN( "SgfcCommandLine attempts to perform the load operation" )
@@ -330,7 +357,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend][filesys
 
 SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][filesystem]" )
 {
-  std::vector<std::string> emptyCommandLineArguments;
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
   // Using a random UUID as the filename, it is reasonably safe to assume that
   // the file does not exist
@@ -343,7 +370,10 @@ SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][fil
 
   GIVEN( "SgfcCommandLine was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
     std::string sgfContent;
 
@@ -455,7 +485,7 @@ SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][fil
 // SgfcCommandLine writes the SGF content to a temporary file
 SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesystem]" )
 {
-  std::vector<std::string> emptyCommandLineArguments;
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
   // Using a random UUID as the filename, it is reasonably safe to assume that
   // the file does not exist
@@ -465,7 +495,10 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesyste
 
   GIVEN( "SgfcCommandLine was constructed with invalid command line arguments" )
   {
-    std::vector<std::string> invalidCommandLineArguments = { "-h" };
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
     std::string sgfContent;
 

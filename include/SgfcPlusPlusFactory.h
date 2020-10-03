@@ -34,12 +34,15 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a newly constructed ISgfcCommandLine object that passes
     /// the specified command line arguments to SGFC.
     ///
-    /// @param arguments The command line arguments to pass to SGFC, exactly
-    /// as you would specify them on the command line. Invoke the
+    /// @param arguments The command line arguments to pass to SGFC. Invoke the
     /// ISgfcCommandLine::IsCommandLineValid() method on the resulting object
     /// to find out whether the arguments are valid.
+    ///
+    /// @note The content of @a arguments is copied, so if you change the
+    /// content it will not affect the ISgfcCommandLine object returned from
+    /// this method.
     static std::shared_ptr<ISgfcCommandLine> CreateSgfcCommandLine(
-      const std::vector<std::string>& arguments);
+      std::shared_ptr<ISgfcArguments> arguments);
 
     /// @brief Returns a newly constructed ISgfcCommandLine object that passes
     /// no command line arguments to SGFC.

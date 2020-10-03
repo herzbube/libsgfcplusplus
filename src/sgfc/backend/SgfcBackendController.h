@@ -1,6 +1,7 @@
 #pragma once
 
 // Project includes
+#include "../../../include/ISgfcArgument.h"
 #include "../../../include/ISgfcMessage.h"
 #include "SgfcBackendDataWrapper.h"
 #include "SgfcBackendLoadResult.h"
@@ -52,7 +53,7 @@ namespace LibSgfcPlusPlus
     /// All SGFC backend operations performed by the SgfcBackendController
     /// object behave according to the specified command line arguments
     /// @a arguments.
-    SgfcBackendController(const std::vector<std::string>& arguments);
+    SgfcBackendController(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
 
     /// @brief Destroys and cleans up the SgfcBackendController object.
     virtual ~SgfcBackendController();
@@ -61,18 +62,19 @@ namespace LibSgfcPlusPlus
     /// construct the SgfcBackendController object. The collection is empty if
     /// the SgfcBackendController object was constructed with the default
     /// constructor.
-    std::vector<std::string> GetArguments() const;
+    std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const;
 
     /// @brief Returns true if the SGFC command line arguments that
     /// GetArguments() returns are valid. Returns false if they are not valid.
     ///
-    /// Some command line arguments are not allowed because they do not make
-    /// sense when using SGFC in a library context, or in the particular context
-    /// of SgfcCommandLine. The following arguments are not allowed:
-    /// -h, --help, --version, -i, -c, -g, any non-option arguments (e.g. for
-    /// the input or output file).
+    /// One known case where the command line arguments can be invalid is if
+    /// an illegal parameter is specified for one of the arguments that require
+    /// a parameter. Example: SgfcArgumentType::BeginningOfSgfData requires an
+    /// integer parameter. The argument is invalid if an integer value is
+    /// specified that is not within the accepted range.
     ///
-    /// @todo Specify other arguments that are not allowed.
+    /// There may be other cases. Invoke GetInvalidCommandLineReason() to learn
+    /// the actual reason why the command line arguments are not valid.
     bool IsCommandLineValid() const;
 
     /// @brief Returns an ISgfcMessage object with message type
@@ -113,14 +115,13 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper);
 
   private:
-    std::vector<std::string> arguments;
+    std::vector<std::shared_ptr<ISgfcArgument>> arguments;
     std::shared_ptr<ISgfcMessage> invalidCommandLineReason;
     SgfcOptions sgfcOptions;
 
-    void ParseArguments(const std::vector<std::string>& arguments);
-    void SetInvalidCommandLineReasonIfArgumentsContainBannedArgument(const std::vector<std::string>& arguments);
-    void SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::string>& arguments);
-    std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::string>& arguments) const;
+    void ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
+    void SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
+    std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
     void InvokeSgfcParseArgs(int argc, const char** argv);
 
