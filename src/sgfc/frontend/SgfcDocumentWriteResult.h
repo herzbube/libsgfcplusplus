@@ -18,6 +18,7 @@ namespace LibSgfcPlusPlus
 
     virtual SgfcExitCode GetExitCode() const;
     virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
+    virtual void DebugPrintToConsole() const;
 
   private:
     SgfcExitCode exitCode;

@@ -63,6 +63,9 @@ namespace LibSgfcPlusPlus
       SgfcGameType gameType,
       SgfcBoardSize boardSize);
 
+    void DebugPrintToConsoleRecursiveParseDepthFirst(
+      std::shared_ptr<ISgfcNode> parentNode,
+      int& nodeCount) const;
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node, int nodeNumber) const;
     void DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
     void DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const;

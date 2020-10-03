@@ -21,6 +21,7 @@ namespace LibSgfcPlusPlus
     virtual bool IsSgfDataValid() const;
     virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
     virtual std::shared_ptr<ISgfcDocument> GetDocument() const;
+    virtual void DebugPrintToConsole() const;
 
   private:
     SgfcExitCode exitCode;

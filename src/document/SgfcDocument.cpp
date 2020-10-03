@@ -210,34 +210,35 @@ namespace LibSgfcPlusPlus
       std::cout << "Game " << gameCount << std::endl;
       std::cout << "  Game type = " << static_cast<int>(sgfcGame->GetGameType()) << std::endl;
 
-      std::vector<std::shared_ptr<ISgfcNode>> stack;
-
-      std::shared_ptr<ISgfcNode> rootNode = sgfcGame->GetRootNode();
-      stack.push_back(rootNode);
-
       int nodeCount = 0;
-      while (stack.size() > 0)
-      {
-        nodeCount++;
+      std::shared_ptr<ISgfcNode> rootNode = sgfcGame->GetRootNode();
 
-        std::shared_ptr<ISgfcNode> node = stack.back();
-        stack.pop_back();
+      nodeCount++;
+      DebugPrintNodeToConsole(rootNode, nodeCount);
+      DebugPrintToConsoleRecursiveParseDepthFirst(rootNode, nodeCount);
+    }
+  }
 
-        DebugPrintNodeToConsole(node, nodeCount);
+  void SgfcDocument::DebugPrintToConsoleRecursiveParseDepthFirst(
+    std::shared_ptr<ISgfcNode> parentNode,
+    int& nodeCount) const
+  {
+    auto firstChildNode = parentNode->GetFirstChild();
+    if (firstChildNode == nullptr)
+      return;
 
-        std::shared_ptr<ISgfcNode> firstChild = node->GetFirstChild();
-        if (firstChild)
-        {
-          stack.push_back(firstChild);
+    nodeCount++;
+    DebugPrintNodeToConsole(firstChildNode, nodeCount);
+    DebugPrintToConsoleRecursiveParseDepthFirst(firstChildNode, nodeCount);
 
-          std::shared_ptr<ISgfcNode> nextSibling = firstChild->GetNextSibling();
-          while (nextSibling)
-          {
-            stack.push_back(nextSibling);
-            nextSibling = nextSibling->GetNextSibling();
-          }
-        }
-      }
+    auto nextSiblingNode = firstChildNode->GetNextSibling();
+    while (nextSiblingNode != nullptr)
+    {
+      nodeCount++;
+      DebugPrintNodeToConsole(nextSiblingNode, nodeCount);
+      DebugPrintToConsoleRecursiveParseDepthFirst(nextSiblingNode, nodeCount);
+
+      nextSiblingNode = nextSiblingNode->GetNextSibling();
     }
   }
 

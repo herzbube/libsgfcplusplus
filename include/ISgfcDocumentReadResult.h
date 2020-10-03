@@ -54,5 +54,11 @@ namespace LibSgfcPlusPlus
     /// in structured form. If IsSgfDataValid() returns false the document
     /// object that is returned contains no data.
     virtual std::shared_ptr<ISgfcDocument> GetDocument() const = 0;
+
+    /// @brief Prints the content of the ISgfcDocumentReadResult to stdout for
+    /// debugging purposes.
+    ///
+    /// @todo Remove this prior to release.
+    virtual void DebugPrintToConsole() const = 0;
   };
 }
