@@ -41,6 +41,7 @@ set (
   game/go/SgfcGoPoint.cpp
   game/go/SgfcGoStone.cpp
   interface/internal/ISgfcPropertyValueTypeDescriptor.cpp
+  interface/public/ISgfcArgument.cpp
   interface/public/ISgfcBoardSizeProperty.cpp
   interface/public/ISgfcColorPropertyValue.cpp
   interface/public/ISgfcCommandLine.cpp
@@ -83,6 +84,7 @@ set (
   parsing/propertyvaluetypedescriptor/SgfcPropertyDualValueTypeDescriptor.cpp
   parsing/propertyvaluetypedescriptor/SgfcPropertyElistValueTypeDescriptor.cpp
   parsing/propertyvaluetypedescriptor/SgfcPropertyListValueTypeDescriptor.cpp
+  sgfc/argument/SgfcArgument.cpp
   sgfc/backend/SgfcBackendController.cpp
   sgfc/backend/SgfcBackendDataWrapper.cpp
   sgfc/backend/SgfcBackendLoadResult.cpp
@@ -145,6 +147,7 @@ set (
   parsing/propertyvaluetypedescriptor/SgfcPropertyDualValueTypeDescriptor.h
   parsing/propertyvaluetypedescriptor/SgfcPropertyElistValueTypeDescriptor.h
   parsing/propertyvaluetypedescriptor/SgfcPropertyListValueTypeDescriptor.h
+  sgfc/argument/SgfcArgument.h
   sgfc/backend/SgfcBackendController.h
   sgfc/backend/SgfcBackendDataState.h
   sgfc/backend/SgfcBackendDataWrapper.h
@@ -168,6 +171,7 @@ set (
 set (
   HEADERS_PUBLIC
   ${EXPORT_HEADER_FILE_FOLDER}/${EXPORT_HEADER_FILE_NAME}
+  ../include/ISgfcArgument.h
   ../include/ISgfcBoardSizeProperty.h
   ../include/ISgfcColorPropertyValue.h
   ../include/ISgfcCommandLine.h

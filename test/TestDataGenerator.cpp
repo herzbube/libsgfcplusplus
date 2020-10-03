@@ -608,4 +608,154 @@ namespace LibSgfcPlusPlus
     else
       throw new std::logic_error("Failed to convert test data");
   }
+
+  std::vector<std::tuple<SgfcArgumentType, std::string>> TestDataGenerator::GetArgumentTypesWithoutParameters()
+  {
+    std::vector<std::tuple<SgfcArgumentType, std::string>> testData =
+    {
+      std::make_tuple(SgfcArgumentType::DisableWarningMessages, "-w"),
+      std::make_tuple(SgfcArgumentType::LineBreakAtEndOfNode, "-L"),
+      std::make_tuple(SgfcArgumentType::NoSoftLineBreaksInTextValues, "-t"),
+      std::make_tuple(SgfcArgumentType::DeleteMarkupOnCurrentMove, "-m"),
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, "-n"),
+      std::make_tuple(SgfcArgumentType::DeleteObsoleteProperties, "-o"),
+      std::make_tuple(SgfcArgumentType::DeleteUnknownProperties, "-u"),
+      std::make_tuple(SgfcArgumentType::UseOldPassMoveNotation, "-p"),
+      std::make_tuple(SgfcArgumentType::EnableRestrictiveChecking, "-r"),
+      std::make_tuple(SgfcArgumentType::CorrectVariationLevelAndRootMoves, "-v"),
+      std::make_tuple(SgfcArgumentType::ReverseVariationOrdering, "-z"),
+      std::make_tuple(SgfcArgumentType::ExpandCompressedPointLists, "-e")
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithIntegerTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::BeginningOfSgfData,
+      SgfcArgumentType::DisableMessageNumber,
+      SgfcArgumentType::HardLineBreakMode,
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithPropertyTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::DeletePropertyType
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithParameter()
+  {
+    std::vector<SgfcArgumentType> testData;
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutIntegerTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData;
+
+    for (auto testDataArgumentTypeWithoutParameters : GetArgumentTypesWithoutParameters())
+      testData.push_back(std::get<0>(testDataArgumentTypeWithoutParameters));
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutPropertyTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData;
+
+    for (auto testDataArgumentTypeWithoutParameters : GetArgumentTypesWithoutParameters())
+      testData.push_back(std::get<0>(testDataArgumentTypeWithoutParameters));
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, int, std::string>> TestDataGenerator::GetArgumentTypesWithValidIntegerTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, int, std::string>> testData =
+    {
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 1, "-b1"),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 2, "-b2"),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 3, "-b3"),
+      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 35, "-d35"),
+      // Disabling a fatal error message does not lead to invalid arguments, it
+      // simply has no effect
+      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 2, "-d2"),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 1, "-l1"),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 2, "-l2"),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 3, "-l3"),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 4, "-l4")
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, int>> TestDataGenerator::GetArgumentTypesWithInvalidIntegerTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, int>> testData =
+    {
+      // Arguments that require an integer type parameter, but use a value that
+      // is out of bounds
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, -1),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 0),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 4),
+      std::make_tuple(SgfcArgumentType::DisableMessageNumber, -1),
+      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 0),
+      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 1000),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, -1),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 0),
+      std::make_tuple(SgfcArgumentType::HardLineBreakMode, 5),
+      // Arguments that do not require an integer type parameter
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, 1),
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, 1),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType, std::string>> TestDataGenerator::GetArgumentTypesWithValidPropertyTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType, std::string>> testData =
+    {
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::GM, "-yGM")
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> TestDataGenerator::GetArgumentTypesWithInvalidPropertyTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> testData =
+    {
+      // Arguments that require an integer type parameter, but use a value that
+      // is not allowed
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO),
+      // Arguments that do not require an SgfcPropertyType parameter
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, SgfcPropertyType::BO),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcPropertyType::BO)
+    };
+
+    return testData;
+  }
 }

@@ -1,10 +1,12 @@
 #pragma once
 
 // Library includes
+#include <SgfcArgumentType.h>
 #include <SgfcBoardSize.h>
 #include <SgfcColor.h>
 #include <SgfcDouble.h>
 #include <SgfcGameType.h>
+#include <SgfcPropertyType.h>
 #include <SgfcTypedefs.h>
 #include <game/go/SgfcGoPoint.h>
 
@@ -52,6 +54,17 @@ namespace LibSgfcPlusPlus
 
     static std::vector<std::tuple<SgfcBoardSize, SgfcGameType, SgfcBoardSize>> GetValidBoardSizes();
     static std::vector<std::tuple<SgfcBoardSize, SgfcGameType>> GetInvalidBoardSizes();
+
+    static std::vector<std::tuple<SgfcArgumentType, std::string>> GetArgumentTypesWithoutParameters();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithIntegerTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithPropertyTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutIntegerTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutPropertyTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, int, std::string>> GetArgumentTypesWithValidIntegerTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, int>> GetArgumentTypesWithInvalidIntegerTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType, std::string>> GetArgumentTypesWithValidPropertyTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> GetArgumentTypesWithInvalidPropertyTypeParameter();
 
   private:
     TestDataGenerator();
