@@ -202,6 +202,7 @@ set (
   ../include/ISgfcStonePropertyValue.h
   ../include/ISgfcTextPropertyValue.h
   ../include/ISgfcTreeBuilder.h
+  ../include/SgfcArgumentType.h
   ../include/SgfcBoardSize.h
   ../include/SgfcColor.h
   ../include/SgfcConstants.h
