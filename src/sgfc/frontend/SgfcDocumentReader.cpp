@@ -30,22 +30,30 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfFile(const std::string& sgfFilePath)
   {
     SgfcBackendController backendController(this->arguments->GetArguments());
+    if (backendController.IsCommandLineValid())
+    {
+      std::shared_ptr<SgfcBackendLoadResult> backendLoadResult = backendController.LoadSgfFile(sgfFilePath);
 
-    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult = backendController.LoadSgfFile(sgfFilePath);
+      SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
+        backendLoadResult->GetParseResult());
 
-    SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
-      backendLoadResult->GetParseResult());
+      std::shared_ptr<ISgfcDocument> document;
+      if (sgfcExitCode != SgfcExitCode::FatalError)
+        document = std::shared_ptr<ISgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
+      else
+        document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
 
-    std::shared_ptr<ISgfcDocument> document;
-    if (sgfcExitCode != SgfcExitCode::FatalError)
-      document = std::shared_ptr<ISgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
+      std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
+        backendLoadResult->GetParseResult(),
+        document));
+      return result;
+    }
     else
-      document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
-
-    std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
-      backendLoadResult->GetParseResult(),
-      document));
-    return result;
+    {
+      std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
+        backendController.GetInvalidCommandLineReason()));
+      return result;
+    }
   }
 
   std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfContent(const std::string& sgfContent)

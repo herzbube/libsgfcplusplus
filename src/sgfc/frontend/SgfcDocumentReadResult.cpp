@@ -1,4 +1,5 @@
 // Project includes
+#include "../../document/SgfcDocument.h"
 #include "../../SgfcUtility.h"
 #include "SgfcDocumentReadResult.h"
 
@@ -8,6 +9,15 @@
 namespace LibSgfcPlusPlus
 {
   SgfcDocumentReadResult::SgfcDocumentReadResult()
+  {
+    this->exitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->parseResult);
+    this->isSgfDataValid = SgfcUtility::GetIsSgfDataValidFromMessageCollection(this->parseResult);
+  }
+
+  SgfcDocumentReadResult::SgfcDocumentReadResult(
+    std::shared_ptr<ISgfcMessage> invalidCommandLineReason)
+    : parseResult( { invalidCommandLineReason } )
+    , document(new SgfcDocument())
   {
     this->exitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->parseResult);
     this->isSgfDataValid = SgfcUtility::GetIsSgfDataValidFromMessageCollection(this->parseResult);
@@ -50,6 +60,7 @@ namespace LibSgfcPlusPlus
   void SgfcDocumentReadResult::DebugPrintToConsole() const
   {
     std::cout << "Exit code = " << (int)GetExitCode() << std::endl;
+    std::cout << "IsSgfDataValid = " << IsSgfDataValid() << std::endl;
 
     for (auto parseResultMessage : GetParseResult())
     {

@@ -223,6 +223,28 @@ SCENARIO("The write operation behaviour is changed by arguments", "[frontend][fi
     }
   }
 
+  GIVEN( "The arguments are invalid" )
+  {
+    writer.GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
+
+    WHEN( "SgfcDocumentReader performs the read operation" )
+    {
+      auto writeResult = writer.WriteSgfContent(document, sgfContent);
+
+      THEN( "The write operation result indicates failure" )
+      {
+        REQUIRE( writeResult->GetExitCode() == SgfcExitCode::FatalError );
+
+        auto parseResult = writeResult->GetParseResult();
+        REQUIRE( parseResult.size() == 1 );
+        auto invalidCommandLineReason = parseResult.front();
+        REQUIRE( invalidCommandLineReason->GetMessageType() == SgfcMessageType::FatalError );
+        REQUIRE( invalidCommandLineReason->GetMessageID() == 49 );
+        REQUIRE( invalidCommandLineReason->GetMessageText().length() > 0 );
+      }
+    }
+  }
+
   // TODO: Add more tests that excercise the argument types
 }
 

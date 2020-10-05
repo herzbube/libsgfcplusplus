@@ -13,6 +13,8 @@ namespace LibSgfcPlusPlus
   public:
     SgfcDocumentWriteResult();
     SgfcDocumentWriteResult(
+      std::shared_ptr<ISgfcMessage> invalidCommandLineReason);
+    SgfcDocumentWriteResult(
       std::vector<std::shared_ptr<ISgfcMessage>> parseResult);
     virtual ~SgfcDocumentWriteResult();
 

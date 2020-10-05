@@ -32,19 +32,28 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcDocument> document,
     const std::string& sgfFilePath)
   {
-    SgfcDocumentEncoder encoder(document);
-    std::string sgfContent = encoder.Encode();
-
-    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
-      std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
-
     SgfcBackendController backendController(this->arguments->GetArguments());
-    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
-      backendController.SaveSgfFile(sgfFilePath, sgfDataWrapper);
+    if (backendController.IsCommandLineValid())
+    {
+      SgfcDocumentEncoder encoder(document);
+      std::string sgfContent = encoder.Encode();
 
-    std::shared_ptr<ISgfcDocumentWriteResult> result = std::shared_ptr<ISgfcDocumentWriteResult>(new SgfcDocumentWriteResult(
-      backendSaveResult->GetSaveResult()));
-    return result;
+      std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
+        std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
+
+      std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
+        backendController.SaveSgfFile(sgfFilePath, sgfDataWrapper);
+
+      std::shared_ptr<ISgfcDocumentWriteResult> result = std::shared_ptr<ISgfcDocumentWriteResult>(new SgfcDocumentWriteResult(
+        backendSaveResult->GetSaveResult()));
+      return result;
+    }
+    else
+    {
+      std::shared_ptr<ISgfcDocumentWriteResult> result = std::shared_ptr<ISgfcDocumentWriteResult>(new SgfcDocumentWriteResult(
+        backendController.GetInvalidCommandLineReason()));
+      return result;
+    }
   }
 
   std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfContent(

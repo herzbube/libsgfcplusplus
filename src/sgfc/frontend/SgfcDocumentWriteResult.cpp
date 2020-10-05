@@ -13,6 +13,13 @@ namespace LibSgfcPlusPlus
   }
 
   SgfcDocumentWriteResult::SgfcDocumentWriteResult(
+    std::shared_ptr<ISgfcMessage> invalidCommandLineReason)
+    : parseResult( { invalidCommandLineReason } )
+  {
+    this->exitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->parseResult);
+  }
+
+  SgfcDocumentWriteResult::SgfcDocumentWriteResult(
     std::vector<std::shared_ptr<ISgfcMessage>> parseResult)
     : parseResult(parseResult)
   {

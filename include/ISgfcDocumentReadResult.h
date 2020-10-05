@@ -41,6 +41,9 @@ namespace LibSgfcPlusPlus
     /// ISgfcMessage objects that GetParseResult() returns, as an ISgfcMessage
     /// object with message type #SgfcMessageType::FatalError.
     ///
+    /// Typical fatal errors are invalid arguments, or the SGF data could not
+    /// be read e.g. because the specified SGF file does not exist.
+    ///
     /// @todo The SGF data should probably also be considered invalid if
     /// there were critical errors.
     virtual bool IsSgfDataValid() const = 0;

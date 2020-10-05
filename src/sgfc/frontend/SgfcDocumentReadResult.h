@@ -13,6 +13,8 @@ namespace LibSgfcPlusPlus
   public:
     SgfcDocumentReadResult();
     SgfcDocumentReadResult(
+      std::shared_ptr<ISgfcMessage> invalidCommandLineReason);
+    SgfcDocumentReadResult(
       std::vector<std::shared_ptr<ISgfcMessage>> parseResult,
       std::shared_ptr<ISgfcDocument> document);
     virtual ~SgfcDocumentReadResult();

@@ -263,6 +263,30 @@ SCENARIO("The read operation behaviour is changed by arguments", "[frontend][fil
     }
   }
 
+  GIVEN( "The arguments are invalid" )
+  {
+    reader.GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
+
+    WHEN( "SgfcDocumentReader performs the read operation" )
+    {
+      std::string sgfContent = "(;GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The read operation result indicates failure" )
+      {
+        REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
+        REQUIRE( readResult->IsSgfDataValid() == false );
+
+        auto parseResult = readResult->GetParseResult();
+        REQUIRE( parseResult.size() == 1 );
+        auto invalidCommandLineReason = parseResult.front();
+        REQUIRE( invalidCommandLineReason->GetMessageType() == SgfcMessageType::FatalError );
+        REQUIRE( invalidCommandLineReason->GetMessageID() == 49 );
+        REQUIRE( invalidCommandLineReason->GetMessageText().length() > 0 );
+      }
+    }
+  }
+
   // TODO: Add more tests that excercise the argument types
 }
 
