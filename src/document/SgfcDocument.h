@@ -45,10 +45,6 @@ namespace LibSgfcPlusPlus
     virtual void DebugPrintToConsole() const;
 
   private:
-    std::string rawContent;
-    std::string leadingContent;
-    /// @todo Can we fill this?
-    std::string trailingContent;
     std::vector<std::shared_ptr<ISgfcGame>> games;
 
     void RecursiveParseDepthFirst(

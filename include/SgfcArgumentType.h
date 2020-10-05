@@ -21,7 +21,8 @@ namespace LibSgfcPlusPlus
   /// The following SGFC command line options are not supported as SGFC
   /// arguments by libsgfc++:
   /// - Option -k. The library currently does not support preserving the
-  ///   header in front of the SGF data.
+  ///   header in front of the SGF data. See GitHub issue #24 for details on
+  ///   this decision.
   /// - Option -g. The library currently does not support game signatures.
   /// - Option -v. The library currently does not support querying the SGFC
   ///   version.

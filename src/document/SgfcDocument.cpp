@@ -42,19 +42,6 @@ namespace LibSgfcPlusPlus
     if (sgfInfo == nullptr)
       throw std::invalid_argument("SgfcDocument constructor failed: SGFInfo object is nullptr");
 
-    // sgfInfo->b_end does not point to the last byte in the buffer.
-    // sgfInfo->b_end points to the position behind the last byte of the buffer.
-    // For instance, if the file is empty then sgfInfo->buffer and
-    // sgfInfo->b_end point to the same address. See how sgfInfo->b_end is
-    // initialized in LoadSGF().
-    size_t rawContentLength = sgfInfo->b_end - sgfInfo->buffer;
-    if (rawContentLength >= 0)
-      this->rawContent = std::string(sgfInfo->buffer, rawContentLength);
-
-    size_t leadingContentLength = sgfInfo->start - sgfInfo->buffer;
-    if (leadingContentLength >= 0)
-      this->leadingContent = std::string(sgfInfo->buffer, leadingContentLength);
-
     Node* sgfRootNode = sgfInfo->root;
     TreeInfo* sgfTreeInfo = sgfInfo->tree;
     while (sgfRootNode)
