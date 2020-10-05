@@ -174,6 +174,10 @@ namespace LibSgfcPlusPlus
     /// with e.g. a circle (CR[]). Some people find this annoying. Specifying
     /// this argument tells SGFC to delete any markup properties on the position
     /// of the current move.
+    ///
+    /// @note When a markup property is deleted because of this argument type,
+    /// this results in an error type message with ID 38. Example:
+    /// "Markup <CR> position not unique ([partially] deleted)".
     DeleteMarkupOnCurrentMove,
 
     /// @brief Delete empty nodes, i.e. nodes that contain no properties. The
@@ -182,6 +186,10 @@ namespace LibSgfcPlusPlus
     /// There are empty nodes which cannot be deleted. These nodes are:
     /// - Root node, if it has more than one child.
     /// - A node which has siblings and has more than one child.
+    ///
+    /// @note When an empty node is deleted because of this argument type,
+    /// this results in a warning type message with ID 55. Example:
+    /// "empty node deleted".
     DeleteEmptyNodes,
 
     /// @brief Delete obsolete properties, i.e. properties that are not part of
@@ -193,6 +201,13 @@ namespace LibSgfcPlusPlus
     /// SGFC deletes all such obsolete properties it encounters. Exceptions:
     /// - "L" is converted to its FF4 counterpart "LB".
     /// - "M" is converted to an FF4 counterpart, either "MA" or "TR".
+    ///
+    /// @note When an obsolete property is deleted because of this argument
+    /// type, this results in a warning type message with ID 29. Example:
+    /// "obsolete property <EL> deleted". Regardless of whether this argument
+    /// type is used or not, SGFC generates a warning type message with ID 40
+    /// when it encounters an obsolete property. Example:
+    /// "property <EL> is not defined in FF[4] (parsing done anyway)".
     DeleteObsoleteProperties,
 
     /// @brief Delete unknown properties, i.e. properties that are not part of
@@ -207,6 +222,10 @@ namespace LibSgfcPlusPlus
     /// - The "KI" property, which is a private property of the
     ///   "Smart Game Board" application (SGB), is converted to its FF4
     ///   counterpart "KM".
+    ///
+    /// @note When an unknown property is deleted because of this argument
+    /// type, this results in a warning type message with ID 35. Example:
+    /// "unknown property <XX> deleted".
     DeleteUnknownProperties,
 
     /// @brief Delete properties of a given property type. This argument
@@ -225,6 +244,10 @@ namespace LibSgfcPlusPlus
     /// property types like "CO" (Backgammon) or "BO" (Octi). The argument is
     /// invalid if you specify an SgfcPropertyType value that refers to a
     /// property type that is not known by SGFC.
+    ///
+    /// @note When a property is deleted because of this argument type, this
+    /// results in a warning type message with ID 29. Example:
+    /// "property <FF> deleted".
     DeletePropertyType,
 
     /// @brief Write pass moves as "[tt]" if possible. This argument works only
@@ -278,6 +301,11 @@ namespace LibSgfcPlusPlus
     ///
     /// Example: >>(;GM[1]C[first move in root node]GC[bad style]B[aa])<<
     /// Correct: >>(;GM[1]GC[good style];B[aa]C[first move not in root node])<<
+    ///
+    /// @note Variation fixes and root move fixes made because of this argument
+    /// type result in warning type messages with IDs 57 and 24, respectively.
+    /// Examples: "variation level corrected" and "move in root node found
+    /// (splitted node into two)".
     CorrectVariationLevelAndRootMoves,
 
     /// @brief Reverse ordering of variations. The corresponding SGFC command
