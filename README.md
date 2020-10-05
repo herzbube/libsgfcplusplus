@@ -201,6 +201,25 @@ Should you try to build unit tests or the examples for iOS (by setting `ENABLE_T
 1. The unit test library (Catch2) header contains code that is available only since iOS 10.0. Because of this you have to set the deployment target to 10.0. This tells the compiler to generate binaries that at runtime require iOS 10.0 as the minimum iOS version. The deployment target is set with the CMake option `-DCMAKE_OSX_DEPLOYMENT_TARGET=10.0`.
 1. The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the [CMake documentation for MACOSX_BUNDLE](https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html).
 
+## Sample code
+
+The `example` folder contains sample code that demonstrates how to use the library in a client application. When you build the project a simple command line program is built that you can invoke in one of four modes to run the sample code.
+
+```
+Usage:
+  ./libsgfcplusplus-example cmdline   input-file [output-file]
+  ./libsgfcplusplus-example docread   input-file
+  ./libsgfcplusplus-example docwrite  input-file output-file
+  ./libsgfcplusplus-example buildtree output-file
+```
+
+The four modes quickly explained:
+
+* Mode "cmdline" demonstrates the usage of `ISgfcCommandLine`.
+* Mode "docread"  demonstrates the usage of `ISgfcDocumentReader`.
+* Mode "docwrite"  demonstrates the usage of `ISgfcDocumentWriter`.
+* Mode "buildtree"  demonstrates the usage of the various factories to programmatically build a game tree.
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).

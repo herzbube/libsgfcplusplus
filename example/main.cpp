@@ -206,7 +206,7 @@ int DoDocumentWrite(const std::string& inputFilePath, const std::string& outputF
 }
 
 /// @brief Programmatically builds a game tree and then writes the content
-/// of the resulting documen to the SGF file @a outputFilePath.
+/// of the resulting document to the SGF file @a outputFilePath.
 ///
 /// This demonstrates the usage of the various factories and of
 /// ISgfcDocumentWriter.
