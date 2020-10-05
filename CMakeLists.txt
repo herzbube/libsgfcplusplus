@@ -106,6 +106,7 @@ set ( STATIC_OBJECT_LIBRARY_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME}_objects )
 set ( SHARED_FRAMEWORK_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME}_framework )
 set ( STATIC_FRAMEWORK_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME}_framework )
 set ( TEST_EXECUTABLE_TARGET_NAME ${LIBRARY_BASENAME}-test )
+set ( EXAMPLE_EXECUTABLE_TARGET_NAME ${LIBRARY_BASENAME}-example )
 
 # Define target output basic names. The regular prefix and suffix will still be
 # tacked on.
@@ -267,9 +268,6 @@ if ( ${ENABLE_TESTS} OR ${ENABLE_EXAMPLES} )
 endif()
 
 # Add subfolders to the build that must contain other CMakeLists.txt files.
-# Any targets defined in these files are included in the normal build (i.e.
-# "make all"), unless EXCLUDE_FROM_ALL is specified.
-# TODO: Find out what the user must do to include "example" in the build.
 #
 # IMPORTANT: These commands should appear at the end of this CMakeLists.txt
 # because other commands further up have an impact on what is inside the
@@ -281,5 +279,5 @@ if ( ${ENABLE_TESTS} )
   add_subdirectory ( "test" )
 endif()
 if ( ${ENABLE_EXAMPLES} )
-  add_subdirectory ( "example" EXCLUDE_FROM_ALL)
+  add_subdirectory ( "example")
 endif()
