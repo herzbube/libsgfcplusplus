@@ -226,7 +226,7 @@ The library's source code is documented with [Doxygen](https://www.doxygen.org/)
 
 The project contains a Doxygen configuration file `Doxyfile` in the `doxygen` subfolder. The configuration file is set up so that Doxygen generates documentation for the public API part of the library. If you want to generate documentation not just for the public API but also for the library's internal implementation, you need to edit the `Doxyfile` configuration file and maniulate the `INPUT` line so that it includes the `src` subfolder:
 
-    INPUT = ../include ../src
+    INPUT = ../include ../src ../README.md
 
 The default configuration generates the documentation in HTML format in a newly created `html` subfolder. You can get more output formats by editing `Doxyfile` and enabling additional output formats (e.g. `GENERATE_LATEX=YES`). These are the commands to generate the documentation:
 
