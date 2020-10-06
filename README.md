@@ -224,11 +224,11 @@ The four modes quickly explained:
 
 The library's source code is documented with [Doxygen](https://www.doxygen.org/) formatted inline comments. This allows to generate an up-to-date API documentation at any time. To generate the documentation you have to have Doxygen installed.
 
-The project contains a Doxygen configuration file `Doxyfile` in the `doxygen` subfolder. The configuration file is set up so that Doxygen generates documentation for the public API part of the library. If you want to generate documentation not just for the public API but also for the library's internal implementation, you need to edit the `Doxyfile` configuration file and maniulate the `INPUT` line so that it includes the `src` subfolder:
+The project contains a Doxygen configuration file `Doxyfile` in the `doxygen` subfolder. The configuration file is set up so that Doxygen generates documentation for both the public API part and the internal implementation part of the library. You can change this by editing the `Doxyfile` configuration file and manipulating the `INPUT` line so that it does not include the `src` subfolder. If you leave the configuration as it is, then you can still focus on just the public API docs by navigating to the "Public API" module.
 
-    INPUT = ../include ../src ../README.md
+The default configuration generates the documentation in HTML format in a newly created `html` subfolder. You can get more output formats by editing `Doxyfile` and enabling additional output formats (e.g. `GENERATE_LATEX=YES`).
 
-The default configuration generates the documentation in HTML format in a newly created `html` subfolder. You can get more output formats by editing `Doxyfile` and enabling additional output formats (e.g. `GENERATE_LATEX=YES`). These are the commands to generate the documentation:
+These are the commands to generate the documentation:
 
     cd doxygen
     doxygen
