@@ -16,5 +16,13 @@ libsgfcplusplus.xcodeproj/xcuserdata
 # contains anything but the enclosing project, it can be safely ignored.
 libsgfcplusplus.xcodeproj/project.xcworkspace
 
+# Doxygen generated files
+doxygen/html/
+doxygen/latex/
+doxygen/rtf/
+doxygen/man/
+doxygen/xml/
+doxygen/docbook/
+
 # Other files
 .DS_Store
