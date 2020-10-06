@@ -28,7 +28,7 @@ namespace LibSgfcPlusPlus
   /// @note A list type property has at least one value. Properties which allow
   /// zero values are "elists".
   ///
-  /// @example The "LB" property value is a list of composed Point/SimpleText
+  /// Example: The "LB" property value is a list of composed Point/SimpleText
   /// elements. GetDescriptorElementValueType() in this case returns an
   /// SgfcPropertyComposedValueTypeDescriptor object, which in turn is composed
   /// of two descriptors of type SgfcPropertyBasicValueTypeDescriptor, the first

@@ -33,7 +33,7 @@ namespace LibSgfcPlusPlus
   /// exists as a dedicated type only because the SGF standard explicitly names
   /// and describes "elist" in its EBNF definition section.
   ///
-  /// @example The "DD" property value either is None, or it is a list of
+  /// Example: The "DD" property value either is None, or it is a list of
   /// Point. GetDescriptorListValueType() in this case returns an
   /// SgfcPropertyListValueTypeDescriptor object, which in turn is composed
   /// of a descriptor of type SgfcPropertyBasicValueTypeDescriptor which has

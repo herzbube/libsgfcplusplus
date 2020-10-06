@@ -48,7 +48,7 @@ namespace LibSgfcPlusPlus
   /// descriptor combinations, the decoder implementation will have to be
   /// expanded.
   ///
-  /// @example The "AR" property contains a list of composed Point/Point values.
+  /// Example: The "AR" property contains a list of composed Point/Point values.
   /// The top-level descriptor for the property therefore is an
   /// SgfcPropertyListValueTypeDescriptor object, which is composed of another
   /// descriptor of type SgfcPropertyComposedValueTypeDescriptor, which in turn

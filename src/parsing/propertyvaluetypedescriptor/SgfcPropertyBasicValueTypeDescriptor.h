@@ -23,7 +23,7 @@ namespace LibSgfcPlusPlus
   /// other descriptors can be broken down into one or more
   /// SgfcPropertyBasicValueTypeDescriptor objects.
   ///
-  /// @example The "CA" property value is a SimpleText. GetValueType() in this
+  /// Example: The "CA" property value is a SimpleText. GetValueType() in this
   /// case returns SgfcPropertyValueType::SimpleText.
   class SgfcPropertyBasicValueTypeDescriptor : public ISgfcPropertyValueTypeDescriptor
   {

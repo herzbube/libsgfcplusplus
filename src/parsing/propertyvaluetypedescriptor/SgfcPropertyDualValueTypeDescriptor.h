@@ -26,7 +26,7 @@ namespace LibSgfcPlusPlus
   /// SgfcPropertyBasicValueTypeDescriptor or
   /// SgfcPropertyComposedValueTypeDescriptor objects.
   ///
-  /// @example The "SZ" property value either is a single number, or it is a
+  /// Example: The "SZ" property value either is a single number, or it is a
   /// composed Number/Number. GetDescriptorValueType1() in this case returns an
   /// SgfcPropertyBasicValueTypeDescriptor object which has the basic value
   /// type SgfcPropertyValueType::Number. GetDescriptorValueType2() returns an

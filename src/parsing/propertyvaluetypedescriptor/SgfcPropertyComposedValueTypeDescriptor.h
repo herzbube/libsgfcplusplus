@@ -24,7 +24,7 @@ namespace LibSgfcPlusPlus
   /// @note The two descriptors must be SgfcPropertyBasicValueTypeDescriptor
   /// objects, and their value types must not be SgfcPropertyValueType::None.
   ///
-  /// @example The "AP" property value is composed of two SimpleText values
+  /// Example: The "AP" property value is composed of two SimpleText values
   /// separated by a ":" character. Both GetDescriptorValueType1() and
   /// GetDescriptorValueType2() in this case return
   /// SgfcPropertyBasicValueTypeDescriptor objects which both have the basic
