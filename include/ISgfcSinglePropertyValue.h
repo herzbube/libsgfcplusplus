@@ -28,6 +28,9 @@ namespace LibSgfcPlusPlus
   /// basic value type. Some properties allow composed values - see
   /// ISgfcComposedPropertyValue for details.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcSinglePropertyValue contains a number of convenience methods that
   /// help casting an ISgfcSinglePropertyValue object to a concrete type (e.g.
   /// ToNumberValue()). The return value of GetValueType() provides the

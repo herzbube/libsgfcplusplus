@@ -15,6 +15,9 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcDocument interface provides access to a collection of
   /// SGF games. When you read an SGF file, the SGF data in that file becomes
   /// an ISgfcDocument.
+  ///
+  /// @ingroup public-api
+  /// @ingroup document
   class SGFCPLUSPLUS_EXPORT ISgfcDocument
   {
   public:

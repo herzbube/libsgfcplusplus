@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcNode class provides an implementation of the
   /// ISgfcNode interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup game-tree
   class SgfcNode : public ISgfcNode
   {
   public:

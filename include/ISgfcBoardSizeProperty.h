@@ -14,6 +14,9 @@ namespace LibSgfcPlusPlus
   /// ISgfcProperty for SgfcPropertyType::SZ. It simplifies access to the
   /// property value and provides the value in the form of an SgfcBoardSize
   /// object.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property
   class SGFCPLUSPLUS_EXPORT ISgfcBoardSizeProperty : virtual public ISgfcProperty
   {
   public:

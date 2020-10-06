@@ -15,6 +15,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcGoMovePropertyValue interface makes the property value
   /// data of a property of type SgfcPropertyValueType::Move available as
   /// an ISgfcGoMove object.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  /// @ingroup go
   class SGFCPLUSPLUS_EXPORT ISgfcGoMovePropertyValue : virtual public ISgfcMovePropertyValue
   {
   public:

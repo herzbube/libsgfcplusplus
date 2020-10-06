@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// standard, plus a small number of non-standard property types that are
   /// specially handled by SGFC. The enum value SgfcPropertyType::Unknown is
   /// used for all other non-standard properties.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property
   enum class SGFCPLUSPLUS_EXPORT SgfcPropertyType
   {
     // ----------------------------------------------------------------------

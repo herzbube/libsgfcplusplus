@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcArguments class provides an implementation of the
   /// ISgfcArguments interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-arguments
   class SgfcArguments : public ISgfcArguments
   {
   public:

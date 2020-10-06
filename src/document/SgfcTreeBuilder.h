@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcTreeBuilder class provides an implementation of the
   /// ISgfcTreeBuilder interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup game-tree
   class SgfcTreeBuilder : public ISgfcTreeBuilder
   {
   public:

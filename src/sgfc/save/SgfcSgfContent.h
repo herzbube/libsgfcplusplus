@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcSgfContent class provides an implementation of the
   /// ISgfcSgfContent interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-backend
   class SgfcSgfContent : public ISgfcSgfContent
   {
   public:

@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// SgfcPropertyDualValueTypeDescriptor expresses the fact that for some
   /// properties the raw SGF property value can be either of a first type, or a
   /// second type. Which one needs to be determined by probing, i.e. by parsing

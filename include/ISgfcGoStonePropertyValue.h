@@ -15,6 +15,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcGoStonePropertyValue interface makes the property value
   /// data of a property of type SgfcPropertyValueType::Stone available as
   /// an ISgfcGoStone object.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  /// @ingroup go
   class SGFCPLUSPLUS_EXPORT ISgfcGoStonePropertyValue : virtual public ISgfcStonePropertyValue
   {
   public:

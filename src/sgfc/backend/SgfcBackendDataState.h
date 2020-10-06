@@ -4,6 +4,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcBackendDataState enumerates the states that the SGFInfo data
   /// structure encapsulated by SgfcBackendDataWrapper can have.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-backend
   enum class SgfcBackendDataState
   {
     /// @brief The SGFInfo data structure is allocated and empty. It contains

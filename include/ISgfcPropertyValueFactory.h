@@ -34,6 +34,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcPropertyValueFactory interface provides factory methods
   /// for creating ISgfcPropertyValue objects, and objects of every known
   /// sub-type of ISgfcPropertyValue.
+  ///
+  /// @ingroup public-api
+  /// @ingroup factory
+  /// @ingroup property-value
   class SGFCPLUSPLUS_EXPORT ISgfcPropertyValueFactory
   {
   public:

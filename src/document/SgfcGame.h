@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGame class provides an implementation of the
   /// ISgfcGame interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup game-tree
   class SgfcGame : public ISgfcGame
   {
   public:

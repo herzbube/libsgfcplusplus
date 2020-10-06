@@ -13,6 +13,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// SgfcPropertyElistValueTypeDescriptor expresses the fact that for some
   /// properties the raw SGF property value can be either
   /// SgfcPropertyValueType::None or some other type. Which one needs to be

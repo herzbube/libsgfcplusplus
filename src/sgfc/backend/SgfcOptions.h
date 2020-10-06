@@ -9,6 +9,10 @@ namespace LibSgfcPlusPlus
   /// values that SGFC sets up when it parses its command line arguments, and
   /// to reconfigure SGFC with those captured values at a later time.
   ///
+  /// @ingroup internals
+  /// @ingroup sgfc-arguments
+  /// @ingroup sgfc-backend
+  ///
   /// Calling the RestoreOptions() method of a newly constructed SgfcOptions
   /// object (i.e. before its CaptureOptions() method is called for the first
   /// time) can be used to reconfigure SGFC with its default option values,

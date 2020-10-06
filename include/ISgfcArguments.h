@@ -18,6 +18,9 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcArguments interface represents a collection of arguments
   /// to be passed on to SGFC when it reads or writes SGF content.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-arguments
   class SGFCPLUSPLUS_EXPORT ISgfcArguments
   {
   public:

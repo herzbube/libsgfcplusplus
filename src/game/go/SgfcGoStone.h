@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGoStone class provides an implementation of the
   /// ISgfcGoStone interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup go
   class SgfcGoStone : public ISgfcGoStone
   {
   public:

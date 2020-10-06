@@ -10,6 +10,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// SgfcPropertyBasicValueTypeDescriptor defines the basic value type that a
   /// single non-composed SGF property value can have. GetValueType() returns
   /// that value type.

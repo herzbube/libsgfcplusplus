@@ -19,6 +19,9 @@ namespace LibSgfcPlusPlus
   /// passed to SGFC for further processing (corrections and/or writing to an
   /// .sgf file in the file system).
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// Implementation note: SgfcDocumentEncoder formats the SGF content that it
   /// generates with indentation and line breaks to make the content human
   /// readable. It is expected that SGFC removes that whitespace when it parses

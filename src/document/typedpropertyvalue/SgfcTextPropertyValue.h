@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcTextPropertyValue class provides an implementation of
   /// the ISgfcTextPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcTextPropertyValue : public SgfcSinglePropertyValue, public ISgfcTextPropertyValue
   {
   public:

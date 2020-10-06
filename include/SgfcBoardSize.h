@@ -13,6 +13,10 @@ namespace LibSgfcPlusPlus
   /// is used to indicate that SgfcPropertyType::SZ does not exist on a game
   /// tree's root node.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  /// @ingroup game
+  ///
   /// The SGF standard specifies that for square boards the SGF property must
   /// hold only a single SgfcNumber value. SgfcBoardSize is not that flexible,
   /// it always stores two values. In case of a square board the two values hold

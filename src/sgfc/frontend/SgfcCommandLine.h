@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcCommandLine class provides an implementation of the
   /// ISgfcCommandLine interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-frontend
   class SgfcCommandLine : public ISgfcCommandLine
   {
   public:

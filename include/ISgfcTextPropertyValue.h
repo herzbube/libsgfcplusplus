@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Text.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcTextPropertyValue is immutable, i.e. once the
   /// ISgfcTextPropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcTextPropertyValue : virtual public ISgfcSinglePropertyValue

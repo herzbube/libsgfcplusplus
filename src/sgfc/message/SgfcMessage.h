@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcMessage class provides an implementation of the
   /// ISgfcMessage interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-message
   class SgfcMessage : public ISgfcMessage
   {
   public:

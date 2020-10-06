@@ -20,6 +20,10 @@ namespace LibSgfcPlusPlus
   /// in-memory data. ISgfcDocumentReader operates the SGFC backend to achieve
   /// its task. Use SgfcPlusPlusFactory to construct new ISgfcDocumentReader
   /// objects.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentReader
   {
   public:

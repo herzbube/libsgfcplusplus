@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcStonePropertyValue class provides an implementation of
   /// the ISgfcStonePropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcStonePropertyValue : public SgfcSinglePropertyValue, virtual public ISgfcStonePropertyValue
   {
   public:

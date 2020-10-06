@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGoMove class provides an implementation of the
   /// ISgfcGoMove interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup go
   class SgfcGoMove : public ISgfcGoMove
   {
   public:

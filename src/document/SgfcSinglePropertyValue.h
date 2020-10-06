@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcSinglePropertyValue class provides an implementation of the
   /// ISgfcSinglePropertyValue interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcSinglePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:

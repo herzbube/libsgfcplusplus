@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// SgfcPropertyListValueTypeDescriptor expresses the fact that some
   /// SGF properties can have more than one value.
   /// GetDescriptorElementValueType() returns a descriptor for the list element

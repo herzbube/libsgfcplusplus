@@ -13,6 +13,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcPrivateConstants class is a container class for
   /// library-internal constants.
+  ///
+  /// @ingroup internals
+  /// @ingroup library-support
   class SgfcPrivateConstants
   {
   public:

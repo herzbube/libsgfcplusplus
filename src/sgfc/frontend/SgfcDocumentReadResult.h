@@ -8,6 +8,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDocumentReadResult class provides an implementation of the
   /// ISgfcDocumentReadResult interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SgfcDocumentReadResult : public ISgfcDocumentReadResult
   {
   public:

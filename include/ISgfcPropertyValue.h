@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcPropertyValue interface provides access to one of the
   /// values of a property of an SGF node.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcPropertyValue is immutable, i.e. once the ISgfcPropertyValue object
   /// is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcPropertyValue

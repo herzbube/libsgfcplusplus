@@ -14,6 +14,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcGoPoint interface represents a point on a Go board.
   ///
+  /// @ingroup public-api
+  /// @ingroup go
+  ///
   /// A point on a Go board is an intersection of two lines. A point's location
   /// is identified by a position in a two-dimensional coordinate system. The
   /// horizontal axis is the x-axis, sometimes also called column. The vertical

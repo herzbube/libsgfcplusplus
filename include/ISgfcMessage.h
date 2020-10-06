@@ -21,6 +21,9 @@ namespace LibSgfcPlusPlus
   /// libsgfc++ makes an effort to parse the raw message text so that it can
   /// make the message content available to clients in a structured manner via
   /// ISgfcMessage.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-message
   class SGFCPLUSPLUS_EXPORT ISgfcMessage
   {
   public:

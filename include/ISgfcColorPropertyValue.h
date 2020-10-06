@@ -13,6 +13,9 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Color.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcColorPropertyValue is immutable, i.e. once the
   /// ISgfcColorPropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcColorPropertyValue : virtual public ISgfcSinglePropertyValue

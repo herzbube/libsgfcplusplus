@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcNumberPropertyValue class provides an implementation of
   /// the ISgfcNumberPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcNumberPropertyValue : public SgfcSinglePropertyValue, public ISgfcNumberPropertyValue
   {
   public:

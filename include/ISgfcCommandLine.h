@@ -21,6 +21,9 @@ namespace LibSgfcPlusPlus
   /// in command line mode. Use SgfcPlusPlusFactory to construct new
   /// ISgfcCommandLine objects.
   ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-frontend
+  ///
   /// The ISgfcCommandLine interface is designed to give clients control over
   /// when they want to execute load and save operations, and how they want the
   /// operations to behave. Clients specify SGFC command line arguments when

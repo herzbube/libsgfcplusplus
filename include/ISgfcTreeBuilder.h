@@ -14,6 +14,9 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcTreeBuilder interface provides methods to manipulate the
   /// nodes of a game tree.
+  ///
+  /// @ingroup public-api
+  /// @ingroup game-tree
   class SGFCPLUSPLUS_EXPORT ISgfcTreeBuilder
   {
   public:

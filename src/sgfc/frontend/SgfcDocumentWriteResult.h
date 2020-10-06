@@ -8,6 +8,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDocumentWriteResult class provides an implementation of the
   /// ISgfcDocumentWriteResult interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SgfcDocumentWriteResult : public ISgfcDocumentWriteResult
   {
   public:

@@ -16,6 +16,9 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value is a composite of two
   /// ISgfcSinglePropertyValue objects.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// The class name uses the term "composed" because that is how it appears in
   /// the SGF standard.
   ///

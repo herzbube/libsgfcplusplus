@@ -23,6 +23,9 @@ namespace LibSgfcPlusPlus
 
   /// @brief The SgfcPlusPlusFactory class is a class that contains only static
   /// functions. The functions are used to construct various library objects.
+  ///
+  /// @ingroup public-api
+  /// @ingroup factory
   class SGFCPLUSPLUS_EXPORT SgfcPlusPlusFactory
   {
   public:

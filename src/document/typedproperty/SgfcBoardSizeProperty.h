@@ -14,6 +14,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcBoardSizeProperty class provides an implementation of
   /// the ISgfcBoardSizeProperty interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property
   class SgfcBoardSizeProperty : public SgfcProperty, public ISgfcBoardSizeProperty
   {
   public:

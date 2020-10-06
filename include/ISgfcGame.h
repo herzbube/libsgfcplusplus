@@ -21,6 +21,9 @@ namespace LibSgfcPlusPlus
   /// game, in the form of a tree of ISgfcNode objects. Each branch in the tree
   /// is a variation in game play. A tree without branches is a game without
   /// variations.
+  ///
+  /// @ingroup public-api
+  /// @ingroup game-tree
   class SGFCPLUSPLUS_EXPORT ISgfcGame
   {
   public:

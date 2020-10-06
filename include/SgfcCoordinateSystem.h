@@ -7,6 +7,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcCoordinateSystem enumerates the coordinate systems supported
   /// by game-specific representations of Point values.
+  ///
+  /// @ingroup public-api
+  /// @ingroup game
   enum class SGFCPLUSPLUS_EXPORT SgfcCoordinateSystem
   {
     /// @brief The coordinate system's origin is in the upper-left corner.

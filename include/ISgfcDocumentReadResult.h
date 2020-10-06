@@ -17,6 +17,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcDocumentReadResult interface provides access to the result
   /// of a read operation performed by ISgfcDocumentReader.
   ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
+  ///
   /// ISgfcDocumentReadResult is immutable, i.e. once the
   /// ISgfcDocumentReadResult object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentReadResult

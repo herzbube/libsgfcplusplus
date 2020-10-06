@@ -16,6 +16,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDocument class provides an implementation of the
   /// ISgfcDocument interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup document
   class SgfcDocument : public ISgfcDocument
   {
   public:

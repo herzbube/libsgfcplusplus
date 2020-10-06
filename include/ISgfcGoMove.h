@@ -21,6 +21,9 @@ namespace LibSgfcPlusPlus
   /// placed by the move on the Go board. ISgfcGoMove uses a reference to an
   /// ISgfcGoStone object to record the latter of these two pieces of
   /// information.
+  ///
+  /// @ingroup public-api
+  /// @ingroup go
   class SGFCPLUSPLUS_EXPORT ISgfcGoMove
   {
   public:

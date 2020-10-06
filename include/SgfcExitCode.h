@@ -7,6 +7,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcExitCode enumerates all SGFC exit codes supported by the
   /// library.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-frontend
   enum class SGFCPLUSPLUS_EXPORT SgfcExitCode
   {
     /// @brief The SGFC operation did not generate any warning or error

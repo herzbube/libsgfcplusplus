@@ -16,6 +16,9 @@ namespace LibSgfcPlusPlus
   /// passed on to SGFC when it reads or writes SGF content. Depending on the
   /// argument type, the argument also has either an integer type or an
   /// SgfcPropertyType parameter.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-arguments
   class SGFCPLUSPLUS_EXPORT ISgfcArgument
   {
   public:

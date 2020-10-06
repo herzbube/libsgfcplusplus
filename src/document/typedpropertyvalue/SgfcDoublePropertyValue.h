@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDoublePropertyValue class provides an implementation of
   /// the ISgfcDoublePropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcDoublePropertyValue : public SgfcSinglePropertyValue, public ISgfcDoublePropertyValue
   {
   public:

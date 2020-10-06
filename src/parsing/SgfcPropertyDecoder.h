@@ -27,6 +27,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcPropertyDecoder class parses the raw strings that SGFC
   /// provides for SGF properties and their values, and generates proper
   /// objects from those parsing activities.
+  ///
+  /// @ingroup internals
+  /// @ingroup parsing
   class SgfcPropertyDecoder
   {
   public:

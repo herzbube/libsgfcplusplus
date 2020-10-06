@@ -15,6 +15,9 @@ namespace LibSgfcPlusPlus
   /// data structure that is defined by the SGFC backend. SgfcBackendDataWrapper
   /// is responsible for managing the memory of an SGFInfo object.
   ///
+  /// @ingroup internals
+  /// @ingroup sgfc-backend
+  ///
   /// When SgfcBackendDataWrapper is constructed it immediately allocates
   /// the memory for a basic empty SGFInfo object that does not contain any
   /// data yet.

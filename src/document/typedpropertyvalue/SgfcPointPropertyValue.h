@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcPointPropertyValue class provides an implementation of
   /// the ISgfcPointPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcPointPropertyValue : public SgfcSinglePropertyValue, virtual public ISgfcPointPropertyValue
   {
   public:

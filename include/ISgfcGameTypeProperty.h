@@ -14,6 +14,9 @@ namespace LibSgfcPlusPlus
   /// ISgfcProperty for SgfcPropertyType::GM. It simplifies access to the
   /// property value and provides the value in the form of an SgfcGameType
   /// value.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property
   class SGFCPLUSPLUS_EXPORT ISgfcGameTypeProperty : virtual public ISgfcProperty
   {
   public:

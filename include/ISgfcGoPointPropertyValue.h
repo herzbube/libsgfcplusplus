@@ -15,6 +15,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcGoPointPropertyValue interface makes the property value
   /// data of a property of type SgfcPropertyValueType::Point available as
   /// an ISgfcGoPoint object.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  /// @ingroup go
   class SGFCPLUSPLUS_EXPORT ISgfcGoPointPropertyValue : virtual public ISgfcPointPropertyValue
   {
   public:

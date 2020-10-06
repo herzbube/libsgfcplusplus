@@ -21,6 +21,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcBackendController class encapsuslates the SGFC backend and
   /// is responsible for coordinating access to it.
   ///
+  /// @ingroup internals
+  /// @ingroup sgfc-backend
+  ///
   /// SgfcBackendController provides its service to other library-internal
   /// classes. The external user of libsgfc++ never comes into direct contact
   /// with SgfcBackendController.

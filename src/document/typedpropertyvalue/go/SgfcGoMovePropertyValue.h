@@ -11,6 +11,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGoMovePropertyValue class provides an implementation of
   /// the ISgfcGoMovePropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
+  /// @ingroup go
   class SgfcGoMovePropertyValue : public SgfcMovePropertyValue, public ISgfcGoMovePropertyValue
   {
   public:

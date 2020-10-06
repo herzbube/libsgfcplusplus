@@ -8,6 +8,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDocumentReader class provides an implementation of the
   /// ISgfcDocumentReader interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SgfcDocumentReader : public ISgfcDocumentReader
   {
   public:

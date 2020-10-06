@@ -13,6 +13,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcValueConverter class converts raw string values into value
   /// types defined by the SGF standard, and vice versa.
+  ///
+  /// @ingroup internals
+  /// @ingroup parsing
   class SgfcValueConverter
   {
   public:

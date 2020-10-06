@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// SgfcPropertyComposedValueTypeDescriptor expresses the fact that for some
   /// properties the raw SGF property value is composed of two values, separated
   /// by a colon (":") character. GetDescriptorValueType1() returns a descriptor

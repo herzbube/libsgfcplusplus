@@ -20,6 +20,9 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcProperty interface provides access to the data of a single
   /// property of an SGF node. One property has 0-n values.
+  ///
+  /// @ingroup public-api
+  /// @ingroup property
   class SGFCPLUSPLUS_EXPORT ISgfcProperty
   {
   public:

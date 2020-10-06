@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcColorPropertyValue class provides an implementation of
   /// the ISgfcColorPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcColorPropertyValue : public SgfcSinglePropertyValue, public ISgfcColorPropertyValue
   {
   public:

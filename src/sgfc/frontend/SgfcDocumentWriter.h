@@ -8,6 +8,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcDocumentWriter class provides an implementation of the
   /// ISgfcDocumentWriter interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SgfcDocumentWriter : public ISgfcDocumentWriter
   {
   public:

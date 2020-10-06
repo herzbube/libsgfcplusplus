@@ -16,6 +16,9 @@ namespace LibSgfcPlusPlus
   /// SGF node in a tree of SGF nodes. ISgfcNode also provides methods to
   /// navigate the game tree. ISgfcNode provides no methods to manipulate the
   /// game tree - use ISgfcTreeBuilder for that purpose.
+  ///
+  /// @ingroup public-api
+  /// @ingroup game-tree
   class SGFCPLUSPLUS_EXPORT ISgfcNode
   {
   public:

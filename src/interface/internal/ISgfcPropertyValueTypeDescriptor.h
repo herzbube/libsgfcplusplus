@@ -17,6 +17,9 @@ namespace LibSgfcPlusPlus
   /// can have in the raw SGF content. This information helps with parsing the
   /// raw SGF property value string.
   ///
+  /// @ingroup internals
+  /// @ingroup parsing
+  ///
   /// ISgfcPropertyValueTypeDescriptor contains a number of convenience methods
   /// that help casting an ISgfcPropertyValueTypeDescriptor object to a concrete
   /// type (e.g. ToDualValueTypeDescriptor()). The return value of

@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGoPoint class provides an implementation of the
   /// ISgfcGoPoint interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup go
   class SgfcGoPoint : public ISgfcGoPoint
   {
   public:

@@ -15,6 +15,9 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Stone.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcStonePropertyValue is immutable, i.e. once the
   /// ISgfcStonePropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcStonePropertyValue : virtual public ISgfcSinglePropertyValue

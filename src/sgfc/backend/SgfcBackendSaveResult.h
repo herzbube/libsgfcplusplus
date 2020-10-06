@@ -11,6 +11,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcBackendSaveResult class provides access to the result of
   /// a save operation performed by SgfcBackendController.
+  ///
+  /// @ingroup internals
+  /// @ingroup sgfc-backend
   class SgfcBackendSaveResult
   {
   public:

@@ -10,6 +10,10 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGoPointPropertyValue class provides an implementation of
   /// the ISgfcGoPointPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
+  /// @ingroup go
   class SgfcGoPointPropertyValue : public SgfcPointPropertyValue, public ISgfcGoPointPropertyValue
   {
   public:

@@ -24,6 +24,10 @@ namespace LibSgfcPlusPlus
   /// @brief The ISgfcPropertyFactory interface provides factory methods
   /// for creating ISgfcProperty objects, and objects of every known sub-type
   /// of ISgfcProperty.
+  ///
+  /// @ingroup public-api
+  /// @ingroup factory
+  /// @ingroup property
   class SGFCPLUSPLUS_EXPORT ISgfcPropertyFactory
   {
   public:

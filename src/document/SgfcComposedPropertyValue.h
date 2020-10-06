@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcComposedPropertyValue class provides an implementation of
   /// the ISgfcComposedPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcComposedPropertyValue : public ISgfcComposedPropertyValue
   {
   public:

@@ -12,6 +12,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcGameTypeProperty class provides an implementation of
   /// the ISgfcGameTypeProperty interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property
   class SgfcGameTypeProperty : public SgfcProperty, public ISgfcGameTypeProperty
   {
   public:

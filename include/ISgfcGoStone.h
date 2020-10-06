@@ -15,6 +15,9 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcGoStone interface represents a Go stone.
   ///
+  /// @ingroup public-api
+  /// @ingroup go
+  ///
   /// A Go stone on a Go board is defined by its color and by its location on
   /// the Go board. ISgfcGoStone stores an SgfcColor value and a reference to an
   /// ISgfcGoPoint object to record these two pieces of information.

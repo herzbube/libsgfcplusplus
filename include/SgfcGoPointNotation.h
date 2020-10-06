@@ -7,6 +7,9 @@ namespace LibSgfcPlusPlus
 {
   /// @brief SgfcGoPointNotation enumerates all notations supported for
   /// representing a Point location for GoGameType::Go.
+  ///
+  /// @ingroup public-api
+  /// @ingroup go
   enum class SGFCPLUSPLUS_EXPORT SgfcGoPointNotation
   {
     /// @brief The notation of the SGF standard for representing a Go Point

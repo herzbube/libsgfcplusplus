@@ -16,6 +16,9 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcConstants class is a container class for constants.
+  ///
+  /// @ingroup public-api
+  /// @ingroup library-support
   class SGFCPLUSPLUS_EXPORT SgfcConstants
   {
   public:

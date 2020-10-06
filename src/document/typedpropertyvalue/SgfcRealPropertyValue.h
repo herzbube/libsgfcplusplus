@@ -9,6 +9,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcRealPropertyValue class provides an implementation of
   /// the ISgfcRealPropertyValue interface. See the interface header file
   /// for documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property-value
   class SgfcRealPropertyValue : public SgfcSinglePropertyValue, public ISgfcRealPropertyValue
   {
   public:

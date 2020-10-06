@@ -13,6 +13,9 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Real.
   ///
+  /// @ingroup public-api
+  /// @ingroup property-value
+  ///
   /// ISgfcRealPropertyValue is immutable, i.e. once the
   /// ISgfcRealPropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcRealPropertyValue : virtual public ISgfcSinglePropertyValue

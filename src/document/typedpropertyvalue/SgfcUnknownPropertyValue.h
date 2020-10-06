@@ -11,6 +11,9 @@ namespace LibSgfcPlusPlus
   /// implementation of the ISgfcSinglePropertyValue interface. See the
   /// interface header file for documentation.
   ///
+  /// @ingroup internals
+  /// @ingroup property-value
+  ///
   /// Unlike other values from the enumeration SgfcPropertyValueType,
   /// the value SgfcPropertyValueType::Unknown does not describe a concrete
   /// value type. To the contrary, SgfcPropertyValueType::Unknown signifies the

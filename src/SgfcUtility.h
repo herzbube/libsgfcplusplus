@@ -16,6 +16,9 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcUtility class is a container for static helper functions.
+  ///
+  /// @ingroup internals
+  /// @ingroup library-support
   class SgfcUtility
   {
   public:

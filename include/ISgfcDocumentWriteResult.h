@@ -18,6 +18,10 @@ namespace LibSgfcPlusPlus
   ///
   /// ISgfcDocumentWriteResult is immutable, i.e. once the
   /// ISgfcDocumentWriteResult object is constructed it cannot be changed.
+  ///
+  /// @ingroup public-api
+  /// @ingroup sgfc-frontend
+  /// @ingroup document
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentWriteResult
   {
   public:

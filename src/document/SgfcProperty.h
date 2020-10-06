@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcProperty class provides an implementation of the
   /// ISgfcProperty interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup property
   class SgfcProperty : virtual public ISgfcProperty
   {
   public:

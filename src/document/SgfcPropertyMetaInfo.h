@@ -19,6 +19,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcPropertyMetaInfo class provides meta information about a
   /// property and the values it can have according to the SGF standard.
   ///
+  /// @ingroup internals
+  /// @ingroup property
+  ///
   /// At the moment SgfcPropertyMetaInfo is used to store a mapping between
   /// a property type / game type combination and a value type descriptor
   /// object.

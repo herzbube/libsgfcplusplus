@@ -8,6 +8,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcPropertyFactory class provides an implementation of
   /// the ISgfcPropertyFactory interface. See the interface header file for
   /// documentation.
+  ///
+  /// @ingroup internals
+  /// @ingroup factory
   class SgfcPropertyFactory : public ISgfcPropertyFactory
   {
   public:
