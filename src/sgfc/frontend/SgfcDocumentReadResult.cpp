@@ -8,12 +8,6 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcDocumentReadResult::SgfcDocumentReadResult()
-  {
-    this->exitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(this->parseResult);
-    this->isSgfDataValid = SgfcUtility::GetIsSgfDataValidFromMessageCollection(this->parseResult);
-  }
-
   SgfcDocumentReadResult::SgfcDocumentReadResult(
     std::shared_ptr<ISgfcMessage> invalidCommandLineReason)
     : parseResult( { invalidCommandLineReason } )

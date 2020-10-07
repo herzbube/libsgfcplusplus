@@ -3,10 +3,6 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcComposedPropertyValue::SgfcComposedPropertyValue()
-  {
-  }
-
   SgfcComposedPropertyValue::SgfcComposedPropertyValue(
     std::shared_ptr<ISgfcSinglePropertyValue> value1,
     std::shared_ptr<ISgfcSinglePropertyValue> value2)

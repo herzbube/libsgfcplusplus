@@ -15,7 +15,6 @@ namespace LibSgfcPlusPlus
   class SgfcDocumentReadResult : public ISgfcDocumentReadResult
   {
   public:
-    SgfcDocumentReadResult();
     SgfcDocumentReadResult(
       std::shared_ptr<ISgfcMessage> invalidCommandLineReason);
     SgfcDocumentReadResult(
