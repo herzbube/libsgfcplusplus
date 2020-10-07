@@ -112,9 +112,9 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board that is not square, a board with size smaller than the minimum
-    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// required by the SGF standard (SgfcConstants::BoardSizeMinimum), or a
     /// board with size larger than the maximum allowed by the SGF standard
-    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a pointValue is
+    /// (SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a pointValue is
     /// not given in one of the notations enumerated in SgfcGoPointNotation, or
     /// if @a pointValue violates one of the restrictions imposed by the used
     /// notation (e.g. y-axis compound larger than 25 when
@@ -144,9 +144,9 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board that is not square, a board with size smaller than the minimum
-    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// required by the SGF standard (SgfcConstants::BoardSizeMinimum), or a
     /// board with size larger than the maximum allowed by the SGF standard
-    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a moveValue is
+    /// (SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a moveValue is
     /// not given in one of the notations enumerated in SgfcGoPointNotation, or
     /// if @a moveValue violates one of the restrictions imposed by the used
     /// notation (e.g. y-axis compound larger than 25 when
@@ -189,9 +189,9 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board that is not square, a board with size smaller than the minimum
-    /// required by the SGF standard (#SgfcConstants::BoardSizeMinimum), or a
+    /// required by the SGF standard (SgfcConstants::BoardSizeMinimum), or a
     /// board with size larger than the maximum allowed by the SGF standard
-    /// (#SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a stoneValue is
+    /// (SgfcConstants::BoardSizeMaximumGo). Is also thrown if @a stoneValue is
     /// not given in one of the notations enumerated in SgfcGoPointNotation, or
     /// if @a stoneValue violates one of the restrictions imposed by the used
     /// notation (e.g. y-axis compound larger than 25 when
