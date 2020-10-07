@@ -9,7 +9,6 @@ namespace LibSgfcPlusPlus
   /// SgfcPropertyValueType::Color can have.
   ///
   /// @ingroup public-api
-  /// @ingroup property-value
   enum class SGFCPLUSPLUS_EXPORT SgfcColor
   {
     /// @brief The property value signifies the abstract color "Black".

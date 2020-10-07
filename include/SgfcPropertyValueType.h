@@ -9,7 +9,6 @@ namespace LibSgfcPlusPlus
   /// types.
   ///
   /// @ingroup public-api
-  /// @ingroup property-value
   enum class SGFCPLUSPLUS_EXPORT SgfcPropertyValueType
   {
     /// @brief The property has no value.

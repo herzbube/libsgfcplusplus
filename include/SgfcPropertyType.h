@@ -11,7 +11,6 @@ namespace LibSgfcPlusPlus
   /// used for all other non-standard properties.
   ///
   /// @ingroup public-api
-  /// @ingroup property
   enum class SGFCPLUSPLUS_EXPORT SgfcPropertyType
   {
     // ----------------------------------------------------------------------

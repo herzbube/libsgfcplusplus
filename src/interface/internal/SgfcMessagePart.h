@@ -5,7 +5,6 @@ namespace LibSgfcPlusPlus
   /// @brief Enumerates the individual parts of an SGFC message.
   ///
   /// @ingroup internals
-  /// @ingroup sgfc-message
   ///
   /// The message format according to the SGFC documentation file is this:
   ///

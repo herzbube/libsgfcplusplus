@@ -10,7 +10,6 @@ namespace LibSgfcPlusPlus
   /// game types.
   ///
   /// @ingroup public-api
-  /// @ingroup property-value
   ///
   /// @important Do not rely on the numeric value underlying each enumeration
   /// member. Specifically, do not attempt to map the numeric value to the game

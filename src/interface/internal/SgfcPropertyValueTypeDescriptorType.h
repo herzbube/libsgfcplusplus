@@ -6,7 +6,6 @@ namespace LibSgfcPlusPlus
   /// ISgfcPropertyValueTypeDescriptor objects.
   ///
   /// @ingroup internals
-  /// @ingroup parsing
   enum class SgfcPropertyValueTypeDescriptorType
   {
     DualValueType,

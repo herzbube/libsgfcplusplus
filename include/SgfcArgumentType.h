@@ -9,7 +9,6 @@ namespace LibSgfcPlusPlus
   /// SGFC when it reads or writes SGF content.
   ///
   /// @ingroup public-api
-  /// @ingroup sgfc-arguments
   ///
   /// Some arguments have a parameter, but most arguments do not. Unless
   /// documented otherwise an argument does not have a parameter.
