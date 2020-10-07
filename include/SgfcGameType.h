@@ -11,7 +11,7 @@ namespace LibSgfcPlusPlus
   ///
   /// @ingroup public-api
   ///
-  /// @important Do not rely on the numeric value underlying each enumeration
+  /// @attention Do not rely on the numeric value underlying each enumeration
   /// member. Specifically, do not attempt to map the numeric value to the game
   /// type's representation in the SGF content.
   enum class SGFCPLUSPLUS_EXPORT SgfcGameType
