@@ -73,7 +73,7 @@ namespace LibSgfcPlusPlus
     static const std::string DoubleEmphasizedString;
     static const std::string ColorBlackString;
     static const std::string ColorWhiteString;
-    static const std::string MovePassString;
+    static const std::string GoMovePassString;
     /// @brief Maps property names as defined by the SGF standard to values from
     /// the enumeration SgfcPropertyType.
     static const std::map<std::string, SgfcPropertyType> PropertyNameToPropertyTypeMap;

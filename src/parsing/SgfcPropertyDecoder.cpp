@@ -801,7 +801,7 @@ namespace LibSgfcPlusPlus
     if (gameType == SgfcGameType::Go)
     {
       SgfcColor color = GetColorForPropertyType();
-      if (rawPropertyValueBuffer == SgfcConstants::MovePassString)
+      if (rawPropertyValueBuffer == SgfcConstants::GoMovePassString)
       {
         // For Go the SGF standard defines that black or white pass moves can
         // have either value "" (an empty string) or "tt". The latter counts as

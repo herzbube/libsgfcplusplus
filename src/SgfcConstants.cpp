@@ -27,7 +27,7 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::DoubleEmphasizedString = "2";
   const std::string SgfcConstants::ColorBlackString = "B";
   const std::string SgfcConstants::ColorWhiteString = "W";
-  const std::string SgfcConstants::MovePassString = SgfcPrivateConstants::EmptyString;
+  const std::string SgfcConstants::GoMovePassString = SgfcPrivateConstants::EmptyString;
 
   const std::map<std::string, SgfcPropertyType> SgfcConstants::PropertyNameToPropertyTypeMap =
   {

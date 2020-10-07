@@ -1168,7 +1168,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
     WHEN( "The property value is a valid Move string that is a pass move" )
     {
-      std::string moveString = SgfcConstants::MovePassString;
+      std::string moveString = SgfcConstants::GoMovePassString;
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(moveString.c_str());
@@ -1214,7 +1214,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto testData = GENERATE_COPY( filter(
         // Filter out Move strings that are pass moves - these are valid
-        [](std::pair<std::string, SgfcBoardSize> i) { return i.first != SgfcConstants::MovePassString; },
+        [](std::pair<std::string, SgfcBoardSize> i) { return i.first != SgfcConstants::GoMovePassString; },
         from_range(TestDataGenerator::GetInvalidGoPointStrings())
       ));
 
@@ -2204,7 +2204,7 @@ void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValu
   auto goMove = goMoveValue->GetGoMove();
   REQUIRE( goMove != nullptr );
   REQUIRE( goMove->GetPlayerColor() == expectedColor );
-  if (moveString == SgfcConstants::MovePassString)
+  if (moveString == SgfcConstants::GoMovePassString)
   {
     REQUIRE( goMove->IsPassMove() == true );
     auto goStone = goMove->GetStone();
