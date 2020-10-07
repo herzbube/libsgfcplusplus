@@ -15,7 +15,12 @@ namespace LibSgfcPlusPlus
   class SgfcStonePropertyValue : public SgfcSinglePropertyValue, virtual public ISgfcStonePropertyValue
   {
   public:
+    /// @brief Initializes a newly constructed SgfcStonePropertyValue
+    /// object. The object holds a Stone value which was not interpreted in
+    /// any way and equals the raw string value @a rawValue.
     SgfcStonePropertyValue(const std::string& rawValue);
+
+    /// @brief Destroys and cleans up the SgfcStonePropertyValue object.
     virtual ~SgfcStonePropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;

@@ -28,7 +28,12 @@ namespace LibSgfcPlusPlus
   class SgfcUnknownPropertyValue : public SgfcSinglePropertyValue
   {
   public:
+    /// @brief Initializes a newly constructed SgfcUnknownPropertyValue object.
+    /// The object holds no type value because the value type of the raw string
+    /// value @a rawValue is not known.
     SgfcUnknownPropertyValue(const std::string& rawValue);
+
+    /// @brief Destroys and cleans up the SgfcUnknownPropertyValue object.
     virtual ~SgfcUnknownPropertyValue();
 
     virtual SgfcPropertyValueType GetValueType() const;

@@ -24,6 +24,7 @@ namespace LibSgfcPlusPlus
   public:
     /// @name libsgfc++ constants
     //@{
+    /// @brief The library name.
     static const std::string LibraryName;
     /// @brief The SGFC version used by the library.
     static const std::string SgfcVersion;
@@ -68,11 +69,35 @@ namespace LibSgfcPlusPlus
 
     /// @name String constants defined by the SGF standard
     //@{
+    /// @brief The raw string value that corresponds to the None value as
+    /// defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be an empty string.
     static const std::string NoneValueString;
+    /// @brief The raw string value that corresponds to the Double value
+    /// #SgfcDouble::Normal, as defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be the string "1".
     static const std::string DoubleNormalString;
+    /// @brief The raw string value that corresponds to the Double value
+    /// #SgfcDouble::Emphasized, as defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be the string "2".
     static const std::string DoubleEmphasizedString;
+    /// @brief The raw string value that corresponds to the Color value
+    /// #SgfcColor::Black, as defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be the string "B".
     static const std::string ColorBlackString;
+    /// @brief The raw string value that corresponds to the Color value
+    /// #SgfcColor::White, as defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be the string "W".
     static const std::string ColorWhiteString;
+    /// @brief The raw string value that corresponds to a pass Move value for
+    /// #SgfcGameType::Go, as defined by the SGF standard.
+    ///
+    /// The SGF standard defines this to be an empty string.
     static const std::string GoMovePassString;
     /// @brief Maps property names as defined by the SGF standard to values from
     /// the enumeration SgfcPropertyType.

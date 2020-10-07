@@ -14,9 +14,13 @@ namespace LibSgfcPlusPlus
   class SgfcComposedPropertyValue : public ISgfcComposedPropertyValue
   {
   public:
+    /// @brief Initializes a newly constructed SgfcComposedPropertyValue object
+    /// that consists of the two values @a value1 and @a value2.
     SgfcComposedPropertyValue(
       std::shared_ptr<ISgfcSinglePropertyValue> value1,
       std::shared_ptr<ISgfcSinglePropertyValue> value2);
+
+    /// @brief Destroys and cleans up the SgfcSinglePropertyValue object.
     virtual ~SgfcComposedPropertyValue();
 
     virtual bool IsComposedValue() const;

@@ -21,10 +21,19 @@ namespace LibSgfcPlusPlus
   class SgfcOptions
   {
   public:
+    /// @brief Initializes a newly constructed SgfcOptions object. The object
+    /// holds default option values.
     SgfcOptions();
+
+    /// @brief Destroys and cleans up the SgfcOptions object.
     virtual ~SgfcOptions();
 
+    /// @brief Captures a snapshot of the option values that SGFC is currently
+    /// configured with.
     void CaptureOptions();
+
+    /// @brief Reconfigures SGFC with the option values that the SgfcOption
+    /// object currently holds.
     void RestoreOptions() const;
 
   private:

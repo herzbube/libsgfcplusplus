@@ -187,6 +187,8 @@ namespace LibSgfcPlusPlus
     /// @param sgfNode The SGF node to be probed. The node should be the root
     /// node of a game because SgfcPropertyType::SZ can be expected to be
     /// present in that node.
+    /// @param gameType The game type that should be used in case the property
+    /// is not present to determine a game-specific default board size.
     ///
     /// @retval SgfcBoardSize If the property is present and has a valid value.
     ///         The value is guaranteed not to be SgfcConstants::BoardSizeNone
