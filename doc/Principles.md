@@ -114,3 +114,21 @@ Some notes regarding SGF conformity:
   - When `ISgfcDocumentReader` reads SGF data, the object tree under the resulting `ISgfcDocument` is already in FF4 format.
 - The EBNF in the SGF standard says that a property must have at least one value. This can be a value that has the value type "None", which the SGF standard defines to be an empty string. The meaning for the file content is clear: Something like `XY[]` is possible. In the library's object model, however, a "None" value is translated to an empty collection of property values. In other words, `ISgfcProperty::GetPropertyValues` returns a collection with zero elements.
 - The library makes no attempt to check the validity of property values assigned to a property with `ISgfcProperty::SetPropertyValues`. A last-ditch attempt at validation is made by SGFC later when the SGF data is written to a destination, but this is unlikely to catch all mistakes. It is ultimately the responsibility of the library client to take care that the values are valid. The consequence of faulty values is that the library client might be unable to read in the game tree again after it has been written out.
+
+## Virtual inheritance
+
+Because C++ does not have a dedicated interface feature, the library implementation is forced to employ multiple inheritance. The interface class `ISgfcSinglePropertyValue` is inherited multiple times in all typed property value classes (e.g. `SgfcColorPropertyValue`):
+
+- Once via the `SgfcSinglePropertyValue` base class
+- Once via the typed interface class (e.g. `ISgfcColorPropertyValue`)
+
+To make this work all sub-classes of `ISgfcSinglePropertyValue` have to use virtual inheritance. This makes sure that objects contain only one shared `ISgfcSinglePropertyValue` instance.
+
+Without virtual inheritance a class such as `SgfcColorPropertyValue` cannot be instantiated because the compiler sees it as abstract, because `SgfcColorPropertyValue` does not implement all pure virtual methods that it inherits via the `ISgfcColorPropertyValue` base class.
+
+Other classes that also have to use virtual inheritance due to the same reasons:
+
+- Subclasses of `ISgfcProperty` (because of typed property classes such as `SgfcGameTypeProperty`)
+- Subclasses of `ISgfcMovePropertyValue`(because of `SgfcGoMovePropertyValue`)
+- Subclasses of `ISgfcPointPropertyValue`(because of `SgfcGoPointPropertyValue`)
+- Subclasses of `ISgfcStonePropertyValue`(because of `SgfcGoStonePropertyValue`)
