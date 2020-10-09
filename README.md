@@ -35,7 +35,7 @@ Enter libsgfc++.
 
 libsgfc++ applies a number of patches to the original SGFC source code to make it more suitable in a software library context. SGFC is quite unusable as a library without these modifications, because many of its routines are designed for command line usage. The main points are:
 
-* SGFC invokes `exit()` deep within a helper function to abort program execution whhen it finds a fatal error in the SGF data. This is a no-go for a software library. libsgfc++ patches the `exit()` call into oblivion and replaces it with a different mechanism to report fatal errors to its clients.
+* SGFC invokes `exit()` deep within a helper function to abort program execution when it finds a fatal error in the SGF data. This is a no-go for a software library. libsgfc++ patches the `exit()` call into oblivion and replaces it with a different mechanism to report fatal errors to its clients.
 * SGFC prints warnings and errors that occur during parsing to `stdout`. libsgfc++ modifies SGFC so that it can make these warnings and errors available to its clients in a programmatical way.
 * SGFC uses many global and `static` variables that are initialized only once, because a command line utility only needs to run once. libsgfc++ changes this so that its clients can run the library functions over and over without stopping the program.
 
