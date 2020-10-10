@@ -1,4 +1,4 @@
-# SGFC Notes
+# SGFC notes
 
 This document contains assorted notes about SGFC, how it operates, and the consequences this has for libsgfc++ and/or the library client.
 
@@ -6,7 +6,7 @@ These notes can be important to understand the implementation of libsgfc++.
 
 ## Escaping
 
-On reading SimpleText/Text property values, SGFC removes escape characters that don't do anything (e.g. "\a", or "\:" in a non-composed property value) but preserves escape characters that have a purpose: "\\", "\]" and "\:".
+On reading SimpleText/Text property values, SGFC removes escape characters that don't do anything (e.g. `\a`, or `\:` in a non-composed property value) but preserves escape characters that have a purpose: `\\`, `\]` and `\:`.
 
 On writing SimpleText/Text property values, SGFC does not add escape characters because it expects that those escape characters that have a purpose are still there.
 
