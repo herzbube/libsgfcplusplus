@@ -22,7 +22,7 @@ For application-specific properties and Point/Move/Stone properties of game type
 
 SGFC detects any kind of line breaks when it reads/parses SGF content.
 
-However, the kind of line break SGFC uses when writing SGF content is determined at compile time. By default SGFC uses a single LF character. This can be changed by redefining the pre-processor macro `EOLCHAR` to something else during compilation. The macro must resolve into a single character, such as `'\n'` (already the default) or `'\r'` (a CR character used on classic MacOS systems). If you undefine `EOLCHAR` then SGFC will write two characters, a LF followed by a CR, which is the standard on Windows/MS-DOS systems.
+However, the kind of line break SGFC uses when writing SGF content is determined at compile time. By default SGFC uses a single LF character. This can be changed by redefining the pre-processor macro `EOLCHAR` to something else during compilation. The macro must resolve into a single character, such as a LF character (already the default) or a CR character (used on classic MacOS systems). If you undefine `EOLCHAR` then SGFC will write two characters, a LF followed by a CR, which is the standard on Windows/MS-DOS systems.
 
 When reading SimpleText or Text property values, SGFC follows the SGF standard rules for soft and hard line breaks. 
 
