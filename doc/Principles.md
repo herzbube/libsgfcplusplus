@@ -115,6 +115,20 @@ Some notes regarding SGF conformity:
 - The EBNF in the SGF standard says that a property must have at least one value. This can be a value that has the value type "None", which the SGF standard defines to be an empty string. The meaning for the file content is clear: Something like `XY[]` is possible. In the library's object model, however, a "None" value is translated to an empty collection of property values. In other words, `ISgfcProperty::GetPropertyValues` returns a collection with zero elements.
 - The library makes no attempt to check the validity of property values assigned to a property with `ISgfcProperty::SetPropertyValues`. A last-ditch attempt at validation is made by SGFC later when the SGF data is written to a destination, but this is unlikely to catch all mistakes. It is ultimately the responsibility of the library client to take care that the values are valid. The consequence of faulty values is that the library client might be unable to read in the game tree again after it has been written out.
 
+## Escaping
+
+The SGF standard requires that certain characters need to be escaped to protect them from  interpretation by an SGF parser (e.g. by SGFC). For instance a closing brace character "]" that appears in a SimpleText property value must be escaped.
+
+libsgfc++ performs escaping and unescaping on behalf of the library client, so the library client can work naturally with unescaped values at all times. The library does this for properties of type Text, SimpleText, Point, Stone and Move.
+
+Let's assume a SimpleText property value "foo [bar]". In an .sgf file that value will appear as "foo [bar\]". When the library client reads the .sgf file it will see the already unescaped value "foo [bar]". When the library client wants to write an .sgf file it can use the unescaped value and libsgfc++ will add the escape character on the fly.
+
+**Note:** If the library client performs its own escaping, the resulting SGF content will be "double-escaped".
+
+## Line breaks
+
+TODO
+
 ## Virtual inheritance
 
 Because C++ does not have a dedicated interface feature, the library implementation is forced to employ multiple inheritance. The interface class `ISgfcSinglePropertyValue` is inherited multiple times in all typed property value classes (e.g. `SgfcColorPropertyValue`):
