@@ -107,6 +107,7 @@ set ( SHARED_FRAMEWORK_TARGET_NAME ${SHARED_LIBRARY_TARGET_NAME}_framework )
 set ( STATIC_FRAMEWORK_TARGET_NAME ${STATIC_LIBRARY_TARGET_NAME}_framework )
 set ( TEST_EXECUTABLE_TARGET_NAME ${LIBRARY_BASENAME}-test )
 set ( EXAMPLE_EXECUTABLE_TARGET_NAME ${LIBRARY_BASENAME}-example )
+set ( DOCUMENTATION_TARGET_NAME ${LIBRARY_BASENAME}-doc )
 
 # Define target output basic names. The regular prefix and suffix will still be
 # tacked on.
@@ -236,6 +237,10 @@ endif()
 
 # Define variables required to generate and consume the export header file
 set ( EXPORT_HEADER_BASE_NAME SGFCPLUSPLUS )
+# This is the macro being defined in the export header file and being used
+# throughout the library in type declarations to define the types's symbol
+# visibility.
+set ( EXPORT_HEADER_SYMBOL_VISIBILITY_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_EXPORT )
 # Shared library object files must be compiled with this macro defined
 set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
 # Static library object files must be compiled with this macro defined.
@@ -243,6 +248,7 @@ set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
 # framework must also define this macro. Example: The unit test project.
 set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
 message ( STATUS "Linking against the static library requires the consumer to define this preprocessor macro during the build: ${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}" )
+
 
 # Unit tests of course also test library-internal classes. The symbols for these
 # internal classes are not visible in shared libraries. The unit test target
@@ -279,5 +285,6 @@ if ( ${ENABLE_TESTS} )
   add_subdirectory ( "test" )
 endif()
 if ( ${ENABLE_EXAMPLES} )
-  add_subdirectory ( "example")
+  add_subdirectory ( "example" )
 endif()
+add_subdirectory ( "doc" )
