@@ -1,7 +1,6 @@
 # Build products
 DerivedData/
 build/
-lib/
 
 # Xcode workspace
 libsgfcplusplus.xcworkspace/xcuserdata
@@ -15,14 +14,6 @@ libsgfcplusplus.xcodeproj/xcuserdata
 # (top-level .xcworkspace folder). Because the hidden workspace never
 # contains anything but the enclosing project, it can be safely ignored.
 libsgfcplusplus.xcodeproj/project.xcworkspace
-
-# Doxygen generated files
-doxygen/html/
-doxygen/latex/
-doxygen/rtf/
-doxygen/man/
-doxygen/xml/
-doxygen/docbook/
 
 # Other files
 .DS_Store
