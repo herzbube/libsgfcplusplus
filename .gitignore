@@ -1,0 +1,14 @@
+# Build products
+DerivedData/
+build/
+
+# Xcode project
+libsgfcplusplus.xcodeproj/
+
+# Other folders with generated leftovers from
+# master branch
+sgfc/
+test/
+
+# Other files
+.DS_Store
