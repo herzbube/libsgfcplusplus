@@ -16,7 +16,7 @@ namespace LibSgfcPlusPlus
 
   /// @brief The ISgfcDocumentWriter interface provides functions to generate
   /// SGF data from ISgfcDocument objects and to either write that data to the
-  /// file system or make it available as an in-memory string.
+  /// filesystem or make it available as an in-memory string.
   /// ISgfcDocumentWriter operates the SGFC backend to achieve its task. Use
   /// SgfcPlusPlusFactory to construct new ISgfcDocumentWriter objects.
   ///

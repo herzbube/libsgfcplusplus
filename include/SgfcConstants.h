@@ -49,13 +49,13 @@ namespace LibSgfcPlusPlus
     /// but libsgfc++ was unable to obtain the fatal error message from SGFC.
     static const int ParseArgumentErrorMessageID;
     /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
-    /// to save of a piece of SGF content to the file system.
+    /// to save of a piece of SGF content to the filesystem.
     static const int SaveSgfContentToFilesystemErrorMessageID;
     /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
-    /// to read a piece of SGF content from the file system.
+    /// to read a piece of SGF content from the filesystem.
     static const int ReadSgfContentFromFilesystemErrorMessageID;
     /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
-    /// to delete a file in the file system.
+    /// to delete a file in the filesystem.
     static const int DeleteFileErrorMessageID;
     /// @brief Indicates an invalid line number. This is used for fatal error
     /// messages that do not refer to a specific line number in a piece of

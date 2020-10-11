@@ -17,7 +17,7 @@ namespace LibSgfcPlusPlus
   /// ISgfcDocument object into an in-memory string buffer that contains the
   /// SGF content stream as if it were read from an .sgf file, and that can be
   /// passed to SGFC for further processing (corrections and/or writing to an
-  /// .sgf file in the file system).
+  /// .sgf file in the filesystem).
   ///
   /// @ingroup internals
   /// @ingroup parsing

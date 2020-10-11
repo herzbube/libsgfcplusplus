@@ -16,7 +16,7 @@ namespace LibSgfcPlusPlus
   class ISgfcArguments;
 
   /// @brief The ISgfcDocumentReader interface provides functions to generate
-  /// ISgfcDocument objects by reading SGF data from the file system or from
+  /// ISgfcDocument objects by reading SGF data from the filesystem or from
   /// in-memory data. ISgfcDocumentReader operates the SGFC backend to achieve
   /// its task. Use SgfcPlusPlusFactory to construct new ISgfcDocumentReader
   /// objects.
