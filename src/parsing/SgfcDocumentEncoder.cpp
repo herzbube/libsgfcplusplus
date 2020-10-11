@@ -23,8 +23,6 @@ namespace LibSgfcPlusPlus
   {
     std::stringstream sgfContentStream;
 
-    // TODO: Take SgfcDocument::leadingContent into account.
-
     int indentationLevel = 0;
 
     int indexOfGame = -1;
