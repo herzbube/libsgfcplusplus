@@ -11,6 +11,9 @@ using namespace LibSgfcPlusPlus;
 
 
 void AssertErrorLoadResultWhenNoValidSgfContent(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
+void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
+void AssertLoadResultWhenSgfDataHasWarningsOrErrors(const SgfcCommandLine& commandLine1, const SgfcCommandLine& commandLine2, const SgfcCommandLine& commandLine3, SgfcExitCode sgfExitCode1, SgfcExitCode sgfExitCode2, SgfcExitCode sgfExitCode3);
+void AssertLoadResultWhenSgfDataHasFatalError(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
 void AssertSaveResult(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode, const std::string& actualSgfContent, const std::string& expectedSgfContent);
 
 
@@ -193,11 +196,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
       THEN( "The load operation result indicates success" )
       {
-        REQUIRE( sgfExitCode == SgfcExitCode::Ok );
-        REQUIRE( commandLine.IsSgfContentValid() == true );
-
-        auto parseResult = commandLine.GetParseResult();
-        REQUIRE( parseResult.size() == 0 );
+        AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(commandLine, sgfExitCode);
       }
     }
 
@@ -228,35 +227,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
       THEN( "The SGF content is valid and the exit code and parse result match the expected warnings and errors" )
       {
-        // This part of the test verifies that message types are correctly
-        // mapped to exit codes. FatalError is verified in a different test.
-        REQUIRE( sgfExitCode1 == SgfcExitCode::Error );
-        REQUIRE( sgfExitCode2 == SgfcExitCode::Ok );
-        REQUIRE( sgfExitCode3 == SgfcExitCode::Warning );
-
-        REQUIRE( commandLine1.IsSgfContentValid() == true );
-        REQUIRE( commandLine2.IsSgfContentValid() == true );
-        REQUIRE( commandLine3.IsSgfContentValid() == true );
-
-        auto parseResult1 = commandLine1.GetParseResult();
-        auto parseResult2 = commandLine2.GetParseResult();
-        auto parseResult3 = commandLine3.GetParseResult();
-        REQUIRE( parseResult1.size() == 2 );
-        REQUIRE( parseResult2.size() == 0 );
-        REQUIRE( parseResult3.size() == 1 );
-
-        auto errorMessage1a = parseResult1.front();
-        auto errorMessage1b = parseResult1.back();
-        auto errorMessage3 = parseResult3.front();
-
-        REQUIRE( errorMessage1a->GetMessageType() == SgfcMessageType::Warning );
-        REQUIRE( errorMessage1b->GetMessageType() == SgfcMessageType::Error );
-        REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
-        // 17 = SGFC error code "empty value deleted"
-        REQUIRE( errorMessage1a->GetMessageID() == 17 );
-        REQUIRE( errorMessage3->GetMessageID() == 17 );
-        // 60 = SGFC error code "file contains more than one game tree"
-        REQUIRE( errorMessage1b->GetMessageID() == 60 );
+        AssertLoadResultWhenSgfDataHasWarningsOrErrors(commandLine1, commandLine2, commandLine3, sgfExitCode1, sgfExitCode2, sgfExitCode3);
       }
     }
 
@@ -275,17 +246,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
 
       THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
       {
-        REQUIRE( sgfExitCode == SgfcExitCode::FatalError );
-        REQUIRE( commandLine.IsSgfContentValid() == false );
-
-        auto parseResult = commandLine.GetParseResult();
-        REQUIRE( parseResult.size() == 1 );
-
-        auto errorMessage = parseResult.front();
-        REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 46 = unknown file format
-        REQUIRE( errorMessage->GetMessageID() == 46 );
-        REQUIRE( errorMessage->GetMessageText().length() > 0 );
+        AssertLoadResultWhenSgfDataHasFatalError(commandLine, sgfExitCode);
       }
     }
 
@@ -293,9 +254,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
   }
 }
 
-// Mark the scenario with the [filesystem] tag because behind the scenes
-// SgfcCommandLine saves the SGF content to a temporary file
-SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend][filesystem]" )
+SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend]" )
 {
   std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
@@ -350,6 +309,66 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend][filesys
       THEN( "The load operation result indicates failure" )
       {
         AssertErrorLoadResultWhenNoValidSgfContent(commandLine, sgfExitCode);
+      }
+    }
+  }
+
+  GIVEN( "The string contains SGF data without warnings or errors" )
+  {
+    std::string sgfContent = GENERATE ( "(;)", "(;SZ[9]KM[6.5]B[aa])" );
+
+    WHEN( "SgfcCommandLine performs the load operation" )
+    {
+      SgfcCommandLine commandLine(emptyCommandLineArguments);
+      SgfcExitCode sgfExitCode = commandLine.LoadSgfContent(sgfContent);
+
+      THEN( "The load operation result indicates success" )
+      {
+        AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(commandLine, sgfExitCode);
+      }
+    }
+  }
+
+  GIVEN( "The string contains SGF data with warnings or errors" )
+  {
+    std::string sgfContent = "(;C[])(;)";
+
+    WHEN( "SgfcCommandLine performs the load operation" )
+    {
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments1 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::EnableRestrictiveChecking))
+      };
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments2 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DisableWarningMessages))
+      };
+      SgfcCommandLine commandLine1(commandLineArguments1);
+      SgfcCommandLine commandLine2(commandLineArguments2);
+      SgfcCommandLine commandLine3(emptyCommandLineArguments);
+      SgfcExitCode sgfExitCode1 = commandLine1.LoadSgfContent(sgfContent);
+      SgfcExitCode sgfExitCode2 = commandLine2.LoadSgfContent(sgfContent);
+      SgfcExitCode sgfExitCode3 = commandLine3.LoadSgfContent(sgfContent);
+
+      THEN( "The SGF content is valid and the exit code and parse result match the expected warnings and errors" )
+      {
+        AssertLoadResultWhenSgfDataHasWarningsOrErrors(commandLine1, commandLine2, commandLine3, sgfExitCode1, sgfExitCode2, sgfExitCode3);
+      }
+    }
+  }
+
+  GIVEN( "The string contains SGF data with a fatal error" )
+  {
+    std::string sgfContent = "(;FF[9])";
+
+    WHEN( "SgfcCommandLine performs the load operation" )
+    {
+      SgfcCommandLine commandLine(emptyCommandLineArguments);
+      SgfcExitCode sgfExitCode = commandLine.LoadSgfContent(sgfContent);
+
+      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      {
+        AssertLoadResultWhenSgfDataHasFatalError(commandLine, sgfExitCode);
       }
     }
   }
@@ -481,17 +500,10 @@ SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][fil
   // problems that are difficult to simulate in a test.
 }
 
-// Mark the scenario with the [filesystem] tag because behind the scenes
-// SgfcCommandLine writes the SGF content to a temporary file
-SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesystem]" )
+SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend]" )
 {
   std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
-
-  // Using a random UUID as the filename, it is reasonably safe to assume that
-  // the file does not exist
-  std::string tempFilePath = SgfcUtility::JoinPathComponents(
-    SgfcUtility::GetTempFolderPath(),
-    SgfcUtility::CreateUuid());
+  std::string sgfContent;
 
   GIVEN( "SgfcCommandLine was constructed with invalid command line arguments" )
   {
@@ -500,7 +512,6 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesyste
       std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
     };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
-    std::string sgfContent;
 
     WHEN( "SgfcCommandLine attempts to perform the save operation" )
     {
@@ -519,7 +530,6 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesyste
   GIVEN( "SgfcCommandLine did not perform a load operation" )
   {
     SgfcCommandLine commandLine(emptyCommandLineArguments);
-    std::string sgfContent;
 
     WHEN( "SgfcCommandLine attempts to perform the save operation" )
     {
@@ -534,28 +544,41 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend][filesyste
     }
   }
 
-  std::string fileContentToLoad = "(;)";
+  std::string sgfContentToLoad = "(;)";
   std::string expectedStringContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The string is empty" )
   {
-    SgfcUtility::AppendTextToFile(tempFilePath, fileContentToLoad);
-
     WHEN( "SgfcCommandLine performs the save operation" )
     {
       SgfcCommandLine commandLine(emptyCommandLineArguments);
-      SgfcExitCode sgfExitCodeLoad = commandLine.LoadSgfFile(tempFilePath);
+      SgfcExitCode sgfExitCodeLoad = commandLine.LoadSgfContent(sgfContentToLoad);
       REQUIRE( sgfExitCodeLoad == SgfcExitCode::Ok );
-      std::string sgfContent;
       SgfcExitCode sgfcExitCode = commandLine.SaveSgfContent(sgfContent);
 
-      THEN( "The save operation throws an exception" )
+      THEN( "The save operation succeeds and writes the SGF content into the string" )
       {
         AssertSaveResult(commandLine, sgfcExitCode, sgfContent, expectedStringContentSaved);
       }
     }
+  }
 
-    SgfcUtility::DeleteFileIfExists(tempFilePath);
+  GIVEN( "The string is not empty" )
+  {
+    WHEN( "SgfcCommandLine performs the save operation" )
+    {
+      sgfContent = "foo";
+
+      SgfcCommandLine commandLine(emptyCommandLineArguments);
+      SgfcExitCode sgfExitCodeLoad = commandLine.LoadSgfContent(sgfContentToLoad);
+      REQUIRE( sgfExitCodeLoad == SgfcExitCode::Ok );
+      SgfcExitCode sgfcExitCode = commandLine.SaveSgfContent(sgfContent);
+
+      THEN( "The save operation succeeds and overwrites the string content with the SGF content" )
+      {
+        AssertSaveResult(commandLine, sgfcExitCode, sgfContent, expectedStringContentSaved);
+      }
+    }
   }
 }
 
@@ -571,6 +594,73 @@ void AssertErrorLoadResultWhenNoValidSgfContent(const SgfcCommandLine& commandLi
   REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
   // 7 = SGFC error code "no SGF data found"
   REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+}
+
+void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(
+  const SgfcCommandLine& commandLine,
+  SgfcExitCode sgfExitCode)
+{
+  REQUIRE( sgfExitCode == SgfcExitCode::Ok );
+  REQUIRE( commandLine.IsSgfContentValid() == true );
+
+  auto parseResult = commandLine.GetParseResult();
+  REQUIRE( parseResult.size() == 0 );
+}
+
+void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
+  const SgfcCommandLine& commandLine1,
+  const SgfcCommandLine& commandLine2,
+  const SgfcCommandLine& commandLine3,
+  SgfcExitCode sgfExitCode1,
+  SgfcExitCode sgfExitCode2,
+  SgfcExitCode sgfExitCode3)
+{
+  // This part of the test verifies that message types are correctly
+  // mapped to exit codes. FatalError is verified in a different test.
+  REQUIRE( sgfExitCode1 == SgfcExitCode::Error );
+  REQUIRE( sgfExitCode2 == SgfcExitCode::Ok );
+  REQUIRE( sgfExitCode3 == SgfcExitCode::Warning );
+
+  REQUIRE( commandLine1.IsSgfContentValid() == true );
+  REQUIRE( commandLine2.IsSgfContentValid() == true );
+  REQUIRE( commandLine3.IsSgfContentValid() == true );
+
+  auto parseResult1 = commandLine1.GetParseResult();
+  auto parseResult2 = commandLine2.GetParseResult();
+  auto parseResult3 = commandLine3.GetParseResult();
+  REQUIRE( parseResult1.size() == 2 );
+  REQUIRE( parseResult2.size() == 0 );
+  REQUIRE( parseResult3.size() == 1 );
+
+  auto errorMessage1a = parseResult1.front();
+  auto errorMessage1b = parseResult1.back();
+  auto errorMessage3 = parseResult3.front();
+
+  REQUIRE( errorMessage1a->GetMessageType() == SgfcMessageType::Warning );
+  REQUIRE( errorMessage1b->GetMessageType() == SgfcMessageType::Error );
+  REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
+  // 17 = SGFC error code "empty value deleted"
+  REQUIRE( errorMessage1a->GetMessageID() == 17 );
+  REQUIRE( errorMessage3->GetMessageID() == 17 );
+  // 60 = SGFC error code "file contains more than one game tree"
+  REQUIRE( errorMessage1b->GetMessageID() == 60 );
+}
+
+void AssertLoadResultWhenSgfDataHasFatalError(
+  const SgfcCommandLine& commandLine,
+  SgfcExitCode sgfExitCode)
+{
+  REQUIRE( sgfExitCode == SgfcExitCode::FatalError );
+  REQUIRE( commandLine.IsSgfContentValid() == false );
+
+  auto parseResult = commandLine.GetParseResult();
+  REQUIRE( parseResult.size() == 1 );
+
+  auto errorMessage = parseResult.front();
+  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  // 46 = unknown file format
+  REQUIRE( errorMessage->GetMessageID() == 46 );
   REQUIRE( errorMessage->GetMessageText().length() > 0 );
 }
 

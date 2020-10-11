@@ -55,16 +55,8 @@ namespace LibSgfcPlusPlus
     /// through the SGFC parser, using the arguments that GetArguments()
     /// currently returns.
     ///
-    /// The implementation of this method saves the specified SGF content to a
-    /// temporary file and then instructs SGFC to load that file. After the
-    /// load operation the implementation deletes the temporary file.
-    ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
-    /// the read operation. If an error related to temporary file handling
-    /// occured the read result object contains an empty document and a parse
-    /// result that contains a single message whose ID indicates the nature of
-    /// the problem (e.g.
-    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
+    /// the read operation.
     virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) = 0;
   };
 }

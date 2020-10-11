@@ -61,16 +61,8 @@ namespace LibSgfcPlusPlus
     /// object @a sgfContent, using the arguments that GetArguments() currently
     /// returns.
     ///
-    /// The implementation of this method saves the SGF data generated from
-    /// @a document to a temporary file and then loads the content of that file
-    /// into the specified string object @a sgfContent. After the load operation
-    /// the implementation deletes the temporary file.
-    ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
-    /// the write operation. If an error related to temporary file handling
-    /// occured the write result object contains a parse result that contains a
-    /// single message whose ID indicates the nature of the problem (e.g.
-    /// SgfcConstants::SaveSgfContentToFilesystemErrorMessageID).
+    /// the write operation.
     ///
     /// @exception std::logic_error is thrown if @a document cannot be encoded
     /// into a string due to some fundamental error in the object tree.

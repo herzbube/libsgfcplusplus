@@ -128,9 +128,7 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to the filesystem", "[frontend]
   // problems that are difficult to simulate in a test.
 }
 
-// Mark the scenario with the [filesystem] tag because behind the scenes
-// SgfcDocumentWriter writes the SGF content to a temporary file
-SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][filesystem]" )
+SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend]" )
 {
   std::string sgfContent;
 
@@ -193,7 +191,7 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend][files
   // TODO: Add more tests for various compositions of the document
 }
 
-SCENARIO("The write operation behaviour is changed by arguments", "[frontend][filesystem]")
+SCENARIO("The write operation behaviour is changed by arguments", "[frontend]")
 {
   SgfcDocumentWriter writer;
   std::string sgfContent;

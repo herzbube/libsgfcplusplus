@@ -215,9 +215,7 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
   }
 }
 
-// Mark the scenario with the [filesystem] tag because behind the scenes
-// SgfcDocumentReader saves the SGF content to a temporary file
-SCENARIO( "SgfcDocumentReader reads SGF content from a string", "[frontend][filesystem]" )
+SCENARIO( "SgfcDocumentReader reads SGF content from a string", "[frontend]" )
 {
   GIVEN( "The string does not contain valid SGF data" )
   {
@@ -238,7 +236,7 @@ SCENARIO( "SgfcDocumentReader reads SGF content from a string", "[frontend][file
   // TODO: Add more tests that produce various compositions of a document
 }
 
-SCENARIO("The read operation behaviour is changed by arguments", "[frontend][filesystem]")
+SCENARIO("The read operation behaviour is changed by arguments", "[frontend]")
 {
   SgfcDocumentReader reader;
 
@@ -308,3 +306,110 @@ void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentRea
   REQUIRE( document->IsEmpty() == true );
   REQUIRE( document->GetGames().size() == 0 );
 }
+
+// TODO remove
+#include <iostream>
+#include <sgfc/frontend/SgfcDocumentWriter.h>
+#include <sgfc/frontend/SgfcCommandLine.h>
+#include <SgfcPlusPlusFactory.h>
+#include <ISgfcPropertyFactory.h>
+#include <ISgfcPropertyValueFactory.h>
+#include <ISgfcMovePropertyValue.h>
+#include <ISgfcNumberPropertyValue.h>
+#include <ISgfcPointPropertyValue.h>
+#include <ISgfcSimpleTextPropertyValue.h>
+#include <ISgfcTreeBuilder.h>
+#include <ISgfcDocumentWriteResult.h>
+//SCENARIO( "xxx", "[document][xxx]" )
+//{
+////  std::string sgfContent = "(;FF[4]GM[1]SZ[19]SZ[15]B[aa];W[bb]CR[bb])";
+////  std::string sgfContent = "(;FF[4]GM[1]SZ[19]B[aa]QQ[aa])";
+//  // Example for -v
+////  std::string sgfContent = "(;GM[1]W[kk];B[aa](;W[bb])(;AE[aa]B[cc])(;AE[aa]B[dd]))";
+//  std::string sgfContent = "(;B[cc] gfhf;W[kk] ];";
+//  SgfcDocumentReader reader;
+//  auto readResult = reader.ReadSgfContent(sgfContent);
+//  readResult->DebugPrintToConsole();
+//
+//
+//  auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+//  auto propertyValueGM = propertyValueFactory->CreateNumberPropertyValue(1);
+//  auto propertyValueMove1 = propertyValueFactory->CreateMovePropertyValue("kk");
+//  auto propertyValueMove2 = propertyValueFactory->CreateMovePropertyValue("ee");
+//  auto propertyValueRG = propertyValueFactory->CreateMovePropertyValue("aa");
+//  auto propertyValueQQ = propertyValueFactory->CreateNumberPropertyValue(1);
+//  auto propertyValueSimpleText = propertyValueFactory->CreateSimpleTextPropertyValue("kk ] ");
+//  auto propertyValuePoint1 = propertyValueFactory->CreatePointPropertyValue("aa");
+//  auto propertyValuePoint2 = propertyValueFactory->CreatePointPropertyValue("ab");
+//  auto propertyValuePoint3 = propertyValueFactory->CreatePointPropertyValue("ba");
+//  auto propertyValuePoint4 = propertyValueFactory->CreatePointPropertyValue("bb");
+//  auto propertyValuePoint5 = propertyValueFactory->CreatePointPropertyValue("ac");
+//
+//  auto emptyNode = SgfcPlusPlusFactory::CreateNode();
+//  auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+//  auto propertyGM = propertyFactory->CreateProperty(SgfcPropertyType::GM, propertyValueGM);
+//  auto propertyW = propertyFactory->CreateProperty(SgfcPropertyType::W, propertyValueMove1);
+//  auto propertyRG = propertyFactory->CreateProperty(SgfcPropertyType::RG, propertyValueRG);
+//  auto propertyCR = propertyFactory->CreateProperty(SgfcPropertyType::CR, propertyValueMove1);
+//  auto propertyQQ = propertyFactory->CreateProperty("QQQ", propertyValueQQ);
+//  auto propertyC = propertyFactory->CreateProperty(SgfcPropertyType::C, propertyValueSimpleText);
+//  std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValuesMove =
+//  {
+//    propertyValueMove1,
+//    propertyValueMove2
+//  };
+//  auto propertyBIllegal = propertyFactory->CreateProperty(SgfcPropertyType::W, propertyValuesMove);
+//  std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValuesPointList =
+//  {
+//    propertyValuePoint1,
+//    propertyValuePoint3,
+//    propertyValuePoint4,
+//    propertyValuePoint2
+//  };
+//  auto propertyMA = propertyFactory->CreateProperty(SgfcPropertyType::MA, propertyValuesPointList);
+//
+//  std::vector<std::shared_ptr<ISgfcProperty>> properties =
+//  {
+//    propertyGM,
+////    propertyRG
+////    propertyQQ,
+////    propertyW,
+////    propertyC
+////    propertyBIllegal
+//    propertyMA,
+//  };
+//  auto document = readResult->GetDocument();
+//  auto game = document->GetGames().front();
+//  game->GetRootNode()->SetProperties(properties);
+////  game->GetRootNode()->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>>());
+////  game->GetTreeBuilder()->AppendChild(game->GetRootNode(), emptyNode);
+//  game->GetTreeBuilder()->SetFirstChild(game->GetRootNode(), nullptr);
+////  game->GetRootNode()->GetFirstChild()->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>>());
+////  document->DebugPrintToConsole();
+//  SgfcDocumentWriter writer;
+//  writer.GetArguments()->AddArgument(SgfcArgumentType::ExpandCompressedPointLists);
+//
+//  auto writeResult = writer.WriteSgfContent(document, sgfContent);
+//
+//  std::cout << "Exit code = " << (int)writeResult->GetExitCode() << std::endl;
+//
+//  for (auto parseResultMessage : writeResult->GetParseResult())
+//  {
+//    std::cout
+//      << "Message ID = "
+//      << parseResultMessage->GetMessageID()
+//      << ", type = "
+//      << (int)parseResultMessage->GetMessageType()
+//      << ", line = "
+//      << parseResultMessage->GetLineNumber()
+//      << ", column = "
+//      << parseResultMessage->GetColumnNumber()
+//      << ", is critical = "
+//      << parseResultMessage->IsCriticalMessage()
+//      << ", text = "
+//      << parseResultMessage->GetMessageText()
+//      << std::endl;
+//  }
+//
+//  std::cout << sgfContent << std::endl;
+//}

@@ -1,7 +1,5 @@
 // Project includes
-#include "../../../include/SgfcConstants.h"
 #include "../../SgfcUtility.h"
-#include "../message/SgfcMessage.h"
 #include "SgfcCommandLine.h"
 
 // C++ Standard Library includes
@@ -46,37 +44,10 @@ namespace LibSgfcPlusPlus
 
   SgfcExitCode SgfcCommandLine::LoadSgfContent(const std::string& sgfContent)
   {
-    ThrowIfIsCommandLineValidReturnsFalse();
+    this->backendLoadResult = this->backendController->LoadSgfContent(sgfContent);
 
-    std::string tempFilePath = SgfcUtility::GetUniqueTempFilePath();
-
-    try
-    {
-      SgfcUtility::AppendTextToFile(tempFilePath, sgfContent);
-    }
-    catch (std::runtime_error&)
-    {
-      std::string messageText = "Writing SGF content to temporary file failed: " + tempFilePath;
-      SgfcExitCode sgfcExitCode = CreateAndSetBackendLoadResultWithErrorMessage(
-        SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
-        messageText);
-      return sgfcExitCode;
-    }
-
-    auto sgfcExitCode = LoadSgfFile(tempFilePath);
-
-    try
-    {
-      SgfcUtility::DeleteFileIfExists(tempFilePath);
-    }
-    catch (std::runtime_error&)
-    {
-      std::string messageText = "Deleting temporary file failed: " + tempFilePath;
-      SgfcExitCode sgfcExitCode = CreateAndSetBackendLoadResultWithErrorMessage(
-        SgfcConstants::DeleteFileErrorMessageID,
-        messageText);
-      return sgfcExitCode;
-    }
+    SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
+      this->backendLoadResult->GetParseResult());
 
     return sgfcExitCode;
   }
@@ -119,36 +90,12 @@ namespace LibSgfcPlusPlus
   {
     ThrowIfIsSgfContentValidReturnsFalse();
 
-    std::string tempFilePath = SgfcUtility::GetUniqueTempFilePath();
+    this->backendSaveResult = this->backendController->SaveSgfContent(
+      sgfContent,
+      this->backendLoadResult->GetSgfDataWrapper());
 
-    auto sgfcExitCode = SaveSgfFile(tempFilePath);
-
-    if (sgfcExitCode == SgfcExitCode::FatalError)
-    {
-      DeleteTempFileOrCreateAndSetBackendSaveResultWithErrorMessage(tempFilePath);
-      return SgfcExitCode::FatalError;
-    }
-
-    try
-    {
-      sgfContent = SgfcUtility::ReadFileContent(tempFilePath);
-    }
-    catch (std::runtime_error&)
-    {
-      bool deleteTempFileSuccess = DeleteTempFileOrCreateAndSetBackendSaveResultWithErrorMessage(tempFilePath);
-      if (! deleteTempFileSuccess)
-        return SgfcExitCode::FatalError;
-
-      std::string messageText = "Reading SGF content from temporary file failed: " + tempFilePath;
-      SgfcExitCode sgfcExitCode = CreateAndSetBackendSaveResultWithErrorMessage(
-        SgfcConstants::ReadSgfContentFromFilesystemErrorMessageID,
-        messageText);
-      return sgfcExitCode;
-    }
-
-    bool deleteTempFileSuccess = DeleteTempFileOrCreateAndSetBackendSaveResultWithErrorMessage(tempFilePath);
-    if (! deleteTempFileSuccess)
-      return SgfcExitCode::FatalError;
+    SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
+      this->backendSaveResult->GetSaveResult());
 
     return sgfcExitCode;
   }
@@ -173,57 +120,5 @@ namespace LibSgfcPlusPlus
   {
     if (! this->IsSgfContentValid())
       throw std::logic_error("Interface protocol violation: IsSgfContentValid() returns false");
-  }
-
-  bool SgfcCommandLine::DeleteTempFileOrCreateAndSetBackendSaveResultWithErrorMessage(
-    const std::string& tempFilePath)
-  {
-    try
-    {
-      SgfcUtility::DeleteFileIfExists(tempFilePath);
-      return true;
-    }
-    catch (std::runtime_error&)
-    {
-      std::string messageText = "Deleting temporary file failed: " + tempFilePath;
-      SgfcExitCode sgfcExitCode = CreateAndSetBackendSaveResultWithErrorMessage(
-        SgfcConstants::DeleteFileErrorMessageID,
-        messageText);
-      return false;
-    }
-  }
-
-  SgfcExitCode SgfcCommandLine::CreateAndSetBackendLoadResultWithErrorMessage(
-    int messageID,
-    const std::string& messageText)
-  {
-    auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-      messageID,
-      messageText));
-
-    std::vector<std::shared_ptr<ISgfcMessage>> parseResult = { message };
-    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
-      std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
-
-    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
-      std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(parseResult, sgfDataWrapper));
-
-    return SgfcUtility::GetSgfcExitCodeFromMessageCollection(parseResult);
-  }
-
-  SgfcExitCode SgfcCommandLine::CreateAndSetBackendSaveResultWithErrorMessage(
-    int messageID,
-    const std::string& messageText)
-  {
-    auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-      messageID,
-      messageText));
-
-    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = { message };
-
-    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
-      std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveSgfResult));
-
-    return SgfcUtility::GetSgfcExitCodeFromMessageCollection(saveSgfResult);
   }
 }

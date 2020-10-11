@@ -1,6 +1,7 @@
 #pragma once
 
 // Project includes
+#include "../backend/SgfcDataLocation.h"
 #include "../../../include/ISgfcDocumentWriter.h"
 
 namespace LibSgfcPlusPlus
@@ -31,10 +32,10 @@ namespace LibSgfcPlusPlus
   private:
     std::shared_ptr<ISgfcArguments> arguments;
 
-    std::shared_ptr<ISgfcDocumentWriteResult> DeleteTempFileOrCreateWriteResultWithErrorMessage(
-      const std::string& tempFilePath) const;
-    std::shared_ptr<ISgfcDocumentWriteResult> CreateWriteResultWithErrorMessage(
-      int messageID,
-      const std::string& messageText) const;
+    std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContentToFilesystemOrInMemoryBuffer(
+      std::shared_ptr<ISgfcDocument> document,
+      const std::string& sgfFilePath,
+      std::string& sgfContent,
+      SgfcDataLocation dataLocation);
   };
 }

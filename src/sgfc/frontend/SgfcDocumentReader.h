@@ -1,6 +1,7 @@
 #pragma once
 
 // Project includes
+#include "../backend/SgfcDataLocation.h"
 #include "../../../include/ISgfcDocumentReader.h"
 
 namespace LibSgfcPlusPlus
@@ -25,8 +26,9 @@ namespace LibSgfcPlusPlus
   private:
     std::shared_ptr<ISgfcArguments> arguments;
 
-    std::shared_ptr<ISgfcDocumentReadResult> CreateReadResultWithErrorMessage(
-      int messageID,
-      const std::string& messageText) const;
+    std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContentFromFilesystemOrInMemoryBuffer(
+      const std::string& sgfFilePath,
+      const std::string& sgfContent,
+      SgfcDataLocation dataLocation);
   };
 }
