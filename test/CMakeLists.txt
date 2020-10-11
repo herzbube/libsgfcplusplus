@@ -3,16 +3,6 @@ if ( NOT DEFINED SOURCES )
   message ( FATAL_ERROR "List of source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
 
-# TODO: Use target_include_directories instead of include_directories
-include_directories (
-  Catch2/single_include
-  # The tests treat libsgfc++ itself as a third-party library, so the next two
-  # include directories are required to find the public interface headers and
-  # the private implementation headers.
-  ../include
-  ../src
-)
-
 # Here we define the test executable target. Catch2 provides us with a
 # sophisticated test driver, so main.cpp is mostly empty.
 add_executable (
@@ -20,8 +10,19 @@ add_executable (
   ${SOURCES}
 )
 
-# We link against the shared library. We could also link against the static
-# library, but this would be a bit slower.
+target_include_directories (
+  ${TEST_EXECUTABLE_TARGET_NAME}
+  PRIVATE Catch2/single_include
+  # The tests treat libsgfc++ itself as a third-party library, so the next two
+  # include directories are required to find the public interface headers and
+  # the private implementation headers.
+  PRIVATE ../include
+  PRIVATE ../src
+)
+
+# Unit tests test library-internal classes. We need to link against a library
+# that makes the symbols for these internal classes visible to us. This should
+# be static library.
 target_link_libraries (
   ${TEST_EXECUTABLE_TARGET_NAME}
   ${LINK_LIBRARY_TARGET_NAME}
@@ -51,11 +52,3 @@ add_test (
   NAME "all"
   COMMAND ${TEST_EXECUTABLE_TARGET_NAME}
 )
-
-# TODO: Find out how to build bundles on iOS. The following sets the bundle
-# identifier, but this alone is not sufficient.
-#set_target_properties(
-#  ${TEST_EXECUTABLE_TARGET_NAME}
-#  PROPERTIES
-#  XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "ch.herzbube.libsgfcplusplus-test"
-#)

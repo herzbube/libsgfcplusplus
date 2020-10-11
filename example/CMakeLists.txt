@@ -3,17 +3,17 @@ if ( NOT DEFINED SOURCES )
   message ( FATAL_ERROR "List of source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
 
-# TODO: Use target_include_directories instead of include_directories
-include_directories (
-  # The examples treat libsgfc++ itself as a third-party library, so the next
-  # include directory is required to find the public interface headers.
-  ../include
-)
-
 # Here we define the example executable target.
 add_executable (
   ${EXAMPLE_EXECUTABLE_TARGET_NAME}
   ${SOURCES}
+)
+
+target_include_directories (
+  ${EXAMPLE_EXECUTABLE_TARGET_NAME}
+  # The examples treat libsgfc++ itself as a third-party library, so the next
+  # include directory is required to find the public interface headers.
+  PRIVATE ../include
 )
 
 # We link against the shared library. We could also link against the static

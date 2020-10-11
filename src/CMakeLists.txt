@@ -396,29 +396,6 @@ if ( ENABLE_SHARED_FRAMEWORK )
   )
 endif()
 
-# TODO Remove the following block?
-# Install all artifcats.
-#install (
-#  TARGETS
-#  ${SHARED_LIBRARY_TARGET_NAME}
-#  ${STATIC_LIBRARY_TARGET_NAME}
-#  ${SHARED_FRAMEWORK_TARGET_NAME}
-#  ${STATIC_FRAMEWORK_TARGET_NAME}
-
-  # This lets the user build and install only one of the targets, e.g.
-  #   cmake --build . --target libsgfc++_static
-  #   cmake --install . --prefix /path/to/destfolder
-  # Note that this setting applies to all artifact types because there isn't
-  # an artifact type selector in front of it.
-#  OPTIONAL
-
-  # Here we start setting properties for the "Framework" artifact type.
-#  FRAMEWORK
-  # Libraries and header files have default destinations ("lib", "include") but
-  # frameworks don't.
-#  DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
-#)
-
 # On some systems CMake automatically populates the LIBRARY and PUBLIC_HEADER
 # destinations with values defined by the GNUInstallDirs module (e.g. macOS with
 # CMake 3.11 and Xcode, Windows with CMake 3.16 and VisualStudio). On other

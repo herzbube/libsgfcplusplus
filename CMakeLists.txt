@@ -249,7 +249,6 @@ set ( EXPORT_HEADER_EXPORTS_MACRO_NAME ${EXPORT_HEADER_TARGET_NAME}_EXPORTS )
 set ( EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME ${EXPORT_HEADER_BASE_NAME}_STATIC_DEFINE )
 message ( STATUS "Linking against the static library requires the consumer to define this preprocessor macro during the build: ${EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME}" )
 
-
 # Unit tests of course also test library-internal classes. The symbols for these
 # internal classes are not visible in shared libraries. The unit test target
 # therefore must link against a static library to gain access to all symbols.
