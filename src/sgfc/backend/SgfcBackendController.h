@@ -6,6 +6,7 @@
 #include "SgfcBackendDataWrapper.h"
 #include "SgfcBackendLoadResult.h"
 #include "SgfcBackendSaveResult.h"
+#include "SgfcDataLocation.h"
 #include "SgfcOptions.h"
 
 // C++ Standard Library includes
@@ -102,6 +103,19 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<SgfcBackendLoadResult> LoadSgfFile(
       const std::string& sgfFilePath);
 
+    /// @brief Loads the specified SGF content and puts it through the SGFC
+    /// parser. This method may only be invoked if IsCommandLineValid() returns
+    /// true.
+    ///
+    /// @return An SgfcBackendLoadResult object that holds the result of the
+    /// load operation. Notably if the operation was successful the result
+    /// object contains the SGF content that was loaded.
+    ///
+    /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
+    /// false.
+    std::shared_ptr<SgfcBackendLoadResult> LoadSgfContent(
+      const std::string& sgfContent);
+
     /// @brief Saves the SGF content that is encapsulated by @a sgfDataWrapper
     /// to the .sgf file at the specified path @a sgfFilePath. This method may
     /// only be invoked if IsCommandLineValid() returns true.
@@ -117,6 +131,21 @@ namespace LibSgfcPlusPlus
       const std::string& sgfFilePath,
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper);
 
+    /// @brief Saves the SGF content that is encapsulated by @a sgfDataWrapper
+    /// into the specified string object. This method may only be invoked if
+    /// IsCommandLineValid() returns true.
+    ///
+    /// The previous content of @a sgfContent is overwritten.
+    ///
+    /// @return An SgfcBackendSaveResult object that holds the result of the
+    /// save operation.
+    ///
+    /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
+    /// false.
+    std::shared_ptr<SgfcBackendSaveResult> SaveSgfContent(
+      std::string& sgfContent,
+      std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper);
+
   private:
     std::vector<std::shared_ptr<ISgfcArgument>> arguments;
     std::shared_ptr<ISgfcMessage> invalidCommandLineReason;
@@ -127,6 +156,16 @@ namespace LibSgfcPlusPlus
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
     void InvokeSgfcParseArgs(int argc, const char** argv);
+
+    std::shared_ptr<SgfcBackendLoadResult> LoadSgfContentFromFilesystemOrInMemoryBuffer(
+      const std::string& sgfFilePath,
+      const std::string& sgfContent,
+      SgfcDataLocation dataLocation);
+    std::shared_ptr<SgfcBackendSaveResult> SaveSgfContentToFilesystemOrInMemoryBuffer(
+      const std::string& sgfFilePath,
+      std::string& sgfContent,
+      std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper,
+      SgfcDataLocation dataLocation);
 
     void ResetGlobalVariables();
 

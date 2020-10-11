@@ -15,6 +15,14 @@ extern "C"
 
 using namespace LibSgfcPlusPlus;
 
+
+void AssertErrorLoadResultWhenNoValidSgfContent(std::shared_ptr<SgfcBackendLoadResult> loadResult);
+void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(std::shared_ptr<SgfcBackendLoadResult> loadResult, const std::string& sgfContent);
+void AssertLoadResultWhenSgfDataHasWarningsOrErrors(std::shared_ptr<SgfcBackendLoadResult> loadResult1, std::shared_ptr<SgfcBackendLoadResult> loadResult2, std::shared_ptr<SgfcBackendLoadResult> loadResult3);
+void AssertLoadResultWhenSgfDataHasFatalError(std::shared_ptr<SgfcBackendLoadResult> loadResult);
+void AssertSaveResult(std::shared_ptr<SgfcBackendSaveResult> backendSaveResult, const std::string& actualSgfContent, const std::string& expectedSgfContent);
+
+
 SCENARIO( "SgfcBackendController is constructed", "[backend]" )
 {
   GIVEN( "The default constructor is used" )
@@ -112,6 +120,8 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
 
 SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backend][filesystem]" )
 {
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
+
   // Using a random UUID as the filename, it is reasonably safe to assume that
   // the file does not exist
   std::string tempFilePath = SgfcUtility::JoinPathComponents(
@@ -141,7 +151,7 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
   {
     WHEN( "SgfcBackendController performs the load operation" )
     {
-      SgfcBackendController backendController;
+      SgfcBackendController backendController(emptyCommandLineArguments);
       auto loadResult = backendController.LoadSgfFile(tempFilePath);
 
       THEN( "The load operation result indicates failure" )
@@ -165,58 +175,38 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
 
     WHEN( "SgfcBackendController performs the load operation" )
     {
-      SgfcBackendController backendController;
+      SgfcBackendController backendController(emptyCommandLineArguments);
       auto loadResult = backendController.LoadSgfFile(tempFilePath);
 
       THEN( "The load operation result indicates failure" )
       {
-        auto parseResult = loadResult->GetParseResult();
-        REQUIRE( parseResult.size() == 1 );
-
-        auto errorMessage = parseResult.front();
-        REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 7 = SGFC error code "no SGF data found"
-        REQUIRE( errorMessage->GetMessageID() == 7 );
-        REQUIRE( errorMessage->GetMessageText().length() > 0 );
+        AssertErrorLoadResultWhenNoValidSgfContent(loadResult);
       }
     }
 
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
 
-  GIVEN( "The file exists and is an .sgf file" )
+  GIVEN( "The file exists and is an .sgf file without warnings or errors" )
   {
     std::string fileContent = GENERATE ( "(;)", "(;SZ[9]KM[6.5]B[aa])" );
     SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
 
     WHEN( "SgfcBackendController performs the load operation" )
     {
-      SgfcBackendController backendController;
+      SgfcBackendController backendController(emptyCommandLineArguments);
       auto loadResult = backendController.LoadSgfFile(tempFilePath);
 
       THEN( "The load operation result indicates success" )
       {
-        auto parseResult = loadResult->GetParseResult();
-        REQUIRE( parseResult.size() == 0 );
-
-        auto sgfDataWrapper = loadResult->GetSgfDataWrapper();
-        auto sgfData = sgfDataWrapper->GetSgfData();
-
-        REQUIRE( sgfData->buffer != nullptr );
-        // sgfData->buffer does not have a zero-byte terminator, we must provide
-        // the buffer length
-        REQUIRE( std::string(sgfData->buffer, fileContent.size()) == fileContent );
-        REQUIRE( sgfData->b_end == sgfData->buffer + fileContent.size() );
-        // current must point to the end of the buffer because the buffer has
-        // been parsed
-        REQUIRE( sgfData->current == sgfData->b_end );
+        AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(loadResult, fileContent);
       }
     }
 
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
 
-  GIVEN( "Several SgfcBackendController objects with different command line arguments are constructed" )
+  GIVEN( "The file exists and is an .sgf file with warnings or errors" )
   {
     std::string fileContent = "(;C[])(;)";
     SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
@@ -233,37 +223,33 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
       };
       SgfcBackendController backendController1(commandLineArguments1);
       SgfcBackendController backendController2(commandLineArguments2);
-      SgfcBackendController backendController3;
+      SgfcBackendController backendController3(emptyCommandLineArguments);
       auto loadResult1 = backendController1.LoadSgfFile(tempFilePath);
       auto loadResult2 = backendController2.LoadSgfFile(tempFilePath);
       auto loadResult3 = backendController3.LoadSgfFile(tempFilePath);
 
-      THEN( "The load operation result matches the the command line arguments" )
+      THEN( "The SGF content is valid and the exit code and parse result match the expected warnings and errors" )
       {
-        // The goal of this test is to verify that when SgfcBackendController
-        // performs a load operation it resets the global state within SGFC to
-        // match its own command line arguments. The order in which the
-        // controllers are exercised is semi-relevant.
+        AssertLoadResultWhenSgfDataHasWarningsOrErrors(loadResult1, loadResult2, loadResult3);
+      }
+    }
 
-        auto parseResult1 = loadResult1->GetParseResult();
-        auto parseResult2 = loadResult2->GetParseResult();
-        auto parseResult3 = loadResult3->GetParseResult();
-        REQUIRE( parseResult1.size() == 2 );
-        REQUIRE( parseResult2.size() == 0 );
-        REQUIRE( parseResult3.size() == 1 );
+    SgfcUtility::DeleteFileIfExists(tempFilePath);
+  }
 
-        auto errorMessage1a = parseResult1.front();
-        auto errorMessage1b = parseResult1.back();
-        auto errorMessage3 = parseResult3.front();
+  GIVEN( "The file exists and is an .sgf file with a fatal error" )
+  {
+    std::string fileContent = "(;FF[9])";
+    SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
 
-        REQUIRE( errorMessage1a->GetMessageType() == SgfcMessageType::Warning );
-        REQUIRE( errorMessage1b->GetMessageType() == SgfcMessageType::Error );
-        REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
-        // 17 = SGFC error code "empty value deleted"
-        REQUIRE( errorMessage1a->GetMessageID() == 17 );
-        REQUIRE( errorMessage3->GetMessageID() == 17 );
-        // 60 = SGFC error code "file contains more than one game tree"
-        REQUIRE( errorMessage1b->GetMessageID() == 60 );
+    WHEN( "SgfcBackendController performs the load operation" )
+    {
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto loadResult = backendController.LoadSgfFile(tempFilePath);
+
+      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      {
+        AssertLoadResultWhenSgfDataHasFatalError(loadResult);
       }
     }
 
@@ -271,8 +257,110 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
   }
 }
 
+SCENARIO( "SgfcBackendController loads SGF content from a string", "[backend][zzz]" )
+{
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
+
+//  GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
+//  {
+//    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+//    {
+//      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+//    };
+//    SgfcBackendController backendController(invalidCommandLineArguments);
+//
+//    WHEN( "SgfcBackendController attempts to perform the load operation" )
+//    {
+//      THEN( "The load operation throws an exception" )
+//      {
+//        REQUIRE_THROWS_AS(
+//          backendController.LoadSgfContent("(;)"),
+//          std::logic_error);
+//      }
+//    }
+//  }
+//
+//  GIVEN( "The string does not contain valid SGF data" )
+//  {
+//    std::string sgfContent = GENERATE ( "", "foobar" );
+//
+//    WHEN( "SgfcBackendController performs the load operation" )
+//    {
+//      SgfcBackendController backendController(emptyCommandLineArguments);
+//      auto loadResult = backendController.LoadSgfContent(sgfContent);
+//
+//      THEN( "The load operation result indicates failure" )
+//      {
+//        AssertErrorLoadResultWhenNoValidSgfContent(loadResult);
+//      }
+//    }
+//  }
+
+  GIVEN( "The string contains SGF data without warnings or errors" )
+  {
+    std::string sgfContent = GENERATE ( "(;)", "(;SZ[9]KM[6.5]B[aa])" );
+
+    WHEN( "SgfcBackendController performs the load operation" )
+    {
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto loadResult = backendController.LoadSgfContent(sgfContent);
+
+      THEN( "The load operation result indicates success" )
+      {
+        AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(loadResult, sgfContent);
+      }
+    }
+  }
+
+  GIVEN( "The string contains SGF data with warnings or errors" )
+  {
+    std::string sgfContent = "(;C[])(;)";
+
+    WHEN( "SgfcBackendController performs the load operation" )
+    {
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments1 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::EnableRestrictiveChecking))
+      };
+      std::vector<std::shared_ptr<ISgfcArgument>> commandLineArguments2 =
+      {
+        std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DisableWarningMessages))
+      };
+      SgfcBackendController backendController1(commandLineArguments1);
+      SgfcBackendController backendController2(commandLineArguments2);
+      SgfcBackendController backendController3(emptyCommandLineArguments);
+      auto loadResult1 = backendController1.LoadSgfContent(sgfContent);
+      auto loadResult2 = backendController2.LoadSgfContent(sgfContent);
+      auto loadResult3 = backendController3.LoadSgfContent(sgfContent);
+
+      THEN( "The SGF content is valid and the exit code and parse result match the expected warnings and errors" )
+      {
+        AssertLoadResultWhenSgfDataHasWarningsOrErrors(loadResult1, loadResult2, loadResult3);
+      }
+    }
+  }
+
+  GIVEN( "The string contains SGF data with a fatal error" )
+  {
+    std::string sgfContent = "(;FF[9])";
+
+    WHEN( "SgfcBackendController performs the load operation" )
+    {
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto loadResult = backendController.LoadSgfContent(sgfContent);
+
+      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      {
+        AssertLoadResultWhenSgfDataHasFatalError(loadResult);
+      }
+    }
+  }
+}
+
 SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend][filesystem]" )
 {
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
+
   // Using a random UUID as the filename, it is reasonably safe to assume that
   // the file does not exist
   std::string tempFilePath = SgfcUtility::JoinPathComponents(
@@ -308,7 +396,7 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
     {
       std::string contentBuffer = "(;)";
       auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));
-      SgfcBackendController backendController;
+      SgfcBackendController backendController(emptyCommandLineArguments);
       auto backendSaveResult = backendController.SaveSgfFile(tempFilePath, backendDataWrapper);
 
       THEN( "The save operation succeeds" )
@@ -332,7 +420,7 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
 
       std::string contentBuffer = "(;)";
       auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));
-      SgfcBackendController backendController;
+      SgfcBackendController backendController(emptyCommandLineArguments);
       auto backendSaveResult = backendController.SaveSgfFile(tempFilePath, backendDataWrapper);
 
       THEN( "The save operation succeeds and overwrites the previous file content" )
@@ -347,4 +435,155 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
 
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
+}
+
+SCENARIO( "SgfcBackendController saves SGF content to a string", "[backend]" )
+{
+  std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
+  std::string sgfContent;
+
+  GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
+  {
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+    };
+    SgfcBackendController backendController(invalidCommandLineArguments);
+    std::string contentBuffer;
+    auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));
+
+    WHEN( "SgfcBackendController attempts to perform the save operation" )
+    {
+      THEN( "The save operation throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          backendController.SaveSgfContent(sgfContent, backendDataWrapper),
+          std::logic_error);
+      }
+    }
+  }
+
+  std::string contentBuffer = "(;)";
+  std::string expectedStringContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+
+  GIVEN( "The string is empty" )
+  {
+    WHEN( "SgfcBackendController performs the save operation" )
+    {
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto backendSaveResult = backendController.SaveSgfContent(sgfContent, backendDataWrapper);
+
+      THEN( "The save operation succeeds and writes the SGF content into the string" )
+      {
+        AssertSaveResult(backendSaveResult, sgfContent, expectedStringContentSaved);
+      }
+    }
+  }
+
+  GIVEN( "The string is not empty" )
+  {
+    WHEN( "SgfcBackendController performs the save operation" )
+    {
+      sgfContent = "foo";
+
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBuffer));
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto backendSaveResult = backendController.SaveSgfContent(sgfContent, backendDataWrapper);
+
+      THEN( "The save operation succeeds and overwrites the string content with the SGF content" )
+      {
+        AssertSaveResult(backendSaveResult, sgfContent, expectedStringContentSaved);
+      }
+    }
+  }
+}
+
+void AssertErrorLoadResultWhenNoValidSgfContent(
+  std::shared_ptr<SgfcBackendLoadResult> loadResult)
+{
+  auto parseResult = loadResult->GetParseResult();
+  REQUIRE( parseResult.size() == 1 );
+
+  auto errorMessage = parseResult.front();
+  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  // 7 = SGFC error code "no SGF data found"
+  REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+}
+
+void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(
+  std::shared_ptr<SgfcBackendLoadResult> loadResult,
+  const std::string& sgfContent)
+{
+  auto parseResult = loadResult->GetParseResult();
+  REQUIRE( parseResult.size() == 0 );
+
+  auto sgfDataWrapper = loadResult->GetSgfDataWrapper();
+  auto sgfData = sgfDataWrapper->GetSgfData();
+
+  REQUIRE( sgfData->buffer != nullptr );
+  // sgfData->buffer does not have a zero-byte terminator, we must provide
+  // the buffer length
+  REQUIRE( std::string(sgfData->buffer, sgfContent.size()) == sgfContent );
+  REQUIRE( sgfData->b_end == sgfData->buffer + sgfContent.size() );
+  // current must point to the end of the buffer because the buffer has
+  // been parsed
+  REQUIRE( sgfData->current == sgfData->b_end );
+}
+
+void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
+  std::shared_ptr<SgfcBackendLoadResult> loadResult1,
+  std::shared_ptr<SgfcBackendLoadResult> loadResult2,
+  std::shared_ptr<SgfcBackendLoadResult> loadResult3)
+{
+  // The goal of this test is to verify that when SgfcBackendController
+  // performs a load operation it resets the global state within SGFC to
+  // match its own command line arguments. The order in which the
+  // controllers are exercised is semi-relevant.
+
+  auto parseResult1 = loadResult1->GetParseResult();
+  auto parseResult2 = loadResult2->GetParseResult();
+  auto parseResult3 = loadResult3->GetParseResult();
+  REQUIRE( parseResult1.size() == 2 );
+  REQUIRE( parseResult2.size() == 0 );
+  REQUIRE( parseResult3.size() == 1 );
+
+  auto errorMessage1a = parseResult1.front();
+  auto errorMessage1b = parseResult1.back();
+  auto errorMessage3 = parseResult3.front();
+
+  REQUIRE( errorMessage1a->GetMessageType() == SgfcMessageType::Warning );
+  REQUIRE( errorMessage1b->GetMessageType() == SgfcMessageType::Error );
+  REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
+  // 17 = SGFC error code "empty value deleted"
+  REQUIRE( errorMessage1a->GetMessageID() == 17 );
+  REQUIRE( errorMessage3->GetMessageID() == 17 );
+  // 60 = SGFC error code "file contains more than one game tree"
+  REQUIRE( errorMessage1b->GetMessageID() == 60 );
+}
+
+void AssertLoadResultWhenSgfDataHasFatalError(
+  std::shared_ptr<SgfcBackendLoadResult> loadResult)
+{
+  auto parseResult = loadResult->GetParseResult();
+  REQUIRE( parseResult.size() == 1 );
+
+  auto errorMessage = parseResult.front();
+  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  // 46 = unknown file format
+  REQUIRE( errorMessage->GetMessageID() == 46 );
+  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+
+}
+
+void AssertSaveResult(
+  std::shared_ptr<SgfcBackendSaveResult> backendSaveResult,
+  const std::string& actualSgfContent,
+  const std::string& expectedSgfContent)
+{
+  auto saveResult = backendSaveResult->GetSaveResult();
+  REQUIRE( saveResult.size() == 0 );
+
+  REQUIRE( actualSgfContent == expectedSgfContent );
 }

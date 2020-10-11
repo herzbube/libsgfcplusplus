@@ -68,133 +68,30 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<SgfcBackendLoadResult> SgfcBackendController::LoadSgfFile(const std::string& sgfFilePath)
   {
-    ThrowIfIsCommandLineValidReturnsFalse();
+    std::string sgfContent;
+    return LoadSgfContentFromFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, SgfcDataLocation::Filesystem);
+  }
 
-    std::lock_guard sgfcGuard(sgfcMutex);
-
-    // Reset global variables, then re-apply the outcome of ParseArgs() so that
-    // SGFC behaves the same on each invocation.
-    ResetGlobalVariables();
-    this->sgfcOptions.RestoreOptions();
-
-    // It is safe to keep the pointer to the internal string buffer as long
-    // as the string remains in scope and we don't change the string content.
-    // It is safe to remove const'ness because we know that LoadSGF() and
-    // ParseSGF() won't change the char buffer.
-    option_infile = const_cast<char*>(sgfFilePath.c_str());
-
-    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper =
-      std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
-
-    // Prepare the SGFInfo struct for LoadSGF()
-    sgfDataWrapper->GetSgfData()->name = option_infile;
-
-    try
-    {
-      // Both of the following functions set the global variable sgfc as a
-      // side effect
-      LoadSGF(sgfDataWrapper->GetSgfData());
-      ParseSGF(sgfDataWrapper->GetSgfData());
-    }
-    catch (std::runtime_error&)
-    {
-      // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to after
-      // GetMessageStreamResult().
-    }
-
-    std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = GetMessageStreamResult();
-
-    sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
-
-    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
-      std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(parseSgfResult, sgfDataWrapper));
-    return backendLoadResult;
+  std::shared_ptr<SgfcBackendLoadResult> SgfcBackendController::LoadSgfContent(const std::string& sgfContent)
+  {
+    std::string sgfFilePath;
+    return LoadSgfContentFromFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, SgfcDataLocation::InMemoryBuffer);
   }
 
   std::shared_ptr<SgfcBackendSaveResult> SgfcBackendController::SaveSgfFile(
     const std::string& sgfFilePath,
     std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper)
   {
-    ThrowIfIsCommandLineValidReturnsFalse();
+    std::string sgfContent;
+    return SaveSgfContentToFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, sgfDataWrapper, SgfcDataLocation::Filesystem);
+  }
 
-    std::lock_guard sgfcGuard(sgfcMutex);
-
-    // Reset global variables, then re-apply the outcome of ParseArgs() so that
-    // SGFC behaves the same on each invocation.
-    ResetGlobalVariables();
-    this->sgfcOptions.RestoreOptions();
-
-    bool parseSgfWasSuccessful = true;
-
-    if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
-    {
-      try
-      {
-        // Both of the following functions set the global variable sgfc as a
-        // side effect
-        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
-        ParseSGF(sgfDataWrapper->GetSgfData());
-      }
-      catch (std::runtime_error&)
-      {
-        // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to after
-        // GetMessageStreamResult().
-        parseSgfWasSuccessful = false;
-      }
-
-      sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
-    }
-
-    // Don't attempt to save if parsing was not successful
-    // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
-    // we skip saving also for critical errors?
-    if (parseSgfWasSuccessful)
-    {
-      // It is safe to keep the pointer to the internal string buffer as long
-      // as the string remains in scope and we don't change the string content.
-      // It is safe to remove const'ness because we know that SaveSGF() won't
-      // change the char buffer.
-      option_outfile = const_cast<char*>(sgfFilePath.c_str());
-
-      // Prepare the SGFInfo struct for SaveSGF()
-      sgfDataWrapper->GetSgfData()->name = option_outfile;
-
-      try
-      {
-        // The following function sets the global variable sgfc as a side effect
-        SaveSGF(sgfDataWrapper->GetSgfData());
-      }
-      catch (std::runtime_error&)
-      {
-        // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to after
-        // GetMessageStreamResult().
-      }
-    }
-
-    std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents = GetSaveStreamResult();
-    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = GetMessageStreamResult();
-
-    for (auto sgfContent : sgfContents)
-    {
-      bool success = SaveSgfContentToFilesystem(sgfContent);
-      if (! success)
-      {
-        std::string messageString = "Writing SGF file failed: " + sgfContent->GetFileName();
-
-        auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-          SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
-          messageString));
-
-        saveSgfResult.push_back(message);
-      }
-    }
-
-    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
-      std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveSgfResult));
-    return backendSaveResult;
+  std::shared_ptr<SgfcBackendSaveResult> SgfcBackendController::SaveSgfContent(
+    std::string& sgfContent,
+    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper)
+  {
+    std::string sgfFilePath;
+    return SaveSgfContentToFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, sgfDataWrapper, SgfcDataLocation::InMemoryBuffer);
   }
 
   void SgfcBackendController::ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
@@ -293,6 +190,170 @@ namespace LibSgfcPlusPlus
         SetInvalidCommandLineReasonFromParseArgsResults(parseArgsResult);
       }
     }
+  }
+
+  std::shared_ptr<SgfcBackendLoadResult> SgfcBackendController::LoadSgfContentFromFilesystemOrInMemoryBuffer(
+    const std::string& sgfFilePath,
+    const std::string& sgfContent,
+    SgfcDataLocation dataLocation)
+  {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
+    std::lock_guard sgfcGuard(sgfcMutex);
+
+    // Reset global variables, then re-apply the outcome of ParseArgs() so that
+    // SGFC behaves the same on each invocation.
+    ResetGlobalVariables();
+    this->sgfcOptions.RestoreOptions();
+
+    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper;
+    if (dataLocation == SgfcDataLocation::Filesystem)
+    {
+      // It is safe to keep the pointer to the internal string buffer as long
+      // as the string remains in scope and we don't change the string content.
+      // It is safe to remove const'ness because we know that LoadSGF() and
+      // ParseSGF() won't change the char buffer.
+      option_infile = const_cast<char*>(sgfFilePath.c_str());
+
+      sgfDataWrapper =
+        std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
+
+      // Prepare the SGFInfo struct for LoadSGF()
+      sgfDataWrapper->GetSgfData()->name = option_infile;
+    }
+    else
+    {
+      sgfDataWrapper =
+        std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
+    }
+
+    try
+    {
+      // All three of the following functions set the global variable sgfc as a
+      // side effect
+      if (dataLocation == SgfcDataLocation::Filesystem)
+        LoadSGF(sgfDataWrapper->GetSgfData());
+      else
+        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+      ParseSGF(sgfDataWrapper->GetSgfData());
+    }
+    catch (std::runtime_error&)
+    {
+      // Handle the exception. The SGFC message stream should now hold a
+      // fatal error message that we get access to after
+      // GetMessageStreamResult().
+    }
+
+    std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = GetMessageStreamResult();
+
+    sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
+
+    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
+      std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(parseSgfResult, sgfDataWrapper));
+    return backendLoadResult;
+  }
+
+  std::shared_ptr<SgfcBackendSaveResult> SgfcBackendController::SaveSgfContentToFilesystemOrInMemoryBuffer(
+    const std::string& sgfFilePath,
+    std::string& sgfContent,
+    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper,
+    SgfcDataLocation dataLocation)
+  {
+    ThrowIfIsCommandLineValidReturnsFalse();
+
+    std::lock_guard sgfcGuard(sgfcMutex);
+
+    // Reset global variables, then re-apply the outcome of ParseArgs() so that
+    // SGFC behaves the same on each invocation.
+    ResetGlobalVariables();
+    this->sgfcOptions.RestoreOptions();
+
+    bool parseSgfWasSuccessful = true;
+
+    if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
+    {
+      try
+      {
+        // Both of the following functions set the global variable sgfc as a
+        // side effect
+        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+        ParseSGF(sgfDataWrapper->GetSgfData());
+      }
+      catch (std::runtime_error&)
+      {
+        // Handle the exception. The SGFC message stream should now hold a
+        // fatal error message that we get access to after
+        // GetMessageStreamResult().
+        parseSgfWasSuccessful = false;
+      }
+
+      sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
+    }
+
+    // Don't attempt to save if parsing was not successful
+    // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
+    // we skip saving also for critical errors?
+    if (parseSgfWasSuccessful)
+    {
+      // Setting up option_outfile and SGFInfo.name (the next two statements)
+      // is necessary even for SgfcDataLocation::InMemoryBuffer where we dont
+      // actually interact with the filesystem. Reason: Even the patched version
+      // of SaveSGF() expects to receive a file name. SaveSGF() can handle an
+      // empty file name.
+
+      // It is safe to keep the pointer to the internal string buffer as long
+      // as the string remains in scope and we don't change the string content.
+      // It is safe to remove const'ness because we know that SaveSGF() won't
+      // change the char buffer.
+      option_outfile = const_cast<char*>(sgfFilePath.c_str());
+
+      // Prepare the SGFInfo struct for SaveSGF()
+      sgfDataWrapper->GetSgfData()->name = option_outfile;
+
+      try
+      {
+        // The following function sets the global variable sgfc as a side effect
+        SaveSGF(sgfDataWrapper->GetSgfData());
+      }
+      catch (std::runtime_error&)
+      {
+        // Handle the exception. The SGFC message stream should now hold a
+        // fatal error message that we get access to after
+        // GetMessageStreamResult().
+      }
+    }
+
+    std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents = GetSaveStreamResult();
+    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = GetMessageStreamResult();
+
+    if (dataLocation == SgfcDataLocation::InMemoryBuffer)
+      sgfContent = std::string();
+
+    for (auto sgfContentLoop : sgfContents)
+    {
+      if (dataLocation == SgfcDataLocation::Filesystem)
+      {
+        bool success = SaveSgfContentToFilesystem(sgfContentLoop);
+        if (! success)
+        {
+          std::string messageString = "Writing SGF file failed: " + sgfContentLoop->GetFileName();
+
+          auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+            SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
+            messageString));
+
+          saveSgfResult.push_back(message);
+        }
+      }
+      else
+      {
+        sgfContent += sgfContentLoop->GetSgfContent();
+      }
+    }
+
+    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
+      std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveSgfResult));
+    return backendSaveResult;
   }
 
   void SgfcBackendController::ResetGlobalVariables()

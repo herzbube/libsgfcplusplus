@@ -156,6 +156,7 @@ set (
   sgfc/backend/SgfcBackendDataWrapper.h
   sgfc/backend/SgfcBackendLoadResult.h
   sgfc/backend/SgfcBackendSaveResult.h
+  sgfc/backend/SgfcDataLocation.h
   sgfc/backend/SgfcOptions.h
   sgfc/frontend/SgfcCommandLine.h
   sgfc/frontend/SgfcDocumentReadResult.h
