@@ -42,6 +42,8 @@ namespace LibSgfcPlusPlus
     //@{
     /// @brief The library name.
     static const std::string LibraryName;
+    /// @brief The library version.
+    static const std::string LibraryVersion;
     /// @brief The SGFC version used by the library.
     static const std::string SgfcVersion;
     //@}
