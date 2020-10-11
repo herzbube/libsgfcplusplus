@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['readfilecontent_339',['ReadFileContent',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ab2060bb1113ea22521553be1d48382e2',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['readsgfcontent_340',['ReadSgfContent',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#ac618ef78d1e8fd978700262b19097362',1,'LibSgfcPlusPlus::ISgfcDocumentReader::ReadSgfContent()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#aefc6e67a550ef80b7f2ba96b91b3dd9a',1,'LibSgfcPlusPlus::SgfcDocumentReader::ReadSgfContent()']]],
+  ['readsgfcontentfromfilesystemerrormessageid_341',['ReadSgfContentFromFilesystemErrorMessageID',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa50e755f2efd9815404ec634bb4beda8',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['readsgffile_342',['ReadSgfFile',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa5e15840c652816b2307c903ec4703f6',1,'LibSgfcPlusPlus::ISgfcDocumentReader::ReadSgfFile()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a5f873279ac58c80c4deb1048fc5c87c5',1,'LibSgfcPlusPlus::SgfcDocumentReader::ReadSgfFile()']]],
+  ['real_343',['Real',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a7f80fcc452c2f1ed2bb51b39d0864df1',1,'LibSgfcPlusPlus']]],
+  ['removeallgames_344',['RemoveAllGames',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a43fdb669b30ec113705b009f7c31a1c0',1,'LibSgfcPlusPlus::ISgfcDocument::RemoveAllGames()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a201fcf79c4fd446e5f173bc2b7eb50d3',1,'LibSgfcPlusPlus::SgfcDocument::RemoveAllGames()']]],
+  ['removechild_345',['RemoveChild',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html#a3a38192ce67e6af2e73859792f68999a',1,'LibSgfcPlusPlus::ISgfcTreeBuilder::RemoveChild()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#aa2b635578bb52e0a978b47b872deeadb',1,'LibSgfcPlusPlus::SgfcTreeBuilder::RemoveChild()']]],
+  ['removegame_346',['RemoveGame',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#aff1d9d81f1f5a8e6b6d2c1bd6fd7db12',1,'LibSgfcPlusPlus::ISgfcDocument::RemoveGame()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a721d353eb9b5ea4371d91365b2f8da72',1,'LibSgfcPlusPlus::SgfcDocument::RemoveGame()']]],
+  ['replacechild_347',['ReplaceChild',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html#af54fdf5ca39d23790f242c7c9f55684e',1,'LibSgfcPlusPlus::ISgfcTreeBuilder::ReplaceChild()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#a2153b4458a9729fe4f875e7bba0a4ba8',1,'LibSgfcPlusPlus::SgfcTreeBuilder::ReplaceChild()']]],
+  ['restoreoptions_348',['RestoreOptions',['../class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a1f01b55fcb93de85bfa49fbd35271ba3',1,'LibSgfcPlusPlus::SgfcOptions']]],
+  ['reversevariationordering_349',['ReverseVariationOrdering',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a2625a8aaaec896183760b10d9d8e4482',1,'LibSgfcPlusPlus']]],
+  ['rows_350',['Rows',['../struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#af41526b612584a6823f8f4fb173a7928',1,'LibSgfcPlusPlus::SgfcBoardSize']]]
+];

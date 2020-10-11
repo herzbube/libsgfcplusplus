@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['dashtoken_78',['DashToken',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a7053ab17631458b169f53edf6a0855be',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['dd_79',['DD',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a350bfcb1e3cfb28ddff48ce525d4f139',1,'LibSgfcPlusPlus']]],
+  ['debugprinttoconsole_80',['DebugPrintToConsole',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a39fc13bd25dfbe8408f45cc919e05fb9',1,'LibSgfcPlusPlus::ISgfcDocument::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html#a2036648b662a0dc14cc0f5b4d00ab133',1,'LibSgfcPlusPlus::ISgfcDocumentReadResult::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c',1,'LibSgfcPlusPlus::ISgfcDocumentWriter::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html#aabf10f5b2fa63f817b3531a69e8362a4',1,'LibSgfcPlusPlus::ISgfcDocumentWriteResult::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document.html#ab314052906fcfa1082e5e7257a0d3fd2',1,'LibSgfcPlusPlus::SgfcDocument::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#ad6c69c527d53d6426c83d443f5d9652c',1,'LibSgfcPlusPlus::SgfcDocumentReadResult::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#aa382cba2950433e97055faef43c6b3e3',1,'LibSgfcPlusPlus::SgfcDocumentWriter::DebugPrintToConsole()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_write_result.html#a273d9e4802056f622c9869c99dbf3e16',1,'LibSgfcPlusPlus::SgfcDocumentWriteResult::DebugPrintToConsole()']]],
+  ['defaultgametype_81',['DefaultGameType',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['defaultiscriticalmessage_82',['DefaultIsCriticalMessage',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a4b72f50b4656aa212f0e7c148d651302',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['defaultmessagetext_83',['DefaultMessageText',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a420625b526a943b5f1ff7ad736fff351',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['defaultmessagetype_84',['DefaultMessageType',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#ab6fd1bf997a3b3d9e91c49eb494d4c04',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['defaultrawmessagetext_85',['DefaultRawMessageText',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a467fe951259bd96d1cc52beab558b5cc',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['deleteemptynodes_86',['DeleteEmptyNodes',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a5224c72008832833655292f7713b5d12',1,'LibSgfcPlusPlus']]],
+  ['deletefileerrormessageid_87',['DeleteFileErrorMessageID',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a893078ba7ed8acb2061e89e19641a93f',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['deletefileifexists_88',['DeleteFileIfExists',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a63a329a546999da1524f2111da9af2a6',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['deletemarkuponcurrentmove_89',['DeleteMarkupOnCurrentMove',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800afb55001cdf3993387d7010beffcf380a',1,'LibSgfcPlusPlus']]],
+  ['deleteobsoleteproperties_90',['DeleteObsoleteProperties',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a4cc7967d43cb26d6c01025688b25e5e2',1,'LibSgfcPlusPlus']]],
+  ['deletepropertytype_91',['DeletePropertyType',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a71f4f1fea152525f3cc94ee3537a8bf6',1,'LibSgfcPlusPlus']]],
+  ['deleteunknownproperties_92',['DeleteUnknownProperties',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a42f2190beb11aecbf79692a8aca1715e',1,'LibSgfcPlusPlus']]],
+  ['directoryseparator_93',['DirectorySeparator',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a90aff8d75bfe2e8369a0aa70338b33b8',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['disablemessagenumber_94',['DisableMessageNumber',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a6689f855817026bc826c3ef0e0472f80',1,'LibSgfcPlusPlus']]],
+  ['disablewarningmessages_95',['DisableWarningMessages',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a0a5e672aa4d66f2791a67c5b5ecc438f',1,'LibSgfcPlusPlus']]],
+  ['dm_96',['DM',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a2ecda7a0252b442ac6ecf47462119f51',1,'LibSgfcPlusPlus']]],
+  ['do_97',['DO',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737ac23fa9996925b610710d93e28c59a3e2',1,'LibSgfcPlusPlus']]],
+  ['document_98',['Document',['../group__document.html',1,'']]],
+  ['double_99',['Double',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555ad909d38d705ce75386dd86e611a82f5b',1,'LibSgfcPlusPlus']]],
+  ['doubleemphasizedstring_100',['DoubleEmphasizedString',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a1e9db1609bbacbb9b4ab37aa17b3a5e7',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['doublenormalstring_101',['DoubleNormalString',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a372a2defbfe47b6198f3b0e6fd99fae2',1,'LibSgfcPlusPlus::SgfcConstants']]]
+];
