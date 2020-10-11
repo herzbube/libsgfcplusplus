@@ -1,0 +1,15 @@
+libsgfc++
+Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+
+This product uses the source code provided by the SGFC command line utility to
+read, parse and write SGF data. A number of modifications have been made to the
+source code to be able to use it in a software library context. The changes are
+described extensively in doc/SgfcPatches.md. SGFC was developed by Arno Hollosi
+and has been released under the BSD license. The original software is available
+from
+  https://www.red-bean.com/sgf/sgfc/
+
+This product uses the test framework Catch2 for unit testing. Catch2 has been
+released under the Boost Software License 1.0. The original software is
+available from
+  https://github.com/catchorg/Catch2

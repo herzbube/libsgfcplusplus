@@ -68,7 +68,14 @@ The project build system is [documented here](doc/Build.md).
 
 ## License
 
-libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0).
+libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0). Here's the [link to the license file](LICENSE).
 
 SGFC is released under the terms of the [BSD License](https://opensource.org/licenses/BSD-3-Clause).
 
+- [Link to local license file](sgfc/COPYING). This works only if you have a local clone of the SGFC git submodule.
+- [Link to remote license file](https://bitbucket.org/arnoh/sgfc/src/master/COPYING). This link points to the `master` branch version of the license file.
+
+Catch2 is released under the [Boost Software License](https://www.boost.org/LICENSE_1_0.txt) (1.0).
+
+- [Link to local license file](test/Catch2/LICENSE.txt). This works only if you have a local clone of the SGFC git submodule.
+- [Link to remote license file](https://github.com/catchorg/Catch2/blob/master/LICENSE.txt). This link points to the `master` branch version of the license file.
