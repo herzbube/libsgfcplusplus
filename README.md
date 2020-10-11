@@ -60,6 +60,7 @@ The project build system is [documented here](doc/Build.md).
 
 ## More documentation
 
+- [API documentation](https://herzbube.github.io/libsgfcplusplus/api-docs/index.html) (the public API is in the "Public API" module)
 - [Why another library?](doc/WhyAnotherLibrary.md)
 - [Library design and working principles](doc/Principles.md)
 - [Assorted SGFC notes](doc/SgfcNotes.md)
