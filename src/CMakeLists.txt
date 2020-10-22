@@ -274,49 +274,65 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
 endif()
 
 # Define additional folders where to look for include files.
-# Currently we have only one: The folder where the export header file is
-# located. See further up where we generate that file with
-# generate_export_header().
+# - The first folder is where the export header file is located. See further up
+#   where we generate that file with generate_export_header(). This folder is
+#   used during the build of the project only. Later the export header file will
+#   be installed alongside the public headers, so it will be found without an
+#   include directory by the #include statements because they use the quotes
+#   syntax.
+# - The second folder is where our own public headers are located in the
+#   install tree. This folder is not used during our own build, but during the
+#   build of downstream projects that make use of our exported targets.
+#   Important: For this we use ${CMAKE_INSTALL_INCLUDEDIR}, not
+#   ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}, because we want downstream
+#   projects to use the subfolder in their #include statements. Example:
+#   #include <libsgfcplusplus/Foo.h>.
 if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
   target_include_directories (
     ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
   target_include_directories (
     ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 if ( ${ENABLE_SHARED_LIBRARY} )
   target_include_directories (
     ${SHARED_LIBRARY_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 if ( ${ENABLE_STATIC_LIBRARY} )
   target_include_directories (
     ${STATIC_LIBRARY_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 if ( ${ENABLE_SHARED_FRAMEWORK} )
   target_include_directories (
     ${SHARED_FRAMEWORK_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
   target_include_directories (
     ${STATIC_FRAMEWORK_TARGET_NAME}
     PUBLIC
-    ${EXPORT_HEADER_FILE_FOLDER}
+    "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
 endif()
 
@@ -411,9 +427,12 @@ endif()
 #   ${CMAKE_INSTALL_LIBDIR} because those folders are relative to the framework
 #   folder - here we don't want another subfolder, the framework folder itself
 #   provides that additional level.
+# - EXPORT associates the files installed by the target with a named "export".
+#   See the install(EXPORT) command below for more information.
 if ( ${ENABLE_SHARED_LIBRARY} )
   install (
     TARGETS ${SHARED_LIBRARY_TARGET_NAME}
+    EXPORT ${EXPORT_NAME}
     LIBRARY DESTINATION ${LIBRARY_DESTINATION_FOLDER_NAME}
     PUBLIC_HEADER DESTINATION ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}
   )
@@ -421,6 +440,7 @@ endif()
 if ( ENABLE_STATIC_LIBRARY )
   install (
     TARGETS ${STATIC_LIBRARY_TARGET_NAME}
+    EXPORT ${EXPORT_NAME}
     ARCHIVE DESTINATION ${LIBRARY_DESTINATION_FOLDER_NAME}
     PUBLIC_HEADER DESTINATION ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}
   )
@@ -428,6 +448,7 @@ endif()
 if ( ENABLE_SHARED_FRAMEWORK )
   install (
     TARGETS ${SHARED_FRAMEWORK_TARGET_NAME}
+    EXPORT ${EXPORT_NAME}
     FRAMEWORK DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -436,8 +457,31 @@ endif()
 if ( ENABLE_STATIC_FRAMEWORK )
   install (
     TARGETS ${STATIC_FRAMEWORK_TARGET_NAME}
+    EXPORT ${EXPORT_NAME}
     FRAMEWORK DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+  )
+endif()
+
+# Export targets
+if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
+  # This generates and installs a CMake file containing CMake magic to import
+  # the targets exported by this project into another project, to be used in the
+  # other project just as if the targets were defined in the other project. The
+  # important point here is that when the other project uses one of the exported
+  # targets, the files from the **installation** tree will be used! Targets need
+  # to be associated with an export first - see above where various install()
+  # commands use the EXPORT option.
+  #
+  # Additional notes:
+  # - Because we export only library targets we can place the install(EXPORT)
+  #   command in this CMakeLists.txt file. If we wanted to export other targets
+  #   defined in other CMakeLists.txt files we would have to place the
+  #   install(EXPORT) command in the top-level CMakeLists.txt file.
+  install (
+    EXPORT ${EXPORT_NAME}
+    NAMESPACE ${EXPORT_NAMESPACE}
+    DESTINATION ${EXPORT_DESTINATION_FOLDER_NAME}
   )
 endif()
