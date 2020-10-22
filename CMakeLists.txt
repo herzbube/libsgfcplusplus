@@ -128,6 +128,10 @@ if ( NOT DEFINED CMAKE_INSTALL_LIBDIR )
   include ( GNUInstallDirs )
 endif()
 
+# Define where header and library files will be installed to. These must be
+# relative paths.
+set ( PUBLIC_HEADER_DESTINATION_FOLDER_NAME ${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_BASE_NAME} )
+set ( LIBRARY_DESTINATION_FOLDER_NAME ${CMAKE_INSTALL_LIBDIR} )
 # The destination folder name to be used for frameworks. Use a relative path
 # here. This is equivalent to "lib" or "include" for library and header
 # destinations.

@@ -50,7 +50,7 @@ Older CMake versions don't have the `--install` command line option and you must
 The following things will be installed:
 
 - Subfolder `lib`: A shared library and a static library.
-- Subfolder `include`: The library's public header files.
+- Subfolder `include/libsgfcplusplus`: The library's public header files.
 - Subfolder `Frameworks`: A shared library framework and a static library framework.
 
 ## How to generate and install the API documentation

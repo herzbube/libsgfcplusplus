@@ -396,32 +396,38 @@ if ( ENABLE_SHARED_FRAMEWORK )
   )
 endif()
 
-# On some systems CMake automatically populates the LIBRARY and PUBLIC_HEADER
-# destinations with values defined by the GNUInstallDirs module (e.g. macOS with
-# CMake 3.11 and Xcode, Windows with CMake 3.16 and VisualStudio). On other
-# systems CMake does not do it automatically (e.g. Ubuntu 18.04 with CMake 3.12
-# and GCC, which corresponds to the Travis build system "bionic"). To satisfy
-# all systems we have to populate the destinations manually.
+# Install options
+# - On some systems CMake automatically populates the LIBRARY and PUBLIC_HEADER
+#   destinations with values defined by the GNUInstallDirs module (e.g. macOS
+#   with CMake 3.11 and Xcode, Windows with CMake 3.16 and VisualStudio). On
+#   other systems CMake does not do it automatically (e.g. Ubuntu 18.04 with
+#   CMake 3.12 and GCC, which corresponds to the Travis build system "bionic").
+#   To satisfy all systems we have to populate the destinations manually.
+# - Even if PUBLIC_HEADER is populated automatically, the default value (which
+#   is CMAKE_INSTALL_INCLUDEDIR) is not OK for the static and shared libraries
+#   because we want to install into a subfolder so as not to pollute the main
+#   include folder. For frameworks on the other hand the PUBLIC_HEADER and
+#   LIBRARY destinations must be populated with ${CMAKE_INSTALL_INCLUDEDIR} and
+#   ${CMAKE_INSTALL_LIBDIR} because those folders are relative to the framework
+#   folder - here we don't want another subfolder, the framework folder itself
+#   provides that additional level.
 if ( ${ENABLE_SHARED_LIBRARY} )
   install (
-    TARGETS
-    ${SHARED_LIBRARY_TARGET_NAME}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    TARGETS ${SHARED_LIBRARY_TARGET_NAME}
+    LIBRARY DESTINATION ${LIBRARY_DESTINATION_FOLDER_NAME}
+    PUBLIC_HEADER DESTINATION ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}
   )
 endif()
 if ( ENABLE_STATIC_LIBRARY )
   install (
-    TARGETS
-    ${STATIC_LIBRARY_TARGET_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    TARGETS ${STATIC_LIBRARY_TARGET_NAME}
+    ARCHIVE DESTINATION ${LIBRARY_DESTINATION_FOLDER_NAME}
+    PUBLIC_HEADER DESTINATION ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}
   )
 endif()
 if ( ENABLE_SHARED_FRAMEWORK )
   install (
-    TARGETS
-    ${SHARED_FRAMEWORK_TARGET_NAME}
+    TARGETS ${SHARED_FRAMEWORK_TARGET_NAME}
     FRAMEWORK DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
@@ -429,8 +435,7 @@ if ( ENABLE_SHARED_FRAMEWORK )
 endif()
 if ( ENABLE_STATIC_FRAMEWORK )
   install (
-    TARGETS
-    ${STATIC_FRAMEWORK_TARGET_NAME}
+    TARGETS ${STATIC_FRAMEWORK_TARGET_NAME}
     FRAMEWORK DESTINATION ${FRAMEWORK_DESTINATION_FOLDER_NAME}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
