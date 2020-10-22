@@ -21,7 +21,7 @@
 #include "ISgfcStonePropertyValue.h"
 
 // Project includes (generated)
-#include <SgfcPlusPlusExport.h>
+#include "SgfcPlusPlusExport.h"
 
 // C++ Standard Library includes
 #include <memory>

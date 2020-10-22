@@ -20,7 +20,7 @@
 #include "SgfcTypedefs.h"
 
 // Project includes (generated)
-#include <SgfcPlusPlusExport.h>
+#include "SgfcPlusPlusExport.h"
 
 namespace LibSgfcPlusPlus
 {
