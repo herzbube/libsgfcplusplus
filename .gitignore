@@ -1,19 +1,5 @@
 # Build products
-DerivedData/
 build/
-
-# Xcode workspace
-libsgfcplusplus.xcworkspace/xcuserdata
-
-# Xcode project
-libsgfcplusplus.xcodeproj/*.pbxuser
-libsgfcplusplus.xcodeproj/*.mode1v3
-libsgfcplusplus.xcodeproj/xcuserdata
-# Xcode creates this hidden workspace when someone opens just the
-# project (top-level .xcodeproj folder) instead of the workspace
-# (top-level .xcworkspace folder). Because the hidden workspace never
-# contains anything but the enclosing project, it can be safely ignored.
-libsgfcplusplus.xcodeproj/project.xcworkspace
 
 # Other files
 .DS_Store
