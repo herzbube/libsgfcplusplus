@@ -464,7 +464,7 @@ if ( ENABLE_STATIC_FRAMEWORK )
   )
 endif()
 
-# Export targets
+# Export targets and define the CMake package
 if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
   # This generates and installs a CMake file containing CMake magic to import
   # the targets exported by this project into another project, to be used in the
@@ -483,5 +483,40 @@ if ( ${AT_LEAST_ONE_LIBRARY_IS_ENABLED} )
     EXPORT ${EXPORT_NAME}
     NAMESPACE ${EXPORT_NAMESPACE}
     DESTINATION ${EXPORT_DESTINATION_FOLDER_NAME}
+  )
+
+  # Needed for the helper commands needed to set up the package
+  include( CMakePackageConfigHelpers )
+
+  # Generate the package configuration file based on a template
+  configure_package_config_file (
+    ${CMAKE_CURRENT_SOURCE_DIR}/${PACKAGE_CONFIGURATION_TEMPLATE_FILE_NAME}
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_CONFIGURATION_FILE_NAME}
+    INSTALL_DESTINATION ${EXPORT_DESTINATION_FOLDER_NAME}
+  )
+
+  # Generate the package version file.
+  write_basic_package_version_file (
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_VERSION_FILE_NAME}
+    VERSION "${PROJECT_VERSION}"
+    COMPATIBILITY AnyNewerVersion
+  )
+
+  # Install the package configuration and version files
+  install (
+    FILES
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_CONFIGURATION_FILE_NAME}
+    ${CMAKE_CURRENT_BINARY_DIR}/${PACKAGE_VERSION_FILE_NAME}
+    DESTINATION ${EXPORT_DESTINATION_FOLDER_NAME}
+  )
+
+  # Export targets from the build tree
+  # TODO: This likely needs another package configuration file to be used
+  # conveniently.
+  # See https://cmake.org/cmake/help/latest/manual/cmake-packages.7.html
+  export (
+    EXPORT ${EXPORT_NAME}
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/${EXPORT_NAME}.cmake"
+    NAMESPACE ${EXPORT_NAMESPACE}
   )
 endif()
