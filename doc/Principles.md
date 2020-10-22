@@ -56,14 +56,6 @@ The library has abstracted SGFC's functionality into 3 interfaces which can be s
 
 In all of these modes the library client can specify arguments that indicate how SGFC should perform the read and/or write operations. The available arguments are a subset of the SGFC command line arguments. Certain arguments (e.g. `--help`, `-i`) are not available because they do not make sense in a library context, or because the library does not support them.
 
-## File system interaction
-
-In all three operation modes described in the previous section the library client can specify an in-memory string buffer as source or destination for the SGF data. Even though on the surface it seems as if no interaction with the file system occurs in this usage scenario, this is not true.
-
-It should be noted that even in the in-memory string buffer scenario, under the hood either the library or SGFC writes the SGF data to a temporary file, then reads the data again from that file.
-
-The reason is simple: Less modifications to SGFC were required to implement the functionality. If the way how this is currently implemented proves to be a problem, it should be possible to further patch SGFC so that file system interaction is no longer necessry.
-
 ## Error handling
 
 ### SGFC messages

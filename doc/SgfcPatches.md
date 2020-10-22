@@ -81,7 +81,7 @@ This patch removes that limit.
 
 Because the patch also adds C++ features (try/catch) to the code in `save.c` that file now needs to be compiled as C++ code. To achieve that the patch adds the same `extern "C"` declaration to `save.c` that is added to `util.c` by `001-util.c-extern-c.patch`.
 
-The patch adds a different limit instead: When option `-s` is used for splitting games, there is now a maximum number of games that can be split. The limit is a compile time constant. the default limit is 999999 games, but it can be changed by defining the preprocessor macro MAXIMUM_NUMBER_OF_GAMES. The value must fit into an `int` type.
+The patch adds a different limit instead: When option `-s` is used for splitting games, there is now a maximum number of games that can be split. The limit is a compile time constant. the default limit is 999999 games, but it can be changed by defining the preprocessor macro `MAXIMUM_NUMBER_OF_GAMES`. The value must fit into an `int` type.
 
 Before the patch there was a theoretical limit of 999999999999999 (15 digits) games that could be split before the sprintf() string formatting would exceed the string buffer limit and cause a buffer overrun. In practice this limit was unreachable because the counter variable of type int would overflow to a negative number before reaching that number.
 

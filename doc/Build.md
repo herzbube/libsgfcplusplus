@@ -52,6 +52,12 @@ The following things will be installed:
 - Subfolder `lib`: A shared library and a static library.
 - Subfolder `include/libsgfcplusplus`: The library's public header files.
 - Subfolder `Frameworks`: A shared library framework and a static library framework.
+- Subfolder `lib/libsgfcplusplus`: CMake package files.
+
+A couple of notes:
+
+- Public header files: Unless downstream projects specify the subfolder as an include directory to their compiler, they will have to use include statements that include the subfolder name. Example: `#include <libsgfcplusplus/SgfcPlusPlusFactory.h>`.
+- The CMake package files are there so that a downstream project that also uses CMake to generate its build system can easily integrate libsgfc++ into its own build with the CMake command `find_package()`. See the section "CMake support for downstream projects" below for more details.
 
 ## How to generate and install the API documentation
 
@@ -171,3 +177,46 @@ Should you try to build unit tests or the examples for iOS (by setting `ENABLE_T
 
 1. The unit test library (Catch2) header contains code that is available only since iOS 10.0. Because of this you have to set the deployment target to 10.0. This tells the compiler to generate binaries that at runtime require iOS 10.0 as the minimum iOS version. The deployment target is set with the CMake option `-DCMAKE_OSX_DEPLOYMENT_TARGET=10.0`.
 1. The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the [CMake documentation for MACOSX_BUNDLE](https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html).
+
+## CMake support for downstream projects
+
+libsgfc++ exports its CMake targets (both from the build tree and from the install tree) as a CMake package. This allows downstream projects that also use CMake to generate their build system to easily integrate libsgfc++ into their own build. The CMake command for this is `find_package()`.
+
+If libsgfc++ has been installed to a system-wide installation path (e.g. `/usr/local`) then it can be found without specifying a path. The search logic employed by `find_package()` is exceedingly complicated and is not documented here. If you want to know more look it up in the CMake documentation of the `find_package()` command.
+
+An example:
+
+    find_package (
+      libsgfcplusplus
+      0.1
+      EXACT
+    )
+
+If libsgfc++ has been installed to some non-standard path, then the downstream project must provide a hint where to look for the CMake package files. The hint should be the installation prefix used to install libsgfc++, not the subfolder where the CMake package files actually reside. Again, `find_package()` employs clever search logic to probe for the files.
+
+Another example:
+
+    find_package (
+      libsgfcplusplus
+      0.1
+      EXACT
+      HINT /path/to/installation-prefix
+    )
+
+As can be seen in the examples, the package name to use is `libsgfcplusplus`. The exported targets all have the prefix `libsgfcplusplus::`. The exported targets are:
+
+- `libsgfcplusplus::libsgfcplusplus_shared`
+- `libsgfcplusplus::libsgfcplusplus_static`
+- `libsgfcplusplus::libsgfcplusplus_shared_framework`
+- `libsgfcplusplus::libsgfcplusplus_static_framework`
+
+To use the exported targets after `find_package()` has successfully located the package, the downstream project typically specifies the exported target names in their `target_link_libraries()` commands. Example:
+
+    target_link_libraries (
+      downstream-target-name
+      libsgfcplusplus::libsgfcplusplus_shared
+    )
+
+This not only adds the link instructions to the downstream target, it also adds the INTERFACE include directories of the linked libsgfc++ target to the include directories of the downstream target. This way the downstream project can write `#include` statements like this in their source code:
+
+    #include <libsgfcplusplus/SgfcPlusPlusFactory.h>
