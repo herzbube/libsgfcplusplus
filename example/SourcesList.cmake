@@ -1,5 +1,5 @@
 set (
   SOURCES
   main.cpp
-  SourcesList.cmake
+  ${SOURCES_LIST_FILE_NAME}
 )

@@ -105,7 +105,7 @@ set (
   SgfcConstants.cpp
   SgfcPrivateConstants.cpp
   SgfcUtility.cpp
-  SourcesList.cmake
+  ${SOURCES_LIST_FILE_NAME}
 )
 
 set (

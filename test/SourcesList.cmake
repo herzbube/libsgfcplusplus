@@ -22,7 +22,7 @@ set (
   sgfc/message/SgfcMessageTest.cpp
   sgfc/save/SgfcSaveStreamTest.cpp
   sgfc/save/SgfcSgfContentTest.cpp
-  SourcesList.cmake
+  ${SOURCES_LIST_FILE_NAME}
   TestDataGenerator.cpp
   TestDataGenerator.h
 )
