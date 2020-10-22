@@ -18,8 +18,7 @@ project (
   # C and CXX are the default, so we don't need to set them explicitly.
   LANGUAGES C CXX
 
-  # The project version. This is used to populate SgfcVersion.h during the
-  # build.
+  # The project version.
   # Sets PROJECT_VERSION, PROJECT_VERSION_MAJOR, PROJECT_VERSION_MINOR,
   # PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK.
   VERSION 0.1
@@ -93,8 +92,10 @@ enable_testing ()
 # Define a base name that is used throughout the build system to form the
 # filesystem name of the build artifacts. Notably this determines the name of
 # the generated shared library file, static library file and test executable
-# file. Macro names related to the export header file are also derived from
-# the base name. The base name should not contain the "++" characters from the
+# file. The project-specific subdirectory where the public header files are
+# installed are also derived from the base name, as well as the CMake package
+# name, the exported target names and the macro names related to the export
+# header file. The base name should not contain the "++" characters from the
 # project name to avoid compiler warnings and unexpected filesystem behaviour.
 set ( LIBRARY_BASE_NAME libsgfcplusplus )
 
