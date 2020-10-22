@@ -26,7 +26,7 @@ project (
   # Some informational package metadata. Not necessary for the build.
   # Sets PROJECT_HOMEPAGE_URL and PROJECT_DESCRIPTION
   HOMEPAGE_URL https://github.com/herzbube/libsgfcplusplus
-  DESCRIPTION "A C++ library that uses SGFC to read and write SGF (Smart Game Format) files."
+  DESCRIPTION "A C++ library that uses SGFC to read and write SGF (Smart Game Format) data."
 )
 
 set (
