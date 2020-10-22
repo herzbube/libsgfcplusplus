@@ -105,6 +105,7 @@ set (
   SgfcConstants.cpp
   SgfcPrivateConstants.cpp
   SgfcUtility.cpp
+  ${PACKAGE_CONFIG_FILE_IN}
   ${SOURCES_LIST_FILE_NAME}
 )
 
