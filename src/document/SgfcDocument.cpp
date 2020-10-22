@@ -275,8 +275,8 @@ namespace LibSgfcPlusPlus
           std::cout << "      Raw value 1       = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
           DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue1().get());
           std::cout << "      Value type 2      = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
-          std::cout << "      Has typed value 2 = \"" << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
-          std::cout << "      Raw value 2       = " << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
+          std::cout << "      Has typed value 2 = " << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
+          std::cout << "      Raw value 2       = \"" << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
           DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue2().get());
         }
         else
