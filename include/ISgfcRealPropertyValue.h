@@ -43,8 +43,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcRealPropertyValue object.
     virtual ~ISgfcRealPropertyValue();
 
-    /// @brief Returns the property value interpreted as a signed floating point
-    /// number.
+    /// @brief Returns the property value interpreted as an SgfcReal value.
     ///
     /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcReal GetRealValue() const = 0;

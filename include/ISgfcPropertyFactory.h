@@ -99,7 +99,7 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::SZ or SgfcPropertyType::GM, if @a propertyValues
     /// contains more than one value or the value does not meet the requirements
     /// of these property types. See the documentation of
-    ///  CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
+    /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;

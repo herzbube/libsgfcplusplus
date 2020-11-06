@@ -31,11 +31,11 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Move.
   ///
-  /// ISgfcMovePropertyValue is immutable, i.e. once the
-  /// ISgfcMovePropertyValue object is constructed it cannot be changed.
-  ///
   /// @ingroup public-api
   /// @ingroup property-value
+  ///
+  /// ISgfcMovePropertyValue is immutable, i.e. once the
+  /// ISgfcMovePropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcMovePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
@@ -45,12 +45,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcMovePropertyValue object.
     virtual ~ISgfcMovePropertyValue();
 
-    /// @brief Returns the uninterpreted move value. This is the same value
+    /// @brief Returns the uninterpreted Move value. This is the same value
     /// that GetRawValue() returns.
     ///
-    /// The SGF standard does not provide a universal definition of how a move
+    /// The SGF standard does not provide a universal definition of how a Move
     /// value should look like. Instead it says that the interpretation of
-    /// move values is game specific.
+    /// Move values is game specific.
     virtual std::string GetRawMoveValue() const = 0;
 
     /// @brief Returns an ISgfcGoMovePropertyValue object if the game tree that

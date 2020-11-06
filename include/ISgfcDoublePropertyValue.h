@@ -29,11 +29,11 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Double.
   ///
-  /// ISgfcDoublePropertyValue is immutable, i.e. once the
-  /// ISgfcDoublePropertyValue object is constructed it cannot be changed.
-  ///
   /// @ingroup public-api
   /// @ingroup property-value
+  ///
+  /// ISgfcDoublePropertyValue is immutable, i.e. once the
+  /// ISgfcDoublePropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcDoublePropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:

@@ -32,6 +32,9 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcComposedPropertyValue object
     /// that consists of the two values @a value1 and @a value2.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a value1 is @e nullptr
+    /// or if @a value2 is @e nullptr.
     SgfcComposedPropertyValue(
       std::shared_ptr<ISgfcSinglePropertyValue> value1,
       std::shared_ptr<ISgfcSinglePropertyValue> value2);

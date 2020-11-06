@@ -19,13 +19,13 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcNumber type represents the Number value type defined by
-  /// the SGF standard.
+  /// the SGF standard. Values are signed integer numbers.
   ///
   /// @ingroup public-api
   typedef long SgfcNumber;
 
   /// @brief The SgfcReal type represents the Real value type defined by
-  /// the SGF standard.
+  /// the SGF standard. Values are signed floating point numbers.
   ///
   /// @ingroup public-api
   typedef double SgfcReal;

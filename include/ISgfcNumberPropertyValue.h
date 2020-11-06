@@ -29,11 +29,11 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Number.
   ///
-  /// ISgfcNumberPropertyValue is immutable, i.e. once the
-  /// ISgfcNumberPropertyValue object is constructed it cannot be changed.
-  ///
   /// @ingroup public-api
   /// @ingroup property-value
+  ///
+  /// ISgfcNumberPropertyValue is immutable, i.e. once the
+  /// ISgfcNumberPropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcNumberPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
@@ -43,8 +43,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcNumberPropertyValue object.
     virtual ~ISgfcNumberPropertyValue();
 
-    /// @brief Returns the property value interpreted as a signed integer
-    /// number.
+    /// @brief Returns the property value interpreted as an SgfcNumber value.
     ///
     /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcNumber GetNumberValue() const = 0;

@@ -90,7 +90,7 @@ namespace LibSgfcPlusPlus
     /// cast to a concrete type and that type can then be used to retrieve the
     /// typed value. Example: GetValueType() returns
     /// SgfcPropertyValueType::Number. ToNumberValue() can therefore be invoked
-    /// to obtain an ISgfcSinglePropertyValue object, and
+    /// to obtain an ISgfcNumberPropertyValue object, and
     /// ISgfcNumberPropertyValue::GetNumberValue() can then be invoked to
     /// retrieve the signed integer number that corresponds to the raw string
     /// value that GetRawValue() returns.

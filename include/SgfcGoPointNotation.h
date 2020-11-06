@@ -22,7 +22,7 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief SgfcGoPointNotation enumerates all notations supported for
-  /// representing a Point location for GoGameType::Go.
+  /// representing a Point location for SgfcGameType::Go.
   ///
   /// @ingroup public-api
   enum class SGFCPLUSPLUS_EXPORT SgfcGoPointNotation

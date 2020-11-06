@@ -31,11 +31,11 @@ namespace LibSgfcPlusPlus
   /// the values of a property of an SGF node. The value type is
   /// SgfcPropertyValueType::Point.
   ///
-  /// ISgfcPointPropertyValue is immutable, i.e. once the
-  /// ISgfcPointPropertyValue object is constructed it cannot be changed.
-  ///
   /// @ingroup public-api
   /// @ingroup property-value
+  ///
+  /// ISgfcPointPropertyValue is immutable, i.e. once the
+  /// ISgfcPointPropertyValue object is constructed it cannot be changed.
   class SGFCPLUSPLUS_EXPORT ISgfcPointPropertyValue : virtual public ISgfcSinglePropertyValue
   {
   public:
@@ -45,12 +45,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcPointPropertyValue object.
     virtual ~ISgfcPointPropertyValue();
 
-    /// @brief Returns the uninterpreted point value. This is the same value
+    /// @brief Returns the uninterpreted Point value. This is the same value
     /// that GetRawValue() returns.
     ///
-    /// The SGF standard does not provide a universal definition of how a point
+    /// The SGF standard does not provide a universal definition of how a Point
     /// value should look like. Instead it says that the interpretation of
-    /// point values is game specific.
+    /// Point values is game specific.
     virtual std::string GetRawPointValue() const = 0;
 
     /// @brief Returns an ISgfcGoPointPropertyValue object if the game tree that

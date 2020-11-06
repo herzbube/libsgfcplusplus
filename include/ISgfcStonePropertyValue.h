@@ -45,12 +45,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcStonePropertyValue object.
     virtual ~ISgfcStonePropertyValue();
 
-    /// @brief Returns the uninterpreted stone value. This is the same value
+    /// @brief Returns the uninterpreted Stone value. This is the same value
     /// that GetRawValue() returns.
     ///
-    /// The SGF standard does not provide a universal definition of how a stone
+    /// The SGF standard does not provide a universal definition of how a Stone
     /// value should look like. Instead it says that the interpretation of
-    /// stone values is game specific.
+    /// Stone values is game specific.
     virtual std::string GetRawStoneValue() const = 0;
 
     /// @brief Returns an ISgfcGoStonePropertyValue object if the game tree that

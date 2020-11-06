@@ -84,7 +84,7 @@ namespace LibSgfcPlusPlus
     /// fatal errors.
     ///
     /// A critical problem indicates that the SGF content parsed by SGFC may be
-    /// severly damaged and that information may be lost if the parsed SGF data
+    /// severely damaged and that information may be lost if the parsed SGF data
     /// is written.
     virtual bool IsCriticalMessage() const = 0;
 

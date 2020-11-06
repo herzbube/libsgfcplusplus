@@ -53,7 +53,7 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the first property value.
     virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue1() const = 0;
 
-    /// @brief Returns the first property value.
+    /// @brief Returns the second property value.
     virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue2() const = 0;
   };
 }

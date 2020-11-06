@@ -96,17 +96,17 @@ namespace LibSgfcPlusPlus
       const std::string& textValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcPointPropertyValue object
-    /// that has the string value @a pointValue.
+    /// that has the Point value @a pointValue.
     virtual std::shared_ptr<ISgfcPointPropertyValue> CreatePointPropertyValue(
       const std::string& pointValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcMovePropertyValue object
-    /// that has the string value @a moveValue.
+    /// that has the Move value @a moveValue.
     virtual std::shared_ptr<ISgfcMovePropertyValue> CreateMovePropertyValue(
       const std::string& moveValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcStonePropertyValue object
-    /// that has the string value @a stoneValue.
+    /// that has the Stone value @a stoneValue.
     virtual std::shared_ptr<ISgfcStonePropertyValue> CreateStonePropertyValue(
       const std::string& stoneValue) const = 0;
 
@@ -282,6 +282,9 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of two ISgfcSinglePropertyValue objects @a valueObject1
     /// and @a valueObject2.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a value1 is @e nullptr
+    /// or if @a value2 is @e nullptr.
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateCustomComposedPropertyValue(
       std::shared_ptr<ISgfcSinglePropertyValue> valueObject1,
       std::shared_ptr<ISgfcSinglePropertyValue> valueObject2) const = 0;

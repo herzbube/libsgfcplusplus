@@ -93,6 +93,10 @@ namespace LibSgfcPlusPlus
     ///
     /// The game has no board size if GetBoardSize() returns
     /// SgfcConstants::BoardSizeNone or SgfcConstants::BoardSizeInvalid.
+    ///
+    /// @exception std::logic_error Is thrown if a property object for
+    /// SgfcPropertyType::SZ is found in the game's root node, but the property
+    /// object is not an instance of ISgfcBoardSizeProperty.
     virtual bool HasBoardSize() const = 0;
 
     /// @brief Returns the board size found in the root node property of type

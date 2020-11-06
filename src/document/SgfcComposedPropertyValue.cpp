@@ -25,6 +25,10 @@ namespace LibSgfcPlusPlus
     : value1(value1)
     , value2(value2)
   {
+    if (value1 == nullptr)
+      throw std::invalid_argument("SgfcComposedPropertyValue constructor failed: Property value1 is nullptr");
+    if (value2 == nullptr)
+      throw std::invalid_argument("SgfcComposedPropertyValue constructor failed: Property value2 is nullptr");
   }
 
   SgfcComposedPropertyValue::~SgfcComposedPropertyValue()
