@@ -24,8 +24,8 @@
 // SGFC includes to be able to invoke the SGFC function PrintError()
 extern "C"
 {
-  #include <../sgfc/all.h>
-  #include <../sgfc/protos.h>
+  #include <../sgfc/src/all.h>
+  #include <../sgfc/src/protos.h>
 }
 
 // Function prototypes used to interact with SGFC behind the back of

@@ -23,7 +23,7 @@
 // SGFC includes
 extern "C"
 {
-  #include "../../../sgfc/all.h"
+  #include <../sgfc/src/all.h>
 }
 
 // Unit test library includes

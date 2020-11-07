@@ -26,8 +26,8 @@
 // into SGFC by libsgfc++.
 extern "C"
 {
-  #include <../sgfc/all.h>
-  #include <../sgfc/protos.h>
+  #include <../sgfc/src/all.h>
+  #include <../sgfc/src/protos.h>
 }
 
 // Function prototypes used to interact with SGFC behind the back of

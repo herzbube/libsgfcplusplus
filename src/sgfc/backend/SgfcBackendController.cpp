@@ -27,8 +27,8 @@
 // SGFC includes
 extern "C"
 {
-  #include "../../../sgfc/all.h"
-  #include "../../../sgfc/protos.h"
+  #include "../../../sgfc/src/all.h"
+  #include "../../../sgfc/src/protos.h"
 }
 
 // C++ Standard Library includes

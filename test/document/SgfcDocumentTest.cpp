@@ -22,7 +22,7 @@
 extern "C"
 {
   #include <stdio.h>  // required to define size_t and FILE which are used in all.h
-  #include "../../sgfc/all.h"
+  #include <../sgfc/src/all.h>
 }
 
 // Unit test library includes

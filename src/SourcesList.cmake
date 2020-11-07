@@ -235,20 +235,21 @@ set (
 
 set (
   SOURCES_SGFC
-  ../sgfc/execute.c
-  ../sgfc/gameinfo.c
-  ../sgfc/load.c
-  ../sgfc/main.c
-  ../sgfc/parse.c
-  ../sgfc/parse2.c
-  ../sgfc/properties.c
-  ../sgfc/save.c
-  ../sgfc/strict.c
-  ../sgfc/util.c
+  ../sgfc/src/execute.c
+  ../sgfc/src/gameinfo.c
+  ../sgfc/src/load.c
+  ../sgfc/src/main.c
+  ../sgfc/src/options.c
+  ../sgfc/src/parse.c
+  ../sgfc/src/parse2.c
+  ../sgfc/src/properties.c
+  ../sgfc/src/save.c
+  ../sgfc/src/strict.c
+  ../sgfc/src/util.c
 )
 
 set (
   HEADERS_SGFC
-  ../sgfc/all.h
-  ../sgfc/protos.h
+  ../sgfc/src/all.h
+  ../sgfc/src/protos.h
 )

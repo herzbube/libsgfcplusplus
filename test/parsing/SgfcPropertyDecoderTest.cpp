@@ -41,8 +41,8 @@
 extern "C"
 {
   #include <stdio.h>  // required to define size_t and FILE which are used in all.h
-  #include "../../sgfc/all.h"
-  #include "../../../sgfc/protos.h"
+  #include <../sgfc/src/all.h>
+  #include <../sgfc/src/protos.h>
 }
 
 // Unit test library includes
