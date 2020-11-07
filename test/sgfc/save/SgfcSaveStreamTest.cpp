@@ -39,7 +39,8 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
 {
   GIVEN( "The save stream is empty" )
   {
-    ResetSaveStreamContentsAndFileNames();
+    // TODO sgfc reintegration: review commented code
+//    ResetSaveStreamContentsAndFileNames();
 
     WHEN( "SgfcSaveStream is constructed" )
     {
@@ -59,10 +60,11 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
     std::string contentString = "foo";
     std::string fileName = "bar";
 
-    ResetSaveStreamContentsAndFileNames();
-    LibSgfcPlusPlus::saveStream << contentString;
-    CaptureSaveStreamContent(fileName);
-    ResetSaveStream();
+    // TODO sgfc reintegration: review commented code
+//    ResetSaveStreamContentsAndFileNames();
+//    LibSgfcPlusPlus::saveStream << contentString;
+//    CaptureSaveStreamContent(fileName);
+//    ResetSaveStream();
 
     WHEN( "SgfcSaveStream is constructed" )
     {
@@ -88,13 +90,14 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
     std::string contentString2 = "bar";
     std::string fileName2 = "bar.sgf";
 
-    ResetSaveStreamContentsAndFileNames();
-    LibSgfcPlusPlus::saveStream << contentString1;
-    CaptureSaveStreamContent(fileName1);
-    ResetSaveStream();
-    LibSgfcPlusPlus::saveStream << contentString2;
-    CaptureSaveStreamContent(fileName2);
-    ResetSaveStream();
+    // TODO sgfc reintegration: review commented code
+//    ResetSaveStreamContentsAndFileNames();
+//    LibSgfcPlusPlus::saveStream << contentString1;
+//    CaptureSaveStreamContent(fileName1);
+//    ResetSaveStream();
+//    LibSgfcPlusPlus::saveStream << contentString2;
+//    CaptureSaveStreamContent(fileName2);
+//    ResetSaveStream();
 
     WHEN( "SgfcSaveStream is constructed" )
     {
@@ -126,10 +129,11 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
     std::string contentString = "foo";
     std::string fileName = "bar";
 
-    ResetSaveStreamContentsAndFileNames();
-    LibSgfcPlusPlus::saveStream << contentString;
-    CaptureSaveStreamContent(fileName);
-    ResetSaveStream();
+    // TODO sgfc reintegration: review commented code
+//    ResetSaveStreamContentsAndFileNames();
+//    LibSgfcPlusPlus::saveStream << contentString;
+//    CaptureSaveStreamContent(fileName);
+//    ResetSaveStream();
 
     SgfcSaveStream saveStream1;
 

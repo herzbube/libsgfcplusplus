@@ -43,7 +43,8 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
 {
   GIVEN( "The message stream is empty" )
   {
-    ResetSgfcMessageStream();
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
 
     WHEN( "SgfcMessageStream is constructed" )
     {
@@ -62,11 +63,12 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
 
   GIVEN( "The message stream contains a single line" )
   {
-    ResetSgfcMessageStream();
-
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
-    // Writing a second time to the stream does not create a new line
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
+//
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
+//    // Writing a second time to the stream does not create a new line
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
 
     WHEN( "SgfcMessageStream is constructed" )
     {
@@ -86,11 +88,12 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
 
   GIVEN( "The message stream contains two lines using LF as line delimiter" )
   {
-    ResetSgfcMessageStream();
-
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "\n");
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
+//
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "\n");
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
 
     WHEN( "SgfcMessageStream is constructed" )
     {
@@ -116,20 +119,21 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
   // notice.
   GIVEN( "The message stream contains two lines using the PrintError-internal line delimiter" )
   {
-    ResetSgfcMessageStream();
-
-    // Set up the buffer. For the message type that we want PrintError()
-    // needs to scans the buffer to determine the line/column number.
-    sgfc = new SGFInfo();
-    sgfc->buffer = const_cast<char*>("");  // cast is safe, nobody is going to modify the buffer
-    sgfc->start = sgfc->buffer;
-    sgfc->b_end = sgfc->start + 1;
-
-    // Without this PrintError() does not output any messages
-    memset(error_enabled, TRUE, sizeof(error_enabled));
-
-    PrintError(E_UNEXPECTED_EOF, sgfc->start);
-    PrintError(E_UNEXPECTED_EOF, sgfc->start);
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
+//
+//    // Set up the buffer. For the message type that we want PrintError()
+//    // needs to scans the buffer to determine the line/column number.
+//    sgfc = new SGFInfo();
+//    sgfc->buffer = const_cast<char*>("");  // cast is safe, nobody is going to modify the buffer
+//    sgfc->start = sgfc->buffer;
+//    sgfc->b_end = sgfc->start + 1;
+//
+//    // Without this PrintError() does not output any messages
+//    memset(error_enabled, TRUE, sizeof(error_enabled));
+//
+//    PrintError(E_UNEXPECTED_EOF, sgfc->start);
+//    PrintError(E_UNEXPECTED_EOF, sgfc->start);
 
     WHEN( "SgfcMessageStream is constructed" )
     {
@@ -157,14 +161,16 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
       }
     }
 
-    delete sgfc;
+    // TODO sgfc reintegration: review commented code
+//    delete sgfc;
   }
 
   GIVEN( "Two SgfcMessageStream object are constructed" )
   {
-    ResetSgfcMessageStream();
-
-    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
+//
+//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
     SgfcMessageStream messageStream1;
 
     WHEN( "The second SgfcMessageStream object is constructed" )

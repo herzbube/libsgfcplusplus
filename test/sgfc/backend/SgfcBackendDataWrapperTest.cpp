@@ -57,8 +57,9 @@ SCENARIO( "SgfcBackendDataWrapper does not wrap a copy of an externally-provided
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        REQUIRE( sgfData->name == nullptr );
-        REQUIRE( sgfData->file == nullptr );
+        // TODO sgfc reintegration: review commented code
+//        REQUIRE( sgfData->name == nullptr );
+//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
 
         REQUIRE( sgfData->buffer == nullptr );
@@ -97,8 +98,9 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        REQUIRE( sgfData->name == nullptr );
-        REQUIRE( sgfData->file == nullptr );
+        // TODO sgfc reintegration: review commented code
+//        REQUIRE( sgfData->name == nullptr );
+//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
 
         if (mallocReturnsNullPtr)
@@ -131,8 +133,9 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        REQUIRE( sgfData->name == nullptr );
-        REQUIRE( sgfData->file == nullptr );
+        // TODO sgfc reintegration: review commented code
+//        REQUIRE( sgfData->name == nullptr );
+//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
 
         REQUIRE( sgfData->buffer != nullptr );

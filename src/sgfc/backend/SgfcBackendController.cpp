@@ -189,7 +189,8 @@ namespace LibSgfcPlusPlus
       {
         // It is safe to remove const'ness because we know that ParseArgs()
         // won't change any of the char buffers.
-        ParseArgs(argc, const_cast<char**>(argv));
+        // TODO sgfc reintegration: review commented code
+//        ParseArgs(argc, const_cast<char**>(argv));
 
         // In theory ParseArgs() can return TRUE or FALSE. Practically we
         // removed all possibilities for it to return FALSE, so we don't have
@@ -229,13 +230,15 @@ namespace LibSgfcPlusPlus
       // as the string remains in scope and we don't change the string content.
       // It is safe to remove const'ness because we know that LoadSGF() and
       // ParseSGF() won't change the char buffer.
-      option_infile = const_cast<char*>(sgfFilePath.c_str());
+      // TODO sgfc reintegration: review commented code
+//      option_infile = const_cast<char*>(sgfFilePath.c_str());
 
       sgfDataWrapper =
         std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
 
       // Prepare the SGFInfo struct for LoadSGF()
-      sgfDataWrapper->GetSgfData()->name = option_infile;
+      // TODO sgfc reintegration: review commented code
+//      sgfDataWrapper->GetSgfData()->name = option_infile;
     }
     else
     {
@@ -247,10 +250,11 @@ namespace LibSgfcPlusPlus
     {
       // All three of the following functions set the global variable sgfc as a
       // side effect
-      if (dataLocation == SgfcDataLocation::Filesystem)
-        LoadSGF(sgfDataWrapper->GetSgfData());
-      else
-        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+      // TODO sgfc reintegration: review commented code
+//      if (dataLocation == SgfcDataLocation::Filesystem)
+//        LoadSGF(sgfDataWrapper->GetSgfData());
+//      else
+//        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
       ParseSGF(sgfDataWrapper->GetSgfData());
     }
     catch (std::runtime_error&)
@@ -321,15 +325,18 @@ namespace LibSgfcPlusPlus
       // as the string remains in scope and we don't change the string content.
       // It is safe to remove const'ness because we know that SaveSGF() won't
       // change the char buffer.
-      option_outfile = const_cast<char*>(sgfFilePath.c_str());
+      // TODO sgfc reintegration: review commented code
+//      option_outfile = const_cast<char*>(sgfFilePath.c_str());
 
       // Prepare the SGFInfo struct for SaveSGF()
-      sgfDataWrapper->GetSgfData()->name = option_outfile;
+      // TODO sgfc reintegration: review commented code
+//      sgfDataWrapper->GetSgfData()->name = option_outfile;
 
       try
       {
         // The following function sets the global variable sgfc as a side effect
-        SaveSGF(sgfDataWrapper->GetSgfData());
+        // TODO sgfc reintegration: review commented code
+//        SaveSGF(sgfDataWrapper->GetSgfData());
       }
       catch (std::runtime_error&)
       {
@@ -374,12 +381,13 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::ResetGlobalVariables()
   {
-    ResetGlobalVariablesInMain();
-    ResetGlobalVariablesInSave();
-    ResetGlobalVariablesInProperties();
-    ResetGlobalVariablesInParse2();
-    ResetGlobalVariablesInExecute();
-    ResetGlobalVariablesInUtil();
+    // TODO sgfc reintegration: review commented code
+//    ResetGlobalVariablesInMain();
+//    ResetGlobalVariablesInSave();
+//    ResetGlobalVariablesInProperties();
+//    ResetGlobalVariablesInParse2();
+//    ResetGlobalVariablesInExecute();
+//    ResetGlobalVariablesInUtil();
   }
 
   std::vector<std::shared_ptr<ISgfcMessage>> SgfcBackendController::GetMessageStreamResult() const

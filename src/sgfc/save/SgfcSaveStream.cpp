@@ -53,11 +53,12 @@ namespace LibSgfcPlusPlus
 
   SgfcSaveStream::SgfcSaveStream()
   {
-    std::vector<std::string> saveStreamContents = AcquireSaveStreamContents();
-    std::vector<std::string> saveStreamFileNames = AcquireSaveStreamFileNames();
-    MakeSgfContents(saveStreamContents, saveStreamFileNames);
-
-    ResetSaveStreamContentsAndFileNames();
+    // TODO sgfc reintegration: review commented code
+//    std::vector<std::string> saveStreamContents = AcquireSaveStreamContents();
+//    std::vector<std::string> saveStreamFileNames = AcquireSaveStreamFileNames();
+//    MakeSgfContents(saveStreamContents, saveStreamFileNames);
+//
+//    ResetSaveStreamContentsAndFileNames();
   }
 
   SgfcSaveStream::~SgfcSaveStream()

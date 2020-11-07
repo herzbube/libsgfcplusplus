@@ -50,10 +50,12 @@ namespace LibSgfcPlusPlus
     : rawMessageStreamContent(SgfcPrivateConstants::EmptyString)
     , messageStreamLines()
   {
-    this->rawMessageStreamContent = AcquireSgfcMessageStream();
+    // TODO sgfc reintegration: review commented code
+//    this->rawMessageStreamContent = AcquireSgfcMessageStream();
     SplitRawMessageStreamContentIntoLines();
 
-    ResetSgfcMessageStream();
+    // TODO sgfc reintegration: review commented code
+//    ResetSgfcMessageStream();
   }
 
   SgfcMessageStream::~SgfcMessageStream()

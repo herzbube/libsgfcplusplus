@@ -82,21 +82,22 @@ namespace LibSgfcPlusPlus
   /// usually is invoking ParseSGF().
   void SgfcBackendDataWrapper::InitializeFileBuffer(const std::string& sgfContent) const
   {
-    size_t sgfContentSize = sgfContent.size();
-    SaveMalloc(char *, sgfData->buffer, sgfContentSize, "source file buffer");
-
-    memcpy(sgfData->buffer, sgfContent.c_str(), sgfContentSize);
-
-    // Some implementations of malloc return nullptr when a zero-size buffer is
-    // requested. In that case doing pointer arithmetic would be fatal, so
-    // we avoid that.
-    if (sgfContentSize > 0)
-      sgfData->b_end = sgfData->buffer + sgfContentSize;
-    else
-      sgfData->b_end = sgfData->buffer;
-
-    sgfData->current = sgfData->buffer;
-
-    // sgfData->start will be set by LoadSGFFromFileBuffer
+    // TODO sgfc reintegration: review commented code
+//    size_t sgfContentSize = sgfContent.size();
+//    SaveMalloc(char *, sgfData->buffer, sgfContentSize, "source file buffer");
+//
+//    memcpy(sgfData->buffer, sgfContent.c_str(), sgfContentSize);
+//
+//    // Some implementations of malloc return nullptr when a zero-size buffer is
+//    // requested. In that case doing pointer arithmetic would be fatal, so
+//    // we avoid that.
+//    if (sgfContentSize > 0)
+//      sgfData->b_end = sgfData->buffer + sgfContentSize;
+//    else
+//      sgfData->b_end = sgfData->buffer;
+//
+//    sgfData->current = sgfData->buffer;
+//
+//    // sgfData->start will be set by LoadSGFFromFileBuffer
   }
 }
