@@ -91,6 +91,9 @@ namespace LibSgfcPlusPlus
     SgfcPrivateConstants::EscapeCharacterToken);  // The literal as it appears in the SGF content
   const std::regex SgfcPrivateConstants::UnescapedLineEndingsRegex(
     SgfcPrivateConstants::LineEndingsPattern);
+  const std::regex SgfcPrivateConstants::ZeroOrMoreLineEndingsAtEndOfStringRegex(
+    SgfcPrivateConstants::LineEndingsPattern + "*$");
+
 
   const std::string SgfcPrivateConstants::LineToken = "Line:";
   const std::string SgfcPrivateConstants::ColumnToken = "Col:";

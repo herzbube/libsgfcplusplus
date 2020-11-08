@@ -185,8 +185,6 @@ namespace LibSgfcPlusPlus
 
     void ResetGlobalVariables();
 
-    std::vector<std::shared_ptr<ISgfcMessage>> GetMessageStreamResult() const;
-
     std::vector<std::shared_ptr<ISgfcSgfContent>> GetSaveStreamResult() const;
     bool SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const;
 

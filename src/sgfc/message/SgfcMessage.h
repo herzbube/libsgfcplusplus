@@ -49,8 +49,9 @@ namespace LibSgfcPlusPlus
       int lineNumber,
       int columnNumber,
       bool isCriticalMessage,
+      int libraryErrorNumber,
       const std::string& messageText,
-      const std::string& rawMessageText);
+      const std::string& formattedMessageText);
 
     /// @brief Initializes a newly constructed SgfcMessage object with the
     /// supplied parameter values. The SgfcMessage has message type
@@ -77,8 +78,10 @@ namespace LibSgfcPlusPlus
 
     virtual bool IsCriticalMessage() const;
 
+    virtual int GetLibraryErrorNumber() const;
+
     virtual std::string GetMessageText() const;
-    virtual std::string GetRawMessageText() const;
+    virtual std::string GetFormattedMessageText() const;
 
   private:
     int messageID;
@@ -86,7 +89,8 @@ namespace LibSgfcPlusPlus
     int lineNumber;
     int columnNumber;
     bool isCriticalMessage;
+    int libraryErrorNumber;
     std::string messageText;
-    std::string rawMessageText;
+    std::string formattedMessageText;
   };
 }

@@ -17,181 +17,326 @@
 // Library includes
 #include <sgfc/message/SgfcMessageStream.h>
 #include <SgfcPrivateConstants.h>
+#include <ISgfcMessage.h>
+#include <SgfcConstants.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
 
-// SGFC includes to be able to invoke the SGFC function PrintError() and
-// the function WriteFormattedStringToLibSgfcPlusPlusMessageStream() patched
-// into SGFC by libsgfc++.
+// SGFC includes to be able to invoke the SGFC function PrintError()
 extern "C"
 {
   #include <../sgfc/src/all.h>
   #include <../sgfc/src/protos.h>
 }
 
-// Function prototypes used to interact with SGFC behind the back of
-// SgfcMessageStream
-namespace LibSgfcPlusPlus
-{
-  void ResetSgfcMessageStream();
-}
-
 using namespace LibSgfcPlusPlus;
 
 SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-message]" )
 {
+  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
+
   GIVEN( "The message stream is empty" )
   {
-    // TODO sgfc reintegration: review commented code
-//    ResetSgfcMessageStream();
+    SgfcMessageStream messageStream;
 
-    WHEN( "SgfcMessageStream is constructed" )
+    WHEN( "SgfcMessageStream is queried" )
     {
-      SgfcMessageStream messageStream;
+      auto messages = messageStream.GetMessagees();
 
-      THEN( "The SgfcMessageStream object has no content" )
+      THEN( "The SgfcMessageStream object has no messages" )
       {
-        auto messageStreamLines = messageStream.GetMessageStreamLines();
-        auto rawMessageStreamContent = messageStream.GetRawMessageStreamContent();
-
-        REQUIRE( messageStreamLines.size() == 0 );
-        REQUIRE( rawMessageStreamContent == "" );
+        REQUIRE( messages.size() == 0 );
       }
     }
   }
 
-  GIVEN( "The message stream contains a single line" )
+  GIVEN( "The message stream contains a single message" )
   {
-    // TODO sgfc reintegration: review commented code
-//    ResetSgfcMessageStream();
-//
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
-//    // Writing a second time to the stream does not create a new line
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
+    SgfcMessageStream messageStream;
 
-    WHEN( "SgfcMessageStream is constructed" )
+    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
+
+    WHEN( "SgfcMessageStream is queried" )
     {
-      SgfcMessageStream messageStream;
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "Line:1 Col:1 - Error 10 (critical): unexpected end of file";
 
-      THEN( "The SgfcMessageStream object has one line of content" )
+      THEN( "The SgfcMessageStream object returns one message" )
       {
-        auto messageStreamLines = messageStream.GetMessageStreamLines();
-        auto rawMessageStreamContent = messageStream.GetRawMessageStreamContent();
-
-        REQUIRE( messageStreamLines.size() == 1 );
-        REQUIRE( messageStreamLines.front() == "foobar" );
-        REQUIRE( rawMessageStreamContent == "foobar" );
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+        REQUIRE( message->GetFormattedMessageText() == expectedMessageText );
       }
     }
   }
 
-  GIVEN( "The message stream contains two lines using LF as line delimiter" )
+  GIVEN( "The message stream contains two messages" )
   {
-    // TODO sgfc reintegration: review commented code
-//    ResetSgfcMessageStream();
-//
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "\n");
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "bar");
+    SgfcMessageStream messageStream;
 
-    WHEN( "SgfcMessageStream is constructed" )
+    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
+    PrintError(E_MORE_THAN_ONE_TREE, sgfc, NULL);
+
+    WHEN( "SgfcMessageStream is queried" )
     {
-      SgfcMessageStream messageStream;
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText1 = "Line:1 Col:1 - Error 10 (critical): unexpected end of file";
+      std::string expectedMessageText2 = "Error 60: file contains more than one game tree";
 
       THEN( "The SgfcMessageStream object has two lines of content" )
       {
-        auto messageStreamLines = messageStream.GetMessageStreamLines();
-        auto rawMessageStreamContent = messageStream.GetRawMessageStreamContent();
-
-        REQUIRE( messageStreamLines.size() == 2 );
-        REQUIRE( messageStreamLines.front() == "foo" );
-        REQUIRE( messageStreamLines.back() == "bar" );
-        REQUIRE( rawMessageStreamContent == "foo\nbar" );
+        REQUIRE( messages.size() == 2 );
+        auto message1 = messages.front();
+        REQUIRE( message1->GetFormattedMessageText() == expectedMessageText1 );
+        auto message2 = messages.back();
+        REQUIRE( message2->GetFormattedMessageText() == expectedMessageText2 );
       }
     }
   }
 
-  // The difference to the previous test is that we let PrintError decide
-  // what it wants to use as a line delimiter. This ***SHOULD*** be LF, but
-  // a future implementation of SGFC might change this to something else.
-  // If that happens SgfcMessageStream will break, and by testing it we will
-  // notice.
-  GIVEN( "The message stream contains two lines using the PrintError-internal line delimiter" )
+  GIVEN( "The message stream contains two messages" )
   {
-    // TODO sgfc reintegration: review commented code
-//    ResetSgfcMessageStream();
-//
-//    // Set up the buffer. For the message type that we want PrintError()
-//    // needs to scans the buffer to determine the line/column number.
-//    sgfc = new SGFInfo();
-//    sgfc->buffer = const_cast<char*>("");  // cast is safe, nobody is going to modify the buffer
-//    sgfc->start = sgfc->buffer;
-//    sgfc->b_end = sgfc->start + 1;
-//
-//    // Without this PrintError() does not output any messages
-//    memset(error_enabled, TRUE, sizeof(error_enabled));
-//
-//    PrintError(E_UNEXPECTED_EOF, sgfc->start);
-//    PrintError(E_UNEXPECTED_EOF, sgfc->start);
+    SgfcMessageStream messageStream;
 
-    WHEN( "SgfcMessageStream is constructed" )
+    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
+    PrintError(E_MORE_THAN_ONE_TREE, sgfc, NULL);
+
+    WHEN( "SgfcMessageStream is queried" )
     {
-      SgfcMessageStream messageStream;
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText1 = "Line:1 Col:1 - Error 10 (critical): unexpected end of file";
+      std::string expectedMessageText2 = "Error 60: file contains more than one game tree";
 
       THEN( "The SgfcMessageStream object has two lines of content" )
       {
-        std::string expectedMessageLine = "Line:1 Col:1 - Error 10 (critical): unexpected end of file";
-        std::string expectedRawMessageStreamContent =
-          expectedMessageLine +
-          SgfcPrivateConstants::NewlineCharacter +
-          expectedMessageLine +
-          SgfcPrivateConstants::NewlineCharacter;
-
-        auto messageStreamLines = messageStream.GetMessageStreamLines();
-        auto rawMessageStreamContent = messageStream.GetRawMessageStreamContent();
-
-        REQUIRE( messageStreamLines.size() == 2 );
-        // The CR character is not recognized by SgfcMessageStream as
-        // belonging to the line delimiter. This is an implementation detail
-        // that we test here in case
-        REQUIRE( messageStreamLines.front() == expectedMessageLine );
-        REQUIRE( messageStreamLines.back() == expectedMessageLine );
-        REQUIRE( rawMessageStreamContent ==  expectedRawMessageStreamContent);
+        REQUIRE( messages.size() == 2 );
+        auto message1 = messages.front();
+        REQUIRE( message1->GetFormattedMessageText() == expectedMessageText1 );
+        auto message2 = messages.back();
+        REQUIRE( message2->GetFormattedMessageText() == expectedMessageText2 );
       }
     }
-
-    // TODO sgfc reintegration: review commented code
-//    delete sgfc;
   }
 
   GIVEN( "Two SgfcMessageStream object are constructed" )
   {
-    // TODO sgfc reintegration: review commented code
-//    ResetSgfcMessageStream();
-//
-//    WriteFormattedStringToLibSgfcPlusPlusMessageStream("%s", "foo");
     SgfcMessageStream messageStream1;
 
     WHEN( "The second SgfcMessageStream object is constructed" )
     {
-      SgfcMessageStream messageStream2;
-
-      THEN( "The second SgfcMessageStream object has no content" )
+      THEN( "The second SgfcMessageStream constructor throws an exception" )
       {
-        auto messageStream1Lines = messageStream1.GetMessageStreamLines();
-        auto rawMessageStream1Content = messageStream1.GetRawMessageStreamContent();
-
-        REQUIRE( messageStream1Lines.size() == 1 );
-        REQUIRE( messageStream1Lines.front() == "foo" );
-        REQUIRE( rawMessageStream1Content == "foo" );
-
-        auto messageStream2Lines = messageStream2.GetMessageStreamLines();
-        auto rawMessageStream2Content = messageStream2.GetRawMessageStreamContent();
-
-        REQUIRE( messageStream2Lines.size() == 0 );
-        REQUIRE( rawMessageStream2Content == "" );
+        REQUIRE_THROWS_AS(
+          SgfcMessageStream(),
+          std::logic_error);
       }
     }
   }
+
+  FreeSGFInfo(sgfc);
+}
+
+SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-message][xxx]" )
+{
+  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
+
+  GIVEN( "A non-critical warning message is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(WS_UNKNOWN_PROPERTY, sgfc, "foo", "XX", "found");
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "unknown property <XX> found";
+      std::string expectedFormattedText = "Line:1 Col:1 - Warning 35: " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 35 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Warning );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 1 );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A non-critical error message is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(E_LC_IN_PROPID, sgfc, "xx");
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "lowercase char not allowed in property identifier";
+      std::string expectedFormattedText = "Line:1 Col:1 - Error 16: " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 16 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 1 );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A fatal error message is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(FE_NO_SGFDATA, sgfc);
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "could not find start mark '(;' - no SGF data found";
+      std::string expectedFormattedText = "Fatal error 7: " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 7 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::FatalError );
+        REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
+        REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A critical warning message is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(W_SGF_IN_HEADER, sgfc, sgfc->current);
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "possible SGF data found in front of game-tree (before '(;')";
+      std::string expectedFormattedText = "Line:1 Col:1 - Warning 6 (critical): " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 6 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Warning );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 1 );
+        REQUIRE( message->IsCriticalMessage() == true );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A critical error message is processed" )
+  {
+    SgfcMessageStream messageStream;
+    // false = print it now, don't accumulate
+    PrintError(E_ILLEGAL_OUTSIDE_CHAR, sgfc, "", false);
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "illegal char(s) found: \"\"";
+      std::string expectedFormattedText = "Line:1 Col:1 - Error 8 (critical): " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 8 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 1 );
+        REQUIRE( message->IsCriticalMessage() == true );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A message with line/column numbers is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(E_UNKNOWN_FILE_FORMAT, sgfc, "5", 5);
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "unknown file format FF[5] (only able to handle files up to FF[4])";
+      std::string expectedFormattedText = "Line:1 Col:1 - Error 46 (critical): " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 46 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
+        REQUIRE( message->GetLineNumber() == 1 );
+        REQUIRE( message->GetColumnNumber() == 1 );
+        REQUIRE( message->IsCriticalMessage() == true );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  GIVEN( "A message without line/column numbers is processed" )
+  {
+    SgfcMessageStream messageStream;
+    PrintError(E_CRITICAL_NOT_SAVED, sgfc);
+
+    WHEN( "SgfcMessageStream is queried" )
+    {
+      auto messages = messageStream.GetMessagees();
+      std::string expectedMessageText = "file not saved (because of critical errors)";
+      std::string expectedFormattedText = "Error 34: " + expectedMessageText;
+
+      THEN( "The resulting SgfcMessage object has the expected values" )
+      {
+        REQUIRE( messages.size() == 1 );
+        auto message = messages.front();
+
+        REQUIRE( message->GetMessageID() == 34 );
+        REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
+        REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
+        REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
+        REQUIRE( message->IsCriticalMessage() == false );
+        REQUIRE( message->GetLibraryErrorNumber() == SgfcConstants::LibraryErrorNumberNoError );
+        REQUIRE( message->GetMessageText() == expectedMessageText );
+        REQUIRE( message->GetFormattedMessageText() == expectedFormattedText );
+      }
+    }
+  }
+
+  FreeSGFInfo(sgfc);
 }

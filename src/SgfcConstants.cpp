@@ -39,6 +39,8 @@ namespace LibSgfcPlusPlus
   const int SgfcConstants::InvalidLineNumber = -1;
   const int SgfcConstants::InvalidColumnNumber = -1;
 
+  const int SgfcConstants::LibraryErrorNumberNoError = 0;
+
   const std::string SgfcConstants::NoneValueString = SgfcPrivateConstants::EmptyString;
   const std::string SgfcConstants::DoubleNormalString = "1";
   const std::string SgfcConstants::DoubleEmphasizedString = "2";

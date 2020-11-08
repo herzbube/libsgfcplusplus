@@ -43,7 +43,7 @@ void PrintMessages(const std::vector<std::shared_ptr<ISgfcMessage>>& messages)
   for (const auto& message : messages)
   {
     numberOfMessages++;
-    std::cout << "  " << message->GetRawMessageText() << std::endl;
+    std::cout << "  " << message->GetFormattedMessageText() << std::endl;
   }
   if (numberOfMessages == 0)
   {
@@ -72,7 +72,7 @@ int DoCommandLine(const std::string& inputFilePath, bool doSave, const std::stri
   {
     std::cout << "Command line arguments are NOT valid" << std::endl;
     std::shared_ptr<ISgfcMessage> reason = cmdline->GetInvalidCommandLineReason();
-    std::cout << "The reason is: " << reason->GetRawMessageText() << std::endl;
+    std::cout << "The reason is: " << reason->GetFormattedMessageText() << std::endl;
     return 0;
   }
 

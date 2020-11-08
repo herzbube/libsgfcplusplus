@@ -98,7 +98,6 @@ set (
   sgfc/frontend/SgfcDocumentWriteResult.cpp
   sgfc/frontend/SgfcDocumentWriter.cpp
   sgfc/message/SgfcMessage.cpp
-  sgfc/message/SgfcMessageParser.cpp
   sgfc/message/SgfcMessageStream.cpp
   sgfc/save/SgfcSaveStream.cpp
   sgfc/save/SgfcSgfContent.cpp
@@ -165,7 +164,6 @@ set (
   sgfc/frontend/SgfcDocumentWriteResult.h
   sgfc/frontend/SgfcDocumentWriter.h
   sgfc/message/SgfcMessage.h
-  sgfc/message/SgfcMessageParser.h
   sgfc/message/SgfcMessageStream.h
   sgfc/save/SgfcSaveStream.h
   sgfc/save/SgfcSgfContent.h

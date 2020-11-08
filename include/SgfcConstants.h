@@ -83,6 +83,9 @@ namespace LibSgfcPlusPlus
     /// messages that do not refer to a specific column number in a piece of
     /// SGF content.
     static const int InvalidColumnNumber;
+    /// @brief A library error number (= errno value) indicating "no error".
+    /// This is defined to be the value 0 (zero).
+    static const int LibraryErrorNumberNoError;
     //@}
 
     /// @name String constants defined by the SGF standard

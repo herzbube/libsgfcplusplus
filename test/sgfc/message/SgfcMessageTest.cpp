@@ -23,6 +23,8 @@
 
 using namespace LibSgfcPlusPlus;
 
+// TODO sgfc reintegration: add tests for library error number
+
 SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
   int messageID = 42;
@@ -30,8 +32,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
   int lineNumber = 10;
   int columnNumber = 20;
   bool isCriticalMessage = true;
+  int libraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string messageText = "message text";
-  std::string rawMessageText = "raw message text";
+  std::string formattedMessageText = "formatted message text";
 
   GIVEN( "Valid parameter values are used" )
   {
@@ -43,8 +46,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -53,8 +57,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -68,8 +73,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -78,8 +84,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -96,8 +103,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -106,8 +114,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -121,8 +130,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -131,8 +141,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -146,8 +157,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -156,8 +168,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -173,8 +186,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -183,8 +197,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
 
@@ -200,8 +215,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         lineNumber,
         columnNumber,
         isCriticalMessage,
+        libraryInternalNumber,
         messageText,
-        rawMessageText);
+        formattedMessageText);
 
       THEN( "The SgfcMessage object has the values passed to the constructor" )
       {
@@ -210,11 +226,39 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetLineNumber() == lineNumber );
         REQUIRE( message.GetColumnNumber() == columnNumber );
         REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == rawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
-  }
+
+    WHEN( "A non-zero library error number is used" )
+    {
+      libraryInternalNumber = GENERATE ( -17, 42 );
+
+      SgfcMessage message(
+        messageID,
+        messageType,
+        lineNumber,
+        columnNumber,
+        isCriticalMessage,
+        libraryInternalNumber,
+        messageText,
+        formattedMessageText);
+
+      THEN( "The SgfcMessage object has the values passed to the constructor" )
+      {
+        REQUIRE( message.GetMessageID() == messageID );
+        REQUIRE( message.GetMessageType() == messageType );
+        REQUIRE( message.GetLineNumber() == lineNumber );
+        REQUIRE( message.GetColumnNumber() == columnNumber );
+        REQUIRE( message.IsCriticalMessage() == isCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == libraryInternalNumber );
+        REQUIRE( message.GetMessageText() == messageText );
+        REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
+      }
+    }
+}
 
   GIVEN( "Invalid parameter values are used" )
   {
@@ -231,8 +275,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
             lineNumber,
             columnNumber,
             isCriticalMessage,
+            libraryInternalNumber,
             messageText,
-            rawMessageText),
+            formattedMessageText),
           std::invalid_argument);
       }
     }
@@ -252,8 +297,9 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
             lineNumber,
             columnNumber,
             isCriticalMessage,
+            libraryInternalNumber,
             messageText,
-            rawMessageText),
+            formattedMessageText),
           std::invalid_argument);
       }
     }
@@ -269,7 +315,8 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
   int expectedLineNumber = SgfcConstants::InvalidLineNumber;
   int expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
   bool expectedIsCriticalMessage = false;
-  std::string expectedRawMessageText = messageText;
+  int expectedLibraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
+  std::string expectedFormattedMessageText = messageText;
 
   GIVEN( "Valid parameter values are used" )
   {
@@ -286,8 +333,9 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
         REQUIRE( message.GetLineNumber() == expectedLineNumber );
         REQUIRE( message.GetColumnNumber() == expectedColumnNumber );
         REQUIRE( message.IsCriticalMessage() == expectedIsCriticalMessage );
+        REQUIRE( message.GetLibraryErrorNumber() == expectedLibraryInternalNumber );
         REQUIRE( message.GetMessageText() == messageText );
-        REQUIRE( message.GetRawMessageText() == expectedRawMessageText );
+        REQUIRE( message.GetFormattedMessageText() == expectedFormattedMessageText );
       }
     }
   }

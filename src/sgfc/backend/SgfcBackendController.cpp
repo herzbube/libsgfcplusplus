@@ -19,7 +19,6 @@
 #include "../../../include/SgfcConstants.h"
 #include "../../SgfcPrivateConstants.h"
 #include "../message/SgfcMessage.h"
-#include "../message/SgfcMessageParser.h"
 #include "../message/SgfcMessageStream.h"
 #include "../save/SgfcSaveStream.h"
 #include "SgfcBackendController.h"
@@ -185,6 +184,8 @@ namespace LibSgfcPlusPlus
     }
     else
     {
+      SgfcMessageStream messageStream;
+
       try
       {
         // It is safe to remove const'ness because we know that ParseArgs()
@@ -192,7 +193,7 @@ namespace LibSgfcPlusPlus
         // TODO sgfc reintegration: review commented code
 //        ParseArgs(argc, const_cast<char**>(argv));
 
-        // In theory ParseArgs() can return TRUE or FALSE. Practically we
+        // In theory ParseArgs() can return TRUE or FALSE. In practive we
         // removed all possibilities for it to return FALSE, so we don't have
         // to check the return value. ParseArgs() returns FALSE in two cases:
         // - If no argument is specified. We excluded this with the initial
@@ -203,7 +204,7 @@ namespace LibSgfcPlusPlus
       }
       catch (std::runtime_error&)
       {
-        std::vector<std::shared_ptr<ISgfcMessage>> parseArgsResult = GetMessageStreamResult();
+        std::vector<std::shared_ptr<ISgfcMessage>> parseArgsResult = messageStream.GetMessagees();
         SetInvalidCommandLineReasonFromParseArgsResults(parseArgsResult);
       }
     }
@@ -246,6 +247,8 @@ namespace LibSgfcPlusPlus
         std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
     }
 
+    SgfcMessageStream messageStream;
+
     try
     {
       // All three of the following functions set the global variable sgfc as a
@@ -260,11 +263,10 @@ namespace LibSgfcPlusPlus
     catch (std::runtime_error&)
     {
       // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to after
-      // GetMessageStreamResult().
+      // fatal error message that we get access to with SgfcMessageStream.
     }
 
-    std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = GetMessageStreamResult();
+    std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = messageStream.GetMessagees();
 
     sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
 
@@ -288,6 +290,7 @@ namespace LibSgfcPlusPlus
     ResetGlobalVariables();
     this->sgfcOptions.RestoreOptions();
 
+    SgfcMessageStream messageStream;
     bool parseSgfWasSuccessful = true;
 
     if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
@@ -302,8 +305,7 @@ namespace LibSgfcPlusPlus
       catch (std::runtime_error&)
       {
         // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to after
-        // GetMessageStreamResult().
+        // fatal error message that we get access to with SgfcMessageStream.
         parseSgfWasSuccessful = false;
       }
 
@@ -341,13 +343,12 @@ namespace LibSgfcPlusPlus
       catch (std::runtime_error&)
       {
         // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to after
-        // GetMessageStreamResult().
+        // fatal error message that we get access to with SgfcMessageStream.
       }
     }
 
     std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents = GetSaveStreamResult();
-    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = GetMessageStreamResult();
+    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = messageStream.GetMessagees();
 
     if (dataLocation == SgfcDataLocation::InMemoryBuffer)
       sgfContent = std::string();
@@ -388,22 +389,6 @@ namespace LibSgfcPlusPlus
 //    ResetGlobalVariablesInParse2();
 //    ResetGlobalVariablesInExecute();
 //    ResetGlobalVariablesInUtil();
-  }
-
-  std::vector<std::shared_ptr<ISgfcMessage>> SgfcBackendController::GetMessageStreamResult() const
-  {
-    std::vector<std::shared_ptr<ISgfcMessage>> result;
-
-    SgfcMessageStream messageStream;
-    std::vector<std::string> messageStreamLines = messageStream.GetMessageStreamLines();
-
-    for (const auto& messageStreamLine : messageStreamLines)
-    {
-      std::shared_ptr<ISgfcMessage> message = SgfcMessageParser::CreateSgfcMessage(messageStreamLine);
-      result.push_back(message);
-    }
-
-    return result;
   }
 
   std::vector<std::shared_ptr<ISgfcSgfContent>> SgfcBackendController::GetSaveStreamResult() const
