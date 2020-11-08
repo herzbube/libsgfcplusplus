@@ -17,7 +17,6 @@ set (
   sgfc/frontend/SgfcCommandLineTest.cpp
   sgfc/frontend/SgfcDocumentReaderTest.cpp
   sgfc/frontend/SgfcDocumentWriterTest.cpp
-  sgfc/message/SgfcMessageParserTest.cpp
   sgfc/message/SgfcMessageStreamTest.cpp
   sgfc/message/SgfcMessageTest.cpp
   sgfc/save/SgfcSaveStreamTest.cpp
