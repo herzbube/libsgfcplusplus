@@ -35,6 +35,7 @@ namespace LibSgfcPlusPlus
   const int SgfcConstants::SaveSgfContentToFilesystemErrorMessageID = -3;
   const int SgfcConstants::ReadSgfContentFromFilesystemErrorMessageID = -4;
   const int SgfcConstants::DeleteFileErrorMessageID = -5;
+  const int SgfcConstants::OutOfMemoryErrorMessageID = -6;
 
   const int SgfcConstants::InvalidLineNumber = -1;
   const int SgfcConstants::InvalidColumnNumber = -1;

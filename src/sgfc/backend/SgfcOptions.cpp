@@ -20,140 +20,68 @@
 // SGFC includes
 extern "C"
 {
-  #include <stdio.h>  // required to define size_t and FILE which are used in all.h
   #include "../../../sgfc/src/all.h"
   #include "../../../sgfc/src/protos.h"
 }
 
+// System includes
+#include <cstdlib>  // for free()
+
 namespace LibSgfcPlusPlus
 {
   SgfcOptions::SgfcOptions()
-    // TODO sgfc reintegration: review commented code
-//    // Values copied from main.c
-//    : option_warnings(TRUE)
-//    , option_keep_head(FALSE)
-//    , option_keep_unknown_props(TRUE)
-//    , option_keep_obsolete_props(TRUE)
-//    , option_del_empty_nodes(FALSE)
-//    , option_del_move_markup(FALSE)
-//    , option_split_file(FALSE)
-//    , option_write_critical(FALSE)
-//    , option_interactive(FALSE)
-//    , option_linebreaks(1)
-//    , option_softlinebreaks(TRUE)
-//    , option_nodelinebreaks(FALSE)
-//    , option_expandcpl(FALSE)
-//    , option_pass_tt(FALSE)
-//    , option_fix_variation(FALSE)
-//    , option_findstart(1)
-//    , option_game_signature(FALSE)
-//    , option_strict_checking(FALSE)
-//    , option_reorder_variations(FALSE)
-//    // Corresponds to memset(error_enabled, TRUE, sizeof(error_enabled));
-//    , error_enabled(SgfcOptions::GetErrorCount(), TRUE)
-//    // Corresponds to setup of sgf_token in properties.c - no property has the
-//    // DELETE_PROP flag
-//    , delete_property(SgfcOptions::GetPropertyCount(), FALSE)
+    : options(NULL)
   {
+    // Throws std::runtime_error if SGFC fails to allocate memory
+    this->options = SGFCDefaultOptions();
   }
 
   SgfcOptions::~SgfcOptions()
   {
+    free(this->options);
   }
 
-  void SgfcOptions::CaptureOptions()
+  void SgfcOptions::CaptureOptions(const SGFCOptions* sourceOptions)
   {
-    // TODO sgfc reintegration: review commented code
-//    this->option_warnings = ::option_warnings;
-//    this->option_keep_head = ::option_keep_head;
-//    this->option_keep_unknown_props = ::option_keep_unknown_props;
-//    this->option_keep_obsolete_props = ::option_keep_obsolete_props;
-//    this->option_del_empty_nodes = ::option_del_empty_nodes;
-//    this->option_del_move_markup = ::option_del_move_markup;
-//    this->option_split_file = ::option_split_file;
-//    this->option_write_critical = ::option_write_critical;
-//    this->option_interactive = ::option_interactive;
-//    this->option_linebreaks = ::option_linebreaks;
-//    this->option_softlinebreaks = ::option_softlinebreaks;
-//    this->option_nodelinebreaks = ::option_nodelinebreaks;
-//    this->option_expandcpl = ::option_expandcpl;
-//    this->option_pass_tt = ::option_pass_tt;
-//    this->option_fix_variation = ::option_fix_variation;
-//    this->option_findstart = ::option_findstart;
-//    this->option_game_signature = ::option_game_signature;
-//    this->option_strict_checking = ::option_strict_checking;
-//    this->option_reorder_variations = ::option_reorder_variations;
-//
-//    int errorCount = SgfcOptions::GetErrorCount();
-//    for (int indexOfError = 0; indexOfError < errorCount; indexOfError++)
-//      this->error_enabled[indexOfError] = (::error_enabled[indexOfError] == TRUE);
-//
-//    int propertyCount = SgfcOptions::GetPropertyCount();
-//    for (int indexOfProperty = 0; indexOfProperty < propertyCount; indexOfProperty++)
-//      this->delete_property[indexOfProperty] = ((::sgf_token[indexOfProperty].flags & DELETE_PROP) == DELETE_PROP);
+    CopyOptions(sourceOptions, this->options);
   }
 
-  void SgfcOptions::RestoreOptions() const
+  void SgfcOptions::RestoreOptions(SGFCOptions* targetOptions) const
   {
-    // TODO sgfc reintegration: review commented code
-//    ::option_warnings = this->option_warnings;
-//    ::option_keep_head = this->option_keep_head;
-//    ::option_keep_unknown_props = this->option_keep_unknown_props;
-//    ::option_keep_obsolete_props = this->option_keep_obsolete_props;
-//    ::option_del_empty_nodes = this->option_del_empty_nodes;
-//    ::option_del_move_markup = this->option_del_move_markup;
-//    ::option_split_file = this->option_split_file;
-//    ::option_write_critical = this->option_write_critical;
-//    ::option_interactive = this->option_interactive;
-//    ::option_linebreaks = this->option_linebreaks;
-//    ::option_softlinebreaks = this->option_softlinebreaks;
-//    ::option_nodelinebreaks = this->option_nodelinebreaks;
-//    ::option_expandcpl = this->option_expandcpl;
-//    ::option_pass_tt = this->option_pass_tt;
-//    ::option_fix_variation = this->option_fix_variation;
-//    ::option_findstart = this->option_findstart;
-//    ::option_game_signature = this->option_game_signature;
-//    ::option_strict_checking = this->option_strict_checking;
-//    ::option_reorder_variations = this->option_reorder_variations;
-//
-//    int errorCount = SgfcOptions::GetErrorCount();
-//    for (int indexOfError = 0; indexOfError < errorCount; indexOfError++)
-//      ::error_enabled[indexOfError] = this->error_enabled[indexOfError] ? TRUE : FALSE;
-//
-//    int propertyCount = SgfcOptions::GetPropertyCount();
-//    for (int indexOfProperty = 0; indexOfProperty < propertyCount; indexOfProperty++)
-//    {
-//      if (this->delete_property[indexOfProperty])
-//        ::sgf_token[indexOfProperty].flags |= DELETE_PROP;
-//      else
-//        ::sgf_token[indexOfProperty].flags &= ~DELETE_PROP;
-//    }
+    CopyOptions(this->options, targetOptions);
   }
 
-  int SgfcOptions::GetErrorCount()
+  void SgfcOptions::CopyOptions(const SGFCOptions* sourceOptions, SGFCOptions* targetOptions) const
   {
-    return MAX_ERROR_NUM;
-  }
+    // We don't copy options->infile and options->outfile. These are set up
+    // separately by other parts of libsgfc++.
 
-  int SgfcOptions::GetPropertyCount()
-  {
-    static int propertyCount = -1;
+    targetOptions->linebreaks = sourceOptions->linebreaks;
+    targetOptions->find_start = sourceOptions->find_start;
+    targetOptions->help = sourceOptions->help;
+    targetOptions->warnings = sourceOptions->warnings;
+    targetOptions->keep_head = sourceOptions->keep_head;
+    targetOptions->keep_unknown_props = sourceOptions->keep_unknown_props;
+    targetOptions->keep_obsolete_props = sourceOptions->keep_obsolete_props;
+    targetOptions->del_empty_nodes = sourceOptions->del_empty_nodes;
+    targetOptions->del_move_markup = sourceOptions->del_move_markup;
+    targetOptions->split_file = sourceOptions->split_file;
+    targetOptions->write_critical = sourceOptions->write_critical;
+    targetOptions->interactive = sourceOptions->interactive;
+    targetOptions->soft_linebreaks = sourceOptions->soft_linebreaks;
+    targetOptions->node_linebreaks = sourceOptions->node_linebreaks;
+    targetOptions->expand_cpl = sourceOptions->expand_cpl;
+    targetOptions->pass_tt = sourceOptions->pass_tt;
+    targetOptions->fix_variation = sourceOptions->fix_variation;
+    targetOptions->game_signature = sourceOptions->game_signature;
+    targetOptions->strict_checking = sourceOptions->strict_checking;
+    targetOptions->reorder_variations = sourceOptions->reorder_variations;
+    targetOptions->add_sgfc_ap_property = sourceOptions->add_sgfc_ap_property;
 
-    // TODO sgfc reintegration: review commented code
-//    if (propertyCount == -1)
-//    {
-//      // The last array element is not a real property, it's a delimiter element
-//      // used to stop iterations. The identifying mark is that member
-//      // SGFToken.id is NULL instead of a string. See properties.c.
-//      int indexOfProperty = 0;
-//      while (sgf_token[indexOfProperty].id != nullptr)
-//        indexOfProperty++;
-//
-//      // We don't count the delimiter element at the end, so there's no need
-//      // for the usual +1 to get from index to count.
-//      propertyCount = indexOfProperty;
-//    }
+    for (int indexOfError = 0; indexOfError < MAX_ERROR_NUM; indexOfError++)
+      targetOptions->error_enabled[indexOfError] = sourceOptions->error_enabled[indexOfError];
 
-    return propertyCount;
+    for (int indexOfProperty = 0; indexOfProperty < NUM_SGF_TOKENS; indexOfProperty++)
+      targetOptions->delete_property[indexOfProperty] = sourceOptions->delete_property[indexOfProperty];
   }
 }

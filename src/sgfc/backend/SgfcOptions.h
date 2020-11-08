@@ -16,66 +16,62 @@
 
 #pragma once
 
-// C++ Standard Library includes
-#include <vector>
+// Forward declarations
+struct SGFCOptions;
 
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcOptions class is used to capture a snapshot of the option
-  /// values that SGFC sets up when it parses its command line arguments, and
-  /// to reconfigure SGFC with those captured values at a later time.
+  /// values in an SGFCOptions struct, and to reconfigure an SGFCOptions struct
+  /// with those captured values at a later time.
   ///
   /// @ingroup internals
   /// @ingroup sgfc-arguments
   /// @ingroup sgfc-backend
   ///
-  /// Calling the RestoreOptions() method of a newly constructed SgfcOptions
-  /// object (i.e. before its CaptureOptions() method is called for the first
-  /// time) can be used to reconfigure SGFC with its default option values,
-  /// as if the command line utility had just started up. This should be used
-  /// every time just before SGFC is instructed to parse command line arguments.
+  /// Some notes about the internal workings of SGFC:
+  /// - An SGFCOptions struct is part of the SGFInfo struct that is passed as
+  ///   a parameter to all major SGFC functions, including ParseArgs(). Thus
+  ///   the option values are available everywhere in SGFC.
+  /// - When SGFInfo is created/initialized with SetupSGFInfo() a custom
+  ///   SGFCOptions object can be passed as a parameter. SetupSGFInfo() uses
+  ///   this to populate the SGFInfo object. This is the mechanism how an
+  ///   SGFCOptions with arbitrary values can be injected into SGFC.
+  /// - When SetupSGFInfo() receives no custom SGFCOptions object, it invokes
+  ///   the SGFC global function SGFCDefaultOptions() to construct a new
+  ///   SGFCOptions object with default values. SGFCDefaultOptions() can also
+  ///   be invoked outside of the context of SetupSGFInfo().
+  /// - When ParseArgs() is invoked it parses the command line arguments that
+  ///   are specified as a parameter and populates the SGFCOptions object
+  ///   inside the SGFInfo object with values that result from these parsing
+  ///   activities. The purpose of the SgfcOptions class is to capture the
+  ///   values in such an SGFCOptions object.
   class SgfcOptions
   {
   public:
     /// @brief Initializes a newly constructed SgfcOptions object. The object
     /// holds default option values.
+    ///
+    /// @exception std::runtime_error Is thrown if SGFC fails to allocate
+    /// memory.
     SgfcOptions();
 
     /// @brief Destroys and cleans up the SgfcOptions object.
     virtual ~SgfcOptions();
 
-    /// @brief Captures a snapshot of the option values that SGFC is currently
-    /// configured with.
-    void CaptureOptions();
+    /// @brief Captures a snapshot of the option values in @a sourceOptions.
+    void CaptureOptions(const SGFCOptions* sourceOptions);
 
-    /// @brief Reconfigures SGFC with the option values that the SgfcOption
-    /// object currently holds.
-    void RestoreOptions() const;
+    /// @brief Reconfigures @a targetOptions with the option values that the
+    /// SgfcOption object currently holds.
+    ///
+    /// If CaptureOptions() has never been invoked before, this applies default
+    /// option values to @a targetOptions.
+    void RestoreOptions(SGFCOptions* targetOptions) const;
 
   private:
-    char option_warnings;
-    char option_keep_head;
-    char option_keep_unknown_props;
-    char option_keep_obsolete_props;
-    char option_del_empty_nodes;
-    char option_del_move_markup;
-    char option_split_file;
-    char option_write_critical;
-    char option_interactive;
-    char option_linebreaks;
-    char option_softlinebreaks;
-    char option_nodelinebreaks;
-    char option_expandcpl;
-    char option_pass_tt;
-    char option_fix_variation;
-    char option_findstart;
-    char option_game_signature;
-    char option_strict_checking;
-    char option_reorder_variations;
-    std::vector<bool> error_enabled;
-    std::vector<bool> delete_property;
+    SGFCOptions* options;
 
-    static int GetErrorCount();
-    static int GetPropertyCount();
+    void CopyOptions(const SGFCOptions* sourceOptions, SGFCOptions* targetOptions) const;
   };
 }

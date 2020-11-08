@@ -75,6 +75,8 @@ namespace LibSgfcPlusPlus
     /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
     /// to delete a file in the filesystem.
     static const int DeleteFileErrorMessageID;
+    /// @brief Indicates a fatal error because memory allocation failed in SGFC.
+    static const int OutOfMemoryErrorMessageID;
     /// @brief Indicates an invalid line number. This is used for fatal error
     /// messages that do not refer to a specific line number in a piece of
     /// SGF content.

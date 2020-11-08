@@ -168,7 +168,6 @@ namespace LibSgfcPlusPlus
     SgfcOptions sgfcOptions;
 
     void ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
-    void SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
     void InvokeSgfcParseArgs(int argc, const char** argv);
@@ -188,8 +187,9 @@ namespace LibSgfcPlusPlus
     std::vector<std::shared_ptr<ISgfcSgfContent>> GetSaveStreamResult() const;
     bool SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const;
 
-    void SetInvalidCommandLineReasonFromParseArgsResults(
-      const std::vector<std::shared_ptr<ISgfcMessage>>& parseArgsResult);
+    void SetInvalidCommandLineReasonFromParseArgsMessages(
+      const std::vector<std::shared_ptr<ISgfcMessage>>& parseArgsMessages);
+    void SetInvalidCommandLineReasonBecauseMemoryAllocationFailed();
 
     void ThrowIfIsCommandLineValidReturnsTrue() const;
     void ThrowIfIsCommandLineValidReturnsFalse() const;

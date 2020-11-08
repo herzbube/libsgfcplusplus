@@ -43,6 +43,11 @@ namespace LibSgfcPlusPlus
   SgfcBackendController::SgfcBackendController()
     : invalidCommandLineReason(nullptr)
   {
+    // TODO sgfc reintegration: The SgfcOptions constructor can throw
+    // std::runtime, therefore this constructor can also throw that exception.
+    // How do we deal with this? Should we deal with this at all?
+
+    // TODO sgfc reintegration: do we still need this?
     std::lock_guard sgfcGuard(sgfcMutex);
 
     ParseArguments(this->arguments);
@@ -52,9 +57,14 @@ namespace LibSgfcPlusPlus
     : arguments(arguments)
     , invalidCommandLineReason(nullptr)
   {
+    // TODO sgfc reintegration: The SgfcOptions constructor can throw
+    // std::runtime, therefore this constructor can also throw that exception.
+    // How do we deal with this? Should we deal with this at all?
+
+    // TODO sgfc reintegration: do we still need this?
     std::lock_guard sgfcGuard(sgfcMutex);
 
-    ParseArguments(arguments);
+    ParseArguments(this->arguments);
   }
 
   SgfcBackendController::~SgfcBackendController()
@@ -111,21 +121,6 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
   {
-    ResetGlobalVariables();
-
-    SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(arguments);
-    if (! this->IsCommandLineValid())
-      return;
-
-    // Capture the changed SGFC option values so that we can re-apply them
-    // later on when we perform a load or save operation. There's no need for
-    // doing that if the command line arguments are not valid, because in that
-    // case a client is not allowed to perform load or save operations.
-    this->sgfcOptions.CaptureOptions();
-  }
-
-  void SgfcBackendController::SetInvalidCommandLineReasonIfSgfcFailsToParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
-  {
     std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
 
     int argc = static_cast<int>(argvArguments.size());
@@ -177,37 +172,41 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::InvokeSgfcParseArgs(int argc, const char** argv)
   {
-    if (argc == 1)
-    {
-      // Don't call ParseArgs() if there are no arguments, because that causes
-      // ParseArgs() to print a usage line to stdout.
-    }
-    else
-    {
-      SgfcMessageStream messageStream;
+    SgfcMessageStream messageStream;
 
-      try
+    SGFInfo* sgfc = NULL;
+
+    try
+    {
+      sgfc = SetupSGFInfo(NULL, NULL);
+      bool parseArgsResult = ParseArgs(sgfc, argc, argv);
+
+      if (parseArgsResult)
       {
-        // It is safe to remove const'ness because we know that ParseArgs()
-        // won't change any of the char buffers.
-        // TODO sgfc reintegration: review commented code
-//        ParseArgs(argc, const_cast<char**>(argv));
-
-        // In theory ParseArgs() can return TRUE or FALSE. In practive we
-        // removed all possibilities for it to return FALSE, so we don't have
-        // to check the return value. ParseArgs() returns FALSE in two cases:
-        // - If no argument is specified. We excluded this with the initial
-        //   argc == 1 check.
-        // - If an argument is specified that requires SGFC to exit without
-        //   error. These are -h, --help and --version. These are all in the
-        //   list of banned arguments.
+        // Capture the changed SGFC option values so that we can re-apply them
+        // later on when we perform a load or save operation. There's no need
+        // for doing that if the command line arguments are not valid, because
+        // in that case a client is not allowed to perform load or save
+        // operations.
+        this->sgfcOptions.CaptureOptions(sgfc->options);
       }
-      catch (std::runtime_error&)
+      else
       {
-        std::vector<std::shared_ptr<ISgfcMessage>> parseArgsResult = messageStream.GetMessagees();
-        SetInvalidCommandLineReasonFromParseArgsResults(parseArgsResult);
+        std::vector<std::shared_ptr<ISgfcMessage>> parseArgsMessages = messageStream.GetMessagees();
+        SetInvalidCommandLineReasonFromParseArgsMessages(parseArgsMessages);
       }
     }
+    catch (std::runtime_error&)
+    {
+      // SetupSGFInfo() and ParseArgs() both throw std::runtime_error if SGFC
+      // fails to allocate memory. We handle the exception and hope that
+      // freeing some memory will magically save the OS process from crashing.
+
+      SetInvalidCommandLineReasonBecauseMemoryAllocationFailed();
+    }
+
+    if (sgfc)
+      FreeSGFInfo(sgfc);
   }
 
   std::shared_ptr<SgfcBackendLoadResult> SgfcBackendController::LoadSgfContentFromFilesystemOrInMemoryBuffer(
@@ -219,60 +218,58 @@ namespace LibSgfcPlusPlus
 
     std::lock_guard sgfcGuard(sgfcMutex);
 
-    // Reset global variables, then re-apply the outcome of ParseArgs() so that
-    // SGFC behaves the same on each invocation.
-    ResetGlobalVariables();
-    this->sgfcOptions.RestoreOptions();
-
-    std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper;
-    if (dataLocation == SgfcDataLocation::Filesystem)
-    {
-      // It is safe to keep the pointer to the internal string buffer as long
-      // as the string remains in scope and we don't change the string content.
-      // It is safe to remove const'ness because we know that LoadSGF() and
-      // ParseSGF() won't change the char buffer.
-      // TODO sgfc reintegration: review commented code
-//      option_infile = const_cast<char*>(sgfFilePath.c_str());
-
-      sgfDataWrapper =
-        std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
-
-      // Prepare the SGFInfo struct for LoadSGF()
-      // TODO sgfc reintegration: review commented code
-//      sgfDataWrapper->GetSgfData()->name = option_infile;
-    }
-    else
-    {
-      sgfDataWrapper =
-        std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
-    }
-
-    SgfcMessageStream messageStream;
-
     try
     {
-      // All three of the following functions set the global variable sgfc as a
-      // side effect
-      // TODO sgfc reintegration: review commented code
-//      if (dataLocation == SgfcDataLocation::Filesystem)
-//        LoadSGF(sgfDataWrapper->GetSgfData());
-//      else
-//        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
-      ParseSGF(sgfDataWrapper->GetSgfData());
+      std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper;
+      if (dataLocation == SgfcDataLocation::Filesystem)
+      {
+        sgfDataWrapper =
+          std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper());
+      }
+      else
+      {
+        sgfDataWrapper =
+          std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(sgfContent));
+      }
+
+      this->sgfcOptions.RestoreOptions(sgfDataWrapper->GetSgfData()->options);
+
+      SgfcMessageStream messageStream;
+
+      bool loadSgfWasSuccessful;
+      if (dataLocation == SgfcDataLocation::Filesystem)
+        loadSgfWasSuccessful = LoadSGF(sgfDataWrapper->GetSgfData(), sgfFilePath.c_str());
+      else
+        loadSgfWasSuccessful = LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+
+      if (loadSgfWasSuccessful)
+      {
+        ParseSGF(sgfDataWrapper->GetSgfData());
+        sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
+      }
+
+      std::vector<std::shared_ptr<ISgfcMessage>> loadOperationMessages = messageStream.GetMessagees();
+
+      std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
+        std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(loadOperationMessages, sgfDataWrapper));
+      return backendLoadResult;
     }
     catch (std::runtime_error&)
     {
-      // Handle the exception. The SGFC message stream should now hold a
-      // fatal error message that we get access to with SgfcMessageStream.
+      // The SgfcBackendDataWrapper constructor, LoadSGF(),
+      // LoadSGFFromFileBuffer() and ParseArgs() all throw std::runtime_error
+      // if SGFC fails to allocate memory. We handle the exception and hope that
+      // freeing some memory will magically save the OS process from crashing.
+
+      std::vector<std::shared_ptr<ISgfcMessage>> loadOperationMessages;
+      loadOperationMessages.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+        SgfcConstants::OutOfMemoryErrorMessageID,
+        "Memory allocation failed during load operation")));
+
+      std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
+        std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(loadOperationMessages, nullptr));
+      return backendLoadResult;
     }
-
-    std::vector<std::shared_ptr<ISgfcMessage>> parseSgfResult = messageStream.GetMessagees();
-
-    sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
-
-    std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
-      std::shared_ptr<SgfcBackendLoadResult>(new SgfcBackendLoadResult(parseSgfResult, sgfDataWrapper));
-    return backendLoadResult;
   }
 
   std::shared_ptr<SgfcBackendSaveResult> SgfcBackendController::SaveSgfContentToFilesystemOrInMemoryBuffer(
@@ -287,8 +284,9 @@ namespace LibSgfcPlusPlus
 
     // Reset global variables, then re-apply the outcome of ParseArgs() so that
     // SGFC behaves the same on each invocation.
-    ResetGlobalVariables();
-    this->sgfcOptions.RestoreOptions();
+//    ResetGlobalVariables();
+    // TODO sgfc reintegration: review commented code
+//    this->sgfcOptions.RestoreOptions();
 
     SgfcMessageStream messageStream;
     bool parseSgfWasSuccessful = true;
@@ -417,10 +415,10 @@ namespace LibSgfcPlusPlus
     return true;
   }
 
-  void SgfcBackendController::SetInvalidCommandLineReasonFromParseArgsResults(
-    const std::vector<std::shared_ptr<ISgfcMessage>>& parseArgsResult)
+  void SgfcBackendController::SetInvalidCommandLineReasonFromParseArgsMessages(
+    const std::vector<std::shared_ptr<ISgfcMessage>>& parseArgsMessages)
   {
-    for (const auto& message : parseArgsResult)
+    for (const auto& message : parseArgsMessages)
     {
       if (message->GetMessageType() == SgfcMessageType::FatalError)
       {
@@ -429,11 +427,18 @@ namespace LibSgfcPlusPlus
       }
     }
 
-    // This should not happen. If it does there was an error parsing the
-    // message text.
+    // This should not happen. If it does then ParseArgs() returned false but
+    // there was no fatal error in the message stream.
     this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
       SgfcConstants::ParseArgumentErrorMessageID,
       "SGFC failed to parse the specified arguments"));
+  }
+
+  void SgfcBackendController::SetInvalidCommandLineReasonBecauseMemoryAllocationFailed()
+  {
+    this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+      SgfcConstants::OutOfMemoryErrorMessageID,
+      "Memory allocation failed during argument parsing"));
   }
 
   void SgfcBackendController::ThrowIfIsCommandLineValidReturnsTrue() const
