@@ -23,7 +23,7 @@
 // Unit test library includes
 #include <catch2/catch.hpp>
 
-// SGFC includes to be able to invoke the SGFC function PrintError()
+// SGFC includes
 extern "C"
 {
   #include <../sgfc/src/all.h>
@@ -95,30 +95,6 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
     }
   }
 
-  GIVEN( "The message stream contains two messages" )
-  {
-    SgfcMessageStream messageStream;
-
-    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
-    PrintError(E_MORE_THAN_ONE_TREE, sgfc, NULL);
-
-    WHEN( "SgfcMessageStream is queried" )
-    {
-      auto messages = messageStream.GetMessagees();
-      std::string expectedMessageText1 = "Line:1 Col:1 - Error 10 (critical): unexpected end of file";
-      std::string expectedMessageText2 = "Error 60: file contains more than one game tree";
-
-      THEN( "The SgfcMessageStream object has two lines of content" )
-      {
-        REQUIRE( messages.size() == 2 );
-        auto message1 = messages.front();
-        REQUIRE( message1->GetFormattedMessageText() == expectedMessageText1 );
-        auto message2 = messages.back();
-        REQUIRE( message2->GetFormattedMessageText() == expectedMessageText2 );
-      }
-    }
-  }
-
   GIVEN( "Two SgfcMessageStream object are constructed" )
   {
     SgfcMessageStream messageStream1;
@@ -137,7 +113,7 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
   FreeSGFInfo(sgfc);
 }
 
-SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-message][xxx]" )
+SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-message]" )
 {
   SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
 
