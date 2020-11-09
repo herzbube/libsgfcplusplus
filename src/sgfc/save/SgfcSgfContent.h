@@ -35,20 +35,20 @@ namespace LibSgfcPlusPlus
     SgfcSgfContent();
 
     /// @brief Initializes a newly constructed SgfcSgfContent object. The object
-    /// has the SGF content @a sgfContent, SGFC would have used @a fileName to
+    /// has the SGF content @a sgfContent, SGFC would have used @a filePath to
     /// save the SGF content to the filesystem.
     SgfcSgfContent(
       const std::string& sgfContent,
-      const std::string& fileName);
+      const std::string& filePath);
 
     /// @brief Destroys and cleans up the SgfcSgfContent object.
     virtual ~SgfcSgfContent();
   
     virtual std::string GetSgfContent() const;
-    virtual std::string GetFileName() const;
+    virtual std::string GetFilePath() const;
 
   private:
     std::string sgfContent;
-    std::string fileName;
+    std::string filePath;
   };
 }

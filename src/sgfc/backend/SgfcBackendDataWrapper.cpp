@@ -31,13 +31,18 @@ extern "C"
 namespace LibSgfcPlusPlus
 {
   SgfcBackendDataWrapper::SgfcBackendDataWrapper()
-    : sgfData(new SGFInfo())
+    : sgfData(NULL)
     , dataState(SgfcBackendDataState::NotLoaded)
   {
-    // Immediately zero the struct so that FreeSGFInfo() inside the destructor
-    // works. This is important in case the destructor runs immediately after
-    // the constructor, without SGF content being generated.
-    memset(this->sgfData, 0, sizeof(struct SGFInfo));
+    // SetupSGFInfo() and SetupSaveBufferIO() both throw std::runtime_error if
+    // they fail to allocate memory.
+    //
+    // We set the SGFInfo object up so that any save operations will save the
+    // SGF data to a memory buffer. Although it's possible to pass a close
+    // hook/callback to SetupSaveBufferIO(), we specify NULL here because we
+    // don't know the hook/callback that will be used eventually. Someone else
+    // will have to reconfigure the SGFInfo object accordingly.
+    this->sgfData = SetupSGFInfo(NULL, SetupSaveBufferIO(NULL));
   }
 
   SgfcBackendDataWrapper::SgfcBackendDataWrapper(const std::string& sgfContent)
@@ -49,9 +54,11 @@ namespace LibSgfcPlusPlus
 
   SgfcBackendDataWrapper::~SgfcBackendDataWrapper()
   {
-    FreeSGFInfo(this->sgfData);
-    delete this->sgfData;
-    this->sgfData = 0;
+    if (this->sgfData)
+    {
+      FreeSGFInfo(this->sgfData);
+      this->sgfData = 0;
+    }
   }
 
   SGFInfo* SgfcBackendDataWrapper::GetSgfData() const

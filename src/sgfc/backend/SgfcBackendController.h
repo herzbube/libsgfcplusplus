@@ -182,9 +182,6 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper,
       SgfcDataLocation dataLocation);
 
-    void ResetGlobalVariables();
-
-    std::vector<std::shared_ptr<ISgfcSgfContent>> GetSaveStreamResult() const;
     bool SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const;
 
     void SetInvalidCommandLineReasonFromParseArgsMessages(

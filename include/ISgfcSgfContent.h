@@ -41,8 +41,8 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the SGF content.
     virtual std::string GetSgfContent() const = 0;
 
-    /// @brief Returns the file name that SGFC would have used to save the SGF
+    /// @brief Returns the file path that SGFC would have used to save the SGF
     /// content to the filesystem.
-    virtual std::string GetFileName() const = 0;
+    virtual std::string GetFilePath() const = 0;
   };
 }

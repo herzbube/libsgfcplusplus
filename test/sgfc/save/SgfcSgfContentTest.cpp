@@ -33,7 +33,7 @@ SCENARIO( "SgfcSgfContent is constructed", "[public-api]" )
       THEN( "SgfcSgfContent has no content" )
       {
         REQUIRE( std::string() == sgfContent.GetSgfContent() );
-        REQUIRE( std::string() == sgfContent.GetFileName() );
+        REQUIRE( std::string() == sgfContent.GetFilePath() );
       }
     }
   }
@@ -59,7 +59,7 @@ SCENARIO( "SgfcSgfContent is constructed", "[public-api]" )
       THEN( "SgfcSgfContent has the expected content and file name" )
       {
         REQUIRE( testData.Content == sgfContent.GetSgfContent() );
-        REQUIRE( testData.FileName == sgfContent.GetFileName() );
+        REQUIRE( testData.FileName == sgfContent.GetFilePath() );
       }
     }
   }

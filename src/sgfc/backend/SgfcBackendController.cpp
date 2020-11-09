@@ -236,6 +236,7 @@ namespace LibSgfcPlusPlus
 
       SgfcMessageStream messageStream;
 
+      // The LoadSGF functions return false if a fatal error occurred
       bool loadSgfWasSuccessful;
       if (dataLocation == SgfcDataLocation::Filesystem)
         loadSgfWasSuccessful = LoadSGF(sgfDataWrapper->GetSgfData(), sgfFilePath.c_str());
@@ -244,6 +245,7 @@ namespace LibSgfcPlusPlus
 
       if (loadSgfWasSuccessful)
       {
+        // ParseSGF never has fatal errors, so it does not return a status
         ParseSGF(sgfDataWrapper->GetSgfData());
         sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
       }
@@ -282,122 +284,99 @@ namespace LibSgfcPlusPlus
 
     std::lock_guard sgfcGuard(sgfcMutex);
 
-    // Reset global variables, then re-apply the outcome of ParseArgs() so that
-    // SGFC behaves the same on each invocation.
-//    ResetGlobalVariables();
-    // TODO sgfc reintegration: review commented code
-//    this->sgfcOptions.RestoreOptions();
+    this->sgfcOptions.RestoreOptions(sgfDataWrapper->GetSgfData()->options);
 
     SgfcMessageStream messageStream;
-    bool parseSgfWasSuccessful = true;
 
-    if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
+    try
     {
-      try
+      bool loadDataWasSuccessful = true;
+      if (sgfDataWrapper->GetDataState() == SgfcBackendDataState::PartiallyLoaded)
       {
-        // Both of the following functions set the global variable sgfc as a
-        // side effect
-        LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
-        ParseSGF(sgfDataWrapper->GetSgfData());
-      }
-      catch (std::runtime_error&)
-      {
-        // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to with SgfcMessageStream.
-        parseSgfWasSuccessful = false;
-      }
-
-      sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
-    }
-
-    // Don't attempt to save if parsing was not successful
-    // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
-    // we skip saving also for critical errors?
-    if (parseSgfWasSuccessful)
-    {
-      // Setting up option_outfile and SGFInfo.name (the next two statements)
-      // is necessary even for SgfcDataLocation::InMemoryBuffer where we dont
-      // actually interact with the filesystem. Reason: Even the patched version
-      // of SaveSGF() expects to receive a file name. SaveSGF() can handle an
-      // empty file name.
-
-      // It is safe to keep the pointer to the internal string buffer as long
-      // as the string remains in scope and we don't change the string content.
-      // It is safe to remove const'ness because we know that SaveSGF() won't
-      // change the char buffer.
-      // TODO sgfc reintegration: review commented code
-//      option_outfile = const_cast<char*>(sgfFilePath.c_str());
-
-      // Prepare the SGFInfo struct for SaveSGF()
-      // TODO sgfc reintegration: review commented code
-//      sgfDataWrapper->GetSgfData()->name = option_outfile;
-
-      try
-      {
-        // The following function sets the global variable sgfc as a side effect
-        // TODO sgfc reintegration: review commented code
-//        SaveSGF(sgfDataWrapper->GetSgfData());
-      }
-      catch (std::runtime_error&)
-      {
-        // Handle the exception. The SGFC message stream should now hold a
-        // fatal error message that we get access to with SgfcMessageStream.
-      }
-    }
-
-    std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents = GetSaveStreamResult();
-    std::vector<std::shared_ptr<ISgfcMessage>> saveSgfResult = messageStream.GetMessagees();
-
-    if (dataLocation == SgfcDataLocation::InMemoryBuffer)
-      sgfContent = std::string();
-
-    for (auto sgfContentLoop : sgfContents)
-    {
-      if (dataLocation == SgfcDataLocation::Filesystem)
-      {
-        bool success = SaveSgfContentToFilesystem(sgfContentLoop);
-        if (! success)
+        // LoadSGFFromFileBuffer returns false if a fatal error occurred
+        loadDataWasSuccessful = LoadSGFFromFileBuffer(sgfDataWrapper->GetSgfData());
+        if (loadDataWasSuccessful)
         {
-          std::string messageString = "Writing SGF file failed: " + sgfContentLoop->GetFileName();
-
-          auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-            SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
-            messageString));
-
-          saveSgfResult.push_back(message);
+          // ParseSGF never has fatal errors, so it does not return a status
+          ParseSGF(sgfDataWrapper->GetSgfData());
+          sgfDataWrapper->SetDataState(SgfcBackendDataState::FullyLoaded);
         }
       }
-      else
+
+      std::vector<std::shared_ptr<ISgfcSgfContent>> savedSgfContents;
+
+      // Don't attempt to save if loading was not successful
+      // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
+      // we skip saving also for critical errors?
+      if (loadDataWasSuccessful)
       {
-        sgfContent += sgfContentLoop->GetSgfContent();
+        SgfcSaveStream saveStream(sgfDataWrapper->GetSgfData());
+
+        // SaveSGF() expects to receive a file name, so we have to give it one
+        // even for SgfcDataLocation::InMemoryBuffer where we dont actually
+        // interact with the filesystem. SaveSGF() can handle an empty file
+        // name.
+        // SaveSGF returns false if a fatal error occurred
+        bool saveDataWasSuccessful = SaveSGF(sgfDataWrapper->GetSgfData(), sgfFilePath.c_str());
+
+        savedSgfContents = saveStream.GetSgfContents();
       }
+
+      // Here we get all messages, even messages from LoadSGFFromFileBuffer
+      // and ParseSGF
+      std::vector<std::shared_ptr<ISgfcMessage>> saveOperationMessages = messageStream.GetMessagees();
+
+      // Initialize the out variable
+      if (dataLocation == SgfcDataLocation::InMemoryBuffer)
+        sgfContent = std::string();
+
+      for (auto sgfContentLoop : savedSgfContents)
+      {
+        if (dataLocation == SgfcDataLocation::Filesystem)
+        {
+          bool success = SaveSgfContentToFilesystem(sgfContentLoop);
+          if (! success)
+          {
+            std::string messageString = "Writing SGF file failed: " + sgfContentLoop->GetFilePath();
+
+            auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+              SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
+              messageString));
+
+            saveOperationMessages.push_back(message);
+          }
+        }
+        else
+        {
+          sgfContent += sgfContentLoop->GetSgfContent();
+        }
+      }
+
+      std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
+        std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveOperationMessages));
+      return backendSaveResult;
     }
+    catch (std::runtime_error&)
+    {
+      // LoadSGFFromFileBuffer(), ParseArgs() and SaveSGF() all throw
+      // std::runtime_error if SGFC fails to allocate memory. We handle the
+      // exception and hope that freeing some memory will magically save the
+      // OS process from crashing.
 
-    std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
-      std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveSgfResult));
-    return backendSaveResult;
-  }
+      std::vector<std::shared_ptr<ISgfcMessage>> saveOperationMessages;
+      saveOperationMessages.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+        SgfcConstants::OutOfMemoryErrorMessageID,
+        "Memory allocation failed during load operation")));
 
-  void SgfcBackendController::ResetGlobalVariables()
-  {
-    // TODO sgfc reintegration: review commented code
-//    ResetGlobalVariablesInMain();
-//    ResetGlobalVariablesInSave();
-//    ResetGlobalVariablesInProperties();
-//    ResetGlobalVariablesInParse2();
-//    ResetGlobalVariablesInExecute();
-//    ResetGlobalVariablesInUtil();
-  }
-
-  std::vector<std::shared_ptr<ISgfcSgfContent>> SgfcBackendController::GetSaveStreamResult() const
-  {
-    SgfcSaveStream saveStream;
-    return saveStream.GetSgfContents();
+      std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
+        std::shared_ptr<SgfcBackendSaveResult>(new SgfcBackendSaveResult(saveOperationMessages));
+      return backendSaveResult;
+    }
   }
 
   bool SgfcBackendController::SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const
   {
-    std::string fileName = sgfContent->GetFileName();
+    std::string fileName = sgfContent->GetFilePath();
 
     std::ofstream out(fileName);
     if (out.fail())

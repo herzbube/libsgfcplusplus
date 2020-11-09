@@ -25,9 +25,9 @@ namespace LibSgfcPlusPlus
 
   SgfcSgfContent::SgfcSgfContent(
     const std::string& sgfContent,
-    const std::string& fileName)
+    const std::string& filePath)
     : sgfContent(sgfContent)
-    , fileName(fileName)
+    , filePath(filePath)
   {
   }
 
@@ -40,8 +40,8 @@ namespace LibSgfcPlusPlus
     return this->sgfContent;
   }
 
-  std::string SgfcSgfContent::GetFileName() const
+  std::string SgfcSgfContent::GetFilePath() const
   {
-    return this->fileName;
+    return this->filePath;
   }
 }

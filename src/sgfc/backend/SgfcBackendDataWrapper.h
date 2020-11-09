@@ -64,14 +64,16 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcBackendDataWrapper object
-    /// that wraps an empty SGFInfo data structure. The data state is
-    /// SgfcBackendDataState::NotLoaded.
+    /// that wraps an empty SGFInfo data structure. SGFC save operations that
+    /// use the SGFInfo object will write data to a memory buffer. The data
+    /// state is SgfcBackendDataState::NotLoaded.
     SgfcBackendDataWrapper();
 
     /// @brief Initializes a newly constructed SgfcBackendDataWrapper object
     /// that wraps an SGFInfo data structure that contains a file buffer with
-    /// a duplicate of the content of @a sgfContent. The data state is
-    /// SgfcBackendDataState::PartiallyLoaded.
+    /// a duplicate of the content of @a sgfContent. SGFC save operations that
+    /// use the SGFInfo object will write data to a memory buffer. The data
+    /// state is SgfcBackendDataState::PartiallyLoaded.
     SgfcBackendDataWrapper(const std::string& sgfContent);
 
     /// @brief Destroys and cleans up the SgfcBackendDataWrapper object.
