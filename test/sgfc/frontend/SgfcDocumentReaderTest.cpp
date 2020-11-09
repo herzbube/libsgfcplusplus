@@ -197,7 +197,7 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
     SgfcUtility::DeleteFileIfExists(tempFilePath3);
   }
 
-  GIVEN( "The file exists and is an .sgf file with a fatal error" )
+  GIVEN( "The file exists and is an .sgf file with a critical error" )
   {
     std::string fileContent = "(;FF[9])";
     SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
@@ -207,23 +207,31 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
       SgfcDocumentReader reader;
       auto readResult = reader.ReadSgfFile(tempFilePath);
 
-      THEN( "The SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      THEN( "The SGF content is valid and the exit code and parse result match the expected critical error" )
       {
-        REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
-        REQUIRE( readResult->IsSgfDataValid() == false );
+        REQUIRE( readResult->GetExitCode() == SgfcExitCode::Error );
+        REQUIRE( readResult->IsSgfDataValid() == true );
 
         auto parseResult = readResult->GetParseResult();
-        REQUIRE( parseResult.size() == 1 );
+        REQUIRE( parseResult.size() == 2 );
 
-        auto errorMessage = parseResult.front();
-        REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+        auto errorMessage1 = parseResult.front();
+        REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
         // 46 = unknown file format
-        REQUIRE( errorMessage->GetMessageID() == 46 );
-        REQUIRE( errorMessage->GetMessageText().length() > 0 );
+        REQUIRE( errorMessage1->GetMessageID() == 46 );
+        REQUIRE( errorMessage1->IsCriticalMessage() == true );
+        REQUIRE( errorMessage1->GetMessageText().length() > 0 );
+
+        auto errorMessage2 = parseResult.back();
+        REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
+        // 40 = property <%s> is not defined in FF[%d]
+        REQUIRE( errorMessage2->GetMessageID() == 40 );
+        REQUIRE( errorMessage2->IsCriticalMessage() == false );
+        REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 
         auto document = readResult->GetDocument();
-        REQUIRE( document->IsEmpty() == true );
-        REQUIRE( document->GetGames().size() == 0 );
+        REQUIRE( document->IsEmpty() == false );
+        REQUIRE( document->GetGames().size() == 1 );
       }
     }
 

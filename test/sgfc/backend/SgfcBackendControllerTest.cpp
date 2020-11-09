@@ -35,7 +35,7 @@ using namespace LibSgfcPlusPlus;
 void AssertErrorLoadResultWhenNoValidSgfContent(std::shared_ptr<SgfcBackendLoadResult> loadResult);
 void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(std::shared_ptr<SgfcBackendLoadResult> loadResult, const std::string& sgfContent);
 void AssertLoadResultWhenSgfDataHasWarningsOrErrors(std::shared_ptr<SgfcBackendLoadResult> loadResult1, std::shared_ptr<SgfcBackendLoadResult> loadResult2, std::shared_ptr<SgfcBackendLoadResult> loadResult3);
-void AssertLoadResultWhenSgfDataHasFatalError(std::shared_ptr<SgfcBackendLoadResult> loadResult);
+void AssertLoadResultWhenSgfDataHasCriticalError(std::shared_ptr<SgfcBackendLoadResult> loadResult);
 void AssertSaveResult(std::shared_ptr<SgfcBackendSaveResult> backendSaveResult, const std::string& actualSgfContent, const std::string& expectedSgfContent);
 
 
@@ -253,7 +253,7 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
 
-  GIVEN( "The file exists and is an .sgf file with a fatal error" )
+  GIVEN( "The file exists and is an .sgf file with a critical error" )
   {
     std::string fileContent = "(;FF[9])";
     SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
@@ -263,9 +263,9 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
       SgfcBackendController backendController(emptyCommandLineArguments);
       auto loadResult = backendController.LoadSgfFile(tempFilePath);
 
-      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      THEN( "The loaded SGF content is valid and the exit code and parse result match the expected critical error" )
       {
-        AssertLoadResultWhenSgfDataHasFatalError(loadResult);
+        AssertLoadResultWhenSgfDataHasCriticalError(loadResult);
       }
     }
 
@@ -365,9 +365,9 @@ SCENARIO( "SgfcBackendController loads SGF content from a string", "[backend][zz
       SgfcBackendController backendController(emptyCommandLineArguments);
       auto loadResult = backendController.LoadSgfContent(sgfContent);
 
-      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      THEN( "The loaded SGF content is valid and the exit code and parse result match the expected critical error" )
       {
-        AssertLoadResultWhenSgfDataHasFatalError(loadResult);
+        AssertLoadResultWhenSgfDataHasCriticalError(loadResult);
       }
     }
   }
@@ -579,18 +579,25 @@ void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
   REQUIRE( errorMessage1b->GetMessageID() == 60 );
 }
 
-void AssertLoadResultWhenSgfDataHasFatalError(
+void AssertLoadResultWhenSgfDataHasCriticalError(
   std::shared_ptr<SgfcBackendLoadResult> loadResult)
 {
   auto parseResult = loadResult->GetParseResult();
-  REQUIRE( parseResult.size() == 1 );
+  REQUIRE( parseResult.size() == 2 );
 
-  auto errorMessage = parseResult.front();
-  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  auto errorMessage1 = parseResult.front();
+  REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
   // 46 = unknown file format
-  REQUIRE( errorMessage->GetMessageID() == 46 );
-  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+  REQUIRE( errorMessage1->GetMessageID() == 46 );
+  REQUIRE( errorMessage1->IsCriticalMessage() == true );
+  REQUIRE( errorMessage1->GetMessageText().length() > 0 );
 
+  auto errorMessage2 = parseResult.back();
+  REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
+  // 40 = property <%s> is not defined in FF[%d]
+  REQUIRE( errorMessage2->GetMessageID() == 40 );
+  REQUIRE( errorMessage2->IsCriticalMessage() == false );
+  REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 }
 
 void AssertSaveResult(

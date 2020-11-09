@@ -29,7 +29,7 @@ using namespace LibSgfcPlusPlus;
 void AssertErrorLoadResultWhenNoValidSgfContent(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
 void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
 void AssertLoadResultWhenSgfDataHasWarningsOrErrors(const SgfcCommandLine& commandLine1, const SgfcCommandLine& commandLine2, const SgfcCommandLine& commandLine3, SgfcExitCode sgfExitCode1, SgfcExitCode sgfExitCode2, SgfcExitCode sgfExitCode3);
-void AssertLoadResultWhenSgfDataHasFatalError(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
+void AssertLoadResultWhenSgfDataHasCriticalError(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode);
 void AssertSaveResult(const SgfcCommandLine& commandLine, SgfcExitCode sgfExitCode, const std::string& actualSgfContent, const std::string& expectedSgfContent);
 
 
@@ -250,7 +250,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
     SgfcUtility::DeleteFileIfExists(tempFilePath);
   }
 
-  GIVEN( "The file exists and is an .sgf file with a fatal error" )
+  GIVEN( "The file exists and is an .sgf file with a critical error" )
   {
     std::string fileContent = "(;FF[9])";
     SgfcUtility::AppendTextToFile(tempFilePath, fileContent);
@@ -260,9 +260,9 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
       SgfcCommandLine commandLine(emptyCommandLineArguments);
       SgfcExitCode sgfExitCode = commandLine.LoadSgfFile(tempFilePath);
 
-      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      THEN( "The loaded SGF content is valid and the exit code and parse result match the expected critical error" )
       {
-        AssertLoadResultWhenSgfDataHasFatalError(commandLine, sgfExitCode);
+        AssertLoadResultWhenSgfDataHasCriticalError(commandLine, sgfExitCode);
       }
     }
 
@@ -373,7 +373,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend]" )
     }
   }
 
-  GIVEN( "The string contains SGF data with a fatal error" )
+  GIVEN( "The string contains SGF data with a critical error" )
   {
     std::string sgfContent = "(;FF[9])";
 
@@ -382,9 +382,9 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend]" )
       SgfcCommandLine commandLine(emptyCommandLineArguments);
       SgfcExitCode sgfExitCode = commandLine.LoadSgfContent(sgfContent);
 
-      THEN( "The loaded SGF content is not valid and the exit code and parse result match the expected fatal error" )
+      THEN( "The loaded SGF content is valid and the exit code and parse result match the expected critical error" )
       {
-        AssertLoadResultWhenSgfDataHasFatalError(commandLine, sgfExitCode);
+        AssertLoadResultWhenSgfDataHasCriticalError(commandLine, sgfExitCode);
       }
     }
   }
@@ -663,21 +663,29 @@ void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
   REQUIRE( errorMessage1b->GetMessageID() == 60 );
 }
 
-void AssertLoadResultWhenSgfDataHasFatalError(
+void AssertLoadResultWhenSgfDataHasCriticalError(
   const SgfcCommandLine& commandLine,
   SgfcExitCode sgfExitCode)
 {
-  REQUIRE( sgfExitCode == SgfcExitCode::FatalError );
-  REQUIRE( commandLine.IsSgfContentValid() == false );
+  REQUIRE( sgfExitCode == SgfcExitCode::Error );
+  REQUIRE( commandLine.IsSgfContentValid() == true );
 
   auto parseResult = commandLine.GetParseResult();
-  REQUIRE( parseResult.size() == 1 );
+  REQUIRE( parseResult.size() == 2 );
 
-  auto errorMessage = parseResult.front();
-  REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
+  auto errorMessage1 = parseResult.front();
+  REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
   // 46 = unknown file format
-  REQUIRE( errorMessage->GetMessageID() == 46 );
-  REQUIRE( errorMessage->GetMessageText().length() > 0 );
+  REQUIRE( errorMessage1->GetMessageID() == 46 );
+  REQUIRE( errorMessage1->IsCriticalMessage() == true );
+  REQUIRE( errorMessage1->GetMessageText().length() > 0 );
+
+  auto errorMessage2 = parseResult.back();
+  REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
+  // 40 = property <%s> is not defined in FF[%d]
+  REQUIRE( errorMessage2->GetMessageID() == 40 );
+  REQUIRE( errorMessage2->IsCriticalMessage() == false );
+  REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 }
 
 void AssertSaveResult(
