@@ -16,23 +16,15 @@
 
 // Library includes
 #include <sgfc/backend/SgfcBackendDataWrapper.h>
-#include <SgfcPrivateConstants.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
 
-// SGFC includes to be able to invoke the SGFC function PrintError()
+// SGFC includes
 extern "C"
 {
   #include <../sgfc/src/all.h>
   #include <../sgfc/src/protos.h>
-}
-
-// Function prototypes used to interact with SGFC behind the back of
-// SgfcMessageStream
-namespace LibSgfcPlusPlus
-{
-  void ResetSgfcMessageStream();
 }
 
 using namespace LibSgfcPlusPlus;
@@ -57,14 +49,11 @@ SCENARIO( "SgfcBackendDataWrapper does not wrap a copy of an externally-provided
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        // TODO sgfc reintegration: review commented code
-//        REQUIRE( sgfData->name == nullptr );
-//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
+        REQUIRE( sgfData->current == nullptr );
 
         REQUIRE( sgfData->buffer == nullptr );
         REQUIRE( sgfData->b_end == nullptr );
-        REQUIRE( sgfData->current == nullptr );
       }
     }
   }
@@ -98,24 +87,21 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        // TODO sgfc reintegration: review commented code
-//        REQUIRE( sgfData->name == nullptr );
-//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
+        REQUIRE( sgfData->current == nullptr );
 
         if (mallocReturnsNullPtr)
           REQUIRE( sgfData->buffer == nullptr );
         else
           REQUIRE( sgfData->buffer != nullptr );
         REQUIRE( sgfData->b_end == sgfData->buffer );
-        REQUIRE( sgfData->current == sgfData->buffer );
       }
     }
   }
 
   GIVEN( "An external content buffer that contains a non-empty string is provided" )
   {
-    std::string contentBuffer = GENERATE("", "f", "foobar");
+    std::string contentBuffer = GENERATE("f", "foobar");
 
     WHEN( "SgfcBackendDataWrapper is constructed" )
     {
@@ -133,19 +119,14 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->last == nullptr );
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
-        // TODO sgfc reintegration: review commented code
-//        REQUIRE( sgfData->name == nullptr );
-//        REQUIRE( sgfData->file == nullptr );
         REQUIRE( sgfData->start == nullptr );
+        REQUIRE( sgfData->current == nullptr );
 
         REQUIRE( sgfData->buffer != nullptr );
         // sgfData->buffer does not have a zero-byte terminator, we must provide
         // the buffer length
         REQUIRE( std::string(sgfData->buffer, contentBuffer.size()) == contentBuffer );
         REQUIRE( sgfData->b_end == sgfData->buffer + contentBuffer.size() );
-        // current must point to the beginning of the buffer so that parsing
-        // will start from the beginning
-        REQUIRE( sgfData->current == sgfData->buffer );
       }
     }
   }
