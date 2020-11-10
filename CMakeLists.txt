@@ -63,14 +63,23 @@ set ( CMAKE_C_STANDARD 11 )
 set ( CMAKE_CXX_VISIBILITY_PRESET hidden )
 set ( CMAKE_VISIBILITY_INLINES_HIDDEN 1 )
 
-# libsgfc++ patches SGFC so that some of its functions throw a C++ exception.
-# This is problematic because SGFC is written in C, and C does not have
-# exceptions. Nevertheless, compilers on the different platforms usually have
-# an option that tells the compiler that C functions (functions declared with
-# "extern C") are allowed to throw C++ exceptions. This causes the compiler to
-# generate code that allows catching those exceptions. Here we define a variable
-# with the compiler-specific option. It is later added to each target's compile
-# options.
+# Throwing exceptions in C code, even when compiled for C++, is problematic
+# because C does not have exceptions. Compilers on the different platforms
+# usually have an option that tells the compiler that C functions (functions
+# declared with "extern C") are allowed to throw C++ exceptions. This causes
+# the compiler to generate code that allows catching those exceptions. Here we
+# define a variable with the compiler-specific option. It is later added to
+# each target's compile options.
+#
+# In a pre-alpha version libsgfc++ did patch SGFC so that some of its functions
+# threw a C++ exception. At that time the compiler option was 100% required.
+# These days libsgfc++ no longer patches SGFC, instead it installs a
+# hook/callback that is invoked by SGFC when an out-of-memory error occurs,
+# and the hook/callback throws a C++ exception. So the exception originates
+# within a C++ function, but it must flow through many C functions until it
+# can be finally caught and handled again in C++ code. It is not clear whether
+# the compiler option is still required. For the moment it is left in to be
+# on the safe side.
 if ( NOT DEFINED COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS )
   if ( ${MSVC} )
     set ( COMPILE_OPTION_C_FUNCTIONS_MAY_THROW_EXCEPTIONS "/EHs" )

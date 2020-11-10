@@ -40,16 +40,26 @@ namespace LibSgfcPlusPlus
 {
   static std::mutex sgfcMutex;
 
+  // ----------------------------------------------------------------------
+  // Hook/callback function prototype used to interact with SGFC.
+  // ----------------------------------------------------------------------
+
+  static void OutOfMemoryErrorHook(const char* detail)
+  {
+    // SgfcBackendController handles this exception in a few places
+    throw std::runtime_error("SGFC failed to allocate memory");
+  }
+
+  // ----------------------------------------------------------------------
+  // The SgfcBackendController class.
+  // ----------------------------------------------------------------------
+
   SgfcBackendController::SgfcBackendController()
     : invalidCommandLineReason(nullptr)
   {
-    // TODO sgfc reintegration: The SgfcOptions constructor can throw
-    // std::runtime, therefore this constructor can also throw that exception.
-    // How do we deal with this? Should we deal with this at all?
-
-    // TODO sgfc reintegration: do we still need this?
     std::lock_guard sgfcGuard(sgfcMutex);
 
+    InstallOutOfMemoryErrorHookIfNotYetInstalled();
     ParseArguments(this->arguments);
   }
 
@@ -57,13 +67,9 @@ namespace LibSgfcPlusPlus
     : arguments(arguments)
     , invalidCommandLineReason(nullptr)
   {
-    // TODO sgfc reintegration: The SgfcOptions constructor can throw
-    // std::runtime, therefore this constructor can also throw that exception.
-    // How do we deal with this? Should we deal with this at all?
-
-    // TODO sgfc reintegration: do we still need this?
     std::lock_guard sgfcGuard(sgfcMutex);
 
+    InstallOutOfMemoryErrorHookIfNotYetInstalled();
     ParseArguments(this->arguments);
   }
 
@@ -117,6 +123,12 @@ namespace LibSgfcPlusPlus
   {
     std::string sgfFilePath;
     return SaveSgfContentToFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, sgfDataWrapper, SgfcDataLocation::InMemoryBuffer);
+  }
+
+  void SgfcBackendController::InstallOutOfMemoryErrorHookIfNotYetInstalled()
+  {
+    if (oom_panic_hook != OutOfMemoryErrorHook)
+      oom_panic_hook = OutOfMemoryErrorHook;
   }
 
   void SgfcBackendController::ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
