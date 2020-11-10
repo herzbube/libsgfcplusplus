@@ -54,8 +54,8 @@ The project build system is [documented here](doc/Build.md).
 - [Why another library?](doc/WhyAnotherLibrary.md)
 - [Library design and working principles](doc/Principles.md)
 - [Assorted SGFC notes](doc/SgfcNotes.md)
-- [Other project notes](doc/ProjectcNotes.md)
 - [SGFC patch notes](doc/SgfcPatches.md) (obsolete, TODO remove this link).
+- [Other project notes](doc/ProjectNotes.md)
 - [Coding guidelines](doc/CodingGuidelines.md)
 
 ## Two project names: libsgfc++ and libsgfcplusplus

@@ -23,8 +23,6 @@
 
 using namespace LibSgfcPlusPlus;
 
-// TODO sgfc reintegration: add tests for library error number
-
 SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
   int messageID = 42;
