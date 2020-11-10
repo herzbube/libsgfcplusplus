@@ -11,12 +11,6 @@ After cloning the repository you must first initialize its Git submodules:
     cd /path/to/project
     git submodule update --init --recursive
 
-In the next step you apply some patches to SGFC:
-
-    cd sgfc
-    for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
-    cd ..
-
 Now you're ready to build. These commands should do it:
 
     mkdir build

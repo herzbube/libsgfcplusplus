@@ -46,12 +46,6 @@ install: skip
 
 before_script:
   - echo ------------------------------------------------------------
-  - echo Patching SGFC
-  - echo ------------------------------------------------------------
-  - cd sgfc
-  - for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
-  - cd ..
-  - echo ------------------------------------------------------------
   - echo Running CMake to create build system
   - echo ------------------------------------------------------------
   - mkdir build

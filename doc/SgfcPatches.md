@@ -1,5 +1,7 @@
 # SGFC Patches
 
+TODO: Remove this document once the "Adapting..." section has been rewritten.
+
 libsgfc++ applies a number of patches to the original SGFC source code to make it more suitable in a software library context. SGFC is quite unusable as a library without these modifications, because many of its routines are designed for command line usage.
 
 This document lists all patches, outlines **what** changes that are made in each patch and provides an explanation **why** the changes are made.

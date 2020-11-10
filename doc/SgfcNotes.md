@@ -4,7 +4,9 @@ This document contains assorted notes about SGFC, how it operates, and the conse
 
 These notes can be important to understand the implementation of libsgfc++.
 
-## Command line tool vs. software library
+## Adapting the command line tool to a software library context
+
+TODO: Rewrite this section and describe how installing hooks/callbacks make SGFC usable in a software library context, where the limitations are (currently only one is known: the global message channel).
 
 SGFC is very good as a command line tool, but it is not a software library. Although other programs can execute SGFC to process SGF files, they cannot make use of SGFC's functions to programmatically gain access to the actual SGF data.
  

@@ -7,28 +7,7 @@ case "$SCRIPT_FOLDER" in
   *) BASE_FOLDER="$(pwd)/$SCRIPT_FOLDER/.." ;;
 esac
 SGFC_FOLDER="$BASE_FOLDER/sgfc"
-PATCH_FOLDER="$BASE_FOLDER/patch"
 BUILD_FOLDER="$BASE_FOLDER/build"
-PATCHH_MARKER_FILENAME="libsgfc++.patches.were.applied"
-
-echo "------------------------------------------------------------"
-echo "Patching SGFC"
-echo "------------------------------------------------------------"
-cd "$SGFC_FOLDER"
-if test -f "$PATCHH_MARKER_FILENAME"; then
-  echo "Patches were already applied"
-else
-  for PATCH_FILE in $PATCH_FOLDER/*; do
-    git apply "$PATCH_FILE"
-    if test $? -ne 0; then
-      echo "Applying patch file $(basename $PATCH_FILE) failed."
-      exit 1
-    fi
-    touch "$PATCHH_MARKER_FILENAME"
-  done
-  echo "Patching successful."
-fi
-cd "$BASE_FOLDER"
 
 echo ""
 echo "------------------------------------------------------------"
