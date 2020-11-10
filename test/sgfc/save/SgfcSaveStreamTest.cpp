@@ -29,6 +29,9 @@ extern "C"
   #include <../sgfc/src/protos.h>
 }
 
+// C++ Standard Library includes
+#include <cstring>  // for strlen()
+
 using namespace LibSgfcPlusPlus;
 
 
