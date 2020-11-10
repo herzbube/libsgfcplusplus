@@ -15,15 +15,13 @@ if ( NOT DEFINED HEADERS_SGFC )
   message ( FATAL_ERROR "List of SGFC header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
 
-# SGFC is written in C, but because libsgfc++ patches the SGFC source code the
-# files listed here now contain C++ snippets and therefore must be built with
-# the C++ compiler. Here we explicitly configure CMake to override the default
-# compiler behaviour, which is to derive the language (C) from the file
-# extension (.c).
+# Setting VERSION_NO_MAIN "defines away" the SGFC main() function. An
+# alternative would be to exclude main.c from the build, but this would make
+# the file unavailable in IDEs.
 set_source_files_properties (
-  ../sgfc/save.c
-  ../sgfc/util.c
-  PROPERTIES LANGUAGE CXX
+  ../sgfc/src/main.c
+  PROPERTIES
+  COMPILE_DEFINITIONS VERSION_NO_MAIN
 )
 
 # When compiling with MSVC, disable the compiler warning C4996 for SGFC source
