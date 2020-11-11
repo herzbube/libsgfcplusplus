@@ -735,20 +735,12 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    // We have to remove line breaks ourselves because of a bug in SGFC.
-    // If the SimpleText value is the second value of a composed value then
-    // SGFC does not detect and remove hard and soft line breaks in all
-    // cases. If it's the first value of a composed value, then SGFC seems
-    // to be able to handle line breaks correctly. Examples:
-    // - Property "AP": SGFC detects neither hard nor soft line breaks in the
-    //   second value of the composed value.
-    // - Property "LB": SGFC detects soft line breaks, but not hard line
-    //   breaks, in the second value of the composed value.
-    //
-    // Although the described bug only affects SimpleText values that are the
-    // second value of a composed value, we still remove line breaks for all
-    // SimpleText values, because SGFC only recognizes and handles one kind of
-    // platform-specific line break (e.g. LF, CRLF, ...).
+    // In the past SGFC had some bugs where it didn't properly remove line
+    // breaks from SimpleText values in all cases. This forced us to remove
+    // line breaks ourselves. Current versions of SGFC should have these bugs
+    // fixed, nevertheless we leave our own line break removal in place to be
+    // on the safe side. We are willing to pay the price of a small processing
+    // overhead.
     std::string rawValueWithoutLineBreaks =
       RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
 
@@ -763,10 +755,13 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcTextPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer) const
   {
-    // In theory no line break removal is necessary for Text values because
-    // SGFC has no known bug in handling them. In practice we still have to
-    // perform the line break removal, because SGFC only recognizes and handles
-    // one kind of platform-specific line break (e.g. LF, CRLF, ...).
+    // In the past SGFC had some bugs where it didn't properly remove line
+    // breaks from SimpleText values in all cases. Because of this we added
+    // our own line break removal not only for SimpleText values, but also for
+    // Text values, to be on the safe side. Although the SimpleText bugs have
+    // been fixed in current versions of SGFC, we leave our own line break
+    // removal in place to be on the safe side. We are willing to pay the price
+    // of a small processing overhead.
     std::string rawValueWithoutLineBreaks =
       RemoveTextLineBreaks(rawPropertyValueBuffer);
 
@@ -978,6 +973,13 @@ namespace LibSgfcPlusPlus
     // values, so we don't have to deal with them. E.g. escaping the "a"
     // character is not necessary, so when SGFC sees "\a" it removes the
     // unnecessary escape character and this method gets to process only "a".
+    //
+    // But SGFC does NOT remove necessary escape characters, obviously because
+    // it expects to write them again. Unlike SGFC, libsgfc++ passes on the
+    // SimpleText and Text values to its clients, so the escape characters
+    // need to be removed here so that clients don't have to deal with them.
+    // libsgfc++ is adding the characters again later when it passes SGF data to
+    // SGFC for writing.
     //
     // The characters that need escaping are:
     // - The property value closing character "]": This needs to be always

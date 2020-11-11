@@ -31,15 +31,6 @@ When reading SimpleText or Text property values, SGFC follows the SGF standard r
 
 When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as needed.
 
-## Known bug when handling composed values with SimpleText
-
-SGFC has a known bug when handling composed values where the second value is a SimpleText value. In such a scenario, SGFC has problems detecting unescaped and escaped line breaks. Note that if the SimpleText value is the first value of the composed value, then SGFC handles line breaks correctly.
-
-Two properties are currently known to have a problem:
-
-- Property "AP": SGFC detects neither unescaped nor escaped line breaks.
-- Property "LB": SGFC detects escaped line breaks, but not unescaped line breaks.
-
 ## Known bugs when handling composed SZ values
 
 SGFC has two known bugs when handling composed SZ values:
