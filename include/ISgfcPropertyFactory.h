@@ -187,8 +187,7 @@ namespace LibSgfcPlusPlus
     /// describes a square board.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// @e nullptr or if the @a propertyValue object's method HasTypedValue()
-    /// returns false.
+    /// @e nullptr.
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
       std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) = 0;
 
@@ -201,9 +200,8 @@ namespace LibSgfcPlusPlus
     /// describes a rectangular board.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// @e nullptr or if the @a propertyValue object is not composed of two
-    /// ISgfcNumberPropertyValue objects, or if any of the
-    /// ISgfcNumberPropertyValue object's method HasTypedValue() returns false.
+    /// @e nullptr, or if the @a propertyValue object is not composed of two
+    /// ISgfcNumberPropertyValue objects.
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
       std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) = 0;
 
@@ -217,8 +215,7 @@ namespace LibSgfcPlusPlus
     /// ownership of the ISgfcNumberPropertyValue object @a propertyValue.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// @e nullptr or if the @a propertyValue object's method HasTypedValue()
-    /// returns false.
+    /// @e nullptr.
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(
       std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) = 0;
   };

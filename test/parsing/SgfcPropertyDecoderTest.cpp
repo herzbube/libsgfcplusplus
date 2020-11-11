@@ -782,10 +782,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Real );
         REQUIRE( propertySingleValue->HasTypedValue() == false );
         auto realValue = propertySingleValue->ToRealValue();
-        REQUIRE( realValue != nullptr );
-        REQUIRE_THROWS_AS(
-          realValue->GetRealValue(),
-          std::logic_error);
+        REQUIRE( realValue == nullptr );
       }
     }
   }
@@ -847,10 +844,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Double );
         REQUIRE( propertySingleValue->HasTypedValue() == false );
         auto doubleValue = propertySingleValue->ToDoubleValue();
-        REQUIRE( doubleValue != nullptr );
-        REQUIRE_THROWS_AS(
-          doubleValue->GetDoubleValue(),
-          std::logic_error);
+        REQUIRE( doubleValue == nullptr );
       }
     }
   }
@@ -912,10 +906,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Color );
         REQUIRE( propertySingleValue->HasTypedValue() == false );
         auto colorValue = propertySingleValue->ToColorValue();
-        REQUIRE( colorValue != nullptr );
-        REQUIRE_THROWS_AS(
-          colorValue->GetColorValue(),
-          std::logic_error);
+        REQUIRE( colorValue == nullptr );
       }
     }
   }
@@ -1073,7 +1064,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
 
-      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcPointPropertyValue" )
       {
         AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, pointStringSgfNotation);
       }
@@ -1093,7 +1084,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
 
-      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcGoPointPropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcPointPropertyValue" )
       {
         AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, testData.first);
       }
@@ -1204,7 +1195,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
-      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
         AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveStringSgfNotation);
       }
@@ -1230,7 +1221,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
-      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcGoMovePropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
         AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, testData.first);
       }
@@ -1319,7 +1310,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
 
-      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcGoStonePropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcStonePropertyValue" )
       {
         AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, stoneStringSgfNotation);
       }
@@ -1339,7 +1330,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
 
-      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcGoStonePropertyValue without ISgfcGoPoint" )
+      THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcStonePropertyValue" )
       {
         AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, testData.first);
       }
@@ -1612,11 +1603,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
     {
       // We are not particularly interested in testing the correctness of value
       // parsing, so we don't need a lot of test values
-      std::string pointString1 = "A1";
+      std::string pointString1 = "as";
       std::string simpleTextString1 = SgfcConstants::NoneValueString;
       int xPosition1 = 1;
       int yPosition1 = 19;
-      std::string pointString2 = "16-3";
+      std::string pointString2 = "pc";
       std::string simpleTextString2 = "foo";
       int xPosition2 = 16;
       int yPosition2 = 3;
@@ -2116,10 +2107,7 @@ void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleVal
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Number );
   REQUIRE( propertySingleValue->HasTypedValue() == false );
   auto numberValue = propertySingleValue->ToNumberValue();
-  REQUIRE( numberValue != nullptr );
-  REQUIRE_THROWS_AS(
-    numberValue->GetNumberValue(),
-    std::logic_error);
+  REQUIRE( numberValue == nullptr );
 }
 
 void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue)
@@ -2178,9 +2166,7 @@ void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleVa
   REQUIRE( pointValue != nullptr );
   REQUIRE( pointValue->GetRawPointValue() == pointString );
   auto goPointValue = pointValue->ToGoPointValue();
-  REQUIRE( goPointValue != nullptr );
-  auto goPoint = goPointValue->GetGoPoint();
-  REQUIRE( goPoint == nullptr );
+  REQUIRE( goPointValue == nullptr );
 }
 
 void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition)
@@ -2253,18 +2239,7 @@ void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, Sgfc
   REQUIRE( moveValue != nullptr );
   REQUIRE( moveValue->GetRawMoveValue() == moveString );
   auto goMoveValue = moveValue->ToGoMoveValue();
-  REQUIRE( goMoveValue != nullptr );
-  auto goMove = goMoveValue->GetGoMove();
-  REQUIRE( goMove != nullptr );
-  REQUIRE( goMove->GetPlayerColor() == expectedColor );
-  REQUIRE( goMove->IsPassMove() == false );
-  auto goStone = goMove->GetStone();
-  REQUIRE( goStone != nullptr );
-  REQUIRE( goStone->GetColor() == expectedColor );
-  REQUIRE( goMove->GetPlayerColor() == goStone->GetColor() );
-  auto goPoint = goStone->GetLocation();
-  REQUIRE( goPoint == nullptr );
-  REQUIRE( goMove->GetStoneLocation() == nullptr );
+  REQUIRE( goMoveValue == nullptr );
 }
 
 void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition)
@@ -2309,12 +2284,7 @@ void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   REQUIRE( stoneValue != nullptr );
   REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
   auto goStoneValue = stoneValue->ToGoStoneValue();
-  REQUIRE( goStoneValue != nullptr );
-  auto goStone = goStoneValue->GetGoStone();
-  REQUIRE( goStone != nullptr );
-  REQUIRE( goStone->GetColor() == expectedColor );
-  auto goPoint = goStone->GetLocation();
-  REQUIRE( goPoint == nullptr );
+  REQUIRE( goStoneValue == nullptr );
 }
 
 void AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType)

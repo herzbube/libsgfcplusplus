@@ -126,6 +126,10 @@ namespace LibSgfcPlusPlus
     /// @a pointValue can be given in any one of the notations enumerated in
     /// SgfcGoPointNotation.
     ///
+    /// Regardless of the notation in which @a pointValue is given, the
+    /// resulting ISgfcGoPointPropertyValue object uses the SGF notation as
+    /// the raw property value.
+    ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board with size smaller than the minimum required by the SGF standard
     /// (SgfcConstants::BoardSizeMinimum), or a board with size larger than the
@@ -142,13 +146,6 @@ namespace LibSgfcPlusPlus
       const std::string& pointValue,
       SgfcBoardSize boardSize) const = 0;
 
-    /// @brief Returns a newly constructed ISgfcGoPointPropertyValue object
-    /// that has the string value @a pointValue. No attempt is made to interpret
-    /// @a pointValue. As a consequence, the resulting ISgfcGoPointPropertyValue
-    /// object does not hold an ISgfcGoPoint object.
-    virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
-      const std::string& pointValue) const = 0;
-
     /// @brief Returns a newly constructed ISgfcGoMovePropertyValue object
     /// that has the string value @a moveValue. @a color is the color of the
     /// player who made the move. The move is not a pass move. @a boardSize
@@ -157,6 +154,10 @@ namespace LibSgfcPlusPlus
     /// @a moveValue refers to the location (a Go point) of the stone that is
     /// placed by the move on the board. @a moveValue can be given in any one of
     /// the notations enumerated in SgfcGoPointNotation.
+    ///
+    /// Regardless of the notation in which @a moveValue is given, the
+    /// resulting ISgfcGoMovePropertyValue object uses the SGF notation as
+    /// the raw property value.
     ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board with size smaller than the minimum required by the SGF standard
@@ -176,21 +177,11 @@ namespace LibSgfcPlusPlus
       SgfcColor color) const = 0;
 
     /// @brief Returns a newly constructed ISgfcGoMovePropertyValue object
-    /// that has the string value @a moveValue. @a color is the color of the
-    /// player who made the move. The move is not a pass move. No attempt is
-    /// made to interpret @a moveValue. As a consequence, the resulting
-    /// ISgfcGoMovePropertyValue object contains an ISgfcGoMove object that does
-    /// not hold an ISgfcGoPoint object.
-    ///
-    /// @a moveValue refers to the location (a Go point) of the stone that is
-    /// placed by the move on the board.
-    virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
-      const std::string& moveValue,
-      SgfcColor color) const = 0;
-
-    /// @brief Returns a newly constructed ISgfcGoMovePropertyValue object
     /// that has no value. @a color is the color of the player who made the
     /// move. The move is a pass move.
+    ///
+    /// The resulting ISgfcGoMovePropertyValue object uses
+    /// SgfcConstants::GoMovePassString as the raw property value.
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       SgfcColor color) const = 0;
 
@@ -202,6 +193,10 @@ namespace LibSgfcPlusPlus
     /// @a stoneValue refers to the Go point on which the stone is located.
     /// @a stoneValue can be given in any one of the notations enumerated in
     /// SgfcGoPointNotation.
+    ///
+    /// Regardless of the notation in which @a stoneValue is given, the
+    /// resulting ISgfcGoStonePropertyValue object uses the SGF notation as
+    /// the raw property value.
     ///
     /// @exception std::invalid_argument Is thrown if @a boardSize refers to
     /// a board with size smaller than the minimum required by the SGF standard
@@ -218,17 +213,6 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
       const std::string& stoneValue,
       SgfcBoardSize boardSize,
-      SgfcColor color) const = 0;
-
-    /// @brief Returns a newly constructed ISgfcGoStonePropertyValue object
-    /// that has the string value @a stoneValue. @a color is the color of the
-    /// stone. No attempt is made to interpret @a stoneValue. As a consequence,
-    /// the resulting ISgfcGoStonePropertyValue object contains an ISgfcGoStone
-    /// object that does not hold an ISgfcGoPoint object.
-    ///
-    /// @a stoneValue refers to the Go point on which the stone is located.
-    virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
-      const std::string& stoneValue,
       SgfcColor color) const = 0;
     //@}
 

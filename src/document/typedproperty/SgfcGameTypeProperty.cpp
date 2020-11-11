@@ -39,9 +39,6 @@ namespace LibSgfcPlusPlus
   {
     if (propertyValue == nullptr)
       throw std::invalid_argument("SgfcGameTypeProperty constructor failed: Property value is nullptr");
-
-    if (! propertyValue->HasTypedValue())
-      throw std::invalid_argument("SgfcGameTypeProperty constructor failed: Property value is not a Number value");
   }
 
   SgfcGameTypeProperty::~SgfcGameTypeProperty()

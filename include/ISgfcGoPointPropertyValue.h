@@ -45,8 +45,7 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcGoPointPropertyValue();
 
     /// @brief Returns an ISgfcGoPoint object that contains the property value
-    /// data and makes it available in various forms and notations. Returns
-    /// @e nullptr if interpretation of the property value data is not possible.
+    /// data and makes it available in various forms and notations.
     virtual std::shared_ptr<ISgfcGoPoint> GetGoPoint() const = 0;
   };
 }

@@ -23,14 +23,23 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, bool hasTypedValue)
-    : hasTypedValue(hasTypedValue)
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue)
+    : valueType(SgfcPropertyValueType::Unknown)
+    , hasTypedValue(false)
     , rawValue(rawValue)
   {
   }
 
-  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage)
-    : hasTypedValue(false)
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, SgfcPropertyValueType valueType)
+    : valueType(valueType)
+    , hasTypedValue(true)
+    , rawValue(rawValue)
+  {
+  }
+
+  SgfcSinglePropertyValue::SgfcSinglePropertyValue(const std::string& rawValue, SgfcPropertyValueType valueType, const std::string& typeConversionErrorMessage)
+    : valueType(valueType)
+    , hasTypedValue(false)
     , typeConversionErrorMessage(typeConversionErrorMessage)
     , rawValue(rawValue)
   {
@@ -48,6 +57,11 @@ namespace LibSgfcPlusPlus
   const ISgfcSinglePropertyValue* SgfcSinglePropertyValue::ToSingleValue() const
   {
     return this;
+  }
+
+  SgfcPropertyValueType SgfcSinglePropertyValue::GetValueType() const
+  {
+    return this->valueType;
   }
 
   bool SgfcSinglePropertyValue::HasTypedValue() const
@@ -108,15 +122,5 @@ namespace LibSgfcPlusPlus
   const ISgfcStonePropertyValue* SgfcSinglePropertyValue::ToStoneValue() const
   {
     return nullptr;
-  }
-
-  void SgfcSinglePropertyValue::ThrowIfHasNotTypedValue() const
-  {
-    if (! HasTypedValue())
-    {
-      std::stringstream message;
-      message << "Property value object has no typed property value. Value type: " << static_cast<int>(GetValueType());
-      throw std::logic_error(message.str());
-    }
   }
 }

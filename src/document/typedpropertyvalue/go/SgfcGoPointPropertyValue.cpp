@@ -20,15 +20,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(const std::string& rawValue, SgfcBoardSize boardSize)
-    : SgfcPointPropertyValue(rawValue)
-    , goPoint(new SgfcGoPoint(rawValue, boardSize))
-  {
-  }
-
-  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(const std::string& rawValue)
-    : SgfcPointPropertyValue(rawValue)
-    , goPoint(nullptr)
+  SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(std::shared_ptr<ISgfcGoPoint> goPoint)
+    : SgfcPointPropertyValue(GetRawValueOrThrow(goPoint))
+    , goPoint(goPoint)
   {
   }
 
@@ -44,5 +38,13 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcGoPoint> SgfcGoPointPropertyValue::GetGoPoint() const
   {
     return this->goPoint;
+  }
+
+  std::string SgfcGoPointPropertyValue::GetRawValueOrThrow(std::shared_ptr<ISgfcGoPoint> goPoint)
+  {
+    if (goPoint == nullptr)
+      throw std::invalid_argument("SgfcGoPointPropertyValue constructor failed: go point object is nullptr");
+
+    return goPoint->GetPosition(SgfcGoPointNotation::Sgf);
   }
 }

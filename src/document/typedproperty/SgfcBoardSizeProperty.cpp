@@ -40,9 +40,6 @@ namespace LibSgfcPlusPlus
   {
     if (propertyValue == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Property value is nullptr");
-
-    if (! propertyValue->HasTypedValue() || propertyValue->GetValueType() != SgfcPropertyValueType::Number)
-      throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Property value is not a Number value");
   }
 
   SgfcBoardSizeProperty::SgfcBoardSizeProperty(
@@ -57,13 +54,13 @@ namespace LibSgfcPlusPlus
     auto singleValue1 = propertyValue->GetValue1();
     if (singleValue1 == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Value 1 of composed property value is nullptr");
-    if (! singleValue1->HasTypedValue() || singleValue1->GetValueType() != SgfcPropertyValueType::Number)
+    if (singleValue1->ToNumberValue() == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Value 1 of composed property value is not a Number value");
 
     auto singleValue2 = propertyValue->GetValue2();
     if (singleValue2 == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Value 2 of composed property value is nullptr");
-    if (! singleValue2->HasTypedValue() || singleValue2->GetValueType() != SgfcPropertyValueType::Number)
+    if (singleValue2->ToNumberValue() == nullptr)
       throw std::invalid_argument("SgfcBoardSizeProperty constructor failed: Value 2 of composed property value is not a Number value");
   }
 

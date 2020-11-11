@@ -44,8 +44,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcSimpleTextPropertyValue();
 
     /// @brief Returns the property value interpreted as a SimpleText string.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual std::string GetSimpleTextValue() const = 0;
   };
 }

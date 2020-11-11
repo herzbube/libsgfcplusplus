@@ -20,14 +20,8 @@
 namespace LibSgfcPlusPlus
 {
   SgfcDoublePropertyValue::SgfcDoublePropertyValue(const std::string& rawValue, SgfcDouble doubleValue)
-    : SgfcSinglePropertyValue(rawValue, true)
+    : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Double)
     , doubleValue(doubleValue)
-  {
-  }
-
-  SgfcDoublePropertyValue::SgfcDoublePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage)
-    : SgfcSinglePropertyValue(rawValue, typeConversionErrorMessage)
-    , doubleValue(SgfcDouble::Normal)
   {
   }
 
@@ -35,14 +29,8 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  SgfcPropertyValueType SgfcDoublePropertyValue::GetValueType() const
-  {
-    return SgfcPropertyValueType::Double;
-  }
-
   SgfcDouble SgfcDoublePropertyValue::GetDoubleValue() const
   {
-    ThrowIfHasNotTypedValue();
     return this->doubleValue;
   }
 

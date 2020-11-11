@@ -42,8 +42,7 @@ namespace LibSgfcPlusPlus
     /// property has the specified property value @a propertyValue.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// null or if the @a propertyValue object's method HasTypedValue() returns
-    /// false.
+    /// @e nullptr.
     SgfcGameTypeProperty(
       std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
 

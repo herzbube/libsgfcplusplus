@@ -20,14 +20,8 @@
 namespace LibSgfcPlusPlus
 {
   SgfcColorPropertyValue::SgfcColorPropertyValue(const std::string& rawValue, SgfcColor colorValue)
-    : SgfcSinglePropertyValue(rawValue, true)
+    : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Color)
     , colorValue(colorValue)
-  {
-  }
-
-  SgfcColorPropertyValue::SgfcColorPropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage)
-    : SgfcSinglePropertyValue(rawValue, typeConversionErrorMessage)
-    , colorValue(SgfcColor::Black)
   {
   }
 
@@ -35,14 +29,8 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  SgfcPropertyValueType SgfcColorPropertyValue::GetValueType() const
-  {
-    return SgfcPropertyValueType::Color;
-  }
-
   SgfcColor SgfcColorPropertyValue::GetColorValue() const
   {
-    ThrowIfHasNotTypedValue();
     return this->colorValue;
   }
 

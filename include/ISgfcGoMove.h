@@ -67,12 +67,6 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the location of the stone that was placed by the move on
     /// the Go board. Returns @e nullptr if IsPassMove() returns true.
     ///
-    /// Also returns @e nullptr if IsPassMove() returns false but the location
-    /// of the stone that was placed by the move on the Go board is not known.
-    /// This special case may occur if this ISgfcGoMove object is constructed
-    /// during parsing of SGF content and the move property's value for some
-    /// reason could not be interpreted.
-    ///
     /// This is a convenience method that returns the same value as the
     /// ISgfcGoStone::GetLocation() method of the ISgfcGoStone object returned
     /// by GetStone().

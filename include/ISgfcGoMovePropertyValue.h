@@ -45,8 +45,7 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcGoMovePropertyValue();
 
     /// @brief Returns an ISgfcGoMove object that contains the property value
-    /// data. The ISgfcGoMove object does not contain an ISgfcGoPoint object
-    /// if interpretation of the property value data is not possible.
+    /// data.
     virtual std::shared_ptr<ISgfcGoMove> GetGoMove() const = 0;
   };
 }

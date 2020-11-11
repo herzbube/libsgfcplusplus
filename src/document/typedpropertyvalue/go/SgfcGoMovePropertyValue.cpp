@@ -15,28 +15,17 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
-#include "SgfcGoMovePropertyValue.h"
+#include "../../../../include/SgfcConstants.h"
 #include "../../../game/go/SgfcGoMove.h"
 #include "../../../game/go/SgfcGoPoint.h"
 #include "../../../game/go/SgfcGoStone.h"
+#include "SgfcGoMovePropertyValue.h"
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color)
-    : SgfcMovePropertyValue(rawValue)
-    , goMove(new SgfcGoMove(std::shared_ptr<ISgfcGoStone>(new SgfcGoStone(color, std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(rawValue, boardSize))))))
-  {
-  }
-
-  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(const std::string& rawValue, SgfcColor color)
-    : SgfcMovePropertyValue(rawValue)
-    , goMove(new SgfcGoMove(std::shared_ptr<ISgfcGoStone>(new SgfcGoStone(color))))
-  {
-  }
-
-  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(SgfcColor color)
-    : SgfcMovePropertyValue("")
-    , goMove(new SgfcGoMove(color))
+  SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(std::shared_ptr<ISgfcGoMove> goMove)
+    : SgfcMovePropertyValue(GetRawValueOrThrow(goMove))
+    , goMove(goMove)
   {
   }
 
@@ -52,5 +41,16 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcGoMove> SgfcGoMovePropertyValue::GetGoMove() const
   {
     return this->goMove;
+  }
+
+  std::string SgfcGoMovePropertyValue::GetRawValueOrThrow(std::shared_ptr<ISgfcGoMove> goMove)
+  {
+    if (goMove == nullptr)
+      throw std::invalid_argument("SgfcGoMovePropertyValue constructor failed: go move object is nullptr");
+
+    if (goMove->IsPassMove())
+      return SgfcConstants::GoMovePassString;
+    else
+      return goMove->GetStone()->GetLocation()->GetPosition(SgfcGoPointNotation::Sgf);
   }
 }

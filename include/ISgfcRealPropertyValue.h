@@ -44,8 +44,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcRealPropertyValue();
 
     /// @brief Returns the property value interpreted as an SgfcReal value.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcReal GetRealValue() const = 0;
   };
 }

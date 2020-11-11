@@ -20,17 +20,12 @@
 namespace LibSgfcPlusPlus
 {
   SgfcStonePropertyValue::SgfcStonePropertyValue(const std::string& rawValue)
-    : SgfcSinglePropertyValue(rawValue, true)
+    : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Stone)
   {
   }
 
   SgfcStonePropertyValue::~SgfcStonePropertyValue()
   {
-  }
-
-  SgfcPropertyValueType SgfcStonePropertyValue::GetValueType() const
-  {
-    return SgfcPropertyValueType::Stone;
   }
 
   std::string SgfcStonePropertyValue::GetRawStoneValue() const

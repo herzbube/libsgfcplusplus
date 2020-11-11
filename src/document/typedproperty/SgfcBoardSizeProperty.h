@@ -47,8 +47,7 @@ namespace LibSgfcPlusPlus
     /// describes a square board.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// null or if the @a propertyValue object's method HasTypedValue() returns
-    /// false.
+    /// @e nullptr.
     SgfcBoardSizeProperty(
       std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
 
@@ -59,9 +58,8 @@ namespace LibSgfcPlusPlus
     /// describes a rectangular board.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
-    /// null or if the @a propertyValue object is not composed of two
-    /// ISgfcNumberPropertyValue objects, or if any of the
-    /// ISgfcNumberPropertyValue object's method HasTypedValue() returns false.
+    /// @e nullptr, or if the @a propertyValue object is not composed of two
+    /// ISgfcNumberPropertyValue objects.
     SgfcBoardSizeProperty(
       std::shared_ptr<ISgfcComposedPropertyValue> propertyValue);
 

@@ -25,11 +25,13 @@
 #include "../document/typedpropertyvalue/SgfcSimpleTextPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcStonePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcTextPropertyValue.h"
-#include "../document/typedpropertyvalue/SgfcUnknownPropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoMovePropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h"
 #include "../document/SgfcComposedPropertyValue.h"
+#include "../game/go/SgfcGoMove.h"
+#include "../game/go/SgfcGoPoint.h"
+#include "../game/go/SgfcGoStone.h"
 #include "SgfcPropertyValueFactory.h"
 
 // C++ Standard Library includes
@@ -139,7 +141,7 @@ namespace LibSgfcPlusPlus
     const std::string& value) const
   {
     std::shared_ptr<ISgfcSinglePropertyValue> valueObject = std::shared_ptr<ISgfcSinglePropertyValue>(
-      new SgfcUnknownPropertyValue(value));
+      new SgfcSinglePropertyValue(value));
     return valueObject;
   }
 
@@ -147,16 +149,11 @@ namespace LibSgfcPlusPlus
     const std::string& pointValue,
     SgfcBoardSize boardSize) const
   {
+    std::shared_ptr<ISgfcGoPoint> goPointObject = std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+      pointValue,
+      boardSize));
     std::shared_ptr<ISgfcGoPointPropertyValue> valueObject = std::shared_ptr<ISgfcGoPointPropertyValue>(
-      new SgfcGoPointPropertyValue(pointValue, boardSize));
-    return valueObject;
-  }
-
-  std::shared_ptr<ISgfcGoPointPropertyValue> SgfcPropertyValueFactory::CreateGoPointPropertyValue(
-    const std::string& pointValue) const
-  {
-    std::shared_ptr<ISgfcGoPointPropertyValue> valueObject = std::shared_ptr<ISgfcGoPointPropertyValue>(
-      new SgfcGoPointPropertyValue(pointValue));
+      new SgfcGoPointPropertyValue(goPointObject));
     return valueObject;
   }
 
@@ -165,25 +162,25 @@ namespace LibSgfcPlusPlus
     SgfcBoardSize boardSize,
     SgfcColor color) const
   {
+    std::shared_ptr<ISgfcGoMove> goMoveObject = std::shared_ptr<ISgfcGoMove>(
+      new SgfcGoMove(
+        std::shared_ptr<ISgfcGoStone>(new SgfcGoStone(
+          color,
+          std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+            moveValue,
+            boardSize))))));
     std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
-      new SgfcGoMovePropertyValue(moveValue, boardSize, color));
+      new SgfcGoMovePropertyValue(goMoveObject));
     return valueObject;
   }
 
   std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
-    const std::string& moveValue,
     SgfcColor color) const
   {
+    std::shared_ptr<ISgfcGoMove> goMoveObject = std::shared_ptr<ISgfcGoMove>(
+      new SgfcGoMove(color));
     std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
-      new SgfcGoMovePropertyValue(moveValue, color));
-    return valueObject;
-  }
-
-  std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
-    SgfcColor color) const
-  {
-    std::shared_ptr<ISgfcGoMovePropertyValue> valueObject = std::shared_ptr<ISgfcGoMovePropertyValue>(
-      new SgfcGoMovePropertyValue(color));
+      new SgfcGoMovePropertyValue(goMoveObject));
     return valueObject;
   }
 
@@ -192,17 +189,14 @@ namespace LibSgfcPlusPlus
     SgfcBoardSize boardSize,
     SgfcColor color) const
   {
+    std::shared_ptr<ISgfcGoStone> goStoneObject = std::shared_ptr<ISgfcGoStone>(
+      new SgfcGoStone(
+        color,
+        std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+          stoneValue,
+          boardSize))));
     std::shared_ptr<ISgfcGoStonePropertyValue> valueObject = std::shared_ptr<ISgfcGoStonePropertyValue>(
-      new SgfcGoStonePropertyValue(stoneValue, boardSize, color));
-    return valueObject;
-  }
-
-  std::shared_ptr<ISgfcGoStonePropertyValue> SgfcPropertyValueFactory::CreateGoStonePropertyValue(
-    const std::string& stoneValue,
-    SgfcColor color) const
-  {
-    std::shared_ptr<ISgfcGoStonePropertyValue> valueObject = std::shared_ptr<ISgfcGoStonePropertyValue>(
-      new SgfcGoStonePropertyValue(stoneValue, color));
+      new SgfcGoStonePropertyValue(goStoneObject));
     return valueObject;
   }
 

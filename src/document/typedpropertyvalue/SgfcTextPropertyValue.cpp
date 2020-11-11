@@ -20,7 +20,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcTextPropertyValue::SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue)
-    : SgfcSinglePropertyValue(rawValue, true)
+    : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Text)
     , textValue(textValue)
   {
   }
@@ -29,14 +29,8 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  SgfcPropertyValueType SgfcTextPropertyValue::GetValueType() const
-  {
-    return SgfcPropertyValueType::Text;
-  }
-
   std::string SgfcTextPropertyValue::GetTextValue() const
   {
-    ThrowIfHasNotTypedValue();
     return this->textValue;
   }
 

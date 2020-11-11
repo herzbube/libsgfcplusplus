@@ -43,8 +43,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcTextPropertyValue();
 
     /// @brief Returns the property value interpreted as a Text string.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual std::string GetTextValue() const = 0;
   };
 }

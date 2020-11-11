@@ -20,17 +20,12 @@
 namespace LibSgfcPlusPlus
 {
   SgfcMovePropertyValue::SgfcMovePropertyValue(const std::string& rawValue)
-    : SgfcSinglePropertyValue(rawValue, true)
+    : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Move)
   {
   }
 
   SgfcMovePropertyValue::~SgfcMovePropertyValue()
   {
-  }
-
-  SgfcPropertyValueType SgfcMovePropertyValue::GetValueType() const
-  {
-    return SgfcPropertyValueType::Move;
   }
 
   std::string SgfcMovePropertyValue::GetRawMoveValue() const

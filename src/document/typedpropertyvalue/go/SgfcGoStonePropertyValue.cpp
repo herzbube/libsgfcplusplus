@@ -21,15 +21,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(const std::string& rawValue, SgfcBoardSize boardSize, SgfcColor color)
-    : SgfcStonePropertyValue(rawValue)
-    , goStone(new SgfcGoStone(color, std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(rawValue, boardSize))))
-  {
-  }
-
-  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(const std::string& rawValue, SgfcColor color)
-    : SgfcStonePropertyValue(rawValue)
-    , goStone(new SgfcGoStone(color))
+  SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(std::shared_ptr<ISgfcGoStone> goStone)
+    : SgfcStonePropertyValue(GetRawValueOrThrow(goStone))
+    , goStone(goStone)
   {
   }
 
@@ -45,5 +39,13 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcGoStone> SgfcGoStonePropertyValue::GetGoStone() const
   {
     return this->goStone;
+  }
+
+  std::string SgfcGoStonePropertyValue::GetRawValueOrThrow(std::shared_ptr<ISgfcGoStone> goStone)
+  {
+    if (goStone == nullptr)
+      throw std::invalid_argument("SgfcGoStonePropertyValue constructor failed: go stone object is nullptr");
+
+    return goStone->GetLocation()->GetPosition(SgfcGoPointNotation::Sgf);
   }
 }

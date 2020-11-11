@@ -44,8 +44,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcColorPropertyValue();
 
     /// @brief Returns the property value interpreted as an SgfcColor value.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcColor GetColorValue() const = 0;
   };
 }

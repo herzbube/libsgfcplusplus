@@ -44,8 +44,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcDoublePropertyValue();
 
     /// @brief Returns the property value interpreted as an SgfcDouble value.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcDouble GetDoubleValue() const = 0;
   };
 }

@@ -31,16 +31,24 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
-    /// that has the raw property string value @a rawValue. HasTypedValue()
-    /// returns @a hasTypedValue and GetTypeConversionErrorMessage() returns an
-    /// empty string.
-    SgfcSinglePropertyValue(const std::string& rawValue, bool hasTypedValue);
+    /// that has the raw property string value @a rawValue. The value type is
+    /// SgfcPropertyValueType::Unknown, HasTypedValue() returns false and
+    /// GetTypeConversionErrorMessage() returns an empty string.
+    SgfcSinglePropertyValue(const std::string& rawValue);
 
     /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
-    /// that has the raw property string value @a rawValue. HasTypedValue()
-    /// returns false and GetTypeConversionErrorMessage() returns
-    /// @a typeConversionErrorMessage.
-    SgfcSinglePropertyValue(const std::string& rawValue, const std::string& typeConversionErrorMessage);
+    /// that has the raw property string value @a rawValue and the value type
+    /// @a valueType. HasTypedValue() returns true and
+    /// GetTypeConversionErrorMessage() returns an empty string.
+    ///
+    /// Subclasses are expected to use this constructor.
+    SgfcSinglePropertyValue(const std::string& rawValue, SgfcPropertyValueType valueType);
+
+    /// @brief Initializes a newly constructed SgfcSinglePropertyValue object
+    /// that has the raw property string value @a rawValue and the value type
+    /// @a valueType. HasTypedValue() returns false and
+    /// GetTypeConversionErrorMessage() returns @a typeConversionErrorMessage.
+    SgfcSinglePropertyValue(const std::string& rawValue, SgfcPropertyValueType valueType, const std::string& typeConversionErrorMessage);
 
     /// @brief Destroys and cleans up the SgfcSinglePropertyValue object.
     virtual ~SgfcSinglePropertyValue();
@@ -48,6 +56,7 @@ namespace LibSgfcPlusPlus
     virtual bool IsComposedValue() const;
     virtual const ISgfcSinglePropertyValue* ToSingleValue() const;
 
+    virtual SgfcPropertyValueType GetValueType() const;
     virtual bool HasTypedValue() const;
     virtual std::string GetTypeConversionErrorMessage() const;
 
@@ -63,14 +72,8 @@ namespace LibSgfcPlusPlus
     virtual const ISgfcMovePropertyValue* ToMoveValue() const;
     virtual const ISgfcStonePropertyValue* ToStoneValue() const;
 
-  protected:
-    /// @brief Throws std::logic_error if HasTypedValue() returns false.
-    ///
-    /// This is a convenience method that subclasses may invoke in their getter
-    /// method that returns the typed property value.
-    void ThrowIfHasNotTypedValue() const;
-
   private:
+    SgfcPropertyValueType valueType;
     bool hasTypedValue;
     std::string typeConversionErrorMessage;
     std::string rawValue;

@@ -50,7 +50,15 @@ namespace LibSgfcPlusPlus
   /// ISgfcSinglePropertyValue contains a number of convenience methods that
   /// help casting an ISgfcSinglePropertyValue object to a concrete type (e.g.
   /// ToNumberValue()). The return value of GetValueType() provides the
-  /// information which casting method to use.
+  /// information which casting method to use (but check HasTypedValue() first).
+  ///
+  /// Property value objects are created either programmatically by the library
+  /// client by invoking a factory method, or they are created internally by
+  /// libsgfc++ as part of parsing SGF content. In the latter case parsing of
+  /// raw string values might fail, which is why the methods HasTypedValue(),
+  /// GetTypeConversionErrorMessage() and GetRawValue() exist. Carefully read
+  /// each method documentation to understand how they differ for the two
+  /// creation scenarios.
   ///
   /// ISgfcSinglePropertyValue is immutable, i.e. once the
   /// ISgfcSinglePropertyValue object is constructed it cannot be changed.
@@ -67,18 +75,23 @@ namespace LibSgfcPlusPlus
     /// on the value returned, a caller then knows which one of the convenience
     /// casting methods to use.
     ///
-    /// GetValueType() returns the value type that is defined in the SGF
-    /// standard. If the actual SGF content does not conform to the SGF
-    /// standard, then libsgfc++ will be unable to parse the raw property string
-    /// value. HasTypedValue() returns false to indicate such cases. See the
-    /// documentation of HasTypedValue() for more details.
+    /// If the property value object was created internally by libsgfc++ as
+    /// part of parsing SGF content, then the outcome is as follows:
+    /// - GetValueType() returns a well-defined value type (i.e. one that is not
+    ///   SgfcPropertyValueType::Unknown) for values of properties that are
+    ///   defined in the SGF standard. HasTypedValue() might still return false
+    ///   if libsgfc++ was unable to interpret the SGF content. See the
+    ///   documentation of HasTypedValue() for more details.
+    /// - GetValueType() returns SgfcPropertyValueType::Unknown for values of
+    ///   properties that are not defined in the SGF standard (aka
+    ///   "custom properties"). HasTypedValue() always returns false in that
+    ///   case.
     ///
-    /// GetValueType() returns SgfcPropertyValueType::Unknown for values of
-    /// properties that are not defined in the SGF standard. In that case the
-    /// ISgfcSinglePropertyValue object cannot be cast to any concrete type,
-    /// i.e. all of the convenience casting methods will return @e nullptr.
-    /// The interpretation of the raw property string value returned by
-    /// GetRawValue() is left to the caller.
+    /// If the property value object was created programmatically by the
+    /// library client by invoking a factory method, then GetValueType() returns
+    /// whichever SgfcPropertyValueType was requested by the library client.
+    /// HasTypeValue() always returns true, unless the library client explicitly
+    /// requested an untyped property value for a custom property.
     ///
     /// @note GetValueType() never returns SgfcPropertyValueType::None.
     virtual SgfcPropertyValueType GetValueType() const = 0;
@@ -95,32 +108,61 @@ namespace LibSgfcPlusPlus
     /// retrieve the signed integer number that corresponds to the raw string
     /// value that GetRawValue() returns.
     ///
-    /// When libsgfc++ parses SGF content it attempts to interpret the raw
-    /// property string value according to the value type defined for the
-    /// property in the SGF standard. If that interpretation fails
-    /// GetValueType() will return the value type according to the SGF standard
-    /// definition, but HasTypedValue() will return false.
+    /// "Not available as a typed value" (i.e. HasTypedValue() returns false)
+    /// means that the ISgfcSinglePropertyValue object cannot be cast to any
+    /// concrete type, i.e. all of the convenience casting methods return
+    /// @e nullptr. The interpretation of the raw property string value
+    /// returned by GetRawValue() is left to the library client.
+    ///
+    /// If the property value object was created internally by libsgfc++ as
+    /// part of parsing SGF content, then the outcome is as follows:
+    /// - For values of properties that are defined in the SGF standard
+    ///   libsgfc++ attempts to interpret the raw property string value
+    ///   according to the value type defined property in the SGF standard.
+    ///   HasTypedValue() returns true if that interpretation succeeds,
+    ///   otherwwise it returns false and GetTypeConversionErrorMessage()
+    ///   returns a description of why the interpretation failed.
+    /// - HasTypedValue() always returns false for values of properties that
+    ///   are not defined in the SGF standard (aka "custom properties").
+    ///   GetTypeConversionErrorMessage() returns an empty string in that case
+    ///   because libsgfc++ did not attempt an interpretation.
+    ///
+    /// If the property value object was created programmatically by the
+    /// library client by invoking a factory method, then HasTypedValue()
+    /// returns true unless the library client explicitly requested an untyped
+    /// property value for a custom property.
     virtual bool HasTypedValue() const = 0;
 
     /// @brief Returns an error message that describes why the raw string value
     /// returned by GetRawValue() could not be converted to the typed value
     /// returned by GetValueType().
     ///
-    /// Invoking this method makes sense only if GetValueType() returns a value
-    /// other than SgfcPropertyValueType::Unknown, because only in this case
-    /// does libsgfc++ attempt a conversion. In addition, HasTypedValue()
-    /// obviously must return false to indicate that a type conversion error
-    /// occurred.
+    /// Returns an empty string if HasTypedValue() returns true, or if it
+    /// returns fasle but GetValueType() returns SgfcPropertyValueType::Unknown.
     ///
-    /// Returns an empty string if GetValueType() returns
-    /// SgfcPropertyValueType::Unknown or if HasTypedValue() returns false.
+    /// This method is intended for when the property value object was created
+    /// internally by libsgfc++ as part of parsing SGF content, but there was
+    /// an error converting the raw string value to the expected value type.
+    ///
+    /// If the property value object was created programmatically by the
+    /// library client by invoking a factory method, then
+    /// GetTypeConversionErrorMessage() always returns an empty string because
+    /// the library client is not allowed to specify untyped property values.
     virtual std::string GetTypeConversionErrorMessage() const = 0;
 
     /// @brief Returns the property value as a raw string, i.e. as close as
     /// possible as it appears in the original SGF content.
     ///
-    /// The following processing is applied to the original SGF content before
-    /// it is made available from this getter as raw string:
+    /// If the property value object was created programmatically by the
+    /// library client by invoking a factory method, then GetRawValue()
+    /// returns a properly stringified version of the typed property value.
+    /// Color and Double values are converted to the string value as defined
+    /// by the SGF standard.
+    ///
+    /// If the property value object was created internally by libsgfc++ as
+    /// part of parsing SGF content, then the following processing is applied
+    /// to the original SGF content before it is made available from this getter
+    /// as raw string:
     /// - The escape character ("\") is stripped from SimpleText and Text
     ///   values (unless it was escaped itself).
     /// - Values that are not SimpleText or Text are trimmed of leading and

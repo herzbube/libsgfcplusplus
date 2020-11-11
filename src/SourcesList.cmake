@@ -29,7 +29,6 @@ set (
   document/typedpropertyvalue/SgfcSimpleTextPropertyValue.cpp
   document/typedpropertyvalue/SgfcStonePropertyValue.cpp
   document/typedpropertyvalue/SgfcTextPropertyValue.cpp
-  document/typedpropertyvalue/SgfcUnknownPropertyValue.cpp
   document/typedpropertyvalue/go/SgfcGoMovePropertyValue.cpp
   document/typedpropertyvalue/go/SgfcGoPointPropertyValue.cpp
   document/typedpropertyvalue/go/SgfcGoStonePropertyValue.cpp
@@ -129,7 +128,6 @@ set (
   document/typedpropertyvalue/SgfcSimpleTextPropertyValue.h
   document/typedpropertyvalue/SgfcStonePropertyValue.h
   document/typedpropertyvalue/SgfcTextPropertyValue.h
-  document/typedpropertyvalue/SgfcUnknownPropertyValue.h
   document/typedpropertyvalue/go/SgfcGoMovePropertyValue.h
   document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h
   document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h

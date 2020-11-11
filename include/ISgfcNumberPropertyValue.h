@@ -44,8 +44,6 @@ namespace LibSgfcPlusPlus
     virtual ~ISgfcNumberPropertyValue();
 
     /// @brief Returns the property value interpreted as an SgfcNumber value.
-    ///
-    /// @exception std::logic_error Is thrown if HasTypedValue() returns false.
     virtual SgfcNumber GetNumberValue() const = 0;
   };
 }

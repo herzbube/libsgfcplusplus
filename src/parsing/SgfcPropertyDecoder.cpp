@@ -32,12 +32,14 @@
 #include "../document/typedpropertyvalue/SgfcSimpleTextPropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcStonePropertyValue.h"
 #include "../document/typedpropertyvalue/SgfcTextPropertyValue.h"
-#include "../document/typedpropertyvalue/SgfcUnknownPropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoMovePropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoPointPropertyValue.h"
 #include "../document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h"
 #include "../document/SgfcComposedPropertyValue.h"
 #include "../document/SgfcPropertyMetaInfo.h"
+#include "../game/go/SgfcGoMove.h"
+#include "../game/go/SgfcGoPoint.h"
+#include "../game/go/SgfcGoStone.h"
 #include "../SgfcPrivateConstants.h"
 #include "../SgfcUtility.h"
 #include "propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
@@ -134,13 +136,13 @@ namespace LibSgfcPlusPlus
         if (dualValueTypeDescriptor->GetDescriptorValueType1()->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::BasicValueType)
         {
           std::stringstream message;
-          message << "GetPropertyValues: Dual value type descriptor hhas unexpected first descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType1()->GetDescriptorType());
+          message << "GetPropertyValues: Dual value type descriptor has unexpected first descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType1()->GetDescriptorType());
           throw std::logic_error(message.str());
         }
         else if (dualValueTypeDescriptor->GetDescriptorValueType2()->GetDescriptorType() != SgfcPropertyValueTypeDescriptorType::ComposedValueType)
         {
           std::stringstream message;
-          message << "GetPropertyValues: Dual value type descriptor hhas unexpected second descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType2()->GetDescriptorType());
+          message << "GetPropertyValues: Dual value type descriptor has unexpected second descriptor type " << static_cast<int>(dualValueTypeDescriptor->GetDescriptorValueType2()->GetDescriptorType());
           throw std::logic_error(message.str());
         }
 
@@ -268,15 +270,15 @@ namespace LibSgfcPlusPlus
 
         // This occurs if SgfcPropertyMetaInfo provides the wrong value type
         // descriptor
-        const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
-        if (numberValue == nullptr)
-          throw std::logic_error("Property value object is not an instance of ISgfcNumberPropertyValue");
+        const ISgfcSinglePropertyValue* singleValue = propertyValue->ToSingleValue();
+        if (singleValue->GetValueType() != SgfcPropertyValueType::Number)
+          throw std::logic_error("Property value object for GM property does not have value type Number");
 
         // This occurs if the property value string is not a Number string
-        if (! numberValue->HasTypedValue())
-          throw std::domain_error("Node object contains a GM property that does not have a Number value");
+        if (! singleValue->HasTypedValue())
+          throw std::domain_error("Node object contains a GM property with a value that is not a Number value");
 
-        // Can't use numberValue directly, the factory wants an std::shared_ptr.
+        // Can't use singleValue->ToNumberValue(), the factory wants an std::shared_ptr.
         // std::dynamic_pointer_cast performs a downcast and packages the result
         // into a shared_ptr, all in one go. Note: We can't use
         // std::static_pointer_cast because of multiple inheritance.
@@ -345,10 +347,16 @@ namespace LibSgfcPlusPlus
 
             // This occurs if SgfcPropertyMetaInfo provides the wrong value type
             // descriptor
-            const ISgfcNumberPropertyValue* numberValue1 = composedValueSharedPtr->GetValue1()->ToSingleValue()->ToNumberValue();
-            const ISgfcNumberPropertyValue* numberValue2 = composedValueSharedPtr->GetValue2()->ToSingleValue()->ToNumberValue();
-            if (numberValue1 == nullptr || numberValue2 == nullptr)
-              throw std::logic_error("Either the first or the second property value object is not an instance of ISgfcNumberPropertyValue");
+            const ISgfcSinglePropertyValue* singleValue1 = composedValueSharedPtr->GetValue1()->ToSingleValue();
+            const ISgfcSinglePropertyValue* singleValue2 = composedValueSharedPtr->GetValue2()->ToSingleValue();
+            if (singleValue1->GetValueType() != SgfcPropertyValueType::Number ||
+                singleValue2->GetValueType() != SgfcPropertyValueType::Number)
+              throw std::logic_error("Either the first or the second property value object for SZ property does not have value type Number");
+
+            // This occurs if one of the single properties' value string is not
+            // a Number string
+            if (! singleValue1->HasTypedValue() || ! singleValue2->HasTypedValue())
+              throw std::domain_error("Node object contains an SZ property with a composed value, of which either the first or the second value is not a Number value");
 
             std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty(
               composedValueSharedPtr);
@@ -359,9 +367,13 @@ namespace LibSgfcPlusPlus
           {
             // This occurs if SgfcPropertyMetaInfo provides the wrong value type
             // descriptor
-            const ISgfcNumberPropertyValue* numberValue = propertyValue->ToSingleValue()->ToNumberValue();
-            if (numberValue == nullptr)
-              throw std::logic_error("Property value object is not an instance of ISgfcNumberPropertyValue");
+            const ISgfcSinglePropertyValue* singleValue = propertyValue->ToSingleValue();
+            if (singleValue->GetValueType() != SgfcPropertyValueType::Number)
+              throw std::logic_error("Property value object for SZ property does not have value type Number");
+
+            // This occurs if the property value string is not a Number string
+            if (! singleValue->HasTypedValue())
+              throw std::domain_error("Node object contains an SZ property with a single value that is not a Number value");
 
             std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
               std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
@@ -541,7 +553,7 @@ namespace LibSgfcPlusPlus
         // string value would mean tampering with the SGF data. Currently the
         // tampering argument seems to be the stronger argument, so we don't
         // do anything special with empty string values here. The result is that
-        // for thhose value types for which an empty string cannot be converted
+        // for those value types for which an empty string cannot be converted
         // to a value of the required type (e.g. SgfcPropertyValueType::Number)
         // the resulting ISgfcPropertyValue object will have only a raw value
         // and HasTypedValue() will return false.
@@ -603,7 +615,7 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcStonePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::Unknown:
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcUnknownPropertyValue(
+        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
           rawPropertyValueBuffer));
         break;
       case SgfcPropertyValueType::None:
@@ -637,8 +649,9 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcNumberPropertyValue(
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
+        SgfcPropertyValueType::Number,
         outTypeConversionErrorMessage));
     }
   }
@@ -664,8 +677,9 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcRealPropertyValue(
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
+        SgfcPropertyValueType::Real,
         outTypeConversionErrorMessage));
     }
   }
@@ -691,8 +705,9 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcDoublePropertyValue(
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
+        SgfcPropertyValueType::Double,
         outTypeConversionErrorMessage));
     }
   }
@@ -718,8 +733,9 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcColorPropertyValue(
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
+        SgfcPropertyValueType::Color,
         outTypeConversionErrorMessage));
     }
   }
@@ -774,16 +790,19 @@ namespace LibSgfcPlusPlus
     {
       try
       {
+        std::shared_ptr<ISgfcGoPoint> goPointObject = std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+          rawPropertyValueBuffer,
+          this->boardSize));
+
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
-         rawPropertyValueBuffer,
-         this->boardSize));
+         goPointObject));
       }
       catch (std::invalid_argument&)
       {
         // Interpretation of the property value failed. We expect SGFC to
         // validate point values for us in relation to the board size, but we
         // don't rely on it.
-        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
          rawPropertyValueBuffer));
       }
     }
@@ -791,7 +810,7 @@ namespace LibSgfcPlusPlus
     {
       std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-       rawValueWithoutEscapeCharacters));
+        rawValueWithoutEscapeCharacters));
     }
   }
 
@@ -813,22 +832,29 @@ namespace LibSgfcPlusPlus
         // Here we rely on SGFC doing the interpretation for us, and for passing
         // an empty string value to us if it encountered "tt".
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-         color));
+          std::shared_ptr<ISgfcGoMove>(new SgfcGoMove(color))));
       }
       else
       {
         try
         {
+          std::shared_ptr<ISgfcGoMove> goMoveObject = std::shared_ptr<ISgfcGoMove>(
+            new SgfcGoMove(
+              std::shared_ptr<ISgfcGoStone>(new SgfcGoStone(
+                color,
+                std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+                  rawPropertyValueBuffer,
+                  this->boardSize))))));
           return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-           rawPropertyValueBuffer, this->boardSize, color));
+            goMoveObject));
         }
         catch (std::invalid_argument&)
         {
           // Interpretation of the property value failed. We expect SGFC to
           // validate move values for us in relation to the board size, but we
           // don't rely on it.
-          return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoMovePropertyValue(
-           rawPropertyValueBuffer, color));
+          return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
+           rawPropertyValueBuffer));
         }
       }
     }
@@ -836,7 +862,7 @@ namespace LibSgfcPlusPlus
     {
       std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-       rawValueWithoutEscapeCharacters));
+        rawValueWithoutEscapeCharacters));
     }
   }
 
@@ -850,16 +876,22 @@ namespace LibSgfcPlusPlus
       SgfcColor color = GetColorForPropertyType();
       try
       {
+        std::shared_ptr<ISgfcGoStone> goStoneObject = std::shared_ptr<ISgfcGoStone>(
+          new SgfcGoStone(
+            color,
+            std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
+              rawPropertyValueBuffer,
+              this->boardSize))));
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
-         rawPropertyValueBuffer, this->boardSize, color));
+         goStoneObject));
       }
       catch (std::invalid_argument&)
       {
         // Interpretation of the property value failed. We expect SGFC to
-        // validate stone values for us in relation to the board size, but w
+        // validate stone values for us in relation to the board size, but we
         // don't rely on it.
-        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoStonePropertyValue(
-         rawPropertyValueBuffer, color));
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
+          rawPropertyValueBuffer));
       }
     }
     else
