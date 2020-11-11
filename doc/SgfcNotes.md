@@ -4,22 +4,6 @@ This document contains assorted notes about SGFC, how it operates, and the conse
 
 These notes can be important to understand the implementation of libsgfc++.
 
-## Adapting the command line tool to a software library context
-
-TODO: Rewrite this section and describe how installing hooks/callbacks make SGFC usable in a software library context, where the limitations are (currently only one is known: the global message channel).
-
-SGFC is very good as a command line tool, but it is not a software library. Although other programs can execute SGFC to process SGF files, they cannot make use of SGFC's functions to programmatically gain access to the actual SGF data.
- 
-Enter libsgfc++.
-
-libsgfc++ applies a number of patches to the original SGFC source code to make it more suitable in a software library context. SGFC is quite unusable as a library without these modifications, because many of its routines are designed for command line usage. The main points are:
-
-* SGFC invokes `exit()` deep within a helper function to abort program execution when it finds a fatal error in the SGF data. This is a no-go for a software library. libsgfc++ patches the `exit()` call into oblivion and replaces it with a different mechanism to report fatal errors to its clients.
-* SGFC prints warnings and errors that occur during parsing to `stdout`. libsgfc++ modifies SGFC so that it can make these warnings and errors available to its clients in a programmatical way.
-* SGFC uses many global and `static` variables that are initialized only once, because a command line utility only needs to run once. libsgfc++ changes this so that its clients can run the library functions over and over without stopping the program.
-
-Detailed information about each patch can be found in [SgfcPatches.md](doc/SgfcPatches.md).
-
 ## Escaping
 
 On reading SimpleText/Text property values, SGFC removes escape characters that don't do anything (e.g. `\a`, or `\:` in a non-composed property value) but preserves escape characters that have a purpose: `\\`, `\]` and `\:`.
@@ -84,7 +68,7 @@ It's impossible to preserve the original format in all cases, because SGFC norma
 
 The original idea was that the `SgfcDocumentEncoder` class creates data structures using the structs that SGFC defines (e.g. `Node`, `Property`, `PropValue`). In theory it should have been as easy as invoking the appropriate SGFC helper functions, such as `NewNode()` or `NewProperty()`, to create the data structures. In practice this scheme turned out at first to be problematic, and then doomed.
 
-The first minor problem is accessibility of the involved functions: `NewNode()` is declared `extern`, so it can be used by `SgfcDocumentEncoder` easily. `NewProperty()` and other functions, on the other hand, are declared `static` inside `load.c`, so it would have been necessary to further patch SGFC in order to be able to use those functions.
+The first minor problem is accessibility of the involved functions: `NewNode()` is declared `extern`, so it can be used by `SgfcDocumentEncoder` easily. `NewProperty()` and other functions, on the other hand, are declared `static` inside `load.c`, so it would have been necessary to patch SGFC in order to be able to use those functions.
 
 The next problem, which turned out to be the real bummer, is that each `Property` structure has a member named `buffer`, which is a pointer that SGFC expects to point deeply into the `SGFInfo` file buffer. Although `NewProperty()` sets `buffer` up for us, it expects the buffer start as a parameter, i.e. the start within the file buffer from where property parsing should begin. We can't provide `NewProperty()` with a pointer into an `std::string` buffer because that goes away when the `std::string` object is destroyed. This means we would have to create a copy of the `std::string` buffer on the heap. But then the next problem would be, who frees that memory when the SGFC operation is done? `FreeSGFInfo()` is not the one, because it assumes that the `Property` buffer is part of the file buffer, so it merely frees the file buffer. In addition to the memory management issue, there are doubts whether SGFC's parsing functions can handle an abrupt end of the file buffer - which would occur because our copy of the `std::string` buffer would naturally be bounded with a zero byte.
 
