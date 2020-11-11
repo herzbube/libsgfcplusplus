@@ -57,14 +57,6 @@ The project build system is [documented here](doc/Build.md).
 - [Other project notes](doc/ProjectNotes.md)
 - [Coding guidelines](doc/CodingGuidelines.md)
 
-## Two project names: libsgfc++ and libsgfcplusplus
-
-The official project name is libsgfc++. Please use the official name whenever possible, but at least in human-readable content.
-
-The project's alternative name is libsgfcplusplus. Use the alternative name if the "+" characters in the official name might cause technical problems. For example GitHub does not allow "+" characters in a repository name.
-
-libsgfc++ strives to be platform-independent. To minimize the risk of causing obscure technical issues on some platform the project uses "plusplus" instead of "++" in file names (e.g. source files, build artifacts).
-
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0). Here's the [link to the license file](LICENSE).

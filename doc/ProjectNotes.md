@@ -2,6 +2,14 @@
 
 This file contains assorted project notes for which there is no better home.
 
+## Two project names: libsgfc++ and libsgfcplusplus
+
+The official project name is libsgfc++. Please use the official name whenever possible, but at least in human-readable content.
+
+The project's alternative name is libsgfcplusplus. Use the alternative name if the "+" characters in the official name might cause technical problems. For example GitHub does not allow "+" characters in a repository name.
+
+libsgfc++ strives to be platform-independent. To minimize the risk of causing obscure technical issues on some platform the project uses "plusplus" instead of "++" in file names (e.g. source files, build artifacts).
+
 ## The export header file
 
 ### Basics
