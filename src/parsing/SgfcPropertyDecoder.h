@@ -226,9 +226,7 @@ namespace LibSgfcPlusPlus
     /// The exception is known to be thrown in the following cases:
     /// 1) @a sgfNode is nullptr. 2) @a sgfNode contains an SZ property that has
     /// no value, or a value that is neither a Number string nor a composed
-    /// value consisting of two Number strings. 3) @a sgfNode contains an
-    /// SZ property that has a composed value although @a gameType is
-    /// SgfcGameType::Go.
+    /// value consisting of two Number strings.
     static SgfcBoardSize GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType);
 
   private:

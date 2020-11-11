@@ -31,13 +31,6 @@ namespace LibSgfcPlusPlus
     , yPositionUpperLeftOrigin(0)
     , yPositionLowerLeftOrigin(0)
   {
-    if (! boardSize.IsSquare())
-    {
-      std::stringstream message;
-      message << "SgfcGoPoint constructor failed: Board size parameter indicates a non-square board. Columns/Rows = " << boardSize.Columns << " / " << boardSize.Rows;
-      throw std::invalid_argument(message.str());
-    }
-
     if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns)
     {
       std::stringstream message;

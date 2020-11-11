@@ -112,9 +112,6 @@ namespace LibSgfcPlusPlus
 
     if (gameType == SgfcGameType::Go)
     {
-      if (boardSize.Columns != boardSize.Rows)
-        return false;
-
       if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
           boardSize.Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
       {

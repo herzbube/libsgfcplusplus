@@ -185,7 +185,7 @@ namespace LibSgfcPlusPlus
     /// - All game types: If the board size is below the minimum size
     ///   #BoardSizeMinimum.
     /// - For SgfcGameType::Go: If the board size is above the maximum size
-    ///   #BoardSizeMaximumGo, or if the board size is not square.
+    ///   #BoardSizeMaximumGo.
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
     /// SgfcPropertyType::SZ property is present in a game's root node but has

@@ -31,15 +31,6 @@ When reading SimpleText or Text property values, SGFC follows the SGF standard r
 
 When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as needed.
 
-## Known bugs when handling composed SZ values
-
-SGFC has two known bugs when handling composed SZ values:
-
-1. If GM = 1 and SZ = 3:4 then SGFC does not fix the problem. The output still contains SZ[3:4]. Expected: SGFC assumes board size 19, as it does in all other cases where the SZ property is missing or has a missing or invalid value.
-1. If GM != 1 and SZ = 3:foo then SGFC does not recognize the non-numeric second value and does not fix the problem. The output still contains SZ[3:foo]. Expected: SGFC removes the property, as it does when a non-numeric single value is specified, or the first value of the composed value is non-numeric.
-
-libsgfc++ does not handle these errors, it discards the entire SGF content.
-
 ## Pass moves for Go games
 
 For Go [the SGF standard defines](https://www.red-bean.com/sgf/go.html#types) that black or white pass moves can have either value "" (an empty string) or "tt". The latter counts as pass move only for board sizes <= 19, for larger boards "tt" is a normal move. The SGF standard also mentions that "tt" is kept only for compatibility with FF3.

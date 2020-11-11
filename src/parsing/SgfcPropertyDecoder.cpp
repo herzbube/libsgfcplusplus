@@ -350,14 +350,6 @@ namespace LibSgfcPlusPlus
             if (numberValue1 == nullptr || numberValue2 == nullptr)
               throw std::logic_error("Either the first or the second property value object is not an instance of ISgfcNumberPropertyValue");
 
-            // If the game type is Go only square boards are allowed, i.e. the
-            // SZ property should have a single value. Alas, SGFC has a bug and
-            // does not fix the SGF content if it has a composed value. We treat
-            // this as an interfacing error and do not attempt to fix the
-            // problem ourselves.
-            if (gameType == SgfcGameType::Go)
-              throw std::domain_error("Node object contains an SZ property with a non-square board even though the game type is Go");
-
             std::shared_ptr<ISgfcBoardSizeProperty> property = propertyFactory->CreateBoardSizeProperty(
               composedValueSharedPtr);
 

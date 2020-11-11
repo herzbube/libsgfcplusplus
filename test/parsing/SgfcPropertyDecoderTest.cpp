@@ -466,19 +466,6 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
           std::domain_error);
       }
     }
-
-    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value but the game type is Go" )
-    {
-      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
-
-      THEN( "Probing throws an exception" )
-      {
-        // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
-        REQUIRE_THROWS_AS(
-          SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
-          std::domain_error);
-      }
-    }
   }
 
   GIVEN( "SgfcPropertyDecoder probes a valid SGF Node and property object" )
@@ -543,7 +530,17 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
       }
     }
 
-    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value" )
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value and the game type is Go" )
+    {
+      sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
+
+      THEN( "Probing returns a rectangular board size value" )
+      {
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go) == expectedBoardSizeRectangular );
+      }
+    }
+
+    WHEN( "SgfcPropertyDecoder probes an SZ property that has a composed value and the game type is not Go" )
     {
       sgfPropertySZ.value = &sgfPropertyValueSZRectangular;
 
@@ -615,21 +612,9 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
       sgfPropertyValueSZRectangular.value = const_cast<char*>(szString1.c_str());
       sgfPropertyValueSZRectangular.value2 = const_cast<char*>(szString2.c_str());
 
-      THEN( "Probing throws an exception for Go and returns SgfcConstants::BoardSizeInvalid for all other game types" )
+      THEN( "Probing returns SgfcConstants::BoardSizeInvalid" )
       {
-        if (std::get<2>(testData) == SgfcGameType::Go)
-        {
-          // SgfcPropertyDecoder treats Go games differently because it expects
-          // SGFC to already have fixed the SGF data.
-          // The exception is thrown by SgfcPropertyDecoder::GetPropertyValues
-          REQUIRE_THROWS_AS(
-            SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, SgfcGameType::Go),
-            std::domain_error);
-        }
-        else
-        {
-          REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<2>(testData)) == SgfcConstants::BoardSizeInvalid );
-        }
+        REQUIRE( SgfcPropertyDecoder::GetBoardSizeFromNode(&sgfNode, std::get<2>(testData)) == SgfcConstants::BoardSizeInvalid );
       }
     }
   }
