@@ -57,6 +57,10 @@ The project build system is [documented here](doc/Build.md).
 - [Other project notes](doc/ProjectNotes.md)
 - [Coding guidelines](doc/CodingGuidelines.md)
 
+## Acknowledgment
+
+Thanks to Arno Hollosi, for writing SGFC in the first place, and for responding to an initial alpha version of libsgfc++ with a virtual whirlwind of changes to SGFC to make it much more library-friendly.
+
 ## License
 
 libsgfc++ is released under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0) (2.0). Here's the [link to the license file](LICENSE).
