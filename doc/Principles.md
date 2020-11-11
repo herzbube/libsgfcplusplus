@@ -130,3 +130,15 @@ Other classes that also have to use virtual inheritance due to the same reasons:
 - Subclasses of `ISgfcMovePropertyValue`(because of `SgfcGoMovePropertyValue`)
 - Subclasses of `ISgfcPointPropertyValue`(because of `SgfcGoPointPropertyValue`)
 - Subclasses of `ISgfcStonePropertyValue`(because of `SgfcGoStonePropertyValue`)
+
+**IMPORTANT:** Where virtual inheritance is in play downcasting must be done with `dynamic_cast` or `std::dynamic_pointer_cast`, **NOT** with `static_cast` or `std::static_pointer_cast`. An example:
+
+```
+std::shared_ptr<ISgfcPropertyValue> propertyValue = [...]  // get it from somewhere
+
+[...]  // somehow determine that it's a Number value
+
+std::shared_ptr<ISgfcNumberPropertyValue> numberValueSharedPtr =
+  std::dynamic_pointer_cast<ISgfcNumberPropertyValue>(propertyValue);
+```
+
