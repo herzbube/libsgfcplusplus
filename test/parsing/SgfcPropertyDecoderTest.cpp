@@ -1010,7 +1010,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->HasTypedValue() == true );
         auto pointValue = propertySingleValue->ToPointValue();
         REQUIRE( pointValue != nullptr );
-        REQUIRE( pointValue->GetRawPointValue() == pointString );
+        REQUIRE( pointValue->GetPointValue() == pointString );
         auto goPointValue = pointValue->ToGoPointValue();
         REQUIRE( goPointValue == nullptr );
       }
@@ -1119,7 +1119,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->HasTypedValue() == true );
         auto moveValue = propertySingleValue->ToMoveValue();
         REQUIRE( moveValue != nullptr );
-        REQUIRE( moveValue->GetRawMoveValue() == moveString );
+        REQUIRE( moveValue->GetMoveValue() == moveString );
         auto goMoveValue = moveValue->ToGoMoveValue();
         REQUIRE( goMoveValue == nullptr );
       }
@@ -1256,7 +1256,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertySingleValue->HasTypedValue() == true );
         auto stoneValue = propertySingleValue->ToStoneValue();
         REQUIRE( stoneValue != nullptr );
-        REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+        REQUIRE( stoneValue->GetStoneValue() == stoneString );
         auto goStoneValue = stoneValue->ToGoStoneValue();
         REQUIRE( goStoneValue == nullptr );
       }
@@ -2138,7 +2138,7 @@ void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValu
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto pointValue = propertySingleValue->ToPointValue();
   REQUIRE( pointValue != nullptr );
-  REQUIRE( pointValue->GetRawPointValue() == pointString );
+  REQUIRE( pointValue->GetPointValue() == pointString );
   auto goPointValue = pointValue->ToGoPointValue();
   REQUIRE( goPointValue != nullptr );
   auto goPoint = goPointValue->GetGoPoint();
@@ -2164,7 +2164,7 @@ void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleVa
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto pointValue = propertySingleValue->ToPointValue();
   REQUIRE( pointValue != nullptr );
-  REQUIRE( pointValue->GetRawPointValue() == pointString );
+  REQUIRE( pointValue->GetPointValue() == pointString );
   auto goPointValue = pointValue->ToGoPointValue();
   REQUIRE( goPointValue == nullptr );
 }
@@ -2220,7 +2220,7 @@ void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue,
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto moveValue = propertySingleValue->ToMoveValue();
   REQUIRE( moveValue != nullptr );
-  REQUIRE( moveValue->GetRawMoveValue() == moveString );
+  REQUIRE( moveValue->GetMoveValue() == moveString );
 }
 
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString)
@@ -2237,7 +2237,7 @@ void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, Sgfc
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto moveValue = propertySingleValue->ToMoveValue();
   REQUIRE( moveValue != nullptr );
-  REQUIRE( moveValue->GetRawMoveValue() == moveString );
+  REQUIRE( moveValue->GetMoveValue() == moveString );
   auto goMoveValue = moveValue->ToGoMoveValue();
   REQUIRE( goMoveValue == nullptr );
 }
@@ -2256,7 +2256,7 @@ void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcP
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto stoneValue = propertySingleValue->ToStoneValue();
   REQUIRE( stoneValue != nullptr );
-  REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+  REQUIRE( stoneValue->GetStoneValue() == stoneString );
   auto goStoneValue = stoneValue->ToGoStoneValue();
   REQUIRE( goStoneValue != nullptr );
   auto goStone = goStoneValue->GetGoStone();
@@ -2282,7 +2282,7 @@ void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   REQUIRE( propertySingleValue->HasTypedValue() == true );
   auto stoneValue = propertySingleValue->ToStoneValue();
   REQUIRE( stoneValue != nullptr );
-  REQUIRE( stoneValue->GetRawStoneValue() == stoneString );
+  REQUIRE( stoneValue->GetStoneValue() == stoneString );
   auto goStoneValue = stoneValue->ToGoStoneValue();
   REQUIRE( goStoneValue == nullptr );
 }

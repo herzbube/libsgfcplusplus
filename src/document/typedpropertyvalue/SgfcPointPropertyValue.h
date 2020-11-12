@@ -39,7 +39,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcPointPropertyValue object.
     virtual ~SgfcPointPropertyValue();
 
-    virtual std::string GetRawPointValue() const;
+    virtual std::string GetPointValue() const;
     virtual const ISgfcPointPropertyValue* ToPointValue() const;
     virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const;
   };

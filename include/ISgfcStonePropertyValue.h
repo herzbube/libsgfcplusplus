@@ -51,10 +51,10 @@ namespace LibSgfcPlusPlus
     /// The SGF standard does not provide a universal definition of how a Stone
     /// value should look like. Instead it says that the interpretation of
     /// Stone values is game specific.
-    virtual std::string GetRawStoneValue() const = 0;
+    virtual std::string GetStoneValue() const = 0;
 
-    /// @brief Returns an ISgfcGoStonePropertyValue object if the game tree that
-    /// this property value is associated with has SgfcGameType::Go. Returns
+    /// @brief Returns an ISgfcGoStonePropertyValue object if the property
+    /// value object was created specifically for SgfcGameType::Go. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
     virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const = 0;

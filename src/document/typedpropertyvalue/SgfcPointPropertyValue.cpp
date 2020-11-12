@@ -28,7 +28,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  std::string SgfcPointPropertyValue::GetRawPointValue() const
+  std::string SgfcPointPropertyValue::GetPointValue() const
   {
     return SgfcSinglePropertyValue::GetRawValue();
   }

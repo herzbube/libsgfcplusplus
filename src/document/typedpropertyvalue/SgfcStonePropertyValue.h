@@ -39,7 +39,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcStonePropertyValue object.
     virtual ~SgfcStonePropertyValue();
 
-    virtual std::string GetRawStoneValue() const;
+    virtual std::string GetStoneValue() const;
     virtual const ISgfcStonePropertyValue* ToStoneValue() const;
     virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const;
   };

@@ -51,10 +51,10 @@ namespace LibSgfcPlusPlus
     /// The SGF standard does not provide a universal definition of how a Move
     /// value should look like. Instead it says that the interpretation of
     /// Move values is game specific.
-    virtual std::string GetRawMoveValue() const = 0;
+    virtual std::string GetMoveValue() const = 0;
 
-    /// @brief Returns an ISgfcGoMovePropertyValue object if the game tree that
-    /// this property value is associated with has SgfcGameType::Go. Returns
+    /// @brief Returns an ISgfcGoMovePropertyValue object if the property
+    /// value object was created specifically for SgfcGameType::Go. Returns
     /// @e nullptr otherwise. The caller is not the owner of the returned
     /// object.
     virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const = 0;
