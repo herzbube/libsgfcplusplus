@@ -17,7 +17,7 @@
 // Project includes
 #include "../../../include/ISgfcComposedPropertyValue.h"
 #include "../../../include/ISgfcNumberPropertyValue.h"
-#include "../../../include/SgfcConstants.h"
+#include "../../game/SgfcGameUtility.h"
 #include "../../SgfcUtility.h"
 #include "SgfcBoardSizeProperty.h"
 
@@ -75,41 +75,6 @@ namespace LibSgfcPlusPlus
 
   SgfcBoardSize SgfcBoardSizeProperty::GetBoardSize(SgfcGameType gameType) const
   {
-    auto propertyValue = GetPropertyValue();
-
-    if (propertyValue == nullptr)
-      return SgfcUtility::GetDefaultBoardSize(gameType);
-
-    SgfcBoardSize boardSize;
-    if (propertyValue->IsComposedValue())
-      boardSize = GetBoardSizeFromComposedValue(propertyValue->ToComposedValue());
-    else
-      boardSize = GetBoardSizeFromSingleValue(propertyValue->ToSingleValue());
-
-    bool isBoardSizeValid = SgfcUtility::IsBoardSizeValid(boardSize, gameType);
-    if (isBoardSizeValid)
-      return boardSize;
-    else
-      return SgfcConstants::BoardSizeInvalid;
-  }
-
-  SgfcBoardSize SgfcBoardSizeProperty::GetBoardSizeFromSingleValue(const ISgfcSinglePropertyValue* singleValue) const
-  {
-    // Constructor did checks for us
-    SgfcNumber numberOfColumnsAndRows = singleValue->ToNumberValue()->GetNumberValue();
-    return { numberOfColumnsAndRows, numberOfColumnsAndRows };
-  }
-
-  SgfcBoardSize SgfcBoardSizeProperty::GetBoardSizeFromComposedValue(const ISgfcComposedPropertyValue* composedValue) const
-  {
-    auto singleValue1 = composedValue->GetValue1();
-    auto singleValue2 = composedValue->GetValue2();
-
-    return
-    {
-      // Constructor did checks for us
-      singleValue1->ToNumberValue()->GetNumberValue(),
-      singleValue2->ToNumberValue()->GetNumberValue()
-    };
+    return SgfcGameUtility::GetBoardSize(GetPropertyValues(), gameType);
   }
 }

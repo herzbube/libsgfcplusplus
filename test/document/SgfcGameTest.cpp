@@ -22,6 +22,8 @@
 #include <document/SgfcTreeBuilder.h>
 #include <document/typedproperty/SgfcBoardSizeProperty.h>
 #include <document/typedproperty/SgfcGameTypeProperty.h>
+#include <ISgfcComposedPropertyValue.h>
+#include <ISgfcDoublePropertyValue.h>
 #include <ISgfcNumberPropertyValue.h>
 #include <ISgfcPropertyFactory.h>
 #include <ISgfcPropertyValueFactory.h>
@@ -35,10 +37,28 @@
 using namespace LibSgfcPlusPlus;
 
 
-void SetupGameWithGameAndBoardSizeProperties(std::shared_ptr<SgfcGame> game, SgfcGameType gameType, SgfcBoardSize boardSize);
-void SetupGameWithBoardSizeProperty(std::shared_ptr<SgfcGame> game, SgfcBoardSize boardSize);
-void AddGameTypeProperty(SgfcGameType gameType, std::vector<std::shared_ptr<ISgfcProperty>>& properties);
-void AddBoardSizeProperty(SgfcBoardSize boardSize, std::vector<std::shared_ptr<ISgfcProperty>>& properties);
+enum class InvalidValueTypeGameType
+{
+  MoreThanOneValue,
+  ComposedValue,
+  SingleValueTypeNotANumber,
+};
+
+enum class InvalidValueTypeBoardSize
+{
+  MoreThanOneValue,
+  ComposedValueNotANumberAndNumber,
+  SingleValueTypeNotANumber,
+};
+
+void SetupGameWithGameAndBoardSizeProperties(std::shared_ptr<SgfcGame> game, SgfcGameType gameType, SgfcBoardSize boardSize, bool setupWithTypedProperties);
+void SetupGameWithBoardSizeProperty(std::shared_ptr<SgfcGame> game, SgfcBoardSize boardSize, bool setupWithTypedProperty);
+void AddGameTypeProperty(SgfcGameType gameType, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty);
+void AddGameTypeProperty(SgfcNumber gameTypeAsNumber, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty);
+void AddGameTypePropertyWithInvalidValues(std::vector<std::shared_ptr<ISgfcProperty>>& properties, InvalidValueTypeGameType invalidValueType);
+std::shared_ptr<ISgfcProperty> CreateGameTypeProperty(SgfcNumber gameTypeAsNumber, bool createTypedProperty);
+void AddBoardSizeProperty(SgfcBoardSize boardSize, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty);
+void AddBoardSizePropertyWithInvalidValues(std::vector<std::shared_ptr<ISgfcProperty>>& properties, InvalidValueTypeBoardSize invalidValueType);
 
 
 SCENARIO( "SgfcGame is constructed", "[document]" )
@@ -219,7 +239,13 @@ SCENARIO( "SgfcGame is queried for the game type", "[document]" )
 
   GIVEN( "The game has a property of type SgfcPropertyType::GM but the property has no value" )
   {
-    auto gameTypePropertyWithoutValue = propertyFactory->CreateGameTypeProperty();
+    bool setupWithTypedProperty = GENERATE( true, false );
+
+    std::shared_ptr<ISgfcProperty> gameTypePropertyWithoutValue;
+    if (setupWithTypedProperty)
+      gameTypePropertyWithoutValue = propertyFactory->CreateGameTypeProperty();
+    else
+      gameTypePropertyWithoutValue = propertyFactory->CreateProperty(SgfcPropertyType::GM);
     properties.push_back(gameTypePropertyWithoutValue);
 
     game->SetRootNode(node);
@@ -237,12 +263,10 @@ SCENARIO( "SgfcGame is queried for the game type", "[document]" )
 
   GIVEN( "The game has a property of type SgfcPropertyType::GM and the property value is not defined in the SGF standard" )
   {
+    bool setupWithTypedProperty = GENERATE( true, false );
+
     SgfcNumber gameTypeAsNumberNotDefinedInSgfStandard = 1000;
-    auto gameTypePropertyValueNotDefinedInSgfStandard = propertyValueFactory->CreateNumberPropertyValue(
-      gameTypeAsNumberNotDefinedInSgfStandard);
-    auto gameTypePropertyWithValueNotDefinedInSgfStandard = propertyFactory->CreateGameTypeProperty(
-      gameTypePropertyValueNotDefinedInSgfStandard);
-    properties.push_back(gameTypePropertyWithValueNotDefinedInSgfStandard);
+    AddGameTypeProperty(gameTypeAsNumberNotDefinedInSgfStandard, properties, setupWithTypedProperty);
 
     game->SetRootNode(node);
     node->SetProperties(properties);
@@ -259,12 +283,10 @@ SCENARIO( "SgfcGame is queried for the game type", "[document]" )
 
   GIVEN( "The game has a property of type SgfcPropertyType::GM and the property value is defined in the SGF standard" )
   {
+    bool setupWithTypedProperty = GENERATE( true, false );
+
     SgfcGameType gameTypeDefinedInSgfStandard = SgfcGameType::Kuba;
-    auto gameTypePropertyValueDefinedInSgfStandard = propertyValueFactory->CreateNumberPropertyValue(
-      SgfcUtility::MapGameTypeToNumberValue(gameTypeDefinedInSgfStandard));
-    auto gameTypePropertyWithValueDefinedInSgfStandard = propertyFactory->CreateGameTypeProperty(
-      gameTypePropertyValueDefinedInSgfStandard);
-    properties.push_back(gameTypePropertyWithValueDefinedInSgfStandard);
+    AddGameTypeProperty(gameTypeDefinedInSgfStandard, properties, setupWithTypedProperty);
 
     game->SetRootNode(node);
     node->SetProperties(properties);
@@ -279,32 +301,24 @@ SCENARIO( "SgfcGame is queried for the game type", "[document]" )
     }
   }
 
-  GIVEN( "The game has a property of type SgfcPropertyType::GM but the object type is not an instance of ISgfcGameTypeProperty" )
+  GIVEN( "The game has a property of type SgfcPropertyType::GM and the property value(s) cannot be converted to a Number value" )
   {
-    SgfcGameType gameTypeDefinedInSgfStandard = SgfcGameType::Gipf;
-    auto gameTypePropertyValueDefinedInSgfStandard = propertyValueFactory->CreateNumberPropertyValue(
-      SgfcUtility::MapGameTypeToNumberValue(gameTypeDefinedInSgfStandard));
-    std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = { gameTypePropertyValueDefinedInSgfStandard };
+    InvalidValueTypeGameType setupWithInvalidValueType = GENERATE(
+      InvalidValueTypeGameType::MoreThanOneValue,
+      InvalidValueTypeGameType::ComposedValue,
+      InvalidValueTypeGameType::SingleValueTypeNotANumber );
 
-    auto gameTypePropertyWithWrongType = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
-      SgfcPropertyType::GM,
-      std::string("GM"),
-      propertyValues));
-    properties.push_back(gameTypePropertyWithWrongType);
+    AddGameTypePropertyWithInvalidValues(properties, setupWithInvalidValueType);
 
     game->SetRootNode(node);
     node->SetProperties(properties);
 
     WHEN( "SgfcGame is queried for the game type" )
     {
-      THEN( "SgfcGame throws an exception" )
+      THEN( "SgfcGame returns SgfcGameType::Unknown" )
       {
-        REQUIRE_THROWS_AS(
-          game->GetGameType(),
-          std::logic_error);
-        REQUIRE_THROWS_AS(
-          game->GetGameTypeAsNumber(),
-          std::logic_error);
+        REQUIRE( game->GetGameType() == SgfcGameType::Unknown );
+        REQUIRE( game->GetGameTypeAsNumber() == SgfcConstants::GameTypeNaN );
       }
     }
   }
@@ -423,9 +437,10 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
 
   GIVEN( "The game has a root node with a property of type SgfcPropertyType::GM and a property of type SgfcPropertyType::SZ with a valid value" )
   {
+    bool setupWithTypedProperties = GENERATE( true, false );
     auto testData = GENERATE( from_range(TestDataGenerator::GetValidBoardSizes()) );
 
-    SetupGameWithGameAndBoardSizeProperties(game, std::get<1>(testData), std::get<0>(testData));
+    SetupGameWithGameAndBoardSizeProperties(game, std::get<1>(testData), std::get<0>(testData), setupWithTypedProperties);
 
     WHEN( "SgfcGame is queried for the board size" )
     {
@@ -439,9 +454,10 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
 
   GIVEN( "The game has a root node with a property of type SgfcPropertyType::GM and a property of type SgfcPropertyType::SZ with an invalid value" )
   {
+    bool setupWithTypedProperties = GENERATE( true, false );
     auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidBoardSizes()) );
 
-    SetupGameWithGameAndBoardSizeProperties(game, std::get<1>(testData), std::get<0>(testData));
+    SetupGameWithGameAndBoardSizeProperties(game, std::get<1>(testData), std::get<0>(testData), setupWithTypedProperties);
 
     WHEN( "SgfcGame is queried for the board size" )
     {
@@ -453,31 +469,29 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
     }
   }
 
-  GIVEN( "The game has a property of type SgfcPropertyType::SZ but the object type is not an instance of ISgfcBoardSizeProperty" )
+  GIVEN( "The game has a property of type SgfcPropertyType::SZ and the property value(s) cannot be converted to an SgfcBoardSize value" )
   {
-    auto boardSizePropertyValue = propertyValueFactory->CreateNumberPropertyValue(
-      SgfcConstants::BoardSizeDefaultGo.Columns);
-    std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = { boardSizePropertyValue };
+    bool setupWithGameTypePropery = GENERATE( true, false );
 
-    auto boardSizePropertyWithWrongType = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
-      SgfcPropertyType::SZ,
-      std::string("SZ"),
-      propertyValues));
-    properties.push_back(boardSizePropertyWithWrongType);
+    if (setupWithGameTypePropery)
+      properties.push_back(gameTypePropertyGo);
+
+    InvalidValueTypeBoardSize setupWithInvalidValueType = GENERATE(
+      InvalidValueTypeBoardSize::MoreThanOneValue,
+      InvalidValueTypeBoardSize::ComposedValueNotANumberAndNumber,
+      InvalidValueTypeBoardSize::SingleValueTypeNotANumber );
+
+    AddBoardSizePropertyWithInvalidValues(properties, setupWithInvalidValueType);
 
     game->SetRootNode(node);
     node->SetProperties(properties);
 
     WHEN( "SgfcGame is queried for the board size" )
     {
-      THEN( "SgfcGame throws an exception" )
+      THEN( "SgfcGame returns SgfcConstants::BoardSizeInvalid" )
       {
-        REQUIRE_THROWS_AS(
-          game->HasBoardSize(),
-          std::logic_error);
-        REQUIRE_THROWS_AS(
-          game->GetBoardSize(),
-          std::logic_error);
+        REQUIRE( game->HasBoardSize() == false );
+        REQUIRE( game->GetBoardSize() == SgfcConstants::BoardSizeInvalid );
       }
     }
   }
@@ -502,6 +516,7 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
 
   GIVEN( "The game has a root node with no property of type SgfcPropertyType::GM and a property of type SgfcPropertyType::SZ with a valid value" )
   {
+    bool setupWithTypedProperty = GENERATE( true, false );
     auto testData = GENERATE(
       filter(
         // This is a predicate that examines the elements in the from_range
@@ -518,7 +533,7 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
       )
     );
 
-    SetupGameWithBoardSizeProperty(game, std::get<0>(testData));
+    SetupGameWithBoardSizeProperty(game, std::get<0>(testData), setupWithTypedProperty);
 
     WHEN( "SgfcGame is queried for the board size" )
     {
@@ -532,6 +547,7 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
 
   GIVEN( "The game has a root node with no property of type SgfcPropertyType::GM and a property of type SgfcPropertyType::SZ with an invalid value" )
   {
+    bool setupWithTypedProperty = GENERATE( true, false );
     auto testData = GENERATE(
       filter(
         // This is a predicate that examines the elements in the from_range
@@ -548,7 +564,7 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
       )
     );
 
-    SetupGameWithBoardSizeProperty(game, std::get<0>(testData));
+    SetupGameWithBoardSizeProperty(game, std::get<0>(testData), setupWithTypedProperty);
 
     WHEN( "SgfcGame is queried for the board size" )
     {
@@ -561,11 +577,11 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
   }
 }
 
-void SetupGameWithGameAndBoardSizeProperties(std::shared_ptr<SgfcGame> game, SgfcGameType gameType, SgfcBoardSize boardSize)
+void SetupGameWithGameAndBoardSizeProperties(std::shared_ptr<SgfcGame> game, SgfcGameType gameType, SgfcBoardSize boardSize, bool setupWithTypedProperties)
 {
   std::vector<std::shared_ptr<ISgfcProperty>> properties;
-  AddGameTypeProperty(gameType, properties);
-  AddBoardSizeProperty(boardSize, properties);
+  AddGameTypeProperty(gameType, properties, setupWithTypedProperties);
+  AddBoardSizeProperty(boardSize, properties, setupWithTypedProperties);
 
   auto rootNode = std::shared_ptr<SgfcNode>(new SgfcNode());
   rootNode->SetProperties(properties);
@@ -573,10 +589,10 @@ void SetupGameWithGameAndBoardSizeProperties(std::shared_ptr<SgfcGame> game, Sgf
   game->SetRootNode(rootNode);
 }
 
-void SetupGameWithBoardSizeProperty(std::shared_ptr<SgfcGame> game, SgfcBoardSize boardSize)
+void SetupGameWithBoardSizeProperty(std::shared_ptr<SgfcGame> game, SgfcBoardSize boardSize, bool setupWithTypedProperty)
 {
   std::vector<std::shared_ptr<ISgfcProperty>> properties;
-  AddBoardSizeProperty(boardSize, properties);
+  AddBoardSizeProperty(boardSize, properties, setupWithTypedProperty);
 
   auto rootNode = std::shared_ptr<SgfcNode>(new SgfcNode());
   rootNode->SetProperties(properties);
@@ -584,40 +600,145 @@ void SetupGameWithBoardSizeProperty(std::shared_ptr<SgfcGame> game, SgfcBoardSiz
   game->SetRootNode(rootNode);
 }
 
-void AddGameTypeProperty(SgfcGameType gameType, std::vector<std::shared_ptr<ISgfcProperty>>& properties)
+void AddGameTypeProperty(SgfcGameType gameType, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty)
+{
+  auto gameTypeProperty = CreateGameTypeProperty(
+    SgfcUtility::MapGameTypeToNumberValue(gameType),
+    setupWithTypedProperty);
+
+  properties.push_back(gameTypeProperty);
+}
+
+void AddGameTypeProperty(SgfcNumber gameTypeAsNumber, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty)
+{
+  auto gameTypeProperty = CreateGameTypeProperty(
+    gameTypeAsNumber,
+    setupWithTypedProperty);
+
+  properties.push_back(gameTypeProperty);
+}
+
+void AddGameTypePropertyWithInvalidValues(std::vector<std::shared_ptr<ISgfcProperty>>& properties, InvalidValueTypeGameType invalidValueType)
+{
+  auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+  std::shared_ptr<ISgfcProperty> gameTypeProperty = propertyFactory->CreateProperty(
+      SgfcPropertyType::GM);
+
+  auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+  std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
+  switch (invalidValueType)
+  {
+    case InvalidValueTypeGameType::MoreThanOneValue:
+      propertyValues.push_back(propertyValueFactory->CreateNumberPropertyValue(1));
+      propertyValues.push_back(propertyValueFactory->CreateNumberPropertyValue(12));
+      break;
+    case InvalidValueTypeGameType::ComposedValue:
+      propertyValues.push_back(propertyValueFactory->CreateComposedNumberAndNumberPropertyValue(17, 42));
+      break;
+    case InvalidValueTypeGameType::SingleValueTypeNotANumber:
+      propertyValues.push_back(propertyValueFactory->CreateDoublePropertyValue(SgfcDouble::Normal));
+      break;
+    default:
+      throw std::logic_error("Unexpected InvalidValueTypeGameType value");
+      break;
+  }
+  gameTypeProperty->SetPropertyValues(propertyValues);
+
+  properties.push_back(gameTypeProperty);
+}
+
+std::shared_ptr<ISgfcProperty> CreateGameTypeProperty(SgfcNumber gameTypeAsNumber, bool createTypedProperty)
 {
   auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
   auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
 
   auto gameTypePropertyValue = propertyValueFactory->CreateNumberPropertyValue(
-    SgfcUtility::MapGameTypeToNumberValue(gameType));
-  auto gameTypeProperty = propertyFactory->CreateGameTypeProperty(
-    gameTypePropertyValue);
+    gameTypeAsNumber);
 
-  properties.push_back(gameTypeProperty);
+  std::shared_ptr<ISgfcProperty> gameTypeProperty;
+  if (createTypedProperty)
+  {
+    gameTypeProperty = propertyFactory->CreateGameTypeProperty(
+      gameTypePropertyValue);
+  }
+  else
+  {
+    gameTypeProperty = propertyFactory->CreateProperty(
+      SgfcPropertyType::GM,
+      gameTypePropertyValue);
+  }
+
+  return gameTypeProperty;
 }
 
-void AddBoardSizeProperty(SgfcBoardSize boardSize, std::vector<std::shared_ptr<ISgfcProperty>>& properties)
+void AddBoardSizeProperty(SgfcBoardSize boardSize, std::vector<std::shared_ptr<ISgfcProperty>>& properties, bool setupWithTypedProperty)
 {
   auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
   auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
 
-  std::shared_ptr<ISgfcBoardSizeProperty> boardSizeProperty;
+  std::shared_ptr<ISgfcProperty> boardSizeProperty;
   if (boardSize.IsSquare())
   {
     auto boardSizePropertyValue = propertyValueFactory->CreateNumberPropertyValue(
       boardSize.Columns);
-    boardSizeProperty = propertyFactory->CreateBoardSizeProperty(
-      boardSizePropertyValue);
+    if (setupWithTypedProperty)
+    {
+      boardSizeProperty = propertyFactory->CreateBoardSizeProperty(
+        boardSizePropertyValue);
+    }
+    else
+    {
+      boardSizeProperty = propertyFactory->CreateProperty(
+        SgfcPropertyType::SZ,
+        boardSizePropertyValue);
+    }
   }
   else
   {
     auto boardSizePropertyValue = propertyValueFactory->CreateComposedNumberAndNumberPropertyValue(
       boardSize.Columns,
       boardSize.Rows);
-    boardSizeProperty = propertyFactory->CreateBoardSizeProperty(
-      boardSizePropertyValue);
+    if (setupWithTypedProperty)
+    {
+      boardSizeProperty = propertyFactory->CreateBoardSizeProperty(
+        boardSizePropertyValue);
+    }
+    else
+    {
+      boardSizeProperty = propertyFactory->CreateProperty(
+        SgfcPropertyType::SZ,
+        boardSizePropertyValue);
+    }
   }
 
   properties.push_back(boardSizeProperty);
+}
+
+void AddBoardSizePropertyWithInvalidValues(std::vector<std::shared_ptr<ISgfcProperty>>& properties, InvalidValueTypeBoardSize invalidValueType)
+{
+  auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+  std::shared_ptr<ISgfcProperty> gameTypeProperty = propertyFactory->CreateProperty(
+      SgfcPropertyType::SZ);
+
+  auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+  std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
+  switch (invalidValueType)
+  {
+    case InvalidValueTypeBoardSize::MoreThanOneValue:
+      propertyValues.push_back(propertyValueFactory->CreateNumberPropertyValue(1));
+      propertyValues.push_back(propertyValueFactory->CreateNumberPropertyValue(12));
+      break;
+    case InvalidValueTypeBoardSize::ComposedValueNotANumberAndNumber:
+      propertyValues.push_back(propertyValueFactory->CreateComposedNumberAndSimpleTextPropertyValue(17, "foo"));
+      break;
+    case InvalidValueTypeBoardSize::SingleValueTypeNotANumber:
+      propertyValues.push_back(propertyValueFactory->CreateDoublePropertyValue(SgfcDouble::Normal));
+      break;
+    default:
+      throw std::logic_error("Unexpected InvalidValueTypeBoardSize value");
+      break;
+  }
+  gameTypeProperty->SetPropertyValues(propertyValues);
+
+  properties.push_back(gameTypeProperty);
 }

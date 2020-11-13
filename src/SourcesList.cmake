@@ -36,6 +36,7 @@ set (
   factory/SgfcPropertyFactory.cpp
   factory/SgfcPropertyValueFactory.cpp
   game/SgfcBoardSize.cpp
+  game/SgfcGameUtility.cpp
   game/go/SgfcGoMove.cpp
   game/go/SgfcGoPoint.cpp
   game/go/SgfcGoStone.cpp
@@ -133,6 +134,7 @@ set (
   document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h
   factory/SgfcPropertyFactory.h
   factory/SgfcPropertyValueFactory.h
+  game/SgfcGameUtility.h
   game/go/SgfcGoMove.h
   game/go/SgfcGoPoint.h
   game/go/SgfcGoStone.h

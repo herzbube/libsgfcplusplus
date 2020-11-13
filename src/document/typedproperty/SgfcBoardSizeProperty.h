@@ -69,9 +69,5 @@ namespace LibSgfcPlusPlus
     virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
 
     virtual SgfcBoardSize GetBoardSize(SgfcGameType gameType) const;
-
-  private:
-    SgfcBoardSize GetBoardSizeFromSingleValue(const ISgfcSinglePropertyValue* singleValue) const;
-    SgfcBoardSize GetBoardSizeFromComposedValue(const ISgfcComposedPropertyValue* composedValue) const;
   };
 }

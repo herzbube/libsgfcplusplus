@@ -42,31 +42,36 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcGameTypeProperty object.
     virtual ~ISgfcGameTypeProperty();
 
-    /// @brief Returns the property value interpreted as an SgfcGameType value.
+    /// @brief Returns the property value(s) interpreted as an SgfcGameType
+    /// value.
     ///
-    /// @retval SgfcGameType If the property has a value defined in the
-    ///         SGF standard, returns the SgfcGameType value that corresponds
-    ///         to the property value. The value is guaranteed not to be
-    ///         SgfcGameType::Unknown.
+    /// @retval SgfcGameType If the property has a single Number value, and
+    ///         that value is defined in the SGF standard, then the SgfcGameType
+    ///         value that corresponds to the Number value is returned. The
+    ///         value is guaranteed not to be SgfcGameType::Unknown.
     /// @retval SgfcConstants::DefaultGameType If the property has no value.
-    ///         The value is guaranteed not to be SgfcGameType::Unknown. Note:
-    ///         The property having no value is not something that can naturally
-    ///         occur when SGF content is processed. It may occur in special
-    ///         circumstances, e.g. while a library clients programmatically
-    ///         sets up a game tree.
-    /// @retval SgfcGameType::Unknown If the property has a value that is not
-    ///         defined in the SGF standard. Invoke
-    ///         GetGameTypeAsNumber() to obtain the game type as Number value.
+    ///         The value is guaranteed not to be SgfcGameType::Unknown.
+    /// @retval SgfcGameType::Unknown If the property's value(s) cannot be
+    ///         converted to a Number value (the property has more than one
+    ///         value, or the single value is not a Number value), or if
+    ///         conversion is possible but the Number value is not defined in
+    ///         the SGF standard. Invoke GetGameTypeAsNumber() to obtain the
+    ///         game type as Number value.
     virtual SgfcGameType GetGameType() const = 0;
 
-    /// @brief Returns the property value interpreted as an SgfcNumber value.
+    /// @brief Returns the property value(s) interpreted as an SgfcNumber value.
+    ///
     /// This is useful if GetGameType() returns SgfcGameType::Unknown because
     /// the Number value is not defined in the SGF standard and cannot be mapped
     /// to a member of the enumeration SgfcGameType.
     ///
-    /// @retval SgfcNumber The Number value of the property. If the property
-    ///         has no value, returns the Number value that corresponds to
+    /// @retval SgfcNumber If the property contains a single Number value, then
+    ///         that Number value is returned. If the property has no value,
+    ///         then this method returns the Number value that corresponds to
     ///         SgfcConstants::DefaultGameType.
+    /// @retval SgfcConstants::GameTypeNaN If the property's value(s) cannot be
+    ///         converted to a Number value, either because the property has
+    ///         more than one value, or its single value is not a Number value.
     virtual SgfcNumber GetGameTypeAsNumber() const = 0;
   };
 }

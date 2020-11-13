@@ -53,10 +53,13 @@ namespace LibSgfcPlusPlus
     ///         value, and @a gameType is SgfcGameType::Chess.
     /// @retval SgfcConstants::BoardSizeNone If the property has no value, but
     ///         @a gameType is neither SgfcGameType::Go nor SgfcGameType::Chess.
-    /// @retval SgfcConstants::BoardSizeInvalid If the property has an invalid
-    ///         value. A board size is invalid if it violates the constraints
-    ///         defined by the SGF standard. See the documentation of
-    ///         SgfcConstants::BoardSizeInvalid for details.
+    /// @retval SgfcConstants::BoardSizeInvalid If the property value(s) cannot
+    ///         be converted to an SgfcBoardSize value (the property has more
+    ///         than one value, or it has a single value that is neither a
+    ///         Number nor a composed value consisting of two Number values),
+    ///         or if conversion is possible but the SgfcBoardSize value
+    ///         violates the constraints defined by the SGF standard. See the
+    ///         documentation of SgfcConstants::BoardSizeInvalid for details.
     virtual SgfcBoardSize GetBoardSize(SgfcGameType gameType) const = 0;
   };
 }

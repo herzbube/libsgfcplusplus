@@ -15,13 +15,12 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
-#include "../../include/ISgfcBoardSizeProperty.h"
-#include "../../include/ISgfcComposedPropertyValue.h"
 #include "../../include/ISgfcGameTypeProperty.h"
 #include "../../include/ISgfcNumberPropertyValue.h"
 #include "../../include/ISgfcProperty.h"
 #include "../../include/ISgfcSinglePropertyValue.h"
 #include "../../include/SgfcConstants.h"
+#include "../game/SgfcGameUtility.h"
 #include "../SgfcUtility.h"
 #include "SgfcGame.h"
 
@@ -62,11 +61,7 @@ namespace LibSgfcPlusPlus
     if (property == nullptr)
       return SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
 
-    auto gameTypeProperty = property->ToGameTypeProperty();
-    if (gameTypeProperty == nullptr)
-      throw std::logic_error("Property object for SgfcPropertyType::GM is not an instance of ISgfcGameTypeProperty");
-
-    return gameTypeProperty->GetGameTypeAsNumber();
+    return SgfcGameUtility::GetGameTypeAsNumber(property->GetPropertyValues());
   }
 
   bool SgfcGame::HasBoardSize() const
@@ -84,11 +79,7 @@ namespace LibSgfcPlusPlus
     if (property == nullptr)
       return SgfcUtility::GetDefaultBoardSize(this->GetGameType());
 
-    auto boardSizeProperty = property->ToBoardSizeProperty();
-    if (boardSizeProperty == nullptr)
-      throw std::logic_error("Property object for SgfcPropertyType::SZ is not an instance of ISgfcBoardSizeProperty");
-
-    return boardSizeProperty->GetBoardSize(this->GetGameType());
+    return SgfcGameUtility::GetBoardSize(property->GetPropertyValues(), this->GetGameType());
   }
 
   bool SgfcGame::HasRootNode() const

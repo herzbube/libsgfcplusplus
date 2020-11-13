@@ -17,6 +17,7 @@
 // Project includes
 #include "../../../include/ISgfcNumberPropertyValue.h"
 #include "../../../include/SgfcConstants.h"
+#include "../../game/SgfcGameUtility.h"
 #include "../../SgfcUtility.h"
 #include "SgfcGameTypeProperty.h"
 
@@ -52,23 +53,11 @@ namespace LibSgfcPlusPlus
 
   SgfcGameType SgfcGameTypeProperty::GetGameType() const
   {
-    SgfcNumber gameTypeAsNumber = GetGameTypeAsNumber();
-
-    return SgfcUtility::MapNumberValueToGameType(
-      gameTypeAsNumber);
+    return SgfcGameUtility::GetGameType(GetPropertyValues());
   }
 
   SgfcNumber SgfcGameTypeProperty::GetGameTypeAsNumber() const
   {
-    auto propertyValue = GetPropertyValue();
-
-    if (propertyValue == nullptr)
-      return SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
-
-    // Constructor did checks for us
-    const ISgfcNumberPropertyValue* numberValue =
-      propertyValue->ToSingleValue()->ToNumberValue();
-
-    return numberValue->GetNumberValue();
+    return SgfcGameUtility::GetGameTypeAsNumber(GetPropertyValues());
   }
 }

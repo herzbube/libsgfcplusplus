@@ -146,6 +146,21 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines this to be SgfcGameType::Go.
     static const SgfcGameType DefaultGameType;
 
+    /// @brief An SgfcNumber value that denotes a game type that is
+    /// "not a number".
+    ///
+    /// ISgfcGame and ISgfcGameTypeProperty both provide a GetGameTypeAsNumber()
+    /// method to obtain the raw SgfcNumber value of an SgfcPropertyType::GM
+    /// property. If the raw SgfcNumber value can be determined because it has
+    /// multiple property values, or a single property value that cannot be
+    /// converted to an SgfcNumber value, then the GetGameTypeAsNumber() methods
+    /// return this constant.
+    ///
+    /// The constant has an underlying numeric value, but one that is extremely
+    /// unlikely to occur in real SGF content. Do not rely on the actual
+    /// constant's numeric value.
+    static const SgfcNumber GameTypeNaN;
+
     /// @brief The minimum board size that is required for SgfcPropertyType::SZ.
     ///
     /// The SGF standard defines this to be 1x1.
