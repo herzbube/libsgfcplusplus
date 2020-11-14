@@ -62,6 +62,11 @@ namespace LibSgfcPlusPlus
     /// at the specified path, using the arguments that GetArguments() currently
     /// returns.
     ///
+    /// Before ISgfcDocumentWriter can invoke the SGFC backend's write function,
+    /// it needs to pass the SGF content through the SGFC backend's load/parse
+    /// functions. The messages in the result object therefore are a combination
+    /// of a full cycle of SGFC backend load/parse/write operations.
+    ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.
     ///
@@ -76,6 +81,11 @@ namespace LibSgfcPlusPlus
     /// @brief Writes the content of @a document into the specified string
     /// object @a sgfContent, using the arguments that GetArguments() currently
     /// returns.
+    ///
+    /// Before ISgfcDocumentWriter can invoke the SGFC backend's write function,
+    /// it needs to pass the SGF content through the SGFC backend's load/parse
+    /// functions. The messages in the result object therefore are a combination
+    /// of a full cycle of SGFC backend load/parse/write operations.
     ///
     /// @return An ISgfcDocumentWriteResult object that provides the result of
     /// the write operation.

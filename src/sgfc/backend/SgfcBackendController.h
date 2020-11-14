@@ -178,6 +178,11 @@ namespace LibSgfcPlusPlus
     ///
     /// If a file already exists at the specified path it is overwritten.
     ///
+    /// Before SgfcBackendController can invoke the SGFC save function, it
+    /// needs to pass the SGF content through SGFC's load/parse functions.
+    /// The messages in the result object therefore are a combination of a full
+    /// cycle of SGFC load/parse/save operations.
+    ///
     /// @return An SgfcBackendSaveResult object that holds the result of the
     /// save operation.
     ///
@@ -192,6 +197,11 @@ namespace LibSgfcPlusPlus
     /// IsCommandLineValid() returns true.
     ///
     /// The previous content of @a sgfContent is overwritten.
+    ///
+    /// Before SgfcBackendController can invoke the SGFC save function, it
+    /// needs to pass the SGF content through SGFC's load/parse functions.
+    /// The messages in the result object therefore are a combination of a full
+    /// cycle of SGFC load/parse/save operations.
     ///
     /// @return An SgfcBackendSaveResult object that holds the result of the
     /// save operation.
