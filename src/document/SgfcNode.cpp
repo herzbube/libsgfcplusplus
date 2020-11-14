@@ -261,6 +261,17 @@ namespace LibSgfcPlusPlus
     return nullptr;
   }
 
+  std::shared_ptr<ISgfcProperty> SgfcNode::GetProperty(const std::string& propertyName) const
+  {
+    for (const auto& property : this->properties)
+    {
+      if (property->GetPropertyName() == propertyName)
+        return property;
+    }
+
+    return nullptr;
+  }
+
   bool SgfcNode::ValidateProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties, std::string& validationFailedReason)
   {
     std::map<SgfcPropertyType, bool> propertyTypeMap;

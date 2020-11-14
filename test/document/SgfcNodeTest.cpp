@@ -181,40 +181,6 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
       }
     }
   }
-
-  // TODO: Split querying for properties off into a separate scenario
-  GIVEN( "SgfcNode is queried for a property" )
-  {
-    std::vector<std::shared_ptr<ISgfcProperty>> properties
-    {
-      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
-      // SgfcNode doesn't care about a matching property name string and enum value
-      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
-    };
-
-    WHEN( "SgfcNode is queried for a property that exists in the list" )
-    {
-      node.SetProperties(properties);
-
-      THEN( "SgfcNode returns the property" )
-      {
-        auto property = node.GetProperty(SgfcPropertyType::SZ);
-        REQUIRE( property->GetPropertyType() == SgfcPropertyType::SZ );
-        REQUIRE( property->GetPropertyName() == "HA" );
-        REQUIRE( property == properties.back() );
-      }
-    }
-
-    WHEN( "SgfcNode is queried for a property that does not exist in the list" )
-    {
-      node.SetProperties(properties);
-
-      THEN( "SgfcNode returns nullptr" )
-      {
-        REQUIRE( node.GetProperty(SgfcPropertyType::HA) == nullptr );
-      }
-    }
-  }
 }
 
 SCENARIO( "A property is added to SgfcNode", "[document]" )
@@ -471,6 +437,95 @@ SCENARIO( "All properties are removed from SgfcNode", "[document]" )
     }
   }
 }
+
+SCENARIO( "SgfcNode is queried for a property", "[document]" )
+{
+  SgfcNode node;
+
+  GIVEN( "SgfcNode contains no properties" )
+  {
+    WHEN( "SgfcNode is queried for a property" )
+    {
+      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::HA);
+      auto propertyQueriedByName = node.GetProperty("HA");
+
+      THEN( "SgfcNode returns nullptr" )
+      {
+        REQUIRE( propertyQueriedByType == nullptr );
+        REQUIRE( propertyQueriedByName == nullptr );
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode contains properties" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties
+    {
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      // SgfcNode doesn't care about a matching property name string and enum value
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+    };
+    node.SetProperties(properties);
+
+    WHEN( "SgfcNode is queried for a property that it contains" )
+    {
+      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::SZ);
+      auto propertyQueriedByName = node.GetProperty("HA");
+
+      THEN( "SgfcNode returns the property" )
+      {
+        REQUIRE( propertyQueriedByType->GetPropertyType() == SgfcPropertyType::SZ );
+        REQUIRE( propertyQueriedByType->GetPropertyName() == "HA" );
+        REQUIRE( propertyQueriedByType == properties.back() );
+
+        REQUIRE( propertyQueriedByName->GetPropertyType() == SgfcPropertyType::SZ );
+        REQUIRE( propertyQueriedByName->GetPropertyName() == "HA" );
+        REQUIRE( propertyQueriedByName == properties.back() );
+      }
+    }
+
+    WHEN( "SgfcNode is queried for a property that it does not contain" )
+    {
+      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::HA);
+      auto propertyQueriedByName = node.GetProperty("SZ");
+
+      THEN( "SgfcNode returns nullptr" )
+      {
+        REQUIRE( propertyQueriedByType == nullptr );
+        REQUIRE( propertyQueriedByName == nullptr );
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode contains custom properties" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties
+    {
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "AA")),
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "BB")),
+    };
+    node.SetProperties(properties);
+
+    WHEN( "SgfcNode is queried for a custom property" )
+    {
+      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::Unknown);
+      auto propertyQueriedByName = node.GetProperty("BB");
+
+      THEN( "SgfcNode returns the property" )
+      {
+        REQUIRE( propertyQueriedByType->GetPropertyType() == SgfcPropertyType::Unknown );
+        REQUIRE( propertyQueriedByType->GetPropertyName() == "AA" );
+        REQUIRE( propertyQueriedByType == properties.front() );
+
+        REQUIRE( propertyQueriedByName->GetPropertyType() == SgfcPropertyType::Unknown );
+        REQUIRE( propertyQueriedByName->GetPropertyName() == "BB" );
+        REQUIRE( propertyQueriedByName == properties.back() );
+      }
+    }
+  }
+}
+
 SCENARIO( "SgfcNode is configured with a first child", "[document]" )
 {
   auto node = std::shared_ptr<SgfcNode>(new SgfcNode());

@@ -170,8 +170,20 @@ namespace LibSgfcPlusPlus
     /// the node has such a property. Returns @e nullptr if the node has no
     /// such property.
     ///
+    /// If @a propertyType is SgfcPropertyType::Unknown and the node has several
+    /// such properties, returns the property that appears first in the list
+    /// that is returned by GetProperties().
+    ///
     /// The SGF standard defines that only one of each property is allowed per
     /// node.
     virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const = 0;
+
+    /// @brief Returns the property with the specified name @a propertyName if
+    /// the node has such a property. Returns @e nullptr if the node has no
+    /// such property.
+    ///
+    /// The SGF standard defines that only one of each property is allowed per
+    /// node.
+    virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const = 0;
   };
 }
