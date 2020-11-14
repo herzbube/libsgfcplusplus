@@ -17,6 +17,9 @@
 // Project includes
 #include "SgfcProperty.h"
 
+// C++ Standard Library includes
+#include <algorithm>
+
 namespace LibSgfcPlusPlus
 {
   SgfcProperty::SgfcProperty(

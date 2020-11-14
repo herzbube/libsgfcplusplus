@@ -18,6 +18,7 @@
 #include "SgfcNode.h"
 
 // C++ Standard Library includes
+#include <algorithm>
 #include <map>
 #include <sstream>
 
