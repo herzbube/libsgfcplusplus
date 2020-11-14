@@ -78,8 +78,12 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcNode> GetRoot() const;
     virtual bool IsRoot() const;
 
+    virtual bool HasProperties() const;
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const;
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties);
+    virtual void AppendProperty(std::shared_ptr<ISgfcProperty> property);
+    virtual void RemoveProperty(std::shared_ptr<ISgfcProperty> property);
+    virtual void RemoveAllProperties();
     virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const;
 
   private:
@@ -87,5 +91,7 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcNode> nextSibling;
     std::weak_ptr<ISgfcNode> parent;  // must be weak_ptr to break reference cycle
     std::vector<std::shared_ptr<ISgfcProperty>> properties;
+
+    static bool ValidateProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties, std::string& validationFailedReason);
   };
 }

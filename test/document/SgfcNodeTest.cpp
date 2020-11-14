@@ -53,6 +53,7 @@ SCENARIO( "SgfcNode is constructed", "[document]" )
         REQUIRE( node.HasParent() == false );
         REQUIRE( node.GetRoot() == nullptr );
         REQUIRE( node.IsRoot() == true );
+        REQUIRE( node.HasProperties() == false );
         REQUIRE( node.GetProperties().size() == 0 );
         REQUIRE( node.GetProperty(SgfcPropertyType::GM) == nullptr );
       }
@@ -74,29 +75,59 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
 
       THEN( "SgfcNode returns the same property list that was configured" )
       {
+        REQUIRE( node.HasProperties() == false );
         REQUIRE( node.GetProperties() == properties );
+      }
+    }
+
+    WHEN( "SgfcNode is configured" )
+    {
+      node.SetProperties(properties);
+      properties.push_back(nullptr);
+
+      THEN( "SgfcNode makes a copy of the property list" )
+      {
+        REQUIRE( node.HasProperties() == false );
+        REQUIRE( node.GetProperties() != properties );
       }
     }
   }
 
-  GIVEN( "SgfcNode is configured with a non-empty list of properties" )
+  GIVEN( "SgfcNode is configured with a valid non-empty list of properties" )
   {
-    WHEN( "SgfcNode is configured with a non-empty valid list of properties" )
+    std::vector<std::shared_ptr<ISgfcProperty>> properties
     {
-      std::vector<std::shared_ptr<ISgfcProperty>> properties
-      {
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
-        // SgfcNode doesn't care about a matching property name string and enum value
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
-      };
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      // SgfcNode doesn't care about a matching property name string and enum value
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+    };
+
+    WHEN( "SgfcNode is configured" )
+    {
       node.SetProperties(properties);
 
       THEN( "SgfcNode returns the same property list that was configured" )
       {
+        REQUIRE( node.HasProperties() == true );
         REQUIRE( node.GetProperties() == properties );
       }
     }
 
+    WHEN( "SgfcNode is configured" )
+    {
+      node.SetProperties(properties);
+      properties.clear();
+
+      THEN( "SgfcNode makes a copy of the property list" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        REQUIRE( node.GetProperties() != properties );
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode is configured with an invalid non-empty list of properties" )
+  {
     WHEN( "SgfcNode is configured with a list of properties that contains a nullptr element" )
     {
       std::vector<std::shared_ptr<ISgfcProperty>> properties
@@ -110,6 +141,7 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
         REQUIRE_THROWS_AS(
           node.SetProperties(properties),
           std::invalid_argument);
+        REQUIRE( node.HasProperties() == false );
       }
     }
 
@@ -127,6 +159,7 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
         REQUIRE_THROWS_AS(
           node.SetProperties(properties),
           std::invalid_argument);
+        REQUIRE( node.HasProperties() == false );
       }
     }
 
@@ -144,17 +177,23 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
         REQUIRE_THROWS_AS(
           node.SetProperties(properties),
           std::invalid_argument);
+        REQUIRE( node.HasProperties() == false );
       }
     }
+  }
+
+  // TODO: Split querying for properties off into a separate scenario
+  GIVEN( "SgfcNode is queried for a property" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties
+    {
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      // SgfcNode doesn't care about a matching property name string and enum value
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+    };
 
     WHEN( "SgfcNode is queried for a property that exists in the list" )
     {
-      std::vector<std::shared_ptr<ISgfcProperty>> properties
-      {
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
-        // SgfcNode doesn't care about a matching property name string and enum value
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
-      };
       node.SetProperties(properties);
 
       THEN( "SgfcNode returns the property" )
@@ -162,17 +201,12 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
         auto property = node.GetProperty(SgfcPropertyType::SZ);
         REQUIRE( property->GetPropertyType() == SgfcPropertyType::SZ );
         REQUIRE( property->GetPropertyName() == "HA" );
+        REQUIRE( property == properties.back() );
       }
     }
 
     WHEN( "SgfcNode is queried for a property that does not exist in the list" )
     {
-      std::vector<std::shared_ptr<ISgfcProperty>> properties
-      {
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
-        // SgfcNode doesn't care about a matching property name string and enum value
-        std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
-      };
       node.SetProperties(properties);
 
       THEN( "SgfcNode returns nullptr" )
@@ -183,6 +217,260 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
   }
 }
 
+SCENARIO( "A property is added to SgfcNode", "[document]" )
+{
+  SgfcNode node;
+  auto property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DO, "IN"));
+
+  GIVEN( "The node contains no properties" )
+  {
+    WHEN( "A property is added to SgfcNode" )
+    {
+      node.AppendProperty(property);
+
+      THEN( "SgfcNode contains the added property" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        auto propertyList = node.GetProperties();
+        REQUIRE( propertyList.size() == 1 );
+        REQUIRE( propertyList.back() == property );
+      }
+    }
+  }
+
+  GIVEN( "The node already contains properties" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> initialPropertyList =
+    {
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      // SgfcNode doesn't care about a matching property name string and enum value
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B")),
+    };
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "A property is added to SgfcNode" )
+    {
+      node.AppendProperty(property);
+
+      THEN( "SgfcNode adds the property to the end of the property list" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        auto propertyList = node.GetProperties();
+        REQUIRE( propertyList.size() == 4 );
+        REQUIRE( propertyList.back() == property );
+        propertyList.pop_back();
+        REQUIRE( propertyList == initialPropertyList );
+      }
+    }
+
+    WHEN( "A property is added that is already part of the SgfcNode" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.AppendProperty(initialPropertyList.back()),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+
+    WHEN( "A property is added but the SgfcNode already contains a property with the same property type" )
+    {
+      auto propertyWithDuplicatePropertyType = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "SZ"));
+
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.AppendProperty(propertyWithDuplicatePropertyType),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+
+    WHEN( "A property is added but the SgfcNode already contains a property with the same property name" )
+    {
+      auto propertyWithDuplicatePropertyName = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::HA, "HA"));
+
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.AppendProperty(propertyWithDuplicatePropertyName),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+  }
+
+  GIVEN( "A nullptr argument is passed to the add function" )
+  {
+    WHEN( "A nullptr argument is passed to the add function" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.AppendProperty(nullptr),
+          std::invalid_argument);
+        REQUIRE( node.HasProperties() == false );
+      }
+    }
+  }
+}
+
+SCENARIO( "A property is removed from SgfcNode", "[document]" )
+{
+  std::vector<std::shared_ptr<ISgfcProperty>> initialPropertyList =
+  {
+    std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+    // SgfcNode doesn't care about a matching property name string and enum value
+    std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+    std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B")),
+  };
+  SgfcNode node;
+
+  GIVEN( "The node contains the property to be removed" )
+  {
+    auto propertyToRemove = initialPropertyList.back();
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "A property is removed from SgfcNode" )
+    {
+      node.RemoveProperty(propertyToRemove);
+
+      THEN( "SgfcNode removes the property" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        auto propertyList = node.GetProperties();
+        REQUIRE( propertyList.size() == 2 );
+        REQUIRE( propertyList.back() != propertyToRemove );
+        propertyList.push_back(propertyToRemove);
+        REQUIRE( propertyList == initialPropertyList );
+      }
+    }
+  }
+
+  GIVEN( "The node does not contain the property to be removed" )
+  {
+    auto propertyToRemove = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::W, "W"));
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "The missing property is removed from SgfcNode" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.RemoveProperty(propertyToRemove),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+  }
+
+  GIVEN( "The node contains a property with the same type and name as the property to be removed but the objects are different" )
+  {
+    auto propertyToRemove = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B"));
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "The similar property is removed from SgfcNode" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.RemoveProperty(propertyToRemove),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+  }
+
+  GIVEN( "The node contains properties" )
+  {
+    WHEN( "All propertiess are individually removed from the node" )
+    {
+      node.SetProperties(initialPropertyList);
+      for (const auto& propertyToRemove : initialPropertyList)
+        node.RemoveProperty(propertyToRemove);
+
+      THEN( "The node becomes empty after removing the last property" )
+      {
+        REQUIRE( node.HasProperties() == false );
+        REQUIRE( node.GetProperties().size() == 0 );
+      }
+    }
+
+    WHEN( "Only some of the properties are removed from the node" )
+    {
+      node.SetProperties(initialPropertyList);
+      node.RemoveProperty(initialPropertyList.front());
+      node.RemoveProperty(initialPropertyList.back());
+
+      THEN( "The node remains non-empty after removing the game" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        REQUIRE( node.GetProperties().size() == 1 );
+      }
+    }
+  }
+
+  GIVEN( "A nullptr argument is passed to the remove function" )
+  {
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "A nullptr argument is passed to the remove function" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.RemoveProperty(nullptr),
+          std::invalid_argument);
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+  }
+}
+
+SCENARIO( "All properties are removed from SgfcNode", "[document]" )
+{
+  GIVEN( "The node contains properties to be removed" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> initialPropertyList =
+    {
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
+      // SgfcNode doesn't care about a matching property name string and enum value
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B")),
+    };
+    SgfcNode node;
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "All properties are removed from the node" )
+    {
+      node.RemoveAllProperties();
+
+      THEN( "The node becomes empty" )
+      {
+        REQUIRE( node.HasProperties() == false );
+        REQUIRE( node.GetProperties().size() == 0 );
+      }
+    }
+  }
+
+  GIVEN( "The node does not contain any properties to be removed" )
+  {
+    SgfcNode node;
+
+    WHEN( "All properties are removed from the node" )
+    {
+      node.RemoveAllProperties();
+
+      THEN( "The node remains empty" )
+      {
+        REQUIRE( node.HasProperties() == false );
+        REQUIRE( node.GetProperties().size() == 0 );
+      }
+    }
+  }
+}
 SCENARIO( "SgfcNode is configured with a first child", "[document]" )
 {
   auto node = std::shared_ptr<SgfcNode>(new SgfcNode());

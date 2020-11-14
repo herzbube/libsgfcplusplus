@@ -195,6 +195,11 @@ namespace LibSgfcPlusPlus
     return (this->parent.lock() == nullptr);
   }
 
+  bool SgfcNode::HasProperties() const
+  {
+    return ! this->properties.empty();
+  }
+
   std::vector<std::shared_ptr<ISgfcProperty>> SgfcNode::GetProperties() const
   {
     return this->properties;
@@ -202,39 +207,47 @@ namespace LibSgfcPlusPlus
 
   void SgfcNode::SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties)
   {
-    std::map<SgfcPropertyType, bool> propertyTypeMap;
-    std::map<std::string, bool> propertyNameMap;
-
-    for (const auto& property : properties)
-    {
-      if (property == nullptr)
-        throw std::invalid_argument("SetProperties failed: Properties collection contains nullptr element");
-
-      auto propertyType = property->GetPropertyType();
-      if (propertyType != SgfcPropertyType::Unknown && propertyTypeMap.find(propertyType) != propertyTypeMap.end())
-      {
-        std::stringstream message;
-        message
-          << "SetProperties failed: Properties collection contains element with duplicate property type "
-          << static_cast<int>(propertyType);
-        throw std::invalid_argument(message.str());
-      }
-
-      auto propertyName = property->GetPropertyName();
-      if (propertyNameMap.find(propertyName) != propertyNameMap.end())
-      {
-        std::stringstream message;
-        message
-          << "SetProperties failed: Properties collection contains element with duplicate property name "
-          << propertyName;
-        throw std::invalid_argument(message.str());
-      }
-
-      propertyTypeMap[propertyType] = true;
-      propertyNameMap[propertyName] = true;
-    }
+    std::string validationFailedReason;
+    bool arePropertiesValid = SgfcNode::ValidateProperties(properties, validationFailedReason);
+    if (! arePropertiesValid)
+      throw std::invalid_argument("SetProperties failed: " + validationFailedReason);
 
     this->properties = properties;
+  }
+
+  void SgfcNode::AppendProperty(std::shared_ptr<ISgfcProperty> property)
+  {
+    if (property == nullptr)
+      throw std::invalid_argument("AppendProperty failed: Property argument is null");
+
+    auto result = std::find(std::begin(this->properties), std::end(this->properties), property);
+    if (result != std::end(this->properties))
+      throw std::invalid_argument("AppendProperty failed: Property is already part of the node");
+
+    std::vector<std::shared_ptr<ISgfcProperty>> propertiesCopy = this->properties;
+    propertiesCopy.push_back(property);
+
+    std::string validationFailedReason;
+    bool arePropertiesValid = SgfcNode::ValidateProperties(propertiesCopy, validationFailedReason);
+    if (! arePropertiesValid)
+      throw std::invalid_argument("AppendProperty failed: " + validationFailedReason);
+
+    this->properties = propertiesCopy;
+  }
+
+  void SgfcNode::RemoveProperty(std::shared_ptr<ISgfcProperty> property)
+  {
+    // This works because std::shared_ptr::operator==() compares pointer values
+    auto result = std::find(std::begin(this->properties), std::end(this->properties), property);
+    if (result == std::end(this->properties))
+      throw std::invalid_argument("RemoveProperty failed: Property is not part of the node");
+
+    this->properties.erase(result);
+  }
+
+  void SgfcNode::RemoveAllProperties()
+  {
+    this->properties.clear();
   }
 
   std::shared_ptr<ISgfcProperty> SgfcNode::GetProperty(SgfcPropertyType propertyType) const
@@ -246,5 +259,47 @@ namespace LibSgfcPlusPlus
     }
 
     return nullptr;
+  }
+
+  bool SgfcNode::ValidateProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties, std::string& validationFailedReason)
+  {
+    std::map<SgfcPropertyType, bool> propertyTypeMap;
+    std::map<std::string, bool> propertyNameMap;
+
+    for (const auto& property : properties)
+    {
+      if (property == nullptr)
+      {
+        validationFailedReason = "Properties collection contains nullptr element";
+        return false;
+      }
+
+      auto propertyType = property->GetPropertyType();
+      if (propertyType != SgfcPropertyType::Unknown && propertyTypeMap.find(propertyType) != propertyTypeMap.end())
+      {
+        std::stringstream message;
+        message
+          << "Properties collection contains element with duplicate property type "
+          << static_cast<int>(propertyType);
+        validationFailedReason = message.str();
+        return false;
+      }
+
+      auto propertyName = property->GetPropertyName();
+      if (propertyNameMap.find(propertyName) != propertyNameMap.end())
+      {
+        std::stringstream message;
+        message
+          << "Properties collection contains element with duplicate property name "
+          << propertyName;
+        validationFailedReason = message.str();
+        return false;
+      }
+
+      propertyTypeMap[propertyType] = true;
+      propertyNameMap[propertyName] = true;
+    }
+
+    return true;
   }
 }

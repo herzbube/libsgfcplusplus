@@ -51,15 +51,46 @@ namespace LibSgfcPlusPlus
     return this->propertyName;
   }
 
+  bool SgfcProperty::HasPropertyValues() const
+  {
+    return ! this->propertyValues.empty();
+  }
+
   std::vector<std::shared_ptr<ISgfcPropertyValue>> SgfcProperty::GetPropertyValues() const
   {
     return this->propertyValues;
   }
 
-  void SgfcProperty::SetPropertyValues(
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+  void SgfcProperty::SetPropertyValues(const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
   {
     this->propertyValues = propertyValues;
+  }
+
+  void SgfcProperty::AppendPropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue)
+  {
+    if (propertyValue == nullptr)
+      throw std::invalid_argument("AppendPropertyValue failed: Property value argument is null");
+
+    auto result = std::find(std::begin(this->propertyValues), std::end(this->propertyValues), propertyValue);
+    if (result != std::end(this->propertyValues))
+      throw std::invalid_argument("AppendPropertyValue failed: Property value is already part of the property");
+
+    this->propertyValues.push_back(propertyValue);
+  }
+
+  void SgfcProperty::RemovePropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue)
+  {
+    // This works because std::shared_ptr::operator==() compares pointer values
+    auto result = std::find(std::begin(this->propertyValues), std::end(this->propertyValues), propertyValue);
+    if (result == std::end(this->propertyValues))
+      throw std::invalid_argument("RemovePropertyValue failed: Property value is not part of the property");
+
+    this->propertyValues.erase(result);
+  }
+
+  void SgfcProperty::RemoveAllPropertyValues()
+  {
+    this->propertyValues.clear();
   }
 
   std::shared_ptr<ISgfcPropertyValue> SgfcProperty::GetPropertyValue() const

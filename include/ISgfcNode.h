@@ -112,6 +112,10 @@ namespace LibSgfcPlusPlus
     /// false if the node is not the root node of a game tree.
     virtual bool IsRoot() const = 0;
 
+    /// @brief Returns true if the node has one or more properties. Returns
+    /// false if the node has no properties.
+    virtual bool HasProperties() const = 0;
+
     /// @brief Returns a collection with the properties of the node. The
     /// collection is empty if the node has no properties. The collection has
     /// no particular order.
@@ -142,6 +146,25 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::Unknown appears more than once, or if a property name
     /// appears more than once.
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) = 0;
+
+    /// @brief Adds @a property as the last property to the node's
+    /// collection of properties. @a property may not be @e nullptr.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a property is @e nullptr,
+    /// if @a property is already in the node's collection of properties, or
+    /// the node's collection of properties already contains another property
+    /// with the same SgfcPropertyType (except SgfcPropertyType::Unknown which
+    /// may appear more than once) or the same property name.
+    virtual void AppendProperty(std::shared_ptr<ISgfcProperty> property) = 0;
+
+    /// @brief Removes @a property from the node's collection of properties.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a property is not
+    /// part of the node's collection of properties.
+    virtual void RemoveProperty(std::shared_ptr<ISgfcProperty> property) = 0;
+
+    /// @brief Removes all properties from the node's collection of properties.
+    virtual void RemoveAllProperties() = 0;
 
     /// @brief Returns the property with the specified type @a propertyType if
     /// the node has such a property. Returns @e nullptr if the node has no

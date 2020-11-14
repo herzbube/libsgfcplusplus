@@ -67,6 +67,10 @@ namespace LibSgfcPlusPlus
     /// advises against this).
     virtual std::string GetPropertyName() const = 0;
 
+    /// @brief Returns true if the property has one or more values. Returns
+    /// false if the property has no values.
+    virtual bool HasPropertyValues() const = 0;
+
     /// @brief Returns a collection with the values of the property. The
     /// collection is empty if the property has no values. The order in which
     /// values appear in the collection matches the order in which values were
@@ -92,6 +96,39 @@ namespace LibSgfcPlusPlus
     /// out.
     virtual void SetPropertyValues(
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
+
+    /// @brief Adds @a propertyValue as the last value to the property's
+    /// collection of values. @a propertyValue may not be @e nullptr.
+    ///
+    /// This setter makes no attempt to check the validity of the property's
+    /// collection of values after adding @a propertyValue.
+    ///
+    /// @see SetPropertyValues()
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// @e nullptr or if @a propertyValue is already in the property's
+    /// collection of values.
+    virtual void AppendPropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
+
+    /// @brief Removes @a propertyValue from the property's collection of
+    /// values.
+    ///
+    /// This setter makes no attempt to check the validity of the property's
+    /// collection of values after removing @a propertyValue.
+    ///
+    /// @see SetPropertyValues()
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is not
+    /// part of the property's collection of values.
+    virtual void RemovePropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
+
+    /// @brief Removes all values from the property's collection of values.
+    ///
+    /// This setter makes no attempt to check the validity of the property's
+    /// collection of values after removing all values.
+    ///
+    /// @see SetPropertyValues()
+    virtual void RemoveAllPropertyValues() = 0;
 
     /// @brief Returns the property's first value if the property has any
     /// values. Returns @e nullptr if the property has no values.
