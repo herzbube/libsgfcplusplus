@@ -18,10 +18,13 @@ endif()
 # Setting VERSION_NO_MAIN "defines away" the SGFC main() function. An
 # alternative would be to exclude main.c from the build, but this would make
 # the file unavailable in IDEs.
+# Setting HEADER_FILE_ONLY to true prevents main.c from being compiled. This
+# avoids an annoying ranlib warning message ("main.c.o has no symbols").
 set_source_files_properties (
   ../sgfc/src/main.c
   PROPERTIES
   COMPILE_DEFINITIONS VERSION_NO_MAIN
+  HEADER_FILE_ONLY TRUE
 )
 
 # When compiling with MSVC, disable the compiler warning C4996 for SGFC source
