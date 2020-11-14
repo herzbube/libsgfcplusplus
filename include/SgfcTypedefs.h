@@ -16,6 +16,9 @@
 
 #pragma once
 
+// C++ Standard Library includes
+#include <string>
+
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcNumber type represents the Number value type defined by
@@ -29,4 +32,18 @@ namespace LibSgfcPlusPlus
   ///
   /// @ingroup public-api
   typedef double SgfcReal;
+
+  /// @brief The SgfcText type represents the Text value type defined by
+  /// the SGF standard. Values are strings that contain only space characters
+  /// and linebreaks as whitespace, i.e. no tabs, vertical tabs, etc..
+  ///
+  /// @ingroup public-api
+  typedef std::string SgfcText;
+
+  /// @brief The SgfcSimpleText type represents the SimpleText value type
+  /// defined by the SGF standard. Values are strings that contain only space
+  /// characters as whitespace, i.e. no linebreaks, tabs, vertical tabs, etc..
+  ///
+  /// @ingroup public-api
+  typedef std::string SgfcSimpleText;
 }

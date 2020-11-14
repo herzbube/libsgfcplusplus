@@ -98,7 +98,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSimpleTextPropertyValue> SgfcPropertyValueFactory::CreateSimpleTextPropertyValue(
-    const std::string& simpleTextValue) const
+    const SgfcSimpleText& simpleTextValue) const
   {
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject = std::shared_ptr<ISgfcSimpleTextPropertyValue>(
       new SgfcSimpleTextPropertyValue(simpleTextValue, simpleTextValue));
@@ -106,7 +106,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcTextPropertyValue> SgfcPropertyValueFactory::CreateTextPropertyValue(
-    const std::string& textValue) const
+    const SgfcText& textValue) const
   {
     std::shared_ptr<ISgfcTextPropertyValue> valueObject = std::shared_ptr<ISgfcTextPropertyValue>(
       new SgfcTextPropertyValue(textValue, textValue));
@@ -213,8 +213,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedSimpleTextAndSimpleTextPropertyValue(
-    const std::string& simpleTextValue1,
-    const std::string& simpleTextValue2) const
+    const SgfcSimpleText& simpleTextValue1,
+    const SgfcSimpleText& simpleTextValue2) const
   {
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject1 = CreateSimpleTextPropertyValue(simpleTextValue1);
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject2 = CreateSimpleTextPropertyValue(simpleTextValue2);
@@ -226,7 +226,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedNumberAndSimpleTextPropertyValue(
     SgfcNumber numberValue,
-    const std::string& simpleTextValue) const
+    const SgfcSimpleText& simpleTextValue) const
   {
     std::shared_ptr<ISgfcNumberPropertyValue> valueObject1 = CreateNumberPropertyValue(numberValue);
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject2 = CreateSimpleTextPropertyValue(simpleTextValue);
@@ -250,7 +250,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedPointAndSimpleTextPropertyValue(
     const std::string& pointValue,
-    const std::string& simpleTextValue) const
+    const SgfcSimpleText& simpleTextValue) const
   {
     std::shared_ptr<ISgfcPointPropertyValue> valueObject1 = CreatePointPropertyValue(pointValue);
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject2 = CreateSimpleTextPropertyValue(simpleTextValue);
@@ -297,7 +297,7 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedGoPointAndSimpleTextPropertyValue(
     const std::string& pointValue,
     SgfcBoardSize boardSize,
-    const std::string& simpleTextValue) const
+    const SgfcSimpleText& simpleTextValue) const
   {
     std::shared_ptr<ISgfcGoPointPropertyValue> valueObject1 = CreateGoPointPropertyValue(pointValue, boardSize);
     std::shared_ptr<ISgfcSimpleTextPropertyValue> valueObject2 = CreateSimpleTextPropertyValue(simpleTextValue);

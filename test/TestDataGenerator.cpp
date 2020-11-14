@@ -228,9 +228,9 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::pair<std::string, std::string>> TestDataGenerator::GetSimpleTextStrings()
+  std::vector<std::pair<std::string, SgfcSimpleText>> TestDataGenerator::GetSimpleTextStrings()
   {
-    std::vector<std::pair<std::string, std::string>> testData =
+    std::vector<std::pair<std::string, SgfcSimpleText>> testData =
     {
       std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
       std::pair<std::string, std::string> { "foo", "foo" },
@@ -276,9 +276,9 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::pair<std::string, std::string>> TestDataGenerator::GetTextStrings()
+  std::vector<std::pair<std::string, SgfcText>> TestDataGenerator::GetTextStrings()
   {
-    std::vector<std::pair<std::string, std::string>> testData =
+    std::vector<std::pair<std::string, SgfcText>> testData =
     {
       std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
       std::pair<std::string, std::string> { "foo", "foo" },

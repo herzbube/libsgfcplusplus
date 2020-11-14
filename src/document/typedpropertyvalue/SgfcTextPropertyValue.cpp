@@ -19,7 +19,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcTextPropertyValue::SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue)
+  SgfcTextPropertyValue::SgfcTextPropertyValue(const std::string& rawValue, const SgfcText& textValue)
     : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Text)
     , textValue(textValue)
   {
@@ -29,7 +29,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  std::string SgfcTextPropertyValue::GetTextValue() const
+  SgfcText SgfcTextPropertyValue::GetTextValue() const
   {
     return this->textValue;
   }

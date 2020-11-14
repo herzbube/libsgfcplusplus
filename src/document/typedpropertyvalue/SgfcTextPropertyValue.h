@@ -32,17 +32,17 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcTextPropertyValue
-    /// object. The object holds the SimpleText value @a textValue and
+    /// object. The object holds the SgfcText value @a textValue and
     /// the corresponding raw string value @a rawValue.
-    SgfcTextPropertyValue(const std::string& rawValue, const std::string& textValue);
+    SgfcTextPropertyValue(const std::string& rawValue, const SgfcText& textValue);
 
     /// @brief Destroys and cleans up the SgfcTextPropertyValue object.
     virtual ~SgfcTextPropertyValue();
 
-    virtual std::string GetTextValue() const;
+    virtual SgfcText GetTextValue() const;
     virtual const ISgfcTextPropertyValue* ToTextValue() const;
 
   private:
-    std::string textValue;
+    SgfcText textValue;
   };
 }

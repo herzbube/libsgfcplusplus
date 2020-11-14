@@ -55,9 +55,9 @@ namespace LibSgfcPlusPlus
     static std::vector<std::string> GetInvalidColorStrings();
     static std::vector<std::pair<SgfcColor, std::string>> GetColorValues();
 
-    static std::vector<std::pair<std::string, std::string>> GetSimpleTextStrings();
+    static std::vector<std::pair<std::string, SgfcSimpleText>> GetSimpleTextStrings();
 
-    static std::vector<std::pair<std::string, std::string>> GetTextStrings();
+    static std::vector<std::pair<std::string, SgfcText>> GetTextStrings();
 
     static std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> GetGoPointStrings();
     static std::vector<SgfcBoardSize> GetInvalidGoBoardSizes();

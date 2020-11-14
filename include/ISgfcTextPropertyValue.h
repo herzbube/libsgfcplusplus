@@ -18,6 +18,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -42,7 +43,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcTextPropertyValue object.
     virtual ~ISgfcTextPropertyValue();
 
-    /// @brief Returns the property value interpreted as a Text string.
-    virtual std::string GetTextValue() const = 0;
+    /// @brief Returns the property value interpreted as an SgfcText value.
+    virtual SgfcText GetTextValue() const = 0;
   };
 }

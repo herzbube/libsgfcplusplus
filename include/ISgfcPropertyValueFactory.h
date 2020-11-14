@@ -86,14 +86,14 @@ namespace LibSgfcPlusPlus
       SgfcColor colorValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcSimpleTextPropertyValue object
-    /// that has the string value @a simpleTextValue.
+    /// that has the SgfcSimpleText value @a simpleTextValue.
     virtual std::shared_ptr<ISgfcSimpleTextPropertyValue> CreateSimpleTextPropertyValue(
-      const std::string& simpleTextValue) const = 0;
+      const SgfcSimpleText& simpleTextValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcTextPropertyValue object
-    /// that has the string value @a textValue.
+    /// that has the SgfcText value @a textValue.
     virtual std::shared_ptr<ISgfcTextPropertyValue> CreateTextPropertyValue(
-      const std::string& textValue) const = 0;
+      const SgfcText& textValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcPointPropertyValue object
     /// that has the Point value @a pointValue.
@@ -227,18 +227,19 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of two ISgfcSimpleTextPropertyValue objects, which have
-    /// the string values @a simpleTextValue1 and @a simpleTextValue2.
+    /// the SgfcSimpleText values @a simpleTextValue1 and @a simpleTextValue2.
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedSimpleTextAndSimpleTextPropertyValue(
-      const std::string& simpleTextValue1,
-      const std::string& simpleTextValue2) const = 0;
+      const SgfcSimpleText& simpleTextValue1,
+      const SgfcSimpleText& simpleTextValue2) const = 0;
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of an ISgfcNumberPropertyValue object and an
     /// ISgfcSimpleTextPropertyValue object, which have the SgfcNumber and
-    /// string values @a numberValue and @a simpleTextValue, respectively.
+    /// SgfcSimpleText values @a numberValue and @a simpleTextValue,
+    /// respectively.
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedNumberAndSimpleTextPropertyValue(
       SgfcNumber numberValue,
-      const std::string& simpleTextValue) const = 0;
+      const SgfcSimpleText& simpleTextValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of two ISgfcPointPropertyValue objects, which have the
@@ -249,11 +250,12 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of an ISgfcPointPropertyValue object and an
-    /// ISgfcSimpleTextPropertyValue object, which have the string values
-    /// @a pointValue and @a simpleTextValue, respectively.
+    /// ISgfcSimpleTextPropertyValue object, which have the string and
+    /// SgfcSimpleText values @a pointValue and @a simpleTextValue,
+    /// respectively.
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndSimpleTextPropertyValue(
       const std::string& pointValue,
-      const std::string& simpleTextValue) const = 0;
+      const SgfcSimpleText& simpleTextValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of an ISgfcStonePropertyValue object and an
@@ -286,12 +288,13 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of an ISgfcGoPointPropertyValue object and an
-    /// ISgfcSimpleTextPropertyValue object, which have the string values
-    /// @a pointValue and @a simpleTextValue, respectively.
+    /// ISgfcSimpleTextPropertyValue object, which have the string and
+    /// SgfcSimpleText values @a pointValue and @a simpleTextValue,
+    /// respectively.
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndSimpleTextPropertyValue(
       const std::string& pointValue,
       SgfcBoardSize boardSize,
-      const std::string& simpleTextValue) const = 0;
+      const SgfcSimpleText& simpleTextValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcComposedPropertyValue object
     /// that consists of an ISgfcGoStonePropertyValue object and an

@@ -55,7 +55,7 @@ using namespace LibSgfcPlusPlus;
 
 void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue);
 void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue);
-void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue);
+void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const SgfcSimpleText& expectedParsedValue);
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
 void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition);
 void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
@@ -927,7 +927,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the SimpleText string value" )
+      THEN( "SgfcPropertyDecoder successfully decodes the SimpleText string" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::N );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -978,7 +978,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
     WHEN( "The property value is an invalid Text string" )
     {
-      // No tests because there are no invalid SimpleText strings
+      // No tests because there are no invalid Text values
     }
   }
 
@@ -1504,7 +1504,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the composition of two SimpleText string values" )
+      THEN( "SgfcPropertyDecoder successfully decodes the composition of two SimpleText strings" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AP );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -1605,10 +1605,12 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
       // parsing, so we don't need a lot of test values
       std::string pointString1 = "as";
       std::string simpleTextString1 = SgfcConstants::NoneValueString;
+      SgfcSimpleText simpleTextValue1 = SgfcConstants::NoneValueString;
       int xPosition1 = 1;
       int yPosition1 = 19;
       std::string pointString2 = "pc";
       std::string simpleTextString2 = "foo";
+      SgfcSimpleText simpleTextValue2 = "foo";
       int xPosition2 = 16;
       int yPosition2 = 3;
 
@@ -1641,12 +1643,12 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertySingleValue1a = propertyComposedValue1->GetValue1();
         AssertValidGoPointString(propertySingleValue1a.get(), pointString1, xPosition1, yPosition1);
         auto propertySingleValue1b = propertyComposedValue1->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1, simpleTextString1);
+        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1, simpleTextValue1);
 
         auto propertySingleValue2a = propertyComposedValue2->GetValue1();
         AssertValidGoPointString(propertySingleValue2a.get(), pointString2, xPosition2, yPosition2);
         auto propertySingleValue2b = propertyComposedValue2->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2, simpleTextString2);
+        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2, simpleTextValue2);
       }
     }
 
@@ -1654,6 +1656,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
     {
       std::string pointString = "foo";
       std::string simpleTextString = "bar";
+      SgfcSimpleText simpleTextValue = "bar";
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(pointString.c_str());
@@ -1677,7 +1680,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
         AssertInvalidGoPointString(propertySingleValue1.get(), pointString);
         auto propertySingleValue2 = propertyComposedValue->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextValue);
       }
     }
 
@@ -1697,6 +1700,10 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
       std::string simpleTextString1b = SgfcConstants::NoneValueString;
       std::string simpleTextString2a = ":";
       std::string simpleTextString2b = "bar";
+      SgfcSimpleText simpleTextValue1a = "foo";
+      SgfcSimpleText simpleTextValue1b = SgfcConstants::NoneValueString;
+      SgfcSimpleText simpleTextValue2a = ":";
+      SgfcSimpleText simpleTextValue2b = "bar";
 
       PropValue propertyValue2;
       propertyValue2.value = const_cast<char*>(simpleTextString2a.c_str());
@@ -1713,7 +1720,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
       sgfProperty.value = &propertyValue1;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Backgammon, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the list of composed SimpleText and SimpleText string values" )
+      THEN( "SgfcPropertyDecoder successfully decodes the list of composed SimpleText and SimpleText strings" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::MI );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -1725,14 +1732,14 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
 
         auto propertySingleValue1a = propertyComposedValue1->GetValue1();
-        AssertValidSimpleTextString(propertySingleValue1a.get(), simpleTextString1a, simpleTextString1a);
+        AssertValidSimpleTextString(propertySingleValue1a.get(), simpleTextString1a, simpleTextValue1a);
         auto propertySingleValue1b = propertyComposedValue1->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1b, simpleTextString1b);
+        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1b, simpleTextValue1b);
 
         auto propertySingleValue2a = propertyComposedValue2->GetValue1();
-        AssertValidSimpleTextString(propertySingleValue2a.get(), simpleTextString2a, simpleTextString2a);
+        AssertValidSimpleTextString(propertySingleValue2a.get(), simpleTextString2a, simpleTextValue2a);
         auto propertySingleValue2b = propertyComposedValue2->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2b, simpleTextString2b);
+        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2b, simpleTextValue2b);
       }
     }
 
@@ -1911,6 +1918,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
       std::string numberString = "42";
       SgfcNumber numberValue = 42;
       std::string simpleTextString = "foo";
+      SgfcSimpleText simpleTextValue = "foo";
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(numberString.c_str());
@@ -1922,7 +1930,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
 
-      THEN( "SgfcPropertyDecoder successfully decodes the composed Number and SimpleText string values" )
+      THEN( "SgfcPropertyDecoder successfully decodes the composed Number and SimpleText strings" )
       {
         REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::FG );
         auto propertyValues = propertyDecoder.GetPropertyValues();
@@ -1934,7 +1942,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
         AssertValidNumberString(propertySingleValue1.get(), numberString, numberValue);
         auto propertySingleValue2 = propertyComposedValue->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextValue);
       }
     }
 
@@ -1942,6 +1950,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
     {
       auto numberString = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidNumberStrings()) );
       std::string simpleTextString = "foo";
+      SgfcSimpleText simpleTextValue = "foo";
 
       PropValue propertyValue;
       propertyValue.value = const_cast<char*>(numberString.c_str());
@@ -1965,7 +1974,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a dual val
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
         AssertInvalidNumberString(propertySingleValue1.get(), numberString);
         auto propertySingleValue2 = propertyComposedValue->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextString);
+        AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextValue);
       }
     }
 
@@ -2110,7 +2119,7 @@ void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleVal
   REQUIRE( numberValue == nullptr );
 }
 
-void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const std::string& expectedParsedValue)
+void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const SgfcSimpleText& expectedParsedValue)
 {
   REQUIRE( propertySingleValue->GetRawValue() == expectedRawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );

@@ -44,9 +44,9 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcColorPropertyValue> CreateColorPropertyValue(
       SgfcColor colorValue) const;
     virtual std::shared_ptr<ISgfcSimpleTextPropertyValue> CreateSimpleTextPropertyValue(
-      const std::string& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcTextPropertyValue> CreateTextPropertyValue(
-      const std::string& textValue) const;
+      const SgfcText& textValue) const;
     virtual std::shared_ptr<ISgfcPointPropertyValue> CreatePointPropertyValue(
       const std::string& pointValue) const;
     virtual std::shared_ptr<ISgfcMovePropertyValue> CreateMovePropertyValue(
@@ -80,17 +80,17 @@ namespace LibSgfcPlusPlus
       SgfcNumber numberValue1,
       SgfcNumber numberValue2) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedSimpleTextAndSimpleTextPropertyValue(
-      const std::string& simpleTextValue1,
-      const std::string& simpleTextValue2) const;
+      const SgfcSimpleText& simpleTextValue1,
+      const SgfcSimpleText& simpleTextValue2) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedNumberAndSimpleTextPropertyValue(
       SgfcNumber numberValue,
-      const std::string& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndPointPropertyValue(
       const std::string& pointValue1,
       const std::string& pointValue2) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndSimpleTextPropertyValue(
       const std::string& pointValue,
-      const std::string& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedStoneAndPointPropertyValue(
       const std::string& stoneValue,
       const std::string& pointValue) const;
@@ -108,7 +108,7 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndSimpleTextPropertyValue(
       const std::string& pointValue,
       SgfcBoardSize boardSize,
-      const std::string& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoStoneAndPointPropertyValue(
       const std::string& stoneValue,
       SgfcColor color,
