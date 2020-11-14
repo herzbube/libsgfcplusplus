@@ -98,6 +98,24 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent) const = 0;
 
+    /// @brief Validates the content of @a document by simulating a write
+    /// operation, using the arguments that GetArguments() currently returns.
+    ///
+    /// Before ISgfcDocumentWriter can invoke the SGFC backend's write function,
+    /// it needs to pass the SGF content through the SGFC backend's load/parse
+    /// functions. The messages in the result object therefore are a combination
+    /// of a full cycle of SGFC backend load/parse/write operations.
+    ///
+    /// @return An ISgfcDocumentWriteResult object that provides the result of
+    /// the validation operation.
+    ///
+    /// @exception std::logic_error is thrown if @a document cannot be encoded
+    /// into a string due to some fundamental error in the object tree.
+    /// Currently the only known case is if the document contains one or more
+    /// games that have no root node.
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> ValidateDocument(
+      std::shared_ptr<ISgfcDocument> document) const = 0;
+
     /// @brief Encodes the content of @a document into an SGF content stream
     /// and prints that stream to stdout for debugging purposes.
     ///

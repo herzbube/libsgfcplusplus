@@ -57,6 +57,14 @@ namespace LibSgfcPlusPlus
     return WriteSgfContentToFilesystemOrInMemoryBuffer(document, sgfFilePath, sgfContent, SgfcDataLocation::InMemoryBuffer);
   }
 
+  std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::ValidateDocument(
+    std::shared_ptr<ISgfcDocument> document) const
+  {
+    std::string sgfFilePath;
+    std::string sgfContent;
+    return WriteSgfContentToFilesystemOrInMemoryBuffer(document, sgfFilePath, sgfContent, SgfcDataLocation::InMemoryBuffer);
+  }
+
   void SgfcDocumentWriter::DebugPrintToConsole(
     std::shared_ptr<ISgfcDocument> document) const
   {

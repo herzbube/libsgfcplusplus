@@ -71,9 +71,11 @@ Full disclosure: The library can throw `std::logic_error` when a library coding 
 
 ## Document concept
 
-When the library reads SGF data from a source, it makes that data available as an `ISgfcDocument`. Currently such a document is equivalent to what the SGF standard shows as a "collection of game trees" in its EBNF definition.
+When the library reads SGF data from a source, it makes that data available as an `ISgfcDocument`. `ISgfcDocument` objects can also be built programmatically from scratch using the library's factories.
 
-In a future version of the library the document concept might be expanded. For instance it might be possible to add meta data to a document.
+Currently such a document is equivalent to what the SGF standard shows as a "collection of game trees" in its EBNF definition. In a future version of the library the document concept might be expanded. For instance it might be possible to add meta data to a document.
+
+Documents can be written back as SGF data to a destination. Documents can also be validated by simulating a write operation - this can be useful for `ISgfcDocument` objects that were built programmatically.
 
 ## Go support
 

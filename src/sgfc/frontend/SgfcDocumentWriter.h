@@ -42,6 +42,8 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
       std::string& sgfContent) const;
+    virtual std::shared_ptr<ISgfcDocumentWriteResult> ValidateDocument(
+      std::shared_ptr<ISgfcDocument> document) const;
     virtual void DebugPrintToConsole(
       std::shared_ptr<ISgfcDocument> document) const;
 
