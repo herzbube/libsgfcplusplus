@@ -65,7 +65,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
     /// the read operation.
-    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfFile(const std::string& sgfFilePath) = 0;
+    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfFile(const std::string& sgfFilePath) const = 0;
 
     /// @brief Reads SGF data from the specified string and puts the data
     /// through the SGFC parser, using the arguments that GetArguments()
@@ -73,6 +73,6 @@ namespace LibSgfcPlusPlus
     ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
     /// the read operation.
-    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) = 0;
+    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) const = 0;
   };
 }

@@ -43,7 +43,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfFile(
     std::shared_ptr<ISgfcDocument> document,
-    const std::string& sgfFilePath)
+    const std::string& sgfFilePath) const
   {
     std::string sgfContent;
     return WriteSgfContentToFilesystemOrInMemoryBuffer(document, sgfFilePath, sgfContent, SgfcDataLocation::Filesystem);
@@ -51,7 +51,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcDocumentWriteResult> SgfcDocumentWriter::WriteSgfContent(
     std::shared_ptr<ISgfcDocument> document,
-    std::string& sgfContent)
+    std::string& sgfContent) const
   {
     std::string sgfFilePath;
     return WriteSgfContentToFilesystemOrInMemoryBuffer(document, sgfFilePath, sgfContent, SgfcDataLocation::InMemoryBuffer);
@@ -69,7 +69,7 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcDocument> document,
     const std::string& sgfFilePath,
     std::string& sgfContent,
-    SgfcDataLocation dataLocation)
+    SgfcDataLocation dataLocation) const
   {
     SgfcBackendController backendController(this->arguments->GetArguments());
     if (backendController.IsCommandLineValid())

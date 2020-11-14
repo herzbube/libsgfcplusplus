@@ -38,13 +38,13 @@ namespace LibSgfcPlusPlus
     return this->arguments;
   }
 
-  std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfFile(const std::string& sgfFilePath)
+  std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfFile(const std::string& sgfFilePath) const
   {
     std::string sgfContent;
     return ReadSgfContentFromFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, SgfcDataLocation::Filesystem);
   }
 
-  std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfContent(const std::string& sgfContent)
+  std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfContent(const std::string& sgfContent) const
   {
     std::string sgfFilePath;
     return ReadSgfContentFromFilesystemOrInMemoryBuffer(sgfFilePath, sgfContent, SgfcDataLocation::InMemoryBuffer);
@@ -53,7 +53,7 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcDocumentReadResult> SgfcDocumentReader::ReadSgfContentFromFilesystemOrInMemoryBuffer(
     const std::string& sgfFilePath,
     const std::string& sgfContent,
-    SgfcDataLocation dataLocation)
+    SgfcDataLocation dataLocation) const
   {
     SgfcBackendController backendController(this->arguments->GetArguments());
     if (backendController.IsCommandLineValid())

@@ -71,7 +71,7 @@ namespace LibSgfcPlusPlus
     /// games that have no root node.
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
-      const std::string& sgfFilePath) = 0;
+      const std::string& sgfFilePath) const = 0;
 
     /// @brief Writes the content of @a document into the specified string
     /// object @a sgfContent, using the arguments that GetArguments() currently
@@ -86,7 +86,7 @@ namespace LibSgfcPlusPlus
     /// games that have no root node.
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
-      std::string& sgfContent) = 0;
+      std::string& sgfContent) const = 0;
 
     /// @brief Encodes the content of @a document into an SGF content stream
     /// and prints that stream to stdout for debugging purposes.

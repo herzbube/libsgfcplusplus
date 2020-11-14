@@ -38,10 +38,10 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcArguments> GetArguments() const;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
-      const std::string& sgfFilePath);
+      const std::string& sgfFilePath) const;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
-      std::string& sgfContent);
+      std::string& sgfContent) const;
     virtual void DebugPrintToConsole(
       std::shared_ptr<ISgfcDocument> document) const;
 
@@ -52,6 +52,6 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcDocument> document,
       const std::string& sgfFilePath,
       std::string& sgfContent,
-      SgfcDataLocation dataLocation);
+      SgfcDataLocation dataLocation) const;
   };
 }
