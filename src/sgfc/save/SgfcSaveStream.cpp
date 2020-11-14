@@ -84,9 +84,9 @@ namespace LibSgfcPlusPlus
     capturingIsInProgress = false;
   }
 
-  std::vector<std::shared_ptr<ISgfcSgfContent>> SgfcSaveStream::GetSgfContents() const
+  std::vector<std::shared_ptr<SgfcSgfContent>> SgfcSaveStream::GetSgfContents() const
   {
-    std::vector<std::shared_ptr<ISgfcSgfContent>> sgfContents;
+    std::vector<std::shared_ptr<SgfcSgfContent>> sgfContents;
 
     auto itSaveStreamContents = saveStreamContents.cbegin();
     auto itSaveStreamFilePaths = saveStreamFilePaths.cbegin();
@@ -99,7 +99,7 @@ namespace LibSgfcPlusPlus
       const std::string& saveStreamContent = *itSaveStreamContents;
       const std::string& saveStreamFilePath = *itSaveStreamFilePaths;
 
-      std::shared_ptr<ISgfcSgfContent> sgfContent = std::shared_ptr<ISgfcSgfContent>(new SgfcSgfContent(
+      std::shared_ptr<SgfcSgfContent> sgfContent = std::shared_ptr<SgfcSgfContent>(new SgfcSgfContent(
         saveStreamContent,
         saveStreamFilePath));
 

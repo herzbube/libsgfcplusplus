@@ -71,7 +71,6 @@ set (
   interface/public/ISgfcPropertyValue.cpp
   interface/public/ISgfcPropertyValueFactory.cpp
   interface/public/ISgfcRealPropertyValue.cpp
-  interface/public/ISgfcSgfContent.cpp
   interface/public/ISgfcSimpleTextPropertyValue.cpp
   interface/public/ISgfcSinglePropertyValue.cpp
   interface/public/ISgfcStonePropertyValue.cpp
@@ -209,7 +208,6 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/ISgfcPropertyValue.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcPropertyValueFactory.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcRealPropertyValue.h
-  ${HEADERS_PUBLIC_FOLDER}/ISgfcSgfContent.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcSimpleTextPropertyValue.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcSinglePropertyValue.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcStonePropertyValue.h

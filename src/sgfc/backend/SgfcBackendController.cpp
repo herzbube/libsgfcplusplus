@@ -15,12 +15,12 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
-#include "../../../include/ISgfcSgfContent.h"
 #include "../../../include/SgfcConstants.h"
 #include "../../SgfcPrivateConstants.h"
 #include "../message/SgfcMessage.h"
 #include "../message/SgfcMessageStream.h"
 #include "../save/SgfcSaveStream.h"
+#include "../save/SgfcSgfContent.h"
 #include "SgfcBackendController.h"
 
 // SGFC includes
@@ -315,7 +315,7 @@ namespace LibSgfcPlusPlus
         }
       }
 
-      std::vector<std::shared_ptr<ISgfcSgfContent>> savedSgfContents;
+      std::vector<std::shared_ptr<SgfcSgfContent>> savedSgfContents;
 
       // Don't attempt to save if loading was not successful
       // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
@@ -386,7 +386,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  bool SgfcBackendController::SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const
+  bool SgfcBackendController::SaveSgfContentToFilesystem(std::shared_ptr<SgfcSgfContent> sgfContent) const
   {
     std::string fileName = sgfContent->GetFilePath();
 

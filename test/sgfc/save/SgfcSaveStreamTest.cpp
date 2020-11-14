@@ -15,9 +15,9 @@
 // -----------------------------------------------------------------------------
 
 // Library includes
-#include <sgfc/save/SgfcSaveStream.h>
 #include <sgfc/message/SgfcMessageStream.h>
-#include <ISgfcSgfContent.h>
+#include <sgfc/save/SgfcSaveStream.h>
+#include <sgfc/save/SgfcSgfContent.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>

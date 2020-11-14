@@ -33,7 +33,7 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
-  class ISgfcSgfContent;
+  class SgfcSgfContent;
 
   /// @brief The SgfcBackendController class encapsuslates the SGFC backend and
   /// is responsible for coordinating access to it.
@@ -234,7 +234,7 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<SgfcBackendDataWrapper> sgfDataWrapper,
       SgfcDataLocation dataLocation);
 
-    bool SaveSgfContentToFilesystem(std::shared_ptr<ISgfcSgfContent> sgfContent) const;
+    bool SaveSgfContentToFilesystem(std::shared_ptr<SgfcSgfContent> sgfContent) const;
 
     void SetInvalidCommandLineReasonFromParseArgsMessages(
       const std::vector<std::shared_ptr<ISgfcMessage>>& parseArgsMessages);
