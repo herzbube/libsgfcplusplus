@@ -17,7 +17,12 @@
 // Project includes
 #include "../../include/ISgfcDocument.h"
 #include "../../include/ISgfcComposedPropertyValue.h"
+#include "../../include/ISgfcMovePropertyValue.h"
+#include "../../include/ISgfcPointPropertyValue.h"
+#include "../../include/ISgfcStonePropertyValue.h"
 #include "../../include/ISgfcSinglePropertyValue.h"
+#include "../../include/ISgfcSimpleTextPropertyValue.h"
+#include "../../include/ISgfcTextPropertyValue.h"
 #include "../SgfcPrivateConstants.h"
 #include "SgfcDocumentEncoder.h"
 
@@ -166,7 +171,7 @@ namespace LibSgfcPlusPlus
     if (propertyValue->IsComposedValue())
       EncodeComposedPropertyValue(propertyValue->ToComposedValue(), sgfContentStream, indentationLevel);
     else
-      EncodeSinglePropertyValue(propertyValue->ToSingleValue(), sgfContentStream, indentationLevel);
+      EncodeSinglePropertyValue(propertyValue->ToSingleValue(), false, sgfContentStream, indentationLevel);
 
     sgfContentStream << SgfcPrivateConstants::PropertyValueEndToken;
   }
@@ -176,45 +181,149 @@ namespace LibSgfcPlusPlus
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
-    EncodeSinglePropertyValue(composedPropertyValue->GetValue1().get(), sgfContentStream, indentationLevel);
+    EncodeSinglePropertyValue(
+      composedPropertyValue->GetValue1().get(),
+      true,
+      sgfContentStream,
+      indentationLevel);
 
     sgfContentStream << SgfcPrivateConstants::ComposedValueSeparatorToken;
 
-    EncodeSinglePropertyValue(composedPropertyValue->GetValue2().get(), sgfContentStream, indentationLevel);
+    EncodeSinglePropertyValue(
+      composedPropertyValue->GetValue2().get(),
+      false,
+      sgfContentStream,
+      indentationLevel);
   }
 
   void SgfcDocumentEncoder::EncodeSinglePropertyValue(
     const ISgfcSinglePropertyValue* singlePropertyValue,
+    bool isFirstValueOfComposedValue,
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
-    switch (singlePropertyValue->GetValueType())
+    auto propertyValueType = singlePropertyValue->GetValueType();
+    switch (propertyValueType)
     {
+      // libsgfc++ gives the library client the guarantee that SimpleText and
+      // Text values don't need to contain escape characters, so we now have to
+      // add escaping. If possible we don't use the raw value!
+      // - If the property value object was created programmatically then the
+      //   raw value and the value passed by the library client to the factory
+      //   are the same.
+      // - If the property value object was created internally by ligsgfc++
+      //   during reading of SGF content, then the raw value is what SGFC passed
+      //   on to libsgfc++ after performing error corrections. This still
+      //   contains escape characters, so we can't use the raw value for
+      //   encoding because the resulting SGF content would then contain
+      //   double-escaping.
       case SgfcPropertyValueType::SimpleText:
       case SgfcPropertyValueType::Text:
+      {
+        std::string valueToEncode;
+
+        if (! singlePropertyValue->HasTypedValue())
+          valueToEncode = singlePropertyValue->GetRawValue();
+        else if (propertyValueType == SgfcPropertyValueType::SimpleText)
+          valueToEncode = singlePropertyValue->ToSimpleTextValue()->GetSimpleTextValue();
+        else
+          valueToEncode = singlePropertyValue->ToTextValue()->GetTextValue();
+
         // TODO: Handle newlines
-        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(singlePropertyValue->GetRawValue());
+        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(valueToEncode, isFirstValueOfComposedValue);
+
         break;
+      }
 
       // An application-specific value type might contain anything at all. We
       // can't perform the same escaping as for SimpleText/Text, though, because
       // we have no idea how the unknown value type is structured.
-      case SgfcPropertyValueType::Unknown:  // fall-through intentional
+      case SgfcPropertyValueType::Unknown:
+      {
+        sgfContentStream << AddMandatoryEscapeCharacters(singlePropertyValue->GetRawValue(), isFirstValueOfComposedValue);
+        break;
+      }
 
-      // For unknown game types the following value types can contain anything
-      // at all, quite similar to SgfcPropertyValueType::Unknown.
-      // TODO: Do not escape for SgfcGameType::Go
+      // For game types that are not Go the following value types can contain
+      // anything at all, quite similar to SgfcPropertyValueType::Unknown.
+      // - If the property value object was created programmatically then the
+      //   raw value was created by libsgfc++ and cannot contain any errors
+      //   because the factory strictly allow only good values. The raw value
+      //   is therefore good to pass to SGFC for writing.
+      // - If the property value object was created internally by ligsgfc++
+      //   during reading of SGF content, then the raw value is what SGFC passed
+      //   on to libsgfc++ after performing error corrections. That should also
+      //   be good enough to pass to SGFC for writing. Any errors in the
+      //   original SGF content that SGFC passed on to libsgfc++ can now be
+      //   passed back to SGFC, as that is what would have happened had the SGF
+      //   content been read+written by SGFC on the command line.
+      // - If the property value object is for game type Go, then the raw value
+      //   contains the SGF notation of the move/point/stone, regardless of
+      //   whether the property value object was created programmatically by
+      //   the library client or internally by libsgfc++ during reading of SGF
+      //   content. The SGF notation does not need escaping.
+      // - If the property value object is not for game type Go, then the raw
+      //   value and the move/point/stone value are the same, regardless of
+      //   whether the property value object was created programmatically by
+      //   the library client or internally by libsgfc++ during reading of SGF
+      //   content. This value could contain anything, so we have to do
+      //   escaping, but since we don't know the structure of the value we can
+      //   only do basic escaping.
       case SgfcPropertyValueType::Point:
       case SgfcPropertyValueType::Move:
       case SgfcPropertyValueType::Stone:
-        sgfContentStream << AddMandatoryEscapeCharacters(singlePropertyValue->GetRawValue());
+      {
+        std::string valueToEncode = singlePropertyValue->GetRawValue();
+        bool valueToEncodeNeedsEscaping = true;
+
+        if (singlePropertyValue->HasTypedValue())
+        {
+          if (propertyValueType == SgfcPropertyValueType::Point)
+          {
+            auto pointPropertyValue = singlePropertyValue->ToPointValue();
+            if (pointPropertyValue->ToGoPointValue() != nullptr)
+              valueToEncodeNeedsEscaping = false;
+          }
+          else if (propertyValueType == SgfcPropertyValueType::Move)
+          {
+            auto movePropertyValue = singlePropertyValue->ToMoveValue();
+            if (movePropertyValue->ToGoMoveValue() != nullptr)
+              valueToEncodeNeedsEscaping = false;
+          }
+          else
+          {
+            auto stonePropertyValue = singlePropertyValue->ToStoneValue();
+            if (stonePropertyValue->ToGoStoneValue() != nullptr)
+              valueToEncodeNeedsEscaping = false;
+          }
+        }
+
+        if (valueToEncodeNeedsEscaping)
+          sgfContentStream << AddMandatoryEscapeCharacters(valueToEncode, isFirstValueOfComposedValue);
+        else
+          sgfContentStream << valueToEncode;
+
         break;
+      }
 
       // All other value types have strict requirements and don't need
-      // escaping
+      // escaping.
+      // - If the property value object was created programmatically then the
+      //   raw value was created by libsgfc++ and cannot contain any errors
+      //   because the factory strictly allows only good values. The raw value
+      //   is therefore good to pass to SGFC for writing.
+      // - If the property value object was created internally by ligsgfc++
+      //   during reading of SGF content, then the raw value is what SGFC passed
+      //   on to libsgfc++ after performing error corrections. That should also
+      //   be good enough to pass to SGFC for writing. Any errors in the
+      //   original SGF content that SGFC passed on to libsgfc++ can now be
+      //   passed back to SGFC, as that is what would have happened had the SGF
+      //   content been read+written by SGFC on the command line.
       default:
+      {
         sgfContentStream << singlePropertyValue->GetRawValue();
         break;
+      }
     }
   }
 
@@ -241,7 +350,9 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  std::string SgfcDocumentEncoder::AddSimpleTextAndTextEscapeCharacters(const std::string& propertyValue) const
+  std::string SgfcDocumentEncoder::AddSimpleTextAndTextEscapeCharacters(
+    const std::string& propertyValue,
+    bool isFirstValueOfComposedValue) const
   {
     // Escape characters already present must be escaped first so that we don't
     // escape the escape characters from other escape sequences.
@@ -250,25 +361,28 @@ namespace LibSgfcPlusPlus
       SgfcPrivateConstants::UnescapedEscapeCharacterRegex,
       SgfcPrivateConstants::EscapedEscapeCharacterToken);
 
-    // There's no logic here to check whether this belongs to a composed
-    // property value and needs escaping at all. It would make things overly
-    // complicated, and the SGF standard does not forbid useless escape
-    // character. Last but not least, as an implementation detail we know that
-    // later on when SGFC processes the SGF content we generate here it will
-    // remove any unnecessary escape characters.
-    result = std::regex_replace(
-      result,
-      SgfcPrivateConstants::UnescapedComposedValueSeparatorTokenRegex,
-      SgfcPrivateConstants::EscapedComposedValueSeparatorToken);
-
-    return AddMandatoryEscapeCharacters(result);
+    return AddMandatoryEscapeCharacters(result, isFirstValueOfComposedValue);
   }
 
-  std::string SgfcDocumentEncoder::AddMandatoryEscapeCharacters(const std::string& propertyValue) const
+  std::string SgfcDocumentEncoder::AddMandatoryEscapeCharacters(
+    const std::string& propertyValue,
+    bool isFirstValueOfComposedValue) const
   {
-    return std::regex_replace(
+    std::string result = std::regex_replace(
       propertyValue,
       SgfcPrivateConstants::UnescapedPropertyValueEndTokenRegex,
       SgfcPrivateConstants::EscapedPropertyValueEndToken);
+
+    if (isFirstValueOfComposedValue)
+    {
+      return std::regex_replace(
+        result,
+        SgfcPrivateConstants::UnescapedComposedValueSeparatorTokenRegex,
+        SgfcPrivateConstants::EscapedComposedValueSeparatorToken);
+    }
+    else
+    {
+      return result;
+    }
   }
 }

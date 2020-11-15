@@ -100,6 +100,7 @@ namespace LibSgfcPlusPlus
 
     void EncodeSinglePropertyValue(
       const ISgfcSinglePropertyValue* singlePropertyValue,
+      bool isFirstValueOfComposedValue,
       std::stringstream& sgfContentStream,
       int indentationLevel) const;
 
@@ -113,8 +114,10 @@ namespace LibSgfcPlusPlus
       std::stringstream& sgfContentStream) const;
 
     std::string AddSimpleTextAndTextEscapeCharacters(
-      const std::string& propertyValue) const;
+      const std::string& propertyValue,
+      bool isFirstValueOfComposedValue) const;
     std::string AddMandatoryEscapeCharacters(
-      const std::string& propertyValue) const;
+      const std::string& propertyValue,
+      bool isFirstValueOfComposedValue) const;
   };
 }
