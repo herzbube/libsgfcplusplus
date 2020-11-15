@@ -232,45 +232,45 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::pair<std::string, SgfcSimpleText>> testData =
     {
-      std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
-      std::pair<std::string, std::string> { "foo", "foo" },
-      std::pair<std::string, std::string> { "foo bar", "foo bar" },
-      std::pair<std::string, std::string> { "foo  bar", "foo  bar" },
+      std::pair<std::string, SgfcSimpleText> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
+      std::pair<std::string, SgfcSimpleText> { "foo", "foo" },
+      std::pair<std::string, SgfcSimpleText> { "foo bar", "foo bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo  bar", "foo  bar" },
       // Whitespace characters other than space must be converted to space.
       // However, the library relies on SGFC doing this conversion, so for the
       // unit tests we make sure that the library does NOT convert.
-      std::pair<std::string, std::string> { "foo\t\vbar", "foo\t\vbar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\t\vbar", "foo\t\vbar" },
       // Each of the line endings mentioned in the SGF standard must be
       // converted to a single space (even if the line ending consists of two
       // characters).
-      std::pair<std::string, std::string> { "foo\nbar", "foo bar" },
-      std::pair<std::string, std::string> { "foo\rbar", "foo bar" },
-      std::pair<std::string, std::string> { "foo\r\nbar", "foo bar" },
-      std::pair<std::string, std::string> { "foo\n\rbar", "foo bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\nbar", "foo bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\rbar", "foo bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\r\nbar", "foo bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\n\rbar", "foo bar" },
       // Escaped line breaks are removed entirely
-      std::pair<std::string, std::string> { "foo\\\nbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\rbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\r\nbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\n\rbar", "foobar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\nbar", "foobar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\rbar", "foobar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\r\nbar", "foobar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\n\rbar", "foobar" },
       // The escape character is removed if it escapes one of the special
       // characters mentioned in the SGF standard ("]", "\" and ":")
-      std::pair<std::string, std::string> { "foo\\]bar", "foo]bar" },
-      std::pair<std::string, std::string> { "foo\\\\bar", "foo\\bar" },
-      std::pair<std::string, std::string> { "foo\\:bar", "foo:bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\]bar", "foo]bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\\bar", "foo\\bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\:bar", "foo:bar" },
       // The escape character is not removed if it does not escape one of the
       // special characters mentioned in the SGF standard. The reason is that
       // the library expects that SGFC removes those unnecessary escape
       // characters and it therefore does not perform escape character handling
       // itself.
-      std::pair<std::string, std::string> { "foo\\bar", "foo\\bar" },
-      std::pair<std::string, std::string> { "foo\\[bar", "foo\\[bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\bar", "foo\\bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\[bar", "foo\\[bar" },
       // We also test whether multiple consecutive escape characters work. There
       // is no order of precedence, an escape character simply always must act
       // upon the character that follows it. E.g. "\\:" escapes the escape
       // character, not the ":" character.
-      std::pair<std::string, std::string> { "foo\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, std::string> { "foo\\\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, std::string> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
+      std::pair<std::string, SgfcSimpleText> { "foo\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, SgfcSimpleText> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
     };
 
     return testData;
@@ -280,45 +280,45 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::pair<std::string, SgfcText>> testData =
     {
-      std::pair<std::string, std::string> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
-      std::pair<std::string, std::string> { "foo", "foo" },
-      std::pair<std::string, std::string> { "foo bar", "foo bar" },
-      std::pair<std::string, std::string> { "foo  bar", "foo  bar" },
+      std::pair<std::string, SgfcText> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
+      std::pair<std::string, SgfcText> { "foo", "foo" },
+      std::pair<std::string, SgfcText> { "foo bar", "foo bar" },
+      std::pair<std::string, SgfcText> { "foo  bar", "foo  bar" },
       // Whitespace characters other than line breaks must be converted to
       // space. However, the library relies on SGFC doing this conversion, so
       // for the unit tests we make sure that the library does NOT convert.
-      std::pair<std::string, std::string> { "foo\t\vbar", "foo\t\vbar" },
+      std::pair<std::string, SgfcText> { "foo\t\vbar", "foo\t\vbar" },
       // Un-escaped line breaks (the SGF standard calls them "hard line breaks")
       // must be preserved.
-      std::pair<std::string, std::string> { "foo\nbar", "foo\nbar" },
-      std::pair<std::string, std::string> { "foo\rbar", "foo\rbar" },
-      std::pair<std::string, std::string> { "foo\r\nbar", "foo\r\nbar" },
-      std::pair<std::string, std::string> { "foo\n\rbar", "foo\n\rbar" },
+      std::pair<std::string, SgfcText> { "foo\nbar", "foo\nbar" },
+      std::pair<std::string, SgfcText> { "foo\rbar", "foo\rbar" },
+      std::pair<std::string, SgfcText> { "foo\r\nbar", "foo\r\nbar" },
+      std::pair<std::string, SgfcText> { "foo\n\rbar", "foo\n\rbar" },
       // Escaped line breaks (the SGF standard calls them "soft line breaks")
       // are removed entirely
-      std::pair<std::string, std::string> { "foo\\\nbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\rbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\r\nbar", "foobar" },
-      std::pair<std::string, std::string> { "foo\\\n\rbar", "foobar" },
+      std::pair<std::string, SgfcText> { "foo\\\nbar", "foobar" },
+      std::pair<std::string, SgfcText> { "foo\\\rbar", "foobar" },
+      std::pair<std::string, SgfcText> { "foo\\\r\nbar", "foobar" },
+      std::pair<std::string, SgfcText> { "foo\\\n\rbar", "foobar" },
       // The escape character is removed if it escapes one of the special
       // characters mentioned in the SGF standard ("]", "\" and ":")
-      std::pair<std::string, std::string> { "foo\\]bar", "foo]bar" },
-      std::pair<std::string, std::string> { "foo\\\\bar", "foo\\bar" },
-      std::pair<std::string, std::string> { "foo\\:bar", "foo:bar" },
+      std::pair<std::string, SgfcText> { "foo\\]bar", "foo]bar" },
+      std::pair<std::string, SgfcText> { "foo\\\\bar", "foo\\bar" },
+      std::pair<std::string, SgfcText> { "foo\\:bar", "foo:bar" },
       // The escape character is not removed if it does not escape one of the
       // special characters mentioned in the SGF standard. The reason is that
       // the library expects that SGFC removes those unnecessary escape
       // characters and it therefore does not perform escape character handling
       // itself.
-      std::pair<std::string, std::string> { "foo\\bar", "foo\\bar" },
-      std::pair<std::string, std::string> { "foo\\[bar", "foo\\[bar" },
+      std::pair<std::string, SgfcText> { "foo\\bar", "foo\\bar" },
+      std::pair<std::string, SgfcText> { "foo\\[bar", "foo\\[bar" },
       // We also test whether multiple consecutive escape characters work. There
       // is no order of precedence, an escape character simply always must act
       // upon the character that follows it. E.g. "\\:" escapes the escape
       // character, not the ":" character.
-      std::pair<std::string, std::string> { "foo\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, std::string> { "foo\\\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, std::string> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
+      std::pair<std::string, SgfcText> { "foo\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, SgfcText> { "foo\\\\\\:bar", "foo\\:bar" },
+      std::pair<std::string, SgfcText> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
     };
 
     return testData;
