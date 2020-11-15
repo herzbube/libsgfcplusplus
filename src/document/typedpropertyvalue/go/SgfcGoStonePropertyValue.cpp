@@ -22,7 +22,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGoStonePropertyValue::SgfcGoStonePropertyValue(std::shared_ptr<ISgfcGoStone> goStone)
-    : SgfcStonePropertyValue(GetRawValueOrThrow(goStone))
+    : SgfcStonePropertyValue(GetRawValueOrThrow(goStone), GetRawValueOrThrow(goStone))
     , goStone(goStone)
   {
   }

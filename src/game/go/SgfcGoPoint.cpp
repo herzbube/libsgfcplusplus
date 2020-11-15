@@ -26,7 +26,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcGoPoint::SgfcGoPoint(const std::string& pointValue, SgfcBoardSize boardSize)
+  SgfcGoPoint::SgfcGoPoint(const SgfcPoint& pointValue, SgfcBoardSize boardSize)
     : xPositionUpperLeftOrigin(0)
     , yPositionUpperLeftOrigin(0)
     , yPositionLowerLeftOrigin(0)
@@ -165,7 +165,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcGoPoint::DecomposePointValue(const std::string& pointValue, SgfcBoardSize boardSize)
+  void SgfcGoPoint::DecomposePointValue(const SgfcPoint& pointValue, SgfcBoardSize boardSize)
   {
     auto substrings = SgfcUtility::SplitString(pointValue, '-');
     if (substrings.size() > 2)
@@ -199,7 +199,7 @@ namespace LibSgfcPlusPlus
   }
 
   void SgfcGoPoint::ParseSgfCompoundsOrThrow(
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize)
   {
     char xCompoundCharacterSgfNotation = pointValue.at(0);
@@ -228,7 +228,7 @@ namespace LibSgfcPlusPlus
   void SgfcGoPoint::ParseFigureCompoundsOrThrow(
     const std::string& xCompoundFigureNotation,
     const std::string& yCompoundFigureNotation,
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize)
   {
     if (DoesCompoundStringContainNonDigitCharacters(xCompoundFigureNotation))
@@ -252,7 +252,7 @@ namespace LibSgfcPlusPlus
   }
 
   void SgfcGoPoint::ParseHybridCompoundsOrThrow(
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize)
   {
     char xCompoundHybridNotation = pointValue.at(0);
@@ -291,7 +291,7 @@ namespace LibSgfcPlusPlus
   void SgfcGoPoint::SetPositionOrThrow(
     int xPositionUpperLeftOrigin,
     int yPositionUpperLeftOrigin,
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize)
   {
     if (xPositionUpperLeftOrigin < 1)
@@ -456,7 +456,7 @@ namespace LibSgfcPlusPlus
     throw std::logic_error(message.str());
   }
 
-  void SgfcGoPoint::ThrowPointValueNotInValidNotation(const std::string& pointValue) const
+  void SgfcGoPoint::ThrowPointValueNotInValidNotation(const SgfcPoint& pointValue) const
   {
     std::stringstream message;
     message << "SgfcGoPoint constructor failed: Point value not given in any valid notation. Point value = " << pointValue;

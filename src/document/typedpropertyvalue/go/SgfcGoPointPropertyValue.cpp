@@ -21,7 +21,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(std::shared_ptr<ISgfcGoPoint> goPoint)
-    : SgfcPointPropertyValue(GetRawValueOrThrow(goPoint))
+    : SgfcPointPropertyValue(GetRawValueOrThrow(goPoint), GetRawValueOrThrow(goPoint))
     , goPoint(goPoint)
   {
   }

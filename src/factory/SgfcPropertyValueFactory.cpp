@@ -114,26 +114,26 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcPointPropertyValue> SgfcPropertyValueFactory::CreatePointPropertyValue(
-    const std::string& pointValue) const
+    const SgfcPoint& pointValue) const
   {
     std::shared_ptr<ISgfcPointPropertyValue> valueObject = std::shared_ptr<ISgfcPointPropertyValue>(
-      new SgfcPointPropertyValue(pointValue));
+      new SgfcPointPropertyValue(pointValue, pointValue));
     return valueObject;
   }
 
   std::shared_ptr<ISgfcMovePropertyValue> SgfcPropertyValueFactory::CreateMovePropertyValue(
-    const std::string& moveValue) const
+    const SgfcMove& moveValue) const
   {
     std::shared_ptr<ISgfcMovePropertyValue> valueObject = std::shared_ptr<ISgfcMovePropertyValue>(
-      new SgfcMovePropertyValue(moveValue));
+      new SgfcMovePropertyValue(moveValue, moveValue));
     return valueObject;
   }
 
   std::shared_ptr<ISgfcStonePropertyValue> SgfcPropertyValueFactory::CreateStonePropertyValue(
-    const std::string& stoneValue) const
+    const SgfcStone& stoneValue) const
   {
     std::shared_ptr<ISgfcStonePropertyValue> valueObject = std::shared_ptr<ISgfcStonePropertyValue>(
-      new SgfcStonePropertyValue(stoneValue));
+      new SgfcStonePropertyValue(stoneValue, stoneValue));
     return valueObject;
   }
 
@@ -146,7 +146,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcGoPointPropertyValue> SgfcPropertyValueFactory::CreateGoPointPropertyValue(
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize) const
   {
     std::shared_ptr<ISgfcGoPoint> goPointObject = std::shared_ptr<ISgfcGoPoint>(new SgfcGoPoint(
@@ -158,7 +158,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcGoMovePropertyValue> SgfcPropertyValueFactory::CreateGoMovePropertyValue(
-    const std::string& moveValue,
+    const SgfcMove& moveValue,
     SgfcBoardSize boardSize,
     SgfcColor color) const
   {
@@ -185,7 +185,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcGoStonePropertyValue> SgfcPropertyValueFactory::CreateGoStonePropertyValue(
-    const std::string& stoneValue,
+    const SgfcStone& stoneValue,
     SgfcBoardSize boardSize,
     SgfcColor color) const
   {
@@ -237,8 +237,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedPointAndPointPropertyValue(
-    const std::string& pointValue1,
-    const std::string& pointValue2) const
+    const SgfcPoint& pointValue1,
+    const SgfcPoint& pointValue2) const
   {
     std::shared_ptr<ISgfcPointPropertyValue> valueObject1 = CreatePointPropertyValue(pointValue1);
     std::shared_ptr<ISgfcPointPropertyValue> valueObject2 = CreatePointPropertyValue(pointValue2);
@@ -249,7 +249,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedPointAndSimpleTextPropertyValue(
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     const SgfcSimpleText& simpleTextValue) const
   {
     std::shared_ptr<ISgfcPointPropertyValue> valueObject1 = CreatePointPropertyValue(pointValue);
@@ -261,8 +261,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedStoneAndPointPropertyValue(
-    const std::string& stoneValue,
-    const std::string& pointValue) const
+    const SgfcStone& stoneValue,
+    const SgfcPoint& pointValue) const
   {
     std::shared_ptr<ISgfcStonePropertyValue> valueObject1 = CreateStonePropertyValue(stoneValue);
     std::shared_ptr<ISgfcPointPropertyValue> valueObject2 = CreatePointPropertyValue(pointValue);
@@ -282,8 +282,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedGoPointAndGoPointPropertyValue(
-    const std::string& pointValue1,
-    const std::string& pointValue2,
+    const SgfcPoint& pointValue1,
+    const SgfcPoint& pointValue2,
     SgfcBoardSize boardSize) const
   {
     std::shared_ptr<ISgfcGoPointPropertyValue> valueObject1 = CreateGoPointPropertyValue(pointValue1, boardSize);
@@ -295,7 +295,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedGoPointAndSimpleTextPropertyValue(
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize,
     const SgfcSimpleText& simpleTextValue) const
   {
@@ -308,9 +308,9 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcComposedPropertyValue> SgfcPropertyValueFactory::CreateComposedGoStoneAndPointPropertyValue(
-    const std::string& stoneValue,
+    const SgfcStone& stoneValue,
     SgfcColor color,
-    const std::string& pointValue,
+    const SgfcPoint& pointValue,
     SgfcBoardSize boardSize) const
   {
     std::shared_ptr<ISgfcGoStonePropertyValue> valueObject1 = CreateGoStonePropertyValue(stoneValue, boardSize, color);

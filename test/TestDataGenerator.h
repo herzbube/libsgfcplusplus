@@ -59,7 +59,7 @@ namespace LibSgfcPlusPlus
 
     static std::vector<std::pair<std::string, SgfcText>> GetTextStrings();
 
-    static std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> GetGoPointStrings();
+    static std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> GetGoPointStrings();
     static std::vector<SgfcBoardSize> GetInvalidGoBoardSizes();
     static std::vector<std::pair<std::string, SgfcBoardSize>> GetInvalidGoPointStrings();
 

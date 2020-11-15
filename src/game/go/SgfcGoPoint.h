@@ -19,6 +19,7 @@
 // Project includes
 #include "../../../include/ISgfcGoPoint.h"
 #include "../../../include/SgfcBoardSize.h"
+#include "../../../include/SgfcTypedefs.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -50,7 +51,7 @@ namespace LibSgfcPlusPlus
     /// or y-axis location that exceeds the board size specified by
     /// @a boardSize, or a compound < 1 when #SgfcGoPointNotation::Figure is
     /// used).
-    SgfcGoPoint(const std::string& pointValue, SgfcBoardSize boardSize);
+    SgfcGoPoint(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
     /// @brief Destroys and cleans up the SgfcGoPoint object.
     virtual ~SgfcGoPoint();
@@ -78,13 +79,13 @@ namespace LibSgfcPlusPlus
     std::string xCompoundHybridNotation;
     std::string yCompoundHybridNotation;
 
-    void DecomposePointValue(const std::string& pointValue, SgfcBoardSize boardSize);
+    void DecomposePointValue(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
-    void ParseSgfCompoundsOrThrow(const std::string& pointValue, SgfcBoardSize boardSize);
-    void ParseFigureCompoundsOrThrow(const std::string& xCompoundFigureNotation, const std::string& yCompoundFigureNotation, const std::string& pointValue, SgfcBoardSize boardSize);
-    void ParseHybridCompoundsOrThrow(const std::string& pointValue, SgfcBoardSize boardSize);
+    void ParseSgfCompoundsOrThrow(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
+    void ParseFigureCompoundsOrThrow(const std::string& xCompoundFigureNotation, const std::string& yCompoundFigureNotation, const SgfcPoint& pointValue, SgfcBoardSize boardSize);
+    void ParseHybridCompoundsOrThrow(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
-    void SetPositionOrThrow(int xPositionUpperLeftOrigin, int yPositionUpperLeftOrigin, const std::string& pointValue, SgfcBoardSize boardSize);
+    void SetPositionOrThrow(int xPositionUpperLeftOrigin, int yPositionUpperLeftOrigin, const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
     void BuildSgfNotation();
     void BuildFigureNotation();
@@ -103,6 +104,6 @@ namespace LibSgfcPlusPlus
 
     void ThrowInvalidCoordinateSystem(SgfcCoordinateSystem coordinateSystem) const;
     void ThrowInvalidGoPointNotation(SgfcGoPointNotation goPointNotation) const;
-    void ThrowPointValueNotInValidNotation(const std::string& pointValue) const;
+    void ThrowPointValueNotInValidNotation(const SgfcPoint& pointValue) const;
   };
 }

@@ -324,56 +324,74 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> TestDataGenerator::GetGoPointStrings()
+  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> TestDataGenerator::GetGoPointStrings()
   {
-    std::vector<std::tuple<std::string, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> testData =
+    // Element 0 = The SgfcPoint value that is the input to the GoPoint
+    //             constructor. Can be a value in any of the 3 notations
+    //             Sgf, Figure, Hybrid. Cannot be used as input for
+    //             SgfcPropertyDecoder tests: SgfcPropertyDecoder requires
+    //             a raw value in Sgf Notation as input, and an SgfcPoint
+    //             value in Sgf Notation is its output.
+    // Element 1 = The board size required to interpret the SgfcPoint value or
+    //             the raw value.
+    // Elements 2-3 = x/y position when SgfcCoordinateSystem::UpperLeftOrigin
+    // Elements 4-5 = x/y position when SgfcCoordinateSystem::LowerLeftOrigin
+    // Elements 6-8 = HasPosition value for the 3 notations Sgf, Figure, Hybrid
+    // Elements 9-11 = Position value for the 3 notations Sgf, Figure, Hybrid
+    // Element 12 = The raw string value that is the input to
+    //              SgfcPropertyDecoder when it generates a Move, Point or Stone
+    //              property value object
+    // Elements 13-15 = The SgfcMove, SgfcPoint and SgfcStone values that are
+    //                  the output of SgfcPropertyDecoder when it generates a
+    //                  Move, Point or Stone property value object
+    std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> testData =
     {
       // SgfcGoPointNotation::Sgf
       // Coordinate system origin is upper-left corner
-      std::make_tuple("as", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
-      std::make_tuple("sa", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      std::make_tuple("as", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1", "as", "as", "as", "as"),
+      std::make_tuple("sa", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19", "sa", "sa", "sa", "sa"),
       // Uppercase letters start at 26
-      std::make_tuple("Az", SgfcConstants::BoardSizeMaximumGo, 27, 26, 27, 27, true, true, false, "Az", "27-26", ""),
-      std::make_tuple("zA", SgfcConstants::BoardSizeMaximumGo, 26, 27, 26, 26, true, true, false, "zA", "26-27", ""),
+      std::make_tuple("Az", SgfcConstants::BoardSizeMaximumGo, 27, 26, 27, 27, true, true, false, "Az", "27-26", "", "Az", "Az", "Az", "Az"),
+      std::make_tuple("zA", SgfcConstants::BoardSizeMaximumGo, 26, 27, 26, 26, true, true, false, "zA", "26-27", "", "zA", "zA", "zA", "zA"),
       // Minimum/Maximum board size
-      std::make_tuple("aa", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
-      std::make_tuple("ZZ", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", ""),
+      std::make_tuple("aa", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1", "aa", "aa", "aa", "aa"),
+      std::make_tuple("ZZ", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", "", "ZZ", "ZZ", "ZZ", "ZZ"),
       // Non-square board
-      std::make_tuple("bc", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1"),
+      std::make_tuple("bc", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1", "bc", "bc", "bc", "bc"),
 
       // SgfcGoPointNotation::Figure
       // Coordinate system origin is upper-left corner
-      std::make_tuple("1-19", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
-      std::make_tuple("19-1", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      std::make_tuple("1-19", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1", "as", "as", "as", "as"),
+      std::make_tuple("19-1", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19", "sa", "sa", "sa", "sa"),
       // Minimum/Maximum board size
-      std::make_tuple("1-1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
-      std::make_tuple("52-52", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", ""),
+      std::make_tuple("1-1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1", "aa", "aa", "aa", "aa"),
+      std::make_tuple("52-52", SgfcConstants::BoardSizeMaximumGo, 52, 52, 52, 1, true, true, false, "ZZ", "52-52", "", "ZZ", "ZZ", "ZZ", "ZZ"),
       // Non-square board
-      std::make_tuple("2-3", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1"),
+      std::make_tuple("2-3", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1", "bc", "bc", "bc", "bc"),
 
       // SgfcGoPointNotation::Hybrid
       // Coordinate system origin is lower-left corner
-      std::make_tuple("A1", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1"),
-      std::make_tuple("T19", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19"),
+      std::make_tuple("A1", SgfcConstants::BoardSizeDefaultGo, 1, 19, 1, 1, true, true, true, "as", "1-19", "A1", "as", "as", "as", "as"),
+      std::make_tuple("T19", SgfcConstants::BoardSizeDefaultGo, 19, 1, 19, 19, true, true, true, "sa", "19-1", "T19", "sa", "sa", "sa", "sa"),
       // Letter "I" is not used
-      std::make_tuple("H5", SgfcConstants::BoardSizeDefaultGo, 8, 15, 8, 5, true, true, true, "ho", "8-15", "H5"),
-      std::make_tuple("J5", SgfcConstants::BoardSizeDefaultGo, 9, 15, 9, 5, true, true, true, "io", "9-15", "J5"),
+      std::make_tuple("H5", SgfcConstants::BoardSizeDefaultGo, 8, 15, 8, 5, true, true, true, "ho", "8-15", "H5", "ho", "ho", "ho", "ho"),
+      std::make_tuple("J5", SgfcConstants::BoardSizeDefaultGo, 9, 15, 9, 5, true, true, true, "io", "9-15", "J5", "io", "io", "io", "io"),
       // Minimum/Maximum board size
-      std::make_tuple("A1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1"),
-      std::make_tuple("Z25", SgfcBoardSize { 25, 25 }, 25, 1, 25, 25, true, true, true, "ya", "25-1", "Z25"),
+      std::make_tuple("A1", SgfcConstants::BoardSizeMinimum, 1, 1, 1, 1, true, true, true, "aa", "1-1", "A1", "aa", "aa", "aa", "aa"),
+      std::make_tuple("Z25", SgfcBoardSize { 25, 25 }, 25, 1, 25, 25, true, true, true, "ya", "25-1", "Z25", "ya", "ya", "ya", "ya"),
       // Non-square board
-      std::make_tuple("B1", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1"),
+      std::make_tuple("B1", SgfcBoardSize { 7, 3 }, 2, 3, 2, 1, true, true, true, "bc", "2-3", "B1", "bc", "bc", "bc", "bc"),
 
       // As long as a location can be expressed in Hybrid notation it will be
       // done, even if the board is larger than the coordinate space that
       // hybrid notation can cover
-      std::make_tuple("yB", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
-      std::make_tuple("25-28", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
-      std::make_tuple("Z25", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25"),
-      std::make_tuple("yA", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", ""),
-      std::make_tuple("25-27", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", ""),
-      std::make_tuple("zB", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", ""),
-      std::make_tuple("26-28", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", "")
+      std::make_tuple("yB", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25", "yB", "yB", "yB", "yB"),
+      std::make_tuple("25-28", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25", "yB", "yB", "yB", "yB"),
+      std::make_tuple("Z25", SgfcConstants::BoardSizeMaximumGo, 25, 28, 25, 25, true, true, true, "yB", "25-28", "Z25", "yB", "yB", "yB", "yB"),
+      std::make_tuple("yA", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", "", "yA", "yA", "yA", "yA"),
+      std::make_tuple("25-27", SgfcConstants::BoardSizeMaximumGo, 25, 27, 25, 26, true, true, false, "yA", "25-27", "", "yA", "yA", "yA", "yA"),
+      std::make_tuple("zB", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", "", "zB", "zB", "zB", "zB"),
+      std::make_tuple("26-28", SgfcConstants::BoardSizeMaximumGo, 26, 28, 26, 25, true, true, false, "zB", "26-28", "", "zB", "zB", "zB", "zB")
     };
 
     return testData;

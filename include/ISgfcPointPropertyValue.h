@@ -18,6 +18,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -45,13 +46,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcPointPropertyValue object.
     virtual ~ISgfcPointPropertyValue();
 
-    /// @brief Returns the uninterpreted Point value. This is the same value
-    /// that GetRawValue() returns.
-    ///
-    /// The SGF standard does not provide a universal definition of how a Point
-    /// value should look like. Instead it says that the interpretation of
-    /// Point values is game specific.
-    virtual std::string GetPointValue() const = 0;
+    /// @brief Returns the property value interpreted as an SgfcPoint value.
+    virtual SgfcPoint GetPointValue() const = 0;
 
     /// @brief Returns an ISgfcGoPointPropertyValue object if the property
     /// value object was created specifically for SgfcGameType::Go. Returns

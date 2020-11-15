@@ -19,8 +19,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcMovePropertyValue::SgfcMovePropertyValue(const std::string& rawValue)
+  SgfcMovePropertyValue::SgfcMovePropertyValue(const std::string& rawValue, const SgfcMove& moveValue)
     : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Move)
+    , moveValue(moveValue)
   {
   }
 
@@ -30,7 +31,7 @@ namespace LibSgfcPlusPlus
 
   std::string SgfcMovePropertyValue::GetMoveValue() const
   {
-    return SgfcSinglePropertyValue::GetRawValue();
+    return this->moveValue;
   }
 
   const ISgfcMovePropertyValue* SgfcMovePropertyValue::ToMoveValue() const

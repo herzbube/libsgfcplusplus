@@ -772,7 +772,7 @@ namespace LibSgfcPlusPlus
           this->boardSize));
 
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcGoPointPropertyValue(
-         goPointObject));
+          goPointObject));
       }
       catch (std::invalid_argument&)
       {
@@ -780,14 +780,14 @@ namespace LibSgfcPlusPlus
         // validate point values for us in relation to the board size, but we
         // don't rely on it.
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-         rawPropertyValueBuffer));
+          rawPropertyValueBuffer, rawPropertyValueBuffer));
       }
     }
     else
     {
       std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-        rawValueWithoutEscapeCharacters));
+        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
   }
 
@@ -831,7 +831,7 @@ namespace LibSgfcPlusPlus
           // validate move values for us in relation to the board size, but we
           // don't rely on it.
           return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-           rawPropertyValueBuffer));
+            rawPropertyValueBuffer, rawPropertyValueBuffer));
         }
       }
     }
@@ -839,7 +839,7 @@ namespace LibSgfcPlusPlus
     {
       std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-        rawValueWithoutEscapeCharacters));
+        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
   }
 
@@ -868,14 +868,14 @@ namespace LibSgfcPlusPlus
         // validate stone values for us in relation to the board size, but we
         // don't rely on it.
         return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-          rawPropertyValueBuffer));
+          rawPropertyValueBuffer, rawPropertyValueBuffer));
       }
     }
     else
     {
       std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-       rawValueWithoutEscapeCharacters));
+        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
   }
 

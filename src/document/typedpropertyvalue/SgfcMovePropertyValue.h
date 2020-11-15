@@ -32,15 +32,18 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcMovePropertyValue
-    /// object. The object holds a Move value which was not interpreted in
-    /// any way and equals the raw string value @a rawValue.
-    SgfcMovePropertyValue(const std::string& rawValue);
+    /// object. The object holds the Move value @a moveValue and
+    /// the corresponding raw string value @a rawValue.
+    SgfcMovePropertyValue(const std::string& rawValue, const SgfcMove& moveValue);
 
     /// @brief Destroys and cleans up the SgfcMovePropertyValue object.
     virtual ~SgfcMovePropertyValue();
 
-    virtual std::string GetMoveValue() const;
+    virtual SgfcMove GetMoveValue() const;
     virtual const ISgfcMovePropertyValue* ToMoveValue() const;
     virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const;
+
+  private:
+    SgfcMove moveValue;
   };
 }

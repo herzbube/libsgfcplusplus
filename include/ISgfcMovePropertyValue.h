@@ -18,6 +18,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -45,13 +46,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcMovePropertyValue object.
     virtual ~ISgfcMovePropertyValue();
 
-    /// @brief Returns the uninterpreted Move value. This is the same value
-    /// that GetRawValue() returns.
-    ///
-    /// The SGF standard does not provide a universal definition of how a Move
-    /// value should look like. Instead it says that the interpretation of
-    /// Move values is game specific.
-    virtual std::string GetMoveValue() const = 0;
+    /// @brief Returns the property value interpreted as an SgfcMove value.
+    virtual SgfcMove GetMoveValue() const = 0;
 
     /// @brief Returns an ISgfcGoMovePropertyValue object if the property
     /// value object was created specifically for SgfcGameType::Go. Returns

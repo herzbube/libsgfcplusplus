@@ -32,15 +32,18 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcPointPropertyValue
-    /// object. The object holds a Point value which was not interpreted in
-    /// any way and equals the raw string value @a rawValue.
-    SgfcPointPropertyValue(const std::string& rawValue);
+    /// object. The object holds the Point value @a pointValue and
+    /// the corresponding raw string value @a rawValue.
+    SgfcPointPropertyValue(const std::string& rawValue, const SgfcPoint& pointValue);
 
     /// @brief Destroys and cleans up the SgfcPointPropertyValue object.
     virtual ~SgfcPointPropertyValue();
 
-    virtual std::string GetPointValue() const;
+    virtual SgfcPoint GetPointValue() const;
     virtual const ISgfcPointPropertyValue* ToPointValue() const;
     virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const;
+
+  private:
+    SgfcPoint pointValue;
   };
 }

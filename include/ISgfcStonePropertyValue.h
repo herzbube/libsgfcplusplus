@@ -18,6 +18,7 @@
 
 // Project includes
 #include "ISgfcSinglePropertyValue.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -45,13 +46,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcStonePropertyValue object.
     virtual ~ISgfcStonePropertyValue();
 
-    /// @brief Returns the uninterpreted Stone value. This is the same value
-    /// that GetRawValue() returns.
-    ///
-    /// The SGF standard does not provide a universal definition of how a Stone
-    /// value should look like. Instead it says that the interpretation of
-    /// Stone values is game specific.
-    virtual std::string GetStoneValue() const = 0;
+    /// @brief Returns the property value interpreted as an SgfcStone value.
+    virtual SgfcStone GetStoneValue() const = 0;
 
     /// @brief Returns an ISgfcGoStonePropertyValue object if the property
     /// value object was created specifically for SgfcGameType::Go. Returns

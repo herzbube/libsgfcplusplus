@@ -33,6 +33,13 @@ namespace LibSgfcPlusPlus
   /// @ingroup public-api
   typedef double SgfcReal;
 
+  /// @brief The SgfcSimpleText type represents the SimpleText value type
+  /// defined by the SGF standard. Values are strings that contain only space
+  /// characters as whitespace, i.e. no linebreaks, tabs, vertical tabs, etc..
+  ///
+  /// @ingroup public-api
+  typedef std::string SgfcSimpleText;
+
   /// @brief The SgfcText type represents the Text value type defined by
   /// the SGF standard. Values are strings that contain only space characters
   /// and linebreaks as whitespace, i.e. no tabs, vertical tabs, etc..
@@ -40,10 +47,27 @@ namespace LibSgfcPlusPlus
   /// @ingroup public-api
   typedef std::string SgfcText;
 
-  /// @brief The SgfcSimpleText type represents the SimpleText value type
-  /// defined by the SGF standard. Values are strings that contain only space
-  /// characters as whitespace, i.e. no linebreaks, tabs, vertical tabs, etc..
+  /// @brief The SgfcMove type represents the Move value type defined by the
+  /// SGF standard. The SGF standard does not provide a universal definition of
+  /// how a Move value should look like. Instead it says that the
+  /// interpretation of Move values is game specific.
   ///
   /// @ingroup public-api
-  typedef std::string SgfcSimpleText;
+  typedef std::string SgfcMove;
+
+  /// @brief The SgfcPoint type represents the Point value type defined by the
+  /// SGF standard. The SGF standard does not provide a universal definition of
+  /// how a Point value should look like. Instead it says that the
+  /// interpretation of Point values is game specific.
+  ///
+  /// @ingroup public-api
+  typedef std::string SgfcPoint;
+
+  /// @brief The SgfcStone type represents the Stone value type defined by the
+  /// SGF standard. The SGF standard does not provide a universal definition of
+  /// how a Stone value should look like. Instead it says that the
+  /// interpretation of Stone values is game specific.
+  ///
+  /// @ingroup public-api
+  typedef std::string SgfcStone;
 }

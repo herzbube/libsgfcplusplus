@@ -24,7 +24,7 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGoMovePropertyValue::SgfcGoMovePropertyValue(std::shared_ptr<ISgfcGoMove> goMove)
-    : SgfcMovePropertyValue(GetRawValueOrThrow(goMove))
+    : SgfcMovePropertyValue(GetRawValueOrThrow(goMove), GetRawValueOrThrow(goMove))
     , goMove(goMove)
   {
   }

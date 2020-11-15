@@ -19,8 +19,9 @@
 
 namespace LibSgfcPlusPlus
 {
-  SgfcStonePropertyValue::SgfcStonePropertyValue(const std::string& rawValue)
+  SgfcStonePropertyValue::SgfcStonePropertyValue(const std::string& rawValue, const SgfcStone& stoneValue)
     : SgfcSinglePropertyValue(rawValue, SgfcPropertyValueType::Stone)
+    , stoneValue(stoneValue)
   {
   }
 
@@ -30,7 +31,7 @@ namespace LibSgfcPlusPlus
 
   std::string SgfcStonePropertyValue::GetStoneValue() const
   {
-    return SgfcSinglePropertyValue::GetRawValue();
+    return this->stoneValue;
   }
 
   const ISgfcStonePropertyValue* SgfcStonePropertyValue::ToStoneValue() const

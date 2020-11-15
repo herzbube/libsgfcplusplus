@@ -48,11 +48,11 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcTextPropertyValue> CreateTextPropertyValue(
       const SgfcText& textValue) const;
     virtual std::shared_ptr<ISgfcPointPropertyValue> CreatePointPropertyValue(
-      const std::string& pointValue) const;
+      const SgfcPoint& pointValue) const;
     virtual std::shared_ptr<ISgfcMovePropertyValue> CreateMovePropertyValue(
-      const std::string& moveValue) const;
+      const SgfcMove& moveValue) const;
     virtual std::shared_ptr<ISgfcStonePropertyValue> CreateStonePropertyValue(
-      const std::string& stoneValue) const;
+      const SgfcStone& stoneValue) const;
     virtual std::shared_ptr<ISgfcSinglePropertyValue> CreateCustomPropertyValue(
       const std::string& value) const;
     //@}
@@ -60,16 +60,16 @@ namespace LibSgfcPlusPlus
     /// @name Single property values - Go game value types
     //@{
     virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
-      const std::string& pointValue,
+      const SgfcPoint& pointValue,
       SgfcBoardSize boardSize) const;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
-      const std::string& moveValue,
+      const SgfcMove& moveValue,
       SgfcBoardSize boardSize,
       SgfcColor color) const;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       SgfcColor color) const;
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
-      const std::string& stoneValue,
+      const SgfcStone& stoneValue,
       SgfcBoardSize boardSize,
       SgfcColor color) const;
     //@}
@@ -86,14 +86,14 @@ namespace LibSgfcPlusPlus
       SgfcNumber numberValue,
       const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndPointPropertyValue(
-      const std::string& pointValue1,
-      const std::string& pointValue2) const;
+      const SgfcPoint& pointValue1,
+      const SgfcPoint& pointValue2) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndSimpleTextPropertyValue(
-      const std::string& pointValue,
+      const SgfcPoint& pointValue,
       const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedStoneAndPointPropertyValue(
-      const std::string& stoneValue,
-      const std::string& pointValue) const;
+      const SgfcStone& stoneValue,
+      const SgfcPoint& pointValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateCustomComposedPropertyValue(
       std::shared_ptr<ISgfcSinglePropertyValue> valueObject1,
       std::shared_ptr<ISgfcSinglePropertyValue> valueObject2) const;
@@ -102,17 +102,17 @@ namespace LibSgfcPlusPlus
     /// @name Composed property values - Go game value types
     //@{
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndGoPointPropertyValue(
-      const std::string& pointValue1,
-      const std::string& pointValue2,
+      const SgfcPoint& pointValue1,
+      const SgfcPoint& pointValue2,
       SgfcBoardSize boardSize) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndSimpleTextPropertyValue(
-      const std::string& pointValue,
+      const SgfcPoint& pointValue,
       SgfcBoardSize boardSize,
       const SgfcSimpleText& simpleTextValue) const;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoStoneAndPointPropertyValue(
-      const std::string& stoneValue,
+      const SgfcStone& stoneValue,
       SgfcColor color,
-      const std::string& pointValue,
+      const SgfcPoint& pointValue,
       SgfcBoardSize boardSize) const;
     //@}
   };

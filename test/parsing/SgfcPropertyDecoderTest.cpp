@@ -56,16 +56,16 @@ using namespace LibSgfcPlusPlus;
 void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue);
 void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue);
 void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const SgfcSimpleText& expectedParsedValue);
-void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition);
-void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition);
-void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString);
-void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString);
-void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
-void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition);
-void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString);
-void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString);
-void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition);
-void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString);
+void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition);
+void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition);
+void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue);
+void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue);
+void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue, int xPosition, int yPosition);
+void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue, int xPosition, int yPosition);
+void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue);
+void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue);
+void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const std::string& stoneValue, int xPosition, int yPosition);
+void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const std::string& stoneValue);
 void AssertDecodeOfPropertyValueFailsWhenNoValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType);
 void AssertDecodeOfSinglePropertyValueFailsWhenSecondValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType, const std::string& rawPropertyValue, const std::string& rawPropertyValue2);
 void AssertDecodeOfComposedPropertyValueFailsWhenNoSecondValueIsGiven(const std::string& propertyID, SgfcPropertyType propertyType, const std::string& rawPropertyValue);
@@ -986,10 +986,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Point string" )
     {
-      std::string pointString = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
+      std::string rawValue = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
+      SgfcPoint pointValue = rawValue;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(pointString.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1004,14 +1005,14 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == pointString );
+        REQUIRE( propertySingleValue->GetRawValue() == rawValue );
         REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
         REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto pointValue = propertySingleValue->ToPointValue();
-        REQUIRE( pointValue != nullptr );
-        REQUIRE( pointValue->GetPointValue() == pointString );
-        auto goPointValue = pointValue->ToGoPointValue();
+        auto pointValueObject = propertySingleValue->ToPointValue();
+        REQUIRE( pointValueObject != nullptr );
+        REQUIRE( pointValueObject->GetPointValue() == pointValue );
+        auto goPointValue = pointValueObject->ToGoPointValue();
         REQUIRE( goPointValue == nullptr );
       }
     }
@@ -1030,10 +1031,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object
-      auto pointStringSgfNotation = std::get<9>(testData);
+      std::string rawValueSgfNotation = std::get<12>(testData);
+      SgfcPoint pointValueSgfNotation = std::get<14>(testData);
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1044,7 +1046,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder successfully decodes the Point string value" )
       {
-        AssertValidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, pointStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
+        AssertValidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, rawValueSgfNotation, pointValueSgfNotation, std::get<2>(testData), std::get<3>(testData));
       }
     }
 
@@ -1052,10 +1054,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
 
-      std::string pointStringSgfNotation = "aa";
+      std::string rawValueSgfNotation = "aa";
+      std::string pointValueSgfNotation = rawValueSgfNotation;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(pointStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1066,7 +1069,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcPointPropertyValue" )
       {
-        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, pointStringSgfNotation);
+        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, rawValueSgfNotation, pointValueSgfNotation);
       }
     }
 
@@ -1074,8 +1077,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoPointStrings()) );
 
+      std::string rawValueSgfNotation = testData.first;
+      std::string pointValueSgfNotation = rawValueSgfNotation;
+
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1086,7 +1092,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Point string value but provides it as ISgfcPointPropertyValue" )
       {
-        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, testData.first);
+        AssertInvalidGoPointStrings(propertyDecoder, SgfcPropertyType::AE, rawValueSgfNotation, pointValueSgfNotation);
       }
     }
   }
@@ -1095,10 +1101,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Move string" )
     {
-      std::string moveString = GENERATE( SgfcConstants::NoneValueString.c_str(), "foo" );
+      std::string rawValue = GENERATE( SgfcConstants::NoneValueString.c_str(), "foo" );
+      SgfcMove moveValue = rawValue;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(moveString.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1113,14 +1120,14 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == moveString );
+        REQUIRE( propertySingleValue->GetRawValue() == rawValue );
         REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
         REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto moveValue = propertySingleValue->ToMoveValue();
-        REQUIRE( moveValue != nullptr );
-        REQUIRE( moveValue->GetMoveValue() == moveString );
-        auto goMoveValue = moveValue->ToGoMoveValue();
+        auto moveValueObject = propertySingleValue->ToMoveValue();
+        REQUIRE( moveValueObject != nullptr );
+        REQUIRE( moveValueObject->GetMoveValue() == moveValue );
+        auto goMoveValue = moveValueObject->ToGoMoveValue();
         REQUIRE( goMoveValue == nullptr );
       }
     }
@@ -1139,10 +1146,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object
-      auto moveStringSgfNotation = std::get<9>(testData);
+      std::string rawValueSgfNotation = std::get<12>(testData);
+      SgfcMove moveValueSgfNotation = std::get<13>(testData);
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1153,16 +1161,17 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder successfully decodes the Move string value" )
       {
-        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
+        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, rawValueSgfNotation, moveValueSgfNotation, std::get<2>(testData), std::get<3>(testData));
       }
     }
 
     WHEN( "The property value is a valid Move string that is a pass move" )
     {
-      std::string moveString = SgfcConstants::GoMovePassString;
+      std::string rawValue = SgfcConstants::GoMovePassString;
+      SgfcMove moveValue = rawValue;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(moveString.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1173,7 +1182,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder successfully decodes the Move string value" )
       {
-        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveString, -1, -1);
+        AssertValidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, rawValue, moveValue, -1, -1);
       }
     }
 
@@ -1181,10 +1190,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
 
-      std::string moveStringSgfNotation = "aa";
+      std::string rawValueSgfNotation = "aa";
+      SgfcMove moveValueSgfNotation = rawValueSgfNotation;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(moveStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1197,7 +1207,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
-        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, moveStringSgfNotation);
+        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, rawValueSgfNotation, moveValueSgfNotation);
       }
     }
 
@@ -1209,8 +1219,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         from_range(TestDataGenerator::GetInvalidGoPointStrings())
       ));
 
+      std::string rawValue = testData.first;
+      SgfcMove moveValue = rawValue;
+
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1223,7 +1236,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
-        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, testData.first);
+        AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, rawValue, moveValue);
       }
     }
   }
@@ -1232,10 +1245,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Stone string" )
     {
-      std::string stoneString = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
+      std::string rawValue = GENERATE(SgfcConstants::NoneValueString.c_str() , "foo" );
+      SgfcStone stoneValue = rawValue;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(stoneString.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1250,14 +1264,14 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+        REQUIRE( propertySingleValue->GetRawValue() == rawValue );
         REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
         REQUIRE( propertySingleValue->HasTypedValue() == true );
-        auto stoneValue = propertySingleValue->ToStoneValue();
-        REQUIRE( stoneValue != nullptr );
-        REQUIRE( stoneValue->GetStoneValue() == stoneString );
-        auto goStoneValue = stoneValue->ToGoStoneValue();
+        auto stoneValueObject = propertySingleValue->ToStoneValue();
+        REQUIRE( stoneValueObject != nullptr );
+        REQUIRE( stoneValueObject->GetStoneValue() == stoneValue );
+        auto goStoneValue = stoneValueObject->ToGoStoneValue();
         REQUIRE( goStoneValue == nullptr );
       }
     }
@@ -1276,10 +1290,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object
-      auto stoneStringSgfNotation = std::get<9>(testData);
+      std::string rawValueSgfNotation = std::get<12>(testData);
+      SgfcStone stoneValueSgfNotation = std::get<15>(testData);
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(stoneStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1290,7 +1305,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder successfully decodes the Stone string value" )
       {
-        AssertValidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, stoneStringSgfNotation, std::get<2>(testData), std::get<3>(testData));
+        AssertValidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, rawValueSgfNotation, stoneValueSgfNotation, std::get<2>(testData), std::get<3>(testData));
       }
     }
 
@@ -1298,10 +1313,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto invalidGoBoardSize = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoBoardSizes()) );
 
-      std::string stoneStringSgfNotation = "aa";
+      std::string rawValueSgfNotation = "aa";
+      SgfcMove stoneValueSgfNotation = rawValueSgfNotation;
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(stoneStringSgfNotation.c_str());
+      propertyValue.value = const_cast<char*>(rawValueSgfNotation.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1312,7 +1328,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcStonePropertyValue" )
       {
-        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, stoneStringSgfNotation);
+        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, rawValueSgfNotation, stoneValueSgfNotation);
       }
     }
 
@@ -1320,8 +1336,11 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
     {
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetInvalidGoPointStrings()) );
 
+      std::string rawValue = testData.first;
+      SgfcStone stoneValue = rawValue;
+
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(rawValue.c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -1332,7 +1351,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
 
       THEN( "SgfcPropertyDecoder fails to decode the Stone string value but provides it as ISgfcStonePropertyValue" )
       {
-        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, testData.first);
+        AssertInvalidGoStoneStrings(propertyDecoder, SgfcPropertyType::AB, rawValue, stoneValue);
       }
     }
   }
@@ -1398,16 +1417,18 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
   {
     WHEN( "The property values are decoded" )
     {
-      std::string pointStringSgfNotation1 = "aa";
-      std::string pointStringSgfNotation2 = "bb";
+      std::string rawValueSgfNotation1 = "aa";
+      std::string rawValueSgfNotation2 = "bb";
+      SgfcPoint pointValueSgfNotation1 = rawValueSgfNotation1;
+      SgfcPoint pointValueSgfNotation2 = rawValueSgfNotation2;
 
       PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(pointStringSgfNotation2.c_str());
+      propertyValue2.value = const_cast<char*>(rawValueSgfNotation2.c_str());
       propertyValue2.value2 = nullptr;
       propertyValue2.next = nullptr;
 
       PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(pointStringSgfNotation1.c_str());
+      propertyValue1.value = const_cast<char*>(rawValueSgfNotation1.c_str());
       propertyValue1.value2 = nullptr;
       propertyValue1.next = &propertyValue2;
 
@@ -1422,9 +1443,9 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 2 );
         auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
-        AssertValidGoPointString(propertySingleValue1, pointStringSgfNotation1, 1, 1);
+        AssertValidGoPointString(propertySingleValue1, rawValueSgfNotation1, pointValueSgfNotation1, 1, 1);
         auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
-        AssertValidGoPointString(propertySingleValue2, pointStringSgfNotation2, 2, 2);
+        AssertValidGoPointString(propertySingleValue2, rawValueSgfNotation2, pointValueSgfNotation2, 2, 2);
       }
     }
   }
@@ -1433,16 +1454,18 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
   {
     WHEN( "The property values are decoded" )
     {
-      std::string moveString1 = "foo";
-      std::string moveString2 = "bar";
+      std::string rawValue1 = "foo";
+      std::string rawValue2 = "bar";
+      std::string moveValue1 = rawValue1;
+      std::string moveValue2 = rawValue2;
 
       PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(moveString2.c_str());
+      propertyValue2.value = const_cast<char*>(rawValue2.c_str());
       propertyValue2.value2 = nullptr;
       propertyValue2.next = nullptr;
 
       PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(moveString1.c_str());
+      propertyValue1.value = const_cast<char*>(rawValue1.c_str());
       propertyValue1.value2 = nullptr;
       propertyValue1.next = &propertyValue2;
 
@@ -1459,9 +1482,9 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         REQUIRE( propertyValues.size() == 2 );
 
         auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
-        AssertValidMoveStrings(propertySingleValue1, SgfcPropertyType::AA, moveString1);
+        AssertValidMoveStrings(propertySingleValue1, SgfcPropertyType::AA, rawValue1, moveValue1);
         auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
-        AssertValidMoveStrings(propertySingleValue2, SgfcPropertyType::AA, moveString2);
+        AssertValidMoveStrings(propertySingleValue2, SgfcPropertyType::AA, rawValue2, moveValue2);
       }
     }
   }
@@ -1603,24 +1626,26 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
     {
       // We are not particularly interested in testing the correctness of value
       // parsing, so we don't need a lot of test values
-      std::string pointString1 = "as";
+      std::string pointRawValue1 = "as";
+      SgfcPoint pointValue1 = pointRawValue1;
       std::string simpleTextString1 = SgfcConstants::NoneValueString;
       SgfcSimpleText simpleTextValue1 = SgfcConstants::NoneValueString;
       int xPosition1 = 1;
       int yPosition1 = 19;
-      std::string pointString2 = "pc";
+      std::string pointRawValue2 = "pc";
+      SgfcPoint pointValue2 = pointRawValue2;
       std::string simpleTextString2 = "foo";
       SgfcSimpleText simpleTextValue2 = "foo";
       int xPosition2 = 16;
       int yPosition2 = 3;
 
       PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(pointString2.c_str());
+      propertyValue2.value = const_cast<char*>(pointRawValue2.c_str());
       propertyValue2.value2 = const_cast<char*>(simpleTextString2.c_str());
       propertyValue2.next = nullptr;
 
       PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(pointString1.c_str());
+      propertyValue1.value = const_cast<char*>(pointRawValue1.c_str());
       propertyValue1.value2 = const_cast<char*>(simpleTextString1.c_str());
       propertyValue1.next = &propertyValue2;
 
@@ -1641,12 +1666,12 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
 
         auto propertySingleValue1a = propertyComposedValue1->GetValue1();
-        AssertValidGoPointString(propertySingleValue1a.get(), pointString1, xPosition1, yPosition1);
+        AssertValidGoPointString(propertySingleValue1a.get(), pointRawValue1, pointValue1, xPosition1, yPosition1);
         auto propertySingleValue1b = propertyComposedValue1->GetValue2();
         AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1, simpleTextValue1);
 
         auto propertySingleValue2a = propertyComposedValue2->GetValue1();
-        AssertValidGoPointString(propertySingleValue2a.get(), pointString2, xPosition2, yPosition2);
+        AssertValidGoPointString(propertySingleValue2a.get(), pointRawValue2, pointValue2, xPosition2, yPosition2);
         auto propertySingleValue2b = propertyComposedValue2->GetValue2();
         AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2, simpleTextValue2);
       }
@@ -1654,12 +1679,13 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
 
     WHEN( "The Point strings are invalid and the SimpleText strings are valid" )
     {
-      std::string pointString = "foo";
+      std::string pointRawValue = "foo";
+      std::string pointValue = pointRawValue;
       std::string simpleTextString = "bar";
       SgfcSimpleText simpleTextValue = "bar";
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(pointString.c_str());
+      propertyValue.value = const_cast<char*>(pointRawValue.c_str());
       propertyValue.value2 = const_cast<char*>(simpleTextString.c_str());
       propertyValue.next = nullptr;
 
@@ -1678,7 +1704,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         auto propertyComposedValue = propertyValues.front()->ToComposedValue();
 
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
-        AssertInvalidGoPointString(propertySingleValue1.get(), pointString);
+        AssertInvalidGoPointString(propertySingleValue1.get(), pointRawValue, pointValue);
         auto propertySingleValue2 = propertyComposedValue->GetValue2();
         AssertValidSimpleTextString(propertySingleValue2.get(), simpleTextString, simpleTextValue);
       }
@@ -2013,16 +2039,18 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist v
   {
     WHEN( "The property values are a list of valid Point strings" )
     {
-      std::string pointStringSgfNotation1 = "aa";
-      std::string pointStringSgfNotation2 = "bb";
+      std::string rawValueSgfNotation1 = "aa";
+      std::string rawValueSgfNotation2 = "bb";
+      SgfcPoint pointValueSgfNotation1 = rawValueSgfNotation1;
+      SgfcPoint pointValueSgfNotation2 = rawValueSgfNotation2;
 
       PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(pointStringSgfNotation2.c_str());
+      propertyValue2.value = const_cast<char*>(rawValueSgfNotation2.c_str());
       propertyValue2.value2 = nullptr;
       propertyValue2.next = nullptr;
 
       PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(pointStringSgfNotation1.c_str());
+      propertyValue1.value = const_cast<char*>(rawValueSgfNotation1.c_str());
       propertyValue1.value2 = nullptr;
       propertyValue1.next = &propertyValue2;
 
@@ -2037,24 +2065,26 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist v
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 2 );
         auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
-        AssertValidGoPointString(propertySingleValue1, pointStringSgfNotation1, 1, 1);
+        AssertValidGoPointString(propertySingleValue1, rawValueSgfNotation1, pointValueSgfNotation1, 1, 1);
         auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
-        AssertValidGoPointString(propertySingleValue2, pointStringSgfNotation2, 2, 2);
+        AssertValidGoPointString(propertySingleValue2, rawValueSgfNotation2, pointValueSgfNotation2, 2, 2);
       }
     }
 
     WHEN( "The property values are a list of invalid Point strings" )
     {
-      std::string invalidPointString1 = "foo";
-      std::string invalidPointString2 = "bar";
+      std::string invalidRawValue1 = "foo";
+      std::string invalidRawValue2 = "bar";
+      std::string invalidpointValue1 = invalidRawValue1;
+      std::string invalidpointValue2 = invalidRawValue2;
 
       PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(invalidPointString2.c_str());
+      propertyValue2.value = const_cast<char*>(invalidRawValue2.c_str());
       propertyValue2.value2 = nullptr;
       propertyValue2.next = nullptr;
 
       PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(invalidPointString1.c_str());
+      propertyValue1.value = const_cast<char*>(invalidRawValue1.c_str());
       propertyValue1.value2 = nullptr;
       propertyValue1.next = &propertyValue2;
 
@@ -2069,9 +2099,9 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is an elist v
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 2 );
         auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
-        AssertInvalidGoPointString(propertySingleValue1, invalidPointString1);
+        AssertInvalidGoPointString(propertySingleValue1, invalidRawValue1, invalidpointValue1);
         auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
-        AssertInvalidGoPointString(propertySingleValue2, invalidPointString2);
+        AssertInvalidGoPointString(propertySingleValue2, invalidRawValue2, invalidpointValue2);
       }
     }
 
@@ -2130,25 +2160,25 @@ void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleV
   REQUIRE( simpleTextValue->GetSimpleTextValue() == expectedParsedValue );
 }
 
-void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString, int xPosition, int yPosition)
+void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition)
 {
   REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
-  AssertValidGoPointString(propertySingleValue, pointString, xPosition, yPosition);
+  AssertValidGoPointString(propertySingleValue, rawValue, pointValue, xPosition, yPosition);
 }
 
-void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString, int xPosition, int yPosition)
+void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition)
 {
-  REQUIRE( propertySingleValue->GetRawValue() == pointString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto pointValue = propertySingleValue->ToPointValue();
-  REQUIRE( pointValue != nullptr );
-  REQUIRE( pointValue->GetPointValue() == pointString );
-  auto goPointValue = pointValue->ToGoPointValue();
+  auto pointValueObject = propertySingleValue->ToPointValue();
+  REQUIRE( pointValueObject != nullptr );
+  REQUIRE( pointValueObject->GetPointValue() == pointValue );
+  auto goPointValue = pointValueObject->ToGoPointValue();
   REQUIRE( goPointValue != nullptr );
   auto goPoint = goPointValue->GetGoPoint();
   REQUIRE( goPoint != nullptr );
@@ -2156,41 +2186,41 @@ void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValu
   REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == yPosition );
 }
 
-void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& pointString)
+void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue)
 {
   REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
-  AssertInvalidGoPointString(propertySingleValue, pointString);
+  AssertInvalidGoPointString(propertySingleValue, rawValue, pointValue);
 }
 
-void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& pointString)
+void AssertInvalidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue)
 {
-  REQUIRE( propertySingleValue->GetRawValue() == pointString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto pointValue = propertySingleValue->ToPointValue();
-  REQUIRE( pointValue != nullptr );
-  REQUIRE( pointValue->GetPointValue() == pointString );
-  auto goPointValue = pointValue->ToGoPointValue();
+  auto pointValueObject = propertySingleValue->ToPointValue();
+  REQUIRE( pointValueObject != nullptr );
+  REQUIRE( pointValueObject->GetPointValue() == pointValue );
+  auto goPointValue = pointValueObject->ToGoPointValue();
   REQUIRE( goPointValue == nullptr );
 }
 
-void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition)
+void AssertValidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue, int xPosition, int yPosition)
 {
   REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
 
-  AssertValidGoMoveStrings(propertySingleValue, propertyType, moveString, xPosition, yPosition);
+  AssertValidGoMoveStrings(propertySingleValue, propertyType, rawValue, moveValue, xPosition, yPosition);
 }
 
-void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString, int xPosition, int yPosition)
+void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue, int xPosition, int yPosition)
 {
-  AssertValidMoveStrings(propertySingleValue, propertyType, moveString);
+  AssertValidMoveStrings(propertySingleValue, propertyType, rawValue, moveValue);
 
   SgfcColor expectedColor = propertyType == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
@@ -2199,7 +2229,7 @@ void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValu
   auto goMove = goMoveValue->GetGoMove();
   REQUIRE( goMove != nullptr );
   REQUIRE( goMove->GetPlayerColor() == expectedColor );
-  if (moveString == SgfcConstants::GoMovePassString)
+  if (rawValue == SgfcConstants::GoMovePassString)
   {
     REQUIRE( goMove->IsPassMove() == true );
     auto goStone = goMove->GetStone();
@@ -2221,18 +2251,18 @@ void AssertValidGoMoveStrings(const ISgfcSinglePropertyValue* propertySingleValu
   }
 }
 
-void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& moveString)
+void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue)
 {
-  REQUIRE( propertySingleValue->GetRawValue() == moveString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto moveValue = propertySingleValue->ToMoveValue();
-  REQUIRE( moveValue != nullptr );
-  REQUIRE( moveValue->GetMoveValue() == moveString );
+  auto moveValueObject = propertySingleValue->ToMoveValue();
+  REQUIRE( moveValueObject != nullptr );
+  REQUIRE( moveValueObject->GetMoveValue() == moveValue );
 }
 
-void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& moveString)
+void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue)
 {
   SgfcColor expectedColor = propertyType == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
@@ -2240,18 +2270,18 @@ void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, Sgfc
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
-  REQUIRE( propertySingleValue->GetRawValue() == moveString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Move );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto moveValue = propertySingleValue->ToMoveValue();
-  REQUIRE( moveValue != nullptr );
-  REQUIRE( moveValue->GetMoveValue() == moveString );
-  auto goMoveValue = moveValue->ToGoMoveValue();
+  auto moveValueObject = propertySingleValue->ToMoveValue();
+  REQUIRE( moveValueObject != nullptr );
+  REQUIRE( moveValueObject->GetMoveValue() == moveValue );
+  auto goMoveValue = moveValueObject->ToGoMoveValue();
   REQUIRE( goMoveValue == nullptr );
 }
 
-void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString, int xPosition, int yPosition)
+void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcStone& stoneValue, int xPosition, int yPosition)
 {
   SgfcColor expectedColor = propertyType == SgfcPropertyType::AB ? SgfcColor::Black : SgfcColor::White;
 
@@ -2259,14 +2289,14 @@ void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcP
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
-  REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto stoneValue = propertySingleValue->ToStoneValue();
-  REQUIRE( stoneValue != nullptr );
-  REQUIRE( stoneValue->GetStoneValue() == stoneString );
-  auto goStoneValue = stoneValue->ToGoStoneValue();
+  auto stoneValueObject = propertySingleValue->ToStoneValue();
+  REQUIRE( stoneValueObject != nullptr );
+  REQUIRE( stoneValueObject->GetStoneValue() == stoneValue );
+  auto goStoneValue = stoneValueObject->ToGoStoneValue();
   REQUIRE( goStoneValue != nullptr );
   auto goStone = goStoneValue->GetGoStone();
   REQUIRE( goStone != nullptr );
@@ -2277,7 +2307,7 @@ void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcP
   REQUIRE( goPoint->GetYPosition(SgfcCoordinateSystem::UpperLeftOrigin) == yPosition );
 }
 
-void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& stoneString)
+void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& stoneValue)
 {
   SgfcColor expectedColor = propertyType == SgfcPropertyType::AB ? SgfcColor::Black : SgfcColor::White;
 
@@ -2285,14 +2315,14 @@ void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, Sgf
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
   auto propertySingleValue = propertyValues.front()->ToSingleValue();
-  REQUIRE( propertySingleValue->GetRawValue() == stoneString );
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
   REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
   REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
   REQUIRE( propertySingleValue->HasTypedValue() == true );
-  auto stoneValue = propertySingleValue->ToStoneValue();
-  REQUIRE( stoneValue != nullptr );
-  REQUIRE( stoneValue->GetStoneValue() == stoneString );
-  auto goStoneValue = stoneValue->ToGoStoneValue();
+  auto stoneValueObject = propertySingleValue->ToStoneValue();
+  REQUIRE( stoneValueObject != nullptr );
+  REQUIRE( stoneValueObject->GetStoneValue() == stoneValue );
+  auto goStoneValue = stoneValueObject->ToGoStoneValue();
   REQUIRE( goStoneValue == nullptr );
 }
 

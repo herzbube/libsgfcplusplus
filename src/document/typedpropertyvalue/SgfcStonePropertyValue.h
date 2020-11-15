@@ -32,15 +32,18 @@ namespace LibSgfcPlusPlus
   {
   public:
     /// @brief Initializes a newly constructed SgfcStonePropertyValue
-    /// object. The object holds a Stone value which was not interpreted in
-    /// any way and equals the raw string value @a rawValue.
-    SgfcStonePropertyValue(const std::string& rawValue);
+    /// object. The object holds the Stone value @a stoneValue and
+    /// the corresponding raw string value @a rawValue.
+    SgfcStonePropertyValue(const std::string& rawValue, const SgfcStone& stoneValue);
 
     /// @brief Destroys and cleans up the SgfcStonePropertyValue object.
     virtual ~SgfcStonePropertyValue();
 
-    virtual std::string GetStoneValue() const;
+    virtual SgfcStone GetStoneValue() const;
     virtual const ISgfcStonePropertyValue* ToStoneValue() const;
     virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const;
+
+  private:
+    SgfcStone stoneValue;
   };
 }
