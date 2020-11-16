@@ -142,6 +142,7 @@ set (
   interface/internal/SgfcPropertyValueTypeDescriptorType.h
   parsing/SgfcDocumentEncoder.h
   parsing/SgfcPropertyDecoder.h
+  parsing/SgfcSinglePropertyValueContext.h
   parsing/SgfcValueConverter.h
   parsing/propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h
   parsing/propertyvaluetypedescriptor/SgfcPropertyComposedValueTypeDescriptor.h

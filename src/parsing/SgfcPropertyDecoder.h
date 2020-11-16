@@ -25,6 +25,7 @@
 #include "../../include/SgfcPropertyValueType.h"
 #include "../../include/SgfcTypedefs.h"
 #include "../interface/internal/ISgfcPropertyValueTypeDescriptor.h"
+#include "SgfcSinglePropertyValueContext.h"
 
 // C++ Standard Library includes
 #include <memory>
@@ -249,7 +250,8 @@ namespace LibSgfcPlusPlus
 
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer,
-      SgfcPropertyValueType propertyValueType) const;
+      SgfcPropertyValueType propertyValueType,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
 
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcNumberPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
@@ -260,15 +262,20 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcColorPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer) const;
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcTextPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer) const;
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcPointPropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer) const;
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcMovePropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer) const;
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcStonePropertyValueFromSgfPropertyValue(
-      const char* rawPropertyValueBuffer) const;
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
 
     bool DoesSgfcPropertyHaveTypedValues(const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const;
 
@@ -276,7 +283,12 @@ namespace LibSgfcPlusPlus
 
     std::string RemoveSimpleTextLineBreaks(const std::string& rawPropertyValue) const;
     std::string RemoveTextLineBreaks(const std::string& rawPropertyValue) const;
-    std::string RemoveSimpleTextAndTextEscapeCharacters(const std::string& rawPropertyValue) const;
+    std::string RemoveSimpleTextAndTextEscapeCharacters(
+      const std::string& rawPropertyValue,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
+    std::string RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(
+      const std::string& rawPropertyValue,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::string RemoveMandatoryEscapeCharacters(const std::string& rawPropertyValue) const;
   };
 }

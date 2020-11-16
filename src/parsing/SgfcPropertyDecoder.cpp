@@ -476,10 +476,12 @@ namespace LibSgfcPlusPlus
 
         std::shared_ptr<ISgfcSinglePropertyValue> propertyValue1 = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value,
-          basicValueType1);
+          basicValueType1,
+          SgfcSinglePropertyValueContext::FirstValueOfComposedValue);
         std::shared_ptr<ISgfcSinglePropertyValue> propertyValue2 = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value2,
-          basicValueType2);
+          basicValueType2,
+          SgfcSinglePropertyValueContext::SecondValueOfComposedValue);
 
         std::shared_ptr<ISgfcPropertyValue> propertyValue = std::shared_ptr<ISgfcPropertyValue>(new SgfcComposedPropertyValue(
           propertyValue1,
@@ -540,7 +542,8 @@ namespace LibSgfcPlusPlus
 
         std::shared_ptr<ISgfcPropertyValue> propertyValue = GetSgfcPropertyValueFromSgfPropertyValue(
           sgfPropertyValue->value,
-          basicValueType);
+          basicValueType,
+          SgfcSinglePropertyValueContext::Standalone);
 
         return propertyValue;
       }
@@ -558,7 +561,8 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcPropertyValueFromSgfPropertyValue(
     const char* rawPropertyValueBuffer,
-    SgfcPropertyValueType propertyValueType) const
+    SgfcPropertyValueType propertyValueType,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     std::shared_ptr<ISgfcSinglePropertyValue> propertyValue;
 
@@ -577,21 +581,22 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcColorPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
         break;
       case SgfcPropertyValueType::SimpleText:
-        propertyValue = GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
+        propertyValue = GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Text:
-        propertyValue = GetSgfcTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
+        propertyValue = GetSgfcTextPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Point:
-        propertyValue = GetSgfcPointPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
+        propertyValue = GetSgfcPointPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Move:
-        propertyValue = GetSgfcMovePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
+        propertyValue = GetSgfcMovePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Stone:
-        propertyValue = GetSgfcStonePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer);
+        propertyValue = GetSgfcStonePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Unknown:
+        // TODO: Unescape
         propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
           rawPropertyValueBuffer));
         break;
@@ -718,7 +723,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer) const
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     // In the past SGFC had some bugs where it didn't properly remove line
     // breaks from SimpleText values in all cases. This forced us to remove
@@ -730,7 +736,7 @@ namespace LibSgfcPlusPlus
       RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
 
     std::string rawValueWithoutEscapeCharacters =
-      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
+      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
 
     return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
       rawPropertyValueBuffer,
@@ -738,7 +744,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcTextPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer) const
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     // In the past SGFC had some bugs where it didn't properly remove line
     // breaks from SimpleText values in all cases. Because of this we added
@@ -751,7 +758,7 @@ namespace LibSgfcPlusPlus
       RemoveTextLineBreaks(rawPropertyValueBuffer);
 
     std::string rawValueWithoutEscapeCharacters =
-      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks);
+      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
 
     return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
       rawPropertyValueBuffer,
@@ -759,7 +766,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcPointPropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer) const
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
 
@@ -785,14 +793,17 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
         rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcMovePropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer) const
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
 
@@ -837,14 +848,17 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
         rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcStonePropertyValueFromSgfPropertyValue(
-    const char* rawPropertyValueBuffer) const
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     SgfcGameType gameType = this->propertyMetaInfo->GetGameType();
 
@@ -873,7 +887,9 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters = RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
         rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
     }
@@ -968,7 +984,8 @@ namespace LibSgfcPlusPlus
   }
 
   std::string SgfcPropertyDecoder::RemoveSimpleTextAndTextEscapeCharacters(
-    const std::string& rawPropertyValue) const
+    const std::string& rawPropertyValue,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     // SGFC removes all unnecessary escape characters from SimpleText and Text
     // values, so we don't have to deal with them. E.g. escaping the "a"
@@ -998,10 +1015,34 @@ namespace LibSgfcPlusPlus
 
     std::string result = RemoveMandatoryEscapeCharacters(rawPropertyValue);
 
-    result = std::regex_replace(
-      result,
-      SgfcPrivateConstants::EscapedComposedValueSeparatorTokenRegex,
-      SgfcPrivateConstants::ComposedValueSeparatorToken);
+    switch (singlePropertyValueContext)
+    {
+      // SGFC leaves the escaped ":" character in because it assumes it will
+      // be required when writing the value out again. We remove the escape
+      // character because we don't want the library client to have to deal
+      // with this.
+      case SgfcSinglePropertyValueContext::FirstValueOfComposedValue:
+      // Strictly speaking SGFC should remove the escaped ":" character, but
+      // for some reason it leaves the escape character, just as it does for
+      // the first value of the composed value. Again, we remove the escape
+      // character because we don't want the library client to have to deal
+      // with this.
+      case SgfcSinglePropertyValueContext::SecondValueOfComposedValue:
+      {
+        result = std::regex_replace(
+          result,
+          SgfcPrivateConstants::EscapedComposedValueSeparatorTokenRegex,
+          SgfcPrivateConstants::ComposedValueSeparatorToken);
+        break;
+      }
+      // In standalone values SGFC properly removes the escape character, so
+      // we don't have to do anything.
+      case SgfcSinglePropertyValueContext::Standalone:
+      default:
+      {
+        break;
+      }
+    }
 
     // Escape characters must be removed last so that we don't remove the escape
     // characters from other escape sequences. E.g. "\\:" must result in "\:".
@@ -1014,6 +1055,52 @@ namespace LibSgfcPlusPlus
       result,
       SgfcPrivateConstants::EscapedEscapeCharacterRegex,
       SgfcPrivateConstants::EscapeCharacterToken);
+
+    return result;
+  }
+
+  std::string SgfcPropertyDecoder::RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(
+    const std::string& rawPropertyValue,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
+  {
+    // As the method name already says, this method should only be invoked
+    // for non-Go game types. Invoking this method for the Go game type simply
+    // does nothing, because there the move/point/stone string is in SGF
+    // notation and that cannot contain escape characters.
+    //
+    // See comments in RemoveSimpleTextAndTextEscapeCharacters for
+    // implementation notes.
+
+    std::string result = RemoveMandatoryEscapeCharacters(rawPropertyValue);
+
+    switch (singlePropertyValueContext)
+    {
+      // SGFC leaves the escaped ":" character in because it assumes it will
+      // be required when writing the value out again. We remove the escape
+      // character because we don't want the library client to have to deal
+      // with this.
+      case SgfcSinglePropertyValueContext::FirstValueOfComposedValue:
+      {
+        result = std::regex_replace(
+          result,
+          SgfcPrivateConstants::EscapedComposedValueSeparatorTokenRegex,
+          SgfcPrivateConstants::ComposedValueSeparatorToken);
+        break;
+      }
+      // In all other contexts SGFC does not touch the escaped ":" character,
+      // because it can't tell whether the escape character is there by
+      // accident (in which case it could be removed) or because the
+      // move/point/stone value actually requires it for the non-Go game type
+      // (in which case the escape character must be retained). Because we don't
+      // know either we do the same as SGFC and leave the escaped ":"
+      // character alone.
+      case SgfcSinglePropertyValueContext::SecondValueOfComposedValue:
+      case SgfcSinglePropertyValueContext::Standalone:
+      default:
+      {
+        break;
+      }
+    }
 
     return result;
   }

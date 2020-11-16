@@ -16,6 +16,9 @@
 
 #pragma once
 
+// Project includes
+#include "SgfcSinglePropertyValueContext.h"
+
 // C++ Standard Library includes
 #include <memory>
 
@@ -100,7 +103,7 @@ namespace LibSgfcPlusPlus
 
     void EncodeSinglePropertyValue(
       const ISgfcSinglePropertyValue* singlePropertyValue,
-      bool isFirstValueOfComposedValue,
+      SgfcSinglePropertyValueContext singlePropertyValueContext,
       std::stringstream& sgfContentStream,
       int indentationLevel) const;
 
@@ -115,9 +118,9 @@ namespace LibSgfcPlusPlus
 
     std::string AddSimpleTextAndTextEscapeCharacters(
       const std::string& propertyValue,
-      bool isFirstValueOfComposedValue) const;
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::string AddMandatoryEscapeCharacters(
       const std::string& propertyValue,
-      bool isFirstValueOfComposedValue) const;
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
   };
 }

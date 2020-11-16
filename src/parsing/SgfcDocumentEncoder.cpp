@@ -171,7 +171,7 @@ namespace LibSgfcPlusPlus
     if (propertyValue->IsComposedValue())
       EncodeComposedPropertyValue(propertyValue->ToComposedValue(), sgfContentStream, indentationLevel);
     else
-      EncodeSinglePropertyValue(propertyValue->ToSingleValue(), false, sgfContentStream, indentationLevel);
+      EncodeSinglePropertyValue(propertyValue->ToSingleValue(), SgfcSinglePropertyValueContext::Standalone, sgfContentStream, indentationLevel);
 
     sgfContentStream << SgfcPrivateConstants::PropertyValueEndToken;
   }
@@ -183,7 +183,7 @@ namespace LibSgfcPlusPlus
   {
     EncodeSinglePropertyValue(
       composedPropertyValue->GetValue1().get(),
-      true,
+      SgfcSinglePropertyValueContext::FirstValueOfComposedValue,
       sgfContentStream,
       indentationLevel);
 
@@ -191,14 +191,14 @@ namespace LibSgfcPlusPlus
 
     EncodeSinglePropertyValue(
       composedPropertyValue->GetValue2().get(),
-      false,
+      SgfcSinglePropertyValueContext::SecondValueOfComposedValue,
       sgfContentStream,
       indentationLevel);
   }
 
   void SgfcDocumentEncoder::EncodeSinglePropertyValue(
     const ISgfcSinglePropertyValue* singlePropertyValue,
-    bool isFirstValueOfComposedValue,
+    SgfcSinglePropertyValueContext singlePropertyValueContext,
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
@@ -230,7 +230,7 @@ namespace LibSgfcPlusPlus
           valueToEncode = singlePropertyValue->ToTextValue()->GetTextValue();
 
         // TODO: Handle newlines
-        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(valueToEncode, isFirstValueOfComposedValue);
+        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(valueToEncode, singlePropertyValueContext);
 
         break;
       }
@@ -240,7 +240,7 @@ namespace LibSgfcPlusPlus
       // we have no idea how the unknown value type is structured.
       case SgfcPropertyValueType::Unknown:
       {
-        sgfContentStream << AddMandatoryEscapeCharacters(singlePropertyValue->GetRawValue(), isFirstValueOfComposedValue);
+        sgfContentStream << AddMandatoryEscapeCharacters(singlePropertyValue->GetRawValue(), singlePropertyValueContext);
         break;
       }
 
@@ -299,7 +299,7 @@ namespace LibSgfcPlusPlus
         }
 
         if (valueToEncodeNeedsEscaping)
-          sgfContentStream << AddMandatoryEscapeCharacters(valueToEncode, isFirstValueOfComposedValue);
+          sgfContentStream << AddMandatoryEscapeCharacters(valueToEncode, singlePropertyValueContext);
         else
           sgfContentStream << valueToEncode;
 
@@ -352,7 +352,7 @@ namespace LibSgfcPlusPlus
 
   std::string SgfcDocumentEncoder::AddSimpleTextAndTextEscapeCharacters(
     const std::string& propertyValue,
-    bool isFirstValueOfComposedValue) const
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     // Escape characters already present must be escaped first so that we don't
     // escape the escape characters from other escape sequences.
@@ -361,28 +361,33 @@ namespace LibSgfcPlusPlus
       SgfcPrivateConstants::UnescapedEscapeCharacterRegex,
       SgfcPrivateConstants::EscapedEscapeCharacterToken);
 
-    return AddMandatoryEscapeCharacters(result, isFirstValueOfComposedValue);
+    return AddMandatoryEscapeCharacters(result, singlePropertyValueContext);
   }
 
   std::string SgfcDocumentEncoder::AddMandatoryEscapeCharacters(
     const std::string& propertyValue,
-    bool isFirstValueOfComposedValue) const
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
   {
     std::string result = std::regex_replace(
       propertyValue,
       SgfcPrivateConstants::UnescapedPropertyValueEndTokenRegex,
       SgfcPrivateConstants::EscapedPropertyValueEndToken);
 
-    if (isFirstValueOfComposedValue)
+    switch (singlePropertyValueContext)
     {
-      return std::regex_replace(
-        result,
-        SgfcPrivateConstants::UnescapedComposedValueSeparatorTokenRegex,
-        SgfcPrivateConstants::EscapedComposedValueSeparatorToken);
-    }
-    else
-    {
-      return result;
+      case SgfcSinglePropertyValueContext::FirstValueOfComposedValue:
+      {
+        return std::regex_replace(
+          result,
+          SgfcPrivateConstants::UnescapedComposedValueSeparatorTokenRegex,
+          SgfcPrivateConstants::EscapedComposedValueSeparatorToken);
+      }
+      case SgfcSinglePropertyValueContext::SecondValueOfComposedValue:
+      case SgfcSinglePropertyValueContext::Standalone:
+      default:
+      {
+        return result;
+      }
     }
   }
 }
