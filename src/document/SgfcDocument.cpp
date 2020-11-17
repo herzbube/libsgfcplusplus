@@ -38,7 +38,9 @@
 #include "../../include/ISgfcTreeBuilder.h"
 #include "../../include/SgfcPlusPlusFactory.h"
 #include "../parsing/SgfcPropertyDecoder.h"
+#include "../SgfcUtility.h"
 #include "SgfcDocument.h"
+#include "SgfcProperty.h"
 
 // C++ Standard Library includes
 #include <algorithm>
@@ -145,8 +147,29 @@ namespace LibSgfcPlusPlus
       }
       else
       {
-        // This can throw std::invalid_argument
-        auto property = propertyFactory->CreateProperty(propertyType, propertyValues);
+        std::shared_ptr<ISgfcProperty> property;
+        try
+        {
+          // Try to create an instance of that property class which best fits
+          // propertyType (e.g. ISgfcBoardSizeProperty). This can throw
+          // std::invalid_argument if the property values don't meet the
+          // requirements of this best-fitting property class.
+          property = propertyFactory->CreateProperty(propertyType, propertyValues);
+        }
+        catch (std::invalid_argument& exception)
+        {
+          // The property values didn't meet the requirements of the
+          // best-fitting property class. We fall back to creating a property
+          // object of an unspecific type. In theory this can still throw
+          // std::invalid_argument, if the property values collection is
+          // fundamentally broken (nullptr or duplicate elements in the
+          // collection). In practice this should never occur, unless
+          // SgfcPropertyDecoder generates fundamentally broken output.
+          property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
+            propertyType,
+            SgfcUtility::MapPropertyTypeToPropertyName(propertyType),
+            propertyValues));
+        }
         properties.push_back(property);
       }
 
