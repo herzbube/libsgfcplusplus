@@ -228,97 +228,125 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::pair<std::string, SgfcSimpleText>> TestDataGenerator::GetSimpleTextStrings()
+  std::vector<std::tuple<std::string, SgfcSimpleText, SgfcSimpleText, SgfcSimpleText>> TestDataGenerator::GetSimpleTextStrings()
   {
-    std::vector<std::pair<std::string, SgfcSimpleText>> testData =
+    // Element 0 = The raw value that is the input for SgfcPropertyDecoder
+    //             tests
+    // Element 1 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for a standalone single property value
+    // Element 2 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for the first value of a composed property value
+    // Element 3 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for the second value of a composed property value
+    std::vector<std::tuple<std::string, SgfcSimpleText, SgfcSimpleText, SgfcSimpleText>> testData =
     {
-      std::pair<std::string, SgfcSimpleText> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
-      std::pair<std::string, SgfcSimpleText> { "foo", "foo" },
-      std::pair<std::string, SgfcSimpleText> { "foo bar", "foo bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo  bar", "foo  bar" },
+      std::make_tuple(SgfcConstants::NoneValueString, SgfcConstants::NoneValueString, SgfcConstants::NoneValueString, SgfcConstants::NoneValueString),
+      std::make_tuple("foo", "foo", "foo", "foo"),
+      std::make_tuple("foo bar", "foo bar", "foo bar", "foo bar"),
+      std::make_tuple("foo  bar", "foo  bar", "foo  bar", "foo  bar"),
       // Whitespace characters other than space must be converted to space.
       // However, the library relies on SGFC doing this conversion, so for the
       // unit tests we make sure that the library does NOT convert.
-      std::pair<std::string, SgfcSimpleText> { "foo\t\vbar", "foo\t\vbar" },
+      std::make_tuple("foo\t\vbar", "foo\t\vbar", "foo\t\vbar", "foo\t\vbar"),
       // Each of the line endings mentioned in the SGF standard must be
       // converted to a single space (even if the line ending consists of two
       // characters).
-      std::pair<std::string, SgfcSimpleText> { "foo\nbar", "foo bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\rbar", "foo bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\r\nbar", "foo bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\n\rbar", "foo bar" },
+      std::make_tuple("foo\nbar", "foo bar", "foo bar", "foo bar"),
+      std::make_tuple("foo\rbar", "foo bar", "foo bar", "foo bar"),
+      std::make_tuple("foo\r\nbar", "foo bar", "foo bar", "foo bar"),
+      std::make_tuple("foo\n\rbar", "foo bar", "foo bar", "foo bar"),
       // Escaped line breaks are removed entirely
-      std::pair<std::string, SgfcSimpleText> { "foo\\\nbar", "foobar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\rbar", "foobar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\r\nbar", "foobar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\n\rbar", "foobar" },
+      std::make_tuple("foo\\\nbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\rbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\r\nbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\n\rbar", "foobar", "foobar", "foobar"),
       // The escape character is removed if it escapes one of the special
-      // characters mentioned in the SGF standard ("]", "\" and ":")
-      std::pair<std::string, SgfcSimpleText> { "foo\\]bar", "foo]bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\\bar", "foo\\bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\:bar", "foo:bar" },
+      // characters mentioned in the SGF standard ("]", "\")
+      std::make_tuple("foo\\]bar", "foo]bar", "foo]bar", "foo]bar"),
+      std::make_tuple("foo\\\\bar", "foo\\bar", "foo\\bar", "foo\\bar"),
       // The escape character is not removed if it does not escape one of the
       // special characters mentioned in the SGF standard. The reason is that
       // the library expects that SGFC removes those unnecessary escape
       // characters and it therefore does not perform escape character handling
       // itself.
-      std::pair<std::string, SgfcSimpleText> { "foo\\bar", "foo\\bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\[bar", "foo\\[bar" },
+      std::make_tuple("foo\\bar", "foo\\bar", "foo\\bar", "foo\\bar"),
+      std::make_tuple("foo\\[bar", "foo\\[bar", "foo\\[bar", "foo\\[bar"),
+      // The escape character is removed only if the value is used as input for
+      // the first or second value of a composed value (for the second value
+      // this is a quirk of SGFC which does not remove the unnecessary escape
+      // character as it should, so libsgfc++ has to do it). The escape
+      // character is not removed for a standalone property value because there
+      // it is expected that SGFC does the removal.
+      std::make_tuple("foo\\:bar", "foo\\:bar", "foo:bar", "foo:bar"),
       // We also test whether multiple consecutive escape characters work. There
       // is no order of precedence, an escape character simply always must act
       // upon the character that follows it. E.g. "\\:" escapes the escape
       // character, not the ":" character.
-      std::pair<std::string, SgfcSimpleText> { "foo\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, SgfcSimpleText> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
+      std::make_tuple("foo\\\\:bar", "foo\\:bar", "foo\\:bar", "foo\\:bar"),
+      std::make_tuple("foo\\\\\\:bar", "foo\\\\:bar", "foo\\:bar", "foo\\:bar"),
+      std::make_tuple("foo\\\\\\\\:bar", "foo\\\\:bar", "foo\\\\:bar", "foo\\\\:bar")
     };
 
     return testData;
   }
 
-  std::vector<std::pair<std::string, SgfcText>> TestDataGenerator::GetTextStrings()
+  std::vector<std::tuple<std::string, SgfcText, SgfcText, SgfcText>> TestDataGenerator::GetTextStrings()
   {
-    std::vector<std::pair<std::string, SgfcText>> testData =
+    // Element 0 = The raw value that is the input for SgfcPropertyDecoder
+    //             tests
+    // Element 1 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for a standalone single property value
+    // Element 2 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for the first value of a composed property value
+    // Element 3 = The parsed SgfcSimpleText value if the raw value is used
+    //             as input for the second value of a composed property value
+    std::vector<std::tuple<std::string, SgfcText, SgfcText, SgfcText>> testData =
     {
-      std::pair<std::string, SgfcText> { SgfcConstants::NoneValueString, SgfcConstants::NoneValueString },
-      std::pair<std::string, SgfcText> { "foo", "foo" },
-      std::pair<std::string, SgfcText> { "foo bar", "foo bar" },
-      std::pair<std::string, SgfcText> { "foo  bar", "foo  bar" },
+      std::make_tuple(SgfcConstants::NoneValueString, SgfcConstants::NoneValueString, SgfcConstants::NoneValueString, SgfcConstants::NoneValueString),
+      std::make_tuple("foo", "foo", "foo", "foo"),
+      std::make_tuple("foo bar", "foo bar", "foo bar", "foo bar"),
+      std::make_tuple("foo  bar", "foo  bar", "foo  bar", "foo  bar"),
       // Whitespace characters other than line breaks must be converted to
       // space. However, the library relies on SGFC doing this conversion, so
       // for the unit tests we make sure that the library does NOT convert.
-      std::pair<std::string, SgfcText> { "foo\t\vbar", "foo\t\vbar" },
+      std::make_tuple("foo\t\vbar", "foo\t\vbar", "foo\t\vbar", "foo\t\vbar"),
       // Un-escaped line breaks (the SGF standard calls them "hard line breaks")
       // must be preserved.
-      std::pair<std::string, SgfcText> { "foo\nbar", "foo\nbar" },
-      std::pair<std::string, SgfcText> { "foo\rbar", "foo\rbar" },
-      std::pair<std::string, SgfcText> { "foo\r\nbar", "foo\r\nbar" },
-      std::pair<std::string, SgfcText> { "foo\n\rbar", "foo\n\rbar" },
+      std::make_tuple("foo\nbar", "foo\nbar", "foo\nbar", "foo\nbar"),
+      std::make_tuple("foo\rbar", "foo\rbar", "foo\rbar", "foo\rbar"),
+      std::make_tuple("foo\r\nbar", "foo\r\nbar", "foo\r\nbar", "foo\r\nbar"),
+      std::make_tuple("foo\n\rbar", "foo\n\rbar", "foo\n\rbar", "foo\n\rbar"),
       // Escaped line breaks (the SGF standard calls them "soft line breaks")
       // are removed entirely
-      std::pair<std::string, SgfcText> { "foo\\\nbar", "foobar" },
-      std::pair<std::string, SgfcText> { "foo\\\rbar", "foobar" },
-      std::pair<std::string, SgfcText> { "foo\\\r\nbar", "foobar" },
-      std::pair<std::string, SgfcText> { "foo\\\n\rbar", "foobar" },
+      std::make_tuple("foo\\\nbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\rbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\r\nbar", "foobar", "foobar", "foobar"),
+      std::make_tuple("foo\\\n\rbar", "foobar", "foobar", "foobar"),
       // The escape character is removed if it escapes one of the special
       // characters mentioned in the SGF standard ("]", "\" and ":")
-      std::pair<std::string, SgfcText> { "foo\\]bar", "foo]bar" },
-      std::pair<std::string, SgfcText> { "foo\\\\bar", "foo\\bar" },
-      std::pair<std::string, SgfcText> { "foo\\:bar", "foo:bar" },
+      std::make_tuple("foo\\]bar", "foo]bar", "foo]bar", "foo]bar"),
+      std::make_tuple("foo\\\\bar", "foo\\bar", "foo\\bar", "foo\\bar"),
       // The escape character is not removed if it does not escape one of the
       // special characters mentioned in the SGF standard. The reason is that
       // the library expects that SGFC removes those unnecessary escape
       // characters and it therefore does not perform escape character handling
       // itself.
-      std::pair<std::string, SgfcText> { "foo\\bar", "foo\\bar" },
-      std::pair<std::string, SgfcText> { "foo\\[bar", "foo\\[bar" },
+      std::make_tuple("foo\\bar", "foo\\bar", "foo\\bar", "foo\\bar"),
+      std::make_tuple("foo\\[bar", "foo\\[bar", "foo\\[bar", "foo\\[bar"),
+      // The escape character is removed only if the value is used as input for
+      // the first or second value of a composed value (for the second value
+      // this is a quirk of SGFC which does not remove the unnecessary escape
+      // character as it should, so libsgfc++ has to do it). The escape
+      // character is not removed for a standalone property value because there
+      // it is expected that SGFC does the removal.
+      std::make_tuple("foo\\:bar", "foo\\:bar", "foo:bar", "foo:bar"),
       // We also test whether multiple consecutive escape characters work. There
       // is no order of precedence, an escape character simply always must act
       // upon the character that follows it. E.g. "\\:" escapes the escape
       // character, not the ":" character.
-      std::pair<std::string, SgfcText> { "foo\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, SgfcText> { "foo\\\\\\:bar", "foo\\:bar" },
-      std::pair<std::string, SgfcText> { "foo\\\\\\\\:bar", "foo\\\\:bar" }
+      std::make_tuple("foo\\\\:bar", "foo\\:bar", "foo\\:bar", "foo\\:bar"),
+      std::make_tuple("foo\\\\\\:bar", "foo\\\\:bar", "foo\\:bar", "foo\\:bar"),
+      std::make_tuple("foo\\\\\\\\:bar", "foo\\\\:bar", "foo\\\\:bar", "foo\\\\:bar")
     };
 
     return testData;

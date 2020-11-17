@@ -918,7 +918,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetSimpleTextStrings()) );
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(std::get<0>(testData).c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -934,7 +934,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
 
-        AssertValidSimpleTextString(propertySingleValue, testData.first, testData.second);
+        AssertValidSimpleTextString(propertySingleValue, std::get<0>(testData), std::get<1>(testData));
       }
     }
 
@@ -951,7 +951,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetTextStrings()) );
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(std::get<0>(testData).c_str());
       propertyValue.value2 = nullptr;
       propertyValue.next = nullptr;
 
@@ -966,13 +966,13 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
         auto propertyValues = propertyDecoder.GetPropertyValues();
         REQUIRE( propertyValues.size() == 1 );
         auto propertySingleValue = propertyValues.front()->ToSingleValue();
-        REQUIRE( propertySingleValue->GetRawValue() == testData.first );
+        REQUIRE( propertySingleValue->GetRawValue() == std::get<0>(testData) );
         REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
         REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Text );
         REQUIRE( propertySingleValue->HasTypedValue() == true );
         auto textValue = propertySingleValue->ToTextValue();
         REQUIRE( textValue != nullptr );
-        REQUIRE( textValue->GetTextValue() == testData.second );
+        REQUIRE( textValue->GetTextValue() == std::get<1>(testData) );
       }
     }
 
@@ -1518,8 +1518,8 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
       auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetSimpleTextStrings()) );
 
       PropValue propertyValue;
-      propertyValue.value = const_cast<char*>(testData.first.c_str());
-      propertyValue.value2 = const_cast<char*>(testData.first.c_str());
+      propertyValue.value = const_cast<char*>(std::get<0>(testData).c_str());
+      propertyValue.value2 = const_cast<char*>(std::get<0>(testData).c_str());
       propertyValue.next = nullptr;
 
       Property sgfProperty;
@@ -1537,9 +1537,9 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
         auto propertyComposedValue = propertyValues.front()->ToComposedValue();
 
         auto propertySingleValue1 = propertyComposedValue->GetValue1();
-        AssertValidSimpleTextString(propertySingleValue1.get(), testData.first, testData.second);
+        AssertValidSimpleTextString(propertySingleValue1.get(), std::get<0>(testData), std::get<2>(testData));
         auto propertySingleValue2 = propertyComposedValue->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2.get(), testData.first, testData.second);
+        AssertValidSimpleTextString(propertySingleValue2.get(), std::get<0>(testData), std::get<3>(testData));
       }
     }
 
