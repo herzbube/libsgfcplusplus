@@ -420,11 +420,6 @@ namespace LibSgfcPlusPlus
     // Non-standard properties
     // ----------------------------------------------------------------------
 
-    /// @brief A private property of the "Smart Game Board" application (SGB),
-    /// meaning "integer komi". SGFC converts this to the regular KM property.
-    /// Property value type: Number.
-    KI,
-
     /// @brief The property type is unknown, i.e. the property is a custom
     /// property not defined by the SGF standard.
     Unknown,

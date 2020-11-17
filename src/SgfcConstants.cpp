@@ -157,7 +157,6 @@ namespace LibSgfcPlusPlus
     { "RP", SgfcPropertyType::RP },
     { "AS", SgfcPropertyType::AS },
     { "IP", SgfcPropertyType::IP },
-    { "KI", SgfcPropertyType::KI },
   };
 
   const std::map<SgfcPropertyType, std::string> SgfcConstants::PropertyTypeToPropertyNameMap =
@@ -266,7 +265,6 @@ namespace LibSgfcPlusPlus
     { SgfcPropertyType::RP, "RP" },
     { SgfcPropertyType::AS, "AS" },
     { SgfcPropertyType::IP, "IP" },
-    { SgfcPropertyType::KI, "KI" },
   };
 
   const std::map<SgfcNumber, SgfcGameType> SgfcConstants::GameTypeAsNumberToGameTypeMap =

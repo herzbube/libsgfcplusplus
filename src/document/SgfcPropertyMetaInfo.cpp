@@ -516,12 +516,6 @@ namespace LibSgfcPlusPlus
       // ----------------------------------------------------------------------
       // Non-standard properties
       // ----------------------------------------------------------------------
-      case SgfcPropertyType::KI:
-        if (this->gameType == SgfcGameType::Go)
-          // The type comes from the SGFC README.
-          return DescriptorNumber;
-        else
-          return DescriptorUnknown;
       case SgfcPropertyType::Unknown:
         return DescriptorUnknown;
 

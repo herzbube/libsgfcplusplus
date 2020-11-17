@@ -94,18 +94,20 @@ TODO
 
 ## Go support
 
-The SGF standard does not specify how to interpret Move, Point and Stone property values. However, the library treats Go as a first class citizen, in a similar way that SGFC does, and provides the following Go-specific types:
+#### Go-specific C++ types
+
+The SGF standard does not specify how to interpret Move, Point and Stone property values. However, the library treats Go as a first class citizen, in a similar way that SGFC does, and provides the following Go-specific C++ types:
 
 - `ISgfcGoPoint` and `ISgfcGoPointPropertyValue`
 - `ISgfcGoStone` and `ISgfcGoStonePropertyValue`
 - `ISgfcGoMove` and `ISgfcGoMovePropertyValue`
 
-In order for this support to be possible, the library needs to analyze the game type and board size properties (GM and SZ). For this purpose the library makes the following special property types available:
+In order for this support to be possible, the library needs to analyze the game type and board size properties (GM and SZ). For this purpose the library makes the following special property C++ types available:
 
 - `ISgfcGameTypeProperty`
 - `ISgfcBoardSizeProperty`
 
-## Pass moves for Go games
+#### Pass moves for Go games
 
 For Go [the SGF standard defines](https://www.red-bean.com/sgf/go.html#types) that black or white pass moves can have either value "" (an empty string) or "tt". The latter counts as pass move only for board sizes <= 19, for larger boards "tt" is a normal move. The SGF standard also mentions that "tt" is kept only for compatibility with FF3.
 
@@ -113,7 +115,7 @@ libsgfc++ always exposes pass moves as an empty string to the library client. Th
 
 When the library client programmatically sets up an `ISgfcDocument` with pass moves that have value "tt", and the document is then passed to `ISgfcDocumentWriter` for writing, the resulting SGF content will contain pass moves with empty string property values.
 
-## Compressed point lists
+#### Compressed point lists
 
 libsgfc++ automatically expands compressed point lists when it reads SGF content and the game type is Go (GM[1]). So when `ISgfcDocumentReader` reads SGF content the resulting object tree will contain one `ISgfcPointPropertyValue` object for each individual point on the Go board, whereas the original SGF content might have contained only a single property value.
 
@@ -123,6 +125,14 @@ When it writes SGF content and the game type is Go (GM[1]) libsgfc++ behaves in 
 - When the library client specifies the argument `SgfcArgumentType::ExpandCompressedPointLists`, libsgfc++ automatially expands compressed point lists, and leaves already expanded point lists alone so they remain expanded.
 
 When libsgfc++ expands a compressed point list it normalizes the resulting expanded point list. When libsgfc++ compresses an expanded point list it does so in the most efficient way. This means that in roundtrip processing, when SGF content is first read and then written, it is impossible to preserve the original format in all cases.
+
+#### The "KI" and "KM" properties
+
+According to the SGFC readme document the "KI" property is a private property of the "Smart Game Board" application (SGB). The property name means "integer komi".
+
+libsgfc++ converts "KI" to the Go-specific "KM" property, dividing the original "KI" numeric value by 2 to obtain the new "KM" value. libsgfc++ performs this conversion in all cases, even if the game tree's game type is not Go.
+
+When libsgfc++ reads SGF content it treats the "KM" property as having a Real value when the game tree's game type is Go. For all other game types it treats the "KM" property being a custom property with an unknown property value type.
 
 ## Inheritable properties
 
