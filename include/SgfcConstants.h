@@ -77,6 +77,23 @@ namespace LibSgfcPlusPlus
     static const int DeleteFileErrorMessageID;
     /// @brief Indicates a fatal error because memory allocation failed in SGFC.
     static const int OutOfMemoryErrorMessageID;
+    /// @brief Indicates a fatal error that occurred while libsgfc++ attempted
+    /// to parse SGF content in order to generate a document.
+    ///
+    /// This is likely to be a data-related issue, such as when libsgfc++
+    /// attempts to construct an ISgfcGameTypeProperty or ISgfcBoardSizeProperty
+    /// object with invalid property values.
+    static const int ParseSgfContentErrorMessageID;
+    /// @brief Indicates a fatal interfacing error between libsgfc++ and SGFC.
+    ///
+    /// Problems can range from simple (but fundamental) things such as an
+    /// unexpected @e nullptr in one of the SGFC data structures, to more
+    /// complex data-related issues such as when SGFC and libsgfc++ disagree
+    /// about the data type(s) of a property value.
+    ///
+    /// The message text is technical and unlikely to have any meaning for an
+    /// end user.
+    static const int SGFCInterfacingErrorMessageID;
     /// @brief Indicates an invalid line number. This is used for fatal error
     /// messages that do not refer to a specific line number in a piece of
     /// SGF content.

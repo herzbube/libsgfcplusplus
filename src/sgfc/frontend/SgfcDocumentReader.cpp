@@ -15,10 +15,12 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../../include/SgfcConstants.h"
 #include "../../document/SgfcDocument.h"
 #include "../../SgfcUtility.h"
 #include "../argument/SgfcArguments.h"
 #include "../backend/SgfcBackendController.h"
+#include "../message/SgfcMessage.h"
 #include "SgfcDocumentReader.h"
 #include "SgfcDocumentReadResult.h"
 
@@ -67,14 +69,37 @@ namespace LibSgfcPlusPlus
       SgfcExitCode sgfcExitCode = SgfcUtility::GetSgfcExitCodeFromMessageCollection(
         backendLoadResult->GetParseResult());
 
+      auto parseResult = backendLoadResult->GetParseResult();
+
       std::shared_ptr<ISgfcDocument> document;
-      if (sgfcExitCode != SgfcExitCode::FatalError)
-        document = std::shared_ptr<ISgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
-      else
+      if (sgfcExitCode == SgfcExitCode::FatalError)
+      {
         document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+      }
+      else
+      {
+        try
+        {
+          document = std::shared_ptr<ISgfcDocument>(new SgfcDocument(backendLoadResult->GetSgfDataWrapper()->GetSgfData()));
+        }
+        catch (std::invalid_argument& exception)
+        {
+          document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+          parseResult.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+            SgfcConstants::ParseSgfContentErrorMessageID,
+            exception.what())));
+        }
+        catch (std::domain_error& exception)
+        {
+          document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+          parseResult.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
+            SgfcConstants::SGFCInterfacingErrorMessageID,
+            exception.what())));
+        }
+      }
 
       std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
-        backendLoadResult->GetParseResult(),
+        parseResult,
         document));
       return result;
     }

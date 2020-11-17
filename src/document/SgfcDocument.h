@@ -48,6 +48,14 @@ namespace LibSgfcPlusPlus
     /// of @a sgfInfo.
     ///
     /// @exception std::invalid_argument Is thrown if @a sgfInfo is @e nullptr.
+    /// Is also thrown if an ISgfcGameTypeProperty or ISgfcBoardSizeProperty
+    /// object is constructed with invalid property values.
+    ///
+    /// @exception std::domain_error Is thrown if parsing of @a sgfInfo failed
+    /// due to an interfacing problem with SGFC. Problems can range from simple
+    /// (but fundamental) things such as an unexpected @e nullptr in one of the
+    /// SGFC data structures, to more complex data-related issues such as when
+    /// SGFC and libsgfc++ disagree about the data type(s) of a property value.
     SgfcDocument(SGFInfo* sgfInfo);
 
     /// @brief Destroys and cleans up the SgfcDocument object.

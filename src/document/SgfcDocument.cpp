@@ -70,6 +70,7 @@ namespace LibSgfcPlusPlus
     {
       auto rootNode = SgfcPlusPlusFactory::CreateNode();
 
+      // Both of these methods can throw std::domain_error
       SgfcGameType gameType = SgfcPropertyDecoder::GetGameTypeFromNode(sgfRootNode);
       SgfcBoardSize boardSize = SgfcPropertyDecoder::GetBoardSizeFromNode(sgfRootNode, gameType);
 
@@ -129,13 +130,13 @@ namespace LibSgfcPlusPlus
     Property* sgfProperty = sgfNode->prop;
     while (sgfProperty)
     {
+      // This can throw std::domain_error
       SgfcPropertyDecoder propertyDecoder(sgfProperty, gameType, boardSize);
 
-      SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
-      // TODO: This can throw std::domain_error. Either we deal with this
-      // (here or in an outer layer), or we document it on the public interface.
+      // This can throw std::domain_error
       std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues = propertyDecoder.GetPropertyValues();
 
+      SgfcPropertyType propertyType = propertyDecoder.GetPropertyType();
       if (propertyType == SgfcPropertyType::Unknown)
       {
         std::string propertyName = propertyDecoder.GetPropertyName();
@@ -144,8 +145,7 @@ namespace LibSgfcPlusPlus
       }
       else
       {
-        // TODO: This can throw std::invalid_argument. Either we deal with this
-        // (here or in an outer layer), or we document on the public interface.
+        // This can throw std::invalid_argument
         auto property = propertyFactory->CreateProperty(propertyType, propertyValues);
         properties.push_back(property);
       }
