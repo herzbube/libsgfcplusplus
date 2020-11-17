@@ -84,7 +84,8 @@ namespace LibSgfcPlusPlus
     virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const = 0;
 
     /// @brief Sets the values of the property to @a propertyValues. The
-    /// previous values are discarded.
+    /// previous values are discarded. @a propertyValues may not contain
+    /// @e nullptr. @a propertyValues may not contain duplicates.
     ///
     /// This setter makes no attempt to check the validity of the property
     /// values. A last-ditch attempt at validation is made by SGFC later when
@@ -94,6 +95,10 @@ namespace LibSgfcPlusPlus
     /// are valid. The consequence of faulty values is that the library client
     /// might be unable to read in the game tree again after it has been written
     /// out.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValues contains
+    /// a @e nullptr element, or if @a propertyValues contains duplicate
+    /// elements.
     virtual void SetPropertyValues(
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
 

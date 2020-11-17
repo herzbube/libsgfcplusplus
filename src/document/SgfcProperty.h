@@ -40,6 +40,10 @@ namespace LibSgfcPlusPlus
     /// @brief Initializes a newly constructed SgfcProperty object. The property
     /// has the specified type @a propertyType, name @a propertyName and
     /// property values @a propertyValues.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValues contains
+    /// a @e nullptr element, or if @a propertyValues contains duplicate
+    /// elements.
     SgfcProperty(
       SgfcPropertyType propertyType,
       const std::string& propertyName,

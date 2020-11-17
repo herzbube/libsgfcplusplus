@@ -19,6 +19,8 @@
 
 // C++ Standard Library includes
 #include <algorithm>
+#include <set>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
@@ -36,8 +38,8 @@ namespace LibSgfcPlusPlus
     const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
     : propertyType(propertyType)
     , propertyName(propertyName)
-    , propertyValues(propertyValues)
   {
+    SetPropertyValues(propertyValues);
   }
 
   SgfcProperty::~SgfcProperty()
@@ -66,6 +68,14 @@ namespace LibSgfcPlusPlus
 
   void SgfcProperty::SetPropertyValues(const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
   {
+    std::set<std::shared_ptr<ISgfcPropertyValue>> uniquePropertyValues(propertyValues.begin(), propertyValues.end());
+    if (uniquePropertyValues.size() != propertyValues.size())
+      throw std::invalid_argument("SetPropertyValues failed: Property value list contains duplicate elements");
+
+    auto result = std::find(std::begin(propertyValues), std::end(propertyValues), nullptr);
+    if (result != std::end(propertyValues))
+      throw std::invalid_argument("SetPropertyValues failed: Property value list contains nullptr element");
+
     this->propertyValues = propertyValues;
   }
 

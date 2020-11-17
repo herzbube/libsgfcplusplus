@@ -76,10 +76,11 @@ namespace LibSgfcPlusPlus
     /// or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
-    /// SgfcPropertyType::Unknown, or, in case @a propertyType is
-    /// SgfcPropertyType::SZ or SgfcPropertyType::GM, if @a propertyValue does
-    /// not meet the requirements of these property types. See the documentation
-    /// of CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
+    /// SgfcPropertyType::Unknown, or if @a propertyValue is @e nullptr. Is
+    /// also thrown in case @a propertyType is SgfcPropertyType::SZ or
+    /// SgfcPropertyType::GM and @a propertyValue does not meet the requirements
+    /// of these property types. See the documentation of
+    /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
       std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
@@ -95,11 +96,13 @@ namespace LibSgfcPlusPlus
     /// or ISgfcGameTypeProperty.
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
-    /// SgfcPropertyType::Unknown, or, in case @a propertyType is
-    /// SgfcPropertyType::SZ or SgfcPropertyType::GM, if @a propertyValues
-    /// contains more than one value or the value does not meet the requirements
-    /// of these property types. See the documentation of
-    /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
+    /// SgfcPropertyType::Unknown, or if @a propertyValues contains a @e nullptr
+    /// element, or if @a propertyValues contains duplicate elements. Is also
+    /// thrown if @a propertyType is SgfcPropertyType::SZ or
+    /// SgfcPropertyType::GM, if @a propertyValues contains more than one value
+    /// or the value does not meet the requirements of these property types.
+    /// See the documentation of CreateBoardSizeProperty() or
+    /// CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
@@ -138,11 +141,13 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
     /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     ///
-    /// @exception std::invalid_argument Is thrown if the mapped
-    /// SgfcPropertyType value is SgfcPropertyType::SZ or SgfcPropertyType::GM
-    /// and @a propertyValue does not meet the requirements of these property
-    /// types. See the documentation of CreateBoardSizeProperty() or
-    /// CreateGameTypeProperty() for details.
+    /// @exception std::invalid_argument
+    ///
+    /// @exception std::invalid_argument Is thrown if @a propertyValue is
+    /// @e nullptr. Is also thrown if the mapped SgfcPropertyType value is
+    /// SgfcPropertyType::SZ or SgfcPropertyType::GM and @a propertyValue does
+    /// not meet the requirements of these property types. See the documentation
+    /// of CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
       std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
@@ -164,12 +169,13 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
     /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     ///
-    /// @exception std::invalid_argument Is thrown if the mapped
-    /// SgfcPropertyType value is SgfcPropertyType::SZ or SgfcPropertyType::GM
-    /// and @a propertyValues contains more than one value or the value does
-    /// not meet the requirements of these property types. See the
-    /// documentation of CreateBoardSizeProperty() or CreateGameTypeProperty()
-    /// for details.
+    /// @exception std::invalid_argument Is thrown if @a propertyValues contains
+    /// a @e nullptr element, or if @a propertyValues contains duplicate
+    /// elements. Is also thrown if the mapped SgfcPropertyType value is
+    /// SgfcPropertyType::SZ or SgfcPropertyType::GM and @a propertyValues
+    /// contains more than one value or the value does not meet the requirements
+    /// of these property types. See the documentation of
+    /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
       const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
