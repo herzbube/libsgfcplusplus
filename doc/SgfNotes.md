@@ -2,6 +2,33 @@
 
 This document contains assorted notes about how libsgfc++ presents certain aspects of the SGF standard to the library client.
 
+## Object model
+
+EBNF terms and their corresponding libsgfc++ types:
+
+- Structural
+  - Collection → `ISgfcDocument`
+  - GameTree → `ISgfcGame`, but `ISgfcGame` objects cannot be nested. Instead an `ISgfcGame` has a full tree of nodes starting with a root node.
+  - Sequence → No corresponding libsgfc++ type
+  - Node → `ISgfcNode`
+  - Property → `ISgfcProperty`
+  - PropIdent → The "PropertyName" property of `ISgfcProperty`
+- Property values, basic
+  - PropValue → `ISgfcPropertyValue`
+  - ValueType → `ISgfcSinglePropertyValue`
+  - Compose → `ISgfcComposedPropertyValue`
+- Property values, concrete types
+  - Number → `ISgfcNumberPropertyValue`
+  - Real → `ISgfcRealPropertyValue`
+  - Double → `ISgfcDoublePropertyValue`
+  - Color → `ISgfcColorPropertyValue`
+  - SimpleText → `ISgfcSimpleTextPropertyValue`
+  - Text → `ISgfcTextPropertyValue`
+  - Point → `ISgfcPointPropertyValue`
+  - Move → `ISgfcMovePropertyValue`
+  - Stone → `ISgfcStonePropertyValue`
+  - None → See section [Properties with no value](#properties-with-no-value)
+
 ## SGF format
 
 The following has already been stated in the main README and elsewhere, but to reiterate:
