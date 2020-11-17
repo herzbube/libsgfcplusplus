@@ -15,7 +15,9 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../include/ISgfcColorPropertyValue.h"
 #include "../../include/ISgfcComposedPropertyValue.h"
+#include "../../include/ISgfcDoublePropertyValue.h"
 #include "../../include/ISgfcGame.h"
 #include "../../include/ISgfcGoMove.h"
 #include "../../include/ISgfcGoMovePropertyValue.h"
@@ -24,11 +26,15 @@
 #include "../../include/ISgfcGoStone.h"
 #include "../../include/ISgfcGoStonePropertyValue.h"
 #include "../../include/ISgfcMovePropertyValue.h"
+#include "../../include/ISgfcNumberPropertyValue.h"
 #include "../../include/ISgfcNode.h"
 #include "../../include/ISgfcPointPropertyValue.h"
 #include "../../include/ISgfcProperty.h"
 #include "../../include/ISgfcPropertyFactory.h"
+#include "../../include/ISgfcRealPropertyValue.h"
+#include "../../include/ISgfcSimpleTextPropertyValue.h"
 #include "../../include/ISgfcStonePropertyValue.h"
+#include "../../include/ISgfcTextPropertyValue.h"
 #include "../../include/ISgfcTreeBuilder.h"
 #include "../../include/SgfcPlusPlusFactory.h"
 #include "../parsing/SgfcPropertyDecoder.h"
@@ -253,38 +259,40 @@ namespace LibSgfcPlusPlus
     for (const auto& property : node->GetProperties())
     {
       nodeHasAtLeastOneProperty = true;
+      auto propertyValues = property->GetPropertyValues();
 
       std::cout << "    Property type = " << static_cast<int>(property->GetPropertyType()) << std::endl;
       std::cout << "    Property name = " << property->GetPropertyName() << std::endl;
+      std::cout << "    Value count   = " << propertyValues.size() << std::endl;
 
       int valueCount = 0;
       bool propertyHasAtLeastOneValue = false;
-      for (const auto& propertyValue : property->GetPropertyValues())
+      for (const auto& propertyValue : propertyValues)
       {
         valueCount++;
         propertyHasAtLeastOneValue = true;
 
         std::cout << "    Property value " << valueCount << std::endl;
 
-        std::cout << "      IsComposedValue = " << propertyValue->IsComposedValue() << std::endl;
+        std::cout << "      IsComposedValue    = " << propertyValue->IsComposedValue() << std::endl;
         if (propertyValue->IsComposedValue())
         {
           const ISgfcComposedPropertyValue* composedPropertyValue = propertyValue->ToComposedValue();
-          std::cout << "      Value type 1      = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
-          std::cout << "      Has typed value 1 = " << composedPropertyValue->GetValue1()->HasTypedValue() << std::endl;
-          std::cout << "      Raw value 1       = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
+          std::cout << "      Value type 1       = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
+          std::cout << "      Has typed value 1  = " << composedPropertyValue->GetValue1()->HasTypedValue() << std::endl;
+          std::cout << "      Raw value 1        = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
           DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue1().get());
-          std::cout << "      Value type 2      = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
-          std::cout << "      Has typed value 2 = " << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
-          std::cout << "      Raw value 2       = \"" << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
+          std::cout << "      Value type 2       = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
+          std::cout << "      Has typed value 2  = " << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
+          std::cout << "      Raw value 2        = \"" << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
           DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue2().get());
         }
         else
         {
           const ISgfcSinglePropertyValue* singlePropertyValue = propertyValue->ToSingleValue();
-          std::cout << "      Value type      = " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
-          std::cout << "      Has typed value = " << singlePropertyValue->HasTypedValue() << std::endl;
-          std::cout << "      Raw value       = \"" << singlePropertyValue->GetRawValue() << "\"" << std::endl;
+          std::cout << "      Value type         = " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
+          std::cout << "      Has typed value    = " << singlePropertyValue->HasTypedValue() << std::endl;
+          std::cout << "      Raw value          = \"" << singlePropertyValue->GetRawValue() << "\"" << std::endl;
           DebugPrintGoPropertyValueToConsole(singlePropertyValue);
         }
       }
@@ -303,45 +311,79 @@ namespace LibSgfcPlusPlus
 
   void SgfcDocument::DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const
   {
-    if (propertyValue->GetValueType() == SgfcPropertyValueType::Point)
+    if (! propertyValue->HasTypedValue())
+    {
+      std::cout << "      Type conversion error = \"" << propertyValue->GetTypeConversionErrorMessage() << "\"" << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Number)
+    {
+      std::cout << "      Number value       = " << propertyValue->ToNumberValue()->GetNumberValue() << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Real)
+    {
+      std::cout << "      Real value         = " << propertyValue->ToRealValue()->GetRealValue() << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Double)
+    {
+      std::cout << "      Double value       = " << static_cast<int>(propertyValue->ToDoubleValue()->GetDoubleValue()) << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Color)
+    {
+      std::cout << "      Color value        = " << static_cast<int>(propertyValue->ToColorValue()->GetColorValue()) << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::SimpleText)
+    {
+      std::cout << "      SimpleText value   = \"" << propertyValue->ToSimpleTextValue()->GetSimpleTextValue() << "\"" << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Text)
+    {
+      std::cout << "      Text value         = \"" << propertyValue->ToTextValue()->GetTextValue() << "\"" << std::endl;
+    }
+    else if (propertyValue->GetValueType() == SgfcPropertyValueType::Point)
     {
       const ISgfcPointPropertyValue* pointValue = propertyValue->ToPointValue();
-      const ISgfcGoPointPropertyValue* goPointValue = pointValue->ToGoPointValue();
-      std::cout << "      Is Go Point = " << (goPointValue != nullptr) << std::endl;
-      if (goPointValue == nullptr)
-        return;
+      std::cout << "      Point value        = \"" << pointValue->GetPointValue() << "\"" << std::endl;
 
-      std::shared_ptr<ISgfcGoPoint> goPoint = goPointValue->GetGoPoint();
-      DebugPrintGoPointValueToConsole(goPoint.get());
+      const ISgfcGoPointPropertyValue* goPointValue = pointValue->ToGoPointValue();
+      std::cout << "      Is Go Point        = " << (goPointValue != nullptr) << std::endl;
+      if (goPointValue != nullptr)
+      {
+        std::shared_ptr<ISgfcGoPoint> goPoint = goPointValue->GetGoPoint();
+        DebugPrintGoPointValueToConsole(goPoint.get());
+      }
     }
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Stone)
     {
       const ISgfcStonePropertyValue* stoneValue = propertyValue->ToStoneValue();
+      std::cout << "      Stone value        = \"" << stoneValue->GetStoneValue() << "\"" << std::endl;
+
       const ISgfcGoStonePropertyValue* goStoneValue = stoneValue->ToGoStoneValue();
-      std::cout << "      Is Go Stone = " << (goStoneValue != nullptr) << std::endl;
-      if (goStoneValue == nullptr)
-        return;
+      std::cout << "      Is Go Stone        = " << (goStoneValue != nullptr) << std::endl;
+      if (goStoneValue != nullptr)
+      {
+        std::shared_ptr<ISgfcGoStone> goStone = goStoneValue->GetGoStone();
+        std::cout << "        Stone color = " << static_cast<int>(goStone->GetColor()) << std::endl;
 
-      std::shared_ptr<ISgfcGoStone> goStone = goStoneValue->GetGoStone();
-      std::cout << "        Stone color = " << static_cast<int>(goStone->GetColor()) << std::endl;
-
-      std::shared_ptr<ISgfcGoPoint> location = goStone->GetLocation();
-      DebugPrintGoPointValueToConsole(location.get());
+        std::shared_ptr<ISgfcGoPoint> location = goStone->GetLocation();
+        DebugPrintGoPointValueToConsole(location.get());
+      }
     }
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Move)
     {
       const ISgfcMovePropertyValue* moveValue = propertyValue->ToMoveValue();
+      std::cout << "      Move  value        = \"" << moveValue->GetMoveValue() << "\"" << std::endl;
+
       const ISgfcGoMovePropertyValue* goMoveValue = moveValue->ToGoMoveValue();
-      std::cout << "      Is Go Move = " << (goMoveValue != nullptr) << std::endl;
-      if (goMoveValue == nullptr)
-        return;
+      std::cout << "      Is Go Move         = " << (goMoveValue != nullptr) << std::endl;
+      if (goMoveValue != nullptr)
+      {
+        std::shared_ptr<ISgfcGoMove> goMove = goMoveValue->GetGoMove();
+        std::cout << "        Player color = " << static_cast<int>(goMove->GetPlayerColor()) << std::endl;
+        std::cout << "        Is pass move = " << goMove->IsPassMove() << std::endl;
 
-      std::shared_ptr<ISgfcGoMove> goMove = goMoveValue->GetGoMove();
-      std::cout << "        Player color = " << static_cast<int>(goMove->GetPlayerColor()) << std::endl;
-      std::cout << "        Is pass move = " << goMove->IsPassMove() << std::endl;
-
-      std::shared_ptr<ISgfcGoPoint> location = goMove->GetStoneLocation();
-      DebugPrintGoPointValueToConsole(location.get());
+        std::shared_ptr<ISgfcGoPoint> location = goMove->GetStoneLocation();
+        DebugPrintGoPointValueToConsole(location.get());
+      }
     }
   }
 
