@@ -1,0 +1,18 @@
+This SGF file demonstrates various things related to escaping.
+- The game type is not 1, i.e. not Go, so that SGFC does not attempt to
+  interpret move/point/stone values.
+(
+;FF[4]GM[19]
+ AP[First \: SimpleText \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters:Second \: SimpleText \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;C[Text \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;C[Text \: value \: with \: [neces\\sary\] \: escape \: characters]
+;N[SimpleText \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;N[SimpleText \: value \: with \: [neces\\sary\] \: escape \: characters]
+;B[Move \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;B[Move \: value \: with \: [neces\\sary\] \: escape \: characters]
+;CR[Point \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;CR[Point \: value \: with \: [neces\\sary\] \: escape \: characters]
+;AB[Stone \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+;AW[Stone \: value \: with \: [neces\\sary\] \: escape \: characters]
+;AR[First \: Point \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters:Second \: Point \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters]
+)

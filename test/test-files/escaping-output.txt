@@ -1,0 +1,164 @@
+ReadSgfFile sgfcExitCode = 5
+IsSgfDataValid = 1
+
+Printing parse results...
+  Line:5 Col:7 - Warning 19 (critical): game stored in tree 1 is not Go. Cannot check move & position type -> errors will not get corrected!
+
+Printing document content...
+Game 1
+  Game type = 18
+  Node 1
+    Property type = 31
+    Property name = FF
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 1
+      Has typed value    = 1
+      Raw value          = "4"
+      Number value       = 4
+    Property type = 32
+    Property name = GM
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 1
+      Has typed value    = 1
+      Raw value          = "19"
+      Number value       = 19
+    Property type = 29
+    Property name = AP
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 1
+      Value type 1       = 5
+      Has typed value 1  = 1
+      Raw value 1        = "First \: SimpleText \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters"
+      SimpleText value   = "First : SimpleText : value : in : composed : value : with : [neces\sary] : escape : characters"
+      Value type 2       = 5
+      Has typed value 2  = 1
+      Raw value 2        = "Second \: SimpleText \: value \: in \: composed \: value \: with \: unneccessary \: escape \: characters"
+      SimpleText value   = "Second : SimpleText : value : in : composed : value : with : unneccessary : escape : characters"
+  Node 2
+    Property type = 8
+    Property name = C
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 6
+      Has typed value    = 1
+      Raw value          = "Text : value : with : unneccessary : escape : characters"
+      Text value         = "Text : value : with : unneccessary : escape : characters"
+  Node 3
+    Property type = 8
+    Property name = C
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 6
+      Has typed value    = 1
+      Raw value          = "Text : value : with : [neces\\sary\] : escape : characters"
+      Text value         = "Text : value : with : [neces\sary] : escape : characters"
+  Node 4
+    Property type = 13
+    Property name = N
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 5
+      Has typed value    = 1
+      Raw value          = "SimpleText : value : with : unneccessary : escape : characters"
+      SimpleText value   = "SimpleText : value : with : unneccessary : escape : characters"
+  Node 5
+    Property type = 13
+    Property name = N
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 5
+      Has typed value    = 1
+      Raw value          = "SimpleText : value : with : [neces\\sary\] : escape : characters"
+      SimpleText value   = "SimpleText : value : with : [neces\sary] : escape : characters"
+  Node 6
+    Property type = 0
+    Property name = B
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 8
+      Has typed value    = 1
+      Raw value          = "Move \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Move  value        = "Move \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Is Go Move         = 0
+  Node 7
+    Property type = 0
+    Property name = B
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 8
+      Has typed value    = 1
+      Raw value          = "Move \: value \: with \: [neces\\sary\] \: escape \: characters"
+      Move  value        = "Move \: value \: with \: [neces\\sary] \: escape \: characters"
+      Is Go Move         = 0
+  Node 8
+    Property type = 21
+    Property name = CR
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 7
+      Has typed value    = 1
+      Raw value          = "Point \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Point value        = "Point \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Is Go Point        = 0
+  Node 9
+    Property type = 21
+    Property name = CR
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 7
+      Has typed value    = 1
+      Raw value          = "Point \: value \: with \: [neces\\sary\] \: escape \: characters"
+      Point value        = "Point \: value \: with \: [neces\\sary] \: escape \: characters"
+      Is Go Point        = 0
+  Node 10
+    Property type = 4
+    Property name = AB
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 9
+      Has typed value    = 1
+      Raw value          = "Stone \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Stone value        = "Stone \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Is Go Stone        = 0
+  Node 11
+    Property type = 6
+    Property name = AW
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 0
+      Value type         = 9
+      Has typed value    = 1
+      Raw value          = "Stone \: value \: with \: [neces\\sary\] \: escape \: characters"
+      Stone value        = "Stone \: value \: with \: [neces\\sary] \: escape \: characters"
+      Is Go Stone        = 0
+  Node 12
+    Property type = 20
+    Property name = AR
+    Value count   = 1
+    Property value 1
+      IsComposedValue    = 1
+      Value type 1       = 7
+      Has typed value 1  = 1
+      Raw value 1        = "First \: Point \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters"
+      Point value        = "First : Point : value : in : composed : value : with : [neces\\sary] : escape : characters"
+      Is Go Point        = 0
+      Value type 2       = 7
+      Has typed value 2  = 1
+      Raw value 2        = "Second \: Point \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Point value        = "Second \: Point \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Is Go Point        = 0
+

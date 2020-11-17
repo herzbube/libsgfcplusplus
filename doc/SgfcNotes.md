@@ -2,7 +2,9 @@
 
 This document contains assorted notes about SGFC, how it operates, and the consequences this has for libsgfc++ and/or the library client.
 
-These notes can be important to understand the implementation of libsgfc++.
+If you simply want to use libsgfc++ you don't need to read this file, instead [SGF notes](SgfNotes.md) is the document for you.
+
+If you want to develop for libsgfc++ then these notes can be important to understand the implementation of libsgfc++.
 
 ## Escaping
 
@@ -14,9 +16,9 @@ libsgfc++ removes escape characters from SimpleText/Text property values so that
 
 Because SGFC does not add escape characters, libsgfc++ is responsible for adding escape characters back to SimpleText/Text property values to protect the special characters "\", "]" and ":".
 
-Technical detail: libsgfc++ escapes the ":" character even if the property value is not composed, but SGFC then removes that useless escape character again during `SaveSGF()`.
+For application-specific properties and Point/Move/Stone properties of game types != Go, neither SGFC nor libsgfc++ have any idea how the value type is structured. SGFC therefore does not do any escaping/unescaping at all, and libsgfc++ only performs escaping/unescaping on behalf of the library client in those cases where it's known to be required for the integrity of the SGF content (end-of-value character "]", separator character ":" in the first value of a composed value).
 
-For application-specific properties and Point/Move/Stone properties of game types != Go, libsgfc++ has no idea how the value type is structured. It therefore performs automatic escaping/unescaping only for the end-of-value character "]".
+Also see the detailed comments in `SgfcPropertyDecoder` and `SgfcDocumentEncoder`.
 
 ## Line breaks
 
