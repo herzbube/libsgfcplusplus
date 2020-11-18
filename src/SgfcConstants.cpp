@@ -365,4 +365,9 @@ namespace LibSgfcPlusPlus
 
   const SgfcBoardSize SgfcConstants::BoardSizeNone = { -1, -1 };
   const SgfcBoardSize SgfcConstants::BoardSizeInvalid = { -2, -2 };
+
+  const SgfcNodeTraits SgfcConstants::NodeTraitsNone = 0;
+  const SgfcNodeTraits SgfcConstants::NodeTraitsAll = std::numeric_limits<SgfcNodeTraits>::max();
+  const SgfcPropertyTraits SgfcConstants::PropertyTraitsNone = 0;
+  const SgfcPropertyTraits SgfcConstants::PropertyTraitsAll = std::numeric_limits<SgfcPropertyTraits>::max();
 }

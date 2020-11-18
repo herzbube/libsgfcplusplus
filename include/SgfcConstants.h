@@ -19,6 +19,8 @@
 // Project includes
 #include "SgfcBoardSize.h"
 #include "SgfcGameType.h"
+#include "SgfcNodeTraits.h"
+#include "SgfcPropertyTraits.h"
 #include "SgfcPropertyType.h"
 #include "SgfcTypedefs.h"
 
@@ -223,6 +225,29 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::SZ property is present in a game's root node but has
     /// an invalid size.
     static const SgfcBoardSize BoardSizeInvalid;
+
+    /// @brief An SgfcNodeTraits value that denotes a node that has no traits.
+    static const SgfcNodeTraits NodeTraitsNone;
+
+    /// @brief An SgfcNodeTraits value that denotes a node that has all traits.
+    /// It makes no sense for a node to actually have all traits, this is merely
+    /// a convenience constant for working with flags.
+    ///
+    /// This constant is set up to have all bits set in the underlying primitive
+    /// numeric type, so you should not rely on any particular numeric value.
+    static const SgfcNodeTraits NodeTraitsAll;
+
+    /// @brief An SgfcPropertyTraits value that denotes a property that has no
+    /// traits.
+    static const SgfcPropertyTraits PropertyTraitsNone;
+
+    /// @brief An SgfcPropertyTraits value that denotes a property that has all
+    /// traits. It makes no sense for a property to actually have all traits,
+    /// this is merely a convenience constant for working with flags.
+    ///
+    /// This constant is set up to have all bits set in the underlying primitive
+    /// numeric type, so you should not rely on any particular numeric value.
+    static const SgfcPropertyTraits PropertyTraitsAll;
     //@}
   };
 }

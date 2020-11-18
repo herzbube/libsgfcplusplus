@@ -4,6 +4,7 @@ set (
   document/SgfcDocumentTest.cpp
   document/SgfcGameTest.cpp
   document/SgfcNodeTest.cpp
+  document/SgfcNodeTraitsTest.cpp
   document/SgfcTreeBuilderTest.cpp
   game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPointTest.cpp

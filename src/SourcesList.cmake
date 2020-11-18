@@ -14,8 +14,10 @@ set (
   document/SgfcDocument.cpp
   document/SgfcGame.cpp
   document/SgfcNode.cpp
+  document/SgfcNodeTraits.cpp
   document/SgfcProperty.cpp
   document/SgfcPropertyMetaInfo.cpp
+  document/SgfcPropertyTraits.cpp
   document/SgfcSinglePropertyValue.cpp
   document/SgfcTreeBuilder.cpp
   document/typedproperty/SgfcBoardSizeProperty.cpp
@@ -224,7 +226,10 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/SgfcGameType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcGoPointNotation.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcMessageType.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcNodeTraits.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPlusPlusFactory.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyCategory.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyTraits.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyValueType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcTypedefs.h
