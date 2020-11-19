@@ -182,13 +182,15 @@ namespace LibSgfcPlusPlus
         return parent;
     }
 
-    // Actually we would like to return this object because the node is already
-    // the root node. Unfortunately we can't, because returning a new
-    // std::shared_ptr that contains this object would create a second source of
-    // ownership for this object - the first source was when the library's main
-    // factory created this object and handed it out wrapped in a
-    // std::shared_ptr.
-    return nullptr;
+    // shared_from_this returns a const object pointer because the method is
+    // declared const. But we want to return a non-const object pointer because
+    // the caller of the method should be free to do non-const things with the
+    // object, since at that time program execution has left the "const context"
+    // of the method. The only time it would not be safe to remove const'ness
+    // is if another const-declared method ON THE SAME object invokes the method
+    // and then does something non-const with the returned object, not realizing
+    // that it is operating on itself.
+    return std::const_pointer_cast<SgfcNode>(shared_from_this());
   }
 
   bool SgfcNode::IsRoot() const

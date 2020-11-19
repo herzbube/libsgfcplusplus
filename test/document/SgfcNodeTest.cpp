@@ -37,25 +37,25 @@ SCENARIO( "SgfcNode is constructed", "[document]" )
 
     WHEN( "SgfcNode is constructed" )
     {
-      auto node = SgfcNode();
+      auto node = std::make_shared<SgfcNode>();
 
       THEN( "SgfcNode has default state" )
       {
-        REQUIRE( node.GetFirstChild() == nullptr );
-        REQUIRE( node.GetLastChild() == nullptr );
-        REQUIRE( node.GetChildren().size() == 0 );
-        REQUIRE( node.HasChildren() == false );
-        REQUIRE( node.GetNextSibling() == nullptr );
-        REQUIRE( node.HasNextSibling() == false );
-        REQUIRE( node.GetPreviousSibling() == nullptr );
-        REQUIRE( node.HasPreviousSibling() == false );
-        REQUIRE( node.GetParent() == nullptr );
-        REQUIRE( node.HasParent() == false );
-        REQUIRE( node.GetRoot() == nullptr );
-        REQUIRE( node.IsRoot() == true );
-        REQUIRE( node.HasProperties() == false );
-        REQUIRE( node.GetProperties().size() == 0 );
-        REQUIRE( node.GetProperty(SgfcPropertyType::GM) == nullptr );
+        REQUIRE( node->GetFirstChild() == nullptr );
+        REQUIRE( node->GetLastChild() == nullptr );
+        REQUIRE( node->GetChildren().size() == 0 );
+        REQUIRE( node->HasChildren() == false );
+        REQUIRE( node->GetNextSibling() == nullptr );
+        REQUIRE( node->HasNextSibling() == false );
+        REQUIRE( node->GetPreviousSibling() == nullptr );
+        REQUIRE( node->HasPreviousSibling() == false );
+        REQUIRE( node->GetParent() == nullptr );
+        REQUIRE( node->HasParent() == false );
+        REQUIRE( node->GetRoot() == node );
+        REQUIRE( node->IsRoot() == true );
+        REQUIRE( node->HasProperties() == false );
+        REQUIRE( node->GetProperties().size() == 0 );
+        REQUIRE( node->GetProperty(SgfcPropertyType::GM) == nullptr );
       }
     }
   }
@@ -832,10 +832,10 @@ SCENARIO( "SgfcNode is queried for its position in the game tree", "[document]" 
         REQUIRE( siblingNode->GetRoot() == parentNode );
         REQUIRE( siblingNode->IsRoot() == false );
 
-        REQUIRE( parentNode->GetRoot() == nullptr );
+        REQUIRE( parentNode->GetRoot() == parentNode );
         REQUIRE( parentNode->IsRoot() == true );
 
-        REQUIRE( nodeInOtherTree->GetRoot() == nullptr );
+        REQUIRE( nodeInOtherTree->GetRoot() == nodeInOtherTree );
         REQUIRE( nodeInOtherTree->IsRoot() == true );
       }
     }

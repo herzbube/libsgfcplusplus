@@ -105,7 +105,14 @@ namespace LibSgfcPlusPlus
     virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const = 0;
 
     /// @brief Returns the root node of the game tree that contains the node.
-    /// Returns @e nullptr if the node is already the root node.
+    /// Returns the node itself if the node has no parent, i.e. if it is
+    /// itself the root node.
+    ///
+    /// @exception std::bad_weak_ptr Is thrown if the method would like to
+    /// return the node itself, but the ISgfcNode object is not wrapped by an
+    /// std::shared_ptr somewhere external. It is impossible for the library
+    /// client to encounter this scenario, it can only occur during internal
+    /// unit testing.
     virtual std::shared_ptr<ISgfcNode> GetRoot() const = 0;
 
     /// @brief Returns true if the node is the root node of a game tree. Returns

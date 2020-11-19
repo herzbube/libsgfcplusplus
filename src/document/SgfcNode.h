@@ -27,7 +27,26 @@ namespace LibSgfcPlusPlus
   ///
   /// @ingroup internals
   /// @ingroup game-tree
-  class SgfcNode : public ISgfcNode
+  ///
+  /// The SgfcNode class inherits from std::enable_shared_from_this so that it
+  /// can return a std::shared_ptr for itself (using the "this" pointer) from
+  /// some of its methods. This only works if the SgfcNode object is owned by
+  /// another external std::shared_ptr somewhere. If there is no such external
+  /// std::shared_ptr the method in question will throw std::bad_weak_ptr.
+  /// This is documented on the public interface for all affected methods.
+  ///
+  /// The implementation of this class must take special care when it internally
+  /// invokes one of the above-mentioned methods:
+  /// - If the calling method A is const
+  /// - And if the called method B is also const
+  /// - And if the called method B returns a non-const object
+  /// - Then the calling method A must not do anything non-const with the
+  ///   returned non-const object
+  /// The reason: The returned non-const object is actually the same object that
+  /// invoked method B, so the const method A would do something non-const to
+  /// itself. See GetRoot() for an example where const'ness is removed to open
+  /// open the described hazard.
+  class SgfcNode : public ISgfcNode, public std::enable_shared_from_this<SgfcNode>
   {
   public:
     /// @brief Initializes a newly constructed SgfcNode object. The node has
