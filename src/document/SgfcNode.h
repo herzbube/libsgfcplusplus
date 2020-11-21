@@ -100,6 +100,9 @@ namespace LibSgfcPlusPlus
     virtual SgfcNodeTraits GetTraits() const;
     virtual bool HasTrait(SgfcNodeTrait trait) const;
 
+    virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const;
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const;
+
     virtual bool HasProperties() const;
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const;
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties);

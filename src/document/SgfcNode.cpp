@@ -225,6 +225,37 @@ namespace LibSgfcPlusPlus
     return (traits & trait) != SgfcConstants::NodeTraitsNone;
   }
 
+  std::shared_ptr<ISgfcNode> SgfcNode::GetGameInfoNode() const
+  {
+    // See comment in GetRoot() about shared_from_this
+    std::shared_ptr<ISgfcNode> node = std::const_pointer_cast<SgfcNode>(shared_from_this());
+
+    while (node)
+    {
+      if (node->HasTrait(SgfcNodeTrait::GameInfo))
+        return node;
+      node = node->GetParent();
+    }
+
+    return nullptr;
+  }
+
+  std::vector<std::shared_ptr<ISgfcNode>> SgfcNode::GetMainVariationNodes() const
+  {
+    std::vector<std::shared_ptr<ISgfcNode>> mainVariationNodes;
+
+    // See comment in GetRoot() about shared_from_this
+    std::shared_ptr<ISgfcNode> node = std::const_pointer_cast<SgfcNode>(shared_from_this());
+
+    while (node)
+    {
+      mainVariationNodes.push_back(node);
+      node = node->GetFirstChild();
+    }
+
+    return mainVariationNodes;
+  }
+
   bool SgfcNode::HasProperties() const
   {
     return ! this->properties.empty();

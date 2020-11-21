@@ -141,6 +141,54 @@ namespace LibSgfcPlusPlus
     virtual bool HasTrait(SgfcNodeTrait trait) const = 0;
     //@}
 
+    /// @name Game tree search
+    //@{
+    /// @brief Returns the first node among the node itself and its ancestors
+    /// that has the trait SgfcNodeTrait::GameInfo. Returns @e nullptr if there
+    /// is no such node.
+    ///
+    /// The search starts with the node itself, then progresses to the node's
+    /// parent, the node's parent's parent, etc. up to the root node of the
+    /// game tree. The search returns the first node whose GetTraits() method
+    /// returns a value that includes SgfcNodeTrait::GameInfo.
+    ///
+    /// @see SgfcNodeTrait::GameInfo
+    ///
+    /// @exception std::bad_weak_ptr Is thrown if the method would like to
+    /// return the node itself, but the ISgfcNode object is not wrapped by an
+    /// std::shared_ptr somewhere external. It is impossible for the library
+    /// client to encounter this scenario, it can only occur during internal
+    /// unit testing.
+    virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const = 0;
+
+    /// @brief Returns an ordered collection of nodes that form the main
+    /// variation of game play found on the node itself and its first child
+    /// descendants.
+    ///
+    /// The main variation is defined as the depth-first path that starts with
+    /// the node itself and continues along the first child descendants down
+    /// to the last node that has no more children. The collection that is
+    /// returned therefore contains the following nodes in the listed order:
+    ///
+    /// - Element 0: The node itself
+    /// - Element 1: The node's first child
+    /// - Element 2: The node's first child's first child
+    /// - Etc.
+    ///
+    /// If the node has no children the returned collection contains only the
+    /// node itself.
+    ///
+    /// This is a convenience method that is most useful when invoked on a
+    /// game info node, i.e. a node that has the trait SgfcNodeTrait::GameInfo.
+    ///
+    /// @exception std::bad_weak_ptr Is thrown if the method would like to
+    /// return the node itself, but the ISgfcNode object is not wrapped by an
+    /// std::shared_ptr somewhere external. It is impossible for the library
+    /// client to encounter this scenario, it can only occur during internal
+    /// unit testing.
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const = 0;
+    //@}
+
     /// @name Property access
     //@{
     /// @brief Returns true if the node has one or more properties. Returns
