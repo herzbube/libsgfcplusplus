@@ -15,6 +15,8 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../include/SgfcConstants.h"
+#include "../SgfcUtility.h"
 #include "SgfcNode.h"
 
 // C++ Standard Library includes
@@ -196,6 +198,31 @@ namespace LibSgfcPlusPlus
   bool SgfcNode::IsRoot() const
   {
     return (this->parent.lock() == nullptr);
+  }
+
+  SgfcNodeTraits SgfcNode::GetTraits() const
+  {
+    SgfcNodeTraits traits = SgfcConstants::NodeTraitsNone;
+
+    if (IsRoot())
+      traits |= SgfcNodeTrait::Root;
+
+    for (auto property : this->properties)
+    {
+      SgfcPropertyCategory propertyCategory = property->GetPropertyCategory();
+      traits |= SgfcUtility::MapPropertyCategoryToNodeTraits(propertyCategory);
+
+      if (property->HasTrait(SgfcPropertyTrait::Inheritable))
+        traits |= SgfcNodeTrait::Inheritable;
+    }
+
+    return traits;
+  }
+
+  bool SgfcNode::HasTrait(SgfcNodeTrait trait) const
+  {
+    SgfcNodeTraits traits = GetTraits();
+    return (traits & trait) != SgfcConstants::NodeTraitsNone;
   }
 
   bool SgfcNode::HasProperties() const

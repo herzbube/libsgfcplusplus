@@ -18,6 +18,7 @@
 
 // Project includes
 #include "ISgfcProperty.h"
+#include "SgfcNodeTraits.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -48,6 +49,8 @@ namespace LibSgfcPlusPlus
     /// the node has no children.
     virtual std::shared_ptr<ISgfcNode> GetFirstChild() const = 0;
 
+    /// @name Game tree navigation
+    //@{
     /// @brief Returns the node's last child node. Returns @e nullptr if
     /// the node has no children.
     virtual std::shared_ptr<ISgfcNode> GetLastChild() const = 0;
@@ -118,7 +121,28 @@ namespace LibSgfcPlusPlus
     /// @brief Returns true if the node is the root node of a game tree. Returns
     /// false if the node is not the root node of a game tree.
     virtual bool IsRoot() const = 0;
+    //@}
 
+    /// @name Node traits
+    //@{
+    /// @brief Returns the node's traits.
+    ///
+    /// Returns SgfcConstants::NodeTraitsNone if the node is not the root node
+    /// of a game tree and if it has either no properties or only properties
+    /// with SgfcPropertyCategory::Miscellaneous.
+    ///
+    /// @see SgfcNodeTraits
+    virtual SgfcNodeTraits GetTraits() const = 0;
+
+    /// @brief Returns true if the node has the trait @a trait. Returns false
+    /// if the node does not have the trait @a trait.
+    ///
+    /// @see SgfcNodeTrait
+    virtual bool HasTrait(SgfcNodeTrait trait) const = 0;
+    //@}
+
+    /// @name Property access
+    //@{
     /// @brief Returns true if the node has one or more properties. Returns
     /// false if the node has no properties.
     virtual bool HasProperties() const = 0;
@@ -192,5 +216,6 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines that only one of each property is allowed per
     /// node.
     virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const = 0;
+    //@}
   };
 }
