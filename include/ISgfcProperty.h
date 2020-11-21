@@ -18,6 +18,8 @@
 
 // Project includes
 #include "ISgfcPropertyValue.h"
+#include "SgfcPropertyCategory.h"
+#include "SgfcPropertyTraits.h"
 #include "SgfcPropertyType.h"
 
 // Project includes (generated)
@@ -66,6 +68,24 @@ namespace LibSgfcPlusPlus
     /// the standard may not adhere to this restriction (although the standard
     /// advises against this).
     virtual std::string GetPropertyName() const = 0;
+
+    /// @brief Returns the category that the property is classified as. Returns
+    /// SgfcPropertyCategory::Miscellaneous if the property is a custom property
+    /// that is not defined in the SGF standard.
+    virtual SgfcPropertyCategory GetPropertyCategory() const = 0;
+
+    /// @brief Returns the property's traits.
+    ///
+    /// Returns SgfcConstants::PropertyTraitsNone if the property is no traits.
+    ///
+    /// @see SgfcPropertyTraits
+    virtual SgfcPropertyTraits GetTraits() const = 0;
+
+    /// @brief Returns true if the property has the trait @a trait. Returns
+    /// false if the property does not have the trait @a trait.
+    ///
+    /// @see SgfcPropertyTraits
+    virtual bool HasTrait(SgfcPropertyTrait trait) const = 0;
 
     /// @brief Returns true if the property has one or more values. Returns
     /// false if the property has no values.

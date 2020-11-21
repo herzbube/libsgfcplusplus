@@ -55,6 +55,10 @@ namespace LibSgfcPlusPlus
     virtual SgfcPropertyType GetPropertyType() const;
     virtual std::string GetPropertyName() const;
 
+    virtual SgfcPropertyCategory GetPropertyCategory() const;
+    virtual SgfcPropertyTraits GetTraits() const;
+    virtual bool HasTrait(SgfcPropertyTrait trait) const;
+
     virtual bool HasPropertyValues() const;
     virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
     virtual void SetPropertyValues(const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);

@@ -15,6 +15,8 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../include/SgfcConstants.h"
+#include "../SgfcUtility.h"
 #include "SgfcProperty.h"
 
 // C++ Standard Library includes
@@ -54,6 +56,22 @@ namespace LibSgfcPlusPlus
   std::string SgfcProperty::GetPropertyName() const
   {
     return this->propertyName;
+  }
+
+  SgfcPropertyCategory SgfcProperty::GetPropertyCategory() const
+  {
+    return SgfcUtility::MapPropertyTypeToPropertyCategory(this->propertyType);
+  }
+
+  SgfcPropertyTraits SgfcProperty::GetTraits() const
+  {
+    return SgfcUtility::MapPropertyTypeToPropertyTraits(this->propertyType);
+  }
+
+  bool SgfcProperty::HasTrait(SgfcPropertyTrait trait) const
+  {
+    auto traits = GetTraits();
+    return (traits & trait) != SgfcConstants::NodeTraitsNone;
   }
 
   bool SgfcProperty::HasPropertyValues() const
