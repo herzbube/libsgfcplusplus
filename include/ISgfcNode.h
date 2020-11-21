@@ -107,17 +107,6 @@ namespace LibSgfcPlusPlus
     /// @exception std::invalid_argument Is thrown if @a node is @e nullptr.
     virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const = 0;
 
-    /// @brief Returns the root node of the game tree that contains the node.
-    /// Returns the node itself if the node has no parent, i.e. if it is
-    /// itself the root node.
-    ///
-    /// @exception std::bad_weak_ptr Is thrown if the method would like to
-    /// return the node itself, but the ISgfcNode object is not wrapped by an
-    /// std::shared_ptr somewhere external. It is impossible for the library
-    /// client to encounter this scenario, it can only occur during internal
-    /// unit testing.
-    virtual std::shared_ptr<ISgfcNode> GetRoot() const = 0;
-
     /// @brief Returns true if the node is the root node of a game tree. Returns
     /// false if the node is not the root node of a game tree.
     virtual bool IsRoot() const = 0;
@@ -143,6 +132,17 @@ namespace LibSgfcPlusPlus
 
     /// @name Game tree search
     //@{
+    /// @brief Returns the root node of the game tree that contains the node.
+    /// Returns the node itself if the node has no parent, i.e. if it is
+    /// itself the root node.
+    ///
+    /// @exception std::bad_weak_ptr Is thrown if the method would like to
+    /// return the node itself, but the ISgfcNode object is not wrapped by an
+    /// std::shared_ptr somewhere external. It is impossible for the library
+    /// client to encounter this scenario, it can only occur during internal
+    /// unit testing.
+    virtual std::shared_ptr<ISgfcNode> GetRoot() const = 0;
+
     /// @brief Returns the first node among the node itself and its ancestors
     /// that has the trait SgfcNodeTrait::GameInfo. Returns @e nullptr if there
     /// is no such node.

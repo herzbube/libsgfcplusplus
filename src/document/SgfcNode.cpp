@@ -173,28 +173,6 @@ namespace LibSgfcPlusPlus
     return false;
   }
 
-  std::shared_ptr<ISgfcNode> SgfcNode::GetRoot() const
-  {
-    auto parent = this->parent.lock();
-    while (parent)
-    {
-      if (parent->HasParent())
-        parent = parent->GetParent();
-      else
-        return parent;
-    }
-
-    // shared_from_this returns a const object pointer because the method is
-    // declared const. But we want to return a non-const object pointer because
-    // the caller of the method should be free to do non-const things with the
-    // object, since at that time program execution has left the "const context"
-    // of the method. The only time it would not be safe to remove const'ness
-    // is if another const-declared method ON THE SAME object invokes the method
-    // and then does something non-const with the returned object, not realizing
-    // that it is operating on itself.
-    return std::const_pointer_cast<SgfcNode>(shared_from_this());
-  }
-
   bool SgfcNode::IsRoot() const
   {
     return (this->parent.lock() == nullptr);
@@ -223,6 +201,28 @@ namespace LibSgfcPlusPlus
   {
     SgfcNodeTraits traits = GetTraits();
     return (traits & trait) != SgfcConstants::NodeTraitsNone;
+  }
+
+  std::shared_ptr<ISgfcNode> SgfcNode::GetRoot() const
+  {
+    auto parent = this->parent.lock();
+    while (parent)
+    {
+      if (parent->HasParent())
+        parent = parent->GetParent();
+      else
+        return parent;
+    }
+
+    // shared_from_this returns a const object pointer because the method is
+    // declared const. But we want to return a non-const object pointer because
+    // the caller of the method should be free to do non-const things with the
+    // object, since at that time program execution has left the "const context"
+    // of the method. The only time it would not be safe to remove const'ness
+    // is if another const-declared method ON THE SAME object invokes the method
+    // and then does something non-const with the returned object, not realizing
+    // that it is operating on itself.
+    return std::const_pointer_cast<SgfcNode>(shared_from_this());
   }
 
   std::shared_ptr<ISgfcNode> SgfcNode::GetGameInfoNode() const

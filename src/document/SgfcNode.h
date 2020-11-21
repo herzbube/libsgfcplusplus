@@ -94,12 +94,12 @@ namespace LibSgfcPlusPlus
     virtual bool HasParent() const;
     virtual bool IsDescendantOf(std::shared_ptr<ISgfcNode> node) const;
     virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const;
-    virtual std::shared_ptr<ISgfcNode> GetRoot() const;
     virtual bool IsRoot() const;
 
     virtual SgfcNodeTraits GetTraits() const;
     virtual bool HasTrait(SgfcNodeTrait trait) const;
 
+    virtual std::shared_ptr<ISgfcNode> GetRoot() const;
     virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const;
     virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const;
 
