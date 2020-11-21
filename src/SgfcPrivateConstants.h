@@ -19,6 +19,8 @@
 // Project includes
 #include "../include/SgfcArgumentType.h"
 #include "../include/SgfcMessageType.h"
+#include "../include/SgfcNodeTraits.h"
+#include "../include/SgfcPropertyCategory.h"
 
 // C++ Standard Library includes
 #include <map>
@@ -166,6 +168,19 @@ namespace LibSgfcPlusPlus
     /// @brief The default raw message text to be used when the raw text for
     /// some reason cannot be determined by parsing.
     static const std::string DefaultRawMessageText;
+    //@}
+
+    /// @name Mappings between libsgfc++ values and SGF standard values, and vice versa
+    //@{
+    /// @brief Maps values from the enumeration SgfcPropertyCategory to values
+    /// from the enumeration SgfcNodeTrait.
+    ///
+    /// If a node contains one or more properties classified as a specific
+    /// SgfcPropertyCategory then the node has the SgfcNodeTrait that is mapped
+    /// to that SgfcPropertyCategory. For some SgfcPropertyCategory values there
+    /// is no mapping. Because this use of the map is not overly intuitive it is
+    /// not part of the public constants.
+    static const std::map<SgfcPropertyCategory, SgfcNodeTrait> PropertyCategoryToNodeTraitMap;
     //@}
   };
 }

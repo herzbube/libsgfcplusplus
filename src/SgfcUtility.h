@@ -22,6 +22,9 @@
 #include "../include/SgfcExitCode.h"
 #include "../include/SgfcGameType.h"
 #include "../include/SgfcArgumentType.h"
+#include "../include/SgfcNodeTraits.h"
+#include "../include/SgfcPropertyCategory.h"
+#include "../include/SgfcPropertyTraits.h"
 #include "../include/SgfcPropertyType.h"
 #include "../include/SgfcTypedefs.h"
 
@@ -62,6 +65,40 @@ namespace LibSgfcPlusPlus
     /// This is a convenience function that looks up @a propertyName in
     /// SgfcConstants::PropertyNameToPropertyTypeMap.
     static SgfcPropertyType MapPropertyNameToPropertyType(const std::string& propertyName);
+
+    /// @brief Returns the property category, as defined by the SGF standard,
+    /// that corresponds to @a propertyType.
+    ///
+    /// This is a convenience function that looks up @a propertyType in
+    /// SgfcConstants::PropertyTypeToPropertyCategoryMap.
+    ///
+    /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
+    /// if @a propertyType does not appear in
+    /// SgfcConstants::PropertyTypeToPropertyCategoryMap. If this occurs it
+    /// indicates a programming error in the library, i.e. an SgfcPropertyType
+    /// value was not added to SgfcConstants::PropertyTypeToPropertyCategoryMap.
+    static SgfcPropertyCategory MapPropertyTypeToPropertyCategory(SgfcPropertyType propertyType);
+
+    /// @brief Returns the property traits, as defined by the SGF standard,
+    /// that the property with property type @a propertyType has.
+    ///
+    /// This is a convenience function that looks up @a propertyType in
+    /// SgfcConstants::PropertyTypeToPropertyTraitsMap.
+    ///
+    /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
+    /// if @a propertyType does not appear in
+    /// SgfcConstants::PropertyTypeToPropertyTraitsMap. If this occurs it
+    /// indicates a programming error in the library, i.e. an SgfcPropertyType
+    /// value was not added to SgfcConstants::PropertyTypeToPropertyTraitsMap.
+    static SgfcPropertyTraits MapPropertyTypeToPropertyTraits(SgfcPropertyType propertyType);
+
+    /// @brief Returns the node trait, as defined by the SGF standard, that
+    /// corresponds to @a propertyCategory. Returns
+    /// SgfcConstants::NodeTraitsNone if @a propertyCategory cannot be mapped.
+    ///
+    /// This is a convenience function that looks up @a propertyCategory in
+    /// SgfcPrivateConstants::PropertyCategoryToNodeTraitMap.
+    static SgfcNodeTraits MapPropertyCategoryToNodeTraits(SgfcPropertyCategory propertyCategory);
 
     /// @brief Returns the SgfcNumber value that corresponds to the SgfcGameType
     /// value @a gameType. @a gameType must not be SgfcGameType::Unknown.

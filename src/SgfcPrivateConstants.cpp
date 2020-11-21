@@ -128,4 +128,23 @@ namespace LibSgfcPlusPlus
   const bool SgfcPrivateConstants::DefaultIsCriticalMessage = false;
   const std::string SgfcPrivateConstants::DefaultMessageText = SgfcPrivateConstants::EmptyString;
   const std::string SgfcPrivateConstants::DefaultRawMessageText = SgfcPrivateConstants::EmptyString;
+
+  const std::map<SgfcPropertyCategory, SgfcNodeTrait> SgfcPrivateConstants::PropertyCategoryToNodeTraitMap
+  {
+    { SgfcPropertyCategory::GameInfo, SgfcNodeTrait::GameInfo },
+    { SgfcPropertyCategory::Move, SgfcNodeTrait::Move },
+    { SgfcPropertyCategory::Setup, SgfcNodeTrait::Setup },
+    { SgfcPropertyCategory::NodeAnnotation, SgfcNodeTrait::NodeAnnotation },
+    { SgfcPropertyCategory::MoveAnnotation, SgfcNodeTrait::MoveAnnotation },
+    { SgfcPropertyCategory::Markup, SgfcNodeTrait::Markup },
+    { SgfcPropertyCategory::Timing, SgfcNodeTrait::Timing },
+
+    // No mapping for SgfcPropertyCategory::Root because a root property does
+    // not automatically make a node a root node. Only the node's position in
+    // the game tree determines if it's a root node.
+
+    // No mapping for SgfcPropertyCategory::Miscellaneous because there's no
+    // SgfcNodeTrait::Miscellaneous (because there's no point in having such
+    // a trait).
+  };
 }

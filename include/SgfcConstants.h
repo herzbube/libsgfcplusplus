@@ -20,6 +20,7 @@
 #include "SgfcBoardSize.h"
 #include "SgfcGameType.h"
 #include "SgfcNodeTraits.h"
+#include "SgfcPropertyCategory.h"
 #include "SgfcPropertyTraits.h"
 #include "SgfcPropertyType.h"
 #include "SgfcTypedefs.h"
@@ -141,6 +142,10 @@ namespace LibSgfcPlusPlus
     ///
     /// The SGF standard defines this to be an empty string.
     static const std::string GoMovePassString;
+    //@}
+
+    /// @name Mappings between libsgfc++ values and SGF standard values, and vice versa
+    //@{
     /// @brief Maps property names as defined by the SGF standard to values from
     /// the enumeration SgfcPropertyType.
     static const std::map<std::string, SgfcPropertyType> PropertyNameToPropertyTypeMap;
@@ -148,6 +153,12 @@ namespace LibSgfcPlusPlus
     /// names as defined by the SGF standard. SgfcPropertyType::Unknown does
     /// not appear in the map.
     static const std::map<SgfcPropertyType, std::string> PropertyTypeToPropertyNameMap;
+    /// @brief Maps values from the enumeration SgfcPropertyType to values from
+    /// the enumeration SgfcPropertyCategory.
+    static const std::map<SgfcPropertyType, SgfcPropertyCategory> PropertyTypeToPropertyCategoryMap;
+    /// @brief Maps values from the enumeration SgfcPropertyType to
+    /// SgfcPropertyTraits values.
+    static const std::map<SgfcPropertyType, SgfcPropertyTraits> PropertyTypeToPropertyTraitsMap;
     /// @brief Maps game type Number values as defined by the SGF standard to
     /// values from the enumeration SgfcGameType.
     static const std::map<SgfcNumber, SgfcGameType> GameTypeAsNumberToGameTypeMap;

@@ -63,6 +63,45 @@ namespace LibSgfcPlusPlus
       return SgfcPropertyType::Unknown;
   }
 
+  SgfcPropertyCategory SgfcUtility::MapPropertyTypeToPropertyCategory(SgfcPropertyType propertyType)
+  {
+    auto it = SgfcConstants::PropertyTypeToPropertyCategoryMap.find(propertyType);
+
+    if (it == SgfcConstants::PropertyTypeToPropertyCategoryMap.cend())
+    {
+      std::stringstream message;
+      message << "Property type cannot be mapped to property category, argument has unsupported value: " << static_cast<int>(propertyType);
+      throw std::invalid_argument(message.str());
+    }
+
+    return it->second;
+  }
+
+  SgfcPropertyTraits SgfcUtility::MapPropertyTypeToPropertyTraits(SgfcPropertyType propertyType)
+  {
+    auto it = SgfcConstants::PropertyTypeToPropertyTraitsMap.find(propertyType);
+
+    if (it == SgfcConstants::PropertyTypeToPropertyTraitsMap.cend())
+    {
+      std::stringstream message;
+      message << "Property type cannot be mapped to property traits, argument has unsupported value: " << static_cast<int>(propertyType);
+      throw std::invalid_argument(message.str());
+    }
+
+    return it->second;
+  }
+
+  SgfcNodeTraits SgfcUtility::MapPropertyCategoryToNodeTraits(SgfcPropertyCategory propertyCategory)
+  {
+    SgfcNodeTraits nodeTraits = SgfcConstants::NodeTraitsNone;
+
+    auto it = SgfcPrivateConstants::PropertyCategoryToNodeTraitMap.find(propertyCategory);
+    if (it != SgfcPrivateConstants::PropertyCategoryToNodeTraitMap.cend())
+      nodeTraits |= it->second;
+
+    return nodeTraits;
+  }
+
   SgfcNumber SgfcUtility::MapGameTypeToNumberValue(SgfcGameType gameType)
   {
     auto it = SgfcConstants::GameTypeToGameTypeAsNumberMap.find(gameType);
