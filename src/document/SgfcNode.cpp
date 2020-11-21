@@ -22,6 +22,7 @@
 // C++ Standard Library includes
 #include <algorithm>
 #include <map>
+#include <set>
 #include <sstream>
 
 namespace LibSgfcPlusPlus
@@ -373,5 +374,49 @@ namespace LibSgfcPlusPlus
     }
 
     return true;
+  }
+
+  std::vector<std::shared_ptr<ISgfcProperty>> SgfcNode::GetProperties(SgfcPropertyCategory propertyCategory) const
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties;
+
+    for (auto property : this->properties)
+    {
+      if (property->GetPropertyCategory() == propertyCategory)
+        properties.push_back(property);
+    }
+
+    return properties;
+  }
+
+  std::vector<std::shared_ptr<ISgfcProperty>> SgfcNode::GetInheritedProperties() const
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties;
+
+    std::set<std::string> propertyNamesSeen;
+
+    const ISgfcNode* node = this;
+    while (node)
+    {
+      for (auto property : this->properties)
+      {
+        auto propertyName = property->GetPropertyName();
+        if (propertyNamesSeen.find(propertyName) != propertyNamesSeen.end())
+        {
+          // Ignore property, we have already seen it in a previous node
+          continue;
+        }
+
+        if (property->HasTrait(SgfcPropertyTrait::Inheritable))
+        {
+          properties.push_back(property);
+          propertyNamesSeen.insert(propertyName);
+        }
+      }
+
+      node = node->GetParent().get();
+    }
+
+    return properties;
   }
 }

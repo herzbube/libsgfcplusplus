@@ -19,6 +19,7 @@
 // Project includes
 #include "ISgfcProperty.h"
 #include "SgfcNodeTraits.h"
+#include "SgfcPropertyCategory.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -264,6 +265,46 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines that only one of each property is allowed per
     /// node.
     virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const = 0;
+
+    /// @brief Returns a collection with the properties of the node that are
+    /// classified as @a propertyCategory. The collection is empty if the
+    /// node has no properties with the requested category. The collection has
+    /// no particular order.
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties(SgfcPropertyCategory propertyCategory) const = 0;
+
+    /// @brief Returns a collection with the most recent occurrence of each
+    /// property that has the trait SgfcPropertyTrait::Inhheritable, when found
+    /// on the node itself and its ancestors. The collection is empty if no
+    /// properties were found. The collection has no particular order.
+    ///
+    /// Ancestors are searched only up to the game info node, or the root node
+    /// if there is no game info node.
+    ///
+    /// The detailed search logic is this:
+    /// - Determine a list of properties that have the trait
+    ///   SgfcPropertyTrait::Inhheritable.
+    /// - Start examining the node itself, then the node's parent, etc. up to
+    ///   the node that GetGameInfoNode() returns, or the game tree's root node
+    ///   in case GetGameInfoNode() returns @e nullptr.
+    /// - When a node contains one of the inheritable properties, include that
+    ///   property in the search result returned by the method, then stop
+    ///   looking for that particular property.
+    /// - Stop the searchh when all properties have been found.
+    ///
+    /// The SGF standard's description of inheritable properties includes the
+    /// concept of a "setting getting cleared". The implication is that if a
+    /// "setting is cleared" then, from the node's perspective, things should
+    /// look as if the property that defines the setting has never been there
+    /// in the first place. Ideally then the search result returned by the
+    /// method should not include a property if that property's most recent
+    /// occurrence "cleared the setting". The problem is the interpretation of
+    /// when a setting is "being cleared". The SGF standard says that this
+    /// @b typically happens when the property is set with an empty value - but
+    /// @b typically is not @b always. Because the SGF standard is not
+    /// definitive about the meaning, the method does not make assumptions. It
+    /// simply returns a property's most recent occurrence and leaves the
+    /// interpretation of the property value to the library client.
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetInheritedProperties() const = 0;
     //@}
   };
 }

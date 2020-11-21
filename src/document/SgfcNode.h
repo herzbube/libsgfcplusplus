@@ -111,6 +111,8 @@ namespace LibSgfcPlusPlus
     virtual void RemoveAllProperties();
     virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const;
     virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const;
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties(SgfcPropertyCategory propertyCategory) const;
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetInheritedProperties() const;
 
   private:
     std::shared_ptr<ISgfcNode> firstChild;
