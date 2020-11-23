@@ -47,7 +47,7 @@ namespace LibSgfcPlusPlus
   {
     auto firstChildNode = parentNode->GetFirstChild();
     if (firstChildNode == nullptr)
-      return;
+      return SgfcNodeIterationContinuation::Ascend;
 
     SgfcNodeIterationContinuation iterationContinuation = nodeVisitCallback(firstChildNode);
     if (iterationContinuation == SgfcNodeIterationContinuation::VerticalAndLateral)
