@@ -27,6 +27,7 @@
 
 // C++ Standard Library includes
 #include <memory>
+#include <vector>
 
 namespace LibSgfcPlusPlus
 {
@@ -34,12 +35,22 @@ namespace LibSgfcPlusPlus
   class ISgfcTreeBuilder;
 
   /// @brief The ISgfcGame interface provides access to the data of one SGF
-  /// game, in the form of a tree of ISgfcNode objects. Each branch in the tree
-  /// is a variation in game play. A tree without branches is a game without
-  /// variations.
+  /// game tree, in the form of a tree of ISgfcNode objects.
   ///
   /// @ingroup public-api
   /// @ingroup game-tree
+  ///
+  /// Each branch in the game tree is either a separate game, or a variation in
+  /// game play for its parent game. A tree without branches is a single game
+  /// without variations.
+  ///
+  /// A list of games can be obtained by invoking GetGameInfoNodes().
+  ///
+  /// According to the SGF standard, the game tree's root node must contain
+  /// root properties, which are used to define some global "attributes" that
+  /// affect all games. Notably these include the game type and the board size.
+  /// This means that if a game tree contains multiple games, all of them must
+  /// have the same game type and the same board size.
   class SGFCPLUSPLUS_EXPORT ISgfcGame
   {
   public:
@@ -140,6 +151,29 @@ namespace LibSgfcPlusPlus
     /// @brief Sets the game tree's root node to @a rootNode. The previous
     /// root node, and with it the entire previous game tree, is discarded.
     virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode) = 0;
+
+    /// @brief Returns the game tree's game info nodes. Returns an empty list
+    /// if the game tree has no game info nodes.
+    ///
+    /// This is a convenience method that searches the game tree's nodes on
+    /// behalf of the caller and returns the result. The search logic is this:
+    /// - Starting with the root node every node is examined whether it contains
+    ///   one or more game info properties. These are properties that are
+    ///   classified as SgfcPropertyCategory::GameInfo.
+    /// - When a node contains at least one game info property it is
+    ///   considered to be a game info node and included in the search result
+    ///   returned by the method.
+    /// - The search does not continue below a game info node. This is because
+    ///   the SGF standard mandates that there may be only one game info node
+    ///   on any path within a tree of nodes. If the root node contains at
+    ///   least one game info property, the search result will therefore contain
+    ///   only the root node. Since game info properties are usually stored in
+    ///   the root node this is actually the expected outcome for most of the
+    ///   SGF content out there.
+    /// - The search is performed depth-first.
+    ///
+    /// @see SgfcNodeTraits::GameInfo
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetGameInfoNodes() const = 0;
 
     /// @brief Returns an ISgfcTreeBuilder object that can be used to
     /// manipulate the game tree.

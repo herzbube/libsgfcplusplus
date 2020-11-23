@@ -23,6 +23,7 @@
 #include "../game/SgfcGameUtility.h"
 #include "../SgfcUtility.h"
 #include "SgfcGame.h"
+#include "SgfcNodeIterator.h"
 
 namespace LibSgfcPlusPlus
 {
@@ -95,6 +96,29 @@ namespace LibSgfcPlusPlus
   void SgfcGame::SetRootNode(std::shared_ptr<ISgfcNode> rootNode)
   {
     this->rootNode = rootNode;
+  }
+
+  std::vector<std::shared_ptr<ISgfcNode>> SgfcGame::GetGameInfoNodes() const
+  {
+    std::vector<std::shared_ptr<ISgfcNode>> gameInfoNodes;
+
+    NodeVisitCallback nodeVisitCallback = [&gameInfoNodes](std::shared_ptr<ISgfcNode> node) -> SgfcNodeIterationContinuation
+    {
+      if (node->HasTrait(SgfcNodeTrait::GameInfo))
+      {
+        gameInfoNodes.push_back(node);
+        return SgfcNodeIterationContinuation::Lateral;
+      }
+      else
+      {
+        return SgfcNodeIterationContinuation::VerticalAndLateral;
+      }
+    };
+
+    SgfcNodeIterator nodeIterator;
+    nodeIterator.IterateOverNodesDepthFirst(this->rootNode, nodeVisitCallback);
+
+    return gameInfoNodes;
   }
 
   std::shared_ptr<ISgfcTreeBuilder> SgfcGame::GetTreeBuilder() const

@@ -14,6 +14,7 @@ set (
   document/SgfcDocument.cpp
   document/SgfcGame.cpp
   document/SgfcNode.cpp
+  document/SgfcNodeIterator.cpp
   document/SgfcNodeTraits.cpp
   document/SgfcProperty.cpp
   document/SgfcPropertyMetaInfo.cpp
@@ -115,6 +116,7 @@ set (
   document/SgfcDocument.h
   document/SgfcGame.h
   document/SgfcNode.h
+  document/SgfcNodeIterator.h
   document/SgfcProperty.h
   document/SgfcPropertyMetaInfo.h
   document/SgfcSinglePropertyValue.h
