@@ -553,6 +553,9 @@ namespace LibSgfcPlusPlus
     // Properties for more than one game
     { SgfcPropertyType::AS, 0 },
     { SgfcPropertyType::IP, 0 },
+
+    // Non-standard properties
+    { SgfcPropertyType::Unknown, 0 },
   };
 
   const std::map<SgfcNumber, SgfcGameType> SgfcConstants::GameTypeAsNumberToGameTypeMap =

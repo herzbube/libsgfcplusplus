@@ -15,8 +15,11 @@
 // -----------------------------------------------------------------------------
 
 // Library includes
+#include <SgfcConstants.h>
+#include <document/SgfcGame.h>
 #include <document/SgfcNode.h>
 #include <document/SgfcProperty.h>
+#include <document/SgfcTreeBuilder.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
@@ -51,11 +54,198 @@ SCENARIO( "SgfcNode is constructed", "[document]" )
         REQUIRE( node->HasPreviousSibling() == false );
         REQUIRE( node->GetParent() == nullptr );
         REQUIRE( node->HasParent() == false );
-        REQUIRE( node->GetRoot() == node );
         REQUIRE( node->IsRoot() == true );
+        REQUIRE( node->GetTraits() == (SgfcConstants::NodeTraitsNone | SgfcNodeTrait::Root) );
+        REQUIRE( node->HasTrait(SgfcNodeTrait::Root) == true );
+        REQUIRE( node->GetRoot() == node );
+        REQUIRE( node->GetGameInfoNode() == nullptr );
+        auto mainVariationNodes = node->GetMainVariationNodes();
+        REQUIRE( mainVariationNodes.size() == 1 );
+        REQUIRE( mainVariationNodes.front() == node );
         REQUIRE( node->HasProperties() == false );
         REQUIRE( node->GetProperties().size() == 0 );
         REQUIRE( node->GetProperty(SgfcPropertyType::GM) == nullptr );
+        REQUIRE( node->GetProperties(SgfcPropertyCategory::GameInfo).size() == 0 );
+        REQUIRE( node->GetInheritedProperties().size() == 0 );
+      }
+    }
+  }
+}
+
+SCENARIO( "SgfcNode is queried for traits", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  game->SetRootNode(rootNode);
+  auto leafNode = std::make_shared<SgfcNode>();
+  treeBuilder.SetFirstChild(rootNode, leafNode);
+
+  auto rootProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM"));
+  auto gameInfoProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::AN, "AN"));
+  auto moveProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B"));
+  auto setupProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::AB, "AB"));
+  auto nodeAnnotationProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::C, "C"));
+  auto moveAnnotationProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::BM, "BM"));
+  auto markupProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::AR, "AR"));
+  auto timingProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::BL, "BL"));
+  auto miscellaneousProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::FG, "FG"));
+  auto inheritableProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::PM, "PM"));
+
+  GIVEN( "The node has no properties" )
+  {
+    WHEN( "The node is the root node" )
+    {
+      THEN( "The node has the trait SgfcNodeTrait::Root" )
+      {
+        REQUIRE( rootNode->GetTraits() == (SgfcConstants::NodeTraitsNone | SgfcNodeTrait::Root) );
+        REQUIRE( rootNode->HasTrait(SgfcNodeTrait::Root) == true );
+      }
+    }
+
+    WHEN( "The node is not the root node" )
+    {
+      THEN( "The node has the traits SgfcConstants::NodeTraitsNone" )
+      {
+        REQUIRE( leafNode->GetTraits() == SgfcConstants::NodeTraitsNone );
+        REQUIRE( leafNode->HasTrait(SgfcNodeTrait::Root) == false );
+      }
+    }
+  }
+
+  GIVEN( "The node has a single property of a category that determines the node traits" )
+  {
+    std::map<std::shared_ptr<ISgfcProperty>, SgfcNodeTrait> testDataMap =
+    {
+      { gameInfoProperty, SgfcNodeTrait::GameInfo },
+      { moveProperty, SgfcNodeTrait::Move },
+      { setupProperty, SgfcNodeTrait::Setup },
+      { nodeAnnotationProperty, SgfcNodeTrait::NodeAnnotation },
+      { moveAnnotationProperty, SgfcNodeTrait::MoveAnnotation },
+      { markupProperty, SgfcNodeTrait::Markup },
+      { timingProperty, SgfcNodeTrait::Timing },
+      { inheritableProperty, SgfcNodeTrait::Inheritable },
+    };
+    auto testData = GENERATE_COPY( from_range(testDataMap) );
+
+    WHEN( "The node is the root node" )
+    {
+      rootNode->SetProperties({testData.first});
+
+      THEN( "The node has the trait SgfcNodeTrait::Root and the trait resulting from the property category" )
+      {
+        REQUIRE( rootNode->GetTraits() == (testData.second | SgfcNodeTrait::Root) );
+        REQUIRE( rootNode->HasTrait(testData.second) == true );
+        REQUIRE( rootNode->HasTrait(SgfcNodeTrait::Root) == true );
+      }
+    }
+
+    WHEN( "The node is not the root node" )
+    {
+      leafNode->SetProperties({testData.first});
+
+      THEN( "The node has the trait resulting from the property category" )
+      {
+        REQUIRE( leafNode->GetTraits() == (SgfcConstants::NodeTraitsNone | testData.second) );
+        REQUIRE( leafNode->HasTrait(testData.second) == true );
+        REQUIRE( leafNode->HasTrait(SgfcNodeTrait::Root) == false );
+      }
+    }
+  }
+
+  GIVEN( "The node has a single property of a category that does not determine the node traits" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> testDataList = { rootProperty, miscellaneousProperty };
+    auto property = GENERATE_COPY( from_range(testDataList) );
+
+    WHEN( "The node is the root node" )
+    {
+      rootNode->SetProperties({property});
+
+      THEN( "The node has the trait SgfcNodeTrait::Root and the trait resulting from the property category" )
+      {
+        REQUIRE( rootNode->GetTraits() == (SgfcConstants::NodeTraitsNone | SgfcNodeTrait::Root) );
+        REQUIRE( rootNode->HasTrait(SgfcNodeTrait::Root) == true );
+      }
+    }
+
+    WHEN( "The node is not the root node" )
+    {
+      // There is an interesting test here: A root property does not make a
+      // non-root node into a root node
+
+      leafNode->SetProperties({property});
+
+      THEN( "The node has the trait resulting from the property category" )
+      {
+        REQUIRE( leafNode->GetTraits() == SgfcConstants::NodeTraitsNone );
+      }
+    }
+  }
+
+  GIVEN( "The node has a single property that determines several node traits at once" )
+  {
+    auto inheritableAndMarkupProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DD, "DD"));
+    auto expectedTraits = SgfcNodeTrait::Inheritable | SgfcNodeTrait::Markup;
+
+    WHEN( "The node is the root node" )
+    {
+      rootNode->SetProperties({inheritableAndMarkupProperty});
+
+      THEN( "The node has the trait SgfcNodeTrait::Root and the traits resulting from the property" )
+      {
+        REQUIRE( rootNode->GetTraits() == (expectedTraits | SgfcNodeTrait::Root) );
+        REQUIRE( rootNode->HasTrait(SgfcNodeTrait::Root) == true );
+      }
+    }
+
+    WHEN( "The node is not the root node" )
+    {
+      leafNode->SetProperties({inheritableAndMarkupProperty});
+
+      THEN( "The node has the traits resulting from the property" )
+      {
+        REQUIRE( leafNode->GetTraits() == expectedTraits );
+      }
+    }
+  }
+
+  GIVEN( "The node has multiple properties" )
+  {
+    std::vector<std::shared_ptr<ISgfcProperty>> properties =
+    {
+      gameInfoProperty, moveProperty, setupProperty,
+      nodeAnnotationProperty, moveAnnotationProperty,
+      markupProperty, timingProperty, inheritableProperty,
+      // Adding a root property does not change anything
+      rootProperty,
+      // Adding a property that duplicates some traits (Inheritable and
+      // Markup in this case) does not change anything
+      std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DD, "DD")),
+    };
+    auto expectedTraits = (SgfcNodeTrait::GameInfo | SgfcNodeTrait::Move | SgfcNodeTrait::Setup |
+                           SgfcNodeTrait::NodeAnnotation | SgfcNodeTrait::MoveAnnotation |
+                           SgfcNodeTrait::Markup | SgfcNodeTrait::Timing | SgfcNodeTrait::Inheritable);
+
+    WHEN( "The node is the root node" )
+    {
+      rootNode->SetProperties(properties);
+
+      THEN( "The node has the trait SgfcNodeTrait::Root and all the other traits resulting from the property categories combined" )
+      {
+        REQUIRE( rootNode->GetTraits() == (expectedTraits | SgfcNodeTrait::Root) );
+        REQUIRE( rootNode->HasTrait(SgfcNodeTrait::Root) == true );
+      }
+    }
+
+    WHEN( "The node is not the root node" )
+    {
+      leafNode->SetProperties(properties);
+
+      THEN( "The node has all the traits resulting from the property categories combined" )
+      {
+        REQUIRE( leafNode->GetTraits() == expectedTraits );
       }
     }
   }
@@ -438,21 +628,25 @@ SCENARIO( "All properties are removed from SgfcNode", "[document]" )
   }
 }
 
-SCENARIO( "SgfcNode is queried for a property", "[document]" )
+SCENARIO( "SgfcNode is queried for properties", "[document]" )
 {
-  SgfcNode node;
+  auto node = std::make_shared<SgfcNode>();
 
   GIVEN( "SgfcNode contains no properties" )
   {
-    WHEN( "SgfcNode is queried for a property" )
+    WHEN( "SgfcNode is queried for properties" )
     {
-      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::HA);
-      auto propertyQueriedByName = node.GetProperty("HA");
+      auto propertyQueriedByType = node->GetProperty(SgfcPropertyType::HA);
+      auto propertyQueriedByName = node->GetProperty("HA");
+      auto propertiesQueriedByCategory = node->GetProperties(SgfcPropertyCategory::GameInfo);
+      auto inheritedProperties = node->GetInheritedProperties();
 
       THEN( "SgfcNode returns nullptr" )
       {
         REQUIRE( propertyQueriedByType == nullptr );
         REQUIRE( propertyQueriedByName == nullptr );
+        REQUIRE( propertiesQueriedByCategory.size() == 0 );
+        REQUIRE( inheritedProperties.size() == 0 );
       }
     }
   }
@@ -465,14 +659,16 @@ SCENARIO( "SgfcNode is queried for a property", "[document]" )
       // SgfcNode doesn't care about a matching property name string and enum value
       std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA")),
     };
-    node.SetProperties(properties);
+    node->SetProperties(properties);
 
-    WHEN( "SgfcNode is queried for a property that it contains" )
+    WHEN( "SgfcNode is queried for properties that it contains" )
     {
-      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::SZ);
-      auto propertyQueriedByName = node.GetProperty("HA");
+      auto propertyQueriedByType = node->GetProperty(SgfcPropertyType::SZ);
+      auto propertyQueriedByName = node->GetProperty("HA");
+      auto propertiesQueriedByCategory = node->GetProperties(SgfcPropertyCategory::Root);
+      auto inheritedProperties = node->GetInheritedProperties();
 
-      THEN( "SgfcNode returns the property" )
+      THEN( "SgfcNode returns the properties" )
       {
         REQUIRE( propertyQueriedByType->GetPropertyType() == SgfcPropertyType::SZ );
         REQUIRE( propertyQueriedByType->GetPropertyName() == "HA" );
@@ -481,18 +677,26 @@ SCENARIO( "SgfcNode is queried for a property", "[document]" )
         REQUIRE( propertyQueriedByName->GetPropertyType() == SgfcPropertyType::SZ );
         REQUIRE( propertyQueriedByName->GetPropertyName() == "HA" );
         REQUIRE( propertyQueriedByName == properties.back() );
+
+        REQUIRE( propertiesQueriedByCategory.size() == 2 );
+        REQUIRE( propertiesQueriedByCategory == properties );
+        REQUIRE( inheritedProperties.size() == 0 );
       }
     }
 
-    WHEN( "SgfcNode is queried for a property that it does not contain" )
+    WHEN( "SgfcNode is queried for properties that it does not contain" )
     {
-      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::HA);
-      auto propertyQueriedByName = node.GetProperty("SZ");
+      auto propertyQueriedByType = node->GetProperty(SgfcPropertyType::HA);
+      auto propertyQueriedByName = node->GetProperty("SZ");
+      auto propertiesQueriedByCategory = node->GetProperties(SgfcPropertyCategory::GameInfo);
+      auto inheritedProperties = node->GetInheritedProperties();
 
       THEN( "SgfcNode returns nullptr" )
       {
         REQUIRE( propertyQueriedByType == nullptr );
         REQUIRE( propertyQueriedByName == nullptr );
+        REQUIRE( propertiesQueriedByCategory.size() == 0 );
+        REQUIRE( inheritedProperties.size() == 0 );
       }
     }
   }
@@ -505,14 +709,16 @@ SCENARIO( "SgfcNode is queried for a property", "[document]" )
       std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM")),
       std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "BB")),
     };
-    node.SetProperties(properties);
+    node->SetProperties(properties);
 
-    WHEN( "SgfcNode is queried for a custom property" )
+    WHEN( "SgfcNode is queried for custom properties" )
     {
-      auto propertyQueriedByType = node.GetProperty(SgfcPropertyType::Unknown);
-      auto propertyQueriedByName = node.GetProperty("BB");
+      auto propertyQueriedByType = node->GetProperty(SgfcPropertyType::Unknown);
+      auto propertyQueriedByName = node->GetProperty("BB");
+      auto propertiesQueriedByCategory = node->GetProperties(SgfcPropertyCategory::Miscellaneous);
+      auto inheritedProperties = node->GetInheritedProperties();
 
-      THEN( "SgfcNode returns the property" )
+      THEN( "SgfcNode returns the properties" )
       {
         REQUIRE( propertyQueriedByType->GetPropertyType() == SgfcPropertyType::Unknown );
         REQUIRE( propertyQueriedByType->GetPropertyName() == "AA" );
@@ -521,6 +727,125 @@ SCENARIO( "SgfcNode is queried for a property", "[document]" )
         REQUIRE( propertyQueriedByName->GetPropertyType() == SgfcPropertyType::Unknown );
         REQUIRE( propertyQueriedByName->GetPropertyName() == "BB" );
         REQUIRE( propertyQueriedByName == properties.back() );
+
+        REQUIRE( propertiesQueriedByCategory.size() == 2 );
+        REQUIRE( propertiesQueriedByCategory.front()->GetPropertyType() == SgfcPropertyType::Unknown );
+        REQUIRE( propertiesQueriedByCategory.front()->GetPropertyName() == "AA" );
+        REQUIRE( propertiesQueriedByCategory.front() == properties.front() );
+        REQUIRE( propertiesQueriedByCategory.back()->GetPropertyType() == SgfcPropertyType::Unknown );
+        REQUIRE( propertiesQueriedByCategory.back()->GetPropertyName() == "BB" );
+        REQUIRE( propertiesQueriedByCategory.back() == properties.back() );
+        REQUIRE( inheritedProperties.size() == 0 );
+      }
+    }
+  }
+}
+
+SCENARIO( "SgfcNode is queried for inheritable properties", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  game->SetRootNode(rootNode);
+  auto intermediateNode = std::make_shared<SgfcNode>();
+  auto intermediateSibling = std::make_shared<SgfcNode>();
+  treeBuilder.SetFirstChild(rootNode, intermediateNode);
+  treeBuilder.SetNextSibling(intermediateNode, intermediateSibling);
+  auto leafNode = std::make_shared<SgfcNode>();
+  treeBuilder.SetFirstChild(intermediateNode, leafNode);
+
+  auto propertyDD1 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DD, "DD"));
+  auto propertyPM1 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::PM, "PM"));
+  auto propertyVW1 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::VW, "VW"));
+  auto propertyDD2 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DD, "DD"));
+  auto propertyPM2 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::PM, "PM"));
+  auto propertyVW2 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::VW, "VW"));
+
+  // This must never have an influence on the result because the intermediate
+  // sibling node is not on the path to the root node
+  auto propertyDD3 = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DD, "DD"));
+  intermediateSibling->SetProperties({propertyDD3});
+
+  GIVEN( "No node in the path to the root node contains properties" )
+  {
+    WHEN( "Any node on the path is queried for properties" )
+    {
+      auto inheritedPropertiesLeaf = leafNode->GetInheritedProperties();
+      auto inheritedPropertiesIntermediate = intermediateNode->GetInheritedProperties();
+      auto inheritedPropertiesRoot = rootNode->GetInheritedProperties();
+
+      THEN( "None of the nodes returns an empty collection" )
+      {
+        REQUIRE( inheritedPropertiesLeaf.size() == 0 );
+        REQUIRE( inheritedPropertiesIntermediate.size() == 0 );
+        REQUIRE( inheritedPropertiesRoot.size() == 0 );
+      }
+    }
+  }
+
+  GIVEN( "Some or all nodes in the path to the root node contain properties" )
+  {
+    WHEN( "Each node contains a single property that is different from all others" )
+    {
+      leafNode->SetProperties({propertyDD1});
+      intermediateNode->SetProperties({propertyPM1});
+      rootNode->SetProperties({propertyVW1});
+
+      auto inheritedPropertiesLeaf = leafNode->GetInheritedProperties();
+      auto inheritedPropertiesIntermediate = intermediateNode->GetInheritedProperties();
+      auto inheritedPropertiesRoot = rootNode->GetInheritedProperties();
+
+      THEN( "The query returns the node's own property and the properties of the ancestor nodes" )
+      {
+        REQUIRE( inheritedPropertiesLeaf.size() == 3 );
+        REQUIRE( inheritedPropertiesLeaf == std::vector({propertyDD1, propertyPM1, propertyVW1}) );
+        REQUIRE( inheritedPropertiesIntermediate.size() == 2 );
+        REQUIRE( inheritedPropertiesIntermediate == std::vector({propertyPM1, propertyVW1}) );
+        REQUIRE( inheritedPropertiesRoot.size() == 1 );
+        REQUIRE( inheritedPropertiesRoot == std::vector({propertyVW1}) );
+      }
+    }
+
+    WHEN( "Each node contains a different number of properties" )
+    {
+      leafNode->SetProperties({propertyVW1});
+      // intermediateNode has no properties
+      rootNode->SetProperties({propertyDD1, propertyPM1});
+
+      auto inheritedPropertiesLeaf = leafNode->GetInheritedProperties();
+      auto inheritedPropertiesIntermediate = intermediateNode->GetInheritedProperties();
+      auto inheritedPropertiesRoot = rootNode->GetInheritedProperties();
+
+      THEN( "The query returns the node's own property and the properties of the ancestor nodes" )
+      {
+        REQUIRE( inheritedPropertiesLeaf.size() == 3 );
+        REQUIRE( inheritedPropertiesLeaf == std::vector({propertyVW1, propertyDD1, propertyPM1}) );
+        REQUIRE( inheritedPropertiesIntermediate.size() == 2 );
+        REQUIRE( inheritedPropertiesIntermediate == std::vector({propertyDD1, propertyPM1}) );
+        REQUIRE( inheritedPropertiesRoot.size() == 2 );
+        REQUIRE( inheritedPropertiesRoot == std::vector({propertyDD1, propertyPM1}) );
+      }
+    }
+
+    WHEN( "Two nodes contain the same property" )
+    {
+      leafNode->SetProperties({propertyVW1, propertyPM1});
+      intermediateNode->SetProperties({propertyVW2, propertyDD1});
+      rootNode->SetProperties({propertyDD2, propertyPM2});
+
+      auto inheritedPropertiesLeaf = leafNode->GetInheritedProperties();
+      auto inheritedPropertiesIntermediate = intermediateNode->GetInheritedProperties();
+      auto inheritedPropertiesRoot = rootNode->GetInheritedProperties();
+
+      THEN( "The query returns the property that is closer to the node" )
+      {
+        REQUIRE( inheritedPropertiesLeaf.size() == 3 );
+        REQUIRE( inheritedPropertiesLeaf == std::vector({propertyVW1, propertyPM1, propertyDD1}) );
+        REQUIRE( inheritedPropertiesIntermediate.size() == 3 );
+        REQUIRE( inheritedPropertiesIntermediate == std::vector({propertyVW2, propertyDD1, propertyPM2}) );
+        REQUIRE( inheritedPropertiesRoot.size() == 2 );
+        REQUIRE( inheritedPropertiesRoot == std::vector({propertyDD2, propertyPM2}) );
       }
     }
   }
@@ -816,6 +1141,23 @@ SCENARIO( "SgfcNode is queried for its position in the game tree", "[document]" 
       }
     }
   }
+}
+
+SCENARIO( "SgfcNode is used to perform a game tree search", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  auto intermediateNode = std::make_shared<SgfcNode>();
+  auto intermediateSiblingNode = std::make_shared<SgfcNode>();
+  auto leafNode = std::make_shared<SgfcNode>();
+  auto nodeInOtherTree = std::make_shared<SgfcNode>();;
+
+  game->SetRootNode(rootNode);
+  treeBuilder.SetFirstChild(rootNode, intermediateNode);
+  treeBuilder.SetNextSibling(intermediateNode, intermediateSiblingNode);
+  treeBuilder.SetFirstChild(intermediateNode, leafNode);
 
   GIVEN( "SgfcNode is queried for the root node" )
   {
@@ -823,20 +1165,129 @@ SCENARIO( "SgfcNode is queried for its position in the game tree", "[document]" 
     {
       THEN( "SgfcNode returns the correct result" )
       {
-        REQUIRE( node->GetRoot() == parentNode );
-        REQUIRE( node->IsRoot() == false );
+        REQUIRE( intermediateNode->GetRoot() == rootNode );
+        REQUIRE( intermediateNode->IsRoot() == false );
 
-        REQUIRE( childNode->GetRoot() == parentNode );
-        REQUIRE( childNode->IsRoot() == false );
+        REQUIRE( leafNode->GetRoot() == rootNode );
+        REQUIRE( leafNode->IsRoot() == false );
 
-        REQUIRE( siblingNode->GetRoot() == parentNode );
-        REQUIRE( siblingNode->IsRoot() == false );
+        REQUIRE( intermediateSiblingNode->GetRoot() == rootNode );
+        REQUIRE( intermediateSiblingNode->IsRoot() == false );
 
-        REQUIRE( parentNode->GetRoot() == parentNode );
-        REQUIRE( parentNode->IsRoot() == true );
+        REQUIRE( rootNode->GetRoot() == rootNode );
+        REQUIRE( rootNode->IsRoot() == true );
 
         REQUIRE( nodeInOtherTree->GetRoot() == nodeInOtherTree );
         REQUIRE( nodeInOtherTree->IsRoot() == true );
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode is queried for the game info node" )
+  {
+    auto gameInfoProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::AN, "AN"));
+
+    WHEN( "There is no game info node" )
+    {
+      THEN( "SgfcNode returns nullptr" )
+      {
+        REQUIRE( rootNode->GetGameInfoNode() == nullptr );
+        REQUIRE( intermediateNode->GetGameInfoNode() == nullptr );
+        REQUIRE( intermediateSiblingNode->GetGameInfoNode() == nullptr );
+        REQUIRE( leafNode->GetGameInfoNode() == nullptr );
+        REQUIRE( nodeInOtherTree->GetGameInfoNode() == nullptr );
+      }
+    }
+
+    WHEN( "The root node is the game info node" )
+    {
+      rootNode->SetProperties({gameInfoProperty});
+
+      THEN( "SgfcNode returns the root node" )
+      {
+        REQUIRE( rootNode->GetGameInfoNode() == rootNode );
+        REQUIRE( intermediateNode->GetGameInfoNode() == rootNode );
+        REQUIRE( intermediateSiblingNode->GetGameInfoNode() == rootNode );
+        REQUIRE( leafNode->GetGameInfoNode() == rootNode );
+        REQUIRE( nodeInOtherTree->GetGameInfoNode() == nullptr );
+      }
+    }
+
+    WHEN( "An intermediate node is the game info node" )
+    {
+      intermediateNode->SetProperties({gameInfoProperty});
+
+      THEN( "SgfcNode returns the intermediate node if possible, or null for ancestors" )
+      {
+        REQUIRE( rootNode->GetGameInfoNode() == nullptr );
+        REQUIRE( intermediateNode->GetGameInfoNode() == intermediateNode );
+        REQUIRE( intermediateSiblingNode->GetGameInfoNode() == nullptr );
+        REQUIRE( leafNode->GetGameInfoNode() == intermediateNode );
+        REQUIRE( nodeInOtherTree->GetGameInfoNode() == nullptr );
+      }
+    }
+
+    WHEN( "The node itself is the game info node" )
+    {
+      intermediateNode->SetProperties({gameInfoProperty});
+
+      THEN( "SgfcNode returns the node itself" )
+      {
+        REQUIRE( intermediateNode->GetGameInfoNode() == intermediateNode );
+      }
+    }
+
+    WHEN( "The game tree contains several game info nodes" )
+    {
+      rootNode->SetProperties({gameInfoProperty});
+      intermediateNode->SetProperties({gameInfoProperty});
+
+      THEN( "SgfcNode returns the nearest game info node on the path to the game tree root" )
+      {
+        REQUIRE( rootNode->GetGameInfoNode() == rootNode );
+        REQUIRE( intermediateNode->GetGameInfoNode() == intermediateNode );
+        REQUIRE( intermediateSiblingNode->GetGameInfoNode() == rootNode );
+        REQUIRE( leafNode->GetGameInfoNode() == intermediateNode );
+        REQUIRE( nodeInOtherTree->GetGameInfoNode() == nullptr );
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode is queried for the main variation" )
+  {
+    WHEN( "The root node is queried" )
+    {
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateNode, leafNode };
+      auto mainVariationNodes = rootNode->GetMainVariationNodes();
+
+      THEN( "SgfcNode returns all direct descendants from the root node until the leaf node" )
+      {
+        REQUIRE( mainVariationNodes.size() == 3 );
+        REQUIRE( mainVariationNodes == expectedMainVariationNodes );
+      }
+    }
+
+    WHEN( "An intermediate node is queried" )
+    {
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { intermediateNode, leafNode };
+      auto mainVariationNodes = intermediateNode->GetMainVariationNodes();
+
+      THEN( "SgfcNode returns all direct descendants from the intermediate node until the leaf node" )
+      {
+        REQUIRE( mainVariationNodes.size() == 2 );
+        REQUIRE( mainVariationNodes == expectedMainVariationNodes );
+      }
+    }
+
+    WHEN( "A leaf node is queried" )
+    {
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { leafNode };
+      auto mainVariationNodes = leafNode->GetMainVariationNodes();
+
+      THEN( "SgfcNode returns only the leaf node itself" )
+      {
+        REQUIRE( mainVariationNodes.size() == 1 );
+        REQUIRE( mainVariationNodes == expectedMainVariationNodes );
       }
     }
   }

@@ -393,12 +393,27 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::shared_ptr<ISgfcProperty>> properties;
 
+    // This implementation is probably quite inefficient:
+    // - Every time we invoke a property's HasTrait() method a lookup is made
+    //   in the global property type to property traits map, which has many
+    //   entries. If the same property exists in many nodes then the property
+    //   is therefore looked up many times.
+    // - Also this algorithm does not know when to stop, it will always follow
+    //   the path up to the root node even if it has found all possible
+    //   inheritable properties.
+    //
+    // It might be worth to rewrite the implementation to compile a list of
+    // properties that have the inheritable trait. This list could then be
+    // reduced when one of the properties is found, so the lookups become
+    // shorter and shorter the more properties have been found, until eventually
+    // the search can even stop if all properties have been found.
+
     std::set<std::string> propertyNamesSeen;
 
     const ISgfcNode* node = this;
     while (node)
     {
-      for (auto property : this->properties)
+      for (auto property : node->GetProperties())
       {
         auto propertyName = property->GetPropertyName();
         if (propertyNamesSeen.find(propertyName) != propertyNamesSeen.end())

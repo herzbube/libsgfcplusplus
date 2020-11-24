@@ -85,6 +85,7 @@ SCENARIO( "SgfcGame is constructed", "[document]" )
         REQUIRE( game.GetBoardSize() == SgfcConstants::BoardSizeDefaultGo );
         REQUIRE( game.HasRootNode() == false );
         REQUIRE( game.GetRootNode() == nullptr );
+        REQUIRE( game.GetGameInfoNodes().size() == 0 );
         REQUIRE( game.GetTreeBuilder() == nullptr );
       }
     }
@@ -115,6 +116,7 @@ SCENARIO( "SgfcGame is constructed", "[document]" )
         REQUIRE( game.GetBoardSize() == SgfcConstants::BoardSizeDefaultGo );
         REQUIRE( game.HasRootNode() == true );
         REQUIRE( game.GetRootNode() == rootNode );
+        REQUIRE( game.GetGameInfoNodes().size() == 0 );
         REQUIRE( game.GetTreeBuilder() == nullptr );
       }
     }
@@ -572,6 +574,123 @@ SCENARIO( "SgfcGame is queried for the board size", "[document]" )
       {
         REQUIRE( game->HasBoardSize() == false );
         REQUIRE( game->GetBoardSize() == SgfcConstants::BoardSizeInvalid );
+      }
+    }
+  }
+}
+
+SCENARIO( "SgfcGame is queried for the game info nodes", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  auto intermediateNode = std::make_shared<SgfcNode>();
+  auto intermediateSiblingNode = std::make_shared<SgfcNode>();
+  auto leafNode = std::make_shared<SgfcNode>();
+
+  game->SetRootNode(rootNode);
+  treeBuilder.SetFirstChild(rootNode, intermediateNode);
+  treeBuilder.SetNextSibling(intermediateNode, intermediateSiblingNode);
+  treeBuilder.SetFirstChild(intermediateNode, leafNode);
+
+  auto gameInfoProperty = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::AN, "AN"));
+
+  GIVEN( "SgfcGame has no root node" )
+  {
+    game->SetRootNode(nullptr);
+
+    WHEN( "SgfcGame is queried" )
+    {
+      auto gameInfoNodes = game->GetGameInfoNodes();
+
+      THEN( "SgfcGame returns an empty collection" )
+      {
+        REQUIRE( gameInfoNodes.size() == 0 );
+      }
+    }
+  }
+
+  GIVEN( "SgfcGame has a root node but no game info nodes" )
+  {
+    WHEN( "SgfcGame is queried" )
+    {
+      auto gameInfoNodes = game->GetGameInfoNodes();
+
+      THEN( "SgfcGame returns an empty collection" )
+      {
+        REQUIRE( gameInfoNodes.size() == 0 );
+      }
+    }
+  }
+
+  GIVEN( "SgfcGame has a single game info node" )
+  {
+    std::vector<std::shared_ptr<ISgfcNode>> testNodes = { rootNode, intermediateNode, intermediateSiblingNode, leafNode };
+
+    WHEN( "SgfcGame is queried" )
+    {
+      THEN( "SgfcGame returns a collection with a single element" )
+      {
+        // TODO: Get this to work with GENERATE_COPY
+        for (auto gameInfoNode : testNodes)
+        {
+          gameInfoNode->SetProperties({gameInfoProperty});
+          auto gameInfoNodes = game->GetGameInfoNodes();
+
+          REQUIRE( gameInfoNodes.size() == 1 );
+          REQUIRE( gameInfoNodes.front() == gameInfoNode );
+
+          gameInfoNode->RemoveAllProperties();
+        }
+      }
+    }
+  }
+
+  GIVEN( "SgfcGame has multiple game info nodes" )
+  {
+    rootNode->SetProperties({gameInfoProperty});
+    intermediateNode->SetProperties({gameInfoProperty});
+    intermediateSiblingNode->SetProperties({gameInfoProperty});
+    leafNode->SetProperties({gameInfoProperty});
+
+    WHEN( "The root node hides the other game nodes" )
+    {
+      auto gameInfoNodes = game->GetGameInfoNodes();
+
+      THEN( "SgfcGame returns a collection that contains only the root node" )
+      {
+        REQUIRE( gameInfoNodes.size() == 1 );
+        REQUIRE( gameInfoNodes.front() == rootNode );
+      }
+    }
+
+    WHEN( "The intermediate node hides the leaf node" )
+    {
+      rootNode->RemoveAllProperties();
+      auto gameInfoNodes = game->GetGameInfoNodes();
+
+      THEN( "SgfcGame returns a collection that contains only the intermediate node and its sibling" )
+      {
+        REQUIRE( gameInfoNodes.size() == 2 );
+        // The order is important - the search is performed depth-first
+        REQUIRE( gameInfoNodes.front() == intermediateNode );
+        REQUIRE( gameInfoNodes.back() == intermediateSiblingNode );
+      }
+    }
+
+    WHEN( "The leaf node is not hidden by its ancestors" )
+    {
+      rootNode->RemoveAllProperties();
+      intermediateNode->RemoveAllProperties();
+      auto gameInfoNodes = game->GetGameInfoNodes();
+
+      THEN( "SgfcGame returns a collection that contains the leaf node and the intermediate sibling" )
+      {
+        REQUIRE( gameInfoNodes.size() == 2 );
+        // The order is important - the search is performed depth-first
+        REQUIRE( gameInfoNodes.front() == leafNode );
+        REQUIRE( gameInfoNodes.back() == intermediateSiblingNode );
       }
     }
   }

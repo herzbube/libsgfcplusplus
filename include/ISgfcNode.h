@@ -273,23 +273,19 @@ namespace LibSgfcPlusPlus
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties(SgfcPropertyCategory propertyCategory) const = 0;
 
     /// @brief Returns a collection with the most recent occurrence of each
-    /// property that has the trait SgfcPropertyTrait::Inhheritable, when found
+    /// property that has the trait SgfcPropertyTrait::Inheritable, when found
     /// on the node itself and its ancestors. The collection is empty if no
     /// properties were found. The collection has no particular order.
     ///
-    /// Ancestors are searched only up to the game info node, or the root node
-    /// if there is no game info node.
-    ///
     /// The detailed search logic is this:
     /// - Determine a list of properties that have the trait
-    ///   SgfcPropertyTrait::Inhheritable.
+    ///   SgfcPropertyTrait::Inheritable.
     /// - Start examining the node itself, then the node's parent, etc. up to
-    ///   the node that GetGameInfoNode() returns, or the game tree's root node
-    ///   in case GetGameInfoNode() returns @e nullptr.
+    ///   the game tree's root node.
     /// - When a node contains one of the inheritable properties, include that
     ///   property in the search result returned by the method, then stop
     ///   looking for that particular property.
-    /// - Stop the searchh when all properties have been found.
+    /// - Stop the search when all properties have been found.
     ///
     /// The SGF standard's description of inheritable properties includes the
     /// concept of a "setting getting cleared". The implication is that if a
