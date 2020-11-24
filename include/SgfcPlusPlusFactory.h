@@ -45,6 +45,9 @@ namespace LibSgfcPlusPlus
   class SGFCPLUSPLUS_EXPORT SgfcPlusPlusFactory
   {
   public:
+    SgfcPlusPlusFactory() = delete;
+    ~SgfcPlusPlusFactory() = delete;
+
     /// @brief Returns a newly constructed ISgfcArguments object that initially
     /// contains no arguments. Use the ISgfcArguments object's add methods to
     /// populate it with arguments.
@@ -112,9 +115,5 @@ namespace LibSgfcPlusPlus
     /// that can be used to create ISgfcPropertyValue objects, and objects of
     /// every known sub-type of ISgfcPropertyValue.
     static std::shared_ptr<ISgfcPropertyValueFactory> CreatePropertyValueFactory();
-
-  private:
-    SgfcPlusPlusFactory();
-    ~SgfcPlusPlusFactory();
   };
 }

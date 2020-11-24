@@ -37,6 +37,9 @@ namespace LibSgfcPlusPlus
   class SgfcPrivateConstants
   {
   public:
+    SgfcPrivateConstants() = delete;
+    ~SgfcPrivateConstants() = delete;
+
     /// @name General string constants
     //@{
     /// @brief The empty string.

@@ -41,6 +41,9 @@ namespace LibSgfcPlusPlus
   class SgfcUtility
   {
   public:
+    SgfcUtility() = delete;
+    ~SgfcUtility() = delete;
+
     /// @brief Returns the property name, as defined by the SGF standard, that
     /// corresponds to @a propertyType. @a propertyType must not be
     /// SgfcPropertyType::Unknown.

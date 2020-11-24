@@ -41,6 +41,9 @@ namespace LibSgfcPlusPlus
   class SGFCPLUSPLUS_EXPORT SgfcConstants
   {
   public:
+    SgfcConstants() = delete;
+    ~SgfcConstants() = delete;
+
     /// @name libsgfc++ constants
     //@{
     /// @brief The library name.

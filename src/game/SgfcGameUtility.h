@@ -39,6 +39,9 @@ namespace LibSgfcPlusPlus
   class SgfcGameUtility
   {
   public:
+    SgfcGameUtility() = delete;
+    ~SgfcGameUtility() = delete;
+
     /// @brief Returns the property value(s) in @a propertyValues interpreted as
     /// an SgfcGameType value.
     ///
