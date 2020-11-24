@@ -142,7 +142,6 @@ set (
   game/go/SgfcGoPoint.h
   game/go/SgfcGoStone.h
   interface/internal/ISgfcPropertyValueTypeDescriptor.h
-  interface/internal/SgfcMessagePart.h
   interface/internal/SgfcPropertyValueTypeDescriptorType.h
   parsing/SgfcDocumentEncoder.h
   parsing/SgfcPropertyDecoder.h
