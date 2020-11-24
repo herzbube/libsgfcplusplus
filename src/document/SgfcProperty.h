@@ -52,23 +52,23 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcProperty object.
     virtual ~SgfcProperty();
 
-    virtual SgfcPropertyType GetPropertyType() const;
-    virtual std::string GetPropertyName() const;
+    virtual SgfcPropertyType GetPropertyType() const override;
+    virtual std::string GetPropertyName() const override;
 
-    virtual SgfcPropertyCategory GetPropertyCategory() const;
-    virtual SgfcPropertyTraits GetTraits() const;
-    virtual bool HasTrait(SgfcPropertyTrait trait) const;
+    virtual SgfcPropertyCategory GetPropertyCategory() const override;
+    virtual SgfcPropertyTraits GetTraits() const override;
+    virtual bool HasTrait(SgfcPropertyTrait trait) const override;
 
-    virtual bool HasPropertyValues() const;
-    virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const;
-    virtual void SetPropertyValues(const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
-    virtual void AppendPropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue);
-    virtual void RemovePropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue);
-    virtual void RemoveAllPropertyValues();
-    virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const;
+    virtual bool HasPropertyValues() const override;
+    virtual std::vector<std::shared_ptr<ISgfcPropertyValue>> GetPropertyValues() const override;
+    virtual void SetPropertyValues(const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) override;
+    virtual void AppendPropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue) override;
+    virtual void RemovePropertyValue(std::shared_ptr<ISgfcPropertyValue> propertyValue) override;
+    virtual void RemoveAllPropertyValues() override;
+    virtual std::shared_ptr<ISgfcPropertyValue> GetPropertyValue() const override;
 
-    virtual const ISgfcGameTypeProperty* ToGameTypeProperty() const;
-    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
+    virtual const ISgfcGameTypeProperty* ToGameTypeProperty() const override;
+    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const override;
 
   private:
     SgfcPropertyType propertyType;

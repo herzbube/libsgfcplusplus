@@ -35,17 +35,17 @@ namespace LibSgfcPlusPlus
     SgfcDocumentWriter();
     virtual ~SgfcDocumentWriter();
 
-    virtual std::shared_ptr<ISgfcArguments> GetArguments() const;
+    virtual std::shared_ptr<ISgfcArguments> GetArguments() const override;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfFile(
       std::shared_ptr<ISgfcDocument> document,
-      const std::string& sgfFilePath) const;
+      const std::string& sgfFilePath) const override;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> WriteSgfContent(
       std::shared_ptr<ISgfcDocument> document,
-      std::string& sgfContent) const;
+      std::string& sgfContent) const override;
     virtual std::shared_ptr<ISgfcDocumentWriteResult> ValidateDocument(
-      std::shared_ptr<ISgfcDocument> document) const;
+      std::shared_ptr<ISgfcDocument> document) const override;
     virtual void DebugPrintToConsole(
-      std::shared_ptr<ISgfcDocument> document) const;
+      std::shared_ptr<ISgfcDocument> document) const override;
 
   private:
     std::shared_ptr<ISgfcArguments> arguments;

@@ -45,10 +45,10 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGoMove object.
     virtual ~SgfcGoMove();
 
-    virtual bool IsPassMove() const;
-    virtual std::shared_ptr<ISgfcGoStone> GetStone() const;
-    virtual SgfcColor GetPlayerColor() const;
-    virtual std::shared_ptr<ISgfcGoPoint> GetStoneLocation() const;
+    virtual bool IsPassMove() const override;
+    virtual std::shared_ptr<ISgfcGoStone> GetStone() const override;
+    virtual SgfcColor GetPlayerColor() const override;
+    virtual std::shared_ptr<ISgfcGoPoint> GetStoneLocation() const override;
 
   private:
     SgfcColor playerColor;

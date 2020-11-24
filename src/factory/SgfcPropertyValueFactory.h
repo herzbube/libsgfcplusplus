@@ -36,67 +36,67 @@ namespace LibSgfcPlusPlus
     /// @name Single property values - Basic value types
     //@{
     virtual std::shared_ptr<ISgfcNumberPropertyValue> CreateNumberPropertyValue(
-      SgfcNumber numberValue) const;
+      SgfcNumber numberValue) const override;
     virtual std::shared_ptr<ISgfcRealPropertyValue> CreateRealPropertyValue(
-      SgfcReal realValue) const;
+      SgfcReal realValue) const override;
     virtual std::shared_ptr<ISgfcDoublePropertyValue> CreateDoublePropertyValue(
-      SgfcDouble doubleValue) const;
+      SgfcDouble doubleValue) const override;
     virtual std::shared_ptr<ISgfcColorPropertyValue> CreateColorPropertyValue(
-      SgfcColor colorValue) const;
+      SgfcColor colorValue) const override;
     virtual std::shared_ptr<ISgfcSimpleTextPropertyValue> CreateSimpleTextPropertyValue(
-      const SgfcSimpleText& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const override;
     virtual std::shared_ptr<ISgfcTextPropertyValue> CreateTextPropertyValue(
-      const SgfcText& textValue) const;
+      const SgfcText& textValue) const override;
     virtual std::shared_ptr<ISgfcPointPropertyValue> CreatePointPropertyValue(
-      const SgfcPoint& pointValue) const;
+      const SgfcPoint& pointValue) const override;
     virtual std::shared_ptr<ISgfcMovePropertyValue> CreateMovePropertyValue(
-      const SgfcMove& moveValue) const;
+      const SgfcMove& moveValue) const override;
     virtual std::shared_ptr<ISgfcStonePropertyValue> CreateStonePropertyValue(
-      const SgfcStone& stoneValue) const;
+      const SgfcStone& stoneValue) const override;
     virtual std::shared_ptr<ISgfcSinglePropertyValue> CreateCustomPropertyValue(
-      const std::string& value) const;
+      const std::string& value) const override;
     //@}
 
     /// @name Single property values - Go game value types
     //@{
     virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
       const SgfcPoint& pointValue,
-      SgfcBoardSize boardSize) const;
+      SgfcBoardSize boardSize) const override;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       const SgfcMove& moveValue,
       SgfcBoardSize boardSize,
-      SgfcColor color) const;
+      SgfcColor color) const override;
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
-      SgfcColor color) const;
+      SgfcColor color) const override;
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
       const SgfcStone& stoneValue,
       SgfcBoardSize boardSize,
-      SgfcColor color) const;
+      SgfcColor color) const override;
     //@}
 
     /// @name Composed property values - Basic value types
     //@{
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedNumberAndNumberPropertyValue(
       SgfcNumber numberValue1,
-      SgfcNumber numberValue2) const;
+      SgfcNumber numberValue2) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedSimpleTextAndSimpleTextPropertyValue(
       const SgfcSimpleText& simpleTextValue1,
-      const SgfcSimpleText& simpleTextValue2) const;
+      const SgfcSimpleText& simpleTextValue2) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedNumberAndSimpleTextPropertyValue(
       SgfcNumber numberValue,
-      const SgfcSimpleText& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndPointPropertyValue(
       const SgfcPoint& pointValue1,
-      const SgfcPoint& pointValue2) const;
+      const SgfcPoint& pointValue2) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedPointAndSimpleTextPropertyValue(
       const SgfcPoint& pointValue,
-      const SgfcSimpleText& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedStoneAndPointPropertyValue(
       const SgfcStone& stoneValue,
-      const SgfcPoint& pointValue) const;
+      const SgfcPoint& pointValue) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateCustomComposedPropertyValue(
       std::shared_ptr<ISgfcSinglePropertyValue> valueObject1,
-      std::shared_ptr<ISgfcSinglePropertyValue> valueObject2) const;
+      std::shared_ptr<ISgfcSinglePropertyValue> valueObject2) const override;
     //@}
 
     /// @name Composed property values - Go game value types
@@ -104,16 +104,16 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndGoPointPropertyValue(
       const SgfcPoint& pointValue1,
       const SgfcPoint& pointValue2,
-      SgfcBoardSize boardSize) const;
+      SgfcBoardSize boardSize) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoPointAndSimpleTextPropertyValue(
       const SgfcPoint& pointValue,
       SgfcBoardSize boardSize,
-      const SgfcSimpleText& simpleTextValue) const;
+      const SgfcSimpleText& simpleTextValue) const override;
     virtual std::shared_ptr<ISgfcComposedPropertyValue> CreateComposedGoStoneAndPointPropertyValue(
       const SgfcStone& stoneValue,
       SgfcColor color,
       const SgfcPoint& pointValue,
-      SgfcBoardSize boardSize) const;
+      SgfcBoardSize boardSize) const override;
     //@}
   };
 }

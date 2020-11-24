@@ -43,6 +43,7 @@
 
 - Absolutely **no** multiple inheritance, except where it's needed for implementing interfaces.
 - Declare methods `const` unless there is a reason not to.
+- Always use `override` to declare overrides.
 - No templates unless there is a good reason to.
 - Throw exceptions by value so that the caller does not have to deal with memory management in the exception handler (e.g. `throw std::invalid_argument()` not `throw new std::invalid_argument()`).
 

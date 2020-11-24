@@ -56,7 +56,7 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcNode object.
     virtual ~SgfcNode();
 
-    virtual std::shared_ptr<ISgfcNode> GetFirstChild() const;
+    virtual std::shared_ptr<ISgfcNode> GetFirstChild() const override;
     /// @brief Sets the node's first child node to @a node, overwriting the
     /// previously set first child node. This method performs no relinking of
     /// any kind.
@@ -65,11 +65,11 @@ namespace LibSgfcPlusPlus
     /// be able to invoke this directly. Instead library clients must use
     /// ISgfcTreeBuilder.
     void SetFirstChild(std::shared_ptr<ISgfcNode> node);
-    virtual std::shared_ptr<ISgfcNode> GetLastChild() const;
-    virtual std::vector<std::shared_ptr<ISgfcNode>> GetChildren() const;
-    virtual bool HasChildren() const;
+    virtual std::shared_ptr<ISgfcNode> GetLastChild() const override;
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetChildren() const override;
+    virtual bool HasChildren() const override;
 
-    virtual std::shared_ptr<ISgfcNode> GetNextSibling() const;
+    virtual std::shared_ptr<ISgfcNode> GetNextSibling() const override;
     /// @brief Sets the node's next sibling node to @a node, overwriting the
     /// previously set next sibling node. This method performs no relinking of
     /// any kind.
@@ -78,11 +78,11 @@ namespace LibSgfcPlusPlus
     /// be able to invoke this directly. Instead library clients must use
     /// ISgfcTreeBuilder.
     void SetNextSibling(std::shared_ptr<ISgfcNode> node);
-    virtual bool HasNextSibling() const;
-    virtual std::shared_ptr<ISgfcNode> GetPreviousSibling() const;
-    virtual bool HasPreviousSibling() const;
+    virtual bool HasNextSibling() const override;
+    virtual std::shared_ptr<ISgfcNode> GetPreviousSibling() const override;
+    virtual bool HasPreviousSibling() const override;
 
-    virtual std::shared_ptr<ISgfcNode> GetParent() const;
+    virtual std::shared_ptr<ISgfcNode> GetParent() const override;
     /// @brief Sets the node's parent node to @a node, overwriting the
     /// previously set parent node. This method performs no relinking of
     /// any kind.
@@ -91,28 +91,28 @@ namespace LibSgfcPlusPlus
     /// be able to invoke this directly. Instead library clients must use
     /// ISgfcTreeBuilder.
     void SetParent(std::shared_ptr<ISgfcNode> node);
-    virtual bool HasParent() const;
-    virtual bool IsDescendantOf(std::shared_ptr<ISgfcNode> node) const;
-    virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const;
-    virtual bool IsRoot() const;
+    virtual bool HasParent() const override;
+    virtual bool IsDescendantOf(std::shared_ptr<ISgfcNode> node) const override;
+    virtual bool IsAncestorOf(std::shared_ptr<ISgfcNode> node) const override;
+    virtual bool IsRoot() const override;
 
-    virtual SgfcNodeTraits GetTraits() const;
-    virtual bool HasTrait(SgfcNodeTrait trait) const;
+    virtual SgfcNodeTraits GetTraits() const override;
+    virtual bool HasTrait(SgfcNodeTrait trait) const override;
 
-    virtual std::shared_ptr<ISgfcNode> GetRoot() const;
-    virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const;
-    virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const;
+    virtual std::shared_ptr<ISgfcNode> GetRoot() const override;
+    virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const override;
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const override;
 
-    virtual bool HasProperties() const;
-    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const;
-    virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties);
-    virtual void AppendProperty(std::shared_ptr<ISgfcProperty> property);
-    virtual void RemoveProperty(std::shared_ptr<ISgfcProperty> property);
-    virtual void RemoveAllProperties();
-    virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const;
-    virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const;
-    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties(SgfcPropertyCategory propertyCategory) const;
-    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetInheritedProperties() const;
+    virtual bool HasProperties() const override;
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const override;
+    virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) override;
+    virtual void AppendProperty(std::shared_ptr<ISgfcProperty> property) override;
+    virtual void RemoveProperty(std::shared_ptr<ISgfcProperty> property) override;
+    virtual void RemoveAllProperties() override;
+    virtual std::shared_ptr<ISgfcProperty> GetProperty(SgfcPropertyType propertyType) const override;
+    virtual std::shared_ptr<ISgfcProperty> GetProperty(const std::string& propertyName) const override;
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties(SgfcPropertyCategory propertyCategory) const override;
+    virtual std::vector<std::shared_ptr<ISgfcProperty>> GetInheritedProperties() const override;
 
   private:
     std::shared_ptr<ISgfcNode> firstChild;

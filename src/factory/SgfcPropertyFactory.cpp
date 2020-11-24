@@ -221,9 +221,8 @@ namespace LibSgfcPlusPlus
     {
       std::shared_ptr<ISgfcProperty> property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(
         propertyType,
-        propertyName));
-
-      property->SetPropertyValues(propertyValues);
+        propertyName,
+        propertyValues));
 
       return property;
     }

@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcTextPropertyValue object.
     virtual ~SgfcTextPropertyValue();
 
-    virtual SgfcText GetTextValue() const;
-    virtual const ISgfcTextPropertyValue* ToTextValue() const;
+    virtual SgfcText GetTextValue() const override;
+    virtual const ISgfcTextPropertyValue* ToTextValue() const override;
 
   private:
     SgfcText textValue;

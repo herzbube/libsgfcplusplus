@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcSimpleTextPropertyValue object.
     virtual ~SgfcSimpleTextPropertyValue();
 
-    virtual SgfcSimpleText GetSimpleTextValue() const;
-    virtual const ISgfcSimpleTextPropertyValue* ToSimpleTextValue() const;
+    virtual SgfcSimpleText GetSimpleTextValue() const override;
+    virtual const ISgfcSimpleTextPropertyValue* ToSimpleTextValue() const override;
 
   private:
     SgfcSimpleText simpleTextValue;

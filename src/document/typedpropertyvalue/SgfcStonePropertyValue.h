@@ -39,9 +39,9 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcStonePropertyValue object.
     virtual ~SgfcStonePropertyValue();
 
-    virtual SgfcStone GetStoneValue() const;
-    virtual const ISgfcStonePropertyValue* ToStoneValue() const;
-    virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const;
+    virtual SgfcStone GetStoneValue() const override;
+    virtual const ISgfcStonePropertyValue* ToStoneValue() const override;
+    virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const override;
 
   private:
     SgfcStone stoneValue;

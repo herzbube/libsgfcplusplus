@@ -37,14 +37,14 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcArguments object.
     virtual ~SgfcArguments();
 
-    virtual bool HasArguments() const;
-    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const;
+    virtual bool HasArguments() const override;
+    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const override;
 
-    virtual void AddArgument(SgfcArgumentType argumentType);
-    virtual void AddArgument(SgfcArgumentType argumentType, int parameter);
-    virtual void AddArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter);
+    virtual void AddArgument(SgfcArgumentType argumentType) override;
+    virtual void AddArgument(SgfcArgumentType argumentType, int parameter) override;
+    virtual void AddArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter) override;
 
-    virtual void ClearArguments();
+    virtual void ClearArguments() override;
 
   private:
     std::vector<std::shared_ptr<ISgfcArgument>> arguments;

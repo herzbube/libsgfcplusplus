@@ -69,19 +69,19 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcMessage object.
     virtual ~SgfcMessage();
   
-    virtual int GetMessageID() const;
+    virtual int GetMessageID() const override;
 
-    virtual SgfcMessageType GetMessageType() const;
+    virtual SgfcMessageType GetMessageType() const override;
 
-    virtual int GetLineNumber() const;
-    virtual int GetColumnNumber() const;
+    virtual int GetLineNumber() const override;
+    virtual int GetColumnNumber() const override;
 
-    virtual bool IsCriticalMessage() const;
+    virtual bool IsCriticalMessage() const override;
 
-    virtual int GetLibraryErrorNumber() const;
+    virtual int GetLibraryErrorNumber() const override;
 
-    virtual std::string GetMessageText() const;
-    virtual std::string GetFormattedMessageText() const;
+    virtual std::string GetMessageText() const override;
+    virtual std::string GetFormattedMessageText() const override;
 
   private:
     int messageID;

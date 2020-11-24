@@ -56,14 +56,14 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGoPoint object.
     virtual ~SgfcGoPoint();
 
-    virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const;
-    virtual unsigned int GetYPosition(SgfcCoordinateSystem coordinateSystem) const;
+    virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const override;
+    virtual unsigned int GetYPosition(SgfcCoordinateSystem coordinateSystem) const override;
 
-    virtual bool HasPosition(SgfcGoPointNotation goPointNotation) const;
+    virtual bool HasPosition(SgfcGoPointNotation goPointNotation) const override;
 
-    virtual std::string GetPosition(SgfcGoPointNotation goPointNotation) const;
-    virtual std::string GetXPosition(SgfcGoPointNotation goPointNotation) const;
-    virtual std::string GetYPosition(SgfcGoPointNotation goPointNotation) const;
+    virtual std::string GetPosition(SgfcGoPointNotation goPointNotation) const override;
+    virtual std::string GetXPosition(SgfcGoPointNotation goPointNotation) const override;
+    virtual std::string GetYPosition(SgfcGoPointNotation goPointNotation) const override;
 
   private:
     unsigned int xPositionUpperLeftOrigin;

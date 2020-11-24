@@ -66,8 +66,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcBoardSizeProperty object.
     virtual ~SgfcBoardSizeProperty();
 
-    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const;
+    virtual const ISgfcBoardSizeProperty* ToBoardSizeProperty() const override;
 
-    virtual SgfcBoardSize GetBoardSize(SgfcGameType gameType) const;
+    virtual SgfcBoardSize GetBoardSize(SgfcGameType gameType) const override;
   };
 }

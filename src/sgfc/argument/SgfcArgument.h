@@ -54,12 +54,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcArgument object.
     virtual ~SgfcArgument();
 
-    virtual SgfcArgumentType GetArgumentType() const;
-    virtual bool HasIntegerTypeParameter() const;
-    virtual int GetIntegerTypeParameter() const;
-    virtual bool HasPropertyTypeParameter() const;
-    virtual SgfcPropertyType GetPropertyTypeParameter() const;
-    virtual std::string ToString() const;
+    virtual SgfcArgumentType GetArgumentType() const override;
+    virtual bool HasIntegerTypeParameter() const override;
+    virtual int GetIntegerTypeParameter() const override;
+    virtual bool HasPropertyTypeParameter() const override;
+    virtual SgfcPropertyType GetPropertyTypeParameter() const override;
+    virtual std::string ToString() const override;
 
   private:
     SgfcArgumentType argumentType;

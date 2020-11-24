@@ -22,7 +22,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcPropertyBasicValueTypeDescriptor interface provides an
+  /// @brief The SgfcPropertyBasicValueTypeDescriptor class provides an
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
@@ -53,8 +53,8 @@ namespace LibSgfcPlusPlus
     /// object.
     virtual ~SgfcPropertyBasicValueTypeDescriptor();
 
-    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const;
-    virtual const SgfcPropertyBasicValueTypeDescriptor* ToBasicValueTypeDescriptor() const;
+    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const override;
+    virtual const SgfcPropertyBasicValueTypeDescriptor* ToBasicValueTypeDescriptor() const override;
 
     /// @brief Returns the value type defined by the
     /// SgfcPropertyBasicValueTypeDescriptor.

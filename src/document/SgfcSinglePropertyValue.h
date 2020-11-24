@@ -53,24 +53,24 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcSinglePropertyValue object.
     virtual ~SgfcSinglePropertyValue();
 
-    virtual bool IsComposedValue() const;
-    virtual const ISgfcSinglePropertyValue* ToSingleValue() const;
+    virtual bool IsComposedValue() const override;
+    virtual const ISgfcSinglePropertyValue* ToSingleValue() const override;
 
-    virtual SgfcPropertyValueType GetValueType() const;
-    virtual bool HasTypedValue() const;
-    virtual std::string GetTypeConversionErrorMessage() const;
+    virtual SgfcPropertyValueType GetValueType() const override;
+    virtual bool HasTypedValue() const override;
+    virtual std::string GetTypeConversionErrorMessage() const override;
 
-    virtual std::string GetRawValue() const;
+    virtual std::string GetRawValue() const override;
 
-    virtual const ISgfcNumberPropertyValue* ToNumberValue() const;
-    virtual const ISgfcRealPropertyValue* ToRealValue() const;
-    virtual const ISgfcDoublePropertyValue* ToDoubleValue() const;
-    virtual const ISgfcColorPropertyValue* ToColorValue() const;
-    virtual const ISgfcSimpleTextPropertyValue* ToSimpleTextValue() const;
-    virtual const ISgfcTextPropertyValue* ToTextValue() const;
-    virtual const ISgfcPointPropertyValue* ToPointValue() const;
-    virtual const ISgfcMovePropertyValue* ToMoveValue() const;
-    virtual const ISgfcStonePropertyValue* ToStoneValue() const;
+    virtual const ISgfcNumberPropertyValue* ToNumberValue() const override;
+    virtual const ISgfcRealPropertyValue* ToRealValue() const override;
+    virtual const ISgfcDoublePropertyValue* ToDoubleValue() const override;
+    virtual const ISgfcColorPropertyValue* ToColorValue() const override;
+    virtual const ISgfcSimpleTextPropertyValue* ToSimpleTextValue() const override;
+    virtual const ISgfcTextPropertyValue* ToTextValue() const override;
+    virtual const ISgfcPointPropertyValue* ToPointValue() const override;
+    virtual const ISgfcMovePropertyValue* ToMoveValue() const override;
+    virtual const ISgfcStonePropertyValue* ToStoneValue() const override;
 
   private:
     SgfcPropertyValueType valueType;

@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcDoublePropertyValue object.
     virtual ~SgfcDoublePropertyValue();
 
-    virtual SgfcDouble GetDoubleValue() const;
-    virtual const ISgfcDoublePropertyValue* ToDoubleValue() const;
+    virtual SgfcDouble GetDoubleValue() const override;
+    virtual const ISgfcDoublePropertyValue* ToDoubleValue() const override;
 
   private:
     SgfcDouble doubleValue;

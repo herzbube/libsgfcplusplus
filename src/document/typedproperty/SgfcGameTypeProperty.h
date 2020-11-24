@@ -49,9 +49,9 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGameTypeProperty object.
     virtual ~SgfcGameTypeProperty();
 
-    virtual const ISgfcGameTypeProperty* ToGameTypeProperty() const;
+    virtual const ISgfcGameTypeProperty* ToGameTypeProperty() const override;
 
-    virtual SgfcGameType GetGameType() const;
-    virtual SgfcNumber GetGameTypeAsNumber() const;
+    virtual SgfcGameType GetGameType() const override;
+    virtual SgfcNumber GetGameTypeAsNumber() const override;
   };
 }

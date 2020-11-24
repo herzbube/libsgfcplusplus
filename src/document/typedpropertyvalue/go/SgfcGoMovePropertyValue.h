@@ -49,8 +49,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGoMovePropertyValue object.
     virtual ~SgfcGoMovePropertyValue();
 
-    virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const;
-    virtual std::shared_ptr<ISgfcGoMove> GetGoMove() const;
+    virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const override;
+    virtual std::shared_ptr<ISgfcGoMove> GetGoMove() const override;
 
   private:
     std::shared_ptr<ISgfcGoMove> goMove;

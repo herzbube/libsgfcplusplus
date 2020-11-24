@@ -24,7 +24,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcPropertyDualValueTypeDescriptor interface provides an
+  /// @brief The SgfcPropertyDualValueTypeDescriptor class provides an
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
@@ -66,8 +66,8 @@ namespace LibSgfcPlusPlus
     /// object.
     virtual ~SgfcPropertyDualValueTypeDescriptor();
 
-    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const;
-    virtual const SgfcPropertyDualValueTypeDescriptor* ToDualValueTypeDescriptor() const;
+    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const override;
+    virtual const SgfcPropertyDualValueTypeDescriptor* ToDualValueTypeDescriptor() const override;
 
     /// @brief Returns an ISgfcPropertyValueTypeDescriptor object that describes
     /// the first of the two possible value types.

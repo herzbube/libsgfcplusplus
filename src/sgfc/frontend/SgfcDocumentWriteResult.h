@@ -58,9 +58,9 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcDocumentReadResult object.
     virtual ~SgfcDocumentWriteResult();
 
-    virtual SgfcExitCode GetExitCode() const;
-    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
-    virtual void DebugPrintToConsole() const;
+    virtual SgfcExitCode GetExitCode() const override;
+    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const override;
+    virtual void DebugPrintToConsole() const override;
 
   private:
     SgfcExitCode exitCode;

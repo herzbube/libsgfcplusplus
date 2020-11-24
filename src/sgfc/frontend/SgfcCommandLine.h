@@ -40,20 +40,20 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcCommandLine object.
     virtual ~SgfcCommandLine();
 
-    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const;
-    virtual bool IsCommandLineValid() const;
-    virtual std::shared_ptr<ISgfcMessage> GetInvalidCommandLineReason() const;
+    virtual std::vector<std::shared_ptr<ISgfcArgument>> GetArguments() const override;
+    virtual bool IsCommandLineValid() const override;
+    virtual std::shared_ptr<ISgfcMessage> GetInvalidCommandLineReason() const override;
 
-    virtual SgfcExitCode LoadSgfFile(const std::string& sgfFilePath);
-    virtual SgfcExitCode LoadSgfContent(const std::string& sgfContent);
+    virtual SgfcExitCode LoadSgfFile(const std::string& sgfFilePath) override;
+    virtual SgfcExitCode LoadSgfContent(const std::string& sgfContent) override;
 
-    virtual bool IsSgfContentValid() const;
-    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const;
+    virtual bool IsSgfContentValid() const override;
+    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetParseResult() const override;
 
-    virtual SgfcExitCode SaveSgfFile(const std::string& sgfFilePath);
-    virtual SgfcExitCode SaveSgfContent(std::string& sgfContent);
+    virtual SgfcExitCode SaveSgfFile(const std::string& sgfFilePath) override;
+    virtual SgfcExitCode SaveSgfContent(std::string& sgfContent) override;
 
-    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetSaveResult() const;
+    virtual std::vector<std::shared_ptr<ISgfcMessage>> GetSaveResult() const override;
 
   private:
     std::shared_ptr<SgfcBackendController> backendController;

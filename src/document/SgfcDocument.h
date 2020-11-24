@@ -61,15 +61,15 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcDocument object.
     virtual ~SgfcDocument();
 
-    virtual bool IsEmpty() const;
+    virtual bool IsEmpty() const override;
 
-    virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const;
-    virtual void SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games);
-    virtual void AppendGame(std::shared_ptr<ISgfcGame> game);
-    virtual void RemoveGame(std::shared_ptr<ISgfcGame> game);
-    virtual void RemoveAllGames();
+    virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const override;
+    virtual void SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games) override;
+    virtual void AppendGame(std::shared_ptr<ISgfcGame> game) override;
+    virtual void RemoveGame(std::shared_ptr<ISgfcGame> game) override;
+    virtual void RemoveAllGames() override;
 
-    virtual void DebugPrintToConsole() const;
+    virtual void DebugPrintToConsole() const override;
 
   private:
     std::vector<std::shared_ptr<ISgfcGame>> games;

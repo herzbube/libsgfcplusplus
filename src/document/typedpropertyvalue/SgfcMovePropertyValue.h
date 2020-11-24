@@ -39,9 +39,9 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcMovePropertyValue object.
     virtual ~SgfcMovePropertyValue();
 
-    virtual SgfcMove GetMoveValue() const;
-    virtual const ISgfcMovePropertyValue* ToMoveValue() const;
-    virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const;
+    virtual SgfcMove GetMoveValue() const override;
+    virtual const ISgfcMovePropertyValue* ToMoveValue() const override;
+    virtual const ISgfcGoMovePropertyValue* ToGoMoveValue() const override;
 
   private:
     SgfcMove moveValue;

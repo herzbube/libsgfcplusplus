@@ -39,31 +39,31 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcTreeBuilder object.
     virtual ~SgfcTreeBuilder();
 
-    virtual std::weak_ptr<ISgfcGame> GetGame() const;
+    virtual std::weak_ptr<ISgfcGame> GetGame() const override;
 
     virtual void SetFirstChild(
       std::shared_ptr<ISgfcNode> node,
-      std::shared_ptr<ISgfcNode> child) const;
+      std::shared_ptr<ISgfcNode> child) const override;
     virtual void AppendChild(
       std::shared_ptr<ISgfcNode> node,
-      std::shared_ptr<ISgfcNode> child) const;
+      std::shared_ptr<ISgfcNode> child) const override;
     virtual void InsertChild(
       std::shared_ptr<ISgfcNode> node,
       std::shared_ptr<ISgfcNode> child,
-      std::shared_ptr<ISgfcNode> referenceChild) const;
+      std::shared_ptr<ISgfcNode> referenceChild) const override;
     virtual void RemoveChild(
       std::shared_ptr<ISgfcNode> node,
-      std::shared_ptr<ISgfcNode> child) const;
+      std::shared_ptr<ISgfcNode> child) const override;
     virtual void ReplaceChild(
       std::shared_ptr<ISgfcNode> node,
       std::shared_ptr<ISgfcNode> newChild,
-      std::shared_ptr<ISgfcNode> oldChild) const;
+      std::shared_ptr<ISgfcNode> oldChild) const override;
     virtual void SetNextSibling(
       std::shared_ptr<ISgfcNode> node,
-      std::shared_ptr<ISgfcNode> nextSibling) const;
+      std::shared_ptr<ISgfcNode> nextSibling) const override;
     virtual void SetParent(
       std::shared_ptr<ISgfcNode> node,
-      std::shared_ptr<ISgfcNode> parent) const;
+      std::shared_ptr<ISgfcNode> parent) const override;
 
   private:
     std::weak_ptr<ISgfcGame> game;

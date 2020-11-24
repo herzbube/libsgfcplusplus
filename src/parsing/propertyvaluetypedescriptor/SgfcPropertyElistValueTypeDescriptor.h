@@ -25,7 +25,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcPropertyElistValueTypeDescriptor interface provides an
+  /// @brief The SgfcPropertyElistValueTypeDescriptor class provides an
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
@@ -66,8 +66,8 @@ namespace LibSgfcPlusPlus
     /// object.
     virtual ~SgfcPropertyElistValueTypeDescriptor();
 
-    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const;
-    virtual const SgfcPropertyElistValueTypeDescriptor* ToElistValueTypeDescriptor() const;
+    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const override;
+    virtual const SgfcPropertyElistValueTypeDescriptor* ToElistValueTypeDescriptor() const override;
 
     /// @brief Returns an SgfcPropertyListValueTypeDescriptor object that
     /// is composed of another descriptor that defines the value type of the

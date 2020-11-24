@@ -43,19 +43,19 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGame object.
     virtual ~SgfcGame();
 
-    virtual SgfcGameType GetGameType() const;
-    virtual SgfcNumber GetGameTypeAsNumber() const;
+    virtual SgfcGameType GetGameType() const override;
+    virtual SgfcNumber GetGameTypeAsNumber() const override;
 
-    virtual bool HasBoardSize() const;
-    virtual SgfcBoardSize GetBoardSize() const;
+    virtual bool HasBoardSize() const override;
+    virtual SgfcBoardSize GetBoardSize() const override;
 
-    virtual bool HasRootNode() const;
-    virtual std::shared_ptr<ISgfcNode> GetRootNode() const;
-    virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode);
+    virtual bool HasRootNode() const override;
+    virtual std::shared_ptr<ISgfcNode> GetRootNode() const override;
+    virtual void SetRootNode(std::shared_ptr<ISgfcNode> rootNode) override;
 
-    virtual std::vector<std::shared_ptr<ISgfcNode>> GetGameInfoNodes() const;
+    virtual std::vector<std::shared_ptr<ISgfcNode>> GetGameInfoNodes() const override;
 
-    virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const;
+    virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const override;
     /// @brief Configures the SgfcGame object with @a treeBuilder, an object
     /// that can be used to manipulate the game tree.
     void SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder);

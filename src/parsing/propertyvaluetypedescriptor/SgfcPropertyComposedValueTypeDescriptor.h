@@ -24,7 +24,7 @@
 
 namespace LibSgfcPlusPlus
 {
-  /// @brief The SgfcPropertyComposedValueTypeDescriptor interface provides an
+  /// @brief The SgfcPropertyComposedValueTypeDescriptor class provides an
   /// implementation of the ISgfcPropertyValueTypeDescriptor interface.
   /// See the interface header file for documentation.
   ///
@@ -62,8 +62,8 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyComposedValueTypeDescriptor object.
     virtual ~SgfcPropertyComposedValueTypeDescriptor();
 
-    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const;
-    virtual const SgfcPropertyComposedValueTypeDescriptor* ToComposedValueTypeDescriptor() const;
+    virtual SgfcPropertyValueTypeDescriptorType GetDescriptorType() const override;
+    virtual const SgfcPropertyComposedValueTypeDescriptor* ToComposedValueTypeDescriptor() const override;
 
     /// @brief Returns an ISgfcPropertyValueTypeDescriptor object that describes
     /// the value type of the first value.

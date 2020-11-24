@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcRealPropertyValue object.
     virtual ~SgfcRealPropertyValue();
 
-    virtual SgfcReal GetRealValue() const;
-    virtual const ISgfcRealPropertyValue* ToRealValue() const;
+    virtual SgfcReal GetRealValue() const override;
+    virtual const ISgfcRealPropertyValue* ToRealValue() const override;
 
   private:
     SgfcReal realValue;

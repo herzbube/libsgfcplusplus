@@ -35,9 +35,9 @@ namespace LibSgfcPlusPlus
     SgfcDocumentReader();
     virtual ~SgfcDocumentReader();
 
-    virtual std::shared_ptr<ISgfcArguments> GetArguments() const;
-    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfFile(const std::string& sgfFilePath) const;
-    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) const;
+    virtual std::shared_ptr<ISgfcArguments> GetArguments() const override;
+    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfFile(const std::string& sgfFilePath) const override;
+    virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfContent(const std::string& sgfContent) const override;
 
   private:
     std::shared_ptr<ISgfcArguments> arguments;

@@ -45,8 +45,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGoStonePropertyValue object.
     virtual ~SgfcGoStonePropertyValue();
 
-    virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const;
-    virtual std::shared_ptr<ISgfcGoStone> GetGoStone() const;
+    virtual const ISgfcGoStonePropertyValue* ToGoStoneValue() const override;
+    virtual std::shared_ptr<ISgfcGoStone> GetGoStone() const override;
 
   private:
     std::shared_ptr<ISgfcGoStone> goStone;

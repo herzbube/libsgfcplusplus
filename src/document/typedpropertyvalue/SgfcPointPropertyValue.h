@@ -39,9 +39,9 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcPointPropertyValue object.
     virtual ~SgfcPointPropertyValue();
 
-    virtual SgfcPoint GetPointValue() const;
-    virtual const ISgfcPointPropertyValue* ToPointValue() const;
-    virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const;
+    virtual SgfcPoint GetPointValue() const override;
+    virtual const ISgfcPointPropertyValue* ToPointValue() const override;
+    virtual const ISgfcGoPointPropertyValue* ToGoPointValue() const override;
 
   private:
     SgfcPoint pointValue;

@@ -42,11 +42,11 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcSinglePropertyValue object.
     virtual ~SgfcComposedPropertyValue();
 
-    virtual bool IsComposedValue() const;
-    virtual const ISgfcComposedPropertyValue* ToComposedValue() const;
+    virtual bool IsComposedValue() const override;
+    virtual const ISgfcComposedPropertyValue* ToComposedValue() const override;
 
-    virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue1() const;
-    virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue2() const;
+    virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue1() const override;
+    virtual std::shared_ptr<ISgfcSinglePropertyValue> GetValue2() const override;
 
   private:
     std::shared_ptr<ISgfcSinglePropertyValue> value1;

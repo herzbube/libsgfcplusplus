@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcColorPropertyValue object.
     virtual ~SgfcColorPropertyValue();
 
-    virtual SgfcColor GetColorValue() const;
-    virtual const ISgfcColorPropertyValue* ToColorValue() const;
+    virtual SgfcColor GetColorValue() const override;
+    virtual const ISgfcColorPropertyValue* ToColorValue() const override;
 
   private:
     SgfcColor colorValue;

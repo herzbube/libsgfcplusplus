@@ -39,8 +39,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcNumberPropertyValue object.
     virtual ~SgfcNumberPropertyValue();
 
-    virtual SgfcNumber GetNumberValue() const;
-    virtual const ISgfcNumberPropertyValue* ToNumberValue() const;
+    virtual SgfcNumber GetNumberValue() const override;
+    virtual const ISgfcNumberPropertyValue* ToNumberValue() const override;
 
   private:
     SgfcNumber numberValue;
