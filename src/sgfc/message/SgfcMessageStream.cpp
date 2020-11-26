@@ -99,24 +99,27 @@ namespace LibSgfcPlusPlus
       columnNumber = SgfcConstants::InvalidColumnNumber;
     }
 
+    SgfcMessageID messageID;
     // Casting to int should be safe after applying the bitwise-and operator.
     // The SGFC code internally does the same.
-    int messageID = static_cast<int>(sgfcError->error & M_ERROR_NUM);
+    int messageIDAsInt = static_cast<int>(sgfcError->error & M_ERROR_NUM);
     // It's hard to imagine how this should ever become true, but we want to
     // be 100% sure that negative numbers are reserved for the library.
-    if (messageID < 0)
-      messageID = SgfcConstants::UnknownSgfcMessageID;
+    if (messageIDAsInt < 0)
+      messageID = SgfcMessageID::UnknownSgfcMessageID;
+    else
+      messageID = static_cast<SgfcMessageID>(messageIDAsInt);
     
     SgfcMessageType messageType;
     switch (sgfcError->error & M_ERROR_TYPE)
     {
       case E_ERROR:
         messageType = SgfcMessageType::Error;
-        formattedMessageTextStream << "Error " << messageID;
+        formattedMessageTextStream << "Error " << messageIDAsInt;
         break;
       case E_WARNING:
         messageType = SgfcMessageType::Warning;
-        formattedMessageTextStream << "Warning " << messageID;
+        formattedMessageTextStream << "Warning " << messageIDAsInt;
         break;
       case E_FATAL_ERROR:
       // Fall-through intentional. This should not occur unless a new version
@@ -125,7 +128,7 @@ namespace LibSgfcPlusPlus
       // reading of documents with SgfcDocumentReader.
       default:
         messageType = SgfcMessageType::FatalError;
-        formattedMessageTextStream << "Fatal error " << messageID;
+        formattedMessageTextStream << "Fatal error " << messageIDAsInt;
         break;
     }
 

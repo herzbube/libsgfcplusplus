@@ -226,6 +226,7 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/SgfcExitCode.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcGameType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcGoPointNotation.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcMessageID.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcMessageType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcNodeTraits.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPlusPlusFactory.h

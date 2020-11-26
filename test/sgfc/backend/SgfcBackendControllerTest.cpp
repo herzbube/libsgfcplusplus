@@ -103,16 +103,15 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
       struct TestData
       {
         std::vector<std::shared_ptr<ISgfcArgument>> CommandLineArguments;
-        int InvalidCommandLineReasonMessageID;
+        SgfcMessageID InvalidCommandLineReasonMessageID;
       };
       auto testData = GENERATE(
-        // 49 = SGFC error code "bad command line option parameter"
         TestData
         {
           std::vector<std::shared_ptr<ISgfcArgument>>
           {
             std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
-          }, 49
+          }, SgfcMessageID::BadCommandLineOptionParameter
         }
       );
 
@@ -177,8 +176,7 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
 
         auto errorMessage = parseResult.front();
         REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 3 = SGFC error code "could not open source file"
-        REQUIRE( errorMessage->GetMessageID() == 3 );
+        REQUIRE( errorMessage->GetMessageID() == SgfcMessageID::CouldNotOpenSourceFile );
         REQUIRE( errorMessage->GetMessageText().length() > 0 );
       }
     }
@@ -523,8 +521,7 @@ void AssertErrorLoadResultWhenNoValidSgfContent(
 
   auto errorMessage = parseResult.front();
   REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-  // 7 = SGFC error code "no SGF data found"
-  REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageID() == SgfcMessageID::NoSgfData );
   REQUIRE( errorMessage->GetMessageText().length() > 0 );
 }
 
@@ -572,11 +569,9 @@ void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
   REQUIRE( errorMessage1a->GetMessageType() == SgfcMessageType::Warning );
   REQUIRE( errorMessage1b->GetMessageType() == SgfcMessageType::Error );
   REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
-  // 17 = SGFC error code "empty value deleted"
-  REQUIRE( errorMessage1a->GetMessageID() == 17 );
-  REQUIRE( errorMessage3->GetMessageID() == 17 );
-  // 60 = SGFC error code "file contains more than one game tree"
-  REQUIRE( errorMessage1b->GetMessageID() == 60 );
+  REQUIRE( errorMessage1a->GetMessageID() == SgfcMessageID::EmptyValueDeleted );
+  REQUIRE( errorMessage3->GetMessageID() == SgfcMessageID::EmptyValueDeleted );
+  REQUIRE( errorMessage1b->GetMessageID() == SgfcMessageID::MoreThanOneGameTree );
 }
 
 void AssertLoadResultWhenSgfDataHasCriticalError(
@@ -587,15 +582,13 @@ void AssertLoadResultWhenSgfDataHasCriticalError(
 
   auto errorMessage1 = parseResult.front();
   REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
-  // 46 = unknown file format
-  REQUIRE( errorMessage1->GetMessageID() == 46 );
+  REQUIRE( errorMessage1->GetMessageID() == SgfcMessageID::UnknownFileFormat );
   REQUIRE( errorMessage1->IsCriticalMessage() == true );
   REQUIRE( errorMessage1->GetMessageText().length() > 0 );
 
   auto errorMessage2 = parseResult.back();
   REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
-  // 40 = property <%s> is not defined in FF[%d]
-  REQUIRE( errorMessage2->GetMessageID() == 40 );
+  REQUIRE( errorMessage2->GetMessageID() == SgfcMessageID::PropertyNotDefinedInFF );
   REQUIRE( errorMessage2->IsCriticalMessage() == false );
   REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 }

@@ -15,7 +15,6 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
-#include "../../../include/SgfcConstants.h"
 #include "../../document/SgfcDocument.h"
 #include "../../SgfcUtility.h"
 #include "../argument/SgfcArguments.h"
@@ -86,14 +85,14 @@ namespace LibSgfcPlusPlus
         {
           document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
           parseResult.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-            SgfcConstants::ParseSgfContentErrorMessageID,
+            SgfcMessageID::ParseSgfContentError,
             exception.what())));
         }
         catch (std::domain_error& exception)
         {
           document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
           parseResult.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-            SgfcConstants::SGFCInterfacingErrorMessageID,
+            SgfcMessageID::SGFCInterfacingError,
             exception.what())));
         }
       }

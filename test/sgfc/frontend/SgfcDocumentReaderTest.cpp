@@ -80,8 +80,7 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
 
         auto errorMessage = parseResult.front();
         REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-        // 3 = SGFC error code "could not open source file"
-        REQUIRE( errorMessage->GetMessageID() == 3 );
+        REQUIRE( errorMessage->GetMessageID() == SgfcMessageID::CouldNotOpenSourceFile );
         REQUIRE( errorMessage->GetMessageText().length() > 0 );
 
         auto document = readResult->GetDocument();
@@ -185,10 +184,8 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
 
         REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
         REQUIRE( errorMessage3->GetMessageType() == SgfcMessageType::Warning );
-        // 28 = SGFC error code "property already exists"
-        REQUIRE( errorMessage1->GetMessageID() == 28 );
-        // 17 = SGFC error code "empty value deleted"
-        REQUIRE( errorMessage3->GetMessageID() == 17 );
+        REQUIRE( errorMessage1->GetMessageID() == SgfcMessageID::DuplicatePropertyDeleted );
+        REQUIRE( errorMessage3->GetMessageID() == SgfcMessageID::EmptyValueDeleted );
       }
     }
 
@@ -217,15 +214,13 @@ SCENARIO( "SgfcDocumentReader reads SGF content from the filesystem", "[frontend
 
         auto errorMessage1 = parseResult.front();
         REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
-        // 46 = unknown file format
-        REQUIRE( errorMessage1->GetMessageID() == 46 );
+        REQUIRE( errorMessage1->GetMessageID() == SgfcMessageID::UnknownFileFormat );
         REQUIRE( errorMessage1->IsCriticalMessage() == true );
         REQUIRE( errorMessage1->GetMessageText().length() > 0 );
 
         auto errorMessage2 = parseResult.back();
         REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
-        // 40 = property <%s> is not defined in FF[%d]
-        REQUIRE( errorMessage2->GetMessageID() == 40 );
+        REQUIRE( errorMessage2->GetMessageID() == SgfcMessageID::PropertyNotDefinedInFF );
         REQUIRE( errorMessage2->IsCriticalMessage() == false );
         REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 
@@ -303,7 +298,7 @@ SCENARIO("The read operation behaviour is changed by arguments", "[frontend]")
         REQUIRE( parseResult.size() == 1 );
         auto invalidCommandLineReason = parseResult.front();
         REQUIRE( invalidCommandLineReason->GetMessageType() == SgfcMessageType::FatalError );
-        REQUIRE( invalidCommandLineReason->GetMessageID() == 49 );
+        REQUIRE( invalidCommandLineReason->GetMessageID() == SgfcMessageID::BadCommandLineOptionParameter );
         REQUIRE( invalidCommandLineReason->GetMessageText().length() > 0 );
       }
     }
@@ -322,8 +317,7 @@ void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentRea
 
   auto errorMessage = parseResult.front();
   REQUIRE( errorMessage->GetMessageType() == SgfcMessageType::FatalError );
-  // 7 = SGFC error code "no SGF data found"
-  REQUIRE( errorMessage->GetMessageID() == 7 );
+  REQUIRE( errorMessage->GetMessageID() == SgfcMessageID::NoSgfData );
   REQUIRE( errorMessage->GetMessageText().length() > 0 );
 
   auto document = readResult->GetDocument();

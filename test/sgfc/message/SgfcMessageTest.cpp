@@ -25,7 +25,7 @@ using namespace LibSgfcPlusPlus;
 
 SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
-  int messageID = 42;
+  SgfcMessageID messageID = SgfcMessageID::CombinationOfPropertiesConverted;
   SgfcMessageType messageType = SgfcMessageType::Warning;
   int lineNumber = 10;
   int columnNumber = 20;
@@ -256,13 +256,13 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
         REQUIRE( message.GetFormattedMessageText() == formattedMessageText );
       }
     }
-}
+  }
 
   GIVEN( "Invalid parameter values are used" )
   {
-    WHEN( "A negative message ID is used" )
+    WHEN( "A libsgfc++ message ID is used" )
     {
-      messageID = SgfcConstants::ParseArgumentErrorMessageID;
+      messageID = SgfcMessageID::ParseArgumentError;
 
       THEN( "The SgfcMessage constructor throws an exception" )
       {
@@ -306,7 +306,7 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 
 SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]" )
 {
-  int messageID = SgfcConstants::ParseArgumentErrorMessageID;
+  SgfcMessageID messageID = SgfcMessageID::ParseArgumentError;
   std::string messageText = "message text";
 
   SgfcMessageType expectedMessageType = SgfcMessageType::FatalError;
@@ -340,9 +340,11 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
 
   GIVEN( "Invalid parameter values are used" )
   {
-    WHEN( "A zero or positive message ID is used" )
+    WHEN( "An SGFC message ID is used" )
     {
-      messageID = GENERATE(0, 42);
+      // Although SGFC does not actually have a message iD 0, libsgfc++
+      // technically treats zero as an SGFC message iD
+      messageID = GENERATE(static_cast<SgfcMessageID>(0), SgfcMessageID::CombinationOfPropertiesConverted);
 
       THEN( "The SgfcMessage constructor throws an exception" )
       {

@@ -64,7 +64,7 @@ namespace LibSgfcPlusPlus
     {
       std::cout
         << "Message ID = "
-        << parseResultMessage->GetMessageID()
+        << static_cast<int>(parseResultMessage->GetMessageID())
         << ", type = "
         << (int)parseResultMessage->GetMessageType()
         << ", line = "

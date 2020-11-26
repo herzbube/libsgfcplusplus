@@ -253,7 +253,7 @@ SCENARIO("The write operation behaviour is changed by arguments", "[frontend]")
         REQUIRE( parseResult.size() == 1 );
         auto invalidCommandLineReason = parseResult.front();
         REQUIRE( invalidCommandLineReason->GetMessageType() == SgfcMessageType::FatalError );
-        REQUIRE( invalidCommandLineReason->GetMessageID() == 49 );
+        REQUIRE( invalidCommandLineReason->GetMessageID() == SgfcMessageID::BadCommandLineOptionParameter );
         REQUIRE( invalidCommandLineReason->GetMessageText().length() > 0 );
       }
     }

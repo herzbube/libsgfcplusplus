@@ -277,7 +277,7 @@ namespace LibSgfcPlusPlus
 
       std::vector<std::shared_ptr<ISgfcMessage>> loadOperationMessages;
       loadOperationMessages.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-        SgfcConstants::OutOfMemoryErrorMessageID,
+        SgfcMessageID::OutOfMemoryError,
         "Memory allocation failed during load operation")));
 
       std::shared_ptr<SgfcBackendLoadResult> backendLoadResult =
@@ -352,7 +352,7 @@ namespace LibSgfcPlusPlus
             std::string messageString = "Writing SGF file failed: " + sgfContentLoop->GetFilePath();
 
             auto message = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-              SgfcConstants::SaveSgfContentToFilesystemErrorMessageID,
+              SgfcMessageID::SaveSgfContentToFilesystemError,
               messageString));
 
             saveOperationMessages.push_back(message);
@@ -377,7 +377,7 @@ namespace LibSgfcPlusPlus
 
       std::vector<std::shared_ptr<ISgfcMessage>> saveOperationMessages;
       saveOperationMessages.push_back(std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-        SgfcConstants::OutOfMemoryErrorMessageID,
+        SgfcMessageID::OutOfMemoryError,
         "Memory allocation failed during load operation")));
 
       std::shared_ptr<SgfcBackendSaveResult> backendSaveResult =
@@ -421,14 +421,14 @@ namespace LibSgfcPlusPlus
     // This should not happen. If it does then ParseArgs() returned false but
     // there was no fatal error in the message stream.
     this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-      SgfcConstants::ParseArgumentErrorMessageID,
+      SgfcMessageID::ParseArgumentError,
       "SGFC failed to parse the specified arguments"));
   }
 
   void SgfcBackendController::SetInvalidCommandLineReasonBecauseMemoryAllocationFailed()
   {
     this->invalidCommandLineReason = std::shared_ptr<ISgfcMessage>(new SgfcMessage(
-      SgfcConstants::OutOfMemoryErrorMessageID,
+      SgfcMessageID::OutOfMemoryError,
       "Memory allocation failed during argument parsing"));
   }
 

@@ -133,7 +133,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 35 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::UnknownPropertyDeleted );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Warning );
         REQUIRE( message->GetLineNumber() == 1 );
         REQUIRE( message->GetColumnNumber() == 1 );
@@ -161,7 +161,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 16 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::PropertyIdentifierWithLowercaseCharacter );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
         REQUIRE( message->GetLineNumber() == 1 );
         REQUIRE( message->GetColumnNumber() == 1 );
@@ -189,7 +189,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 7 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::NoSgfData );
         REQUIRE( message->GetMessageType() == SgfcMessageType::FatalError );
         REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
         REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
@@ -217,7 +217,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 6 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::SgfDataBeforeGameTree );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Warning );
         REQUIRE( message->GetLineNumber() == 1 );
         REQUIRE( message->GetColumnNumber() == 1 );
@@ -246,7 +246,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 8 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::IllegalCharacters );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
         REQUIRE( message->GetLineNumber() == 1 );
         REQUIRE( message->GetColumnNumber() == 1 );
@@ -274,7 +274,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 46 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::UnknownFileFormat );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
         REQUIRE( message->GetLineNumber() == 1 );
         REQUIRE( message->GetColumnNumber() == 1 );
@@ -302,7 +302,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
         REQUIRE( messages.size() == 1 );
         auto message = messages.front();
 
-        REQUIRE( message->GetMessageID() == 34 );
+        REQUIRE( message->GetMessageID() == SgfcMessageID::NotSavedBecauseOfCriticalErrors );
         REQUIRE( message->GetMessageType() == SgfcMessageType::Error );
         REQUIRE( message->GetLineNumber() == SgfcConstants::InvalidLineNumber );
         REQUIRE( message->GetColumnNumber() == SgfcConstants::InvalidColumnNumber );
