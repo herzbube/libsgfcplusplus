@@ -228,6 +228,24 @@ namespace LibSgfcPlusPlus
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) = 0;
 
     /// @brief Adds @a property as the last property to the node's
+    /// collection of properties. If the collection already contains a duplicate
+    /// property that duplicate is removed first. @a property may not be
+    /// @e nullptr.
+    ///
+    /// Duplicate elimination works like this:
+    /// - If @a property has SgfcPropertyType::Unknown then the collection is
+    ///   searched for a duplicate by property name only.
+    /// - If @a property has a property type that is not
+    ///   SgfcPropertyType::Unknown then the collection is searched for a
+    ///   duplicate both by property type and by property name.
+    ///
+    /// The method does nothing if the node's collection of properties already
+    /// contains @a property.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a property is @e nullptr.
+    virtual void SetProperty(std::shared_ptr<ISgfcProperty> property) = 0;
+
+    /// @brief Adds @a property as the last property to the node's
     /// collection of properties. @a property may not be @e nullptr.
     ///
     /// @exception std::invalid_argument Is thrown if @a property is @e nullptr,

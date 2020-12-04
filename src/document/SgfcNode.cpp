@@ -277,6 +277,38 @@ namespace LibSgfcPlusPlus
     this->properties = properties;
   }
 
+  void SgfcNode::SetProperty(std::shared_ptr<ISgfcProperty> property)
+  {
+    if (property == nullptr)
+      throw std::invalid_argument("AppendProperty failed: Property argument is null");
+
+    auto propertyName = property->GetPropertyName();
+    auto lambdaPropertyName = [&propertyName](auto lambdaProperty)->bool { return lambdaProperty->GetPropertyName() == propertyName; };
+
+    // TODO: Use std::erase_if once C++20 becomes available
+    auto result = std::find_if(
+      std::begin(this->properties),
+      std::end(this->properties),
+      lambdaPropertyName);
+    if (result != std::end(this->properties))
+      this->properties.erase(result);
+
+    auto propertyType = property->GetPropertyType();
+    if (propertyType != SgfcPropertyType::Unknown)
+    {
+      auto lambdaPropertyType = [propertyType](auto lambdaProperty)->bool { return lambdaProperty->GetPropertyType() == propertyType; };
+      // TODO: Use std::erase_if once C++20 becomes available
+      auto result = std::find_if(
+        std::begin(this->properties),
+        std::end(this->properties),
+        lambdaPropertyType);
+      if (result != std::end(this->properties))
+        this->properties.erase(result);
+    }
+
+    this->properties.push_back(property);
+  }
+
   void SgfcNode::AppendProperty(std::shared_ptr<ISgfcProperty> property)
   {
     if (property == nullptr)

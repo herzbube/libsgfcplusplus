@@ -106,6 +106,7 @@ namespace LibSgfcPlusPlus
     virtual bool HasProperties() const override;
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const override;
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) override;
+    virtual void SetProperty(std::shared_ptr<ISgfcProperty> property) override;
     virtual void AppendProperty(std::shared_ptr<ISgfcProperty> property) override;
     virtual void RemoveProperty(std::shared_ptr<ISgfcProperty> property) override;
     virtual void RemoveAllProperties() override;

@@ -373,6 +373,145 @@ SCENARIO( "SgfcNode is configured with properties", "[document]" )
   }
 }
 
+SCENARIO( "A property is added to or replaced in SgfcNode", "[document]" )
+{
+  SgfcNode node;
+  auto property = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::DO, "IN"));
+
+  GIVEN( "The node contains no properties" )
+  {
+    WHEN( "A property is added to SgfcNode" )
+    {
+      node.SetProperty(property);
+
+      THEN( "SgfcNode contains the added property" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        auto propertyList = node.GetProperties();
+        REQUIRE( propertyList.size() == 1 );
+        REQUIRE( propertyList.back() == property );
+      }
+    }
+  }
+
+  GIVEN( "The node already contains properties" )
+  {
+    auto propertyGM = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::GM, "GM"));
+    // SgfcNode doesn't care about a matching property name string and enum value
+    auto propertySZ = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "HA"));
+    auto propertyB = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::B, "B"));
+    std::vector<std::shared_ptr<ISgfcProperty>> initialPropertyList =
+    {
+      propertyGM,
+      propertySZ,
+      propertyB,
+    };
+    node.SetProperties(initialPropertyList);
+
+    WHEN( "A property is added to SgfcNode" )
+    {
+      node.SetProperty(property);
+
+      THEN( "SgfcNode adds the property to the end of the property list" )
+      {
+        REQUIRE( node.HasProperties() == true );
+        auto propertyList = node.GetProperties();
+        REQUIRE( propertyList.size() == 4 );
+        REQUIRE( propertyList.back() == property );
+        propertyList.pop_back();
+        REQUIRE( propertyList == initialPropertyList );
+      }
+    }
+
+    WHEN( "A property is added that is already part of the SgfcNode" )
+    {
+      node.SetProperty(initialPropertyList.back());
+
+      THEN( "SgfcNode does nothing" )
+      {
+        REQUIRE( node.GetProperties() == initialPropertyList );
+      }
+    }
+
+    WHEN( "A property is added but the SgfcNode already contains a property with the same property type" )
+    {
+      auto propertyWithDuplicatePropertyType = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::SZ, "SZ"));
+      std::vector<std::shared_ptr<ISgfcProperty>> expectedPropertyList =
+      {
+        propertyGM,
+        propertyB,
+        propertyWithDuplicatePropertyType,
+      };
+      node.SetProperty(propertyWithDuplicatePropertyType);
+
+      THEN( "SgfcNode replaces the property" )
+      {
+        REQUIRE( node.GetProperties() == expectedPropertyList );
+      }
+    }
+
+    WHEN( "A property is added but the SgfcNode already contains a property with the same property name" )
+    {
+      auto propertyWithDuplicatePropertyName = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::HA, "HA"));
+      std::vector<std::shared_ptr<ISgfcProperty>> expectedPropertyList =
+      {
+        propertyGM,
+        propertyB,
+        propertyWithDuplicatePropertyName,
+      };
+      node.SetProperty(propertyWithDuplicatePropertyName);
+
+      THEN( "SgfcNode replaces the property" )
+      {
+        REQUIRE( node.GetProperties() == expectedPropertyList );
+      }
+    }
+
+    WHEN( "A custom property is added but the SgfcNode already contains a custom property with the same property name" )
+    {
+      auto customPropertyGM = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "GM"));
+      // SgfcNode doesn't care about a matching property name string and enum value
+      auto customPropertySZ = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "HA"));
+      auto customPropertyB = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "B"));
+      std::vector<std::shared_ptr<ISgfcProperty>> initialCustomPropertyList =
+      {
+        customPropertyGM,
+        customPropertySZ,
+        customPropertyB,
+      };
+      node.SetProperties(initialCustomPropertyList);
+
+      auto customPropertyWithDuplicatePropertyName = std::shared_ptr<ISgfcProperty>(new SgfcProperty(SgfcPropertyType::Unknown, "HA"));
+      std::vector<std::shared_ptr<ISgfcProperty>> expectedCustomPropertyList =
+      {
+        customPropertyGM,
+        customPropertyB,
+        customPropertyWithDuplicatePropertyName,
+      };
+      node.SetProperty(customPropertyWithDuplicatePropertyName);
+
+      THEN( "SgfcNode replaces the property" )
+      {
+        REQUIRE( node.GetProperties() == expectedCustomPropertyList );
+      }
+    }
+  }
+
+  GIVEN( "A nullptr argument is passed to the add function" )
+  {
+    WHEN( "A nullptr argument is passed to the add function" )
+    {
+      THEN( "SgfcNode throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          node.SetProperty(nullptr),
+          std::invalid_argument);
+        REQUIRE( node.HasProperties() == false );
+      }
+    }
+  }
+}
+
 SCENARIO( "A property is added to SgfcNode", "[document]" )
 {
   SgfcNode node;
