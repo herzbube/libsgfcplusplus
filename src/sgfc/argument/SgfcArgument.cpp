@@ -132,6 +132,10 @@ namespace LibSgfcPlusPlus
   std::string SgfcArgument::ToString() const
   {
     std::stringstream argumentAsString;
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    argumentAsString.imbue(std::locale::classic());
+
     argumentAsString << SgfcUtility::MapArgumentTypeToCmdlineOption(this->argumentType);
 
     if (HasIntegerTypeParameter())

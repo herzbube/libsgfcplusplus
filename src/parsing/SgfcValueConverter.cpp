@@ -68,6 +68,9 @@ namespace LibSgfcPlusPlus
   std::string SgfcValueConverter::ConvertNumberValueToString(SgfcNumber numberValue) const
   {
     std::stringstream numberValueAsString;
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    numberValueAsString.imbue(std::locale::classic());
     numberValueAsString << numberValue;
     return numberValueAsString.str();
   }
@@ -109,6 +112,9 @@ namespace LibSgfcPlusPlus
   std::string SgfcValueConverter::ConvertRealValueToString(SgfcReal realValue) const
   {
     std::stringstream realValueAsString;
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    realValueAsString.imbue(std::locale::classic());
     realValueAsString << realValue;
     return realValueAsString.str();
   }

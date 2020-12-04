@@ -83,6 +83,9 @@ namespace LibSgfcPlusPlus
     // SGFC-internal PrintErrorOutputHook() function to see the relevant message
     // fragments.
     std::stringstream formattedMessageTextStream;
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    formattedMessageTextStream.imbue(std::locale::classic());
 
     int lineNumber = sgfcError->y;
     int columnNumber = sgfcError->x;

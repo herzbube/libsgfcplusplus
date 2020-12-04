@@ -43,6 +43,9 @@ namespace LibSgfcPlusPlus
   std::string SgfcDocumentEncoder::Encode() const
   {
     std::stringstream sgfContentStream;
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    sgfContentStream.imbue(std::locale::classic());
 
     int indentationLevel = 0;
 
