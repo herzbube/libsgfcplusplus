@@ -103,6 +103,22 @@ namespace LibSgfcPlusPlus
     static const std::string GoMovePassString;
     //@}
 
+    /// @name String constants defined by the SGF standard for SgfcPropertyType::RU
+    //@{
+    /// @brief The SgfcPropertyType::RU property value defined by the SGF
+    /// standard to denote SgfcGoRulesetType::AGA.
+    static const SgfcSimpleText GoRulesetAGA;
+    /// @brief The SgfcPropertyType::RU property value defined by the SGF
+    /// standard to denote SgfcGoRulesetType::Ing.
+    static const SgfcSimpleText GoRulesetIng;
+    /// @brief The SgfcPropertyType::RU property value defined by the SGF
+    /// standard to denote SgfcGoRulesetType::Japanese.
+    static const SgfcSimpleText GoRulesetJapanese;
+    /// @brief The SgfcPropertyType::RU property value defined by the SGF
+    /// standard to denote SgfcGoRulesetType::NZ.
+    static const SgfcSimpleText GoRulesetNZ;
+    //@}
+
     /// @name Mappings between libsgfc++ values and SGF standard values, and vice versa
     //@{
     /// @brief Maps property names as defined by the SGF standard to values from
@@ -195,6 +211,14 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::SZ property is present in a game's root node but has
     /// an invalid size.
     static const SgfcBoardSize BoardSizeInvalid;
+
+    /// @brief A Number value that denotes "no handicap stones" value for
+    /// SgfcPropertyType::HA (a Go specific property).
+    static const SgfcNumber HandicapStonesNone;
+
+    /// @brief A Real value that denotes "no komi" value for
+    /// SgfcPropertyType::KM (a Go specific property).
+    static const SgfcReal KomiNone;
 
     /// @brief An SgfcNodeTraits value that denotes a node that has no traits.
     static const SgfcNodeTraits NodeTraitsNone;

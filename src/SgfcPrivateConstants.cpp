@@ -93,7 +93,35 @@ namespace LibSgfcPlusPlus
     SgfcPrivateConstants::LineEndingsPattern);
   const std::regex SgfcPrivateConstants::ZeroOrMoreLineEndingsAtEndOfStringRegex(
     SgfcPrivateConstants::LineEndingsPattern + "*$");
-
+  // Capture group 0: The entire string
+  // Capture group 1: 0 or Draw
+  // Capture group 2: Void
+  // Capture group 3: ?
+  // Capture group 4: Any B+[Score] or W+[Score]
+  // Capture group 5: B+
+  // Capture group 6: W+
+  // Capture group 7: Score
+  // Capture group 8: R or Resign
+  // Capture group 9: T or Time
+  // Capture group 10: F or Forfeit
+  // Capture group 11: Numeric score
+  const std::regex SgfcPrivateConstants::GameResultRegex("(0|Draw)|(Void)|(\\?)|((B\\+)|(W\\+)((R|Resign)|(T|Time)|(F|Forfeit)|([.[:digit:]]+))?)");
+  // Capture group 0: The entire string
+  // Capture group 1: Round number
+  // Capture group 2: Round type
+  const std::regex SgfcPrivateConstants::RoundInformationRegex("(.*) \\((.*)\\)");
+  // At least one digit, followed by a rank type indicator, followed by an
+  // optional rating type indicator.
+  // Capture group 0: The entire string
+  // Capture group 1: Rank
+  // Capture group 2: Rank type
+  // Capture group 3: k or kyu
+  // Capture group 4: d or dan
+  // Capture group 5: p
+  // Capture group 6: Rating type (if any)
+  // Capture group 7: ?
+  // Capture group 8: *
+  const std::regex SgfcPrivateConstants::GoPlayerRankRegex("([[:digit:]]+)((k|kyu)|(d|dan)|(p))((\\?)|(\\*))?");
 
   const std::string SgfcPrivateConstants::LineToken = "Line:";
   const std::string SgfcPrivateConstants::ColumnToken = "Col:";

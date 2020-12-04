@@ -39,6 +39,11 @@ namespace LibSgfcPlusPlus
   const std::string SgfcConstants::ColorWhiteString = "W";
   const std::string SgfcConstants::GoMovePassString = SgfcPrivateConstants::EmptyString;
 
+  const SgfcSimpleText SgfcConstants::GoRulesetAGA = "AGA";
+  const SgfcSimpleText SgfcConstants::GoRulesetIng = "GOE";
+  const SgfcSimpleText SgfcConstants::GoRulesetJapanese = "Japanese";
+  const SgfcSimpleText SgfcConstants::GoRulesetNZ = "NZ";
+
   const std::map<std::string, SgfcPropertyType> SgfcConstants::PropertyNameToPropertyTypeMap =
   {
     // Standard properties from FF4
@@ -644,6 +649,9 @@ namespace LibSgfcPlusPlus
 
   const SgfcBoardSize SgfcConstants::BoardSizeNone = { -1, -1 };
   const SgfcBoardSize SgfcConstants::BoardSizeInvalid = { -2, -2 };
+
+  const SgfcNumber SgfcConstants::HandicapStonesNone = 0;
+  const SgfcReal SgfcConstants::KomiNone = 0.0;
 
   const SgfcNodeTraits SgfcConstants::NodeTraitsNone = 0;
   const SgfcNodeTraits SgfcConstants::NodeTraitsAll = std::numeric_limits<SgfcNodeTraits>::max();

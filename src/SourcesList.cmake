@@ -39,9 +39,16 @@ set (
   factory/SgfcPropertyFactory.cpp
   factory/SgfcPropertyValueFactory.cpp
   game/SgfcBoardSize.cpp
+  game/SgfcDate.cpp
+  game/SgfcGameInfo.cpp
+  game/SgfcGameResult.cpp
   game/SgfcGameUtility.cpp
+  game/SgfcRoundInformation.cpp
+  game/go/SgfcGoGameInfo.cpp
   game/go/SgfcGoMove.cpp
+  game/go/SgfcGoPlayerRank.cpp
   game/go/SgfcGoPoint.cpp
+  game/go/SgfcGoRuleset.cpp
   game/go/SgfcGoStone.cpp
   interface/internal/ISgfcPropertyValueTypeDescriptor.cpp
   interface/public/ISgfcArgument.cpp
@@ -57,7 +64,9 @@ set (
   interface/public/ISgfcDocumentWriter.cpp
   interface/public/ISgfcDoublePropertyValue.cpp
   interface/public/ISgfcGame.cpp
+  interface/public/ISgfcGameInfo.cpp
   interface/public/ISgfcGameTypeProperty.cpp
+  interface/public/ISgfcGoGameInfo.cpp
   interface/public/ISgfcGoMove.cpp
   interface/public/ISgfcGoMovePropertyValue.cpp
   interface/public/ISgfcGoPoint.cpp
@@ -137,7 +146,9 @@ set (
   document/typedpropertyvalue/go/SgfcGoStonePropertyValue.h
   factory/SgfcPropertyFactory.h
   factory/SgfcPropertyValueFactory.h
+  game/SgfcGameInfo.h
   game/SgfcGameUtility.h
+  game/go/SgfcGoGameInfo.h
   game/go/SgfcGoMove.h
   game/go/SgfcGoPoint.h
   game/go/SgfcGoStone.h
@@ -195,7 +206,9 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/ISgfcDocumentWriter.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcDoublePropertyValue.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcGame.h
+  ${HEADERS_PUBLIC_FOLDER}/ISgfcGameInfo.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcGameTypeProperty.h
+  ${HEADERS_PUBLIC_FOLDER}/ISgfcGoGameInfo.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcGoMove.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcGoMovePropertyValue.h
   ${HEADERS_PUBLIC_FOLDER}/ISgfcGoPoint.h
@@ -222,10 +235,18 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/SgfcColor.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcConstants.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcCoordinateSystem.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcDate.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcDouble.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcExitCode.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGameResult.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGameResultType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcGameType.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGoPlayerRank.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGoPlayerRankType.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGoPlayerRatingType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcGoPointNotation.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGoRuleset.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcGoRulesetType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcMessageID.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcMessageType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcNodeTraits.h
@@ -234,7 +255,9 @@ set (
   ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyTraits.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyType.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcPropertyValueType.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcRoundInformation.h
   ${HEADERS_PUBLIC_FOLDER}/SgfcTypedefs.h
+  ${HEADERS_PUBLIC_FOLDER}/SgfcWinType.h
 )
 
 set (
