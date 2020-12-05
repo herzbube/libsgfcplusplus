@@ -465,6 +465,21 @@ if ( ENABLE_SHARED_FRAMEWORK )
   )
 endif()
 
+# Define additional link options.
+# - Link against libiconv. This is required by SGFC's encoding/decoding feature.
+if ( ${ENABLE_SHARED_LIBRARY} )
+  target_link_libraries (
+    ${SHARED_LIBRARY_TARGET_NAME}
+    ${ICONV_SYSTEM_LIBRARY}
+  )
+endif()
+if ( ENABLE_SHARED_FRAMEWORK )
+  target_link_libraries (
+    ${SHARED_FRAMEWORK_TARGET_NAME}
+    ${ICONV_SYSTEM_LIBRARY}
+  )
+endif()
+
 # Install options
 # - On some systems CMake automatically populates the LIBRARY and PUBLIC_HEADER
 #   destinations with values defined by the GNUInstallDirs module (e.g. macOS

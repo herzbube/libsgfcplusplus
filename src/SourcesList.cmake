@@ -262,6 +262,8 @@ set (
 
 set (
   SOURCES_SGFC
+  ../sgfc/src/encoding.c
+  ../sgfc/src/error.c
   ../sgfc/src/execute.c
   ../sgfc/src/gameinfo.c
   ../sgfc/src/load.c

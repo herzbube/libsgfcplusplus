@@ -21,6 +21,7 @@ target_include_directories (
 target_link_libraries (
   ${EXAMPLE_EXECUTABLE_TARGET_NAME}
   ${LINK_LIBRARY_TARGET_NAME}
+  ${ICONV_SYSTEM_LIBRARY}
 )
 
 # Define additional compile options.

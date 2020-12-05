@@ -307,6 +307,12 @@ else()
   set ( LINK_LIBRARY_TARGET_NAME "" )
 endif()
 
+# Find libiconv. This is required by SGFC's encoding/decoding feature.
+find_library ( ICONV_SYSTEM_LIBRARY iconv REQUIRED )
+if ( NOT ICONV_SYSTEM_LIBRARY )
+  message ( FATAL_ERROR "iconv library not found" )
+endif()
+
 # Perform some logic checks
 if ( ${ENABLE_TESTS} OR ${ENABLE_EXAMPLES} )
   message ( CHECK_START "Check whether tests and examples can be built" )
