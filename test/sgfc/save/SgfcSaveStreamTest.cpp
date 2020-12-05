@@ -43,12 +43,10 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
   // We need this to suppress SGFC messages on stdout
   SgfcMessageStream messageStream;
 
-  SGFInfo* sgfInfo = SetupSGFInfo(NULL, SetupSaveBufferIO(NULL));
-  int (*originalOpenHook)(struct SaveFileHandler *, const char *, const char *) = sgfInfo->sfh->open;
-  int (*originalCloseHook)(struct SaveFileHandler *, U_LONG) = sgfInfo->sfh->close;
+  SGFInfo* sgfInfo = SetupSGFInfo(NULL);
 
   char inputContent[] = "(;)";
-  std::string expectedSaveContent = "(;FF[4]GM[1]SZ[19]AP[SGFC:1.18])\n";
+  std::string expectedSaveContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18])\n";
   SetupEmptySgfInfo(sgfInfo, inputContent, strlen(inputContent) + 1);
   LoadSGFFromFileBuffer(sgfInfo);
   ParseSGF(sgfInfo);
@@ -59,36 +57,16 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
   {
     WHEN( "SgfcSaveStream is constructed" )
     {
-      SgfcSaveStream saveStream(sgfInfo);
-
-      THEN( "The SgfcSaveStream object reconfigures some hooks/callbacks" )
+      THEN( "SgfcSaveStream is constructed successfully" )
       {
-        REQUIRE( sgfInfo->sfh->open != originalOpenHook );
-        REQUIRE( sgfInfo->sfh->close != originalCloseHook );
-      }
-    }
-  }
-
-  GIVEN( "SgfcSaveStream is destroyed" )
-  {
-    WHEN( "SgfcSaveStream is destroyed" )
-    {
-      THEN( "The SgfcSaveStream object restores the original hooks/callbacks" )
-      {
-        {
-          SgfcSaveStream saveStream(sgfInfo);
-          REQUIRE( sgfInfo->sfh->open != originalOpenHook );
-          REQUIRE( sgfInfo->sfh->close != originalCloseHook );
-        }
-        REQUIRE( sgfInfo->sfh->open == originalOpenHook );
-        REQUIRE( sgfInfo->sfh->close == originalCloseHook );
+        REQUIRE_NOTHROW( SgfcSaveStream() );
       }
     }
   }
 
   GIVEN( "The save stream is empty" )
   {
-    SgfcSaveStream saveStream(sgfInfo);
+    SgfcSaveStream saveStream;
 
     WHEN( "SgfcSaveStream is queried" )
     {
@@ -103,9 +81,9 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
 
   GIVEN( "The save stream contains a single piece of SGF content" )
   {
-    SgfcSaveStream saveStream(sgfInfo);
+    SgfcSaveStream saveStream;
 
-    SaveSGF(sgfInfo, fileName.c_str());
+    SaveSGF(sgfInfo, &SgfcSaveStream::CreateSaveFileHandler, fileName.c_str());
 
     WHEN( "SgfcSaveStream is queried" )
     {
@@ -124,27 +102,21 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
 
   GIVEN( "The save stream contains two pieces of SGF content" )
   {
-    SgfcSaveStream saveStream(sgfInfo);
+    SgfcSaveStream saveStream;
 
-    SaveSGF(sgfInfo, fileName.c_str());
+    SaveSGF(sgfInfo, &SgfcSaveStream::CreateSaveFileHandler, fileName.c_str());
 
-    SGFInfo* sgfInfo2 = SetupSGFInfo(NULL, SetupSaveBufferIO(NULL));
-    // Redirect hooks/callbacks to be the same as the ones that were
-    // installed by SgfcSaveStream in sgfInfo. If we don't do this the
-    // SgfcSaveStream object does not see the output of the second invocation
-    // of SaveSGF().
-    sgfInfo2->sfh->open = sgfInfo->sfh->open;
-    sgfInfo2->sfh->close = sgfInfo->sfh->close;
+    SGFInfo* sgfInfo2 = SetupSGFInfo(NULL);
 
     // Repeat the setup stuff at the beginning of the scenario
     char inputContent2[] = "(;C[a comment])";
-    std::string expectedSaveContent2 = "(;FF[4]GM[1]SZ[19]AP[SGFC:1.18]C[a comment])\n";
+    std::string expectedSaveContent2 = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18]C[a comment])\n";
     SetupEmptySgfInfo(sgfInfo2, inputContent2, strlen(inputContent2) + 1);
     LoadSGFFromFileBuffer(sgfInfo2);
     ParseSGF(sgfInfo2);
 
     std::string fileName2 = "bar";
-    SaveSGF(sgfInfo2, fileName2.c_str());
+    SaveSGF(sgfInfo2, &SgfcSaveStream::CreateSaveFileHandler, fileName2.c_str());
 
     sgfInfo2->buffer = NULL;
     FreeSGFInfo(sgfInfo2);
@@ -172,16 +144,41 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
     }
   }
 
+  GIVEN( "A first SgfcSaveStream captured some data" )
+  {
+    {
+      SgfcSaveStream firstSaveStream;
+      SaveSGF(sgfInfo, &SgfcSaveStream::CreateSaveFileHandler, fileName.c_str());
+      auto sgfContents = firstSaveStream.GetSgfContents();
+
+      REQUIRE( sgfContents.size() == 1 );
+      auto sgfContent = sgfContents.front();
+      REQUIRE( sgfContent->GetSgfContent() == expectedSaveContent );
+      REQUIRE( sgfContent->GetFilePath() == fileName );
+    }
+
+    WHEN( "A second SgfcSaveStream is constructed and queried" )
+    {
+      SgfcSaveStream secondSaveStream;
+      auto sgfContents = secondSaveStream.GetSgfContents();
+
+      THEN( "The second SgfcSaveStream object has no content" )
+      {
+        REQUIRE( sgfContents.size() == 0 );
+      }
+    }
+  }
+
   GIVEN( "Two SgfcSaveStream object are constructed" )
   {
-    SgfcSaveStream saveStream(sgfInfo);
+    SgfcSaveStream saveStream;
 
     WHEN( "The second SgfcSaveStream object is constructed" )
     {
       THEN( "The second SgfcSaveStream object has no content" )
       {
         REQUIRE_THROWS_AS(
-          SgfcSaveStream(sgfInfo),
+          SgfcSaveStream(),
           std::logic_error);
       }
     }

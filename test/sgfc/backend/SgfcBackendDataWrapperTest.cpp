@@ -50,7 +50,6 @@ SCENARIO( "SgfcBackendDataWrapper does not wrap a copy of an externally-provided
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
         REQUIRE( sgfData->start == nullptr );
-        REQUIRE( sgfData->current == nullptr );
 
         REQUIRE( sgfData->buffer == nullptr );
         REQUIRE( sgfData->b_end == nullptr );
@@ -88,7 +87,6 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
         REQUIRE( sgfData->start == nullptr );
-        REQUIRE( sgfData->current == nullptr );
 
         if (mallocReturnsNullPtr)
           REQUIRE( sgfData->buffer == nullptr );
@@ -120,7 +118,6 @@ SCENARIO( "SgfcBackendDataWrapper wraps a copy of an externally-provided content
         REQUIRE( sgfData->info == nullptr );
         REQUIRE( sgfData->root == nullptr );
         REQUIRE( sgfData->start == nullptr );
-        REQUIRE( sgfData->current == nullptr );
 
         REQUIRE( sgfData->buffer != nullptr );
         // sgfData->buffer does not have a zero-byte terminator, we must provide

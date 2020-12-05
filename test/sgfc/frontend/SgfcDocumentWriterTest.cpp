@@ -94,7 +94,7 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to the filesystem", "[frontend]
   auto game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
   document->AppendGame(game);
 
-  std::string expectedFileContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedFileContentSaved = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The file does not exist" )
   {
@@ -172,7 +172,7 @@ SCENARIO( "SgfcDocumentWriter writes SGF content to a string", "[frontend]" )
   auto game = std::shared_ptr<ISgfcGame>(new SgfcGame(rootNode));
   document->AppendGame(game);
 
-  std::string expectedSgfContent = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedSgfContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The string is empty" )
   {

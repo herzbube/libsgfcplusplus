@@ -34,7 +34,7 @@ using namespace LibSgfcPlusPlus;
 
 SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-message]" )
 {
-  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
+  SGFInfo* sgfc = SetupSGFInfo(NULL);
 
   GIVEN( "The message stream is empty" )
   {
@@ -55,7 +55,7 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
   {
     SgfcMessageStream messageStream;
 
-    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
+    PrintError(E_UNEXPECTED_EOF, sgfc, 1, 1);
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -75,8 +75,8 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
   {
     SgfcMessageStream messageStream;
 
-    PrintError(E_UNEXPECTED_EOF, sgfc, NULL);
-    PrintError(E_MORE_THAN_ONE_TREE, sgfc, NULL);
+    PrintError(E_UNEXPECTED_EOF, sgfc, 1, 1);
+    PrintError(E_MORE_THAN_ONE_TREE, sgfc);
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -115,12 +115,12 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
 
 SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-message]" )
 {
-  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
+  SGFInfo* sgfc = SetupSGFInfo(NULL);
 
   GIVEN( "A non-critical warning message is processed" )
   {
     SgfcMessageStream messageStream;
-    PrintError(WS_UNKNOWN_PROPERTY, sgfc, "foo", "XX", "found");
+    PrintError(WS_UNKNOWN_PROPERTY, sgfc, 1, 1, "XX", "found");
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -148,7 +148,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
   GIVEN( "A non-critical error message is processed" )
   {
     SgfcMessageStream messageStream;
-    PrintError(E_LC_IN_PROPID, sgfc, "xx");
+    PrintError(E_LC_IN_PROPID, sgfc, 1, 1, "xx");
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -181,7 +181,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
     WHEN( "SgfcMessageStream is queried" )
     {
       auto messages = messageStream.GetMessagees();
-      std::string expectedMessageText = "could not find start mark '(;' - no SGF data found";
+      std::string expectedMessageText = "no SGF data found - start mark '(;' missing?";
       std::string expectedFormattedText = "Fatal error 7: " + expectedMessageText;
 
       THEN( "The resulting SgfcMessage object has the expected values" )
@@ -204,7 +204,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
   GIVEN( "A critical warning message is processed" )
   {
     SgfcMessageStream messageStream;
-    PrintError(W_SGF_IN_HEADER, sgfc, sgfc->current);
+    PrintError(W_SGF_IN_HEADER, sgfc, 1, 1);
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -233,7 +233,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
   {
     SgfcMessageStream messageStream;
     // false = print it now, don't accumulate
-    PrintError(E_ILLEGAL_OUTSIDE_CHAR, sgfc, "", false);
+    PrintError(E_ILLEGAL_OUTSIDE_CHAR, sgfc, 1, 1, false, "");
 
     WHEN( "SgfcMessageStream is queried" )
     {
@@ -261,7 +261,7 @@ SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-me
   GIVEN( "A message with line/column numbers is processed" )
   {
     SgfcMessageStream messageStream;
-    PrintError(E_UNKNOWN_FILE_FORMAT, sgfc, "5", 5);
+    PrintError(E_UNKNOWN_FILE_FORMAT, sgfc, 1, 1, 5);
 
     WHEN( "SgfcMessageStream is queried" )
     {

@@ -449,7 +449,7 @@ SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][fil
   }
 
   std::string fileContentToLoad = "(;)";
-  std::string expectedFileContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedFileContentSaved = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The file does not exist" )
   {
@@ -559,7 +559,7 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend]" )
   }
 
   std::string sgfContentToLoad = "(;)";
-  std::string expectedStringContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedStringContentSaved = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The string is empty" )
   {

@@ -402,7 +402,7 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
     }
   }
 
-  std::string expectedFileContent = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedFileContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The file does not exist" )
   {
@@ -478,7 +478,7 @@ SCENARIO( "SgfcBackendController saves SGF content to a string", "[backend]" )
   }
 
   std::string contentBuffer = "(;)";
-  std::string expectedStringContentSaved = "(;FF[4]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedStringContentSaved = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
 
   GIVEN( "The string is empty" )
   {
@@ -540,9 +540,6 @@ void AssertLoadResultWhenSgfDataHasNoWarningsOrErrors(
   // the buffer length
   REQUIRE( std::string(sgfData->buffer, sgfContent.size()) == sgfContent );
   REQUIRE( sgfData->b_end == sgfData->buffer + sgfContent.size() );
-  // current must point to the end of the buffer because the buffer has
-  // been parsed
-  REQUIRE( sgfData->current == sgfData->b_end );
 }
 
 void AssertLoadResultWhenSgfDataHasWarningsOrErrors(
