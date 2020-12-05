@@ -190,7 +190,7 @@ namespace LibSgfcPlusPlus
 
     try
     {
-      sgfc = SetupSGFInfo(NULL, NULL);
+      sgfc = SetupSGFInfo(NULL);
       bool parseArgsResult = ParseArgs(sgfc, argc, argv);
 
       if (parseArgsResult)
@@ -322,14 +322,14 @@ namespace LibSgfcPlusPlus
       // we skip saving also for critical errors?
       if (loadDataWasSuccessful)
       {
-        SgfcSaveStream saveStream(sgfDataWrapper->GetSgfData());
+        SgfcSaveStream saveStream;
 
         // SaveSGF() expects to receive a file name, so we have to give it one
         // even for SgfcDataLocation::InMemoryBuffer where we dont actually
         // interact with the filesystem. SaveSGF() can handle an empty file
         // name.
         // SaveSGF returns false if a fatal error occurred
-        bool saveDataWasSuccessful = SaveSGF(sgfDataWrapper->GetSgfData(), sgfFilePath.c_str());
+        bool saveDataWasSuccessful = SaveSGF(sgfDataWrapper->GetSgfData(), &SgfcSaveStream::CreateSaveFileHandler, sgfFilePath.c_str());
 
         savedSgfContents = saveStream.GetSgfContents();
       }

@@ -53,21 +53,12 @@ namespace LibSgfcPlusPlus
   // The SgfcSaveStream class.
   // ----------------------------------------------------------------------
 
-  SgfcSaveStream::SgfcSaveStream(SGFInfo* sgfInfo)
-    : sgfInfo(sgfInfo)
+  SgfcSaveStream::SgfcSaveStream()
   {
-    if (sgfInfo == NULL)
-      throw std::invalid_argument("SgfcSaveStream constructor failed: SGFInfo argument is null");
-
     if (capturingIsInProgress)
       throw std::logic_error("Another SgfcSaveStream object is already capturing the SGFC save stream");
 
     capturingIsInProgress = true;
-
-    originalOpenHook = this->sgfInfo->sfh->open;
-    originalCloseHook = this->sgfInfo->sfh->close;
-    this->sgfInfo->sfh->open = openHook;
-    this->sgfInfo->sfh->close = closeHook;
 
     saveStreamFilePaths.clear();
     saveStreamContents.clear();
@@ -75,13 +66,22 @@ namespace LibSgfcPlusPlus
 
   SgfcSaveStream::~SgfcSaveStream()
   {
-    this->sgfInfo->sfh->open = originalOpenHook;
-    this->sgfInfo->sfh->close = originalCloseHook;
-
     saveStreamFilePaths.clear();
     saveStreamContents.clear();
 
     capturingIsInProgress = false;
+  }
+
+  struct SaveFileHandler* SgfcSaveStream::CreateSaveFileHandler()
+  {
+    auto sfh = SetupSaveBufferIO(NULL);
+
+    originalOpenHook = sfh->open;
+    originalCloseHook = sfh->close;
+    sfh->open = openHook;
+    sfh->close = closeHook;
+
+    return sfh;
   }
 
   std::vector<std::shared_ptr<SgfcSgfContent>> SgfcSaveStream::GetSgfContents() const

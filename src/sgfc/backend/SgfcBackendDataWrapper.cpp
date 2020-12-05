@@ -33,15 +33,8 @@ namespace LibSgfcPlusPlus
     : sgfData(NULL)
     , dataState(SgfcBackendDataState::NotLoaded)
   {
-    // SetupSGFInfo() and SetupSaveBufferIO() both throw std::runtime_error if
-    // they fail to allocate memory.
-    //
-    // We set the SGFInfo object up so that any save operations will save the
-    // SGF data to a memory buffer. Although it's possible to pass a close
-    // hook/callback to SetupSaveBufferIO(), we specify NULL here because we
-    // don't know the hook/callback that will be used eventually. Someone else
-    // will have to reconfigure the SGFInfo object accordingly.
-    this->sgfData = SetupSGFInfo(NULL, SetupSaveBufferIO(NULL));
+    // SetupSGFInfo() throws std::runtime_error if it fails to allocate memory
+    this->sgfData = SetupSGFInfo(NULL);
   }
 
   SgfcBackendDataWrapper::SgfcBackendDataWrapper(const std::string& sgfContent)
