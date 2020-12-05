@@ -33,11 +33,11 @@ Game 1
       IsComposedValue    = 1
       Value type 1       = 5
       Has typed value 1  = 1
-      Raw value 1        = "First \: SimpleText \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters"
+      Raw value 1        = "First : SimpleText : value : in : composed : value : with : [neces\sary] : escape : characters"
       SimpleText value   = "First : SimpleText : value : in : composed : value : with : [neces\sary] : escape : characters"
       Value type 2       = 5
       Has typed value 2  = 1
-      Raw value 2        = "Second \: SimpleText \: value \: in \: composed \: value \: with \: unneccessary \: escape \: characters"
+      Raw value 2        = "Second : SimpleText : value : in : composed : value : with : unneccessary : escape : characters"
       SimpleText value   = "Second : SimpleText : value : in : composed : value : with : unneccessary : escape : characters"
   Node 2
     Property type = 8
@@ -57,7 +57,7 @@ Game 1
       IsComposedValue    = 0
       Value type         = 6
       Has typed value    = 1
-      Raw value          = "Text : value : with : [neces\\sary\] : escape : characters"
+      Raw value          = "Text : value : with : [neces\sary] : escape : characters"
       Text value         = "Text : value : with : [neces\sary] : escape : characters"
   Node 4
     Property type = 13
@@ -77,7 +77,7 @@ Game 1
       IsComposedValue    = 0
       Value type         = 5
       Has typed value    = 1
-      Raw value          = "SimpleText : value : with : [neces\\sary\] : escape : characters"
+      Raw value          = "SimpleText : value : with : [neces\sary] : escape : characters"
       SimpleText value   = "SimpleText : value : with : [neces\sary] : escape : characters"
   Node 6
     Property type = 0
