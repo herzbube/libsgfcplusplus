@@ -1,6 +1,5 @@
-(
-;FF[4]CA[Big5]GM[1]
-;C[BBEdit calls the encoding of this file "Traditional Chinese (Big 5)". SGFC is unable to read the file with the following CA values: Big5, Big-5.]
+(;FF[4]CA[Big5]GM[1]
+;C[BBEdit calls the encoding of this file "Traditional Chinese (Big 5)". It is most likely Big5.]
 ;C[The comment in the following node is in Traditional Chinese.]
 ;C[圍棋是一種古老的遊戲，從其被遺忘的中國起源開始，首先傳播到東亞其他地區，然後傳播到整個世界。]
 )

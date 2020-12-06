@@ -1,6 +1,5 @@
-(
-;FF[4]CA[ISO-2022-JP]GM[1]
-;C[BBEdit calls the encoding of this file "Japanese (Mac OS)". SGFC is unable to read the file with the following CA values: ISO-2022-JP, ISO-2022-JP-2.]
+(;FF[4]CA[Shift_JIS]GM[1]
+;C[BBEdit calls the encoding of this file "Japanese (Mac OS)". From the hexdump it seems this uses the Shift_JIS encoding, same as encoding-japanese-shiftjis.sgf. It is currently not known where the difference to Shift_JIS is supposed to be. Cf. https://en.wikipedia.org/wiki/Shift_JIS.]
 ;C[The comment in the following node is in Japanese.]
 ;C[Goは古代のゲームであり、中国での起源を忘れてから、最初に東アジアの他の地域に広がり、次に全世界に広がりました。]
 )
