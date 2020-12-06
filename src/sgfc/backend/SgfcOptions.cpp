@@ -53,11 +53,15 @@ namespace LibSgfcPlusPlus
 
   void SgfcOptions::CopyOptions(const SGFCOptions* sourceOptions, SGFCOptions* targetOptions) const
   {
-    // We don't copy options->infile and options->outfile. These are set up
-    // separately by other parts of libsgfc++.
+    // We don't copy SGFCOptions::infile and SGFCOptions::outfile. These are
+    // set up separately by other parts of libsgfc++.
+
+    // We don't copy SGFCOptions::forced_encoding and
+    // SGFCOptions::default_encoding. These are never used by libsgfc++.
 
     targetOptions->linebreaks = sourceOptions->linebreaks;
     targetOptions->find_start = sourceOptions->find_start;
+    targetOptions->encoding = sourceOptions->encoding;
     targetOptions->help = sourceOptions->help;
     targetOptions->warnings = sourceOptions->warnings;
     targetOptions->keep_head = sourceOptions->keep_head;

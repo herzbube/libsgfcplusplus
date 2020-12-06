@@ -68,6 +68,7 @@ namespace LibSgfcPlusPlus
       case SgfcArgumentType::BeginningOfSgfData:
       case SgfcArgumentType::DisableMessageNumber:
       case SgfcArgumentType::HardLineBreakMode:
+      case SgfcArgumentType::EncodingMode:
         break;
       default:
         std::stringstream message;

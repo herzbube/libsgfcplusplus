@@ -150,6 +150,7 @@ namespace LibSgfcPlusPlus
     { SgfcArgumentType::CorrectVariationLevelAndRootMoves, "-v" },
     { SgfcArgumentType::ReverseVariationOrdering, "-z" },
     { SgfcArgumentType::ExpandCompressedPointLists, "-e" },
+    { SgfcArgumentType::EncodingMode, "-E" },
   };
 
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::FatalError;

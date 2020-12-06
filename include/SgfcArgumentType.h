@@ -363,5 +363,41 @@ namespace LibSgfcPlusPlus
     /// applications you should specify this argument to avoid compressed point
     /// lists.
     ExpandCompressedPointLists,
+
+    /// @brief Select how to determine the character encoding(s) used to decode
+    /// SGF content. This argument requires a numeric parameter value 1, 2
+    /// or 3. The corresponding SGFC command line option is -En.
+    ///
+    /// This argument only affects how SGFC interprets SGF content during
+    /// reading. When SGFC writes SGF content the output is always in UTF-8
+    /// encoding.
+    ///
+    /// The parameter values 1-3 have the following meaning:
+    /// - 1 = A single encoding is used to decode the @b entire SGF content.
+    ///       The encoding to use is detected by probing the SGF content. If
+    ///       a Unicode BOM marker is found then the encoding defined by that
+    ///       marker is used. If no Unicode BOM marker is found then the SGF
+    ///       content is probed for CA properties, and the first CA property
+    ///       value found is used as the encoding. If no CA property is found
+    ///       the default encoding ISO-8859-1 is used. This mode is the default
+    ///       behaviour.
+    /// - 2 = A separate encoding is used to decode each game tree in the SGF
+    ///       content. The encoding is defined by the CA property value of that
+    ///       game tree. If a game tree has no CA property the default encoding
+    ///       ISO-8859-1 is used. Only SimpleText and Text property values are
+    ///       decoded. The SGF formatting skeleton as well as property values
+    ///       that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.
+    /// - 3 = No decoding takes place.
+    ///
+    /// The argument is invalid if you specify a parameter value that is not
+    /// 1, 2 or 3.
+    ///
+    /// @note Mode 2 is the behaviour as designed by the SGF standard. This is
+    /// somewhat archaic as it not only allows a file to be partially encoded,
+    /// it even allows different encodings to be used in the same file. Mode 1,
+    /// even though it does not conform to the SGF standard, is what is most
+    /// likely can be expected from modern-day applications that encode an
+    /// entire file and use the same encoding for the entire file.
+    EncodingMode,
   };
 }
