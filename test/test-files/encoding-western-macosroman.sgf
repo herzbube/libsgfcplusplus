@@ -1,0 +1,10 @@
+(
+;FF[4]CA[macintosh]GM[1]
+;C[BBEdit calls the encoding of this file "Western (Mac OS Roman)". It is most likely the IANA encoding "macintosh".]
+;C[The comment in the following node contains special characters that demonstrate the encoding. These characters exist in ISO-8859-1, ISO-8859-15, Windows-1252 and "macintosh".]
+;C[€Š Ëˆ å‰ Œ ®¾ ‚ é ƒ æ è‘ ë” ì• „– …š ï™ ¯¿ § †Ÿ ô ó Ø ÀÁ ÇÈ]
+;C[The comment in the following node contains special characters that exist in ISO-8859-15, Windows-1252 and "macintosh", but not in ISO-8859-1.]
+;C[Ù ÎÏ Û]
+;C[The comment in the following node contains special characters that exist in Windows-1252 and "macintosh", but not in ISO-8859-1 and not in ISO-8859-15.]
+;C[Ä ä ª]
+)

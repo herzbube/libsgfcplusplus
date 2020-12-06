@@ -1,0 +1,12 @@
+(
+;FF[4]CA[Windows-1252]GM[1]
+;C[BBEdit calls the encoding of this file "Western (Windows Latin 1)". It is most likely Windows-1252.]
+;C[The comment in the following node contains special characters that demonstrate the encoding. These characters exist in ISO-8859-1, ISO-8859-15, Windows-1252 and "macintosh".]
+;C[Ää Àà Ââ Åå Ææ Çç Èè Éé Êê Ëë Îî Ïï Ññ Öö Ôô Øø ß Üü Ùù Ûû ÿ ¿¡ «»]
+;C[The comment in the following node contains special characters that exist in ISO-8859-15, Windows-1252 and "macintosh", but not in ISO-8859-1.]
+;C[Ÿ Œœ €]
+;C[The comment in the following node contains special characters that exist in ISO-8859-15 and Windows-1252, but not in ISO-8859-1 and not in "macintosh".]
+;C[Šš ]
+;C[The comment in the following node contains special characters that exist in Windows-1252 and "macintosh", but not in ISO-8859-1 and not in ISO-8859-15.]
+;C[ƒ ‰ ™]
+)

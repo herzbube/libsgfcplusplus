@@ -1,0 +1,10 @@
+(
+;FF[4]CA[ISO-8859-15]GM[1]
+;C[BBEdit calls the encoding of this file "Western (ISO Latin 9)". It is most likely ISO-8859-15.]
+;C[The comment in the following node contains special characters that demonstrate the encoding. These characters exist in ISO-8859-1, ISO-8859-15, Windows-1252 and "macintosh".]
+;C[Ää Àà Ââ Åå Ææ Çç Èè Éé Êê Ëë Îî Ïï Ññ Öö Ôô Øø ß Üü Ùù Ûû ÿ ¿¡ «»]
+;C[The comment in the following node contains special characters that exist in ISO-8859-15, Windows-1252 and "macintosh", but not in ISO-8859-1.]
+;C[¾ ¼½ ¤]
+;C[The comment in the following node contains special characters that exist in ISO-8859-15 and Windows-1252, but not in ISO-8859-1 and not in "macintosh".]
+;C[¦¨ ´¸]
+)
