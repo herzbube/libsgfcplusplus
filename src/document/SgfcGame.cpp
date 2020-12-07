@@ -25,6 +25,9 @@
 #include "SgfcGame.h"
 #include "SgfcNodeIterator.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcGame::SgfcGame()

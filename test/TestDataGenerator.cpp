@@ -19,6 +19,9 @@
 #include <parsing/SgfcValueConverter.h>
 #include <SgfcConstants.h>
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   std::vector<std::pair<std::string, SgfcNumber>> TestDataGenerator::GetValidNumberStrings()

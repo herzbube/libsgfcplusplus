@@ -17,6 +17,9 @@
 // Project includes
 #include "SgfcComposedPropertyValue.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcComposedPropertyValue::SgfcComposedPropertyValue(

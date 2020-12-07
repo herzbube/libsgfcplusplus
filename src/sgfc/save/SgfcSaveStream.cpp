@@ -25,6 +25,9 @@ extern "C"
   #include "../../../sgfc/src/protos.h"
 }
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   // ----------------------------------------------------------------------

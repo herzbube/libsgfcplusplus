@@ -23,6 +23,9 @@
 #include "SgfcDocumentReader.h"
 #include "SgfcDocumentReadResult.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcDocumentReader::SgfcDocumentReader()

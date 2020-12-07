@@ -29,6 +29,9 @@
 #include "SgfcGameInfo.h"
 #include "SgfcGameUtility.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcGameInfo::SgfcGameInfo()

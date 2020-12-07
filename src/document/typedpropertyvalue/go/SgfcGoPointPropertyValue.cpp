@@ -18,6 +18,9 @@
 #include "SgfcGoPointPropertyValue.h"
 #include "../../../game/go/SgfcGoPoint.h"
 
+// C++ Standard Library includes
+#include <stdexcept>
+
 namespace LibSgfcPlusPlus
 {
   SgfcGoPointPropertyValue::SgfcGoPointPropertyValue(std::shared_ptr<ISgfcGoPoint> goPoint)
