@@ -307,10 +307,33 @@ else()
   set ( LINK_LIBRARY_TARGET_NAME "" )
 endif()
 
-# Find libiconv. This is required by SGFC's encoding/decoding feature.
-find_library ( ICONV_SYSTEM_LIBRARY iconv REQUIRED )
-if ( NOT ICONV_SYSTEM_LIBRARY )
-  message ( FATAL_ERROR "iconv library not found" )
+# Integrate iconv. This is required by SGFC's encoding/decoding feature.
+set ( LINK_ICONV NO )
+if ( ${UNIX} )
+  if ( ${APPLE} OR ${CYGWIN} OR ${MINGW} )
+    # 1) Apple platforms (macOS, iOS, etc.) have an iconv implementation that
+    #    lives in a separate library, not in the system's C library. The output
+    #    of the cmdline tool "iconv --help" indicates that this is GNU libiconv.
+    # 2) Cygwin and MSYS/MINGW are known to use GNU libiconv.
+    set ( LINK_ICONV YES )
+    find_library ( ICONV_LIBRARY iconv REQUIRED )
+    if ( NOT ICONV_LIBRARY )
+      message ( FATAL_ERROR "iconv library not found" )
+    endif()
+  else()
+    # Assume we're on Linux, BSD or some other UNIX/UNIX-like system that has
+    # a native iconv implementation (e.g. glibc on Linux). No need to link.
+  endif()
+elseif ( ${WIN32} )
+  # TODO winiconv?
+else()
+  # An unexpected/unsupported system type. The user will have to find a way
+  # how to make things work.
+endif()
+if ( LINK_ICONV )
+  message ( STATUS "Linking against non-native iconv library" )
+else()
+  message ( STATUS "Using native iconv" )
 endif()
 
 # Perform some logic checks

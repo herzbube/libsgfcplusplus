@@ -23,11 +23,13 @@ target_include_directories (
 # Unit tests test library-internal classes. We need to link against a library
 # that makes the symbols for these internal classes visible to us. This should
 # be static library.
-target_link_libraries (
-  ${TEST_EXECUTABLE_TARGET_NAME}
-  ${LINK_LIBRARY_TARGET_NAME}
-  ${ICONV_SYSTEM_LIBRARY}
-)
+if ( ${LINK_ICONV} )
+  target_link_libraries (
+    ${TEST_EXECUTABLE_TARGET_NAME}
+    ${LINK_LIBRARY_TARGET_NAME}
+    ${ICONV_LIBRARY}
+  )
+endif()
 
 # Define additional compile options.
 # - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: The test executable target

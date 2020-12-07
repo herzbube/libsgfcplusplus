@@ -18,11 +18,13 @@ target_include_directories (
 
 # We link against the shared library. We could also link against the static
 # library, but this would be a bit slower.
-target_link_libraries (
-  ${EXAMPLE_EXECUTABLE_TARGET_NAME}
-  ${LINK_LIBRARY_TARGET_NAME}
-  ${ICONV_SYSTEM_LIBRARY}
-)
+if ( ${LINK_ICONV} )
+  target_link_libraries (
+    ${EXAMPLE_EXECUTABLE_TARGET_NAME}
+    ${LINK_LIBRARY_TARGET_NAME}
+    ${ICONV_LIBRARY}
+  )
+endif()
 
 # Define additional compile options.
 # - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: The example executable target
