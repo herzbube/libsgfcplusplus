@@ -309,8 +309,8 @@ endif()
 
 # Integrate iconv. This is required by SGFC's encoding/decoding feature.
 set ( LINK_ICONV NO )
-if ( ${UNIX} )
-  if ( ${APPLE} OR ${CYGWIN} OR ${MINGW} )
+if ( "${UNIX}" )
+  if ( "${APPLE}" OR "${CYGWIN}" OR "${MINGW}" )
     # 1) Apple platforms (macOS, iOS, etc.) have an iconv implementation that
     #    lives in a separate library, not in the system's C library. The output
     #    of the cmdline tool "iconv --help" indicates that this is GNU libiconv.
@@ -324,7 +324,7 @@ if ( ${UNIX} )
     # Assume we're on Linux, BSD or some other UNIX/UNIX-like system that has
     # a native iconv implementation (e.g. glibc on Linux). No need to link.
   endif()
-elseif ( ${WIN32} )
+elseif ( "${WIN32}" )
   # TODO winiconv?
 else()
   # An unexpected/unsupported system type. The user will have to find a way
