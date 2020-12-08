@@ -282,3 +282,15 @@ set (
   ../sgfc/src/all.h
   ../sgfc/src/protos.h
 )
+
+if ( ${ICONV_NEEDS_COMPILING} )
+  set (
+    SOURCES_ICONV
+    ../win-iconv/win_iconv.c
+  )
+
+  set (
+    HEADERS_ICONV
+    ../win-iconv/iconv.h
+  )
+endif()

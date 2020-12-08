@@ -14,6 +14,14 @@ endif()
 if ( NOT DEFINED HEADERS_SGFC )
   message ( FATAL_ERROR "List of SGFC header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
+if ( ${ICONV_NEEDS_COMPILING} )
+  if ( NOT DEFINED SOURCES_ICONV )
+    message ( FATAL_ERROR "List of iconv source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+  endif()
+  if ( NOT DEFINED HEADERS_ICONV )
+    message ( FATAL_ERROR "List of iconv header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+  endif()
+endif()
 
 # Setting VERSION_NO_MAIN "defines away" the SGFC main() function. An
 # alternative would be to exclude main.c from the build, but this would make
@@ -39,6 +47,13 @@ if ( ${MSVC} )
     PROPERTIES
     COMPILE_DEFINITIONS _CRT_SECURE_NO_WARNINGS
   )
+  if ( ${ICONV_NEEDS_COMPILING} )
+    set_source_files_properties(
+      ${SOURCES_ICONV}
+      PROPERTIES
+      COMPILE_DEFINITIONS _CRT_SECURE_NO_WARNINGS
+    )
+  endif()
 endif()
 
 # When compiling with MSVC, disable the compiler warning C4250 for libsgfc++
@@ -99,6 +114,10 @@ if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
     ${HEADERS_SGFC}
     ${HEADERS_PUBLIC}
     ${HEADERS_PRIVATE}
+    # Don't need to check ICONV_NEEDS_COMPILING here: If it is NO then
+    # SOURCES_ICONV and HEADERS_ICONV are empty and nothing is added.
+    ${SOURCES_ICONV}
+    ${HEADERS_ICONV}
   )
 endif()
 if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
@@ -112,6 +131,10 @@ if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
     ${HEADERS_SGFC}
     ${HEADERS_PUBLIC}
     ${HEADERS_PRIVATE}
+    # Don't need to check ICONV_NEEDS_COMPILING here: If it is NO then
+    # SOURCES_ICONV and HEADERS_ICONV are empty and nothing is added.
+    ${SOURCES_ICONV}
+    ${HEADERS_ICONV}
   )
 endif()
 
@@ -288,6 +311,8 @@ endif()
 #   ${PUBLIC_HEADER_DESTINATION_FOLDER_NAME}, because we want downstream
 #   projects to use the subfolder in their #include statements. Example:
 #   #include <libsgfcplusplus/Foo.h>.
+# - The third folder is optional: On some platforms the iconv header file is
+#   in a non-standard location.
 if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
   target_include_directories (
     ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
@@ -295,6 +320,13 @@ if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${SHARED_OBJECT_LIBRARY_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
   target_include_directories (
@@ -303,6 +335,13 @@ if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${STATIC_OBJECT_LIBRARY_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 if ( ${ENABLE_SHARED_LIBRARY} )
   target_include_directories (
@@ -311,6 +350,13 @@ if ( ${ENABLE_SHARED_LIBRARY} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${SHARED_LIBRARY_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 if ( ${ENABLE_STATIC_LIBRARY} )
   target_include_directories (
@@ -319,6 +365,13 @@ if ( ${ENABLE_STATIC_LIBRARY} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${STATIC_LIBRARY_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 if ( ${ENABLE_SHARED_FRAMEWORK} )
   target_include_directories (
@@ -327,6 +380,13 @@ if ( ${ENABLE_SHARED_FRAMEWORK} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${SHARED_FRAMEWORK_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
   target_include_directories (
@@ -335,6 +395,13 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
     "$<BUILD_INTERFACE:${EXPORT_HEADER_FILE_FOLDER}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
   )
+  if ( ${ICONV_NEEDS_INCLUDE_DIRECTORY} )
+    target_include_directories (
+      ${STATIC_FRAMEWORK_TARGET_NAME}
+      PUBLIC
+      "$<BUILD_INTERFACE:${ICONV_INCLUDE_DIR}>"
+    )
+  endif()
 endif()
 
 # Define additional compile options.
@@ -466,8 +533,9 @@ if ( ENABLE_SHARED_FRAMEWORK )
 endif()
 
 # Define additional link options.
-# - Link against libiconv. This is required by SGFC's encoding/decoding feature.
-if ( ${LINK_ICONV} )
+# - On some platforms iconv is provided by a dedicated library that must be
+#   explicitly linked against.
+if ( ${ICONV_NEEDS_LINKING} )
   if ( ${ENABLE_SHARED_LIBRARY} )
     target_link_libraries (
       ${SHARED_LIBRARY_TARGET_NAME}

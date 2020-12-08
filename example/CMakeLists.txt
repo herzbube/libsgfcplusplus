@@ -25,7 +25,7 @@ target_link_libraries (
 
 # On some platforms iconv is provided by a dedicated library that must be
 # explicitly linked against.
-if ( ${LINK_ICONV} )
+if ( ${ICONV_NEEDS_LINKING} )
   target_link_libraries (
     ${EXAMPLE_EXECUTABLE_TARGET_NAME}
     ${ICONV_LIBRARY}

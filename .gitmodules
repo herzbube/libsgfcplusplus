@@ -4,3 +4,6 @@
 [submodule "test/Catch2"]
 	path = test/Catch2
 	url = https://github.com/catchorg/Catch2.git
+[submodule "win-iconv"]
+	path = win-iconv
+	url = https://github.com/win-iconv/win-iconv.git
