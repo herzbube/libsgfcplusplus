@@ -23,10 +23,16 @@ target_include_directories (
 # Unit tests test library-internal classes. We need to link against a library
 # that makes the symbols for these internal classes visible to us. This should
 # be static library.
+target_link_libraries (
+  ${TEST_EXECUTABLE_TARGET_NAME}
+  ${LINK_LIBRARY_TARGET_NAME}
+)
+
+# On some platforms iconv is provided by a dedicated library that must be
+# explicitly linked against.
 if ( ${LINK_ICONV} )
   target_link_libraries (
     ${TEST_EXECUTABLE_TARGET_NAME}
-    ${LINK_LIBRARY_TARGET_NAME}
     ${ICONV_LIBRARY}
   )
 endif()

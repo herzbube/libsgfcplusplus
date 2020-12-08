@@ -18,10 +18,16 @@ target_include_directories (
 
 # We link against the shared library. We could also link against the static
 # library, but this would be a bit slower.
+target_link_libraries (
+  ${EXAMPLE_EXECUTABLE_TARGET_NAME}
+  ${LINK_LIBRARY_TARGET_NAME}
+)
+
+# On some platforms iconv is provided by a dedicated library that must be
+# explicitly linked against.
 if ( ${LINK_ICONV} )
   target_link_libraries (
     ${EXAMPLE_EXECUTABLE_TARGET_NAME}
-    ${LINK_LIBRARY_TARGET_NAME}
     ${ICONV_LIBRARY}
   )
 endif()
