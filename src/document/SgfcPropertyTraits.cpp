@@ -69,12 +69,12 @@ namespace LibSgfcPlusPlus
 
   SgfcPropertyTraits operator<<(SgfcPropertyTrait lhs, unsigned short numberOfBitsToShift)
   {
-    return lhs << numberOfBitsToShift;
+    return static_cast<SgfcPropertyTraits>(lhs) << numberOfBitsToShift;
   }
 
   SgfcPropertyTraits operator>>(SgfcPropertyTrait lhs, unsigned short numberOfBitsToShift)
   {
-    return lhs >> numberOfBitsToShift;
+    return static_cast<SgfcPropertyTraits>(lhs) >> numberOfBitsToShift;
   }
 
   SgfcPropertyTraits operator~(SgfcPropertyTrait rhs)
