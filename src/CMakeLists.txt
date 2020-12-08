@@ -205,6 +205,8 @@ generate_export_header (
   # project.
   EXPORT_FILE_NAME ${EXPORT_HEADER_FILE_NAME}
 )
+# The location where the export header file is generated.
+set ( EXPORT_HEADER_FILE_FOLDER ${CMAKE_CURRENT_BINARY_DIR} )
 
 # Here we associate the public header files with the library and framework
 # targets. This causes CMake to install them automatically, without us having
