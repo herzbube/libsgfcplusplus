@@ -21,7 +21,7 @@
 #include "SgfcMessageStream.h"
 
 // C++ Standard Library includes
-#include <cstring>  // for strerror()
+#include <cstring>  // for strerror() / strerror_s()
 #include <regex>
 #include <sstream>
 
@@ -162,11 +162,23 @@ namespace LibSgfcPlusPlus
       {
         libraryErrorNumber = sgfcError->lib_errno;
 
+#ifdef MSVC
+        char fileErrorLocalizedDescription[200];
+        errno_t strerrorResult = strerror_s(
+          fileErrorLocalizedDescription,
+          sizeof(fileErrorLocalizedDescription),
+          libraryErrorNumber);
+        if (strerrorResult == 0)
+          formattedMessageTextStream << fileErrorLocalizedDescription;
+        else
+          formattedMessageTextStream << "error code:" << libraryErrorNumber;
+#else
         char* fileErrorLocalizedDescription = strerror(libraryErrorNumber);
         if (fileErrorLocalizedDescription)
           formattedMessageTextStream << fileErrorLocalizedDescription;
         else
           formattedMessageTextStream << "error code:" << libraryErrorNumber;
+#endif
       }
     }
 
