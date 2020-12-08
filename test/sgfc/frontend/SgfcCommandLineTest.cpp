@@ -666,19 +666,13 @@ void AssertLoadResultWhenSgfDataHasCriticalError(
   REQUIRE( commandLine.IsSgfContentValid() == true );
 
   auto parseResult = commandLine.GetParseResult();
-  REQUIRE( parseResult.size() == 2 );
+  REQUIRE( parseResult.size() == 1 );
 
   auto errorMessage1 = parseResult.front();
   REQUIRE( errorMessage1->GetMessageType() == SgfcMessageType::Error );
   REQUIRE( errorMessage1->GetMessageID() == SgfcMessageID::UnknownFileFormat );
   REQUIRE( errorMessage1->IsCriticalMessage() == true );
   REQUIRE( errorMessage1->GetMessageText().length() > 0 );
-
-  auto errorMessage2 = parseResult.back();
-  REQUIRE( errorMessage2->GetMessageType() == SgfcMessageType::Warning );
-  REQUIRE( errorMessage2->GetMessageID() == SgfcMessageID::PropertyNotDefinedInFF );
-  REQUIRE( errorMessage2->IsCriticalMessage() == false );
-  REQUIRE( errorMessage2->GetMessageText().length() > 0 );
 }
 
 void AssertSaveResult(
