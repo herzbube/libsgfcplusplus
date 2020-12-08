@@ -77,7 +77,7 @@ namespace LibSgfcPlusPlus
 
   struct SaveFileHandler* SgfcSaveStream::CreateSaveFileHandler()
   {
-    auto sfh = SetupSaveBufferIO(NULL);
+    auto sfh = SetupSaveBufferIO(NULL, NULL);
 
     originalOpenHook = sfh->open;
     originalCloseHook = sfh->close;
