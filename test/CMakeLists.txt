@@ -3,6 +3,16 @@ if ( NOT DEFINED SOURCES )
   message ( FATAL_ERROR "List of source files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
 endif()
 
+# See src/CMakeLists.txt for the explanation why we disable this compiler
+# warning.
+if ( ${MSVC} )
+  set_source_files_properties(
+    ${SOURCES}
+    PROPERTIES
+    COMPILE_OPTIONS "/wd4250"
+  )
+endif()
+
 # Here we define the test executable target. Catch2 provides us with a
 # sophisticated test driver, so main.cpp is mostly empty.
 add_executable (

@@ -199,7 +199,8 @@ SCENARIO( "An SgfcNodeTraits value is created from SgfcNodeTrait", "[document]" 
       // primitive type on different platforms
       int numberOfBits = sizeof(SgfcNodeTraits) * 8;
       int highestOrderBit = numberOfBits - 1;
-      SgfcNodeTraits highestTrait = pow(2, highestOrderBit);
+      // Use static_cast to avoid a compiler warning (pow returns double).
+      SgfcNodeTraits highestTrait = static_cast<SgfcNodeTraits>(pow(2, highestOrderBit));
 
       auto traitsResult = initialTraits >> 1;
 

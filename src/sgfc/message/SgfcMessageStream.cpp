@@ -162,7 +162,7 @@ namespace LibSgfcPlusPlus
       {
         libraryErrorNumber = sgfcError->lib_errno;
 
-#ifdef MSVC
+#ifdef _MSC_VER
         char fileErrorLocalizedDescription[200];
         errno_t strerrorResult = strerror_s(
           fileErrorLocalizedDescription,

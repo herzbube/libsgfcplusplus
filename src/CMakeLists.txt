@@ -56,22 +56,37 @@ if ( ${MSVC} )
   endif()
 endif()
 
-# When compiling with MSVC, disable the compiler warning C4250 for libsgfc++
-# source files. The warning complains when a subclass in a multiple-inheritance
-# diamond pattern inherits a member from one of its base classes. The compiler
-# generates this warning even for completely legal code. Example:
-# SgfcBoardSizeProperty inherits the root interface ISgfcProperty twice, once
-# via subclassing SgfcProperty and once via subclassing ISgfcBoardSizeProperty.
-# In this inheritance diamond the GetPropertyType() method is declared once as
-# "pure virtual" in the root interface, and is implemented exactly once in
-# SgfcProperty. Despite this perfectly legal and unambiguos class structure the
-# compiler generates C4250. There is no other choice but to suppress the warning
-# to prevent the build log from being flooded with useless warnings.
+# When compiling with MSVC, disable a number of compiler warnings for libsgfc++
+# source files.
+# - C4250: The warning complains when a subclass in a multiple-inheritance
+#   diamond pattern inherits a member from one of its base classes. The compiler
+#   generates this warning even for completely legal code. Example:
+#   SgfcBoardSizeProperty inherits the root interface ISgfcProperty twice, once
+#   via subclassing SgfcProperty and once via subclassing
+#   ISgfcBoardSizeProperty. In this inheritance diamond the GetPropertyType()
+#   method is declared once as "pure virtual" in the root interface, and is
+#   implemented exactly once in SgfcProperty. Despite this perfectly legal and
+#   unambiguos class structure the compiler generates C4250. There is no other
+#   choice but to suppress the warning to prevent the build log from being
+#   flooded with useless warnings.
+# - C4251: The warning complains when a DLL-exported type (e.g. a class
+#   declared with declspec(dllexport)) contains public member variables with a
+#   type from the C++ Standard Library (e.g. std::string). Notable examples are
+#   SgfcConstants and SgfcRoundInformation. The warning is generally regarded as
+#   noise that can be ignored as long as the project's build settings are
+#   consistent and treat the STL type in a uniform way. For static members such
+#   the constants in SgfcConstants the warning could also be eliminated by using
+#   the SGFCPLUSPLUS_EXPORT macro directly on the members instead of on the
+#   surrounding class, but for non-static members this workaround does not seem
+#   to be possible (e.g. doing so in SgfcRoundInformation generates compiler
+#   errors). Since a workaround does not seem to be possible, there is no other
+#   choice but to suppress the warning to prevent the build log from being
+#   flooded with useless warnings.
 if ( ${MSVC} )
   set_source_files_properties(
     ${SOURCES}
     PROPERTIES
-    COMPILE_OPTIONS /wd4250
+    COMPILE_OPTIONS "/wd4250;/wd4251"
   )
 endif()
 

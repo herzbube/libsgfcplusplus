@@ -156,7 +156,7 @@ namespace LibSgfcPlusPlus
           // requirements of this best-fitting property class.
           property = propertyFactory->CreateProperty(propertyType, propertyValues);
         }
-        catch (std::invalid_argument& exception)
+        catch (std::invalid_argument&)
         {
           // The property values didn't meet the requirements of the
           // best-fitting property class. We fall back to creating a property
