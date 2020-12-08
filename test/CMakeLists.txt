@@ -10,6 +10,12 @@ add_executable (
   ${SOURCES}
 )
 
+# The folder where the generated export header file is located must also be in
+# our list of include directories. We don't need to specify that folder here,
+# though, because we "inherit" it by linking against a libsgfc++ library target
+# below. Reason: The target_link_libraries statement is also a dependency
+# declaration that causes CMake to add all PUBLIC include directories of the
+# dependency target to our own target.
 target_include_directories (
   ${TEST_EXECUTABLE_TARGET_NAME}
   PRIVATE Catch2/single_include
@@ -21,8 +27,9 @@ target_include_directories (
 )
 
 # Unit tests test library-internal classes. We need to link against a library
-# that makes the symbols for these internal classes visible to us. This should
-# be static library.
+# that makes the symbols for these internal classes visible to us. This MUST
+# be a static library because only a static library is guaranteed to have the
+# necessary symbols visible on all platforms.
 target_link_libraries (
   ${TEST_EXECUTABLE_TARGET_NAME}
   ${LINK_LIBRARY_TARGET_NAME}

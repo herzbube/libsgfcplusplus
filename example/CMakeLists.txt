@@ -9,6 +9,12 @@ add_executable (
   ${SOURCES}
 )
 
+# The folder where the generated export header file is located must also be in
+# our list of include directories. We don't need to specify that folder here,
+# though, because we "inherit" it by linking against a libsgfc++ library target
+# below. Reason: The target_link_libraries statement is also a dependency
+# declaration that causes CMake to add all PUBLIC include directories of the
+# dependency target to our own target.
 target_include_directories (
   ${EXAMPLE_EXECUTABLE_TARGET_NAME}
   # The examples treat libsgfc++ itself as a third-party library, so the next
@@ -16,8 +22,8 @@ target_include_directories (
   PRIVATE ../include
 )
 
-# We link against the shared library. We could also link against the static
-# library, but this would be a bit slower.
+# Examples use only public symbols, so we don't care which library we link
+# against.
 target_link_libraries (
   ${EXAMPLE_EXECUTABLE_TARGET_NAME}
   ${LINK_LIBRARY_TARGET_NAME}
