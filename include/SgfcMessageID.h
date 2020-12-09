@@ -76,17 +76,26 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found (and ignored) an empty variation.
     EmptyVariationIgnored = 12,
     /// @brief SGFC found a property with more than one value although it can
-    /// have only one value. SGFC ignored the surplus values.
-    SurplusValuesIgnored = 13,
+    /// have only one value. SGFC deleted the surplus values.
+    SurplusValuesDeleted = 13,
     /// @brief SGFC found (and deleted) an illegal property value.
     IllegalValueDeleted = 14,
     /// @brief SGFC found (and corrected) an illegal single property value.
+    ///
+    /// If the SGF content is in FF3 format this message has
+    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has #SgfcMessageType::Error.
+    ///
+    /// @see SgfcMessageID::IllegalComposedValueCorrected
     IllegalSingleValueCorrected = 15,
     /// @brief SGFC found a property identifier that contains lowercase
     /// characters. This message is only generated for SGF content in FF4
     /// format.
     PropertyIdentifierWithLowercaseCharacter = 16,
     /// @brief SGFC found (and deleted) an empty property value.
+    ///
+    /// Depending on the context this message has either
+    /// #SgfcMessageType::Warning or #SgfcMessageType::Error.
     EmptyValueDeleted = 17,
     /// @brief SGFC found (and took action) a root property with an illegal
     /// value. The value may have been deleted or corrected.
@@ -98,7 +107,8 @@ namespace LibSgfcPlusPlus
     PropertyWithoutValuesIgnored = 20,
     /// @brief SGFC found (and ignored) an illegal variation start.
     IllegalVariationStartIgnored = 21,
-    /// @brief SGFC found (and deleted) a zero byte.
+    /// @brief SGFC found a zero byte. The byte was replaced with a space
+    /// character.
     ZeroByteDeleted = 22,
     /// @brief SGFC found a property that expects composed values but the
     /// actual values are one or more single values. SGFC deleted the single
@@ -108,6 +118,8 @@ namespace LibSgfcPlusPlus
     /// the root node into two, with the move property being in the second node.
     MoveInRootNodeSplit = 24,
     /// @brief SGFC found (and corrected) an illegal composed property value.
+    ///
+    /// @see SgfcMessageID::IllegalSingleValueCorrected
     IllegalComposedValueCorrected = 25,
     /// @brief SGFC was unable to open the destination file.
     CouldNotOpenDestinationFile = 26,
@@ -125,6 +137,10 @@ namespace LibSgfcPlusPlus
     /// @see SgfcArgumentType::DeleteObsoleteProperties.
     RequestedPropertyDeleted = 29,
     /// @brief SGFC found a node that contains both setup and move properties.
+    ///
+    /// If the SGF content is in FF3 format this message has
+    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has #SgfcMessageType::Error.
     MixedSetupAndMove = 30,
     /// @brief SGFC found a property with an identifier that consists of more
     /// than two uppercase characters.
@@ -133,6 +149,10 @@ namespace LibSgfcPlusPlus
     /// the root node.
     RootPropertyDeleted = 32,
     /// @brief SGFC found a game info property that is illegally formatted.
+    ///
+    /// If the SGF content is in FF3 format this message has
+    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has #SgfcMessageType::Error.
     GameInfoPropertyWithIllegalFormat = 33,
     /// @brief SGFC did not save the SGF content because parsing generated
     /// one or more critical errors.
@@ -155,7 +175,8 @@ namespace LibSgfcPlusPlus
     /// meaning (e.g. different markup or stones on the same point).
     PositionNotUnique = 38,
     /// @brief SGFC found (and deleted) a property that adds a stone to the
-    /// board but the addition has no effect.
+    /// board (AB, AW, AE), but the addition is redundant because there is
+    /// already a stone on the board in that location.
     AddStoneDeleted = 39,
     /// @brief SGFC found a property that is not defined in the version of the
     /// SGF standard denoted by the FF property in the SGF content. The
@@ -168,12 +189,20 @@ namespace LibSgfcPlusPlus
     /// to another property.
     ///
     /// Combinations of TE and BM get converted to DO and IT.
+    ///
+    /// If the SGF content is in FF3 format this message has
+    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has #SgfcMessageType::Error.
     CombinationOfPropertiesConverted = 42,
     /// @brief SGFC found (and deleted) a move annotation property in a node
     /// that didn't also contain a move property.
     MoveAnnotationDeleted = 43,
     /// @brief SGFC found (and deleted) a game info property outside of a
     /// game info node.
+    ///
+    /// If the SGF content is in FF3 format this message has
+    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has #SgfcMessageType::Error.
     GameInfoDeleted = 44,
     /// @brief SGFC found different file formats in the SGF content.
     DifferentFileFormats = 45,
