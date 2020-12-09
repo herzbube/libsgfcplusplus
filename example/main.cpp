@@ -150,7 +150,6 @@ std::shared_ptr<ISgfcDocument> ReadDocument(const std::string& inputFilePath, bo
 {
   std::shared_ptr<ISgfcDocumentReader> documentReader = SgfcPlusPlusFactory::CreateDocumentReader();
 
-  documentReader->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
   // Uncomment the following to see an invalid command line
 //  documentReader->GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
 
