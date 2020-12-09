@@ -45,27 +45,53 @@ namespace LibSgfcPlusPlus
     SgfcArgument(SgfcArgumentType argumentType, int parameter);
 
     /// @brief Initializes a newly constructed SgfcArgument object with the
+    /// type @a argumentType and the string type parameter @a parameter.
+    ///
+    /// @exception std::invalid_argument is thrown if @a argumentType does not
+    /// require a string type parameter.
+    SgfcArgument(SgfcArgumentType argumentType, std::string parameter);
+
+    /// @brief Initializes a newly constructed SgfcArgument object with the
     /// type @a argumentType and the SgfcPropertyType parameter @a parameter.
     ///
     /// @exception std::invalid_argument is thrown if @a argumentType does not
     /// require an SgfcPropertyType parameter.
     SgfcArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter);
 
+    /// @brief Initializes a newly constructed SgfcArgument object with the
+    /// type @a argumentType and the SgfcMessageID parameter @a parameter.
+    ///
+    /// @exception std::invalid_argument is thrown if @a argumentType does not
+    /// require an SgfcMessageID parameter, or if @a parameter is a message ID
+    /// not known to SGFC (libsgfc++ message IDs with an underlying negative
+    /// numeric value, or #SgfcMessageID::UnknownSgfcMessageID).
+    SgfcArgument(SgfcArgumentType argumentType, SgfcMessageID parameter);
+
     /// @brief Destroys and cleans up the SgfcArgument object.
     virtual ~SgfcArgument();
 
     virtual SgfcArgumentType GetArgumentType() const override;
+
     virtual bool HasIntegerTypeParameter() const override;
     virtual int GetIntegerTypeParameter() const override;
+    virtual bool HasStringTypeParameter() const override;
+    virtual std::string GetStringTypeParameter() const override;
     virtual bool HasPropertyTypeParameter() const override;
     virtual SgfcPropertyType GetPropertyTypeParameter() const override;
+    virtual bool HasMessageIDParameter() const override;
+    virtual SgfcMessageID GetMessageIDParameter() const override;
+
     virtual std::string ToString() const override;
 
   private:
     SgfcArgumentType argumentType;
     bool hasIntegerTypeParameter;
     int integerTypeParameter;
+    bool hasStringTypeParameter;
+    std::string stringTypeParameter;
     bool hasPropertyTypeParameter;
     SgfcPropertyType propertyTypeParameter;
+    bool hasMessageIDParameter;
+    SgfcMessageID messageIDParameter;
   };
 }

@@ -36,7 +36,9 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
         auto argument = SgfcArgument(std::get<0>(testData));
         REQUIRE( argument.GetArgumentType() == std::get<0>(testData) );
         REQUIRE( argument.HasIntegerTypeParameter() == false );
+        REQUIRE( argument.HasStringTypeParameter() == false );
         REQUIRE( argument.HasPropertyTypeParameter() == false );
+        REQUIRE( argument.HasMessageIDParameter() == false );
         REQUIRE( argument.ToString() == std::get<1>(testData) );
       }
     }
@@ -66,7 +68,9 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
         REQUIRE( argument.GetArgumentType() == std::get<0>(testData) );
         REQUIRE( argument.HasIntegerTypeParameter() == true );
         REQUIRE( argument.GetIntegerTypeParameter() == std::get<1>(testData) );
+        REQUIRE( argument.HasStringTypeParameter() == false );
         REQUIRE( argument.HasPropertyTypeParameter() == false );
+        REQUIRE( argument.HasMessageIDParameter() == false );
         REQUIRE( argument.ToString() == std::get<2>(testData) );
       }
 
@@ -84,6 +88,39 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
       }
     }
 
+    GIVEN( "The constructor taking an argument type and a string type parameter is used" )
+    {
+      WHEN( "Valid arguments are passed to the constructor" )
+      {
+        auto testData = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithValidStringTypeParameter()) );
+
+        THEN( "SgfcArgument is constructed successfully and has default state" )
+        {
+          auto argument = SgfcArgument(std::get<0>(testData), std::get<1>(testData));
+          REQUIRE( argument.GetArgumentType() == std::get<0>(testData) );
+          REQUIRE( argument.HasIntegerTypeParameter() == false );
+          REQUIRE( argument.HasStringTypeParameter() == true );
+          REQUIRE( argument.GetStringTypeParameter() == std::get<1>(testData) );
+          REQUIRE( argument.HasPropertyTypeParameter() == false );
+          REQUIRE( argument.HasMessageIDParameter() == false );
+          REQUIRE( argument.ToString() == std::get<2>(testData) );
+        }
+
+        WHEN( "Invalid arguments are passed to the constructor" )
+        {
+          auto argumentType = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithoutStringTypeParameter()) );
+          std::string parameter = "UTF-8";
+
+          THEN( "The SgfcArgument constructor throws an exception" )
+          {
+            REQUIRE_THROWS_AS(
+              SgfcArgument(argumentType, parameter),
+              std::invalid_argument);
+          }
+        }
+      }
+    }
+
     GIVEN( "The constructor taking an argument type and an SgfcPropertyTYpe parameter is used" )
     {
       WHEN( "Valid arguments are passed to the constructor" )
@@ -95,8 +132,10 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
           auto argument = SgfcArgument(std::get<0>(testData), std::get<1>(testData));
           REQUIRE( argument.GetArgumentType() == std::get<0>(testData) );
           REQUIRE( argument.HasIntegerTypeParameter() == false );
+          REQUIRE( argument.HasStringTypeParameter() == false );
           REQUIRE( argument.HasPropertyTypeParameter() == true );
           REQUIRE( argument.GetPropertyTypeParameter() == std::get<1>(testData) );
+          REQUIRE( argument.HasMessageIDParameter() == false );
           REQUIRE( argument.ToString() == std::get<2>(testData) );
         }
       }
@@ -105,6 +144,39 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
       {
         auto argumentType = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithoutPropertyTypeParameter()) );
         SgfcPropertyType parameter = SgfcPropertyType::GM;
+
+        THEN( "The SgfcArgument constructor throws an exception" )
+        {
+          REQUIRE_THROWS_AS(
+            SgfcArgument(argumentType, parameter),
+            std::invalid_argument);
+        }
+      }
+    }
+
+    GIVEN( "The constructor taking an argument type and an SgfcMessageID parameter is used" )
+    {
+      WHEN( "Valid arguments are passed to the constructor" )
+      {
+        auto testData = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithValidMessageIDParameter()) );
+
+        THEN( "SgfcArgument is constructed successfully and has default state" )
+        {
+          auto argument = SgfcArgument(std::get<0>(testData), std::get<1>(testData));
+          REQUIRE( argument.GetArgumentType() == std::get<0>(testData) );
+          REQUIRE( argument.HasIntegerTypeParameter() == false );
+          REQUIRE( argument.HasStringTypeParameter() == false );
+          REQUIRE( argument.HasPropertyTypeParameter() == false );
+          REQUIRE( argument.HasMessageIDParameter() == true );
+          REQUIRE( argument.GetMessageIDParameter() == std::get<1>(testData) );
+          REQUIRE( argument.ToString() == std::get<2>(testData) );
+        }
+      }
+
+      WHEN( "Invalid arguments are passed to the constructor" )
+      {
+        auto argumentType = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithoutMessageIDParameter()) );
+        SgfcMessageID parameter = SgfcMessageID::UnknownPropertyDeleted;
 
         THEN( "The SgfcArgument constructor throws an exception" )
         {

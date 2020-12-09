@@ -28,8 +28,11 @@ namespace LibSgfcPlusPlus
     : argumentType(argumentType)
     , hasIntegerTypeParameter(false)
     , integerTypeParameter(-1)
+    , hasStringTypeParameter(false)
     , hasPropertyTypeParameter(false)
     , propertyTypeParameter(SgfcPropertyType::Unknown)
+    , hasMessageIDParameter(false)
+    , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
   {
     switch (argumentType)
     {
@@ -60,13 +63,15 @@ namespace LibSgfcPlusPlus
     : argumentType(argumentType)
     , hasIntegerTypeParameter(true)
     , integerTypeParameter(parameter)
+    , hasStringTypeParameter(false)
     , hasPropertyTypeParameter(false)
     , propertyTypeParameter(SgfcPropertyType::Unknown)
+    , hasMessageIDParameter(false)
+    , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
   {
     switch (argumentType)
     {
       case SgfcArgumentType::BeginningOfSgfData:
-      case SgfcArgumentType::DisableMessageNumber:
       case SgfcArgumentType::HardLineBreakMode:
       case SgfcArgumentType::EncodingMode:
         break;
@@ -80,12 +85,41 @@ namespace LibSgfcPlusPlus
     }
   }
 
+  SgfcArgument::SgfcArgument(SgfcArgumentType argumentType, std::string parameter)
+    : argumentType(argumentType)
+    , hasIntegerTypeParameter(false)
+    , integerTypeParameter(-1)
+    , hasStringTypeParameter(true)
+    , stringTypeParameter(parameter)
+    , hasPropertyTypeParameter(false)
+    , propertyTypeParameter(SgfcPropertyType::Unknown)
+    , hasMessageIDParameter(false)
+    , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
+  {
+    switch (argumentType)
+    {
+      case SgfcArgumentType::DefaultEncoding:
+      case SgfcArgumentType::ForcedEncoding:
+        break;
+      default:
+        std::stringstream message;
+        message
+          << "SgfcArgument constructor failed: Specified argument type "
+          << static_cast<int>(argumentType)
+          << " does not require a string type parameter, but a string type parameter was specified";
+        throw std::invalid_argument(message.str());
+    }
+  }
+
   SgfcArgument::SgfcArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter)
     : argumentType(argumentType)
     , hasIntegerTypeParameter(false)
     , integerTypeParameter(-1)
+    , hasStringTypeParameter(false)
     , hasPropertyTypeParameter(true)
     , propertyTypeParameter(parameter)
+    , hasMessageIDParameter(false)
+    , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
   {
     switch (argumentType)
     {
@@ -97,6 +131,30 @@ namespace LibSgfcPlusPlus
           << "SgfcArgument constructor failed: Specified argument type "
           << static_cast<int>(argumentType)
           << " does not require an SgfcPropertyType parameter, but an SgfcPropertyType parameter was specified";
+        throw std::invalid_argument(message.str());
+    }
+  }
+
+  SgfcArgument::SgfcArgument(SgfcArgumentType argumentType, SgfcMessageID parameter)
+    : argumentType(argumentType)
+    , hasIntegerTypeParameter(false)
+    , integerTypeParameter(-1)
+    , hasStringTypeParameter(false)
+    , hasPropertyTypeParameter(false)
+    , propertyTypeParameter(SgfcPropertyType::Unknown)
+    , hasMessageIDParameter(true)
+    , messageIDParameter(parameter)
+  {
+    switch (argumentType)
+    {
+      case SgfcArgumentType::DisableMessageID:
+        break;
+      default:
+        std::stringstream message;
+        message
+          << "SgfcArgument constructor failed: Specified argument type "
+          << static_cast<int>(argumentType)
+          << " does not require an SgfcMessageID parameter, but an SgfcMessageID parameter was specified";
         throw std::invalid_argument(message.str());
     }
   }
@@ -120,6 +178,16 @@ namespace LibSgfcPlusPlus
     return this->integerTypeParameter;
   }
 
+  bool SgfcArgument::HasStringTypeParameter() const
+  {
+    return this->hasStringTypeParameter;
+  }
+
+  std::string SgfcArgument::GetStringTypeParameter() const
+  {
+    return this->stringTypeParameter;
+  }
+
   bool SgfcArgument::HasPropertyTypeParameter() const
   {
     return this->hasPropertyTypeParameter;
@@ -128,6 +196,16 @@ namespace LibSgfcPlusPlus
   SgfcPropertyType SgfcArgument::GetPropertyTypeParameter() const
   {
     return this->propertyTypeParameter;
+  }
+
+  bool SgfcArgument::HasMessageIDParameter() const
+  {
+    return this->hasMessageIDParameter;
+  }
+
+  SgfcMessageID SgfcArgument::GetMessageIDParameter() const
+  {
+    return this->messageIDParameter;
   }
 
   std::string SgfcArgument::ToString() const
@@ -141,8 +219,12 @@ namespace LibSgfcPlusPlus
 
     if (HasIntegerTypeParameter())
       argumentAsString << this->integerTypeParameter;
+    else if (HasStringTypeParameter())
+      argumentAsString << "=" << this->stringTypeParameter;
     else if (HasPropertyTypeParameter())
       argumentAsString << SgfcUtility::MapPropertyTypeToPropertyName(this->propertyTypeParameter);
+    else if (HasMessageIDParameter())
+      argumentAsString << static_cast<int>(this->messageIDParameter);
 
     return argumentAsString.str();
   }

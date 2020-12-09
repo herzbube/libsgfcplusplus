@@ -55,11 +55,16 @@ namespace LibSgfcPlusPlus
   ///   results and take appropriate steps when it encounters critical errors.
   /// - Options -i, -h and --help. The library does not support these options
   ///   because they are useful only for an interactive command line program.
+  /// - Option -U. The library client can achieve the same by specifying
+  ///   #SgfcArgumentType::DefaultEncoding with parameter "UTF-8".
   enum class SGFCPLUSPLUS_EXPORT SgfcArgumentType
   {
     /// @brief Select how to search for the beginning of SGF data. This argument
     /// requires a numeric parameter value 1, 2 or 3. The corresponding SGFC
     /// command line option is -bx.
+    ///
+    /// The argument is invalid if you specify a parameter value that is not
+    /// 1, 2 or 3.
     ///
     /// The parameter values 1-3 have the following meaning:
     /// - 1 = Advanced search algorithm (default)
@@ -72,32 +77,24 @@ namespace LibSgfcPlusPlus
     /// with "(". To detect such files SGFC uses a more sophisticated search.
     /// In rare cases this might go wrong, so if you find yourself in that
     /// position you may wish to use the algorithm 2 or 3.
-    ///
-    /// The argument is invalid if you specify a parameter value that is not
-    /// 1, 2 or 3.
     BeginningOfSgfData,
 
-    /// @brief Disable a given message number. This argument requires a numeric
-    /// parameter value, the value denotes the number of the message to disable.
-    /// This argument can be specified multiple times. The corresponding SGFC
-    /// command line option is -dn.
+    /// @brief Disable a given message ID. This argument requires an
+    /// SgfcMessageID parameter value, the value denotes the ID of the message
+    /// to disable. This argument can be specified multiple times.
+    /// The corresponding SGFC command line option is -dn.
     ///
     /// If you feel that the SGFC syntax checking is too pedantic and generates
     /// too many messages, then you can use this argument to reduce the number
     /// of messages. You cannot use this argument to disable fatal error
     /// messages.
     ///
-    /// The argumentis invalid if you specify a message number outside the range
-    /// known to SGFC. Refer to the SGFC documentation (README) for a list of
-    /// all messages and their numbers.
-    ///
-    /// The SGFC documentation suggests that you may wish to disable the
-    /// following non-critical warnings:
-    /// - Warning 24: removed empty value (e.g. "C[]")
-    /// - Warning 29: deleted property <x> (when specifying -o or -yXX)
-    /// - Warning 40: property not part of FF[x] (e.g. FF[3] file without
-    ///   FF[] property)
-    DisableMessageNumber,
+    /// Hints for a few non-critical warnings that you may wish to disable are
+    /// #SgfcMessageID::EmptyValueDeleted,
+    /// #SgfcMessageID::RequestedPropertyDeleted (since these messages are
+    /// generated in response to an explicit request by the library client) and
+    /// #SgfcMessageID::PropertyNotDefinedInFF.
+    DisableMessageID,
 
     /// @brief Disable @b all warning messages. The corresponding SGFC command
     /// line option is -w.
@@ -116,6 +113,9 @@ namespace LibSgfcPlusPlus
     /// This argument only affects how SGFC interprets SGF content during
     /// reading. When SGFC writes SGF content the output is always in FF4
     /// format.
+    ///
+    /// The argument is invalid if you specify a parameter value that is not
+    /// 1, 2, 3 or 4.
     ///
     /// The parameter values 1-4 have the following meaning:
     /// - 1 = A line break preceded by a backslash ("\") character is treated
@@ -137,9 +137,6 @@ namespace LibSgfcPlusPlus
     ///       line break is preserved on writing. The SGFC documentation
     ///       characterizes this line break behaviour as "paragraph style
     ///       (ISHI format, MFGO)".
-    ///
-    /// The argument is invalid if you specify a parameter value that is not
-    /// 1, 2, 3 or 4.
     ///
     /// @todo Find out more about parameter value 4. What does "paragraph style"
     /// mean? What is the ISHI format? MFGO is likely the abbreviation for the
@@ -172,8 +169,8 @@ namespace LibSgfcPlusPlus
     ///   If that length were to be exceeded SGFC inserts a line break before it
     ///   writes out the next property. In case of a Text property SGFC inserts
     ///   a soft line break in the middle of the property value.
-    /// - When this argument is specified, SGFC never inserts soft line breaks in
-    ///   the middle of a Text property value.
+    /// - When this argument is specified, SGFC never inserts soft line breaks
+    ///   in the middle of a Text property value.
     ///
     /// Old SGF handling applications that pre-date FF4 cannot deal with soft
     /// line breaks. If you are concerned about compatibility to old
@@ -195,7 +192,8 @@ namespace LibSgfcPlusPlus
     /// of the current move.
     ///
     /// @note When a markup property is deleted because of this argument type,
-    /// this results in an error type message with ID 38. Example:
+    /// this results in an error type message with
+    /// #SgfcMessageID::PositionNotUnique. Example:
     /// "Markup <CR> position not unique ([partially] deleted)".
     DeleteMarkupOnCurrentMove,
 
@@ -207,8 +205,8 @@ namespace LibSgfcPlusPlus
     /// - A node which has siblings and has more than one child.
     ///
     /// @note When an empty node is deleted because of this argument type,
-    /// this results in a warning type message with ID 55. Example:
-    /// "empty node deleted".
+    /// this results in a warning type message with
+    /// #SgfcMessageID::EmptyNodeDeleted. Example: "empty node deleted".
     DeleteEmptyNodes,
 
     /// @brief Delete obsolete properties, i.e. properties that are not part of
@@ -222,10 +220,12 @@ namespace LibSgfcPlusPlus
     /// - "M" is converted to an FF4 counterpart, either "MA" or "TR".
     ///
     /// @note When an obsolete property is deleted because of this argument
-    /// type, this results in a warning type message with ID 29. Example:
+    /// type, this results in a warning type message with
+    /// #SgfcMessageID::RequestedPropertyDeleted. Example:
     /// "obsolete property <EL> deleted". Regardless of whether this argument
-    /// type is used or not, SGFC generates a warning type message with ID 40
-    /// when it encounters an obsolete property. Example:
+    /// type is used or not, SGFC generates a warning type message with
+    /// #SgfcMessageID::PropertyNotDefinedInFF when it encounters an obsolete
+    /// property. Example:
     /// "property <EL> is not defined in FF[4] (parsing done anyway)".
     DeleteObsoleteProperties,
 
@@ -243,7 +243,8 @@ namespace LibSgfcPlusPlus
     ///   counterpart "KM".
     ///
     /// @note When an unknown property is deleted because of this argument
-    /// type, this results in a warning type message with ID 35. Example:
+    /// type, this results in a warning type message with
+    /// #SgfcMessageID::UnknownPropertyDeleted. Example:
     /// "unknown property <XX> deleted".
     DeleteUnknownProperties,
 
@@ -265,7 +266,8 @@ namespace LibSgfcPlusPlus
     /// property type that is not known by SGFC.
     ///
     /// @note When a property is deleted because of this argument type, this
-    /// results in a warning type message with ID 29. Example:
+    /// results in a warning type message with
+    /// #SgfcMessageID::RequestedPropertyDeleted. Example:
     /// "property <FF> deleted".
     DeletePropertyType,
 
@@ -322,7 +324,9 @@ namespace LibSgfcPlusPlus
     /// Correct: >>(;GM[1]GC[good style];B[aa]C[first move not in root node])<<
     ///
     /// @note Variation fixes and root move fixes made because of this argument
-    /// type result in warning type messages with IDs 57 and 24, respectively.
+    /// type result in warning type messages with
+    /// #SgfcMessageID::VariationLevelCorrected and
+    /// #SgfcMessageID::MoveInRootNodeSplit, respectively.
     /// Examples: "variation level corrected" and "move in root node found
     /// (splitted node into two)".
     CorrectVariationLevelAndRootMoves,
@@ -366,11 +370,10 @@ namespace LibSgfcPlusPlus
 
     /// @brief Select how to determine the character encoding(s) used to decode
     /// SGF content. This argument requires a numeric parameter value 1, 2
-    /// or 3. The corresponding SGFC command line option is -En.
+    /// or 3. The corresponding SGFC command line option is -Ex.
     ///
-    /// This argument only affects how SGFC interprets SGF content during
-    /// reading. When SGFC writes SGF content the output is always in UTF-8
-    /// encoding.
+    /// The argument is invalid if you specify a parameter value that is not
+    /// 1, 2 or 3.
     ///
     /// The parameter values 1-3 have the following meaning:
     /// - 1 = A single encoding is used to decode the @b entire SGF content.
@@ -385,12 +388,12 @@ namespace LibSgfcPlusPlus
     ///       content. The encoding is defined by the CA property value of that
     ///       game tree. If a game tree has no CA property the default encoding
     ///       ISO-8859-1 is used. Only SimpleText and Text property values are
-    ///       decoded. The SGF formatting skeleton as well as property values
+    ///       decoded! The SGF formatting skeleton as well as property values
     ///       that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.
     /// - 3 = No decoding takes place.
     ///
-    /// The argument is invalid if you specify a parameter value that is not
-    /// 1, 2 or 3.
+    /// The mode used When SGFC writes SGF content the output is always in UTF-8
+    /// encoding when mode 1 or 2 are used, and .
     ///
     /// @note Mode 2 is the behaviour as designed by the SGF standard. This is
     /// somewhat archaic as it not only allows a file to be partially encoded,
@@ -398,6 +401,32 @@ namespace LibSgfcPlusPlus
     /// even though it does not conform to the SGF standard, is what is most
     /// likely can be expected from modern-day applications that encode an
     /// entire file and use the same encoding for the entire file.
+    ///
+    /// @attention When mode 1 is used decoding occurs before parsing, when
+    /// mode 2 is used decoding occurs after parsing. This can be important
+    /// when SGF content is encoded with a multi-byte encoding, and one or
+    /// more multi-byte characters contain bytes that correspond to ASCII
+    /// characters that are relevant for the SGF format (escape character,
+    /// property closing character). Examples that illustrate the problem can
+    /// be found in SgfNotes.md.
     EncodingMode,
+
+    /// @brief Select the default encoding to be used if the SGF content does
+    /// not contain a CA property. This argument requires a string parameter
+    /// value. The corresponding SGFC command line option is --default-encoding.
+    ///
+    /// The default value is ISO-8859-1. Valid values depend on the iconv
+    /// implementation used by libsgfc++. Invoke "iconv --list" on the command
+    /// line to see a list of supported encodings.
+    DefaultEncoding,
+
+    /// @brief Select the encoding to be used. This overrides even a CA property
+    /// found in the SGF content. This argument requires a string parameter
+    /// value. The corresponding SGFC command line option is --encoding.
+    ///
+    /// The argument has no default value. Valid values depend on the iconv
+    /// implementation used by libsgfc++. Invoke "iconv --list" on the command
+    /// line to see a list of supported encodings.
+    ForcedEncoding,
   };
 }

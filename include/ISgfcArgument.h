@@ -18,6 +18,7 @@
 
 // Project includes
 #include "SgfcArgumentType.h"
+#include "SgfcMessageID.h"
 #include "SgfcPropertyType.h"
 
 // Project includes (generated)
@@ -54,12 +55,26 @@ namespace LibSgfcPlusPlus
     /// value is undefined if HasIntegerTypeParameter() returns false.
     virtual int GetIntegerTypeParameter() const = 0;
 
+    /// @brief Returns true if the argument has a string parameter.
+    virtual bool HasStringTypeParameter() const = 0;
+
+    /// @brief Returns the argument's string parameter value. The
+    /// return value is undefined if HasStringParameter() returns false.
+    virtual std::string GetStringTypeParameter() const = 0;
+
     /// @brief Returns true if the argument has an SgfcPropertyType parameter.
     virtual bool HasPropertyTypeParameter() const = 0;
 
     /// @brief Returns the argument's SgfcPropertyType parameter value. The
     /// return value is undefined if HasPropertyTypeParameter() returns false.
     virtual SgfcPropertyType GetPropertyTypeParameter() const = 0;
+
+    /// @brief Returns true if the argument has an SgfcMessageID parameter.
+    virtual bool HasMessageIDParameter() const = 0;
+
+    /// @brief Returns the argument's SgfcMessageID parameter value. The
+    /// return value is undefined if HasMessageIDParameter() returns false.
+    virtual SgfcMessageID GetMessageIDParameter() const = 0;
 
     /// @brief Returns the argument as a string, exactly as it would be
     /// specified on the SGFC command line. Examples: -n, -b1, -yMA.

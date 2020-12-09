@@ -28,7 +28,7 @@ namespace LibSgfcPlusPlus
   enum class SGFCPLUSPLUS_EXPORT SgfcExitCode
   {
     /// @brief The SGFC operation did not generate any warning or error
-    /// messages. If the SgfcArgumentType::DisableMessageNumber argument was
+    /// messages. If the SgfcArgumentType::DisableMessageID argument was
     /// passed to SGFC some messages may have been ignored.
     Ok = 0,
 

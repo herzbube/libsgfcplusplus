@@ -69,7 +69,9 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         auto argument = arguments.GetArguments().front();
         REQUIRE( argument->GetArgumentType() == argumentType );
         REQUIRE( argument->HasIntegerTypeParameter() == false );
+        REQUIRE( argument->HasStringTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
+        REQUIRE( argument->HasMessageIDParameter() == false );
         REQUIRE( argument->ToString() == std::get<1>(testData) );
       }
     }
@@ -119,7 +121,9 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->GetArgumentType() == std::get<0>(testData) );
         REQUIRE( argument->HasIntegerTypeParameter() == true );
         REQUIRE( argument->GetIntegerTypeParameter() == std::get<1>(testData) );
+        REQUIRE( argument->HasStringTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
+        REQUIRE( argument->HasMessageIDParameter() == false );
         REQUIRE( argument->ToString() == std::get<2>(testData) );
       }
     }
@@ -137,7 +141,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
       }
     }
 
-    WHEN( "The argument type that does not allow multiplicity is added more than once with different parameter values" )
+    WHEN( "The argument type does not allow multiplicity and is added more than once with different parameter values" )
     {
       auto argumentType = SgfcArgumentType::BeginningOfSgfData;
       int parameterValue1 = 1;
@@ -152,40 +156,48 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
       }
     }
 
-    WHEN( "The argument type that allows multiplicity is added more than once with different parameter values" )
+    WHEN( "The argument type allows multiplicity and is added more than once with different parameter values" )
     {
-      auto argumentType = SgfcArgumentType::DisableMessageNumber;
-      int parameterValue1 = 1;
-      int parameterValue2 = 2;
-      arguments.AddArgument(argumentType, parameterValue1);
-      arguments.AddArgument(argumentType, parameterValue2);
+      // No tests, there is no argument type that allows multiplicity
+      // and that requires an integer type parameter
+    }
+
+    WHEN( "The argument type allows multiplicity and is added more than once with same parameter values" )
+    {
+      // No tests, there is no argument type that allows multiplicity
+      // and that requires an integer type parameter
+    }
+  }
+
+  GIVEN( "An argument with a string type parameter is added" )
+  {
+    WHEN( "The argument type requires a string type parameter" )
+    {
+      auto testData = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithValidStringTypeParameter()) );
+      auto argumentType = std::get<0>(testData);
+      auto parameter = std::get<1>(testData);
+      arguments.AddArgument(argumentType, parameter);
 
       THEN( "The argument is added successfully" )
       {
         REQUIRE( arguments.HasArguments() == true );
-        REQUIRE( arguments.GetArguments().size() == 2 );
+        REQUIRE( arguments.GetArguments().size() == 1 );
 
-        auto argument1 = arguments.GetArguments().front();
-        REQUIRE( argument1->GetArgumentType() == argumentType );
-        REQUIRE( argument1->HasIntegerTypeParameter() == true );
-        REQUIRE( argument1->GetIntegerTypeParameter() == parameterValue1 );
-        REQUIRE( argument1->HasPropertyTypeParameter() == false );
-        REQUIRE( argument1->ToString() == "-d1" );
-
-        auto argument2 = arguments.GetArguments().back();
-        REQUIRE( argument2->GetArgumentType() == argumentType );
-        REQUIRE( argument2->HasIntegerTypeParameter() == true );
-        REQUIRE( argument2->GetIntegerTypeParameter() == parameterValue2 );
-        REQUIRE( argument2->HasPropertyTypeParameter() == false );
-        REQUIRE( argument2->ToString() == "-d2" );
+        auto argument = arguments.GetArguments().front();
+        REQUIRE( argument->GetArgumentType() == std::get<0>(testData) );
+        REQUIRE( argument->HasIntegerTypeParameter() == false );
+        REQUIRE( argument->HasStringTypeParameter() == true );
+        REQUIRE( argument->GetStringTypeParameter() == std::get<1>(testData) );
+        REQUIRE( argument->HasPropertyTypeParameter() == false );
+        REQUIRE( argument->HasMessageIDParameter() == false );
+        REQUIRE( argument->ToString() == std::get<2>(testData) );
       }
     }
 
-    WHEN( "The same argument type that allows multiplicity is added more than once with same parameter values" )
+    WHEN( "The argument type does not require a string type parameter" )
     {
-      auto argumentType = SgfcArgumentType::DisableMessageNumber;
-      int parameter = 1;
-      arguments.AddArgument(argumentType, parameter);
+      auto argumentType = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithoutStringTypeParameter()) );
+      std::string parameter = "UTF-8";
 
       THEN( "The add operation throws an exception" )
       {
@@ -193,6 +205,33 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
           arguments.AddArgument(argumentType, parameter),
           std::invalid_argument);
       }
+    }
+
+    WHEN( "The argument type does not allow multiplicity and is added more than once with different parameter values" )
+    {
+      auto argumentType = SgfcArgumentType::DefaultEncoding;
+      std::string parameterValue1 = "UTF-8";
+      std::string parameterValue2 = "ISO-8859-1";
+      arguments.AddArgument(argumentType, parameterValue1);
+
+      THEN( "The add operation throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          arguments.AddArgument(argumentType, parameterValue2),
+          std::invalid_argument);
+      }
+    }
+
+    WHEN( "The argument type allows multiplicity and is added more than once with different parameter values" )
+    {
+      // No tests, there is no argument type that allows multiplicity
+      // and that requires a string type parameter
+    }
+
+    WHEN( "The argument type allows multiplicity and is added more than once with same parameter values" )
+    {
+      // No tests, there is no argument type that allows multiplicity
+      // and that requires a string type parameter
     }
   }
 
@@ -213,8 +252,10 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         auto argument = arguments.GetArguments().front();
         REQUIRE( argument->GetArgumentType() == std::get<0>(testData) );
         REQUIRE( argument->HasIntegerTypeParameter() == false );
+        REQUIRE( argument->HasStringTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == true );
         REQUIRE( argument->GetPropertyTypeParameter() == std::get<1>(testData) );
+        REQUIRE( argument->HasMessageIDParameter() == false );
         REQUIRE( argument->ToString() == std::get<2>(testData) );
       }
     }
@@ -232,13 +273,13 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
       }
     }
 
-    WHEN( "The argument type that does not allow multiplicity is added more than once with different parameter values" )
+    WHEN( "The argument type does not allow multiplicity and is added more than once with different parameter values" )
     {
       // No tests, there is no argument type that does not allow multiplicity
       // and that requires an SgfcPropertyType parameter
     }
 
-    WHEN( "The argument type that allows multiplicity is added more than once with different parameter values" )
+    WHEN( "The argument type allows multiplicity and is added more than once with different parameter values" )
     {
       auto argumentType = SgfcArgumentType::DeletePropertyType;
       SgfcPropertyType parameterValue1 = SgfcPropertyType::GM;
@@ -254,23 +295,120 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         auto argument1 = arguments.GetArguments().front();
         REQUIRE( argument1->GetArgumentType() == argumentType );
         REQUIRE( argument1->HasIntegerTypeParameter() == false );
+        REQUIRE( argument1->HasStringTypeParameter() == false );
         REQUIRE( argument1->HasPropertyTypeParameter() == true );
         REQUIRE( argument1->GetPropertyTypeParameter() == parameterValue1 );
+        REQUIRE( argument1->HasMessageIDParameter() == false );
         REQUIRE( argument1->ToString() == "-yGM" );
 
         auto argument2 = arguments.GetArguments().back();
         REQUIRE( argument2->GetArgumentType() == argumentType );
         REQUIRE( argument2->HasIntegerTypeParameter() == false );
+        REQUIRE( argument2->HasStringTypeParameter() == false );
         REQUIRE( argument2->HasPropertyTypeParameter() == true );
         REQUIRE( argument2->GetPropertyTypeParameter() == parameterValue2 );
+        REQUIRE( argument2->HasMessageIDParameter() == false );
         REQUIRE( argument2->ToString() == "-ySZ" );
       }
     }
 
-    WHEN( "The same argument type that allows multiplicity is added more than once with same parameter values" )
+    WHEN( "The argument type allows multiplicity and is added more than once with same parameter values" )
     {
       auto argumentType = SgfcArgumentType::DeletePropertyType;
       SgfcPropertyType parameter = SgfcPropertyType::GM;
+      arguments.AddArgument(argumentType, parameter);
+
+      THEN( "The add operation throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          arguments.AddArgument(argumentType, parameter),
+          std::invalid_argument);
+      }
+    }
+  }
+
+  GIVEN( "An argument with an SgfcMessageID parameter is added" )
+  {
+    WHEN( "The argument type requires an SgfcMessageID parameter" )
+    {
+      auto testData = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithValidMessageIDParameter()) );
+      auto argumentType = std::get<0>(testData);
+      auto parameter = std::get<1>(testData);
+      arguments.AddArgument(argumentType, parameter);
+
+      THEN( "The argument is added successfully" )
+      {
+        REQUIRE( arguments.HasArguments() == true );
+        REQUIRE( arguments.GetArguments().size() == 1 );
+
+        auto argument = arguments.GetArguments().front();
+        REQUIRE( argument->GetArgumentType() == std::get<0>(testData) );
+        REQUIRE( argument->HasIntegerTypeParameter() == false );
+        REQUIRE( argument->HasStringTypeParameter() == false );
+        REQUIRE( argument->HasPropertyTypeParameter() == false );
+        REQUIRE( argument->HasMessageIDParameter() == true );
+        REQUIRE( argument->GetMessageIDParameter() == std::get<1>(testData) );
+        REQUIRE( argument->ToString() == std::get<2>(testData) );
+      }
+    }
+
+    WHEN( "The argument type does not require an SgfcMessageID parameter" )
+    {
+      auto argumentType = GENERATE( from_range(TestDataGenerator::GetArgumentTypesWithoutMessageIDParameter()) );
+      SgfcMessageID parameter = SgfcMessageID::UnknownPropertyDeleted;
+
+      THEN( "The add operation throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          arguments.AddArgument(argumentType, parameter),
+          std::invalid_argument);
+      }
+    }
+
+    WHEN( "The argument type does not allow multiplicity and is added more than once with different parameter values" )
+    {
+      // No tests, there is no argument type that does not allow multiplicity
+      // and that requires an SgfcMessageID parameter
+    }
+
+    WHEN( "The argument type allows multiplicity and is added more than once with different parameter values" )
+    {
+      auto argumentType = SgfcArgumentType::DisableMessageID;
+      SgfcMessageID parameterValue1 = SgfcMessageID::UnknownPropertyDeleted;
+      SgfcMessageID parameterValue2 = SgfcMessageID::RequestedPropertyDeleted;
+      arguments.AddArgument(argumentType, parameterValue1);
+      arguments.AddArgument(argumentType, parameterValue2);
+
+      THEN( "The argument is added successfully" )
+      {
+        REQUIRE( arguments.HasArguments() == true );
+        REQUIRE( arguments.GetArguments().size() == 2 );
+
+        auto argument1 = arguments.GetArguments().front();
+        REQUIRE( argument1->GetArgumentType() == argumentType );
+        REQUIRE( argument1->HasIntegerTypeParameter() == false );
+        REQUIRE( argument1->HasStringTypeParameter() == false );
+        REQUIRE( argument1->HasPropertyTypeParameter() == false );
+        REQUIRE( argument1->HasMessageIDParameter() == true );
+        REQUIRE( argument1->GetMessageIDParameter() == parameterValue1 );
+        REQUIRE( argument1->ToString() == "-d35" );
+
+        auto argument2 = arguments.GetArguments().back();
+        REQUIRE( argument2->GetArgumentType() == argumentType );
+
+        REQUIRE( argument2->HasIntegerTypeParameter() == false );
+        REQUIRE( argument2->HasStringTypeParameter() == false );
+        REQUIRE( argument2->HasPropertyTypeParameter() == false );
+        REQUIRE( argument2->HasMessageIDParameter() == true );
+        REQUIRE( argument2->GetMessageIDParameter() == parameterValue2 );
+        REQUIRE( argument2->ToString() == "-d29" );
+      }
+    }
+
+    WHEN( "The argument type allows multiplicity and is added more than once with same parameter values" )
+    {
+      auto argumentType = SgfcArgumentType::DisableMessageID;
+      SgfcMessageID parameter = SgfcMessageID::UnknownPropertyDeleted;
       arguments.AddArgument(argumentType, parameter);
 
       THEN( "The add operation throws an exception" )

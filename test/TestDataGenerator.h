@@ -22,6 +22,7 @@
 #include <SgfcColor.h>
 #include <SgfcDouble.h>
 #include <SgfcGameType.h>
+#include <SgfcMessageID.h>
 #include <SgfcPropertyType.h>
 #include <SgfcTypedefs.h>
 #include <game/go/SgfcGoPoint.h>
@@ -73,14 +74,22 @@ namespace LibSgfcPlusPlus
 
     static std::vector<std::tuple<SgfcArgumentType, std::string>> GetArgumentTypesWithoutParameters();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithIntegerTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithStringTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithPropertyTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithMessageIDParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutIntegerTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutStringTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutPropertyTypeParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutMessageIDParameter();
     static std::vector<std::tuple<SgfcArgumentType, int, std::string>> GetArgumentTypesWithValidIntegerTypeParameter();
     static std::vector<std::tuple<SgfcArgumentType, int>> GetArgumentTypesWithInvalidIntegerTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, std::string, std::string>> GetArgumentTypesWithValidStringTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, std::string>> GetArgumentTypesWithInvalidStringTypeParameter();
     static std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType, std::string>> GetArgumentTypesWithValidPropertyTypeParameter();
     static std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> GetArgumentTypesWithInvalidPropertyTypeParameter();
+    static std::vector<std::tuple<SgfcArgumentType, SgfcMessageID, std::string>> GetArgumentTypesWithValidMessageIDParameter();
+    static std::vector<std::tuple<SgfcArgumentType, SgfcMessageID>> GetArgumentTypesWithInvalidMessageIDParameter();
 
   private:
     TestDataGenerator();

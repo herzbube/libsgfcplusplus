@@ -730,8 +730,19 @@ namespace LibSgfcPlusPlus
     std::vector<SgfcArgumentType> testData =
     {
       SgfcArgumentType::BeginningOfSgfData,
-      SgfcArgumentType::DisableMessageNumber,
       SgfcArgumentType::HardLineBreakMode,
+      SgfcArgumentType::EncodingMode,
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithStringTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::DefaultEncoding,
+      SgfcArgumentType::ForcedEncoding,
     };
 
     return testData;
@@ -747,6 +758,16 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithMessageIDParameter()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::DisableMessageID
+    };
+
+    return testData;
+  }
+
   std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithParameter()
   {
     std::vector<SgfcArgumentType> testData;
@@ -754,7 +775,13 @@ namespace LibSgfcPlusPlus
     for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
       testData.push_back(argumentTypeWithIntegerTypeParameter);
 
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithStringTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
     for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithMessageIDParameter())
       testData.push_back(argumentTypeWithIntegerTypeParameter);
 
     return testData;
@@ -767,7 +794,32 @@ namespace LibSgfcPlusPlus
     for (auto testDataArgumentTypeWithoutParameters : GetArgumentTypesWithoutParameters())
       testData.push_back(std::get<0>(testDataArgumentTypeWithoutParameters));
 
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithStringTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
     for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithMessageIDParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutStringTypeParameter()
+  {
+    std::vector<SgfcArgumentType> testData;
+
+    for (auto testDataArgumentTypeWithoutParameters : GetArgumentTypesWithoutParameters())
+      testData.push_back(std::get<0>(testDataArgumentTypeWithoutParameters));
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithMessageIDParameter())
       testData.push_back(argumentTypeWithIntegerTypeParameter);
 
     return testData;
@@ -783,6 +835,31 @@ namespace LibSgfcPlusPlus
     for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
       testData.push_back(argumentTypeWithIntegerTypeParameter);
 
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithStringTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithMessageIDParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutMessageIDParameter()
+  {
+    std::vector<SgfcArgumentType> testData;
+
+    for (auto testDataArgumentTypeWithoutParameters : GetArgumentTypesWithoutParameters())
+      testData.push_back(std::get<0>(testDataArgumentTypeWithoutParameters));
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithIntegerTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithStringTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
+    for (auto argumentTypeWithIntegerTypeParameter : GetArgumentTypesWithPropertyTypeParameter())
+      testData.push_back(argumentTypeWithIntegerTypeParameter);
+
     return testData;
   }
 
@@ -793,10 +870,6 @@ namespace LibSgfcPlusPlus
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 1, "-b1"),
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 2, "-b2"),
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 3, "-b3"),
-      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 35, "-d35"),
-      // Disabling a fatal error message does not lead to invalid arguments, it
-      // simply has no effect
-      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 2, "-d2"),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, 1, "-l1"),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, 2, "-l2"),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, 3, "-l3"),
@@ -815,15 +888,42 @@ namespace LibSgfcPlusPlus
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, -1),
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 0),
       std::make_tuple(SgfcArgumentType::BeginningOfSgfData, 4),
-      std::make_tuple(SgfcArgumentType::DisableMessageNumber, -1),
-      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 0),
-      std::make_tuple(SgfcArgumentType::DisableMessageNumber, 1000),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, -1),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, 0),
       std::make_tuple(SgfcArgumentType::HardLineBreakMode, 5),
       // Arguments that do not require an integer type parameter
       std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, 1),
+      std::make_tuple(SgfcArgumentType::DefaultEncoding, 1),
       std::make_tuple(SgfcArgumentType::DeletePropertyType, 1),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, 1),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, std::string, std::string>> TestDataGenerator::GetArgumentTypesWithValidStringTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, std::string, std::string>> testData =
+    {
+      std::make_tuple(SgfcArgumentType::DefaultEncoding, "UTF-8", "--default-encoding=UTF-8")
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, std::string>> TestDataGenerator::GetArgumentTypesWithInvalidStringTypeParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, std::string>> testData =
+    {
+      // Arguments that require a string type parameter, but use a value that
+      // is not allowed
+      std::make_tuple(SgfcArgumentType::DefaultEncoding, "foo"),
+      std::make_tuple(SgfcArgumentType::ForcedEncoding, "foo"),
+      // Arguments that do not require an SgfcPropertyType parameter
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, "UTF-8"),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, "UTF-8"),
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, "UTF-8"),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, "UTF-8")
     };
 
     return testData;
@@ -843,12 +943,62 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> testData =
     {
-      // Arguments that require an integer type parameter, but use a value that
-      // is not allowed
-      std::make_tuple(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO),
+      // Arguments that require an SgfcPropertyType parameter, but use a
+      // statically cast numeric value
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, static_cast<SgfcPropertyType>(-1)),
+      std::make_tuple(SgfcArgumentType::DeletePropertyType, static_cast<SgfcPropertyType>(1000)),
       // Arguments that do not require an SgfcPropertyType parameter
       std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, SgfcPropertyType::BO),
-      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcPropertyType::BO)
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcPropertyType::BO),
+      std::make_tuple(SgfcArgumentType::DefaultEncoding, SgfcPropertyType::BO),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcPropertyType::BO)
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, SgfcMessageID, std::string>> TestDataGenerator::GetArgumentTypesWithValidMessageIDParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, SgfcMessageID, std::string>> testData =
+    {
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcMessageID::UnknownPropertyDeleted, "-d35"),
+      // Disabling a fatal error message does not lead to invalid arguments, it
+      // simply has no effect
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcMessageID::UnknownCommandLineOption, "-d2")
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcArgumentType, SgfcMessageID>> TestDataGenerator::GetArgumentTypesWithInvalidMessageIDParameter()
+  {
+    std::vector<std::tuple<SgfcArgumentType, SgfcMessageID>> testData =
+    {
+      // Arguments that require an SgfcMessageID parameter, but use an
+      // enumerator value whose underlying numeric value is not known to SGFC
+      // (libsgfc++ message IDs with an underlying negative numeric value, or
+      // #SgfcMessageID::UnknownSgfcMessageID).
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcMessageID::ParseArgumentError),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcMessageID::UnknownSgfcMessageID),
+      // Arguments that require an SgfcMessageID parameter, but use a statically
+      // cast numeric value that is not known to SGFC
+      // - Negative numeric values are all treated as invalid
+      // - Numeric value 0 (zero) is specially tested for because the public
+      //   API documentation includes 0 (zero) in the range of message IDs
+      //   that can be generated by SGFC, although in fact SGFC does not know
+      //   an error code 0.
+      // - Numeric value 1000 is not an error code known to SGFC
+      std::make_tuple(SgfcArgumentType::DisableMessageID, static_cast<SgfcMessageID>(-42)),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, static_cast<SgfcMessageID>(0)),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, static_cast<SgfcMessageID>(1000)),
+      // Although SgfcMessageID has no enumerator with an underlying numeric
+      // value 0 (zero), a library client might think
+      // The public API documentation says that underlying numeric value >= 0
+      // are from SGFC.
+      std::make_tuple(SgfcArgumentType::DisableMessageID, static_cast<SgfcMessageID>(0)),
+      // Arguments that do not require an SgfcMessageID parameter
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, SgfcMessageID::UnknownPropertyDeleted),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcMessageID::UnknownPropertyDeleted)
     };
 
     return testData;

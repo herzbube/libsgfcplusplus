@@ -135,7 +135,7 @@ namespace LibSgfcPlusPlus
   const std::map<SgfcArgumentType, std::string> SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap =
   {
     { SgfcArgumentType::BeginningOfSgfData, "-b" },
-    { SgfcArgumentType::DisableMessageNumber, "-d" },
+    { SgfcArgumentType::DisableMessageID, "-d" },
     { SgfcArgumentType::DisableWarningMessages, "-w" },
     { SgfcArgumentType::HardLineBreakMode, "-l" },
     { SgfcArgumentType::LineBreakAtEndOfNode, "-L" },
@@ -151,6 +151,8 @@ namespace LibSgfcPlusPlus
     { SgfcArgumentType::ReverseVariationOrdering, "-z" },
     { SgfcArgumentType::ExpandCompressedPointLists, "-e" },
     { SgfcArgumentType::EncodingMode, "-E" },
+    { SgfcArgumentType::DefaultEncoding, "--default-encoding" },
+    { SgfcArgumentType::ForcedEncoding, "--encoding" },
   };
 
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::FatalError;

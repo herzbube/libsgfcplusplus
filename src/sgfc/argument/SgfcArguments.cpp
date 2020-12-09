@@ -58,9 +58,25 @@ namespace LibSgfcPlusPlus
     this->arguments.push_back(argument);
   }
 
+  void SgfcArguments::AddArgument(SgfcArgumentType argumentType, const std::string& parameter)
+  {
+    ThrowIfMultiplicityViolated(argumentType, parameter, &ISgfcArgument::GetStringTypeParameter);
+
+    auto argument = std::shared_ptr<ISgfcArgument>(new SgfcArgument(argumentType, parameter));
+    this->arguments.push_back(argument);
+  }
+
   void SgfcArguments::AddArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter)
   {
     ThrowIfMultiplicityViolated(argumentType, parameter, &ISgfcArgument::GetPropertyTypeParameter);
+
+    auto argument = std::shared_ptr<ISgfcArgument>(new SgfcArgument(argumentType, parameter));
+    this->arguments.push_back(argument);
+  }
+
+  void SgfcArguments::AddArgument(SgfcArgumentType argumentType, SgfcMessageID parameter)
+  {
+    ThrowIfMultiplicityViolated(argumentType, parameter, &ISgfcArgument::GetMessageIDParameter);
 
     auto argument = std::shared_ptr<ISgfcArgument>(new SgfcArgument(argumentType, parameter));
     this->arguments.push_back(argument);
@@ -75,7 +91,7 @@ namespace LibSgfcPlusPlus
   {
     switch (argumentType)
     {
-      case SgfcArgumentType::DisableMessageNumber:
+      case SgfcArgumentType::DisableMessageID:
       case SgfcArgumentType::DeletePropertyType:
         return true;
       default:
@@ -100,6 +116,18 @@ namespace LibSgfcPlusPlus
         throw std::invalid_argument(message.str());
       }
     }
+  }
+
+  std::ostream& operator<< (std::ostream& out, SgfcPropertyType value)
+  {
+    out << static_cast<int>(value);
+    return out;
+  }
+
+  std::ostream& operator<< (std::ostream& out, SgfcMessageID value)
+  {
+    out << static_cast<int>(value);
+    return out;
   }
 
   template <typename T, typename FType>
@@ -130,7 +158,7 @@ namespace LibSgfcPlusPlus
             << "AddArgument failed: Argument of type "
             << static_cast<int>(argumentType)
             << " with parameter value "
-            << static_cast<int>(parameter)
+            << parameter
             << " is already present";
           throw std::invalid_argument(message.str());
         }

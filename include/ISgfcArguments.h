@@ -18,6 +18,7 @@
 
 // Project includes
 #include "SgfcArgumentType.h"
+#include "SgfcMessageID.h"
 #include "SgfcPropertyType.h"
 
 // Project includes (generated)
@@ -86,6 +87,21 @@ namespace LibSgfcPlusPlus
     /// make up the content of the ISgfcArguments object.
     ///
     /// @param argumentType The argument type.
+    /// @param parameter The argument's string type parameter.
+    ///
+    /// @exception std::invalid_argument is thrown if @a argumentType does not
+    /// require a string type parameter, or if @a argumentType does not
+    /// support multiple specifications but the collection already contains an
+    /// argument with the same type as @a argumentType, or if @a argumentType
+    /// supports multiple specifications but the collection already contains an
+    /// argument with an argument type / parameter combination that is equal to
+    /// @a argumentType and @a parameter.
+    virtual void AddArgument(SgfcArgumentType argumentType, const std::string& parameter) = 0;
+
+    /// @brief Adds an argument to the end of the collection of arguments that
+    /// make up the content of the ISgfcArguments object.
+    ///
+    /// @param argumentType The argument type.
     /// @param parameter The argument's SgfcPropertyType parameter.
     ///
     /// @exception std::invalid_argument is thrown if @a argumentType does not
@@ -96,6 +112,23 @@ namespace LibSgfcPlusPlus
     /// argument with an argument type / parameter combination that is equal to
     /// @a argumentType and @a parameter.
     virtual void AddArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter) = 0;
+
+    /// @brief Adds an argument to the end of the collection of arguments that
+    /// make up the content of the ISgfcArguments object.
+    ///
+    /// @param argumentType The argument type.
+    /// @param parameter The argument's SgfcMessageID parameter.
+    ///
+    /// @exception std::invalid_argument is thrown if @a argumentType does not
+    /// require an SgfcMessageID parameter, or if @a argumentType does not
+    /// support multiple specifications but the collection already contains an
+    /// argument with the same type as @a argumentType, or if @a argumentType
+    /// supports multiple specifications but the collection already contains an
+    /// argument with an argument type / parameter combination that is equal to
+    /// @a argumentType and @a parameter, or if @a parameter is a message ID
+    /// not known to SGFC (libsgfc++ message IDs with an underlying negative
+    /// numeric value, or #SgfcMessageID::UnknownSgfcMessageID).
+    virtual void AddArgument(SgfcArgumentType argumentType, SgfcMessageID parameter) = 0;
 
     /// @brief Removes all arguments from the collection of arguments that make
     /// up the content of the ISgfcArguments object.

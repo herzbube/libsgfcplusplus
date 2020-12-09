@@ -42,7 +42,9 @@ namespace LibSgfcPlusPlus
 
     virtual void AddArgument(SgfcArgumentType argumentType) override;
     virtual void AddArgument(SgfcArgumentType argumentType, int parameter) override;
+    virtual void AddArgument(SgfcArgumentType argumentType, const std::string& parameter) override;
     virtual void AddArgument(SgfcArgumentType argumentType, SgfcPropertyType parameter) override;
+    virtual void AddArgument(SgfcArgumentType argumentType, SgfcMessageID parameter) override;
 
     virtual void ClearArguments() override;
 
