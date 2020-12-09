@@ -33,16 +33,22 @@ The limitations of SGFC also apply to libsgfc++. Quoting from the [SGFC website]
 
 ## Dependencies
 
-At runtime libsgfc++ has no dependencies except for the C/C++ runtime library and the C++ standard library.
+At runtime libsgfc++ depends on the C/C++ runtime library, the C++ standard library and possibly (depending on the platform) an iconv library.
 
 At build time libsgfc++ has the following dependencies:
 
-1. The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/).
+1. The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/). A transitive dependency inherited from SGFC is [iconv](https://en.wikipedia.org/wiki/Iconv).
 2. The second dependency is the unit test library [Catch2](https://github.com/catchorg/Catch2).
 3. The third dependency is the build management tool [CMake](https://cmake.org/cmake/help/latest/).
 4. A last dependency is [Doxygen](https://www.doxygen.org/), used to optionally generate the project's API documentation.
 
-Dependencies 1 and 2 are integrated via Git submodule.
+SGFC and Catch2 are integrated via Git submodule.
+
+iconv is integrated differently depending on the platform:
+
+* On Apple platforms (macOS, iOS, etc.) and the Windows-based platforms Cygwin and MinGW/MSYS, iconv is expected to be present as a separate library, both at build time and at runtime. This typically is GNU `libiconv`.
+* On Win32 the [win-iconv project](https://github.com/win-iconv/win-iconv) provides the iconv implementation. win-iconv is integrated via Git submodule at build time. The win-iconv sources are statically linked into libsgfc++, so there is no dependency at runtime.
+* On all other platforms iconv is expected to be present natively without a separate library. For instance on Linux the iconv implementation is provided by `glibc`.
 
 ## Project build system
 

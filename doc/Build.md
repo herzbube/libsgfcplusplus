@@ -2,22 +2,28 @@
 
 This document contains instructions on how to build, install and execute all parts of the project: The software library itself, the unit tests, a sample program and the API documentation.
 
-## How to build
+## Prerequisites
 
-The project requires CMake 3.10 or newer to build.
+The project requires CMake 3.10 or newer to build, and a reasonably modern version of Git to clone the project repository and fetch some Git submodules. Building the API documentation requires Doxygen.
+
+Use your package manager of choice to install these components on your system. On macOS the recommended package manager is [Homebrew](https://brew.sh/), on Windows it's [Chocolatey](https://chocolatey.org/).
+
+## How to build
 
 After cloning the repository you must first initialize its Git submodules:
 
     cd /path/to/project
     git submodule update --init --recursive
 
-Now you're ready to build. These commands should do it:
+Now you're ready to build. On platforms that support Makefile-based build systems these commands should do it:
 
     mkdir build
     cd build
     # If you want a debug build then replace "Release" with "Debug"
     cmake -DCMAKE_BUILD_TYPE=Release ..
     cmake --build .
+
+Building with Xcode or Visual Studio is explained in sections further down.
 
 ## How to test
 
@@ -115,7 +121,7 @@ The following example only builds the shared library:
 
 ## Xcode build
 
-In the previous section you have seen how to generate a Makefile-based build system. Cmake can also generate an Xcode project, like this:
+In the previous section you have seen how to generate a Makefile-based build system. CMake can also generate an Xcode project, like this:
 
     cd build
     cmake -G Xcode ..
@@ -128,6 +134,36 @@ The `ALL_BUILD` target in the Xcode project builds all targets, i.e. both the sh
 The `RUN_TESTS` target builds the unit test target and executes a custom post-build script that is supposed to run the test. The post-build script currently doesn't seem to work. It is therefore recommended building the unit test target (`libsgfc++-test`) and selecting "Product > Run" to execute the test runner. This always works, and Xcode is even nice enough to pop up an output pane that shows you the output of the command line test runner.
 
 The `ZERO_CHECK` target checks whether your `CMakeLists.txt` files have changed and if necessary updates the Xcode project with the changes.
+
+## Building on Windows
+
+### Visual Studio
+
+CMake can generate a Visual Studio solution like this:
+
+    cd build
+    cmake -G "Visual Studio 16 2019" ..
+
+If you use a different version of Visual Studio replace the `-G` parameter value. Invoking just `cmake -G` prints out available values.
+
+When CMake has finished you can launch Visual Studio with the generated solution file `libsgfc++.sln`.
+
+The above generates a true "out of source" build system that is so typical for CMake. An alternative approach is shown in the article [CMake projects in Visual Studio](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio) on Microsoft's official documentation site. This is a convenient GUI-only approach, but it generates stuff in two folders `.vs` and `out` in the project root.
+
+### Cygwin
+
+Some packages need to be installed before building can start:
+
+* Either clang or gcc
+* CMake
+* make
+* libiconv
+
+Once all packages are installed the Cygwin build works just like it does on other UNIX-like systems. Just follow the steps in the first sections at the top of this document.
+
+### MinGW/MSYS
+
+No instructions available. This has not been tested yet.
 
 ## Cross-compiling for iOS
 
