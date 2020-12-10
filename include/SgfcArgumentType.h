@@ -376,30 +376,30 @@ namespace LibSgfcPlusPlus
     /// 1, 2 or 3.
     ///
     /// The parameter values 1-3 have the following meaning:
-    /// - 1 = A single encoding is used to decode the @b entire SGF content.
-    ///       The encoding to use is detected by probing the SGF content. If
-    ///       a Unicode BOM marker is found then the encoding defined by that
-    ///       marker is used. If no Unicode BOM marker is found then the SGF
-    ///       content is probed for CA properties, and the first CA property
-    ///       value found is used as the encoding. If no CA property is found
-    ///       the default encoding ISO-8859-1 is used. This mode is the default
-    ///       behaviour.
-    /// - 2 = A separate encoding is used to decode each game tree in the SGF
-    ///       content. The encoding is defined by the CA property value of that
-    ///       game tree. If a game tree has no CA property the default encoding
-    ///       ISO-8859-1 is used. Only SimpleText and Text property values are
-    ///       decoded! The SGF formatting skeleton as well as property values
-    ///       that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.
-    /// - 3 = No decoding takes place.
-    ///
-    /// The mode used When SGFC writes SGF content the output is always in UTF-8
-    /// encoding when mode 1 or 2 are used, and .
+    /// - Mode 1 (the default mode): A single encoding is used to decode the
+    ///   @b entire SGF content. The encoding to use is detected by probing the
+    ///   SGF content. If a Unicode BOM marker is found then the encoding
+    ///   defined by that marker is used. If no Unicode BOM marker is found
+    ///   then the SGF content is probed for CA properties, and the first CA
+    ///   property value found is used as the encoding. If no CA property is
+    ///   found the default encoding ISO-8859-1 is used. Note that only this
+    ///   mode that allows the wide-character encodings UTF-16 and UTF-32 to
+    ///   be processed.
+    /// - Mode 2 (specification conformant): A separate encoding is used to
+    ///   decode each game tree in the SGF content. The encoding is defined by
+    ///   the CA property value of that game tree. If a game tree has no CA
+    ///   property the default encoding ISO-8859-1 is used. Only SimpleText and
+    ///   Text property values are decoded! The SGF formatting skeleton as well
+    ///   as property values that are not SimpleText or Text are parsed using
+    ///   ASCII/ISO-8859-1.
+    /// - Mode 3: No decoding takes place.
     ///
     /// @note Mode 2 is the behaviour as designed by the SGF standard. This is
-    /// somewhat archaic as it not only allows a file to be partially encoded,
-    /// it even allows different encodings to be used in the same file. Mode 1,
-    /// even though it does not conform to the SGF standard, is what is most
-    /// likely can be expected from modern-day applications that encode an
+    /// somewhat antiquated as it not only allows SGF content to be partially
+    /// encoded, it even allows different encodings to be used within the same
+    /// piece of SGF content. It also breaks the notion of SGF as text files.
+    /// Mode 1, even though it does not conform to the SGF standard, is what
+    /// most likely can be expected from modern-day applications that encode an
     /// entire file and use the same encoding for the entire file.
     ///
     /// @attention When mode 1 is used decoding occurs before parsing, when
@@ -409,6 +409,26 @@ namespace LibSgfcPlusPlus
     /// characters that are relevant for the SGF format (escape character,
     /// property closing character). Examples that illustrate the problem can
     /// be found in SgfNotes.md.
+    ///
+    /// When mode 1 or 2 are used for reading, the SGF content is decoded and
+    /// made available to the library client as UTF-8. Accordingly each decoded
+    /// game tree's root node is populated with a CA property value "UTF-8".
+    /// When mode 3 is used no decoding takes place and the library client
+    /// receives the SGF content as-is.
+    ///
+    /// When node 1 or 2 are used for @b writing, the SGF content in the
+    /// object tree is internally decoded according to the rules documented
+    /// above before it is actually written out. This allows library clients to
+    /// provide content in encodings that are not UTF-8. Care must be taken not
+    /// to mix encodings in the same  object tree! For instance a library client
+    /// might first read SGF content from some source using encoding mode 1 or
+    /// 2, which produces an object tree in UTF-8, then it could modify the
+    /// object tree with values in an encoding that is @b not UTF-8. Writing
+    /// out such an object tree that contains values in mixed encodings is
+    /// likely to produce invalid results.
+    ///
+    /// @see SgfcArgumentType::DefaultEncoding
+    /// @see SgfcArgumentType::ForcedEncoding
     EncodingMode,
 
     /// @brief Select the default encoding to be used if the SGF content does
@@ -418,6 +438,9 @@ namespace LibSgfcPlusPlus
     /// The default value is ISO-8859-1. Valid values depend on the iconv
     /// implementation used by libsgfc++. Invoke "iconv --list" on the command
     /// line to see a list of supported encodings.
+    ///
+    /// @see SgfcArgumentType::EncodingMode
+    /// @see SgfcArgumentType::ForcedEncoding
     DefaultEncoding,
 
     /// @brief Select the encoding to be used. This overrides even a CA property
@@ -427,6 +450,9 @@ namespace LibSgfcPlusPlus
     /// The argument has no default value. Valid values depend on the iconv
     /// implementation used by libsgfc++. Invoke "iconv --list" on the command
     /// line to see a list of supported encodings.
+    ///
+    /// @see SgfcArgumentType::EncodingMode
+    /// @see SgfcArgumentType::DefaultEncoding
     ForcedEncoding,
   };
 }

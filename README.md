@@ -16,6 +16,7 @@ libsgfc++ is a C++ wrapper library around [SGFC](https://www.red-bean.com/sgf/sg
 - Check the file content for correctness.
 - Correct any errors.
 - Convert FF[1] - FF[3] files to the FF[4] format.
+- Convert files with a character encoding that is not UTF-8 to the UTF-8 character encoding.
 
 libsgfc++ is not restricted to files, it also reads and writes SGF data from/to `std::string` without filesystem interaction.
 

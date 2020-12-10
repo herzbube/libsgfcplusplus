@@ -138,6 +138,83 @@ When libsgfc++ reads SGF content it treats the "KM" property as having a Real va
 
 TODO
 
-## Text encoding
+## Character encoding
 
-TODO
+### Introduction
+
+The SGF standard specifies the `CA` property which allows an SGF-writing application to specify the character encoding in which a game tree's SimpleText and Text property values are stored.
+
+This approach is somewhat antiquated as it not only allows SGF content to be partially encoded (SimpleText and Text property values are encoded, but not the rest of the content), it even allows different character encodings to be used within the same piece of SGF content! From a modern-day point of view this seems strange, and it definitely breaks the notion of an SGF file being "just a regular text file".
+
+An additional complication to the partial encoding approach are the SGF standard's escaping rules. See the section "Escaping and multi-byte character encodings" below for details.
+
+All things considered it is reasonable to assume that modern-day SGF-writing applications that support non-ASCII SGF content are not strictly conforming to the SGF standard, but are using the common-sense approach of encoding the **entire** SGF content with the same character encoding.
+
+### Encoding modes
+
+The library client can choose between 3 encoding modes when it reads SGF content with `ISgfcDocumentReader` or writes SGF content with `ISgfcDocumentWriter`. The selection is made by specifying `SgfcArgumentType::EncodingMode` when the read or write operation is performed. 
+
+The documentation of `SgfcArgumentType::EncodingMode` has the details about each of the 3 modes. The following is just an excerpt to provide an overview:
+
+- Mode 1 (the default mode): A single encoding is used to decode the **entire** SGF content. The encoding to use is detected by probing the SGF content. If a Unicode BOM marker is found then the encoding defined by that marker is used. If no Unicode BOM marker is found then the SGF content is probed for CA properties, and the first CA property value found is used as the encoding. If no CA property is found the default encoding ISO-8859-1 is used. Note that only this mode allows the wide-character encodings UTF-16 and UTF-32 to be processed.
+- Mode 2 (specification conformant): A separate encoding is used to decode each game tree in the SGF content. The encoding is defined by the CA property value of that game tree. If a game tree has no CA property the default encoding ISO-8859-1 is used. Only SimpleText and Text property values are decoded! The SGF formatting skeleton as well as property values that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.
+- Mode 3: No decoding takes place.
+
+Please make sure to read the documentation of `SgfcArgumentType::EncodingMode` to understand the details. You may also wish to consult the documentation in SGFC's README file.
+
+### ASCII-compatible vs. ASCII-safe
+
+Term definitions:
+
+- ASCII-compatible: A character encoding that is ASCII-compatible encodes ASCII characters with their single byte values from the ASCII table. Example: A closing bracket `]` character is encoded as a single byte that has the hex value 0x5d.
+- ASCII-safe : A character encoding that is ASCII-safe is also ASCII-compatible, but in addition it guarantees that the byte values of ASCII characters are not used to encode anything else but ASCII characters. Example: The hex byte value 0x5d does not appear anywhere in the encoded byte stream except when it encodes a closing bracket `]` character.
+
+Encoding examples:
+
+```
+            ASCII        ASCII
+Encoding    compatible   safe    ]           \              因               申
+-------------------------------------------------------------------------------------------
+UTF-16      No           No      0x00 0x5d   0x00 0x5c      0x56 0xe0        0x75 0x33
+Big5        Yes          No      0x5d        0x5c           0xa6 0x5d        0xa5 0xd3
+Shift_JIS   Yes          No      0x5d        0x5c           0x88 0xf6        0x90 0x5c
+UTF-8       Yes          Yes     0x5d        0x5c           0xe5 0x9b 0xa0   0xe7 0x94 0xb3
+```
+
+Discussion:
+
+- UTF-16 is not ASCII-compatible, because it uses two bytes to represent all characters.
+- In the Big5 encoding the 0x5d byte value is used to encode both the closing bracket and the 因 character.
+- In the Shift_JIS encoding the 0x5c byte value, which in ASCII represents the backslash character, is used to encode the 申 character.
+- UTF-8 is ASCII-safe because the 0x5d and 0x5c values are not used for anything else except to encode the closing bracket and the backslash characters. Note: The table above does not demonstrate this, it is stated as a fact with the knowledge of how UTF-8 works. If in doubt consult the "Layout of UTF-8 byte sequences" table on the [UTF-8 Wikipedia page](https://en.wikipedia.org/wiki/UTF-8#Encoding).
+
+### Escaping and multi-byte character encodings 
+
+As demonstrated in the previous section, the Big5-encoded character `因` contains the 0x5d byte value that is also the ASCII value of a closing bracket character `]`. Now let's look at this simple piece of SGF content:
+
+    (;FF[4]CA[Big5]C[因])
+
+Taking a hex dump of this SGF content reveals the individual byte values:
+
+    28 3b 46 46 5b 34 5d 43   41 5b 42 69 67 35 5d 43   5b a6 5d 5d 29
+    (  ;  F  F  [  4  ]  C    A  [  B  i  g  5  ]  C    [  因    ]  )
+                                                              ^  ^
+
+Note the two byte values 0x5d towards the end. A strictly standard-conforming SGF-writing application would be required to escape the first 0x5d to prevent it from being interpreted as the closing bracket of the `C` property value.
+
+Another example, this time with the `申` character which, as demonstrated in the previous section, when encoded with Shift_JIS contains the 0x5c byte value that is also the ASCII value of the backslash character `\`. The SGF content
+
+    (;FF[4]CA[SJIS]C[申])
+
+looks like this in the hex dump:
+
+    28 3b 46 46 5b 34 5d 43   41 5b 53 4a 49 53 5d 43   5b 90 5c 5d 29
+    (  ;  F  F  [  4  ]  C    A  [  S  J  I  S  ]  C    [  申    ]  )
+                                                              ^  ^
+
+Note the byte values 0x5c towards the end. A strictly standard-conforming SGF-writing application would be required to escape this 0x5c value to prevent it from being interpreted as escaping the closing bracket of the `C` property value.
+
+**Conclusion:** These two examples show how impractical it is to program a strictly standard-conforming SGF-writing application. Such an application would have to operate on two levels: First on a character level to perform the encoding of the human-readable text, then on the underlying byte-stream level to perform the escaping required by the SGF standard.
+
+Furthermore, after the escape-processing the resulting SGF content might not even be valid text anymore, because inserting the escape characters might have invalidated the encoding. The Big5 encoding example above is such a case.
+
