@@ -16,6 +16,9 @@
 
 #pragma once
 
+// C++ Standard Library includes
+#include <string>
+
 // Forward declarations
 struct SGFCOptions;
 
@@ -67,10 +70,19 @@ namespace LibSgfcPlusPlus
     ///
     /// If CaptureOptions() has never been invoked before, this applies default
     /// option values to @a targetOptions.
+    ///
+    /// @attention The members SGFCOptions::forced_encoding and
+    /// SGFCOptions::default_encoding in @a targetOptions are configured with
+    /// pointers into buffers that are valid only for a limited time. The
+    /// pointers become invalid as soon as CaptureOptions is invoked the next
+    /// time on the same SgfcOptions object, or when the SgfcOptions object
+    /// is destroyed.
     void RestoreOptions(SGFCOptions* targetOptions) const;
 
   private:
     SGFCOptions* options;
+    std::string defaultEncoding;
+    std::string forcedEncoding;
 
     void CopyOptions(const SGFCOptions* sourceOptions, SGFCOptions* targetOptions) const;
   };

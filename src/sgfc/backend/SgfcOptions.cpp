@@ -34,6 +34,11 @@ namespace LibSgfcPlusPlus
   {
     // Throws std::runtime_error if SGFC fails to allocate memory
     this->options = SGFCDefaultOptions();
+
+    if (this->options->default_encoding != nullptr)
+      this->defaultEncoding = std::string(this->options->default_encoding);
+    if (this->options->forced_encoding != nullptr)
+      this->forcedEncoding = std::string(this->options->forced_encoding);
   }
 
   SgfcOptions::~SgfcOptions()
@@ -44,11 +49,47 @@ namespace LibSgfcPlusPlus
   void SgfcOptions::CaptureOptions(const SGFCOptions* sourceOptions)
   {
     CopyOptions(sourceOptions, this->options);
+
+    if (sourceOptions->default_encoding == nullptr)
+    {
+      // This should not happen in practice - SGFCDefaultOptions always sets
+      // up a default encoding. It may happen in a unit test context.
+      this->defaultEncoding.clear();
+    }
+    else
+    {
+      // The source is either a string literal set up in SGFCDefaultOptions,
+      // or a pointer into an argv element buffer.
+      this->defaultEncoding = std::string(sourceOptions->default_encoding);
+    }
+
+    if (sourceOptions->forced_encoding == nullptr)
+    {
+      // This can happen in reality if --encoding was not specified - in this
+      // case th value set up by SGFCDefaultOptions is used, which is NULL.
+      this->forcedEncoding.clear();
+    }
+    else
+    {
+      // The source is a pointer into an argv element buffer.
+      this->forcedEncoding = std::string(sourceOptions->forced_encoding);
+    }
   }
 
   void SgfcOptions::RestoreOptions(SGFCOptions* targetOptions) const
   {
     CopyOptions(this->options, targetOptions);
+
+    // The pointers we assign here are valid only for a limited time. This is
+    // documented in the public API.
+    if (this->defaultEncoding.length() > 1)
+      targetOptions->default_encoding = this->defaultEncoding.c_str();
+    else
+      targetOptions->default_encoding = nullptr;
+    if (this->forcedEncoding.length() > 1)
+      targetOptions->forced_encoding = this->forcedEncoding.c_str();
+    else
+      targetOptions->forced_encoding = nullptr;
   }
 
   void SgfcOptions::CopyOptions(const SGFCOptions* sourceOptions, SGFCOptions* targetOptions) const
@@ -57,7 +98,7 @@ namespace LibSgfcPlusPlus
     // set up separately by other parts of libsgfc++.
 
     // We don't copy SGFCOptions::forced_encoding and
-    // SGFCOptions::default_encoding. These are never used by libsgfc++.
+    // SGFCOptions::default_encoding. These are handled by the caller.
 
     targetOptions->linebreaks = sourceOptions->linebreaks;
     targetOptions->find_start = sourceOptions->find_start;
