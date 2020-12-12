@@ -379,12 +379,13 @@ namespace LibSgfcPlusPlus
     /// - Mode 1 (the default mode): A single encoding is used to decode the
     ///   @b entire SGF content. The encoding to use is detected by probing the
     ///   SGF content. If a Unicode BOM marker is found then the encoding
-    ///   defined by that marker is used. If no Unicode BOM marker is found
-    ///   then the SGF content is probed for CA properties, and the first CA
-    ///   property value found is used as the encoding. If no CA property is
-    ///   found the default encoding ISO-8859-1 is used. Note that only this
-    ///   mode that allows the wide-character encodings UTF-16 and UTF-32 to
-    ///   be processed.
+    ///   defined by that marker is used, but the first CA property in the
+    ///   decoded SGF content must match the encoding detected from the BOM.
+    ///   If no Unicode BOM marker is found then the SGF content is probed for
+    ///   CA properties, and the first CA property value found is used as the
+    ///   encoding. If no CA property is found the default encoding ISO-8859-1
+    ///   is used. Note that only this mode allows the wide-character encodings
+    ///   UTF-16 and UTF-32 to be processed (via BOM detection).
     /// - Mode 2 (specification conformant): A separate encoding is used to
     ///   decode each game tree in the SGF content. The encoding is defined by
     ///   the CA property value of that game tree. If a game tree has no CA
