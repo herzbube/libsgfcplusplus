@@ -15,6 +15,7 @@ set (
   sgfc/argument/SgfcArgumentTest.cpp
   sgfc/backend/SgfcBackendControllerTest.cpp
   sgfc/backend/SgfcBackendDataWrapperTest.cpp
+  sgfc/frontend/EncodingTest.cpp
   sgfc/frontend/SgfcCommandLineTest.cpp
   sgfc/frontend/SgfcDocumentReaderTest.cpp
   sgfc/frontend/SgfcDocumentWriterTest.cpp
