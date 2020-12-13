@@ -69,8 +69,6 @@ When the library client programmatically creates an `ISgfcSimpleTextPropertyValu
 
 When it reads in SGF content libsgfc++ removes all escape characters from SimpleText and Text property values so that the library client is presented with property values that do not contain any escape characters.
 
-**Note:** When it reads in SGF content libsgfc++ preserves escape characters in the raw property value (`ISgfcSinglePropertyValue::GetRawValue()`). When the library client programmatically creates a property value object libsgfc++ does not add escape characters to the raw value.
-
 #### Move/Point/Stone property values
 
 Move/Point/Stone property values for Go (GM[1]) are simple two-letter strings that do not need escaping.

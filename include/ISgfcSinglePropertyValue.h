@@ -173,11 +173,6 @@ namespace LibSgfcPlusPlus
     /// - In Text values, whitespace characters other than line breaks are
     ///   converted to space. In addition, escaped line breaks are removed
     ///   entirely.
-    /// - In SimpleText and Text values, all unnecessary escape characters
-    ///   are removed. E.g. escaping the "a" character is not necessary, so
-    ///   "\a" appears as simply "a" in the raw string. Necessary escape
-    ///   characters are preserved, though, and appear in the raw string
-    ///   (e.g. "\\" or "\]").
     /// - In Move values, if the game type is Go and the board size is <= 19x19,
     ///   the value "tt" is converted to an empty string. This is in accord with
     ///   the SGF standard that defines an empty string and value "tt" both

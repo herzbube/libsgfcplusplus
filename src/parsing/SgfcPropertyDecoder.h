@@ -153,11 +153,7 @@ namespace LibSgfcPlusPlus
     ///   adds its own line break handling, so currently SGFC's line break
     ///   handling is irrelevant to the implementation of this method.
     ///   See the next note for details.
-    /// - In SimpleText and Text values, all unnecessary escape characters
-    ///   are removed. E.g. escaping the "a" character is not necessary, so
-    ///   when SGFC sees "\a" it removes the unnecessary escape character and
-    ///   this method gets to process only "a". In short, this method does not
-    ///   perform any escape character handling.
+    /// - In SimpleText and Text values, all escape characters are removed.
     /// - In Move values, if the game type is Go and the board size is <= 19x19,
     ///   SGFC is expected to convert the value "tt" to an empty string.
     ///   According to the SGF standard an empty string and value "tt" both
