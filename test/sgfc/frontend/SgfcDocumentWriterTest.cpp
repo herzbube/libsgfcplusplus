@@ -18,6 +18,7 @@
 #include <document/SgfcDocument.h>
 #include <document/SgfcGame.h>
 #include <document/SgfcNode.h>
+#include <sgfc/argument/SgfcArgument.h>
 #include <sgfc/argument/SgfcArguments.h>
 #include <sgfc/frontend/SgfcDocumentWriter.h>
 #include <sgfc/frontend/SgfcDocumentWriteResult.h>
@@ -53,8 +54,13 @@ SCENARIO( "SgfcDocumentWriter is constructed", "[frontend]" )
       {
         auto arguments = writer.GetArguments();
         REQUIRE( arguments != nullptr );
-        REQUIRE( arguments->HasArguments() == false );
-        REQUIRE( arguments->GetArguments().size() == 0 );
+        REQUIRE( arguments->HasArguments() == true );
+        auto argumentsCollection = arguments->GetArguments();
+        REQUIRE( argumentsCollection.size() == 1 );
+        auto argument = argumentsCollection.front();
+        REQUIRE( argument->GetArgumentType() == SgfcArgumentType::DefaultEncoding );
+        REQUIRE( argument->HasStringTypeParameter() == true );
+        REQUIRE( argument->GetStringTypeParameter() == "UTF-8" );
       }
     }
   }

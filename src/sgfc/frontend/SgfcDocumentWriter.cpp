@@ -30,6 +30,7 @@ namespace LibSgfcPlusPlus
   SgfcDocumentWriter::SgfcDocumentWriter()
     : arguments(new SgfcArguments())
   {
+    this->arguments->AddArgument(SgfcArgumentType::DefaultEncoding, "UTF-8");
   }
 
   SgfcDocumentWriter::~SgfcDocumentWriter()
