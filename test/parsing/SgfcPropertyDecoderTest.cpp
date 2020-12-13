@@ -926,6 +926,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.idstr = const_cast<char*>("N");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+      propertyDecoder.SetEscapeProcessingEnabled(true);
 
       THEN( "SgfcPropertyDecoder successfully decodes the SimpleText string" )
       {
@@ -959,6 +960,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.idstr = const_cast<char*>("GC");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+      propertyDecoder.SetEscapeProcessingEnabled(true);
 
       THEN( "SgfcPropertyDecoder successfully decodes the Text string value" )
       {
@@ -1526,6 +1528,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed
       sgfProperty.idstr = const_cast<char*>("AP");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, boardSize);
+      propertyDecoder.SetEscapeProcessingEnabled(true);
 
       THEN( "SgfcPropertyDecoder successfully decodes the composition of two SimpleText strings" )
       {

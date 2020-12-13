@@ -64,7 +64,8 @@ extern "C"
 namespace LibSgfcPlusPlus
 {
   SgfcPropertyDecoder::SgfcPropertyDecoder(const Property* sgfProperty, SgfcGameType gameType, SgfcBoardSize boardSize)
-    : sgfProperty(sgfProperty)
+    : escapeProcessingEnabled(false)
+    , sgfProperty(sgfProperty)
     , propertyMetaInfo(nullptr)
     , boardSize(boardSize)
   {
@@ -85,6 +86,16 @@ namespace LibSgfcPlusPlus
 
   SgfcPropertyDecoder::~SgfcPropertyDecoder()
   {
+  }
+
+  bool SgfcPropertyDecoder::GetEscapProcessingEnabled() const
+  {
+    return this->escapeProcessingEnabled;
+  }
+
+  void SgfcPropertyDecoder::SetEscapeProcessingEnabled(bool escapeProcessingEnabled)
+  {
+    this->escapeProcessingEnabled = escapeProcessingEnabled;
   }
 
   SgfcPropertyType SgfcPropertyDecoder::GetPropertyType() const
@@ -735,12 +746,21 @@ namespace LibSgfcPlusPlus
     std::string rawValueWithoutLineBreaks =
       RemoveSimpleTextLineBreaks(rawPropertyValueBuffer);
 
-    std::string rawValueWithoutEscapeCharacters =
-      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
+    if (this->escapeProcessingEnabled)
+    {
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
 
-    return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
-      rawPropertyValueBuffer,
-      rawValueWithoutEscapeCharacters));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
+        rawPropertyValueBuffer,
+        rawValueWithoutEscapeCharacters));
+    }
+    else
+    {
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSimpleTextPropertyValue(
+        rawPropertyValueBuffer,
+        rawValueWithoutLineBreaks));
+    }
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcTextPropertyValueFromSgfPropertyValue(
@@ -757,12 +777,21 @@ namespace LibSgfcPlusPlus
     std::string rawValueWithoutLineBreaks =
       RemoveTextLineBreaks(rawPropertyValueBuffer);
 
-    std::string rawValueWithoutEscapeCharacters =
-      RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
+    if (this->escapeProcessingEnabled)
+    {
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveSimpleTextAndTextEscapeCharacters(rawValueWithoutLineBreaks, singlePropertyValueContext);
 
-    return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
-      rawPropertyValueBuffer,
-      rawValueWithoutEscapeCharacters));
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
+        rawPropertyValueBuffer,
+        rawValueWithoutEscapeCharacters));
+    }
+    else
+    {
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcTextPropertyValue(
+        rawPropertyValueBuffer,
+        rawValueWithoutLineBreaks));
+    }
   }
 
   std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcPointPropertyValueFromSgfPropertyValue(
@@ -793,11 +822,19 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters =
-        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+      if (this->escapeProcessingEnabled)
+      {
+        std::string rawValueWithoutEscapeCharacters =
+          RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
 
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
-        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
+          rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+      }
+      else
+      {
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcPointPropertyValue(
+          rawPropertyValueBuffer, rawPropertyValueBuffer));
+      }
     }
   }
 
@@ -848,11 +885,19 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters =
-        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+      if (this->escapeProcessingEnabled)
+      {
+        std::string rawValueWithoutEscapeCharacters =
+          RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
 
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
-        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
+          rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+      }
+      else
+      {
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcMovePropertyValue(
+          rawPropertyValueBuffer, rawPropertyValueBuffer));
+      }
     }
   }
 
@@ -887,11 +932,19 @@ namespace LibSgfcPlusPlus
     }
     else
     {
-      std::string rawValueWithoutEscapeCharacters =
-        RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
+      if (this->escapeProcessingEnabled)
+      {
+        std::string rawValueWithoutEscapeCharacters =
+          RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(rawPropertyValueBuffer, singlePropertyValueContext);
 
-      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
-        rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
+          rawPropertyValueBuffer, rawValueWithoutEscapeCharacters));
+      }
+      else
+      {
+        return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcStonePropertyValue(
+          rawPropertyValueBuffer, rawPropertyValueBuffer));
+      }
     }
   }
 

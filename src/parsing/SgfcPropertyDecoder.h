@@ -68,6 +68,27 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcPropertyDecoder object.
     virtual ~SgfcPropertyDecoder();
 
+    /// @brief Returns true if escape processing is enabled. Returns false if
+    /// escape processing is diabled. The default is false.
+    ///
+    /// When escape processing is enabled SgfcPropertyDecoder removes escape
+    /// characters from SimpleText and Text property values, and from
+    /// Move/Point/Stone property values if the game type is not
+    /// SgfcGameType::Go.
+    ///
+    /// The default for this setting used to be true, but beginning with V2.00
+    /// SGFC now removes all escape characters for us. The setting is left in
+    /// place because programming the escape processing was a substantial amount
+    /// of work, and it may become necessary to enable it again at some time in
+    /// the future.
+    bool GetEscapProcessingEnabled() const;
+
+    /// @brief Enables escape processing if @a escapeProcessingEnabled is true.
+    /// Disables escape processing if @a escapeProcessingEnabled is false.
+    ///
+    /// @see GetEscapProcessingEnabled()
+    void SetEscapeProcessingEnabled(bool escapeProcessingEnabled);
+
     /// @brief Returns the SgfcPropertyType value that corresponds to the
     /// SGF property with which SgfcPropertyDecoder was constructed. Returns
     /// SgfcPropertyType::Unknown for properties that are not defined in the
@@ -234,6 +255,7 @@ namespace LibSgfcPlusPlus
     static SgfcBoardSize GetBoardSizeFromNode(const Node* sgfNode, SgfcGameType gameType);
 
   private:
+    bool escapeProcessingEnabled;
     const Property* sgfProperty;
     std::shared_ptr<SgfcPropertyMetaInfo> propertyMetaInfo;
     SgfcBoardSize boardSize;

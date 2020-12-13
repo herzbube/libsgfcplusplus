@@ -87,8 +87,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 8
       Has typed value    = 1
-      Raw value          = "Move \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
-      Move  value        = "Move \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Raw value          = "Move : value : with : unneccessary : escape : characters"
+      Move value         = "Move : value : with : unneccessary : escape : characters"
       Is Go Move         = 0
   Node 7
     Property type = 0
@@ -98,8 +98,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 8
       Has typed value    = 1
-      Raw value          = "Move \: value \: with \: [neces\\sary\] \: escape \: characters"
-      Move  value        = "Move \: value \: with \: [neces\\sary] \: escape \: characters"
+      Raw value          = "Move : value : with : [neces\sary] : escape : characters"
+      Move value         = "Move : value : with : [neces\sary] : escape : characters"
       Is Go Move         = 0
   Node 8
     Property type = 21
@@ -109,8 +109,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 7
       Has typed value    = 1
-      Raw value          = "Point \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
-      Point value        = "Point \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Raw value          = "Point : value : with : unneccessary : escape : characters"
+      Point value        = "Point : value : with : unneccessary : escape : characters"
       Is Go Point        = 0
   Node 9
     Property type = 21
@@ -120,8 +120,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 7
       Has typed value    = 1
-      Raw value          = "Point \: value \: with \: [neces\\sary\] \: escape \: characters"
-      Point value        = "Point \: value \: with \: [neces\\sary] \: escape \: characters"
+      Raw value          = "Point : value : with : [neces\sary] : escape : characters"
+      Point value        = "Point : value : with : [neces\sary] : escape : characters"
       Is Go Point        = 0
   Node 10
     Property type = 4
@@ -131,8 +131,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 9
       Has typed value    = 1
-      Raw value          = "Stone \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
-      Stone value        = "Stone \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Raw value          = "Stone : value : with : unneccessary : escape : characters"
+      Stone value        = "Stone : value : with : unneccessary : escape : characters"
       Is Go Stone        = 0
   Node 11
     Property type = 6
@@ -142,8 +142,8 @@ Game 1
       IsComposedValue    = 0
       Value type         = 9
       Has typed value    = 1
-      Raw value          = "Stone \: value \: with \: [neces\\sary\] \: escape \: characters"
-      Stone value        = "Stone \: value \: with \: [neces\\sary] \: escape \: characters"
+      Raw value          = "Stone : value : with : [neces\sary] : escape : characters"
+      Stone value        = "Stone : value : with : [neces\sary] : escape : characters"
       Is Go Stone        = 0
   Node 12
     Property type = 20
@@ -153,12 +153,12 @@ Game 1
       IsComposedValue    = 1
       Value type 1       = 7
       Has typed value 1  = 1
-      Raw value 1        = "First \: Point \: value \: in \: composed \: value \: with \: [neces\\sary\] \: escape \: characters"
-      Point value        = "First : Point : value : in : composed : value : with : [neces\\sary] : escape : characters"
+      Raw value 1        = "First : Point : value : in : composed : value : with : [neces\sary] : escape : characters"
+      Point value        = "First : Point : value : in : composed : value : with : [neces\sary] : escape : characters"
       Is Go Point        = 0
       Value type 2       = 7
       Has typed value 2  = 1
-      Raw value 2        = "Second \: Point \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
-      Point value        = "Second \: Point \: value \: in \: composed \: value \: with \: \u\n\n\e\c\c\e\s\s\a\r\y \: escape \: characters"
+      Raw value 2        = "Second : Point : value : in : composed : value : with : unneccessary : escape : characters"
+      Point value        = "Second : Point : value : in : composed : value : with : unneccessary : escape : characters"
       Is Go Point        = 0
 
