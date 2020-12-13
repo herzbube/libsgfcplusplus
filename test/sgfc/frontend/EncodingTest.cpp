@@ -18,9 +18,16 @@
 #include <SgfcPlusPlusFactory.h>
 #include <ISgfcArguments.h>
 #include <ISgfcDocumentReader.h>
+#include <ISgfcDocumentReadResult.h>
+#include <ISgfcDocumentWriter.h>
+#include <ISgfcDocumentWriteResult.h>
 #include <ISgfcDocument.h>
 #include <ISgfcGame.h>
+#include <ISgfcNumberPropertyValue.h>
 #include <ISgfcProperty.h>
+#include <ISgfcPropertyFactory.h>
+#include <ISgfcPropertyValueFactory.h>
+#include <ISgfcSimpleTextPropertyValue.h>
 #include <ISgfcTextPropertyValue.h>
 
 // Unit test library includes
@@ -50,33 +57,22 @@ using namespace LibSgfcPlusPlus;
 // The following command line prints two lines of C++ source code. The first
 // line initializes an unsigned char array with the content of an .sgf file,
 // the second line initializes an std::string with the content of the buffer.
-//   hexdumpResult=$(hexdump -ve '/1 "0x%x, "' /path/to/sgf); echo "unsigned char sgfContentBuffer[] = { $hexdumpResult};"; echo "std::string sgfContent(reinterpret_cast<const char*>(sgfContentBuffer), sizeof(sgfContentBuffer));";
+//   hexdumpResult=$(hexdump -ve '/1 "0x%02x, "' /path/to/sgf); echo "unsigned char sgfContentBuffer[] = { $hexdumpResult};"; echo "std::string sgfContent(reinterpret_cast<const char*>(sgfContentBuffer), sizeof(sgfContentBuffer));";
 // The output is ready to be copy&pasted from the terminal into this test suite.
-
-/*
-- Read tests and Write Tests
-
-Reading
-- E1
-  - Multiple Encodings in one file
-    - Reading fails
-  - Order: First decoding then escaping
-- E2
-  - Multiple Encodings in one file
-    - Reading works
-  - Order: First escaping then decoding
-- E3
-  - Output is not UTF-8
-
-Writing
--
-*/
 
 
 void AssertDocumentReadResultHasNoWarningsOrErrors(std::shared_ptr<ISgfcDocumentReadResult> readResult);
-void AssertDocumentReadResultHasEncodingDetectionFailedError(std::shared_ptr<ISgfcDocumentReadResult> readResult);
+void AssertDocumentWriteResultHasNoWarningsOrErrors(std::shared_ptr<ISgfcDocumentWriteResult> writeResult);
+void AssertDocumentReadResultHasFatalError(std::shared_ptr<ISgfcDocumentReadResult> readResult, SgfcMessageID messageID);
+
+void AssertDocumentReadResultHasNonFatalMessage(std::shared_ptr<ISgfcDocumentReadResult> readResult, SgfcMessageType messageType, SgfcMessageID messageID);
+void AssertDocumentWriteResultHasNonFatalMessage(std::shared_ptr<ISgfcDocumentWriteResult> writeResult, SgfcMessageType messageType, SgfcMessageID messageID);
+void AssertParseResultHasNonFatalMessage(std::vector<std::shared_ptr<ISgfcMessage>> parseResult, SgfcMessageType messageType, SgfcMessageID messageID);
+
 void AssertParseResultContainsAtLeastOneMessageWithID(std::vector<std::shared_ptr<ISgfcMessage>> parseResult, SgfcMessageID messageID);
-void AssertRootNodeHasCommentPropertyWithValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcText& expectedValue);
+void AssertSingleGameHasRootNodeWithCommentPropertyValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcText& expectedValue);
+void AssertMultipleGameHaveRootNodeWithCommentPropertyValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, int numberOfGames, const SgfcText& expectedValue);
+void AssertRootNodeHasCommentPropertyWithValue(std::shared_ptr<ISgfcGame> game, const SgfcText& expectedValue);
 
 
 SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM tests", "[frontend][encoding]" )
@@ -102,7 +98,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM 
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValue);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValue);
       }
     }
   }
@@ -126,7 +122,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM 
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValue);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValue);
       }
     }
   }
@@ -150,7 +146,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM 
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValue);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValue);
       }
     }
   }
@@ -174,7 +170,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM 
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValue);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValue);
       }
     }
   }
@@ -198,7 +194,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, Unicode BOM 
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValue);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValue);
       }
     }
   }
@@ -272,7 +268,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
       THEN( "The encoding is detected" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -295,10 +291,10 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
     {
       auto readResult = reader->ReadSgfContent(sgfContent);
 
-      THEN( "The encoding is detected" )
+      THEN( "The encoding is detected and the content is re-encoded to UTF-8" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -321,10 +317,10 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
     {
       auto readResult = reader->ReadSgfContent(sgfContent);
 
-      THEN( "The encoding is detected" )
+      THEN( "The encoding is detected and the content is re-encoded to UTF-8" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -351,10 +347,10 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
     {
       auto readResult = reader->ReadSgfContent(sgfContent);
 
-      THEN( "The default encoding is used" )
+      THEN( "The default encoding is used and the content is re-encoded to UTF-8" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -380,10 +376,10 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
       reader->GetArguments()->AddArgument(SgfcArgumentType::DefaultEncoding, "EUC-CN");
       auto readResult = reader->ReadSgfContent(sgfContent);
 
-      THEN( "The default encoding is used" )
+      THEN( "The specified default encoding is used and the content is re-encoded to UTF-8" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -407,15 +403,16 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
       reader->GetArguments()->AddArgument(SgfcArgumentType::ForcedEncoding, "Windows-1252");
       auto readResult = reader->ReadSgfContent(sgfContent);
 
-      THEN( "The forced encoding is used" )
+      THEN( "The forced encoding is used and the content is re-encoded to UTF-8" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
 }
 
+// These tests demonstrate that with -E1 decoding takes place before unescaping
 SCENARIO( "SGF content is decoded for reading with encoding mode 1, escaping tests", "[frontend][encoding]" )
 {
   auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
@@ -440,7 +437,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, escaping tes
       THEN( "The property value end is recognized correctly" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
@@ -465,24 +462,284 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, escaping tes
       THEN( "The property value end is recognized correctly" )
       {
         AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
-        AssertRootNodeHasCommentPropertyWithValue(readResult, expectedValueInUtf8);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInUtf8);
       }
     }
   }
 }
 
-SCENARIO( "SGF content is decoded for reading with encoding mode 2", "[frontend][encoding]" )
+SCENARIO( "SGF content is decoded for reading with encoding mode 1, multiple encodings tests", "[frontend][encoding]" )
 {
+  auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
+
+  GIVEN( "The SGF content contains two game trees with different encodings" )
+  {
+    std::string sgfContent;
+    sgfContent += "(;FF[4]CA[UTF-8]C[foo])";
+    sgfContent += "(;FF[4]CA[ISO-8859-1]C[foo])";
+
+    WHEN( "The SGF content is read" )
+    {
+      auto readResult = reader->ReadSgfContent(sgfContent);
+
+      THEN( "Decoding fails" )
+      {
+        AssertDocumentReadResultHasFatalError(readResult, SgfcMessageID::SgfContentHasDifferentEncodingsFatal);
+      }
+    }
+  }
 }
 
+// These tests demonstrate that with -E2 decoding takes place after unescaping
+SCENARIO( "SGF content is decoded for reading with encoding mode 2, escaping tests", "[frontend][encoding]" )
+{
+  auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
+
+  GIVEN( "The SGF content contains unescaped byte values that are equal to the SGF end-of-property-value ASCII character" )
+  {
+    unsigned char sgfContentBuffer[] =
+    {
+      // (;FF[4]CA[Big5]C[...])
+      // The comment contains a character whose second byte value in the Big5
+      // encoding is equal to the SGF end-of-property-value ASCII character ("]").
+      0x28, 0x3b, 0x46, 0x46, 0x5b, 0x34, 0x5d, 0x43, 0x41, 0x5b, 0x42, 0x69, 0x67, 0x35, 0x5d, 0x43, 0x5b, 0xa6, 0x5d, 0x5d, 0x29,
+    };
+    std::string sgfContent(reinterpret_cast<const char*>(sgfContentBuffer), sizeof(sgfContentBuffer));
+    unsigned char expectedValueBufferInUtf8[] = { 0xe5, 0x9b, 0xa0, };
+    SgfcText expectedValueInUtf8(reinterpret_cast<const char*>(expectedValueBufferInUtf8), sizeof(expectedValueBufferInUtf8));
+
+    WHEN( "The SGF content is read" )
+    {
+      reader->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
+      auto readResult = reader->ReadSgfContent(sgfContent);
+
+      THEN( "The property value end is not recognized correctly" )
+      {
+        auto parseResult = readResult->GetParseResult();
+        AssertParseResultContainsAtLeastOneMessageWithID(parseResult, SgfcMessageID::IllegalCharacters);
+        AssertParseResultContainsAtLeastOneMessageWithID(parseResult, SgfcMessageID::EncodingErrorsDetected);
+      }
+    }
+  }
+
+  GIVEN( "The SGF content contains unescaped byte values that are equal to the SGF escape ASCII character" )
+  {
+    unsigned char sgfContentBuffer[] =
+    {
+      // (;FF[4]CA[SJIS]C[...])
+      // The comment contains a character whose second byte value in the SJIS
+      // encoding is equal to the SGF escape ASCII character ("\").
+      0x28, 0x3b, 0x46, 0x46, 0x5b, 0x34, 0x5d, 0x43, 0x41, 0x5b, 0x53, 0x4a, 0x49, 0x53, 0x5d, 0x43, 0x5b, 0x90, 0x5c, 0x5d, 0x29,
+    };
+    std::string sgfContent(reinterpret_cast<const char*>(sgfContentBuffer), sizeof(sgfContentBuffer));
+    unsigned char expectedValueBufferInUtf8[] = { 0xe7, 0x94, 0xb3, };
+    SgfcText expectedValueInUtf8(reinterpret_cast<const char*>(expectedValueBufferInUtf8), sizeof(expectedValueBufferInUtf8));
+
+    WHEN( "The SGF content is read" )
+    {
+      reader->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
+      auto readResult = reader->ReadSgfContent(sgfContent);
+
+      THEN( "The property value end is not recognized correctly" )
+      {
+        auto parseResult = readResult->GetParseResult();
+        AssertParseResultContainsAtLeastOneMessageWithID(parseResult, SgfcMessageID::UnexpectedEndOfFile);
+      }
+    }
+  }
+}
+
+SCENARIO( "SGF content is decoded for reading with encoding mode 2, multiple encodings tests", "[frontend][encoding]" )
+{
+  auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
+
+  GIVEN( "The SGF content contains two game trees with different encodings" )
+  {
+    std::string sgfContent;
+    sgfContent += "(;FF[4]CA[UTF-8]C[foo])";
+    sgfContent += "(;FF[4]CA[ISO-8859-1]C[foo])";
+    int expectedNumberOfGames = 2;
+    SgfcText expectedValue = "foo";
+
+    WHEN( "The SGF content is read" )
+    {
+      reader->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
+      auto readResult = reader->ReadSgfContent(sgfContent);
+
+      THEN( "The encoding is detected" )
+      {
+        AssertDocumentReadResultHasNonFatalMessage(readResult, SgfcMessageType::Warning, SgfcMessageID::SgfContentHasDifferentEncodings);
+        AssertMultipleGameHaveRootNodeWithCommentPropertyValue(readResult, expectedNumberOfGames, expectedValue);
+      }
+    }
+  }
+}
 
 SCENARIO( "SGF content is decoded for reading with encoding mode 3", "[frontend][encoding]" )
 {
-}
+  auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
 
+  GIVEN( "The SGF content is encoded with an encoding that is not the same as the encoding in the CA property" )
+  {
+    unsigned char sgfContentBuffer[] =
+    {
+      // (;FF[4]CA[EUC-CN]C[...])
+      // The comment contains the Trademark symbol.
+      // The EUC-CN encoding in the CA property is wrong, the actual
+      // encoding is Windows-1252.
+      0x28, 0x3b, 0x46, 0x46, 0x5b, 0x34, 0x5d, 0x43, 0x41, 0x5b, 0x45, 0x55, 0x43, 0x2d, 0x43, 0x4e, 0x5d, 0x43, 0x5b, 0x99, 0x5d, 0x29,
+    };
+    std::string sgfContent(reinterpret_cast<const char*>(sgfContentBuffer), sizeof(sgfContentBuffer));
+    unsigned char expectedValueBufferInOriginalEncoding[] = { 0x99, };
+    SgfcText expectedValueInOriginalEncoding(reinterpret_cast<const char*>(expectedValueBufferInOriginalEncoding), sizeof(expectedValueBufferInOriginalEncoding));
+
+    WHEN( "The SGF content is read" )
+    {
+      reader->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 3);
+      auto readResult = reader->ReadSgfContent(sgfContent);
+
+      THEN( "The (wrong) encoding is ignored, the original encoding is preserved" )
+      {
+        AssertDocumentReadResultHasNoWarningsOrErrors(readResult);
+        AssertSingleGameHasRootNodeWithCommentPropertyValue(readResult, expectedValueInOriginalEncoding);
+      }
+    }
+  }
+}
 
 SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" )
 {
+  auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+  auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+  auto writer = SgfcPlusPlusFactory::CreateDocumentWriter();
+
+  // Set up document
+  auto document = SgfcPlusPlusFactory::CreateDocument();
+  auto game1 = SgfcPlusPlusFactory::CreateGame();
+  auto rootNode1 = SgfcPlusPlusFactory::CreateNode();
+  game1->SetRootNode(rootNode1);
+  auto game2 = SgfcPlusPlusFactory::CreateGame();
+  auto rootNode2 = SgfcPlusPlusFactory::CreateNode();
+  game2->SetRootNode(rootNode2);
+
+  // Set up properties + property values
+  auto propertyValueFF = propertyValueFactory->CreateNumberPropertyValue(4);
+  auto propertyFF = propertyFactory->CreateProperty(SgfcPropertyType::FF, propertyValueFF);
+
+  // Although Big5 is not an ASCII-safe encoding, we can use it for our tests
+  // as long as we don't use a character whose encoding contains a byte value
+  // that corresponds to one of the SGF skeleton characters that need escaping.
+  // See the discussion in ISgfcDocumentWriter class documentation.
+  auto propertyValueCABig5 = propertyValueFactory->CreateSimpleTextPropertyValue("Big5");
+  auto propertyCABig5 = propertyFactory->CreateProperty(SgfcPropertyType::CA, propertyValueCABig5);
+  // The comment contains the word "Weiqi" (= Go) in Mandarin, in Traditional
+  // Chinese characters
+  unsigned char textPropertyValueBufferInBig5[] = { 0xb3, 0xf2, 0xb4, 0xd1 };
+  SgfcText textPropertyValueBig5(reinterpret_cast<const char*>(textPropertyValueBufferInBig5), sizeof(textPropertyValueBufferInBig5));
+  auto propertyValueCBig5 = propertyValueFactory->CreateTextPropertyValue(textPropertyValueBig5);
+  auto propertyCBig5 = propertyFactory->CreateProperty(SgfcPropertyType::C, propertyValueCBig5);
+  // (;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18]C[...])
+  unsigned char expectedSgfContentBufferBig5InUtf8[] = { 0x28, 0x3b, 0x46, 0x46, 0x5b, 0x34, 0x5d, 0x43, 0x41, 0x5b, 0x55, 0x54, 0x46, 0x2d, 0x38, 0x5d, 0x47, 0x4d, 0x5b, 0x31, 0x5d, 0x53, 0x5a, 0x5b, 0x31, 0x39, 0x5d, 0x41, 0x50, 0x5b, 0x53, 0x47, 0x46, 0x43, 0x3a, 0x31, 0x2e, 0x31, 0x38, 0x5d, 0x43, 0x5b, 0xe5, 0x9c, 0x8d, 0xe6, 0xa3, 0x8b, 0x5d, 0x29, 0x0a, };
+
+  auto propertyValueCAWindows1252 = propertyValueFactory->CreateSimpleTextPropertyValue("Windows-1252");
+  auto propertyCAWindows1252 = propertyFactory->CreateProperty(SgfcPropertyType::CA, propertyValueCAWindows1252);
+  // The comment contains the trademark symbol.
+  unsigned char textPropertyValueBufferInWindows1252[] = { 0x99, };
+  SgfcText textPropertyValueWindows1252(reinterpret_cast<const char*>(textPropertyValueBufferInWindows1252), sizeof(textPropertyValueBufferInWindows1252));
+  auto propertyValueCWindows1252 = propertyValueFactory->CreateTextPropertyValue(textPropertyValueWindows1252);
+  auto propertyCWindows1252 = propertyFactory->CreateProperty(SgfcPropertyType::C, propertyValueCWindows1252);
+  // (;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18]C[...])
+  unsigned char expectedSgfContentBufferWindows1252InUtf8[] = { 0x28, 0x3b, 0x46, 0x46, 0x5b, 0x34, 0x5d, 0x43, 0x41, 0x5b, 0x55, 0x54, 0x46, 0x2d, 0x38, 0x5d, 0x47, 0x4d, 0x5b, 0x31, 0x5d, 0x53, 0x5a, 0x5b, 0x31, 0x39, 0x5d, 0x41, 0x50, 0x5b, 0x53, 0x47, 0x46, 0x43, 0x3a, 0x31, 0x2e, 0x31, 0x38, 0x5d, 0x43, 0x5b, 0xe2, 0x84, 0xa2, 0x5d, 0x29, 0x0a, };
+
+  GIVEN( "The SGF content is encoded with a double-byte encoding and the CA property exists" )
+  {
+    document->AppendGame(game1);
+    rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
+    SgfcText expectedSgfContentInUtf8(reinterpret_cast<const char*>(expectedSgfContentBufferBig5InUtf8), sizeof(expectedSgfContentBufferBig5InUtf8));
+
+    WHEN( "The document object tree is written" )
+    {
+      std::string sgfContent;
+      auto writeResult = writer->WriteSgfContent(document, sgfContent);
+
+      THEN( "The encoding is detected and the content is re-encoded to UTF-8" )
+      {
+        AssertDocumentWriteResultHasNoWarningsOrErrors(writeResult);
+        REQUIRE (sgfContent == expectedSgfContentInUtf8);
+      }
+    }
+  }
+
+  GIVEN( "The SGF content is encoded with a single-byte encoding and the CA property exists" )
+  {
+    document->AppendGame(game1);
+    rootNode1->SetProperties( { propertyFF, propertyCAWindows1252, propertyCWindows1252} );
+    SgfcText expectedSgfContentInUtf8(reinterpret_cast<const char*>(expectedSgfContentBufferWindows1252InUtf8), sizeof(expectedSgfContentBufferWindows1252InUtf8));
+
+    WHEN( "The document object tree is written" )
+    {
+      std::string sgfContent;
+      auto writeResult = writer->WriteSgfContent(document, sgfContent);
+
+      THEN( "The encoding is detected and the content is re-encoded to UTF-8" )
+      {
+        AssertDocumentWriteResultHasNoWarningsOrErrors(writeResult);
+        REQUIRE (sgfContent == expectedSgfContentInUtf8);
+      }
+    }
+  }
+
+  GIVEN( "The SGF content is encoded with two encodings and the CA property exists for both game trees" )
+  {
+    rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
+    document->AppendGame(game1);
+    rootNode2->SetProperties( { propertyFF, propertyCAWindows1252, propertyCWindows1252} );
+    document->AppendGame(game2);
+    writer->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
+    SgfcText expectedSgfContentInUtf8 =
+      std::string(reinterpret_cast<const char*>(expectedSgfContentBufferBig5InUtf8), sizeof(expectedSgfContentBufferBig5InUtf8))
+        +
+      std::string(reinterpret_cast<const char*>(expectedSgfContentBufferWindows1252InUtf8), sizeof(expectedSgfContentBufferWindows1252InUtf8));
+
+    WHEN( "The document object tree is written with encoding mode 2" )
+    {
+      std::string sgfContent;
+      auto writeResult = writer->WriteSgfContent(document, sgfContent);
+
+      THEN( "The encodings are detected and the content is re-encoded to UTF-8" )
+      {
+        AssertDocumentWriteResultHasNonFatalMessage(writeResult, SgfcMessageType::Warning, SgfcMessageID::SgfContentHasDifferentEncodings);
+        REQUIRE (sgfContent == expectedSgfContentInUtf8);
+      }
+    }
+  }
+
+  GIVEN( "The SGF content is encoded with two encodings and the CA property exists only in one of the game tree" )
+  {
+    rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
+    document->AppendGame(game1);
+    rootNode2->SetProperties( { propertyFF, propertyCWindows1252} );
+    document->AppendGame(game2);
+    writer->GetArguments()->ClearArguments();
+    writer->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
+    writer->GetArguments()->AddArgument(SgfcArgumentType::DefaultEncoding, "Windows-1252");
+    SgfcText expectedSgfContentInUtf8 =
+      std::string(reinterpret_cast<const char*>(expectedSgfContentBufferBig5InUtf8), sizeof(expectedSgfContentBufferBig5InUtf8))
+        +
+      std::string(reinterpret_cast<const char*>(expectedSgfContentBufferWindows1252InUtf8), sizeof(expectedSgfContentBufferWindows1252InUtf8));
+
+    WHEN( "The document object tree is written with encoding mode 2 and a default encoding" )
+    {
+      std::string sgfContent;
+      auto writeResult = writer->WriteSgfContent(document, sgfContent);
+
+      THEN( "The encodings are detected and the content is re-encoded to UTF-8" )
+      {
+        AssertDocumentWriteResultHasNonFatalMessage(writeResult, SgfcMessageType::Warning, SgfcMessageID::SgfContentHasDifferentEncodings);
+        REQUIRE (sgfContent == expectedSgfContentInUtf8);
+      }
+    }
+  }
 }
 
 void AssertDocumentReadResultHasNoWarningsOrErrors(std::shared_ptr<ISgfcDocumentReadResult> readResult)
@@ -492,14 +749,50 @@ void AssertDocumentReadResultHasNoWarningsOrErrors(std::shared_ptr<ISgfcDocument
   REQUIRE( readResult->GetParseResult().size() == 0 );
 }
 
-void AssertDocumentReadResultHasEncodingDetectionFailedError(std::shared_ptr<ISgfcDocumentReadResult> readResult)
+void AssertDocumentWriteResultHasNoWarningsOrErrors(std::shared_ptr<ISgfcDocumentWriteResult> writeResult)
+{
+  REQUIRE( writeResult->GetExitCode() == SgfcExitCode::Ok );
+  REQUIRE( writeResult->GetParseResult().size() == 0 );
+}
+
+void AssertDocumentReadResultHasFatalError(std::shared_ptr<ISgfcDocumentReadResult> readResult, SgfcMessageID messageID)
 {
   REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
   REQUIRE( readResult->IsSgfDataValid() == false );
   auto parseResult = readResult->GetParseResult();
   REQUIRE( parseResult.size() == 1 );
   auto message = parseResult.front();
-  REQUIRE( message->GetMessageID() == SgfcMessageID::EncodingDetectionFailed );
+  REQUIRE( message->GetMessageType() == SgfcMessageType::FatalError );
+  REQUIRE( message->GetMessageID() == messageID );
+}
+
+void AssertDocumentReadResultHasNonFatalMessage(std::shared_ptr<ISgfcDocumentReadResult> readResult, SgfcMessageType messageType, SgfcMessageID messageID)
+{
+  if (messageType == SgfcMessageType::Warning)
+    REQUIRE( readResult->GetExitCode() == SgfcExitCode::Warning );
+  else
+    REQUIRE( readResult->GetExitCode() == SgfcExitCode::Error );
+  REQUIRE( readResult->IsSgfDataValid() == true );
+  auto parseResult = readResult->GetParseResult();
+  AssertParseResultHasNonFatalMessage(parseResult, messageType, messageID);
+}
+
+void AssertDocumentWriteResultHasNonFatalMessage(std::shared_ptr<ISgfcDocumentWriteResult> writeResult, SgfcMessageType messageType, SgfcMessageID messageID)
+{
+  if (messageType == SgfcMessageType::Warning)
+    REQUIRE( writeResult->GetExitCode() == SgfcExitCode::Warning );
+  else
+    REQUIRE( writeResult->GetExitCode() == SgfcExitCode::Error );
+  auto parseResult = writeResult->GetParseResult();
+  AssertParseResultHasNonFatalMessage(parseResult, messageType, messageID);
+}
+
+void AssertParseResultHasNonFatalMessage(std::vector<std::shared_ptr<ISgfcMessage>> parseResult, SgfcMessageType messageType, SgfcMessageID messageID)
+{
+  REQUIRE( parseResult.size() == 1 );
+  auto message = parseResult.front();
+  REQUIRE( message->GetMessageType() == messageType );
+  REQUIRE( message->GetMessageID() == messageID );
 }
 
 void AssertParseResultContainsAtLeastOneMessageWithID(std::vector<std::shared_ptr<ISgfcMessage>> parseResult, SgfcMessageID messageID)
@@ -513,12 +806,26 @@ void AssertParseResultContainsAtLeastOneMessageWithID(std::vector<std::shared_pt
   REQUIRE( messageCount > 0 );
 }
 
-void AssertRootNodeHasCommentPropertyWithValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcText& expectedValue)
+void AssertSingleGameHasRootNodeWithCommentPropertyValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcText& expectedValue)
 {
   auto document = readResult->GetDocument();
   auto games = document->GetGames();
   REQUIRE( games.size() == 1 );
-  auto rootNode = games.front()->GetRootNode();
+  AssertRootNodeHasCommentPropertyWithValue(games.front(), expectedValue);
+}
+
+void AssertMultipleGameHaveRootNodeWithCommentPropertyValue(std::shared_ptr<ISgfcDocumentReadResult> readResult, int expectedNumberOfGames, const SgfcText& expectedValue)
+{
+  auto document = readResult->GetDocument();
+  auto games = document->GetGames();
+  REQUIRE( games.size() == expectedNumberOfGames );
+  for (auto game : games)
+    AssertRootNodeHasCommentPropertyWithValue(game, expectedValue);
+}
+
+void AssertRootNodeHasCommentPropertyWithValue(std::shared_ptr<ISgfcGame> game, const SgfcText& expectedValue)
+{
+  auto rootNode = game->GetRootNode();
   REQUIRE( rootNode != nullptr );
   auto property = rootNode->GetProperty(SgfcPropertyType::C);
   REQUIRE( property != nullptr );
