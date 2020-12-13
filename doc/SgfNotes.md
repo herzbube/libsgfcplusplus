@@ -218,3 +218,8 @@ Note the byte values 0x5c towards the end. A strictly standard-conforming SGF-wr
 
 Furthermore, after the escape-processing the resulting SGF content might not even be valid text anymore, because inserting the escape characters might have invalidated the encoding. The Big5 encoding example above is such a case.
 
+### UTF-8 is recommended for programmatically creating ISgfcDocument object trees
+
+A library client that programmatically creates `ISgfcDocument` object trees should use UTF-8 to encode SimpleText and Text property values. UTF-8 is a universal and ASCII-safe character encoding that causes the least amount of trouble along all routes.
+
+Specifically, `ISgfcDocumentWriter` supports only ASCII-safe character encodings to write an `ISgfcDocument` object tree. The escape-processing discussed in the previous section is the root cause for the restriction. Read the `ISgfcDocumentWriter` class documentation for some technical details.
