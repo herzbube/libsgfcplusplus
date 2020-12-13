@@ -394,7 +394,7 @@ namespace LibSgfcPlusPlus
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Move)
     {
       const ISgfcMovePropertyValue* moveValue = propertyValue->ToMoveValue();
-      std::cout << "      Move  value        = \"" << moveValue->GetMoveValue() << "\"" << std::endl;
+      std::cout << "      Move value         = \"" << moveValue->GetMoveValue() << "\"" << std::endl;
 
       const ISgfcGoMovePropertyValue* goMoveValue = moveValue->ToGoMoveValue();
       std::cout << "      Is Go Move         = " << (goMoveValue != nullptr) << std::endl;
