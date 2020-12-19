@@ -8,6 +8,7 @@ set (
   document/SgfcTreeBuilderTest.cpp
   game/SgfcDateTest.cpp
   game/SgfcGameResultTest.cpp
+  game/SgfcRoundInformationTest.cpp
   game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPointTest.cpp
   game/go/SgfcGoStoneTest.cpp

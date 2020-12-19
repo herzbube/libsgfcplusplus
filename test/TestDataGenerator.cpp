@@ -1441,4 +1441,55 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcRoundInformation, bool>> TestDataGenerator::GetValidPropertyValuesRO()
+  {
+    std::vector<std::tuple<std::string, SgfcRoundInformation, bool>> testData =
+    {
+      std::make_tuple("foo (bar)", SgfcRoundInformation { "foo", "bar", true }, true ),
+      std::make_tuple(" (bar)", SgfcRoundInformation { "", "bar", true }, true ),
+      std::make_tuple("foo ()", SgfcRoundInformation { "foo", "", true }, true ),
+      // Regex is greedy and takes the round type from the last parenthesis
+      std::make_tuple("foo (bar) (baz)", SgfcRoundInformation { "foo (bar)", "baz", true }, true ),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::string> TestDataGenerator::GetInvalidPropertyValuesRO()
+  {
+    std::vector<std::string> testData =
+    {
+      "foo",
+      "foo (bar",
+      "foo bar)",
+      "(foo)",
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcRoundInformation, std::string>> TestDataGenerator::GetValidSgfcRoundInformations()
+  {
+    std::vector<std::tuple<SgfcRoundInformation, std::string>> testData;
+
+    for (auto testDataValidPropertyValuesRO : GetValidPropertyValuesRO())
+    {
+      if (std::get<2>(testDataValidPropertyValuesRO))
+        testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesRO), std::get<0>(testDataValidPropertyValuesRO)));
+    }
+
+
+    return testData;
+  }
+
+  std::vector<SgfcRoundInformation> TestDataGenerator::GetInvalidSgfcRoundInformations()
+  {
+    std::vector<SgfcRoundInformation> testData =
+    {
+      SgfcRoundInformation { "foo", "bar", false }
+    };
+
+    return testData;
+  }
 }
