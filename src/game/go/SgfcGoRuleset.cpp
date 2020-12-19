@@ -66,4 +66,19 @@ namespace LibSgfcPlusPlus
       }
     }
   }
+
+  bool SgfcGoRuleset::operator==(const SgfcGoRuleset& other) const
+  {
+    if (this == &other)
+      return true;
+    else if (this->GoRulesetType != other.GoRulesetType)
+      return false;
+    else
+      return true;
+  }
+
+  bool SgfcGoRuleset::operator!=(const SgfcGoRuleset& other) const
+  {
+    return ! (*this == other);
+  }
 }
