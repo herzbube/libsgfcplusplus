@@ -90,5 +90,15 @@ namespace LibSgfcPlusPlus
     /// formatting, or SgfcConstants::NoneValueString if the
     /// SgfcGoPlayerRank::IsValid member of @a goPlayerRank is false.
     static SgfcSimpleText ToPropertyValue(SgfcGoPlayerRank goPlayerRank);
+
+    /// @brief Returns true if the properties @e Rank, @e RankType and
+    /// @e RatingType are the same for the current SgfcGoPlayerRank object and
+    /// for @a other. Returns false if any of these properties are different.
+    bool operator==(const SgfcGoPlayerRank& other) const;
+
+    /// @brief Returns true if any of the properties @e Rank, @e RankType or
+    /// @e RatingType are different for the current SgfcGoPlayerRank
+    /// object and for @a other. Returns false if all properties are the same.
+    bool operator!=(const SgfcGoPlayerRank& other) const;
   };
 }

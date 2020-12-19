@@ -55,6 +55,7 @@ namespace LibSgfcPlusPlus
       message << "SgfcGoPlayerRank::FromPropertyValue: Unexpected regex match result, unable to determine numeric rank value from string " << goPlayerRankMatch[1];
       throw std::logic_error(message.str());
     }
+    goPlayerRank.Rank = rank;
 
     if (goPlayerRankMatch[3].length() > 0)
     {
@@ -159,5 +160,24 @@ namespace LibSgfcPlusPlus
     }
 
     return propertyValue.str();
+  }
+
+  bool SgfcGoPlayerRank::operator==(const SgfcGoPlayerRank& other) const
+  {
+    if (this == &other)
+      return true;
+    else if (this->Rank != other.Rank)
+      return false;
+    else if (this->RankType != other.RankType)
+      return false;
+    else if (this->RatingType != other.RatingType)
+      return false;
+    else
+      return true;
+  }
+
+  bool SgfcGoPlayerRank::operator!=(const SgfcGoPlayerRank& other) const
+  {
+    return ! (*this == other);
   }
 }
