@@ -25,6 +25,7 @@
 #include <SgfcGameResult.h>
 #include <SgfcGameType.h>
 #include <SgfcGoPlayerRank.h>
+#include <SgfcGoRuleset.h>
 #include <SgfcMessageID.h>
 #include <SgfcPropertyType.h>
 #include <SgfcRoundInformation.h>
@@ -114,6 +115,11 @@ namespace LibSgfcPlusPlus
     static std::vector<std::string> GetInvalidPropertyValuesBRWR();
     static std::vector<std::tuple<SgfcGoPlayerRank, std::string>> GetValidSgfcGoPlayerRanks();
     static std::vector<SgfcGoPlayerRank> GetInvalidSgfcGoPlayerRanks();
+
+    static std::vector<std::tuple<std::string, SgfcGoRuleset, bool>> GetValidPropertyValuesRU();
+    static std::vector<std::string> GetInvalidPropertyValuesRU();
+    static std::vector<std::tuple<SgfcGoRuleset, std::string>> GetValidSgfcGoRulesets();
+    static std::vector<SgfcGoRuleset> GetInvalidSgfcGoRulesets();
 
   private:
     TestDataGenerator();

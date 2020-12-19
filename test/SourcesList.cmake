@@ -12,6 +12,7 @@ set (
   game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPlayerRankTest.cpp
   game/go/SgfcGoPointTest.cpp
+  game/go/SgfcGoRulesetTest.cpp
   game/go/SgfcGoStoneTest.cpp
   parsing/SgfcPropertyDecoderTest.cpp
   parsing/SgfcValueConverterTest.cpp

@@ -1587,4 +1587,67 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcGoRuleset, bool>> TestDataGenerator::GetValidPropertyValuesRU()
+  {
+    std::vector<std::tuple<std::string, SgfcGoRuleset, bool>> testData =
+    {
+      std::make_tuple("AGA", SgfcGoRuleset { SgfcGoRulesetType::AGA, true }, true ),
+      std::make_tuple("GOE", SgfcGoRuleset { SgfcGoRulesetType::Ing, true }, true ),
+      std::make_tuple("Japanese", SgfcGoRuleset { SgfcGoRulesetType::Japanese, true }, true ),
+      std::make_tuple("NZ", SgfcGoRuleset { SgfcGoRulesetType::NZ, true }, true ),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::string> TestDataGenerator::GetInvalidPropertyValuesRU()
+  {
+    std::vector<std::string> testData =
+    {
+      "",
+      // Case mismatch
+      "aga",
+      "Aga",
+      "goe",
+      "Goe",
+      "japanese",
+      "nz",
+      "Nz",
+      // Extraneous whitespace
+      "AGA ",
+      " AGA",
+      "GOE ",
+      " GOE",
+      "Japanese ",
+      " Japanese",
+      "NZ ",
+      " NZ",
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcGoRuleset, std::string>> TestDataGenerator::GetValidSgfcGoRulesets()
+  {
+    std::vector<std::tuple<SgfcGoRuleset, std::string>> testData;
+
+    for (auto testDataValidPropertyValuesRU : GetValidPropertyValuesRU())
+    {
+      if (std::get<2>(testDataValidPropertyValuesRU))
+        testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesRU), std::get<0>(testDataValidPropertyValuesRU)));
+    }
+
+    return testData;
+  }
+
+  std::vector<SgfcGoRuleset> TestDataGenerator::GetInvalidSgfcGoRulesets()
+  {
+    std::vector<SgfcGoRuleset> testData =
+    {
+      SgfcGoRuleset { SgfcGoRulesetType::AGA, false }
+    };
+
+    return testData;
+  }
 }
