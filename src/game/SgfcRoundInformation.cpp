@@ -60,4 +60,21 @@ namespace LibSgfcPlusPlus
 
     return propertyValue.str();
   }
+
+  bool SgfcRoundInformation::operator==(const SgfcRoundInformation& other) const
+  {
+    if (this == &other)
+      return true;
+    else if (this->RoundNumber != other.RoundNumber)
+      return false;
+    else if (this->RoundType != other.RoundType)
+      return false;
+    else
+      return true;
+  }
+
+  bool SgfcRoundInformation::operator!=(const SgfcRoundInformation& other) const
+  {
+    return ! (*this == other);
+  }
 }

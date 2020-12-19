@@ -94,5 +94,15 @@ namespace LibSgfcPlusPlus
     /// SgfcConstants::NoneValueString if the SgfcRoundInformation::IsValid
     /// member of @a roundInformation is false.
     static SgfcSimpleText ToPropertyValue(const SgfcRoundInformation& roundInformation);
+
+    /// @brief Returns true if the properties @e RoundNumber and @e RoundType
+    /// are the same for the current SgfcRoundInformation object and for
+    /// @a other. Returns false if any of these properties are different.
+    bool operator==(const SgfcRoundInformation& other) const;
+
+    /// @brief Returns true if any of the properties @e RoundNumber or
+    /// @e RoundType are different for the current SgfcRoundInformation
+    /// object and for @a other. Returns false if all properties are the same.
+    bool operator!=(const SgfcRoundInformation& other) const;
   };
 }
