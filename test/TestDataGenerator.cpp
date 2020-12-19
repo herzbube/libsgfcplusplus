@@ -1316,4 +1316,129 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcGameResult, bool>> TestDataGenerator::GetValidPropertyValuesRE()
+  {
+    std::vector<std::tuple<std::string, SgfcGameResult, bool>> testData =
+    {
+      // Draw
+      std::make_tuple("0", SgfcGameResult { SgfcGameResultType::Draw, SgfcWinType::WinWithScore, 0.0, true }, false ),
+      std::make_tuple("Draw", SgfcGameResult { SgfcGameResultType::Draw, SgfcWinType::WinWithScore, 0.0, true }, true ),
+      // Black wins
+      std::make_tuple("B+", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithoutScore, 0.0, true }, true ),
+      std::make_tuple("B+42", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithScore, 42.0, true }, true ),
+      std::make_tuple("B+42.3", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithScore, 42.3, true }, true ),
+      std::make_tuple("B+42.", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithScore, 42.0, true }, false ),
+      std::make_tuple("B+.3", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithScore, 0.3, true }, false ),
+      std::make_tuple("B+042.30", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithScore, 42.3, true }, false ),
+      std::make_tuple("B+R", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByResignation, 0.0, true }, false ),
+      std::make_tuple("B+Resign", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByResignation, 0.0, true }, true ),
+      std::make_tuple("B+T", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinOnTime, 0.0, true }, false ),
+      std::make_tuple("B+Time", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinOnTime, 0.0, true }, true ),
+      std::make_tuple("B+F", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByForfeit, 0.0, true }, false ),
+      std::make_tuple("B+Forfeit", SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByForfeit, 0.0, true }, true ),
+      // White wins
+      std::make_tuple("W+", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithoutScore, 0.0, true }, true ),
+      std::make_tuple("W+42", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithScore, 42.0, true }, true ),
+      std::make_tuple("W+42.3", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithScore, 42.3, true }, true ),
+      std::make_tuple("W+42.", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithScore, 42.0, true }, false ),
+      std::make_tuple("W+.3", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithScore, 0.3, true }, false ),
+      std::make_tuple("W+042.30", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithScore, 42.3, true }, false ),
+      std::make_tuple("W+R", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByResignation, 0.0, true }, false ),
+      std::make_tuple("W+Resign", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByResignation, 0.0, true }, true ),
+      std::make_tuple("W+T", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinOnTime, 0.0, true }, false ),
+      std::make_tuple("W+Time", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinOnTime, 0.0, true }, true ),
+      std::make_tuple("W+F", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByForfeit, 0.0, true }, false ),
+      std::make_tuple("W+Forfeit", SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByForfeit, 0.0, true }, true ),
+      // No result
+      std::make_tuple("Void", SgfcGameResult { SgfcGameResultType::NoResult, SgfcWinType::WinWithScore, 0.0, true }, true ),
+      // Unknown result
+      std::make_tuple("?", SgfcGameResult { SgfcGameResultType::UnknownResult, SgfcWinType::WinWithScore, 0.0, true }, true ),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::string> TestDataGenerator::GetInvalidPropertyValuesRE()
+  {
+    std::vector<std::string> testData =
+    {
+      "",
+      "foo",
+      "1",
+      "!"
+      // Case mismatch
+      "draw",
+      "b+",
+      "B+r",
+      "B+resign",
+      "B+t",
+      "B+time",
+      "B+f",
+      "B+forfeit",
+      "w+",
+      "W+r",
+      "W+resign",
+      "W+t",
+      "W+time",
+      "W+f",
+      "W+forfeit",
+      "void",
+      // Negative score
+      "B+-42",
+      "W+-42",
+      // Partial matches
+      "B+Res",
+      "B+Tim",
+      "B+For",
+      "W+Res",
+      "W+Tim",
+      "W+For",
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcGameResult, std::string>> TestDataGenerator::GetValidSgfcGameResults()
+  {
+    std::vector<std::tuple<SgfcGameResult, std::string>> testData =
+    {
+      // Win type and score are ignored if result type is not BlackWins or
+      // WhiteWins
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::Draw, SgfcWinType::WinWithScore, 42.0, true }, "Draw" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::Draw, SgfcWinType::WinByForfeit, 42.0, true }, "Draw" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::NoResult, SgfcWinType::WinWithScore, 42.0, true }, "Void" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::NoResult, SgfcWinType::WinByForfeit, 42.0, true }, "Void" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::UnknownResult, SgfcWinType::WinWithScore, 42.0, true }, "?" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::UnknownResult, SgfcWinType::WinByForfeit, 42.0, true }, "?" ),
+      // Score is ignored if result type is not BlackWins or WhiteWins and
+      // WinType is not WinWithScore
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinWithoutScore, 42.0, true }, "B+" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByResignation, 42.0, true }, "B+Resign" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinOnTime, 42.0, true }, "B+Time" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::BlackWin, SgfcWinType::WinByForfeit, 42.0, true }, "B+Forfeit" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinWithoutScore, 42.0, true }, "W+" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByResignation, 42.0, true }, "W+Resign" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinOnTime, 42.0, true }, "W+Time" ),
+      std::make_tuple(SgfcGameResult { SgfcGameResultType::WhiteWin, SgfcWinType::WinByForfeit, 42.0, true }, "W+Forfeit" ),
+    };
+
+    for (auto testDataValidPropertyValuesRE : GetValidPropertyValuesRE())
+    {
+      if (std::get<2>(testDataValidPropertyValuesRE))
+        testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesRE), std::get<0>(testDataValidPropertyValuesRE)));
+    }
+
+    return testData;
+  }
+
+  std::vector<SgfcGameResult> TestDataGenerator::GetInvalidSgfcGameResults()
+  {
+    std::vector<SgfcGameResult> testData =
+    {
+      SgfcGameResult { SgfcGameResultType::Draw, SgfcWinType::WinWithScore, 0.0, false }
+    };
+
+    return testData;
+  }
 }

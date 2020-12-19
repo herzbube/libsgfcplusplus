@@ -22,6 +22,7 @@
 #include <SgfcColor.h>
 #include <SgfcDate.h>
 #include <SgfcDouble.h>
+#include <SgfcGameResult.h>
 #include <SgfcGameType.h>
 #include <SgfcMessageID.h>
 #include <SgfcPropertyType.h>
@@ -96,6 +97,11 @@ namespace LibSgfcPlusPlus
     static std::vector<std::string> GetInvalidPropertyValuesDT();
     static std::vector<std::tuple<std::vector<SgfcDate>, std::string>> GetValidSgfcDates();
     static std::vector<std::vector<SgfcDate>> GetInvalidSgfcDates();
+
+    static std::vector<std::tuple<std::string, SgfcGameResult, bool>> GetValidPropertyValuesRE();
+    static std::vector<std::string> GetInvalidPropertyValuesRE();
+    static std::vector<std::tuple<SgfcGameResult, std::string>> GetValidSgfcGameResults();
+    static std::vector<SgfcGameResult> GetInvalidSgfcGameResults();
 
   private:
     TestDataGenerator();
