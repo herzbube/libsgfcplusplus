@@ -199,7 +199,6 @@ namespace LibSgfcPlusPlus
     return propertyValue.str();
   }
 
-
   bool SgfcGameResult::operator==(const SgfcGameResult& other) const
   {
     if (this == &other)

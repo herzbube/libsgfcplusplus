@@ -1479,7 +1479,6 @@ namespace LibSgfcPlusPlus
         testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesRO), std::get<0>(testDataValidPropertyValuesRO)));
     }
 
-
     return testData;
   }
 

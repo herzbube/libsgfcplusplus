@@ -40,5 +40,4 @@ namespace LibSgfcPlusPlus
   {
     return ! (*this == other);
   }
-
 }
