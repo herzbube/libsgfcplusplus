@@ -98,14 +98,15 @@ namespace LibSgfcPlusPlus
   // Capture group 2: Void
   // Capture group 3: ?
   // Capture group 4: Any B+[Score] or W+[Score]
-  // Capture group 5: B+
-  // Capture group 6: W+
-  // Capture group 7: Score
-  // Capture group 8: R or Resign
-  // Capture group 9: T or Time
-  // Capture group 10: F or Forfeit
-  // Capture group 11: Numeric score
-  const std::regex SgfcPrivateConstants::GameResultRegex("(0|Draw)|(Void)|(\\?)|((B\\+)|(W\\+)((R|Resign)|(T|Time)|(F|Forfeit)|([.[:digit:]]+))?)");
+  // Capture group 5: B+ or W+
+  // Capture group 6: B+
+  // Capture group 7: W+
+  // Capture group 8: Score
+  // Capture group 9: R or Resign
+  // Capture group 10: T or Time
+  // Capture group 11: F or Forfeit
+  // Capture group 12: Numeric score
+  const std::regex SgfcPrivateConstants::GameResultRegex("(0|Draw)|(Void)|(\\?)|(((B\\+)|(W\\+))((R|Resign)|(T|Time)|(F|Forfeit)|([[:digit:]]*\\.?[[:digit:]]*))?)");
   // Capture group 0: The entire string
   // Capture group 1: Round number
   // Capture group 2: Round type

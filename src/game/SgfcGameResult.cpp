@@ -55,11 +55,11 @@ namespace LibSgfcPlusPlus
     {
       gameResult.GameResultType = SgfcGameResultType::UnknownResult;
     }
-    else if (gameResultMatch[5].length() > 0)
+    else if (gameResultMatch[6].length() > 0)
     {
       gameResult.GameResultType = SgfcGameResultType::BlackWin;
     }
-    else if (gameResultMatch[6].length() > 0)
+    else if (gameResultMatch[7].length() > 0)
     {
       gameResult.GameResultType = SgfcGameResultType::WhiteWin;
     }
@@ -73,19 +73,19 @@ namespace LibSgfcPlusPlus
     if (gameResult.GameResultType == SgfcGameResultType::BlackWin ||
         gameResult.GameResultType == SgfcGameResultType::WhiteWin)
     {
-      if (gameResultMatch[8].length() > 0)
+      if (gameResultMatch[9].length() > 0)
       {
         gameResult.WinType = SgfcWinType::WinByResignation;
       }
-      else if (gameResultMatch[9].length() > 0)
+      else if (gameResultMatch[10].length() > 0)
       {
         gameResult.WinType = SgfcWinType::WinOnTime;
       }
-      else if (gameResultMatch[10].length() > 0)
+      else if (gameResultMatch[11].length() > 0)
       {
         gameResult.WinType = SgfcWinType::WinByForfeit;
       }
-      else if (gameResultMatch[11].length() == 0)
+      else if (gameResultMatch[12].length() == 0)
       {
         gameResult.WinType = SgfcWinType::WinWithoutScore;
       }
@@ -98,11 +98,11 @@ namespace LibSgfcPlusPlus
 
         SgfcReal score;
         bool conversionResult = valueConverter.TryConvertStringToRealValue(
-          gameResultMatch[11], score, typeConversionErrorMessage);
+          gameResultMatch[12], score, typeConversionErrorMessage);
         if (! conversionResult)
         {
           std::stringstream message;
-          message << "SgfcGameResult::FromPropertyValue: Unexpected regex match result, unable to determine numeric score value from string " << gameResultMatch[11];
+          message << "SgfcGameResult::FromPropertyValue: Unexpected regex match result, unable to determine numeric score value from string " << gameResultMatch[12];
           throw std::logic_error(message.str());
         }
 
@@ -197,5 +197,25 @@ namespace LibSgfcPlusPlus
     }
 
     return propertyValue.str();
+  }
+
+
+  bool SgfcGameResult::operator==(const SgfcGameResult& other) const
+  {
+    if (this == &other)
+      return true;
+    else if (this->GameResultType != other.GameResultType)
+      return false;
+    else if (this->WinType != other.WinType)
+      return false;
+    else if (this->Score != other.Score)
+      return false;
+    else
+      return true;
+  }
+
+  bool SgfcGameResult::operator!=(const SgfcGameResult& other) const
+  {
+    return ! (*this == other);
   }
 }
