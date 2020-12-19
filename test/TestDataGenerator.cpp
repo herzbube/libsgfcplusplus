@@ -1492,4 +1492,99 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, SgfcGoPlayerRank, bool>> TestDataGenerator::GetValidPropertyValuesBRWR()
+  {
+    std::vector<std::tuple<std::string, SgfcGoPlayerRank, bool>> testData =
+    {
+      // Kyu rank types
+      std::make_tuple("30k", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("30k?", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Uncertain, true }, true ),
+      std::make_tuple("30k*", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Established, true }, true ),
+      std::make_tuple("30kyu", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, false ),
+      std::make_tuple("30kyu?", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Uncertain, true }, false ),
+      std::make_tuple("30kyu*", SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Established, true }, false ),
+      std::make_tuple("1k", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("1kyu", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, false ),
+
+      // AmateurDan rank types
+      std::make_tuple("1d", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("1d?", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Uncertain, true }, true ),
+      std::make_tuple("1d*", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Established, true }, true ),
+      std::make_tuple("1dan", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, false ),
+      std::make_tuple("1dan?", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Uncertain, true }, false ),
+      std::make_tuple("1dan*", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Established, true }, false ),
+      std::make_tuple("7d", SgfcGoPlayerRank { 7, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("7dan", SgfcGoPlayerRank { 7, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, false ),
+
+      // ProfessionalDan rank types
+      std::make_tuple("1p", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("1p?", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Uncertain, true }, true ),
+      std::make_tuple("1p*", SgfcGoPlayerRank { 1, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Established, true }, true ),
+      std::make_tuple("9p", SgfcGoPlayerRank { 9, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+
+      // Unusual ranks
+      std::make_tuple("0k", SgfcGoPlayerRank { 0, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("60k", SgfcGoPlayerRank { 60, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("0d", SgfcGoPlayerRank { 0, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("8d", SgfcGoPlayerRank { 8, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("0p", SgfcGoPlayerRank { 0, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("10p", SgfcGoPlayerRank { 10, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::string> TestDataGenerator::GetInvalidPropertyValuesBRWR()
+  {
+    std::vector<std::string> testData =
+    {
+      "",
+      "30",
+      // Extraneous whitespace
+      " 30k",
+      "30k ",
+      "30 k",
+      " 30kyu",
+      "30kyu ",
+      "30 kyu",
+      "30k? ",
+      "30k* ",
+      // Case mismatch
+      "30K",
+      "30Kyu",
+      "1D",
+      "1Dan",
+      "1P",
+      // Undefined and extraneous rating markers
+      "30k!",
+      "30k??",
+      "30k**",
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<SgfcGoPlayerRank, std::string>> TestDataGenerator::GetValidSgfcGoPlayerRanks()
+  {
+    std::vector<std::tuple<SgfcGoPlayerRank, std::string>> testData;
+
+    for (auto testDataValidPropertyValuesBRWR : GetValidPropertyValuesBRWR())
+    {
+      if (std::get<2>(testDataValidPropertyValuesBRWR))
+        testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesBRWR), std::get<0>(testDataValidPropertyValuesBRWR)));
+    }
+
+    return testData;
+  }
+
+  std::vector<SgfcGoPlayerRank> TestDataGenerator::GetInvalidSgfcGoPlayerRanks()
+  {
+    std::vector<SgfcGoPlayerRank> testData =
+    {
+      SgfcGoPlayerRank { 30, SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, false }
+    };
+
+    return testData;
+  }
 }
