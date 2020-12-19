@@ -343,13 +343,33 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::string> substrings;
 
-    std::stringstream stream(string);
-    std::string substring;
+    const size_t length = string.length();
+    size_t startPosition = 0;
+    size_t delimiterPosition = 0;
 
-    while (std::getline(stream, substring, delimiter))
+    do
     {
-      substrings.push_back(substring);
+      if (startPosition >= length)
+      {
+        substrings.push_back("");
+        delimiterPosition = std::string::npos;
+      }
+      else
+      {
+        delimiterPosition = string.find(delimiter, startPosition);
+
+        if (delimiterPosition == std::string::npos)
+        {
+          substrings.push_back(string.substr(startPosition));
+        }
+        else
+        {
+          substrings.push_back(string.substr(startPosition, delimiterPosition - startPosition));
+          startPosition = delimiterPosition + 1;
+        }
+      }
     }
+    while (delimiterPosition != std::string::npos);
 
     return substrings;
   }
