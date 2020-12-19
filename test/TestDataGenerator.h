@@ -20,6 +20,7 @@
 #include <SgfcArgumentType.h>
 #include <SgfcBoardSize.h>
 #include <SgfcColor.h>
+#include <SgfcDate.h>
 #include <SgfcDouble.h>
 #include <SgfcGameType.h>
 #include <SgfcMessageID.h>
@@ -90,6 +91,11 @@ namespace LibSgfcPlusPlus
     static std::vector<std::tuple<SgfcArgumentType, SgfcPropertyType>> GetArgumentTypesWithInvalidPropertyTypeParameter();
     static std::vector<std::tuple<SgfcArgumentType, SgfcMessageID, std::string>> GetArgumentTypesWithValidMessageIDParameter();
     static std::vector<std::tuple<SgfcArgumentType, SgfcMessageID>> GetArgumentTypesWithInvalidMessageIDParameter();
+
+    static std::vector<std::tuple<std::string, std::vector<SgfcDate>, bool>> GetValidPropertyValuesDT();
+    static std::vector<std::string> GetInvalidPropertyValuesDT();
+    static std::vector<std::tuple<std::vector<SgfcDate>, std::string>> GetValidSgfcDates();
+    static std::vector<std::vector<SgfcDate>> GetInvalidSgfcDates();
 
   private:
     TestDataGenerator();

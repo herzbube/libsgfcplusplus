@@ -1003,4 +1003,317 @@ namespace LibSgfcPlusPlus
 
     return testData;
   }
+
+  std::vector<std::tuple<std::string, std::vector<SgfcDate>, bool>> TestDataGenerator::GetValidPropertyValuesDT()
+  {
+    // Element 0 = The SgfcPropertyValue::DT property value
+    // Element 1 = The collection with the decomposed SgfcDate objects
+    // Element 2 = Indicator whether elements 1 and 0 can be reused as
+    //             input/output for testing the inverse function that composes
+    //             an SgfcPropertyValue::DT property value.
+    std::vector<std::tuple<std::string, std::vector<SgfcDate>, bool>> testData =
+    {
+      // Full date
+      std::make_tuple("2020-12-31", std::vector<SgfcDate> { {2020, 12, 31} }, true),
+      // Partial dates
+      std::make_tuple("2020-12", std::vector<SgfcDate> { {2020, 12, 0} }, true),
+      std::make_tuple("2020", std::vector<SgfcDate> { {2020, 0, 0} }, true),
+      // It's legal to NOT use shortcuts, even if they are possible
+      std::make_tuple("2020-12-30,2020-12-31", std::vector<SgfcDate> { {2020, 12, 30}, {2020, 12, 31} }, false),
+
+      // MM-DD shortcut after full date is ok
+      std::make_tuple("2020-01-01,04-15", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15} }, true),
+      // Single double-digit shortcut after full date means DD
+      std::make_tuple("2020-01-01,04", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 1, 4} }, true),
+
+      // MM-DD shortcut after YYYY-MM partial date is ok
+      std::make_tuple("2020-01,04-15", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 15} }, true),
+      // Single double-digit shortcut after YYYY-MM partial date means MM
+      std::make_tuple("2020-01,04", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0} }, true),
+
+      // MM-DD shortcut after MM-DD shortcut is ok
+      std::make_tuple("2020-01-01,04-15,10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 10, 22} }, true),
+      // Single double-digit shortcut after MM-DD shortcut means DD
+      std::make_tuple("2020-01-01,04-15,22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 4, 22} }, true),
+
+      // MM-DD shortcut after MM shortcut is ok
+      std::make_tuple("2020-01,04,10-22", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2020, 10, 22} }, true),
+      // Single double-digit shortcut after MM shortcut means MM
+      std::make_tuple("2020-01,04,10", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2020, 10, 0} }, true),
+
+      // MM-DD shortcut after DD shortcut is ok
+      std::make_tuple("2020-01-01,04,10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 1, 4}, {2020, 10, 22} }, true),
+      // Single double-digit shortcut after DD shortcut means DD
+      std::make_tuple("2020-01-01,04,10", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 1, 4}, {2020, 1, 10} }, true),
+
+      // Repeating full dates
+      std::make_tuple("2020-01-01,2020-04-15", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15} }, false),
+      // Repeating partial dates
+      std::make_tuple("2020-01,2020-04", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0} }, false),
+      std::make_tuple("2020,2021", std::vector<SgfcDate> { {2020, 0, 0}, {2021, 0, 0} }, true),
+
+      // Repeating MM-DD shortcuts
+      std::make_tuple("2020-01-01,04-15,10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 10, 22} }, true),
+      // Repeating MM shortcuts
+      std::make_tuple("2020-01,04,10", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2020, 10, 0} }, true),
+      // Repeating DD shortcuts
+      std::make_tuple("2020-01-01,02,22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 1, 2}, {2020, 1, 22} }, true),
+
+      // Go back to YYYY-MM-DD after YYYY-MM
+      std::make_tuple("2020-04,2020-10-22", std::vector<SgfcDate> { {2020, 4, 0}, {2020, 10, 22} }, false),
+      // Go back to YYYY-MM-DD after YYYY
+      std::make_tuple("2020,2020-10-22", std::vector<SgfcDate> { {2020, 0, 0}, {2020, 10, 22} }, true),
+      // Go back to YYYY-MM after YYYY
+      std::make_tuple("2020,2020-10", std::vector<SgfcDate> { {2020, 0, 0}, {2020, 10, 0} }, true),
+
+      // Go back to YYYY-MM-DD after MM-DD
+      std::make_tuple("2020-01-01,04-15,2021-10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2021, 10, 22} }, true),
+      // Go back to YYYY-MM after MM-DD
+      std::make_tuple("2020-01-01,04-15,2021-10", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2021, 10, 0} }, true),
+      // Go back to YYYY after MM-DD
+      std::make_tuple("2020-01-01,04-15,2021", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2021, 0, 0} }, true),
+
+      // Go back to YYYY-MM-DD after MM
+      std::make_tuple("2020-01,04,2021-10-22", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2021, 10, 22} }, true),
+      // Go back to YYYY-MM after MM
+      std::make_tuple("2020-01,04,2021-10", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2021, 10, 0} }, true),
+      // Go back to YYYY after MM
+      std::make_tuple("2020-01,04,2021", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2021, 0, 0} }, true),
+      // Go back to MM-DD after MM
+      std::make_tuple("2020-01,04,10-22", std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2020, 10, 22} }, true),
+
+      // Go back to YYYY-MM-DD after DD
+      std::make_tuple("2020-01-01,04-15,22,2021-10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 4, 22}, {2021, 10, 22} }, true),
+      // Go back to YYYY-MM after DD
+      std::make_tuple("2020-01-01,04-15,22,2021-10", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 4, 22}, {2021, 10, 0} }, true),
+      // Go back to YYYY after DD
+      std::make_tuple("2020-01-01,04-15,22,2021", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 4, 22}, {2021, 0, 0} }, true),
+      // Go back to MM-DD after DD
+      std::make_tuple("2020-01-01,04-15,22,10-22", std::vector<SgfcDate> { {2020, 1, 1}, {2020, 4, 15}, {2020, 4, 22}, {2020, 10, 22} }, true),
+
+      // Month days
+      std::make_tuple("2019-01-31", std::vector<SgfcDate> { {2019, 1, 31} }, true),
+      std::make_tuple("2019-02-28", std::vector<SgfcDate> { {2019, 2, 28} }, true),
+      std::make_tuple("2019-03-31", std::vector<SgfcDate> { {2019, 3, 31} }, true),
+      std::make_tuple("2019-04-30", std::vector<SgfcDate> { {2019, 4, 30} }, true),
+      std::make_tuple("2019-05-31", std::vector<SgfcDate> { {2019, 5, 31} }, true),
+      std::make_tuple("2019-06-30", std::vector<SgfcDate> { {2019, 6, 30} }, true),
+      std::make_tuple("2019-07-31", std::vector<SgfcDate> { {2019, 7, 31} }, true),
+      std::make_tuple("2019-08-31", std::vector<SgfcDate> { {2019, 8, 31} }, true),
+      std::make_tuple("2019-09-30", std::vector<SgfcDate> { {2019, 9, 30} }, true),
+      std::make_tuple("2019-10-31", std::vector<SgfcDate> { {2019, 10, 31} }, true),
+      std::make_tuple("2019-11-30", std::vector<SgfcDate> { {2019, 11, 30} }, true),
+      std::make_tuple("2019-12-31", std::vector<SgfcDate> { {2019, 12, 31} }, true),
+
+      // Leap days
+      std::make_tuple("2020-02-29", std::vector<SgfcDate> { {2020, 2, 29} }, true),
+      std::make_tuple("1600-02-29", std::vector<SgfcDate> { {1600, 2, 29} }, true),
+    };
+
+    return testData;
+  }
+
+  std::vector<std::string> TestDataGenerator::GetInvalidPropertyValuesDT()
+  {
+    std::vector<std::string> testData =
+    {
+      // Illegal format
+      "",
+      ",",
+      "foo",
+      "2020/12/31",
+      "2020.12.31",
+      "31-12-2020",
+      // Leading zeros are not allowed
+      "02020/12/31",
+      "2020/012/31",
+      "2020/12/031",
+      // Correct format but non-numeric parts
+      "yyyy-mm-dd",
+      "2020-12-dd",
+      "2020-mm-31",
+      "yyyy-12-31",
+      // Leading/trailing whitespace
+      " 2020-12-31",
+      "2020-12-31 ",
+      // Wrong list format
+      ",2020-12-31",
+      "2020-12-31,",
+      // Illegal shortcuts
+      "2020, 12-31",
+      "2020, 12",
+      // Shortcuts without a preceding date
+      "12-31",
+      "12",
+      // Invalid month
+      "2020-13-01",
+      // Invalid month days
+      "2019-01-32",
+      "2019-02-29",
+      "2019-03-32",
+      "2019-04-31",
+      "2019-05-32",
+      "2019-06-31",
+      "2019-07-32",
+      "2019-08-32",
+      "2019-09-31",
+      "2019-10-32",
+      "2019-11-31",
+      "2019-12-32",
+      // Invalid leap day
+      "2100-02-29",
+      // Missing month or missing all date parts
+      "2020-00-01",
+      "0000-00-00",
+      // Missing year in the first date
+      "0000-01-01",
+      "0000-01-00",
+      "0000-00-01",
+    };
+
+    return testData;
+  }
+
+  std::vector<std::tuple<std::vector<SgfcDate>, std::string>> TestDataGenerator::GetValidSgfcDates()
+  {
+    std::vector<std::tuple<std::vector<SgfcDate>, std::string>> testData
+    {
+      // Full date
+      std::make_tuple(std::vector<SgfcDate> { {2020, 12, 31} }, "2020-12-31"),
+      // Partial dates
+      std::make_tuple(std::vector<SgfcDate> { {2020, 12, 00} }, "2020-12"),
+      std::make_tuple(std::vector<SgfcDate> { {2020, 00, 00} }, "2020"),
+
+      // Let the algorithm generate shortcuts. Add only a few simple cases here,
+      // the bulk of the shortcut-generation tests is made when the test data
+      // from GetValidPropertyValuesDT() is added below.
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {2020, 1, 2}, {2020, 1, 3} }, "2020-01-01,02,03"),
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {2020, 4, 0}, {2020, 10, 0} }, "2020-01,04,10"),
+
+      // MM-DD shortcut after full date is ok
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15} }, "2020-01-01,04-15"),
+      // Single double-digit shortcut after full date means DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 0, 4} }, "2020-01-01,04"),
+
+      // MM-DD shortcut after YYYY-MM partial date is ok
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 15} }, "2020-01,04-15"),
+      // Single double-digit shortcut after YYYY-MM partial date means MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0} }, "2020-01,04"),
+
+      // MM-DD shortcut after MM-DD shortcut is ok
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 10, 22} }, "2020-01-01,04-15,10-22"),
+      // Single double-digit shortcut after MM-DD shortcut means DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 0, 22} }, "2020-01-01,04-15,22"),
+
+      // MM-DD shortcut after MM shortcut is ok
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {0, 10, 22} }, "2020-01,04,10-22"),
+      // Single double-digit shortcut after MM shortcut means MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {0, 10, 0} }, "2020-01,04,10"),
+
+      // MM-DD shortcut after DD shortcut is ok
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 0, 4}, {0, 10, 22} }, "2020-01-01,04,10-22"),
+      // Single double-digit shortcut after DD shortcut means DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 0, 4}, {0, 0, 10} }, "2020-01-01,04,10"),
+
+      // Repeating MM-DD shortcuts
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 10, 22} }, "2020-01-01,04-15,10-22"),
+      // Repeating MM shortcuts
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {0, 10, 0} }, "2020-01,04,10"),
+      // Repeating DD shortcuts
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 0, 2}, {0, 0, 22} }, "2020-01-01,02,22"),
+
+      // Go back to YYYY-MM-DD after YYYY-MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 4, 0}, {2020, 10, 22} }, "2020-04,10-22"),
+      // Go back to YYYY-MM-DD after YYYY
+      std::make_tuple(std::vector<SgfcDate> { {2020, 0, 0}, {2020, 10, 22} }, "2020,2020-10-22"),
+      // Go back to YYYY-MM after YYYY
+      std::make_tuple(std::vector<SgfcDate> { {2020, 0, 0}, {2020, 10, 0} }, "2020,2020-10"),
+
+      // Go back to YYYY-MM-DD after MM-DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {2021, 10, 22} }, "2020-01-01,04-15,2021-10-22"),
+      // Go back to YYYY-MM after MM-DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {2021, 10, 0} }, "2020-01-01,04-15,2021-10"),
+      // Go back to YYYY after MM-DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {2021, 0, 0} }, "2020-01-01,04-15,2021"),
+
+      // Go back to YYYY-MM-DD after MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {2021, 10, 22} }, "2020-01,04,2021-10-22"),
+      // Go back to YYYY-MM after MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {2021, 10, 0} }, "2020-01,04,2021-10"),
+      // Go back to YYYY after MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {2021, 0, 0} }, "2020-01,04,2021"),
+      // Go back to MM-DD after MM
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 0}, {0, 4, 0}, {0, 10, 22} }, "2020-01,04,10-22"),
+
+      // Go back to YYYY-MM-DD after DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 0, 22}, {2021, 10, 22} }, "2020-01-01,04-15,22,2021-10-22"),
+      // Go back to YYYY-MM after DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 0, 22}, {2021, 10, 0} }, "2020-01-01,04-15,22,2021-10"),
+      // Go back to YYYY after DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 0, 22}, {2021, 0, 0} }, "2020-01-01,04-15,22,2021"),
+      // Go back to MM-DD after DD
+      std::make_tuple(std::vector<SgfcDate> { {2020, 1, 1}, {0, 4, 15}, {0, 0, 22}, {0, 10, 22} }, "2020-01-01,04-15,22,10-22"),
+    };
+
+    // Test whether decomposed SgfcDate values can be composed again.
+    // Also test single dates with specific date parts, such as month days and
+    // leap days.
+    for (auto testDataValidPropertyValuesDT : GetValidPropertyValuesDT())
+    {
+      if (std::get<2>(testDataValidPropertyValuesDT))
+        testData.push_back(std::make_tuple(std::get<1>(testDataValidPropertyValuesDT), std::get<0>(testDataValidPropertyValuesDT)));
+    }
+
+    return testData;
+  }
+
+  std::vector<std::vector<SgfcDate>> TestDataGenerator::GetInvalidSgfcDates()
+  {
+    std::vector<std::vector<SgfcDate>> testData =
+    {
+      // Invalid month
+      { {2020, 13, 1} },
+      // Invalid month days
+      { {2019, 1, 32} },
+      { {2019, 2, 29} },
+      { {2019, 3, 32} },
+      { {2019, 4, 31} },
+      { {2019, 5, 32} },
+      { {2019, 6, 31} },
+      { {2019, 7, 32} },
+      { {2019, 8, 32} },
+      { {2019, 9, 31} },
+      { {2019, 10, 32} },
+      { {2019, 11, 31} },
+      { {2019, 11, 32} },
+      // Invalid leap day
+      { {2100, 02, 29} },
+      // Missing month or missing all date parts
+      { {2020, 0, 1} },
+      { {0, 0, 0} },
+      // Missing year in the first date
+      { {0, 1, 1} },
+      { {0, 1, 0} },
+      { {0, 0, 1} },
+      // Collection contains some valid and some invalid dates
+      { {2020, 1, 1}, {2020, 2, 1}, {2020, 0, 1} },
+      // Two consecutive dates that are the same
+      { {2020, 1, 1}, {2020, 1, 1} },
+      { {2020, 1, 0}, {2020, 1, 0} },
+      { {2020, 0, 0}, {2020, 0, 0} },
+      // Invalid MM-DD shortcut
+      { {2020, 0, 0}, {0, 10, 22} },
+      // Invalid MM shortcut
+      { {2020, 1, 1}, {0, 10, 0} },
+      { {2020, 0, 0}, {0, 10, 0} },
+      { {0, 1, 1}, {0, 10, 0} },
+      { {0, 0, 1}, {0, 10, 0} },
+      // Invalid DD shortcut
+      { {2020, 1, 0}, {0, 0, 22} },
+      { {2020, 0, 0}, {0, 0, 22} },
+      { {0, 1, 0}, {0, 0, 22} },
+    };
+
+    return testData;
+  }
 }

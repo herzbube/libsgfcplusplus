@@ -6,6 +6,7 @@ set (
   document/SgfcNodeTest.cpp
   document/SgfcNodeTraitsTest.cpp
   document/SgfcTreeBuilderTest.cpp
+  game/SgfcDateTest.cpp
   game/go/SgfcGoMoveTest.cpp
   game/go/SgfcGoPointTest.cpp
   game/go/SgfcGoStoneTest.cpp
