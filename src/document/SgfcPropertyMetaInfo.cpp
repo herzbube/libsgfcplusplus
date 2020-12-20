@@ -65,8 +65,6 @@ namespace LibSgfcPlusPlus
   // List value type descriptors, consisting of only basic value type descriptors
   std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
     new SgfcPropertyListValueTypeDescriptor(DescriptorPoint));
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfMove = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorMove));
   std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfStone = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
     new SgfcPropertyListValueTypeDescriptor(DescriptorStone));
 
@@ -329,11 +327,11 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::ID:
         return DescriptorText;
       case SgfcPropertyType::L:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::LT:
         return DescriptorNone;
       case SgfcPropertyType::M:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::OM:
         return DescriptorNumber;
       case SgfcPropertyType::OP:
@@ -341,14 +339,14 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::OV:
         return DescriptorReal;
       case SgfcPropertyType::RG:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::SC:
-        return DescriptorListOfMove;
+        return DescriptorListOfPoint;
       case SgfcPropertyType::SE:
         if (this->gameType == SgfcGameType::LinesOfAction)
           return DescriptorPoint;
         else
-          return DescriptorListOfMove;
+          return DescriptorListOfPoint;
       case SgfcPropertyType::SI:
         return DescriptorDouble;
       case SgfcPropertyType::TC:
@@ -432,7 +430,7 @@ namespace LibSgfcPlusPlus
       // ----------------------------------------------------------------------
       case SgfcPropertyType::AA:
         if (this->gameType == SgfcGameType::Amazons)
-          return DescriptorListOfMove;
+          return DescriptorListOfPoint;
         else
           return DescriptorUnknown;
 
@@ -441,12 +439,12 @@ namespace LibSgfcPlusPlus
       // ----------------------------------------------------------------------
       case SgfcPropertyType::BO:
         if (this->gameType == SgfcGameType::Octi)
-          return DescriptorListOfMove;
+          return DescriptorListOfPoint;
         else
           return DescriptorUnknown;
       case SgfcPropertyType::WO:
         if (this->gameType == SgfcGameType::Octi)
-          return DescriptorListOfMove;
+          return DescriptorListOfPoint;
         else
           return DescriptorUnknown;
       case SgfcPropertyType::NP:

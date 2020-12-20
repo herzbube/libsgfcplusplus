@@ -1451,45 +1451,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
       }
     }
   }
-
-  GIVEN( "The property value type is List of Moves" )
-  {
-    WHEN( "The property values are decoded" )
-    {
-      std::string rawValue1 = "foo";
-      std::string rawValue2 = "bar";
-      std::string moveValue1 = rawValue1;
-      std::string moveValue2 = rawValue2;
-
-      PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(rawValue2.c_str());
-      propertyValue2.value2 = nullptr;
-      propertyValue2.next = nullptr;
-
-      PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(rawValue1.c_str());
-      propertyValue1.value2 = nullptr;
-      propertyValue1.next = &propertyValue2;
-
-      Property sgfProperty;
-      sgfProperty.idstr = const_cast<char*>("AA");
-      sgfProperty.value = &propertyValue1;
-      // Property "AA" is a list of moves only for the Amazons game
-      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Amazons, SgfcConstants::BoardSizeNone);
-
-      THEN( "SgfcPropertyDecoder successfully decodes the Point string values" )
-      {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AA );
-        auto propertyValues = propertyDecoder.GetPropertyValues();
-        REQUIRE( propertyValues.size() == 2 );
-
-        auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
-        AssertValidMoveStrings(propertySingleValue1, SgfcPropertyType::AA, rawValue1, moveValue1);
-        auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
-        AssertValidMoveStrings(propertySingleValue2, SgfcPropertyType::AA, rawValue2, moveValue2);
-      }
-    }
-  }
 }
 
 SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a composed value type", "[parsing]" )
