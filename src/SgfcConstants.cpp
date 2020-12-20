@@ -135,38 +135,6 @@ namespace LibSgfcPlusPlus
     { "KM", SgfcPropertyType::KM },
     { "TB", SgfcPropertyType::TB },
     { "TW", SgfcPropertyType::TW },
-
-    // Game of Backgammon properties
-    { "CO", SgfcPropertyType::CO },
-    { "CV", SgfcPropertyType::CV },
-    { "DI", SgfcPropertyType::DI },
-    { "MI", SgfcPropertyType::MI },
-
-    // Game of Lines of Action properties
-    { "IY", SgfcPropertyType::IY },
-    { "SU", SgfcPropertyType::SU },
-
-    // Game of Hex properties
-    { "IS", SgfcPropertyType::IS },
-
-    // Game of Amazons properties
-    { "AA", SgfcPropertyType::AA },
-
-    // Game of Octi properties
-    { "BO", SgfcPropertyType::BO },
-    { "WO", SgfcPropertyType::WO },
-    { "NP", SgfcPropertyType::NP },
-    { "NR", SgfcPropertyType::NR },
-    { "NS", SgfcPropertyType::NS },
-    { "CS", SgfcPropertyType::CS },
-    { "MS", SgfcPropertyType::MS },
-    { "SS", SgfcPropertyType::SS },
-    { "TS", SgfcPropertyType::TS },
-    { "RP", SgfcPropertyType::RP },
-
-    // Properties for more than one game
-    { "AS", SgfcPropertyType::AS },
-    { "IP", SgfcPropertyType::IP },
   };
 
   const std::map<SgfcPropertyType, std::string> SgfcConstants::PropertyTypeToPropertyNameMap =
@@ -260,38 +228,6 @@ namespace LibSgfcPlusPlus
     { SgfcPropertyType::KM, "KM" },
     { SgfcPropertyType::TB, "TB" },
     { SgfcPropertyType::TW, "TW" },
-
-    // Game of Backgammon properties
-    { SgfcPropertyType::CO, "CO" },
-    { SgfcPropertyType::CV, "CV" },
-    { SgfcPropertyType::DI, "DI" },
-    { SgfcPropertyType::MI, "MI" },
-
-    // Game of Lines of Action properties
-    { SgfcPropertyType::IY, "IY" },
-    { SgfcPropertyType::SU, "SU" },
-
-    // Game of Hex properties
-    { SgfcPropertyType::IS, "IS" },
-
-    // Game of Amazons properties
-    { SgfcPropertyType::AA, "AA" },
-
-    // Game of Octi properties
-    { SgfcPropertyType::BO, "BO" },
-    { SgfcPropertyType::WO, "WO" },
-    { SgfcPropertyType::NP, "NP" },
-    { SgfcPropertyType::NR, "NR" },
-    { SgfcPropertyType::NS, "NS" },
-    { SgfcPropertyType::CS, "CS" },
-    { SgfcPropertyType::MS, "MS" },
-    { SgfcPropertyType::SS, "SS" },
-    { SgfcPropertyType::TS, "TS" },
-    { SgfcPropertyType::RP, "RP" },
-
-    // Properties for more than one game
-    { SgfcPropertyType::AS, "AS" },
-    { SgfcPropertyType::IP, "IP" },
   };
 
   const std::map<SgfcPropertyType, SgfcPropertyCategory> SgfcConstants::PropertyTypeToPropertyCategoryMap =
@@ -386,38 +322,6 @@ namespace LibSgfcPlusPlus
     { SgfcPropertyType::KM, SgfcPropertyCategory::GameInfo },
     { SgfcPropertyType::TB, SgfcPropertyCategory::Markup },
     { SgfcPropertyType::TW, SgfcPropertyCategory::Markup },
-
-    // Game of Backgammon properties
-    { SgfcPropertyType::CO, SgfcPropertyCategory::Setup },
-    { SgfcPropertyType::CV, SgfcPropertyCategory::Setup },
-    { SgfcPropertyType::DI, SgfcPropertyCategory::Setup },
-    { SgfcPropertyType::MI, SgfcPropertyCategory::GameInfo },
-
-    // Game of Lines of Action properties
-    { SgfcPropertyType::IY, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::SU, SgfcPropertyCategory::GameInfo },
-    
-    // Game of Hex properties
-    { SgfcPropertyType::IS, SgfcPropertyCategory::Root },
-
-    // Game of Amazons properties
-    { SgfcPropertyType::AA, SgfcPropertyCategory::Setup },
-
-    // Game of Octi properties
-    { SgfcPropertyType::BO, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::WO, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::NP, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::NR, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::NS, SgfcPropertyCategory::GameInfo },
-    { SgfcPropertyType::CS, SgfcPropertyCategory::Markup },
-    { SgfcPropertyType::MS, SgfcPropertyCategory::Markup },
-    { SgfcPropertyType::SS, SgfcPropertyCategory::Markup },
-    { SgfcPropertyType::TS, SgfcPropertyCategory::Markup },
-    { SgfcPropertyType::RP, SgfcPropertyCategory::Setup },
-
-    // Properties for more than one game
-    { SgfcPropertyType::AS, SgfcPropertyCategory::Miscellaneous },  // Lines of Action = Miscellaneous, Octi = Markup
-    { SgfcPropertyType::IP, SgfcPropertyCategory::GameInfo },       // Hex = GameInfo
 
     // Non-standard properties
     { SgfcPropertyType::Unknown, SgfcPropertyCategory::Miscellaneous },
@@ -514,38 +418,6 @@ namespace LibSgfcPlusPlus
     { SgfcPropertyType::KM, 0 },
     { SgfcPropertyType::TB, 0 },
     { SgfcPropertyType::TW, 0 },
-
-    // Game of Backgammon properties
-    { SgfcPropertyType::CO, 0 },
-    { SgfcPropertyType::CV, 0 },
-    { SgfcPropertyType::DI, 0 },
-    { SgfcPropertyType::MI, 0 },
-
-    // Game of Lines of Action properties
-    { SgfcPropertyType::IY, 0 },
-    { SgfcPropertyType::SU, 0 },
-
-    // Game of Hex properties
-    { SgfcPropertyType::IS, 0 },
-
-    // Game of Amazons properties
-    { SgfcPropertyType::AA, 0 },
-
-    // Game of Octi properties
-    { SgfcPropertyType::BO, 0 },
-    { SgfcPropertyType::WO, 0 },
-    { SgfcPropertyType::NP, 0 },
-    { SgfcPropertyType::NR, 0 },
-    { SgfcPropertyType::NS, 0 },
-    { SgfcPropertyType::CS, 0 },
-    { SgfcPropertyType::MS, 0 },
-    { SgfcPropertyType::SS, 0 },
-    { SgfcPropertyType::TS, 0 },
-    { SgfcPropertyType::RP, 0 },
-
-    // Properties for more than one game
-    { SgfcPropertyType::AS, 0 },
-    { SgfcPropertyType::IP, 0 },
 
     // Non-standard properties
     { SgfcPropertyType::Unknown, 0 },

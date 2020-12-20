@@ -1680,65 +1680,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
     }
   }
 
-  GIVEN( "The property value type is a list of composed SimpleText and SimpleText strings and the game type is not Go" )
-  {
-    WHEN( "Both SimpleText strings are valid" )
-    {
-      // We are not particularly interested in testing the correctness of value
-      // parsing, so we don't need a lot of test values
-      std::string simpleTextString1a = "foo";
-      std::string simpleTextString1b = SgfcConstants::NoneValueString;
-      std::string simpleTextString2a = ":";
-      std::string simpleTextString2b = "bar";
-      SgfcSimpleText simpleTextValue1a = "foo";
-      SgfcSimpleText simpleTextValue1b = SgfcConstants::NoneValueString;
-      SgfcSimpleText simpleTextValue2a = ":";
-      SgfcSimpleText simpleTextValue2b = "bar";
-
-      PropValue propertyValue2;
-      propertyValue2.value = const_cast<char*>(simpleTextString2a.c_str());
-      propertyValue2.value2 = const_cast<char*>(simpleTextString2b.c_str());
-      propertyValue2.next = nullptr;
-
-      PropValue propertyValue1;
-      propertyValue1.value = const_cast<char*>(simpleTextString1a.c_str());
-      propertyValue1.value2 = const_cast<char*>(simpleTextString1b.c_str());
-      propertyValue1.next = &propertyValue2;
-
-      Property sgfProperty;
-      sgfProperty.idstr = const_cast<char*>("MI");
-      sgfProperty.value = &propertyValue1;
-      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Backgammon, boardSize);
-
-      THEN( "SgfcPropertyDecoder successfully decodes the list of composed SimpleText and SimpleText strings" )
-      {
-        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::MI );
-        auto propertyValues = propertyDecoder.GetPropertyValues();
-        REQUIRE( propertyValues.size() == 2 );
-
-        REQUIRE( propertyValues.front()->IsComposedValue() == true );
-        auto propertyComposedValue1 = propertyValues.front()->ToComposedValue();
-        REQUIRE( propertyValues.back()->IsComposedValue() == true );
-        auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
-
-        auto propertySingleValue1a = propertyComposedValue1->GetValue1();
-        AssertValidSimpleTextString(propertySingleValue1a.get(), simpleTextString1a, simpleTextValue1a);
-        auto propertySingleValue1b = propertyComposedValue1->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue1b.get(), simpleTextString1b, simpleTextValue1b);
-
-        auto propertySingleValue2a = propertyComposedValue2->GetValue1();
-        AssertValidSimpleTextString(propertySingleValue2a.get(), simpleTextString2a, simpleTextValue2a);
-        auto propertySingleValue2b = propertyComposedValue2->GetValue2();
-        AssertValidSimpleTextString(propertySingleValue2b.get(), simpleTextString2b, simpleTextValue2b);
-      }
-    }
-
-    WHEN( "One of the two SimpleText strings is invalid or both SimpleText strings are invalid" )
-    {
-      // No tests because there are no invalid SimpleText strings
-    }
-  }
-
   GIVEN( "The property value type is a list of composed Stone and Point strings and the game type is not Go" )
   {
     // TODO: Implement tests. Currently no tests are implemented because it

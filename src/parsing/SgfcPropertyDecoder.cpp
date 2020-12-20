@@ -979,7 +979,6 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::BL:
       case SgfcPropertyType::OB:
       case SgfcPropertyType::TB:
-      case SgfcPropertyType::BO:
         return SgfcColor::Black;
       case SgfcPropertyType::W:
       case SgfcPropertyType::AW:
@@ -990,7 +989,6 @@ namespace LibSgfcPlusPlus
       case SgfcPropertyType::WL:
       case SgfcPropertyType::OW:
       case SgfcPropertyType::TW:
-      case SgfcPropertyType::WO:
         return SgfcColor::White;
       default:
         // If we get here the caller made a mistake. The method must only
