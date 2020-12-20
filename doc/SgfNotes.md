@@ -100,6 +100,30 @@ Run the test file `escaping.sgf` through the example program to see what your li
 
 TODO
 
+## Compressed point lists
+
+#### Game of Go
+
+libsgfc++ has first class support for compressed point lists if the game type is Go. See the corresponding section in the "Go support" section below for details.
+
+#### Other games
+
+If the game type is not Go, however, support for compressed point lists is only very limited, because libsgfc++ does not know how Point values are structured for non-Go games.
+
+When reading SGF content libsgfc++ makes rectangles that it detects in point list property values available as `ISgfcComposedPropertyValue` objects consisting of two `ISgfcPointPropertyValue` objects. libsgfc++ makes no attempt to expand such rectangles, this is the responsibility of the library client.
+
+When writing SGF content libsgfc++ writes out point list property values in the document object tree as-is. libsgfc++ makes no attempt to compress point lists, this is the responsibility of the library client.
+
+The SGF standard specifies that "[...] points have to be unique, i.e. overlap and duplication are forbidden". libsgfc++ makes no attempt at enforcing this restriction, neither when reading nor when writing SGF content.
+
+**Important:** All of the above is also valid for properties that have a "stone list" value type (e.g. "AB"). The only difference is that when it detects a rectangle value in a stone list property libsgfc++ makes it available as `ISgfcComposedPropertyValue` object consisting of two `ISgfcStonePropertyValue` objects. This behaviour of libsgfc++ ist not conforming to the SGF standard and may change in the future.
+
+#### Test cases
+
+Run the test file `compressed-point-list.sgf` through the example program to see what your library client will get from libsgfc++ in various scenarios.
+
+    ./build/example/libsgfcplusplus-example docread test/test-files/compressed-point-list.sgf
+
 ## Go support
 
 #### Go-specific C++ types
@@ -133,6 +157,8 @@ When it writes SGF content and the game type is Go (GM[1]) libsgfc++ behaves in 
 - When the library client specifies the argument `SgfcArgumentType::ExpandCompressedPointLists`, libsgfc++ automatially expands compressed point lists, and leaves already expanded point lists alone so they remain expanded.
 
 When libsgfc++ expands a compressed point list it normalizes the resulting expanded point list. When libsgfc++ compresses an expanded point list it does so in the most efficient way. This means that in roundtrip processing, when SGF content is first read and then written, it is impossible to preserve the original format in all cases.
+
+**Important:** Since Go does not have a distinguishable set of game pieces (all stones look and behave the same) the SGF standard allows the Stone value type to be the same as the Point value type. As a consequence properties that have a "stone list" value type (e.g. "AB") also support point list compression, and all of the above is also valid for "stone list" properties. The only difference is that when `ISgfcDocumentReader` reads SGF content the resulting object tree contains `ISgfcStonePropertyValue` objects.
 
 #### The "KI" and "KM" properties
 

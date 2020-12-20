@@ -366,6 +366,10 @@ namespace LibSgfcPlusPlus
     /// compressed format. If you are concerned about compatibility to old
     /// applications you should specify this argument to avoid compressed point
     /// lists.
+    ///
+    /// @note After reading in SGF content point lists are always made
+    /// available to the library client in uncompressed form in the document
+    /// object tree.
     ExpandCompressedPointLists,
 
     /// @brief Select how to determine the character encoding(s) used to decode

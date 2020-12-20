@@ -56,6 +56,8 @@ namespace LibSgfcPlusPlus
     new SgfcPropertyComposedValueTypeDescriptor(DescriptorSimpleText, DescriptorSimpleText));
   const std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedPointAndPoint = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
     new SgfcPropertyComposedValueTypeDescriptor(DescriptorPoint, DescriptorPoint));
+  const std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedStoneAndStone = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
+    new SgfcPropertyComposedValueTypeDescriptor(DescriptorStone, DescriptorStone));
   const std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedPointAndSimpleText = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
     new SgfcPropertyComposedValueTypeDescriptor(DescriptorPoint, DescriptorSimpleText));
   const std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedNumberAndSimpleText = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(

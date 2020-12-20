@@ -1,0 +1,27 @@
+This SGF file demonstrates various things related to compressed point lists
+- The first game tree has game type 1, i.e. Go. This demonstrates two things:
+  - A Point list (MA property) is automatically uncompressed.
+  - A Stone list (AB property) is automatically uncompressed, too. The reason
+    for this is that Go doesn't have a distinguishable set of game pieces, so
+    according to the SGF standard the Stone value type is reduced to the Point
+    value type. A Stone list therefore becomes a Point list.
+- The second game tree has game type that is not 1, i.e. not Go. This
+  demonstrates two things:
+  - A Point list (MA property) is no longer automatically uncompressed, but
+    the rectangle corners are made available as two separate Point values of a
+    composed value.
+  - A Stone list (AB property) is treated just like a Point list, in the same
+    way as it happens for Go, so here the rectangle corners are also made
+    available as a value composed of two Points. This does not conform to the
+    SGF standard because game types other than Go may well have distinguishable
+    game pieces.
+(
+;FF[4]GM[1]
+;MA[aa:bb]
+;AB[cc:dd]
+)
+(
+;FF[4]GM[19]
+;MA[ee:ff]
+;AB[gg:hh]
+)

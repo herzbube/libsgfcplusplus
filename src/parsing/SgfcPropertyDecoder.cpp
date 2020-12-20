@@ -43,12 +43,8 @@
 #include "../game/SgfcGameUtility.h"
 #include "../SgfcPrivateConstants.h"
 #include "../SgfcUtility.h"
-#include "propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
-#include "propertyvaluetypedescriptor/SgfcPropertyComposedValueTypeDescriptor.h"
-#include "propertyvaluetypedescriptor/SgfcPropertyDualValueTypeDescriptor.h"
-#include "propertyvaluetypedescriptor/SgfcPropertyElistValueTypeDescriptor.h"
-#include "propertyvaluetypedescriptor/SgfcPropertyListValueTypeDescriptor.h"
 #include "SgfcPropertyDecoder.h"
+#include "SgfcPropertyValueTypeDescriptorConstants.h"
 #include "SgfcValueConverter.h"
 
 // SGFC includes
@@ -432,10 +428,41 @@ namespace LibSgfcPlusPlus
   {
     std::vector<std::shared_ptr<ISgfcPropertyValue>> propertyValues;
 
+    // The SGF standard defines that if a property's value type is
+    // "list of point" or "elist of point" then its values may be compressed.
+    // If the game type is Go then SGFC expands any rectangles for us and
+    // provides us with individual Point values. For other game types SGFC does
+    // no expanding, but it splits the rectangle value into two values inside
+    // a composed value. If we only look at elementValueTypeDescriptor, then
+    // a composed value is not what we expect. We therefore have to inspect
+    // each property value whether it's a single value or a composed value.
+    // We also have to do this for "list of stone" and "elist of stone", because
+    // SGFC gives those the same treatment as point lists (although this is
+    // not strictly standard-conforming).
+    bool inspectPropertyValueForCompressedPointList = false;
+    std::shared_ptr<ISgfcPropertyValueFactory> propertyValueFactory;
+    std::shared_ptr<ISgfcPropertyValueTypeDescriptor> elementValueTypeDescriptorCompressedPointList;
+    if (elementValueTypeDescriptor->GetDescriptorType() == SgfcPropertyValueTypeDescriptorType::BasicValueType &&
+        (elementValueTypeDescriptor->ToBasicValueTypeDescriptor()->GetValueType() == SgfcPropertyValueType::Point ||
+         elementValueTypeDescriptor->ToBasicValueTypeDescriptor()->GetValueType() == SgfcPropertyValueType::Stone) &&
+        this->propertyMetaInfo->GetGameType() != SgfcGameType::Go)
+    {
+      inspectPropertyValueForCompressedPointList = true;
+      propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+      if (elementValueTypeDescriptor->ToBasicValueTypeDescriptor()->GetValueType() == SgfcPropertyValueType::Point)
+        elementValueTypeDescriptorCompressedPointList = SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedPointAndPoint;
+      else
+        elementValueTypeDescriptorCompressedPointList = SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedStoneAndStone;
+    }
+
     while (sgfPropertyValue)
     {
-      std::shared_ptr<ISgfcPropertyValue> propertyValue =
-        GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
+      std::shared_ptr<ISgfcPropertyValue> propertyValue;
+
+      if (inspectPropertyValueForCompressedPointList && sgfPropertyValue->value2 != nullptr)
+        propertyValue = GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptorCompressedPointList);
+      else
+        propertyValue = GetSgfcPropertyValueFromSgfPropertyValue(sgfPropertyValue, elementValueTypeDescriptor);
 
       propertyValues.push_back(propertyValue);
 

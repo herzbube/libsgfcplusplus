@@ -56,6 +56,8 @@ using namespace LibSgfcPlusPlus;
 void AssertValidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, SgfcNumber expectedNumberValue);
 void AssertInvalidNumberString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue);
 void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& expectedRawValue, const SgfcSimpleText& expectedParsedValue);
+void AssertValidPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue);
+void AssertValidStoneString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcStone& stoneValue);
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition);
 void AssertValidGoPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition);
 void AssertInvalidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue);
@@ -1415,7 +1417,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
     }
   }
 
-  GIVEN( "The property value type is List of Points" )
+  GIVEN( "The property value type is List of Points and the game type is Go" )
   {
     WHEN( "The property values are decoded" )
     {
@@ -1448,6 +1450,89 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a list typ
         AssertValidGoPointString(propertySingleValue1, rawValueSgfNotation1, pointValueSgfNotation1, 1, 1);
         auto propertySingleValue2 = propertyValues.back()->ToSingleValue();
         AssertValidGoPointString(propertySingleValue2, rawValueSgfNotation2, pointValueSgfNotation2, 2, 2);
+      }
+    }
+  }
+
+  GIVEN( "The property value type is List of Points and the game type is not Go and the property values contain rectangles" )
+  {
+    WHEN( "The property values are decoded" )
+    {
+      std::string rawValue1 = "foo";
+      std::string rawValue2UpperLeftCorner = "bar";
+      std::string rawValue2LowerRightCorner = "baz";
+      SgfcPoint pointValue1 = rawValue1;
+      SgfcPoint pointValue2UpperLeftCorner = rawValue2UpperLeftCorner;
+      SgfcPoint pointValue2LowerRightCorner = rawValue2LowerRightCorner;
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(rawValue2UpperLeftCorner.c_str());
+      propertyValue2.value2 = const_cast<char*>(rawValue2LowerRightCorner.c_str());
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(rawValue1.c_str());
+      propertyValue1.value2 = nullptr;
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("AE");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Amazons, SgfcConstants::BoardSizeNone);
+
+      THEN( "SgfcPropertyDecoder inspects property values for rectangles" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AE );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+        auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
+        AssertValidPointString(propertySingleValue1, rawValue1, pointValue1);
+        auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
+        REQUIRE( propertyComposedValue2 != nullptr );
+        AssertValidPointString(propertyComposedValue2->GetValue1().get(), rawValue2UpperLeftCorner, pointValue2UpperLeftCorner);
+        AssertValidPointString(propertyComposedValue2->GetValue2().get(), rawValue2LowerRightCorner, pointValue2LowerRightCorner);
+      }
+    }
+  }
+
+
+  GIVEN( "The property value type is List of Stones and the game type is not Go and the property values contain rectangles" )
+  {
+    WHEN( "The property values are decoded" )
+    {
+      std::string rawValue1 = "foo";
+      std::string rawValue2UpperLeftCorner = "bar";
+      std::string rawValue2LowerRightCorner = "baz";
+      SgfcStone stoneValue1 = rawValue1;
+      SgfcStone stoneValue2UpperLeftCorner = rawValue2UpperLeftCorner;
+      SgfcStone stoneValue2LowerRightCorner = rawValue2LowerRightCorner;
+
+      PropValue propertyValue2;
+      propertyValue2.value = const_cast<char*>(rawValue2UpperLeftCorner.c_str());
+      propertyValue2.value2 = const_cast<char*>(rawValue2LowerRightCorner.c_str());
+      propertyValue2.next = nullptr;
+
+      PropValue propertyValue1;
+      propertyValue1.value = const_cast<char*>(rawValue1.c_str());
+      propertyValue1.value2 = nullptr;
+      propertyValue1.next = &propertyValue2;
+
+      Property sgfProperty;
+      sgfProperty.idstr = const_cast<char*>("AB");
+      sgfProperty.value = &propertyValue1;
+      SgfcPropertyDecoder propertyDecoder(&sgfProperty, SgfcGameType::Amazons, SgfcConstants::BoardSizeNone);
+
+      THEN( "SgfcPropertyDecoder inspects property values for rectangles" )
+      {
+        REQUIRE( propertyDecoder.GetPropertyType() == SgfcPropertyType::AB );
+        auto propertyValues = propertyDecoder.GetPropertyValues();
+        REQUIRE( propertyValues.size() == 2 );
+        auto propertySingleValue1 = propertyValues.front()->ToSingleValue();
+        AssertValidStoneString(propertySingleValue1, rawValue1, stoneValue1);
+        auto propertyComposedValue2 = propertyValues.back()->ToComposedValue();
+        REQUIRE( propertyComposedValue2 != nullptr );
+        AssertValidStoneString(propertyComposedValue2->GetValue1().get(), rawValue2UpperLeftCorner, stoneValue2UpperLeftCorner);
+        AssertValidStoneString(propertyComposedValue2->GetValue2().get(), rawValue2LowerRightCorner, stoneValue2LowerRightCorner);
       }
     }
   }
@@ -2063,6 +2148,32 @@ void AssertValidSimpleTextString(const ISgfcSinglePropertyValue* propertySingleV
   auto simpleTextValue = propertySingleValue->ToSimpleTextValue();
   REQUIRE( simpleTextValue != nullptr );
   REQUIRE( simpleTextValue->GetSimpleTextValue() == expectedParsedValue );
+}
+
+void AssertValidPointString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcPoint& pointValue)
+{
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Point );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto pointValueObject = propertySingleValue->ToPointValue();
+  REQUIRE( pointValueObject != nullptr );
+  REQUIRE( pointValueObject->GetPointValue() == pointValue );
+  auto goPointValue = pointValueObject->ToGoPointValue();
+  REQUIRE( goPointValue == nullptr );
+}
+
+void AssertValidStoneString(const ISgfcSinglePropertyValue* propertySingleValue, const std::string& rawValue, const SgfcStone& stoneValue)
+{
+  REQUIRE( propertySingleValue->GetRawValue() == rawValue );
+  REQUIRE( propertySingleValue->GetTypeConversionErrorMessage().size() == 0 );
+  REQUIRE( propertySingleValue->GetValueType() == SgfcPropertyValueType::Stone );
+  REQUIRE( propertySingleValue->HasTypedValue() == true );
+  auto stoneValueObject = propertySingleValue->ToStoneValue();
+  REQUIRE( stoneValueObject != nullptr );
+  REQUIRE( stoneValueObject->GetStoneValue() == stoneValue );
+  auto goStoneValue = stoneValueObject->ToGoStoneValue();
+  REQUIRE( goStoneValue == nullptr );
 }
 
 void AssertValidGoPointStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcPoint& pointValue, int xPosition, int yPosition)
