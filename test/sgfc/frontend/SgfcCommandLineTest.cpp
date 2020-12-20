@@ -84,7 +84,7 @@ SCENARIO( "SgfcCommandLine is constructed", "[frontend]" )
         {
           std::vector<std::shared_ptr<ISgfcArgument>>
           {
-            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
           }, SgfcMessageID::BadCommandLineOptionParameter
         }
       );
@@ -121,7 +121,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from the filesystem", "[frontend][f
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
 
@@ -276,7 +276,7 @@ SCENARIO( "SgfcCommandLine loads SGF content from a string", "[frontend]" )
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
 
@@ -405,7 +405,7 @@ SCENARIO( "SgfcCommandLine saves SGF content to the filesystem", "[frontend][fil
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
     std::string sgfContent;
@@ -523,7 +523,7 @@ SCENARIO( "SgfcCommandLine saves SGF content to a string", "[frontend]" )
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcCommandLine commandLine(invalidCommandLineArguments);
 

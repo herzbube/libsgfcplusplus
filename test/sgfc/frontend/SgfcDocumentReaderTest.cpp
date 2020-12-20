@@ -276,7 +276,7 @@ SCENARIO("The read operation behaviour is changed by arguments", "[frontend]")
 
   GIVEN( "The arguments are invalid" )
   {
-    reader.GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
+    reader.GetArguments()->AddArgument(SgfcArgumentType::HardLineBreakMode, 42);
 
     WHEN( "SgfcDocumentReader performs the read operation" )
     {

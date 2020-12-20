@@ -948,10 +948,10 @@ namespace LibSgfcPlusPlus
       std::make_tuple(SgfcArgumentType::DeletePropertyType, static_cast<SgfcPropertyType>(-1)),
       std::make_tuple(SgfcArgumentType::DeletePropertyType, static_cast<SgfcPropertyType>(1000)),
       // Arguments that do not require an SgfcPropertyType parameter
-      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, SgfcPropertyType::BO),
-      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcPropertyType::BO),
-      std::make_tuple(SgfcArgumentType::DefaultEncoding, SgfcPropertyType::BO),
-      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcPropertyType::BO)
+      std::make_tuple(SgfcArgumentType::DeleteEmptyNodes, SgfcPropertyType::GM),
+      std::make_tuple(SgfcArgumentType::BeginningOfSgfData, SgfcPropertyType::GM),
+      std::make_tuple(SgfcArgumentType::DefaultEncoding, SgfcPropertyType::GM),
+      std::make_tuple(SgfcArgumentType::DisableMessageID, SgfcPropertyType::GM)
     };
 
     return testData;

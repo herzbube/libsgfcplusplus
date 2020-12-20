@@ -245,7 +245,7 @@ SCENARIO("The write operation behaviour is changed by arguments", "[frontend]")
 
   GIVEN( "The arguments are invalid" )
   {
-    writer.GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
+    writer.GetArguments()->AddArgument(SgfcArgumentType::HardLineBreakMode, 42);
 
     WHEN( "SgfcDocumentReader performs the read operation" )
     {

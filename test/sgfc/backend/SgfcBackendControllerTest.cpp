@@ -110,7 +110,7 @@ SCENARIO( "SgfcBackendController is constructed", "[backend]" )
         {
           std::vector<std::shared_ptr<ISgfcArgument>>
           {
-            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+            std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
           }, SgfcMessageID::BadCommandLineOptionParameter
         }
       );
@@ -147,7 +147,7 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcBackendController backendController(invalidCommandLineArguments);
 
@@ -385,7 +385,7 @@ SCENARIO( "SgfcBackendController saves SGF content to the filesystem", "[backend
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcBackendController backendController(invalidCommandLineArguments);
     std::string contentBuffer;
@@ -460,7 +460,7 @@ SCENARIO( "SgfcBackendController saves SGF content to a string", "[backend]" )
   {
     std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
     {
-      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
     };
     SgfcBackendController backendController(invalidCommandLineArguments);
     std::string contentBuffer;
