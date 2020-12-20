@@ -43,6 +43,16 @@ The EBNF in the SGF standard says that a property must have at least one value. 
 
 In the libsgfc++ object model, however, a "None" value is not an empty string. Instead it is translated to an empty collection of property values. In other words, if a property has no values the method `ISgfcProperty::GetPropertyValues()` returns a collection with zero elements.
 
+## Pre-FF4 properties
+
+By default libsgfc++ handles properties that existed in SGF standards before version 4, but were removed from SGF standard 4, as follows:
+
+- Property "L" is converted to "LB"
+- Property "M" is converted to "MA"
+- All other pre-FF4 properties are processed and passed on to the library client without conversion. These are the properties: "BS", "CH", "EL", "EX", "ID", "LT", "OM", "OP", "OV", "RG", "SC", "SE", "SI", "TC" and "WS"
+
+Library clients that do not want to see pre-FF4 properties can use `SgfcArgumentType::DeleteObsoleteProperties` when they read in SGF content. This does not prevent the conversion of the properties "L" and "M" to their modern FF4 counterparts "LB" and "MA. Library clients that do not want these conversions to occur must use `SgfcArgumentType::DeletePropertyType` to explicitly delete these properties.
+
 ## Property value validation
 
 libsgfc++ makes no attempt to check the validity of property values assigned to a property with, for instance, `ISgfcProperty::SetPropertyValues()`.
