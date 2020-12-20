@@ -217,6 +217,10 @@ namespace LibSgfcPlusPlus
     /// @a delimiter as the delimiter.
     static std::vector<std::string> SplitString(const std::string& string, char delimiter);
 
+    /// @brief Splits @a string into substrings using the string @a delimiter
+    /// as the delimiter.
+    static std::vector<std::string> SplitString(const std::string& string, const std::string& delimiter);
+
     /// @brief Returns a newly generated random UUID.
     static std::string CreateUuid();
 

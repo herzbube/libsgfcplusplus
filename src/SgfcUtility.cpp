@@ -341,6 +341,11 @@ namespace LibSgfcPlusPlus
 
   std::vector<std::string> SgfcUtility::SplitString(const std::string& string, char delimiter)
   {
+    return SplitString(string, std::string(1, delimiter));
+  }
+
+  std::vector<std::string> SgfcUtility::SplitString(const std::string& string, const std::string& delimiter)
+  {
     std::vector<std::string> substrings;
 
     const size_t length = string.length();
