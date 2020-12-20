@@ -90,6 +90,7 @@ set (
   interface/public/ISgfcTreeBuilder.cpp
   parsing/SgfcDocumentEncoder.cpp
   parsing/SgfcPropertyDecoder.cpp
+  parsing/SgfcPropertyValueTypeDescriptorConstants.cpp
   parsing/SgfcValueConverter.cpp
   parsing/propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.cpp
   parsing/propertyvaluetypedescriptor/SgfcPropertyComposedValueTypeDescriptor.cpp
@@ -156,6 +157,7 @@ set (
   interface/internal/SgfcPropertyValueTypeDescriptorType.h
   parsing/SgfcDocumentEncoder.h
   parsing/SgfcPropertyDecoder.h
+  parsing/SgfcPropertyValueTypeDescriptorConstants.h
   parsing/SgfcSinglePropertyValueContext.h
   parsing/SgfcValueConverter.h
   parsing/propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h

@@ -15,11 +15,7 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
-#include "../parsing/propertyvaluetypedescriptor/SgfcPropertyBasicValueTypeDescriptor.h"
-#include "../parsing/propertyvaluetypedescriptor/SgfcPropertyComposedValueTypeDescriptor.h"
-#include "../parsing/propertyvaluetypedescriptor/SgfcPropertyDualValueTypeDescriptor.h"
-#include "../parsing/propertyvaluetypedescriptor/SgfcPropertyElistValueTypeDescriptor.h"
-#include "../parsing/propertyvaluetypedescriptor/SgfcPropertyListValueTypeDescriptor.h"
+#include "../parsing/SgfcPropertyValueTypeDescriptorConstants.h"
 #include "SgfcPropertyMetaInfo.h"
 
 // C++ Standard Library includes
@@ -28,82 +24,6 @@
 
 namespace LibSgfcPlusPlus
 {
-  // ----------------------------------------------------------------------
-  // The constants below are kept here instead of in SgfcPrivateConstants.cpp
-  // because their scope is extremely narrow, they are used only by the
-  // SgfcPropertyMetaInfo class. If the constants were in SgfcPrivateConstants
-  // they would have to be exposed in the header file SgfcPrivateConstants.h.
-  // Not only would this increase the size of the header file by quite a margin,
-  // it would also make a number of types visible to parts of the library that
-  // are not interested in value type descriptors at all.
-  // ----------------------------------------------------------------------
-
-  // Basic value type descriptors
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorNone = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::None));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorNumber = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Number));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorReal = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Real));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorDouble = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Double));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorColor = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Color));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorSimpleText = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::SimpleText));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorText = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Text));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorPoint = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Point));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorMove = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Move));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorStone = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Stone));
-  std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor> DescriptorUnknown = std::shared_ptr<SgfcPropertyBasicValueTypeDescriptor>(
-    new SgfcPropertyBasicValueTypeDescriptor(SgfcPropertyValueType::Unknown));
-
-  // List value type descriptors, consisting of only basic value type descriptors
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorPoint));
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfStone = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorStone));
-
-  // Composed value type descriptors
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedNumberAndNumber = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorNumber, DescriptorNumber));
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedSimpleTextAndSimpleText = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorSimpleText, DescriptorSimpleText));
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedPointAndPoint = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorPoint, DescriptorPoint));
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedPointAndSimpleText = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorPoint, DescriptorSimpleText));
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedNumberAndSimpleText = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorNumber, DescriptorSimpleText));
-  std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor> DescriptorComposedStoneAndPoint = std::shared_ptr<SgfcPropertyComposedValueTypeDescriptor>(
-    new SgfcPropertyComposedValueTypeDescriptor(DescriptorPoint, DescriptorStone));
-
-  // List value type descriptors, consisting of composed value type descriptors
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfComposedPointAndSimpleText = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorComposedPointAndSimpleText));
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfComposedStoneAndPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorComposedStoneAndPoint));
-  std::shared_ptr<SgfcPropertyListValueTypeDescriptor> DescriptorListOfComposedPointAndPoint = std::shared_ptr<SgfcPropertyListValueTypeDescriptor>(
-    new SgfcPropertyListValueTypeDescriptor(DescriptorComposedPointAndPoint));
-
-  // Dual value type descriptors
-  std::shared_ptr<SgfcPropertyDualValueTypeDescriptor> DescriptorNumberOrComposedNumberAndNumber = std::shared_ptr<SgfcPropertyDualValueTypeDescriptor>(
-    new SgfcPropertyDualValueTypeDescriptor(DescriptorNumber, DescriptorComposedNumberAndNumber));
-  std::shared_ptr<SgfcPropertyDualValueTypeDescriptor> DescriptorNoneOrComposedNumberAndSimpleText = std::shared_ptr<SgfcPropertyDualValueTypeDescriptor>(
-    new SgfcPropertyDualValueTypeDescriptor(DescriptorNone, DescriptorComposedNumberAndSimpleText));
-
-  // Elist value type descriptors
-  std::shared_ptr<SgfcPropertyElistValueTypeDescriptor> DescriptorElistOfPoint = std::shared_ptr<SgfcPropertyElistValueTypeDescriptor>(
-    new SgfcPropertyElistValueTypeDescriptor(DescriptorListOfPoint));
-
-  // ----------------------------------------------------------------------
-  // End of constants
-  // ----------------------------------------------------------------------
-
   SgfcPropertyMetaInfo::SgfcPropertyMetaInfo(SgfcPropertyType propertyType, SgfcGameType gameType)
     : propertyType(propertyType)
     , gameType(gameType)
@@ -177,210 +97,210 @@ namespace LibSgfcPlusPlus
       // Standard properties from FF4
       // ----------------------------------------------------------------------
       case SgfcPropertyType::B:
-        return DescriptorMove;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorMove;
       case SgfcPropertyType::KO:
-        return DescriptorNone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNone;
       case SgfcPropertyType::MN:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::W:
-        return DescriptorMove;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorMove;
 
       case SgfcPropertyType::AB:
-        return DescriptorListOfStone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfStone;
       case SgfcPropertyType::AE:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::AW:
-        return DescriptorListOfStone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfStone;
       case SgfcPropertyType::PL:
-        return DescriptorColor;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorColor;
 
       case SgfcPropertyType::C:
-        return DescriptorText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorText;
       case SgfcPropertyType::DM:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::GB:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::GW:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::HO:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::N:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::UC:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::V:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
 
       case SgfcPropertyType::BM:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::DO:
-        return DescriptorNone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNone;
       case SgfcPropertyType::IT:
-        return DescriptorNone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNone;
       case SgfcPropertyType::TE:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
 
       case SgfcPropertyType::AR:
-        return DescriptorListOfComposedPointAndPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfComposedPointAndPoint;
       case SgfcPropertyType::CR:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::DD:
-        return DescriptorElistOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorElistOfPoint;
       case SgfcPropertyType::LB:
-        return DescriptorListOfComposedPointAndSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfComposedPointAndSimpleText;
       case SgfcPropertyType::LN:
-        return DescriptorListOfComposedPointAndPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfComposedPointAndPoint;
       case SgfcPropertyType::MA:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::SL:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::SQ:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::TR:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
 
       case SgfcPropertyType::AP:
-        return DescriptorComposedSimpleTextAndSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorComposedSimpleTextAndSimpleText;
       case SgfcPropertyType::CA:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::FF:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::GM:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::ST:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::SZ:
-        return DescriptorNumberOrComposedNumberAndNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumberOrComposedNumberAndNumber;
 
       case SgfcPropertyType::AN:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::BR:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::BT:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::CP:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::DT:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::EV:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::GC:
-        return DescriptorText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorText;
       case SgfcPropertyType::GN:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::ON:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::OT:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::PB:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::PC:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::PW:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::RE:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::RO:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::RU:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::SO:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::TM:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
       case SgfcPropertyType::US:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::WR:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
       case SgfcPropertyType::WT:
-        return DescriptorSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorSimpleText;
 
       case SgfcPropertyType::BL:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
       case SgfcPropertyType::OB:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::OW:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::WL:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
 
       case SgfcPropertyType::FG:
-        return DescriptorNoneOrComposedNumberAndSimpleText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNoneOrComposedNumberAndSimpleText;
       case SgfcPropertyType::PM:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::VW:
-        return DescriptorElistOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorElistOfPoint;
 
       // ----------------------------------------------------------------------
       // Standard properties from FF1-3
       // ----------------------------------------------------------------------
       case SgfcPropertyType::BS:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::CH:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::EL:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::EX:
-        return DescriptorMove;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorMove;
       case SgfcPropertyType::ID:
-        return DescriptorText;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorText;
       case SgfcPropertyType::L:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::LT:
-        return DescriptorNone;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNone;
       case SgfcPropertyType::M:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::OM:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::OP:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
       case SgfcPropertyType::OV:
-        return DescriptorReal;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
       case SgfcPropertyType::RG:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::SC:
-        return DescriptorListOfPoint;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::SE:
         if (this->gameType == SgfcGameType::LinesOfAction)
-          return DescriptorPoint;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorPoint;
         else
-          return DescriptorListOfPoint;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorListOfPoint;
       case SgfcPropertyType::SI:
-        return DescriptorDouble;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorDouble;
       case SgfcPropertyType::TC:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
       case SgfcPropertyType::WS:
-        return DescriptorNumber;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
 
       // ----------------------------------------------------------------------
       // Game of Go properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::HA:
         if (this->gameType == SgfcGameType::Go)
-          return DescriptorNumber;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorNumber;
         else
-          return DescriptorUnknown;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorUnknown;
       case SgfcPropertyType::KM:
         if (this->gameType == SgfcGameType::Go)
-          return DescriptorReal;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorReal;
         else
-          return DescriptorUnknown;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorUnknown;
       case SgfcPropertyType::TB:
         if (this->gameType == SgfcGameType::Go)
-          return DescriptorElistOfPoint;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorElistOfPoint;
         else
-          return DescriptorUnknown;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorUnknown;
       case SgfcPropertyType::TW:
         if (this->gameType == SgfcGameType::Go)
-          return DescriptorElistOfPoint;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorElistOfPoint;
         else
-          return DescriptorUnknown;
+          return SgfcPropertyValueTypeDescriptorConstants::DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // Non-standard properties
       // ----------------------------------------------------------------------
       case SgfcPropertyType::Unknown:
-        return DescriptorUnknown;
+        return SgfcPropertyValueTypeDescriptorConstants::DescriptorUnknown;
 
       // ----------------------------------------------------------------------
       // If we get here a "case" statement is missing
