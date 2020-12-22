@@ -299,6 +299,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
     }
   }
 
+#ifndef _WIN32
   GIVEN( "The SGF content is encoded with a multi-byte encoding and contains characters from a non-latin character set" )
   {
     unsigned char sgfContentBuffer[] =
@@ -324,6 +325,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
       }
     }
   }
+#endif
 
   GIVEN( "The SGF content is encoded with the default encoding and the CA property is missing" )
   {
@@ -355,6 +357,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
     }
   }
 
+#ifndef _WIN32
   GIVEN( "The SGF content is encoded with a non-default encoding and the CA property is missing" )
   {
     unsigned char sgfContentBuffer[] =
@@ -383,6 +386,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 1, CA tests", "
       }
     }
   }
+#endif
 
   GIVEN( "The SGF content is encoded with an encoding that is not the same as the encoding in the CA property" )
   {
@@ -579,6 +583,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 3", "[frontend]
 {
   auto reader = SgfcPlusPlusFactory::CreateDocumentReader();
 
+#ifndef _WIN32
   GIVEN( "The SGF content is encoded with an encoding that is not the same as the encoding in the CA property" )
   {
     unsigned char sgfContentBuffer[] =
@@ -605,6 +610,7 @@ SCENARIO( "SGF content is decoded for reading with encoding mode 3", "[frontend]
       }
     }
   }
+#endif
 }
 
 SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" )
