@@ -1,0 +1,88 @@
+# The name should be a single word because the name is shown by the build
+# status badge we display in the README.
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build, test and dummy-install
+
+    # Build matrix notes:
+    # - Since this is a cross-platform library we want to build on all three of
+    #   the major operating systems.
+    # - We use the *-latest runners because we strive to build with relatively
+    #   new versions of each environment that have modern compilers (we need at
+    #   least C++17, see CMakeLists.txt) and tools.
+    # - As of writing this all of the *-latest runners use CMake 3.19.1.
+    # - The library should not only be cross-platform, it should also not rely
+    #   on any particular compiler. On macOS the clang compiler is used
+    #   (AppleClang), on Ubuntu the default is GNU GCC, and on Windows it's
+    #   MSVC.
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    steps:
+    - name: Checking out the sources
+      uses: actions/checkout@v2
+      with:
+        submodules: true
+
+    - name: Generate build system (macOS and Ubuntu)
+      run: |
+        mkdir build
+        cd build
+        # We specify the configuration for single-configuration build systems
+        # like make. For multi-configuration build systems like Visual Studio
+        # this has no effect (it generates a CMake warning in the build output).
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+      if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
+
+    - name: Generat build system (Windows)
+      run: |
+        mkdir build
+        cd build
+        # Setting CMAKE_SYSTEM_VERSION defines the Windows SDK that CMake should
+        # use for the build. We have to do this in order to override the
+        # Windows SDK that CMake would select on its own. The default Windows SDK
+        # on the windows-latest runner is currently 10.0.17763.0, and for unknown
+        # reasons that SDK version breaks the build. The symptoms are many C5105
+        # warnings, and eventually also some compiler errors. Windows SDK
+        # 10.0.18362.0 is a version that is known to work and that is also known
+        # to be installed on the windows-latest runner.
+        cmake -DCMAKE_SYSTEM_VERSION="10.0.18362.0" ..
+      if: matrix.os == 'windows-latest'
+
+    - name: Build the project
+      run: |
+        cd build
+        # Specify the configuration for multi-configuration build systems like
+        # VisualStudio. For single-configuration build systems this would not be
+        # necessary since we specified the configuration already when the build
+        # system was generated.
+        cmake --build . --config Release
+
+    - name: Test the build (macOS and Ubuntu)
+      run: |
+        cd build
+        # Execute unit tests. We could run "ctest", but invoking the Catch2 test
+        # runner directly provides better feedback.
+        ./test/libsgfcplusplus-test
+      if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
+
+    - name: Test the build (Windows)
+      run: |
+        cd build
+        # Execute unit tests. We could run "ctest", but invoking the Catch2 test
+        # runner directly provides better feedback.
+        ./test/Release/libsgfcplusplus-test
+      if: matrix.os == 'windows-latest'
+
+    - name: Install the build
+      run: |
+        cd build
+        # Perform a dummy deploy to test the CMake install routine.
+        # See comment above re: use of --config option.
+        cmake --install . --config Release --prefix install

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/herzbube/libsgfcplusplus.svg?branch=master)](https://travis-ci.com/herzbube/libsgfcplusplus)
+[![Build Status](https://github.com/herzbube/libsgfcplusplus/workflows/build/badge.svg)](https://github.com/herzbube/libsgfcplusplus/actions?query=workflow%3Abuild)
 [![Github Releases](https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/releases)
 [![Github Releases](https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE)
 
