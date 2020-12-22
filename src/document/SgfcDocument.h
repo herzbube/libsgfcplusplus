@@ -64,6 +64,7 @@ namespace LibSgfcPlusPlus
     virtual bool IsEmpty() const override;
 
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const override;
+    virtual std::shared_ptr<ISgfcGame> GetGame() const override;
     virtual void SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games) override;
     virtual void AppendGame(std::shared_ptr<ISgfcGame> game) override;
     virtual void RemoveGame(std::shared_ptr<ISgfcGame> game) override;

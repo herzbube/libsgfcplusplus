@@ -193,6 +193,14 @@ namespace LibSgfcPlusPlus
     return this->games;
   }
 
+  std::shared_ptr<ISgfcGame> SgfcDocument::GetGame() const
+  {
+    if (this->games.size() > 0)
+      return this->games.front();
+    else
+      return nullptr;
+  }
+
   void SgfcDocument::SetGames(const std::vector<std::shared_ptr<ISgfcGame>>& games)
   {
     std::set<std::shared_ptr<ISgfcGame>> uniqueGames(games.begin(), games.end());

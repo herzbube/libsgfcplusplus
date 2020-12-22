@@ -57,6 +57,7 @@ SCENARIO( "SgfcDocument is constructed", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
   }
@@ -87,6 +88,7 @@ SCENARIO( "SgfcDocument is constructed", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
@@ -122,6 +124,7 @@ SCENARIO( "SgfcDocument is constructed with SGF content", "[document]" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames().size() == 1 );
+        REQUIRE( document.GetGame() != nullptr );
       }
     }
   }
@@ -143,6 +146,7 @@ SCENARIO( "SgfcDocument is constructed with SGF content", "[document]" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames().size() == 2 );
+        REQUIRE( document.GetGame() != nullptr );
       }
     }
   }
@@ -175,18 +179,21 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames() != emptyGameList );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
     WHEN( "SgfcDocument is configured with a non-empty game list" )
     {
       document.SetGames(nonEmptyGameList);
+      auto expectedFirstGame = nonEmptyGameList.front();
       nonEmptyGameList.clear();
 
       THEN( "SgfcDocument makes a copy of the game list" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames() != nonEmptyGameList );
+        REQUIRE( document.GetGame() == expectedFirstGame );
       }
     }
   }
@@ -203,6 +210,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
@@ -214,6 +222,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames().size() == 3 );
+        REQUIRE( document.GetGame() == nonEmptyGameList.front() );
       }
     }
 
@@ -227,6 +236,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
           document.SetGames(nonEmptyGameList),
           std::invalid_argument);
         REQUIRE( document.IsEmpty() == true );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
@@ -240,6 +250,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
           document.SetGames(nonEmptyGameList),
           std::invalid_argument);
         REQUIRE( document.IsEmpty() == true );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
   }
@@ -261,6 +272,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
 
     REQUIRE( document.IsEmpty() == false );
     REQUIRE( document.GetGames().size() == 2 );
+    REQUIRE( document.GetGame() != nullptr );
 
     WHEN( "SgfcDocument is configured with an empty game list" )
     {
@@ -270,6 +282,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
@@ -281,6 +294,7 @@ SCENARIO( "SgfcDocument is configured with a list of games", "[document]" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames().size() == 3 );
+        REQUIRE( document.GetGame() == nonEmptyGameList.front() );
       }
     }
   }
@@ -303,6 +317,7 @@ SCENARIO( "A game is added to SgfcDocument", "[document]" )
         auto gameList = document.GetGames();
         REQUIRE( gameList.size() == 1 );
         REQUIRE( gameList.back() == game );
+        REQUIRE( document.GetGame() == game );
       }
     }
   }
@@ -329,6 +344,7 @@ SCENARIO( "A game is added to SgfcDocument", "[document]" )
         REQUIRE( gameList.back() == game );
         gameList.pop_back();
         REQUIRE( gameList == initialGameList );
+        REQUIRE( document.GetGame() == initialGameList.front() );
       }
     }
 
@@ -340,6 +356,7 @@ SCENARIO( "A game is added to SgfcDocument", "[document]" )
           document.AppendGame(initialGameList.back()),
           std::invalid_argument);
         REQUIRE( document.GetGames() == initialGameList );
+        REQUIRE( document.GetGame() == initialGameList.front() );
       }
     }
   }
@@ -354,6 +371,7 @@ SCENARIO( "A game is added to SgfcDocument", "[document]" )
           document.AppendGame(nullptr),
           std::invalid_argument);
         REQUIRE( document.IsEmpty() == true );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
   }
@@ -386,6 +404,7 @@ SCENARIO( "A game is removed from SgfcDocument", "[document]" )
         REQUIRE( gameList.back() != gameToRemove );
         gameList.push_back(gameToRemove);
         REQUIRE( gameList == initialGameList );
+        REQUIRE( document.GetGame() == initialGameList.front() );
       }
     }
   }
@@ -403,6 +422,7 @@ SCENARIO( "A game is removed from SgfcDocument", "[document]" )
           document.RemoveGame(gameToRemove),
           std::invalid_argument);
         REQUIRE( document.GetGames() == initialGameList );
+        REQUIRE( document.GetGame() == initialGameList.front() );
       }
     }
   }
@@ -419,6 +439,7 @@ SCENARIO( "A game is removed from SgfcDocument", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
 
@@ -432,6 +453,7 @@ SCENARIO( "A game is removed from SgfcDocument", "[document]" )
       {
         REQUIRE( document.IsEmpty() == false );
         REQUIRE( document.GetGames().size() == 1 );
+        REQUIRE( document.GetGame() == initialGameList[1] );
       }
     }
   }
@@ -448,6 +470,7 @@ SCENARIO( "A game is removed from SgfcDocument", "[document]" )
           document.RemoveGame(nullptr),
           std::invalid_argument);
         REQUIRE( document.GetGames() == initialGameList );
+        REQUIRE( document.GetGame() == initialGameList.front() );
       }
     }
   }
@@ -474,6 +497,7 @@ SCENARIO( "All games are removed from SgfcDocument", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
   }
@@ -490,6 +514,7 @@ SCENARIO( "All games are removed from SgfcDocument", "[document]" )
       {
         REQUIRE( document.IsEmpty() == true );
         REQUIRE( document.GetGames().size() == 0 );
+        REQUIRE( document.GetGame() == nullptr );
       }
     }
   }

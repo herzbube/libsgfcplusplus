@@ -52,6 +52,14 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a collection of games that together make up the document.
     virtual std::vector<std::shared_ptr<ISgfcGame>> GetGames() const = 0;
 
+    /// @brief Returns the first game from the collection of games that
+    /// GetGames() returns. Returns @e nullptr if GetGames() returns an empty
+    /// collection.
+    ///
+    /// This is a convenience method which simplifies the majority of cases
+    /// where a document only contains a single game.
+    virtual std::shared_ptr<ISgfcGame> GetGame() const = 0;
+
     /// @brief Sets the collection of games that together make up the document
     /// to @a games, replacing the previous collection. @a games may not contain
     /// @e nullptr. @a games may not contain duplicates.
