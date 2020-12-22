@@ -40,6 +40,12 @@ message ( STATUS ${SEPARATOR_LINE} )
 
 # Print some information that may help with identifying build issues
 message ( STATUS "CMAKE_VERSION = ${CMAKE_VERSION}" )
+message ( STATUS "CMAKE_CXX_COMPILER_ID = ${CMAKE_CXX_COMPILER_ID}" )
+message ( STATUS "CMAKE_CXX_COMPILER_VERSION = ${CMAKE_CXX_COMPILER_VERSION}" )
+message ( STATUS "CMAKE_C_COMPILER_ID = ${CMAKE_C_COMPILER_ID}" )
+message ( STATUS "CMAKE_C_COMPILER_VERSION = ${CMAKE_C_COMPILER_VERSION}" )
+# On Windows this is the Windows SDK version
+message ( STATUS "CMAKE_SYSTEM_VERSION = ${CMAKE_SYSTEM_VERSION}" )
 if ( ${MSVC} )
   message ( STATUS "MSVC_VERSION = ${MSVC_VERSION}" )
 endif()
