@@ -228,9 +228,9 @@ int DoDocumentWrite(const std::string& inputFilePath, const std::string& outputF
 /// ISgfcDocumentWriter.
 int DoBuildTree(const std::string& outputFilePath)
 {
-  std::shared_ptr<ISgfcNode> rootNode = SgfcPlusPlusFactory::CreateNode();
-  std::shared_ptr<ISgfcGame> game = SgfcPlusPlusFactory::CreateGame(rootNode);
-  std::shared_ptr<ISgfcDocument> document = SgfcPlusPlusFactory::CreateDocument(game);
+  std::shared_ptr<ISgfcDocument> document = SgfcPlusPlusFactory::CreateDocument();
+  std::shared_ptr<ISgfcGame> game = document->GetGame();
+  std::shared_ptr<ISgfcNode> rootNode = game->GetRootNode();
 
   std::shared_ptr<ISgfcNode> nodeA = SgfcPlusPlusFactory::CreateNode();
   std::shared_ptr<ISgfcNode> nodeA1 = SgfcPlusPlusFactory::CreateNode();

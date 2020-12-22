@@ -621,12 +621,10 @@ SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" 
 
   // Set up document
   auto document = SgfcPlusPlusFactory::CreateDocument();
-  auto game1 = SgfcPlusPlusFactory::CreateGame();
-  auto rootNode1 = SgfcPlusPlusFactory::CreateNode();
-  game1->SetRootNode(rootNode1);
+  auto game1 = document->GetGames().front();
+  auto rootNode1 = game1->GetRootNode();
   auto game2 = SgfcPlusPlusFactory::CreateGame();
-  auto rootNode2 = SgfcPlusPlusFactory::CreateNode();
-  game2->SetRootNode(rootNode2);
+  auto rootNode2 = game2->GetRootNode();
 
   // Set up properties + property values
   auto propertyValueFF = propertyValueFactory->CreateNumberPropertyValue(4);
@@ -659,7 +657,6 @@ SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" 
 
   GIVEN( "The SGF content is encoded with a double-byte encoding and the CA property exists" )
   {
-    document->AppendGame(game1);
     rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
     SgfcText expectedSgfContentInUtf8(reinterpret_cast<const char*>(expectedSgfContentBufferBig5InUtf8), sizeof(expectedSgfContentBufferBig5InUtf8));
 
@@ -678,7 +675,6 @@ SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" 
 
   GIVEN( "The SGF content is encoded with a single-byte encoding and the CA property exists" )
   {
-    document->AppendGame(game1);
     rootNode1->SetProperties( { propertyFF, propertyCAWindows1252, propertyCWindows1252} );
     SgfcText expectedSgfContentInUtf8(reinterpret_cast<const char*>(expectedSgfContentBufferWindows1252InUtf8), sizeof(expectedSgfContentBufferWindows1252InUtf8));
 
@@ -698,7 +694,6 @@ SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" 
   GIVEN( "The SGF content is encoded with two encodings and the CA property exists for both game trees" )
   {
     rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
-    document->AppendGame(game1);
     rootNode2->SetProperties( { propertyFF, propertyCAWindows1252, propertyCWindows1252} );
     document->AppendGame(game2);
     writer->GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, 2);
@@ -723,7 +718,6 @@ SCENARIO( "SGF content is decoded to UTF-8 for writing", "[frontend][encoding]" 
   GIVEN( "The SGF content is encoded with two encodings and the CA property exists only in one of the game tree" )
   {
     rootNode1->SetProperties( { propertyFF, propertyCABig5, propertyCBig5} );
-    document->AppendGame(game1);
     rootNode2->SetProperties( { propertyFF, propertyCWindows1252} );
     document->AppendGame(game2);
     writer->GetArguments()->ClearArguments();

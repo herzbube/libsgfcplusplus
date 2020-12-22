@@ -77,7 +77,8 @@ namespace LibSgfcPlusPlus
     static std::shared_ptr<ISgfcDocumentWriter> CreateDocumentWriter();
 
     /// @brief Returns a newly constructed ISgfcDocument object. The
-    /// ISgfcDocument is empty and contains no games.
+    /// ISgfcDocument content consists of a single ISgfcGame object with an
+    /// empty root node.
     static std::shared_ptr<ISgfcDocument> CreateDocument();
 
     /// @brief Returns a newly constructed ISgfcDocument object. The
@@ -90,7 +91,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcGame object. The game type is
     /// SgfcConstants::DefaultGameType. The game is not associated with any
-    /// document. The game has no game tree.
+    /// document. The game has a game tree that consists of an empty root node.
     static std::shared_ptr<ISgfcGame> CreateGame();
 
     /// @brief Returns a newly constructed ISgfcGame object. The game tree's

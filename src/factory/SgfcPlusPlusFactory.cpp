@@ -65,7 +65,8 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcDocument> SgfcPlusPlusFactory::CreateDocument()
   {
-    std::shared_ptr<ISgfcDocument> document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
+    auto game = CreateGame();
+    auto document = CreateDocument(game);
     return document;
   }
 
@@ -74,19 +75,15 @@ namespace LibSgfcPlusPlus
     if (game == nullptr)
       throw std::invalid_argument("SgfcPlusPlusFactory::CreateDocument failed: Game is nullptr");
 
-    std::shared_ptr<ISgfcDocument> document = CreateDocument();
+    std::shared_ptr<ISgfcDocument> document = std::shared_ptr<ISgfcDocument>(new SgfcDocument());
     document->AppendGame(game);
     return document;
   }
 
   std::shared_ptr<ISgfcGame> SgfcPlusPlusFactory::CreateGame()
   {
-    std::shared_ptr<SgfcGame> game = std::shared_ptr<SgfcGame>(new SgfcGame());
-
-    std::shared_ptr<ISgfcTreeBuilder> treeBuilder =
-      std::shared_ptr<ISgfcTreeBuilder>(new SgfcTreeBuilder(game));
-    game->SetTreeBuilder(treeBuilder);
-
+    auto rootNode = CreateNode();
+    auto game = CreateGame(rootNode);
     return game;
   }
 
@@ -95,7 +92,11 @@ namespace LibSgfcPlusPlus
     if (rootNode == nullptr)
       throw std::invalid_argument("SgfcPlusPlusFactory::CreateGame failed: Root node is nullptr");
 
-    auto game = CreateGame();
+    std::shared_ptr<SgfcGame> game = std::shared_ptr<SgfcGame>(new SgfcGame());
+
+    std::shared_ptr<ISgfcTreeBuilder> treeBuilder =
+      std::shared_ptr<ISgfcTreeBuilder>(new SgfcTreeBuilder(game));
+    game->SetTreeBuilder(treeBuilder);
 
     game->SetRootNode(rootNode);
 
