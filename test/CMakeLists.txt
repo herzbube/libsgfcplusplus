@@ -45,15 +45,6 @@ target_link_libraries (
   ${LINK_LIBRARY_TARGET_NAME}
 )
 
-# On some platforms iconv is provided by a dedicated library that must be
-# explicitly linked against.
-if ( ${ICONV_NEEDS_LINKING} )
-  target_link_libraries (
-    ${TEST_EXECUTABLE_TARGET_NAME}
-    ${ICONV_LIBRARY}
-  )
-endif()
-
 # Define additional compile options.
 # - EXPORT_HEADER_STATIC_DEFINE_MACRO_NAME macro: The test executable target
 #   must define this macro to be able to link against the static library or

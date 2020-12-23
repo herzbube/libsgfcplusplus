@@ -552,6 +552,11 @@ endif()
 # Define additional link options.
 # - On some platforms iconv is provided by a dedicated library that must be
 #   explicitly linked against.
+# Important: We must specify any libraries to link against also for the static
+# library/framework targets because this information is transitively "forwarded"
+# to other targets that depend on the static library/framework targets (e.g.
+# our own test/example executable targets, but also downstream projects that
+# integrates libsgfc++ with find_package()).
 if ( ${ICONV_NEEDS_LINKING} )
   if ( ${ENABLE_SHARED_LIBRARY} )
     target_link_libraries (
@@ -559,9 +564,21 @@ if ( ${ICONV_NEEDS_LINKING} )
       ${ICONV_LIBRARY}
     )
   endif()
+  if ( ${ENABLE_STATIC_LIBRARY} )
+    target_link_libraries (
+      ${STATIC_LIBRARY_TARGET_NAME}
+      ${ICONV_LIBRARY}
+    )
+  endif()
   if ( ENABLE_SHARED_FRAMEWORK )
     target_link_libraries (
       ${SHARED_FRAMEWORK_TARGET_NAME}
+      ${ICONV_LIBRARY}
+    )
+  endif()
+  if ( ${ENABLE_STATIC_FRAMEWORK} )
+    target_link_libraries (
+      ${STATIC_FRAMEWORK_TARGET_NAME}
       ${ICONV_LIBRARY}
     )
   endif()

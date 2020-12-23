@@ -247,6 +247,6 @@ To use the exported targets after `find_package()` has successfully located the 
       libsgfcplusplus::libsgfcplusplus_shared
     )
 
-This not only adds the link instructions to the downstream target, it also adds the INTERFACE include directories of the linked libsgfc++ target to the include directories of the downstream target. This way the downstream project can write `#include` statements like this in their source code:
+This not only adds the link instructions (including to the `iconv` dependency) to the downstream target, it also adds the INTERFACE include directories of the linked libsgfc++ target to the include directories of the downstream target. This way the downstream project can write `#include` statements like this in their source code:
 
     #include <libsgfcplusplus/SgfcPlusPlusFactory.h>
