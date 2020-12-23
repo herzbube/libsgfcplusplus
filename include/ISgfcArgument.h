@@ -55,11 +55,11 @@ namespace LibSgfcPlusPlus
     /// value is undefined if HasIntegerTypeParameter() returns false.
     virtual int GetIntegerTypeParameter() const = 0;
 
-    /// @brief Returns true if the argument has a string parameter.
+    /// @brief Returns true if the argument has a string type parameter.
     virtual bool HasStringTypeParameter() const = 0;
 
-    /// @brief Returns the argument's string parameter value. The
-    /// return value is undefined if HasStringParameter() returns false.
+    /// @brief Returns the argument's string type parameter value. The
+    /// return value is undefined if HasStringTypeParameter() returns false.
     virtual std::string GetStringTypeParameter() const = 0;
 
     /// @brief Returns true if the argument has an SgfcPropertyType parameter.

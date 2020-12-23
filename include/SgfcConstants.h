@@ -156,8 +156,8 @@ namespace LibSgfcPlusPlus
     ///
     /// ISgfcGame and ISgfcGameTypeProperty both provide a GetGameTypeAsNumber()
     /// method to obtain the raw SgfcNumber value of an SgfcPropertyType::GM
-    /// property. If the raw SgfcNumber value can be determined because it has
-    /// multiple property values, or a single property value that cannot be
+    /// property. If the raw SgfcNumber value cannot be determined because it
+    /// has multiple property values, or a single property value that cannot be
     /// converted to an SgfcNumber value, then the GetGameTypeAsNumber() methods
     /// return this constant.
     ///

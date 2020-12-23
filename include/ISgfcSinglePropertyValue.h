@@ -138,7 +138,7 @@ namespace LibSgfcPlusPlus
     /// returned by GetValueType().
     ///
     /// Returns an empty string if HasTypedValue() returns true, or if it
-    /// returns fasle but GetValueType() returns SgfcPropertyValueType::Unknown.
+    /// returns false but GetValueType() returns SgfcPropertyValueType::Unknown.
     ///
     /// This method is intended for when the property value object was created
     /// internally by libsgfc++ as part of parsing SGF content, but there was

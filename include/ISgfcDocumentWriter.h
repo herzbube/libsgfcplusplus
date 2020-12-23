@@ -105,7 +105,7 @@ namespace LibSgfcPlusPlus
     /// operation.
     ///
     /// The collection of arguments initially contains
-    /// SgfcArgumentType::DefaultEncoding with the parameter "UTF-8". This
+    /// #SgfcArgumentType::DefaultEncoding with the parameter "UTF-8". This
     /// allows an ISgfcDocument to be passed to ISgfcDocumentWriter for writing
     /// whose game trees don't contain an #SgfcPropertyType::CA property value.
     /// Read the class documentation for details about encodings.
