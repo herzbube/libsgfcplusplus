@@ -142,9 +142,13 @@ namespace LibSgfcPlusPlus
       {
         case SgfcPropertyType::HA:
           this->numberOfHandicapStones = GetNumberPropertyValue(gameInfoProperty);
+          if (this->numberOfHandicapStones == 0)
+            this->numberOfHandicapStones = SgfcConstants::HandicapStonesNone;
           break;
         case SgfcPropertyType::KM:
           this->komi = GetRealPropertyValue(gameInfoProperty);
+          if (this->komi == 0.0)
+            this->komi = SgfcConstants::KomiNone;
           break;
         default:
           break;

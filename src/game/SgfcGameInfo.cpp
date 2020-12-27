@@ -36,8 +36,8 @@ namespace LibSgfcPlusPlus
 {
   SgfcGameInfo::SgfcGameInfo()
     : gameType(SgfcGameType::Unknown)
-    , gameTypeAsNumber(0)
-    , timeLimitInSeconds(0)
+    , gameTypeAsNumber(SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType))
+    , timeLimitInSeconds(0.0)
   {
   }
 
