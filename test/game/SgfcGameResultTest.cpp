@@ -52,9 +52,9 @@ SCENARIO( "SgfcGameResult is constructed", "[game]" )
     {
       bool areEqual = (gameResult1 == gameResult2);
 
-      THEN( "The two SgfcGameResult objects are equal" )
+      THEN( "The two SgfcGameResult objects are not equal" )
       {
-        REQUIRE( areEqual == true );
+        REQUIRE( areEqual == false );
       }
     }
 
@@ -62,9 +62,9 @@ SCENARIO( "SgfcGameResult is constructed", "[game]" )
     {
       bool areNotEqual = (gameResult1 != gameResult2);
 
-      THEN( "The two SgfcGameResult objects are equal" )
+      THEN( "The two SgfcGameResult objects are not equal" )
       {
-        REQUIRE( areNotEqual == false );
+        REQUIRE( areNotEqual == true );
       }
     }
   }

@@ -50,9 +50,9 @@ SCENARIO( "SgfcGoRuleset is constructed", "[game]" )
     {
       bool areEqual = (goRuleset1 == goRuleset2);
 
-      THEN( "The two SgfcGoRuleset objects are equal" )
+      THEN( "The two SgfcGoRuleset objects are not equal" )
       {
-        REQUIRE( areEqual == true );
+        REQUIRE( areEqual == false );
       }
     }
 
@@ -60,9 +60,9 @@ SCENARIO( "SgfcGoRuleset is constructed", "[game]" )
     {
       bool areNotEqual = (goRuleset1 != goRuleset2);
 
-      THEN( "The two SgfcGoRuleset objects are equal" )
+      THEN( "The two SgfcGoRuleset objects are not equal" )
       {
-        REQUIRE( areNotEqual == false );
+        REQUIRE( areNotEqual == true );
       }
     }
   }

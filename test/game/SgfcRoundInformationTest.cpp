@@ -51,9 +51,9 @@ SCENARIO( "SgfcRoundInformation is constructed", "[game]" )
     {
       bool areEqual = (roundInformation1 == roundInformation2);
 
-      THEN( "The two SgfcRoundInformation objects are equal" )
+      THEN( "The two SgfcRoundInformation objects are not equal" )
       {
-        REQUIRE( areEqual == true );
+        REQUIRE( areEqual == false );
       }
     }
 
@@ -61,9 +61,9 @@ SCENARIO( "SgfcRoundInformation is constructed", "[game]" )
     {
       bool areNotEqual = (roundInformation1 != roundInformation2);
 
-      THEN( "The two SgfcRoundInformation objects are equal" )
+      THEN( "The two SgfcRoundInformation objects are not equal" )
       {
-        REQUIRE( areNotEqual == false );
+        REQUIRE( areNotEqual == true );
       }
     }
   }

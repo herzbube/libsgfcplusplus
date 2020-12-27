@@ -52,9 +52,9 @@ SCENARIO( "SgfcGoPlayerRank is constructed", "[game]" )
     {
       bool areEqual = (goPlayerRank1 == goPlayerRank2);
 
-      THEN( "The two SgfcGoPlayerRank objects are equal" )
+      THEN( "The two SgfcGoPlayerRank objects are not equal" )
       {
-        REQUIRE( areEqual == true );
+        REQUIRE( areEqual == false );
       }
     }
 
@@ -62,9 +62,9 @@ SCENARIO( "SgfcGoPlayerRank is constructed", "[game]" )
     {
       bool areNotEqual = (goPlayerRank1 != goPlayerRank2);
 
-      THEN( "The two SgfcGoPlayerRank objects are equal" )
+      THEN( "The two SgfcGoPlayerRank objects are not equal" )
       {
-        REQUIRE( areNotEqual == false );
+        REQUIRE( areNotEqual == true );
       }
     }
   }
