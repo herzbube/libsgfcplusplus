@@ -39,6 +39,14 @@ namespace LibSgfcPlusPlus
     SgfcGameInfo();
 
     /// @brief Initializes a newly constructed SgfcGameInfo object with values
+    /// taken from the properties in root node @a rootNode. All values that
+    /// would normally be taken from the properties in the game info node have
+    /// default values.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr.
+    SgfcGameInfo(std::shared_ptr<ISgfcNode> rootNode);
+
+    /// @brief Initializes a newly constructed SgfcGameInfo object with values
     /// taken from the properties in root node @a rootNode and from game info
     /// node @a gameInfoNode.
     ///

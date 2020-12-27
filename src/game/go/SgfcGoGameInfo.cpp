@@ -31,6 +31,13 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGoGameInfo::SgfcGoGameInfo(std::shared_ptr<ISgfcNode> rootNode)
+    : SgfcGameInfo(rootNode)
+    , numberOfHandicapStones(SgfcConstants::HandicapStonesNone)
+    , komi(SgfcConstants::KomiNone)
+  {
+  }
+
   SgfcGoGameInfo::SgfcGoGameInfo(std::shared_ptr<ISgfcNode> rootNode, std::shared_ptr<ISgfcNode> gameInfoNode)
     : SgfcGameInfo(rootNode, gameInfoNode)
     , numberOfHandicapStones(SgfcConstants::HandicapStonesNone)

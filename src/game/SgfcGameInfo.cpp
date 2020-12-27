@@ -41,6 +41,15 @@ namespace LibSgfcPlusPlus
   {
   }
 
+  SgfcGameInfo::SgfcGameInfo(std::shared_ptr<ISgfcNode> rootNode)
+    : SgfcGameInfo()
+  {
+    if (rootNode == nullptr)
+      throw std::invalid_argument("SgfcGameInfo constructor failed: Root node is nullptr");
+
+    ReadFromRootNode(rootNode);
+  }
+
   SgfcGameInfo::SgfcGameInfo(std::shared_ptr<ISgfcNode> rootNode, std::shared_ptr<ISgfcNode> gameInfoNode)
     : SgfcGameInfo()
   {
