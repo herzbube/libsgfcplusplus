@@ -128,10 +128,10 @@ namespace LibSgfcPlusPlus
     virtual void WriteToGameInfoNode(std::shared_ptr<ISgfcNode> gameInfoNode);
 
   protected:
-    SgfcNumber GetNumberPropertyValue(std::shared_ptr<ISgfcProperty> property);
-    SgfcReal GetRealPropertyValue(std::shared_ptr<ISgfcProperty> property);
-    SgfcSimpleText GetSimpleTextPropertyValue(std::shared_ptr<ISgfcProperty> property);
-    SgfcText GetTextPropertyValue(std::shared_ptr<ISgfcProperty> property);
+    SgfcNumber GetNumberPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
+    SgfcReal GetRealPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
+    SgfcSimpleText GetSimpleTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
+    SgfcText GetTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
 
   private:
     SgfcGameType gameType;

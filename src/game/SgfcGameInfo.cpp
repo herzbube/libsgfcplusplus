@@ -484,7 +484,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  SgfcNumber SgfcGameInfo::GetNumberPropertyValue(std::shared_ptr<ISgfcProperty> property)
+  SgfcNumber SgfcGameInfo::GetNumberPropertyValue(std::shared_ptr<ISgfcProperty> property) const
   {
     auto propertyValue = property->GetPropertyValue();
     if (propertyValue == nullptr)
@@ -499,7 +499,7 @@ namespace LibSgfcPlusPlus
     return singlePropertyValue->ToNumberValue()->GetNumberValue();
   }
 
-  SgfcReal SgfcGameInfo::GetRealPropertyValue(std::shared_ptr<ISgfcProperty> property)
+  SgfcReal SgfcGameInfo::GetRealPropertyValue(std::shared_ptr<ISgfcProperty> property) const
   {
     auto propertyValue = property->GetPropertyValue();
     if (propertyValue == nullptr)
@@ -514,7 +514,7 @@ namespace LibSgfcPlusPlus
     return singlePropertyValue->ToRealValue()->GetRealValue();
   }
 
-  SgfcSimpleText SgfcGameInfo::GetSimpleTextPropertyValue(std::shared_ptr<ISgfcProperty> property)
+  SgfcSimpleText SgfcGameInfo::GetSimpleTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const
   {
     auto propertyValue = property->GetPropertyValue();
     if (propertyValue == nullptr)
@@ -529,7 +529,7 @@ namespace LibSgfcPlusPlus
     return singlePropertyValue->ToSimpleTextValue()->GetSimpleTextValue();
   }
 
-  SgfcText SgfcGameInfo::GetTextPropertyValue(std::shared_ptr<ISgfcProperty> property)
+  SgfcText SgfcGameInfo::GetTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const
   {
     auto propertyValue = property->GetPropertyValue();
     if (propertyValue == nullptr)
