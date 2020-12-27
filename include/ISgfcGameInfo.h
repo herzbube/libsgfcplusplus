@@ -77,15 +77,18 @@ namespace LibSgfcPlusPlus
 
     /// @name Root properties (read only)
     //@{
-    /// @brief Returns the game type.
+    /// @brief Returns the game type. The default value is
+    /// #SgfcGameType::Unknown.
     ///
-    /// Returns SgfcGameType::Unknown if the Number value of the GM property is
+    /// Returns #SgfcGameType::Unknown if the Number value of the GM property is
     /// not in the list of valid games defined in the SGF standard.
     ///
     /// @see SgfcPropertyType::GM
     virtual SgfcGameType GetGameType() const = 0;
 
-    /// @brief Returns the game type as an SgfcNumber value.
+    /// @brief Returns the game type as an SgfcNumber value. The default value
+    /// is the SgfcNumber value that corresponds to
+    /// SgfcConstants::DefaultGameType.
     ///
     /// This is useful if GetGameType() returns SgfcGameType::Unknown because
     /// the Number value of the GM property is not in the list of valid games
@@ -94,7 +97,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::GM
     virtual SgfcNumber GetGameTypeAsNumber() = 0;
 
-    /// @brief Returns the size of the board on which the game was played.
+    /// @brief Returns the size of the board on which the game was played. The
+    /// default value is SgfcConstants::BoardSizeNone.
     ///
     /// Returns SgfcConstants::BoardSizeNone or SgfcConstants::BoardSizeInvalid
     /// if there is a problem with determining a valid board size from the SZ
@@ -107,7 +111,7 @@ namespace LibSgfcPlusPlus
     /// @name Game data information
     //@{
     /// @brief Returns the name of the user (or program) who recorded or
-    /// entered the game data.
+    /// entered the game data. The default value is an empty string.
     ///
     /// @see SgfcPropertyType::US
     virtual SgfcSimpleText GetRecorderName() const = 0;
@@ -118,7 +122,7 @@ namespace LibSgfcPlusPlus
     virtual void SetRecorderName(const SgfcSimpleText& recorderName) = 0;
 
     /// @brief Returns the name of the source of the game data (e.g. book,
-    /// journal, etc.).
+    /// journal, etc.). The default value is an empty string.
     ///
     /// @see SgfcPropertyType::SO
     virtual SgfcSimpleText GetSourceName() const = 0;
@@ -129,7 +133,7 @@ namespace LibSgfcPlusPlus
     virtual void SetSourceName(const SgfcSimpleText& sourceName) = 0;
 
     /// @brief Returns the name of the person who made the annotations to the
-    /// game.
+    /// game. The default value is an empty string.
     ///
     /// @see SgfcPropertyType::AN
     virtual SgfcSimpleText GetAnnotationAuthor() const = 0;
@@ -140,7 +144,7 @@ namespace LibSgfcPlusPlus
     virtual void SetAnnotationAuthor(const SgfcSimpleText& annotationAuthor) = 0;
 
     /// @brief Returns the copyright information for the game data (including
-    /// the annotations).
+    /// the annotations). The default value is an empty string.
     ///
     /// @see SgfcPropertyType::CP
     virtual SgfcSimpleText GetCopyrightInformation() const = 0;
@@ -154,7 +158,7 @@ namespace LibSgfcPlusPlus
     /// @name Basic game information
     //@{
     /// @brief Returns the name of the game (e.g. for easily finding the game
-    /// again within a collection).
+    /// again within a collection). The default value is an empty string.
     ///
     /// @see SgfcPropertyType::GN
     virtual SgfcSimpleText GetGameName() const = 0;
@@ -165,7 +169,7 @@ namespace LibSgfcPlusPlus
     virtual void SetGameName(const SgfcSimpleText& gameName) = 0;
 
     /// @brief Returns information about the game (e.g. background information,
-    /// a game summary, etc.).
+    /// a game summary, etc.). The default value is an empty string.
     ///
     /// @see SgfcPropertyType::GC
     virtual SgfcText GetGameInformation() const = 0;
@@ -177,7 +181,12 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the dates when the game was played, decomposed into
     /// years, optional months and optional days. Several non-consecutive dates
-    /// are possible.
+    /// are possible. The default value is an empty collection of dates.
+    ///
+    /// The returned collection is also empty if there is a problem with
+    /// decomposing the raw property value. See SgfcDate::FromPropertyValue()
+    /// for details. An indicator that this happened is if GetRawGameDates()
+    /// returns a non-empty string.
     ///
     /// @see SgfcPropertyType::DT
     virtual std::vector<SgfcDate> GetGameDates() const = 0;
@@ -191,7 +200,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::DT
     virtual void SetGameDates(const std::vector<SgfcDate>& gameDates) = 0;
     /// @brief Returns the dates when the game was played. Several
-    /// non-consecutive dates are possible.
+    /// non-consecutive dates are possible. The default value is an empty
+    /// string.
     ///
     /// This is useful if the raw game dates cannot be decomposed into years,
     /// optional months and optional days, as is required by the SGF standard
@@ -205,7 +215,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::DT
     virtual SgfcSimpleText GetRawGameDates() const = 0;
 
-    /// @brief Returns the name of the rules used for the game.
+    /// @brief Returns the name of the rules used for the game. The default
+    /// value is an empty string.
     ///
     /// @see SgfcPropertyType::RU
     virtual SgfcSimpleText GetRulesName() const = 0;
@@ -215,7 +226,13 @@ namespace LibSgfcPlusPlus
     virtual void SetRulesName(const SgfcSimpleText& rulesName) = 0;
 
     /// @brief Returns the result of the game, decomposed into an outcome and
-    /// an optional score.
+    /// an optional score. The default value is an SgfcGameResult object which
+    /// has the @e IsValid property set to false.
+    ///
+    /// The returned SgfcGameResult also has the @e IsValid property set to
+    /// false if there is a problem with decomposing the raw property value.
+    /// See SgfcGameResult::FromPropertyValue() for details. An indicator that
+    /// this happened is if GetRawGameResult() returns a non-empty string.
     ///
     /// @see SgfcPropertyType::RE
     virtual SgfcGameResult GetGameResult() const = 0;
@@ -227,7 +244,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @see SgfcPropertyType::RE
     virtual void SetGameResult(SgfcGameResult gameResult) = 0;
-    /// @brief Returns the result of the game.
+    /// @brief Returns the result of the game. The default value is an empty
+    /// string.
     ///
     /// This is useful if the raw game result cannot be decomposed into an
     /// outcome and an optional score as is required by the SGF standard for
@@ -244,7 +262,8 @@ namespace LibSgfcPlusPlus
 
     /// @name Extra game information
     //@{
-    /// @brief Returns the time limit of the game in seconds.
+    /// @brief Returns the time limit of the game in seconds. The default value
+    /// is 0.0.
     ///
     /// @see SgfcPropertyType::TM
     virtual SgfcReal GetTimeLimitInSeconds() const = 0;
@@ -254,7 +273,7 @@ namespace LibSgfcPlusPlus
     virtual void SetTimeLimitInSeconds(SgfcReal timeLimitInSeconds) = 0;
 
     /// @brief Returns the description of the method used for overtime
-    /// (byo-yomi).
+    /// (byo-yomi). The default value is an empty string.
     ///
     /// @see SgfcPropertyType::OT
     virtual SgfcSimpleText GetOvertimeInformation() const = 0;
@@ -264,7 +283,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::OT
     virtual void SetOvertimeInformation(const SgfcSimpleText& overtimeInformation) = 0;
 
-    /// @brief Returns information about the opening played.
+    /// @brief Returns information about the opening played. The default value
+    /// is an empty string.
     ///
     /// @see SgfcPropertyType::ON
     virtual SgfcSimpleText GetOpeningInformation() const = 0;
@@ -276,7 +296,8 @@ namespace LibSgfcPlusPlus
 
     /// @name Player information
     //@{
-    /// @brief Returns the name of the black player.
+    /// @brief Returns the name of the black player. The default value is an
+    /// empty string.
     ///
     /// @see SgfcPropertyType::PB
     virtual SgfcSimpleText GetBlackPlayerName() const = 0;
@@ -285,7 +306,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::PB
     virtual void SetBlackPlayerName(const SgfcSimpleText& blackPlayerName) = 0;
 
-    /// @brief Returns the rank of the black player.
+    /// @brief Returns the rank of the black player. The default value is an
+    /// empty string.
     ///
     /// @see SgfcPropertyType::BR
     virtual SgfcSimpleText GetBlackPlayerRank() const = 0;
@@ -294,7 +316,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::BR
     virtual void SetBlackPlayerRank(const SgfcSimpleText& blackPlayerRank) = 0;
 
-    /// @brief Returns the name of the black player's team.
+    /// @brief Returns the name of the black player's team. The default value
+    /// is an empty string.
     ///
     /// @see SgfcPropertyType::BT
     virtual SgfcSimpleText GetBlackPlayerTeamName() const = 0;
@@ -303,7 +326,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::BT
     virtual void SetBlackPlayerTeamName(const SgfcSimpleText& blackPlayerTeamName) = 0;
 
-    /// @brief Returns the name of the white player.
+    /// @brief Returns the name of the white player. The default value is an
+    /// empty string.
     ///
     /// @see SgfcPropertyType::PW
     virtual SgfcSimpleText GetWhitePlayerName() const = 0;
@@ -312,7 +336,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::PW
     virtual void SetWhitePlayerName(const SgfcSimpleText& whitePlayerName) = 0;
 
-    /// @brief Returns the rank of the white player.
+    /// @brief Returns the rank of the white player. The default value is an
+    /// empty string.
     ///
     /// @see SgfcPropertyType::WR
     virtual SgfcSimpleText GetWhitePlayerRank() const = 0;
@@ -321,7 +346,8 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::WR
     virtual void SetWhitePlayerRank(const SgfcSimpleText& whitePlayerRank) = 0;
 
-    /// @brief Returns the name of the white player's team.
+    /// @brief Returns the name of the white player's team. The default value
+    /// is an empty string.
     ///
     /// @see SgfcPropertyType::WT
     virtual SgfcSimpleText GetWhitePlayerTeamName() const = 0;
@@ -334,7 +360,7 @@ namespace LibSgfcPlusPlus
     /// @name Context in which the game was played
     //@{
     /// @brief Returns the name or description of the location where the game
-    /// was played.
+    /// was played. The default value is an empty string.
     ///
     /// @see SgfcPropertyType::PC
     virtual SgfcSimpleText GetGameLocation() const = 0;
@@ -345,7 +371,7 @@ namespace LibSgfcPlusPlus
     virtual void SetGameLocation(const SgfcSimpleText& gameLocation) = 0;
 
     /// @brief Returns the name of the event (e.g. tournament) where the game
-    /// was played.
+    /// was played. The default value is an empty string.
     ///
     /// @see SgfcPropertyType::EV
     virtual SgfcSimpleText GetEventName() const = 0;
@@ -357,6 +383,14 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the information that describes the round in which the
     /// game was played, decomposed into round number and type of round.
+    /// The default value is an SgfcRoundInformation object which has the
+    /// @e IsValid property set to false.
+    ///
+    /// The returned SgfcRoundInformation also has the @e IsValid property set
+    /// to false if there is a problem with decomposing the raw property value.
+    /// See SgfcRoundInformation::FromPropertyValue() for details. An indicator
+    /// that this happened is if GetRawRoundInformation() returns a non-empty
+    /// string.
     ///
     /// @see SgfcPropertyType::RO
     virtual SgfcRoundInformation GetRoundInformation() const = 0;
@@ -368,9 +402,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @see SgfcPropertyType::RO
     virtual void SetRoundInformation(const SgfcRoundInformation& roundInformation) = 0;
-
     /// @brief Returns the information that describes the round in which the
-    /// game was played.
+    /// game was played. The default value is an empty string.
     ///
     /// This is useful if the raw round information cannot be decomposed into
     /// round number and type of round as recommended by the SGF standard for
