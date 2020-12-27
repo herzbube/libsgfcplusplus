@@ -30,6 +30,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcGameInfo;
+
   /// @brief The ISgfcNode interface provides access to the data of a single
   /// SGF node in a tree of SGF nodes. ISgfcNode also provides methods to
   /// navigate the game tree. ISgfcNode provides no methods to manipulate the
@@ -188,6 +191,30 @@ namespace LibSgfcPlusPlus
     /// client to encounter this scenario, it can only occur during internal
     /// unit testing.
     virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const = 0;
+    //@}
+
+    /// @name Game info access
+    //@{
+    /// @brief Returns a newly constructed ISgfcGameInfo object with values
+    /// taken from the properties in the root node that GetRoot() returns
+    /// and the game info node that GetGameInfoNode() returns.
+    ///
+    /// If GetGameInfoNode() returns @e nullptr then the ISgfcGameInfo object
+    /// contains only values taken from the properties in the root node, but
+    /// all values that would normally be taken from the properties in the game
+    /// info node have default values.
+    ///
+    /// If the content in the root node indicates that the game type is
+    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is #SgfcGameType::Go in the following cases:
+    /// - If the root node contains a property of type #SgfcPropertyType::GM
+    ///   that either has no value, or that has a single Number value, and that
+    ///   value is 0.
+    /// - Or if the root node does not contain a property of type
+    ///   #SgfcPropertyType::GM.
+    ///
+    /// @see ISgfcGame::CreateGameInfo()
+    virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const = 0;
     //@}
 
     /// @name Property access

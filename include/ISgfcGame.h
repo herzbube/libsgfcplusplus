@@ -32,6 +32,7 @@
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
+  class ISgfcGameInfo;
   class ISgfcTreeBuilder;
 
   /// @brief The ISgfcGame interface provides access to the data of one SGF
@@ -174,6 +175,33 @@ namespace LibSgfcPlusPlus
     ///
     /// @see SgfcNodeTraits::GameInfo
     virtual std::vector<std::shared_ptr<ISgfcNode>> GetGameInfoNodes() const = 0;
+
+    /// @brief Returns a newly constructed ISgfcGameInfo object with values
+    /// taken from the properties in the root node that GetRootNode() returns
+    /// and the first game info node in the list of game info nodes returned by
+    /// GetGameInfoNodes().
+    ///
+    /// This is a convenience method that is useful if a game contains only one
+    /// game tree (GetGameInfoNodes() returns only one game info node). If the
+    /// game contains more than one game tree, an ISgfcGameInfo object that
+    /// describes the second, third, etc. game tree can be obtained by invoking
+    /// ISgfcNode::CreateGameInfo() on the second, third, etc. game info nodes
+    /// returned by GetGameInfoNodes().
+    ///
+    /// If the game has no game trees (GetGameInfoNodes() returns an empty list)
+    /// then the ISgfcGameInfo object returned by this method contains only
+    /// values taken from the properties in the root node, but all values that
+    /// would normally be taken from the properties in the game info node have
+    /// default values.
+    ///
+    /// If the game has no root node (HasRootNode() returns false) then the
+    /// ISgfcGameInfo object contains default values.
+    ///
+    /// If GetGameType() returns #SgfcGameType::Go then the returned object is
+    /// an ISgfcGoGameInfo object.
+    ///
+    /// @see ISgfcNode::CreateGameInfo()
+    virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const = 0;
 
     /// @brief Returns an ISgfcTreeBuilder object that can be used to
     /// manipulate the game tree.

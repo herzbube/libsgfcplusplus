@@ -16,6 +16,7 @@
 
 // Project includes
 #include "../../include/SgfcConstants.h"
+#include "../../include/SgfcPlusPlusFactory.h"
 #include "../SgfcUtility.h"
 #include "SgfcNode.h"
 
@@ -255,6 +256,17 @@ namespace LibSgfcPlusPlus
     }
 
     return mainVariationNodes;
+  }
+
+  std::shared_ptr<ISgfcGameInfo> SgfcNode::CreateGameInfo() const
+  {
+    auto rootNode = GetRoot();
+    auto gameInfoNode = GetGameInfoNode();
+
+    if (gameInfoNode == nullptr)
+      return SgfcPlusPlusFactory::CreateGameInfo(rootNode);
+    else
+      return SgfcPlusPlusFactory::CreateGameInfo(rootNode, gameInfoNode);
   }
 
   bool SgfcNode::HasProperties() const

@@ -33,6 +33,8 @@ namespace LibSgfcPlusPlus
   class ISgfcDocumentReader;
   class ISgfcDocumentWriter;
   class ISgfcGame;
+  class ISgfcGameInfo;
+  class ISgfcGoGameInfo;
   class ISgfcNode;
   class ISgfcPropertyFactory;
   class ISgfcPropertyValueFactory;
@@ -106,6 +108,44 @@ namespace LibSgfcPlusPlus
     /// @brief Returns a newly constructed ISgfcNode object that has no parent,
     /// child or sibling and is not associated with any game.
     static std::shared_ptr<ISgfcNode> CreateNode();
+
+    /// @brief Returns a newly constructed ISgfcGoGameInfo object with
+    /// default values.
+    static std::shared_ptr<ISgfcGoGameInfo> CreateGameInfo();
+
+    /// @brief Initializes a newly constructed ISgfcGameInfo object with values
+    /// taken from the properties in root node @a rootNode. All values that
+    /// would normally be taken from the properties in the game info node have
+    /// default values.
+    ///
+    /// If the content of @a rootNode indicates that the game type is
+    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is #SgfcGameType::Go in the following cases:
+    /// - If @a rootNode contains a property of type #SgfcPropertyType::GM
+    ///   that either has no value, or that has a single Number value, and that
+    ///   value is 0.
+    /// - Or if @a rootNode does not contain a property of type
+    ///   #SgfcPropertyType::GM.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr.
+    static std::shared_ptr<ISgfcGameInfo> CreateGameInfo(std::shared_ptr<ISgfcNode> rootNode);
+
+    /// @brief Returns a newly constructed ISgfcGameInfo object with values
+    /// taken from the content of root node @a rootNode and from game info
+    /// node @a gameInfoNode.
+    ///
+    /// If the content in @a rootNode indicates that the game type is
+    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is #SgfcGameType::Go in the following cases:
+    /// - If @a rootNode contains a property of type #SgfcPropertyType::GM
+    ///   that either has no value, or that has a single Number value, and that
+    ///   value is 0.
+    /// - Or if @a rootNode does not contain a property of type
+    ///   #SgfcPropertyType::GM.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr
+    /// or if @a gameInfoNode is @e nullptr.
+    static std::shared_ptr<ISgfcGameInfo> CreateGameInfo(std::shared_ptr<ISgfcNode> rootNode, std::shared_ptr<ISgfcNode> gameInfoNode);
 
     /// @brief Returns a newly constructed ISgfcPropertyFactory object
     /// that can be used to create ISgfcProperty objects, and objects of every

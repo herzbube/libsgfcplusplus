@@ -15,11 +15,15 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../include/SgfcConstants.h"
 #include "../../include/SgfcPlusPlusFactory.h"
 #include "../document/SgfcDocument.h"
 #include "../document/SgfcGame.h"
 #include "../document/SgfcNode.h"
 #include "../document/SgfcTreeBuilder.h"
+#include "../game/go/SgfcGoGameInfo.h"
+#include "../game/SgfcGameInfo.h"
+#include "../game/SgfcGameUtility.h"
 #include "../sgfc/argument/SgfcArguments.h"
 #include "../sgfc/frontend/SgfcCommandLine.h"
 #include "../sgfc/frontend/SgfcDocumentReader.h"
@@ -107,6 +111,54 @@ namespace LibSgfcPlusPlus
   {
     std::shared_ptr<ISgfcNode> node = std::shared_ptr<ISgfcNode>(new SgfcNode());
     return node;
+  }
+
+  std::shared_ptr<ISgfcGoGameInfo> SgfcPlusPlusFactory::CreateGameInfo()
+  {
+    std::shared_ptr<ISgfcGoGameInfo> gameInfo = std::shared_ptr<ISgfcGoGameInfo>(new SgfcGoGameInfo());
+    return gameInfo;
+  }
+
+  std::shared_ptr<ISgfcGameInfo> SgfcPlusPlusFactory::CreateGameInfo(std::shared_ptr<ISgfcNode> rootNode)
+  {
+    if (rootNode == nullptr)
+      throw std::invalid_argument("SgfcPlusPlusFactory::CreateGameInfo failed: Root node is nullptr");
+
+    SgfcGameType gameType;
+    auto property = rootNode->GetProperty(SgfcPropertyType::GM);
+    if (property == nullptr)
+      gameType = SgfcConstants::DefaultGameType;
+    else
+      gameType = SgfcGameUtility::GetGameType(property->GetPropertyValues());
+
+    std::shared_ptr<ISgfcGameInfo> gameInfo;
+    if (gameType == SgfcGameType::Go)
+      gameInfo = std::shared_ptr<ISgfcGameInfo>(new SgfcGoGameInfo(rootNode));
+    else
+      gameInfo = std::shared_ptr<ISgfcGameInfo>(new SgfcGameInfo(rootNode));
+    return gameInfo;
+  }
+
+  std::shared_ptr<ISgfcGameInfo> SgfcPlusPlusFactory::CreateGameInfo(std::shared_ptr<ISgfcNode> rootNode, std::shared_ptr<ISgfcNode> gameInfoNode)
+  {
+    if (rootNode == nullptr)
+      throw std::invalid_argument("SgfcPlusPlusFactory::CreateGameInfo failed: Root node is nullptr");
+    if (gameInfoNode == nullptr)
+      throw std::invalid_argument("SgfcPlusPlusFactory::CreateGameInfo failed: Game info node is nullptr");
+
+    SgfcGameType gameType;
+    auto property = rootNode->GetProperty(SgfcPropertyType::GM);
+    if (property == nullptr)
+      gameType = SgfcConstants::DefaultGameType;
+    else
+      gameType = SgfcGameUtility::GetGameType(property->GetPropertyValues());
+
+    std::shared_ptr<ISgfcGameInfo> gameInfo;
+    if (gameType == SgfcGameType::Go)
+      gameInfo = std::shared_ptr<ISgfcGameInfo>(new SgfcGoGameInfo(rootNode, gameInfoNode));
+    else
+      gameInfo = std::shared_ptr<ISgfcGameInfo>(new SgfcGameInfo(rootNode, gameInfoNode));
+    return gameInfo;
   }
 
   std::shared_ptr<ISgfcPropertyFactory> SgfcPlusPlusFactory::CreatePropertyFactory()

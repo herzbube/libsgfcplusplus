@@ -103,6 +103,8 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const override;
     virtual std::vector<std::shared_ptr<ISgfcNode>> GetMainVariationNodes() const override;
 
+    virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const override;
+
     virtual bool HasProperties() const override;
     virtual std::vector<std::shared_ptr<ISgfcProperty>> GetProperties() const override;
     virtual void SetProperties(const std::vector<std::shared_ptr<ISgfcProperty>>& properties) override;
