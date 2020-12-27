@@ -33,7 +33,7 @@ namespace LibSgfcPlusPlus
   public:
     /// @brief Initializes a newly constructed SgfcColorPropertyValue object.
     /// The object holds the Color value @a colorValue and
-    /// thhe corresponding raw string value @a rawValue.
+    /// the corresponding raw string value @a rawValue.
     SgfcColorPropertyValue(const std::string& rawValue, SgfcColor colorValue);
 
     /// @brief Destroys and cleans up the SgfcColorPropertyValue object.

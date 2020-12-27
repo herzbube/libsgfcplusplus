@@ -238,7 +238,7 @@ set ( EXPORT_HEADER_FILE_FOLDER ${CMAKE_CURRENT_BINARY_DIR} )
 # Note: It's not possible to make the association with all targets at the same
 # time with only one single invocation of set_target_properties(). For unknown
 # reasons this does not work, it only copies one single header file to be copied
-# instead of the the entire set.
+# instead of the entire set.
 if ( ${ENABLE_SHARED_LIBRARY} )
   set_property (
     TARGET ${SHARED_LIBRARY_TARGET_NAME}

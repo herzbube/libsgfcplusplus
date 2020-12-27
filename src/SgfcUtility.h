@@ -242,7 +242,7 @@ namespace LibSgfcPlusPlus
     /// be deleted for any reason.
     static bool DeleteFileIfExists(const std::string& path);
 
-    /// @brief Appends @a string to the the file located at @a path in the
+    /// @brief Appends @a string to the file located at @a path in the
     /// filesystem. If the file does not exist it is created.
     ///
     /// @exception std::runtime_error Is thrown if the file cannot be opened

@@ -81,7 +81,7 @@ namespace LibSgfcPlusPlus
     /// with @a startNode as the parameter, after which the depth-first
     /// iteration begins.
     ///
-    /// @a startNode typicalls is the root node of the tree of nodes to be
+    /// @a startNode typically is the root node of the tree of nodes to be
     /// iterated. Even if this not the case and @a startNode has siblings and/or
     /// a parent, the iteration never visits the siblings and/or the parent
     /// of @a startNode.

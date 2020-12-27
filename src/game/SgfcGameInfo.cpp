@@ -317,7 +317,7 @@ namespace LibSgfcPlusPlus
   void SgfcGameInfo::WriteToRootNode(std::shared_ptr<ISgfcNode> rootNode)
   {
     if (rootNode == nullptr)
-      throw std::invalid_argument("SgfcGameInfo::WriteToRootNode failed: Game info node is nullptr");
+      throw std::invalid_argument("SgfcGameInfo::WriteToRootNode failed: Root node is nullptr");
 
     auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
     auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
