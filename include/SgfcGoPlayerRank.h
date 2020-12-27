@@ -86,7 +86,7 @@ namespace LibSgfcPlusPlus
     /// the notation "1p", "2p", etc. to express professional Dan ranks.
     ///
     /// @return SgfcSimpleText A property value for SgfcPropertyType::BR or
-    /// SgfcPropertyValue::WR that conforms to the SGF standard's recommended
+    /// SgfcPropertyType::WR that conforms to the SGF standard's recommended
     /// formatting, or SgfcConstants::NoneValueString if the
     /// SgfcGoPlayerRank::IsValid member of @a goPlayerRank is false.
     static SgfcSimpleText ToPropertyValue(SgfcGoPlayerRank goPlayerRank);

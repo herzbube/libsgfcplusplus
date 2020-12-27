@@ -116,7 +116,7 @@ SCENARIO( "An SgfcNodeTraits value is created from SgfcNodeTrait", "[document]" 
       auto traitsResult = initialTraits;
       traitsResult |= trait;
 
-      THEN( "The result contains only the AND'ed SgfcNodeTrait value" )
+      THEN( "The result contains the original SgfcNodeTraits value plus the OR'ed SgfcNodeTrait value" )
       {
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsNone );
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsAll );
@@ -148,7 +148,7 @@ SCENARIO( "An SgfcNodeTraits value is created from SgfcNodeTrait", "[document]" 
       SgfcNodeTrait trait2 = SgfcNodeTrait::NodeAnnotation;
       auto traitsResult = trait1 ^ trait2;
 
-      THEN( "The result contains both OR'ed SgfcNodeTrait values" )
+      THEN( "The result contains both XOR'ed SgfcNodeTrait values" )
       {
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsNone );
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsAll );
@@ -156,7 +156,7 @@ SCENARIO( "An SgfcNodeTraits value is created from SgfcNodeTrait", "[document]" 
       }
     }
 
-    WHEN( "An SgfcNodeTraits value is XOR'ed and assigned with an SgfcNodeTrait value" )
+    WHEN( "An SgfcNodeTraits value that already contains an SgfcNodeTrait value is XOR'ed and assigned with the SgfcNodeTrait value" )
     {
       SgfcNodeTrait trait = SgfcNodeTrait::Setup;
       auto traitsResult = initialTraits;
@@ -167,6 +167,20 @@ SCENARIO( "An SgfcNodeTraits value is created from SgfcNodeTrait", "[document]" 
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsNone );
         REQUIRE( traitsResult != SgfcConstants::NodeTraitsAll );
         REQUIRE( (traitsResult | trait) == SgfcConstants::NodeTraitsAll );
+      }
+    }
+
+    WHEN( "An SgfcNodeTraits value that does not contain an SgfcNodeTrait value is XOR'ed and assigned with the SgfcNodeTrait value" )
+    {
+      SgfcNodeTrait trait = SgfcNodeTrait::Setup;
+      auto traitsResult = SgfcConstants::NodeTraitsNone;
+      traitsResult ^= trait;
+
+      THEN( "The result contains the XOR'ed SgfcNodeTrait value" )
+      {
+        REQUIRE( traitsResult != SgfcConstants::NodeTraitsNone );
+        REQUIRE( traitsResult != SgfcConstants::NodeTraitsAll );
+        REQUIRE( traitsResult == static_cast<SgfcNodeTraits>(trait) );
       }
     }
   }

@@ -91,21 +91,22 @@ namespace LibSgfcPlusPlus
     ///
     /// Examples:
     /// - 2020-12-31: IsPartialDate() is false, IsCalendarDate() is true,
-    ///   IsSgfDate() is true.
+    ///   IsValidSgfDate() is true.
     /// - 2100-02-29: IsPartialDate() is false, IsCalendarDate() is false
-    ///   (because year 2100 is not a leap year), IsSgfDate() is false (same
-    ///   reason).
+    ///   (because year 2100 is not a leap year), IsValidSgfDate() is false
+    ///   (same reason).
     /// - 2020-12-00: IsPartialDate() is true, IsCalendarDate() is false
-    ///   (because partial dates are not calendar dates), IsSgfDate() is true.
+    ///   (because partial dates are not calendar dates), IsValidSgfDate() is
+    ///   true.
     /// - 2020-13-00: IsPartialDate() is true, IsCalendarDate() is false,
     ///   (because partial dates are not calendar dates and there is no month
-    ///   13), IsSgfDate() is false (because there is no month 13).
+    ///   13), IsValidSgfDate() is false (because there is no month 13).
     /// - 2020-00-01: IsPartialDate() is true, IsCalendarDate() is false,
-    ///   (because partial dates are not calendar dates), IsSgfDate() is false
-    ///   (because the month part is missing).
+    ///   (because partial dates are not calendar dates), IsValidSgfDate() is
+    ///   false (because the month part is missing).
     /// - 0000-00-00: IsPartialDate() is true, IsCalendarDate() is false,
-    ///   (because partial dates are not calendar dates), IsSgfDate() is false
-    ///   (because all date parts are missing).
+    ///   (because partial dates are not calendar dates), IsValidSgfDate() is
+    ///   false (because all date parts are missing).
     ///
     /// Partial dates and validity of the day part:
     /// - If the year part is missing then 29 February is considered to be
@@ -178,7 +179,7 @@ namespace LibSgfcPlusPlus
     /// shortcut date is invalid in relation to the preceding date in the
     /// @a gameDates collection (cf. the SGF standard for details), or a
     /// shortcut date whose date part is made invalid by the preceding date
-    /// (e.g. 0000-00-29 after 2019-02-28), or a non-shortcu date that is the
+    /// (e.g. 0000-00-29 after 2019-02-28), or a non-shortcut date that is the
     /// same as the preceding non-shortcut date.
     static SgfcSimpleText ToPropertyValue(const std::vector<SgfcDate>& gameDates);
 

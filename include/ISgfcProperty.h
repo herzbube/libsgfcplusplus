@@ -76,7 +76,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the property's traits.
     ///
-    /// Returns SgfcConstants::PropertyTraitsNone if the property is no traits.
+    /// Returns SgfcConstants::PropertyTraitsNone if the property has no traits.
     ///
     /// @see SgfcPropertyTraits
     virtual SgfcPropertyTraits GetTraits() const = 0;
@@ -84,7 +84,7 @@ namespace LibSgfcPlusPlus
     /// @brief Returns true if the property has the trait @a trait. Returns
     /// false if the property does not have the trait @a trait.
     ///
-    /// @see SgfcPropertyTraits
+    /// @see SgfcPropertyTrait
     virtual bool HasTrait(SgfcPropertyTrait trait) const = 0;
 
     /// @brief Returns true if the property has one or more values. Returns

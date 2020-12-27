@@ -512,7 +512,7 @@ namespace LibSgfcPlusPlus
   };
 
   const SgfcGameType SgfcConstants::DefaultGameType = SgfcGameType::Go;
-  const SgfcNumber SgfcConstants::GameTypeNaN = std::numeric_limits<SgfcNumber>::min();;
+  const SgfcNumber SgfcConstants::GameTypeNaN = std::numeric_limits<SgfcNumber>::min();
 
   const SgfcBoardSize SgfcConstants::BoardSizeMinimum = { 1, 1 };
   const SgfcBoardSize SgfcConstants::BoardSizeMaximumGo = { 52, 52 };

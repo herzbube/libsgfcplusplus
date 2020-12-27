@@ -46,12 +46,12 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the ISgfcNode object.
     virtual ~ISgfcNode();
 
+    /// @name Game tree navigation
+    //@{
     /// @brief Returns the node's first child node. Returns @e nullptr if
     /// the node has no children.
     virtual std::shared_ptr<ISgfcNode> GetFirstChild() const = 0;
 
-    /// @name Game tree navigation
-    //@{
     /// @brief Returns the node's last child node. Returns @e nullptr if
     /// the node has no children.
     virtual std::shared_ptr<ISgfcNode> GetLastChild() const = 0;
