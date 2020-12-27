@@ -116,12 +116,25 @@ namespace LibSgfcPlusPlus
     /// @brief Writes all root property values in the ISgfcGameInfo object
     /// to the corresponding properties in @a rootNode.
     ///
+    /// If @a rootNode already contains a property, the property's value is
+    /// overwritten. If @a rootNode does not contain a property, the
+    /// property is created.
+    ///
     /// @exception std::invalid_argument Is thrown if @a rootNode is
     /// @e nullptr.
     virtual void WriteToRootNode(std::shared_ptr<ISgfcNode> rootNode);
 
     /// @brief Writes all game info property values in the ISgfcGameInfo object
     /// to the corresponding properties in @a gameInfoNode.
+    ///
+    /// If the property value to be written is equal to the property's default
+    /// value then the property is removed from @a gameInfoNode if it exists,
+    /// or not written if it does not exist.
+    ///
+    /// If the property value to be written is not equal to the property's
+    /// default value then the property value is written to @a gameInfoNode,
+    /// either creating the property if it does not exist or overwriting its
+    /// value if it does exist.
     ///
     /// @exception std::invalid_argument Is thrown if @a gameInfoNode is
     /// @e nullptr.
@@ -132,6 +145,7 @@ namespace LibSgfcPlusPlus
     SgfcReal GetRealPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
     SgfcSimpleText GetSimpleTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
     SgfcText GetTextPropertyValue(std::shared_ptr<ISgfcProperty> property) const;
+    void RemovePropertyFromNodeIfExists(SgfcPropertyType propertyType, std::shared_ptr<ISgfcNode> node) const;
 
   private:
     SgfcGameType gameType;

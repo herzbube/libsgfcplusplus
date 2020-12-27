@@ -133,9 +133,13 @@ namespace LibSgfcPlusPlus
     auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
     auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
 
-    if (this->numberOfHandicapStones != SgfcConstants::HandicapStonesNone)
+    if (this->numberOfHandicapStones == SgfcConstants::HandicapStonesNone)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::HA, gameInfoNode);
+      else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::HA, propertyValueFactory->CreateNumberPropertyValue(this->numberOfHandicapStones)));
-    if (this->komi != SgfcConstants::KomiNone)
+    if (this->komi == SgfcConstants::KomiNone)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::KM, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::KM, propertyValueFactory->CreateRealPropertyValue(this->komi)));
   }
 

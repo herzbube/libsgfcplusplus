@@ -340,51 +340,93 @@ namespace LibSgfcPlusPlus
     auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
     auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
 
-    if (this->recorderName != SgfcConstants::NoneValueString)
+    if (this->recorderName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::US, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::US, propertyValueFactory->CreateSimpleTextPropertyValue(this->recorderName)));
-    if (this->sourceName != SgfcConstants::NoneValueString)
+    if (this->sourceName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::SO, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::SO, propertyValueFactory->CreateSimpleTextPropertyValue(this->sourceName)));
-    if (this->annotationAuthor != SgfcConstants::NoneValueString)
+    if (this->annotationAuthor == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::AN, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::AN, propertyValueFactory->CreateSimpleTextPropertyValue(this->annotationAuthor)));
-    if (this->copyrightInformation != SgfcConstants::NoneValueString)
+    if (this->copyrightInformation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::CP, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::CP, propertyValueFactory->CreateSimpleTextPropertyValue(this->copyrightInformation)));
     
-    if (this->gameName != SgfcConstants::NoneValueString)
+    if (this->gameName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::GN, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::GN, propertyValueFactory->CreateSimpleTextPropertyValue(this->gameName)));
-    if (this->gameInformation != SgfcConstants::NoneValueString)
+    if (this->gameInformation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::GC, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::GC, propertyValueFactory->CreateTextPropertyValue(this->gameInformation)));
-    if (this->rawGameDates != SgfcConstants::NoneValueString)
+    if (this->rawGameDates == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::DT, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::DT, propertyValueFactory->CreateSimpleTextPropertyValue(this->rawGameDates)));
-    if (this->rulesName != SgfcConstants::NoneValueString)
+    if (this->rulesName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::RU, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::RU, propertyValueFactory->CreateSimpleTextPropertyValue(this->rulesName)));
-    if (this->rawGameResult != SgfcConstants::NoneValueString)
+    if (this->rawGameResult == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::RE, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::RE, propertyValueFactory->CreateSimpleTextPropertyValue(this->rawGameResult)));
 
-    if (this->timeLimitInSeconds != 0.0)
+    if (this->timeLimitInSeconds == 0.0)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::TM, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::TM, propertyValueFactory->CreateRealPropertyValue(this->timeLimitInSeconds)));
-    if (this->overtimeInformation != SgfcConstants::NoneValueString)
+    if (this->overtimeInformation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::OT, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::OT, propertyValueFactory->CreateSimpleTextPropertyValue(this->overtimeInformation)));
-    if (this->openingInformation != SgfcConstants::NoneValueString)
+    if (this->openingInformation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::ON, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::ON, propertyValueFactory->CreateSimpleTextPropertyValue(this->openingInformation)));
     
-    if (this->blackPlayerName != SgfcConstants::NoneValueString)
+    if (this->blackPlayerName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::PB, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::PB, propertyValueFactory->CreateSimpleTextPropertyValue(this->blackPlayerName)));
-    if (this->blackPlayerRank != SgfcConstants::NoneValueString)
+    if (this->blackPlayerRank == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::BR, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::BR, propertyValueFactory->CreateSimpleTextPropertyValue(this->blackPlayerRank)));
-    if (this->blackPlayerTeamName != SgfcConstants::NoneValueString)
+    if (this->blackPlayerTeamName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::BT, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::BT, propertyValueFactory->CreateSimpleTextPropertyValue(this->blackPlayerTeamName)));
-    if (this->whitePlayerName != SgfcConstants::NoneValueString)
+    if (this->whitePlayerName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::PW, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::PW, propertyValueFactory->CreateSimpleTextPropertyValue(this->whitePlayerName)));
-    if (this->whitePlayerRank != SgfcConstants::NoneValueString)
+    if (this->whitePlayerRank == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::WR, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::WR, propertyValueFactory->CreateSimpleTextPropertyValue(this->whitePlayerRank)));
-    if (this->whitePlayerTeamName != SgfcConstants::NoneValueString)
+    if (this->whitePlayerTeamName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::WT, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::WT, propertyValueFactory->CreateSimpleTextPropertyValue(this->whitePlayerTeamName)));
 
-    if (this->gameLocation != SgfcConstants::NoneValueString)
+    if (this->gameLocation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::PC, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::PC, propertyValueFactory->CreateSimpleTextPropertyValue(this->gameLocation)));
-    if (this->eventName != SgfcConstants::NoneValueString)
+    if (this->eventName == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::EV, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::EV, propertyValueFactory->CreateSimpleTextPropertyValue(this->eventName)));
-    if (this->rawRoundInformation != SgfcConstants::NoneValueString)
+    if (this->rawRoundInformation == SgfcConstants::NoneValueString)
+      RemovePropertyFromNodeIfExists(SgfcPropertyType::RO, gameInfoNode);
+    else
       gameInfoNode->SetProperty(propertyFactory->CreateProperty(SgfcPropertyType::RO, propertyValueFactory->CreateSimpleTextPropertyValue(this->rawRoundInformation)));
   }
 
@@ -542,5 +584,12 @@ namespace LibSgfcPlusPlus
     if (! singlePropertyValue->HasTypedValue())
       return singlePropertyValue->GetRawValue();
     return singlePropertyValue->ToTextValue()->GetTextValue();
+  }
+
+  void SgfcGameInfo::RemovePropertyFromNodeIfExists(SgfcPropertyType propertyType, std::shared_ptr<ISgfcNode> node) const
+  {
+    auto property = node->GetProperty(propertyType);
+    if (property != nullptr)
+      node->RemoveProperty(property);
   }
 }
