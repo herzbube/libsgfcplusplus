@@ -209,6 +209,8 @@ namespace LibSgfcPlusPlus
       return false;
     else if (this->Score != other.Score)
       return false;
+    else if (this->IsValid != other.IsValid)
+      return false;
     else
       return true;
   }

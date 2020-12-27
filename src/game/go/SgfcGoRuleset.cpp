@@ -73,6 +73,8 @@ namespace LibSgfcPlusPlus
       return true;
     else if (this->GoRulesetType != other.GoRulesetType)
       return false;
+    else if (this->IsValid != other.IsValid)
+      return false;
     else
       return true;
   }

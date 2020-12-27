@@ -72,14 +72,14 @@ namespace LibSgfcPlusPlus
     /// @a goRuleset is false.
     static SgfcSimpleText ToPropertyValue(SgfcGoRuleset goRuleset);
 
-    /// @brief Returns true if the property @e GoRulesetType is the same for
-    /// the current SgfcGoRuleset object and for @a other. Returns false if any
-    /// of these properties are different.
+    /// @brief Returns true if the properties @e GoRulesetType and @e IsValid
+    /// are the same for the current SgfcGoRuleset object and for @a other.
+    /// Returns false if any of these properties are different.
     bool operator==(const SgfcGoRuleset& other) const;
 
-    /// @brief Returns true if the property @e GoRulesetType is different for
-    /// the current SgfcGoRuleset object and for @a other. Returns false if all
-    /// properties are the same.
+    /// @brief Returns true if any of the properties @e GoRulesetType or
+    /// @e IsValid are different for the current SgfcGoRuleset object and for
+    /// @a other. Returns false if all properties are the same.
     bool operator!=(const SgfcGoRuleset& other) const;
   };
 }

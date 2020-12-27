@@ -90,14 +90,16 @@ namespace LibSgfcPlusPlus
     /// member of @a gameResult is false.
     static SgfcSimpleText ToPropertyValue(SgfcGameResult gameResult);
 
-    /// @brief Returns true if the properties @e GameResultType, @e WinType and
-    /// @a Score are the same for the current SgfcGameResult object and for
-    /// @a other. Returns false if any of these properties are different.
+    /// @brief Returns true if the properties @e GameResultType, @e WinType,
+    /// @e Score and @e IsValid are the same for the current SgfcGameResult
+    /// object and for @a other. Returns false if any of these properties are
+    /// different.
     bool operator==(const SgfcGameResult& other) const;
 
     /// @brief Returns true if any of the properties @e GameResultType,
-    /// @e WinType or @a Score are different for the current SgfcGameResult
-    /// object and for @a other. Returns false if all properties are the same.
+    /// @e WinType, @e Score or @e IsValid are different for the current
+    /// SgfcGameResult object and for @a other. Returns false if all properties
+    /// are the same.
     bool operator!=(const SgfcGameResult& other) const;
   };
 }

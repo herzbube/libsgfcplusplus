@@ -69,6 +69,8 @@ namespace LibSgfcPlusPlus
       return false;
     else if (this->RoundType != other.RoundType)
       return false;
+    else if (this->IsValid != other.IsValid)
+      return false;
     else
       return true;
   }

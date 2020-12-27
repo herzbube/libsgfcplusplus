@@ -172,6 +172,8 @@ namespace LibSgfcPlusPlus
       return false;
     else if (this->RatingType != other.RatingType)
       return false;
+    else if (this->IsValid != other.IsValid)
+      return false;
     else
       return true;
   }
