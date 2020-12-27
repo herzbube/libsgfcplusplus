@@ -22,6 +22,7 @@
 #include "../../include/ISgfcSinglePropertyValue.h"
 #include "../../include/SgfcConstants.h"
 #include "../../include/SgfcPlusPlusFactory.h"
+#include "../game/SgfcGameInfo.h"
 #include "../game/SgfcGameUtility.h"
 #include "../SgfcUtility.h"
 #include "SgfcGame.h"
@@ -128,13 +129,56 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcGameInfo> SgfcGame::CreateGameInfo() const
   {
-    std::shared_ptr<ISgfcNode> gameInfoNode = nullptr;
+    std::shared_ptr<ISgfcNode> firstGameInfoNode = GetFirstGameInfoNode();
 
-    NodeVisitCallback nodeVisitCallback = [&gameInfoNode](std::shared_ptr<ISgfcNode> node) -> SgfcNodeIterationContinuation
+    if (this->rootNode == nullptr)
+      return SgfcPlusPlusFactory::CreateGameInfo();
+    else if (firstGameInfoNode == nullptr)
+      return SgfcPlusPlusFactory::CreateGameInfo(this->rootNode);
+    else
+      return SgfcPlusPlusFactory::CreateGameInfo(this->rootNode, firstGameInfoNode);
+  }
+
+  void SgfcGame::WriteGameInfo(std::shared_ptr<ISgfcGameInfo> gameInfo)
+  {
+    if (gameInfo == nullptr)
+      throw std::invalid_argument("WriteGameInfo failed: Game info object is nullptr");
+
+    std::shared_ptr<ISgfcNode> firstGameInfoNode;
+    if (this->rootNode == nullptr)
+    {
+      this->rootNode = SgfcPlusPlusFactory::CreateNode();
+      firstGameInfoNode = this->rootNode;
+    }
+    else
+    {
+      firstGameInfoNode = GetFirstGameInfoNode();
+    }
+
+    auto gameInfoImplementation = std::dynamic_pointer_cast<SgfcGameInfo>(gameInfo);
+    gameInfoImplementation->WriteToRootNode(this->rootNode);
+    gameInfoImplementation->WriteToGameInfoNode(firstGameInfoNode);
+  }
+
+  std::shared_ptr<ISgfcTreeBuilder> SgfcGame::GetTreeBuilder() const
+  {
+    return this->treeBuilder;
+  }
+
+  void SgfcGame::SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
+  {
+    this->treeBuilder = treeBuilder;
+  }
+
+  std::shared_ptr<ISgfcNode> SgfcGame::GetFirstGameInfoNode() const
+  {
+    std::shared_ptr<ISgfcNode> firstGameInfoNode = nullptr;
+
+    NodeVisitCallback nodeVisitCallback = [&firstGameInfoNode](std::shared_ptr<ISgfcNode> node) -> SgfcNodeIterationContinuation
     {
       if (node->HasTrait(SgfcNodeTrait::GameInfo))
       {
-        gameInfoNode = node;
+        firstGameInfoNode = node;
         return SgfcNodeIterationContinuation::Stop;
       }
       else
@@ -146,21 +190,6 @@ namespace LibSgfcPlusPlus
     SgfcNodeIterator nodeIterator;
     nodeIterator.IterateOverNodesDepthFirst(this->rootNode, nodeVisitCallback);
 
-    if (this->rootNode == nullptr)
-      return SgfcPlusPlusFactory::CreateGameInfo();
-    else if (gameInfoNode == nullptr)
-      return SgfcPlusPlusFactory::CreateGameInfo(this->rootNode);
-    else
-      return SgfcPlusPlusFactory::CreateGameInfo(this->rootNode, gameInfoNode);
-  }
-
-  std::shared_ptr<ISgfcTreeBuilder> SgfcGame::GetTreeBuilder() const
-  {
-    return this->treeBuilder;
-  }
-
-  void SgfcGame::SetTreeBuilder(std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
-  {
-    this->treeBuilder = treeBuilder;
+    return firstGameInfoNode;
   }
 }

@@ -56,6 +56,7 @@ namespace LibSgfcPlusPlus
     virtual std::vector<std::shared_ptr<ISgfcNode>> GetGameInfoNodes() const override;
 
     virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const override;
+    virtual void WriteGameInfo(std::shared_ptr<ISgfcGameInfo> gameInfo) override;
 
     virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const override;
     /// @brief Configures the SgfcGame object with @a treeBuilder, an object
@@ -65,5 +66,7 @@ namespace LibSgfcPlusPlus
   private:
     std::shared_ptr<ISgfcNode> rootNode;
     std::shared_ptr<ISgfcTreeBuilder> treeBuilder;
+
+    std::shared_ptr<ISgfcNode> GetFirstGameInfoNode() const;
   };
 }

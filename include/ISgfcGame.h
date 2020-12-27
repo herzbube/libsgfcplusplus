@@ -203,6 +203,36 @@ namespace LibSgfcPlusPlus
     /// @see ISgfcNode::CreateGameInfo()
     virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const = 0;
 
+    /// @brief Writes all root property values in @a gameInfo to the
+    /// corresponding properties in the root node that GetRootNode() returns,
+    /// and all game info property values in @a gameInfo to the first game
+    /// info node in the list of game info nodes returned by GetGameInfoNodes().
+    ///
+    /// This is a convenience method that is useful if a game contains only one
+    /// game tree (GetGameInfoNodes() returns only one game info node). If the
+    /// game contains more than one game tree, then ISgfcNode::WriteGameInfo()
+    /// can be invoked to write the content of @a gameInfo to the second, third,
+    /// etc. game info nodes returned by GetGameInfoNodes().
+    ///
+    /// If the game has no game trees (GetGameInfoNodes() returns an empty list)
+    /// then the game info property values in @a gameInfo are written to the
+    /// root node that GetRootNode() returns.
+    ///
+    /// If the game has no root node (HasRootNode() returns false) then a new
+    /// root node is created and all property values in @a gameInfo are written
+    /// to the new node.
+    ///
+    /// Game info property values are written only if they are not equal to
+    /// their default values (already existing property values are overwritten).
+    /// Game info property values that are equal to their default value cause
+    /// the property to be removed, if it exists, from the game info node.
+    ///
+    /// Root property values are always written, regardless of whether they
+    /// are equal to their default values.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a gameInfo is @e nullptr.
+    virtual void WriteGameInfo(std::shared_ptr<ISgfcGameInfo> gameInfo) = 0;
+
     /// @brief Returns an ISgfcTreeBuilder object that can be used to
     /// manipulate the game tree.
     virtual std::shared_ptr<ISgfcTreeBuilder> GetTreeBuilder() const = 0;

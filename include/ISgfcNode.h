@@ -215,6 +215,25 @@ namespace LibSgfcPlusPlus
     ///
     /// @see ISgfcGame::CreateGameInfo()
     virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const = 0;
+
+    /// @brief Writes all root property values in @a gameInfo to the
+    /// corresponding properties in the root node that GetRoot() returns,
+    /// and all game info property values in @a gameInfo to the game info node
+    /// that GetGameInfoNode() returns.
+    ///
+    /// If GetGameInfoNode() returns @e nullptr then the game info property
+    /// values in @a gameInfo are written to the root node.
+    ///
+    /// Game info property values are written only if they are not equal to
+    /// their default values (already existing property values are overwritten).
+    /// Game info property values that are equal to their default value cause
+    /// the property to be removed, if it exists, from the game info node.
+    ///
+    /// Root property values are always written, regardless of whether they
+    /// are equal to their default values.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a gameInfo is @e nullptr.
+    virtual void WriteGameInfo(std::shared_ptr<ISgfcGameInfo> gameInfo) const = 0;
     //@}
 
     /// @name Property access
