@@ -78,7 +78,7 @@ namespace LibSgfcPlusPlus
   void SgfcGoGameInfo::SetGoRuleset(SgfcGoRuleset goRuleset)
   {
     this->goRuleset = goRuleset;
-    SetRulesName(SgfcGoRuleset::ToPropertyValue(goRuleset));
+    SgfcGameInfo::SetRulesName(SgfcGoRuleset::ToPropertyValue(goRuleset));
   }
 
   void SgfcGoGameInfo::SetRulesName(const SgfcSimpleText& rulesName)
