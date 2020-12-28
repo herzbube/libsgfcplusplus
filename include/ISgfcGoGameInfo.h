@@ -68,11 +68,18 @@ namespace LibSgfcPlusPlus
     /// The returned SgfcGoRuleset also has the @e IsValid property set to
     /// false if there is a problem with decomposing the raw property value.
     /// See SgfcGoRuleset::FromPropertyValue() for details. An indicator that
-    /// this happened is if GetRulesName() returns a non-empty string.
+    /// this happened is if GetRulesName() returns a value that is not equal to
+    /// SgfcConstants::NoneValueString.
+    ///
+    /// Invoking the base class method SetRulesName() also changes the
+    /// information returned by this method.
     ///
     /// @see SgfcPropertyType::RU
     virtual SgfcGoRuleset GetGoRuleset() const = 0;
     /// @brief Sets the Go ruleset used for the game.
+    ///
+    /// Invoking this setter also changes the information returned by
+    /// GetRulesName().
     ///
     /// @see SgfcPropertyType::RU
     virtual void SetRuleset(SgfcGoRuleset goRuleset) = 0;
@@ -84,11 +91,18 @@ namespace LibSgfcPlusPlus
     /// The returned SgfcGoPlayerRank also has the @e IsValid property set to
     /// false if there is a problem with decomposing the raw property value.
     /// See SgfcGoPlayerRank::FromPropertyValue() for details. An indicator that
-    /// this happened is if GetBlackPlayerRank() returns a non-empty string.
+    /// this happened is if GetBlackPlayerRank() returns a value that is not
+    /// equal to SgfcConstants::NoneValueString.
+    ///
+    /// Invoking the base class method SetBlackPlayerRank() also changes the
+    /// information returned by this method.
     ///
     /// @see SgfcPropertyType::BR
     virtual SgfcGoPlayerRank GetGoBlackPlayerRank() const = 0;
     /// @brief Sets the rank of the black player.
+    ///
+    /// Invoking this setter also changes the information returned by
+    /// GetBlackPlayerRank().
     ///
     /// @see SgfcPropertyType::BR
     virtual void SetBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank) = 0;
@@ -100,11 +114,18 @@ namespace LibSgfcPlusPlus
     /// The returned SgfcGoPlayerRank also has the @e IsValid property set to
     /// false if there is a problem with decomposing the raw property value.
     /// See SgfcGoPlayerRank::FromPropertyValue() for details. An indicator that
-    /// this happened is if GetWhitePlayerRank() returns a non-empty string.
+    /// this happened is if GetWhitePlayerRank() returns a value that is not
+    /// equal to SgfcConstants::NoneValueString.
+    ///
+    /// Invoking the base class method SetWhitePlayerRank() also changes the
+    /// information returned by this method.
     ///
     /// @see SgfcPropertyType::WR
     virtual SgfcGoPlayerRank GetGoWhitePlayerRank() const = 0;
     /// @brief Sets the rank of the white player.
+    ///
+    /// Invoking this setter also changes the information returned by
+    /// GetWhitePlayerRank().
     ///
     /// @see SgfcPropertyType::WR
     virtual void SetWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank) = 0;

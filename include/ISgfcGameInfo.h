@@ -190,7 +190,7 @@ namespace LibSgfcPlusPlus
     /// The returned collection is also empty if there is a problem with
     /// decomposing the raw property value. See SgfcDate::FromPropertyValue()
     /// for details. An indicator that this happened is if GetRawGameDates()
-    /// returns a non-empty string.
+    /// returns a value that is not equal to SgfcConstants::NoneValueString.
     ///
     /// @see SgfcPropertyType::DT
     virtual std::vector<SgfcDate> GetGameDates() const = 0;
@@ -204,14 +204,14 @@ namespace LibSgfcPlusPlus
     /// @see SgfcPropertyType::DT
     virtual void SetGameDates(const std::vector<SgfcDate>& gameDates) = 0;
     /// @brief Returns the dates when the game was played. Several
-    /// non-consecutive dates are possible. The default value is an empty
-    /// string.
+    /// non-consecutive dates are possible. The default value is
+    /// SgfcConstants::NoneValueString.
     ///
     /// This is useful if the raw game dates cannot be decomposed into years,
     /// optional months and optional days, as is required by the SGF standard
     /// for SgfcPropertyType::DT.
     ///
-    /// @note There is no setter for the raw game result value because the
+    /// @note There is no setter for the raw game dates value because the
     /// SGF standard @b requires a certain format in the raw property value,
     /// and that can be guaranteed only by forcing the library client to set
     /// the game dates via structured SgfcDate values.
@@ -236,7 +236,8 @@ namespace LibSgfcPlusPlus
     /// The returned SgfcGameResult also has the @e IsValid property set to
     /// false if there is a problem with decomposing the raw property value.
     /// See SgfcGameResult::FromPropertyValue() for details. An indicator that
-    /// this happened is if GetRawGameResult() returns a non-empty string.
+    /// this happened is if GetRawGameResult() returns a value that is not equal
+    /// to SgfcConstants::NoneValueString.
     ///
     /// @see SgfcPropertyType::RE
     virtual SgfcGameResult GetGameResult() const = 0;
@@ -248,8 +249,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @see SgfcPropertyType::RE
     virtual void SetGameResult(SgfcGameResult gameResult) = 0;
-    /// @brief Returns the result of the game. The default value is an empty
-    /// string.
+    /// @brief Returns the result of the game. The default value is
+    /// SgfcConstants::NoneValueString.
     ///
     /// This is useful if the raw game result cannot be decomposed into an
     /// outcome and an optional score as is required by the SGF standard for
@@ -393,8 +394,8 @@ namespace LibSgfcPlusPlus
     /// The returned SgfcRoundInformation also has the @e IsValid property set
     /// to false if there is a problem with decomposing the raw property value.
     /// See SgfcRoundInformation::FromPropertyValue() for details. An indicator
-    /// that this happened is if GetRawRoundInformation() returns a non-empty
-    /// string.
+    /// that this happened is if GetRawRoundInformation() returns a value that
+    /// is not equal to SgfcConstants::NoneValueString.
     ///
     /// @see SgfcPropertyType::RO
     virtual SgfcRoundInformation GetRoundInformation() const = 0;
@@ -412,6 +413,11 @@ namespace LibSgfcPlusPlus
     /// This is useful if the raw round information cannot be decomposed into
     /// round number and type of round as recommended by the SGF standard for
     /// SgfcPropertyType::RO.
+    ///
+    /// @note There is no setter for the raw round information value because the
+    /// SGF standard @b requires a certain format in the raw property value,
+    /// and that can be guaranteed only by forcing the library client to set
+    /// the round information via a structured SgfcRoundInformation value.
     ///
     /// @see SgfcPropertyType::RO
     virtual SgfcSimpleText GetRawRoundInformation() const = 0;

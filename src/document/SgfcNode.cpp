@@ -305,7 +305,7 @@ namespace LibSgfcPlusPlus
   void SgfcNode::SetProperty(std::shared_ptr<ISgfcProperty> property)
   {
     if (property == nullptr)
-      throw std::invalid_argument("AppendProperty failed: Property argument is null");
+      throw std::invalid_argument("SetProperty failed: Property argument is null");
 
     auto propertyName = property->GetPropertyName();
     auto lambdaPropertyName = [&propertyName](auto lambdaProperty)->bool { return lambdaProperty->GetPropertyName() == propertyName; };
