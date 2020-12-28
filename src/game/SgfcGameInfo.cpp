@@ -35,9 +35,30 @@
 namespace LibSgfcPlusPlus
 {
   SgfcGameInfo::SgfcGameInfo()
-    : gameType(SgfcGameType::Unknown)
+    : gameType(SgfcConstants::DefaultGameType)
     , gameTypeAsNumber(SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType))
+    , boardSize(SgfcUtility::GetDefaultBoardSize(SgfcConstants::DefaultGameType))
+    , recorderName(SgfcConstants::NoneValueString)
+    , sourceName(SgfcConstants::NoneValueString)
+    , annotationAuthor(SgfcConstants::NoneValueString)
+    , copyrightInformation(SgfcConstants::NoneValueString)
+    , gameName(SgfcConstants::NoneValueString)
+    , gameInformation(SgfcConstants::NoneValueString)
+    , rawGameDates(SgfcConstants::NoneValueString)
+    , rulesName(SgfcConstants::NoneValueString)
+    , rawGameResult(SgfcConstants::NoneValueString)
     , timeLimitInSeconds(0.0)
+    , overtimeInformation(SgfcConstants::NoneValueString)
+    , openingInformation(SgfcConstants::NoneValueString)
+    , blackPlayerName(SgfcConstants::NoneValueString)
+    , blackPlayerRank(SgfcConstants::NoneValueString)
+    , blackPlayerTeamName(SgfcConstants::NoneValueString)
+    , whitePlayerName(SgfcConstants::NoneValueString)
+    , whitePlayerRank(SgfcConstants::NoneValueString)
+    , whitePlayerTeamName(SgfcConstants::NoneValueString)
+    , gameLocation(SgfcConstants::NoneValueString)
+    , eventName(SgfcConstants::NoneValueString)
+    , rawRoundInformation(SgfcConstants::NoneValueString)
   {
   }
 
