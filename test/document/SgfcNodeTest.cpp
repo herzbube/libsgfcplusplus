@@ -14,12 +14,18 @@
 // limitations under the License.
 // -----------------------------------------------------------------------------
 
+// Project includes
+#include "../AssertHelperFunctions.h"
+#include "../SetupHelperFunctions.h"
+
 // Library includes
+#include <ISgfcGameInfo.h>
 #include <SgfcConstants.h>
 #include <document/SgfcGame.h>
 #include <document/SgfcNode.h>
 #include <document/SgfcProperty.h>
 #include <document/SgfcTreeBuilder.h>
+#include <SgfcUtility.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
@@ -1431,3 +1437,171 @@ SCENARIO( "SgfcNode is used to perform a game tree search", "[document]" )
     }
   }
 }
+
+SCENARIO( "SgfcNode creates an ISgfcGameInfo object", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  auto intermediateNode = std::make_shared<SgfcNode>();
+  auto intermediateSiblingNode = std::make_shared<SgfcNode>();
+  auto leafNode = std::make_shared<SgfcNode>();
+
+  game->SetRootNode(rootNode);
+  treeBuilder.SetFirstChild(rootNode, intermediateNode);
+  treeBuilder.SetNextSibling(intermediateNode, intermediateSiblingNode);
+  treeBuilder.SetFirstChild(intermediateNode, leafNode);
+
+  GIVEN( "SgfcNode is an empty root node and has no game info node" )
+  {
+    WHEN( "SgfcNode creates the ISgfcGameInfo object" )
+    {
+      SgfcGameType expectedGameType = SgfcConstants::DefaultGameType;
+      SgfcNumber expectedGameTypeAsNumber = SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
+      SgfcBoardSize expectedBoardSize = SgfcUtility::GetDefaultBoardSize(expectedGameType);
+
+      auto gameInfo = rootNode->CreateGameInfo();
+
+      THEN( "The ISgfcGameInfo object contains default values" )
+      {
+        AssertGameInfoHasRootPropertyValues(gameInfo, expectedGameType, expectedGameTypeAsNumber, expectedBoardSize);
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode is the child of an empty root node and has no game info node" )
+  {
+    WHEN( "SgfcNode creates the ISgfcGameInfo object" )
+    {
+      SgfcGameType expectedGameType = SgfcConstants::DefaultGameType;
+      SgfcNumber expectedGameTypeAsNumber = SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
+      SgfcBoardSize expectedBoardSize = SgfcUtility::GetDefaultBoardSize(expectedGameType);
+
+      auto gameInfo = leafNode->CreateGameInfo();
+
+      THEN( "The ISgfcGameInfo object contains default values" )
+      {
+        AssertGameInfoHasRootPropertyValues(gameInfo, expectedGameType, expectedGameTypeAsNumber, expectedBoardSize);
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode is the child of a non-empty root node and has no game info node" )
+  {
+    SgfcGameType gameType = GENERATE( SgfcGameType::Go, SgfcGameType::Backgammon );
+    SgfcBoardSize boardSize = { 3, 10 };
+    bool setupWithTypedProperties = GENERATE( true, false );
+    SetupNodeWithGameAndBoardSizeProperties(rootNode, gameType, boardSize, setupWithTypedProperties);
+
+    WHEN( "SgfcNode creates the ISgfcGameInfo object" )
+    {
+      auto gameInfo = leafNode->CreateGameInfo();
+
+      THEN( "The ISgfcGameInfo object contains the root property values" )
+      {
+        AssertGameInfoHasRootPropertyValues(gameInfo, gameType, SgfcUtility::MapGameTypeToNumberValue(gameType), boardSize);
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode has a game info node" )
+  {
+    SgfcSimpleText propertyValue = "foo";
+    auto gameInfoProperty = CreateSimpleTextProperty(SgfcPropertyType::US, propertyValue);
+    std::vector<std::shared_ptr<ISgfcNode>> testNodes = { rootNode, intermediateNode, leafNode };
+
+    WHEN( "SgfcNode creates the ISgfcGameInfo object" )
+    {
+      THEN( "The ISgfcGameInfo object contains the game info property values" )
+      {
+        // TODO: Get this to work with GENERATE_COPY
+        for (auto gameInfoNode : testNodes)
+        {
+          gameInfoNode->SetProperties({gameInfoProperty});
+          auto gameInfo = leafNode->CreateGameInfo();
+
+          REQUIRE( gameInfo->GetRecorderName() == propertyValue );
+
+          gameInfoNode->RemoveAllProperties();
+        }
+      }
+    }
+  }
+}
+
+SCENARIO( "SgfcNode writes an ISgfcGameInfo object", "[document]" )
+{
+  auto game = std::make_shared<SgfcGame>();
+  SgfcTreeBuilder treeBuilder(game);
+
+  auto rootNode = std::make_shared<SgfcNode>();
+  auto intermediateNode = std::make_shared<SgfcNode>();
+  auto intermediateSiblingNode = std::make_shared<SgfcNode>();
+  auto leafNode = std::make_shared<SgfcNode>();
+
+  game->SetRootNode(rootNode);
+  treeBuilder.SetFirstChild(rootNode, intermediateNode);
+  treeBuilder.SetNextSibling(intermediateNode, intermediateSiblingNode);
+  treeBuilder.SetFirstChild(intermediateNode, leafNode);
+
+  GIVEN( "SgfcNode has no game info node" )
+  {
+    SgfcGameType gameType = SgfcGameType::Go;
+    SgfcBoardSize boardSize = { 15, 15 };
+    bool setupWithTypedProperties = false;
+    SetupNodeWithGameAndBoardSizeProperties(rootNode, gameType, boardSize, setupWithTypedProperties);
+    auto propertyType = SgfcPropertyType::US;
+    SgfcSimpleText recorderName = "foo";
+    auto gameInfoProperty = CreateSimpleTextProperty(propertyType, recorderName);
+    rootNode->AppendProperty(gameInfoProperty);
+
+    auto gameInfo = leafNode->CreateGameInfo();
+    REQUIRE( gameInfo->GetRecorderName() == recorderName );
+
+    rootNode->RemoveAllProperties();
+
+    WHEN( "SgfcNode writes the ISgfcGameInfo object" )
+    {
+      leafNode->WriteGameInfo(gameInfo);
+
+      THEN( "The game info properties are written to the root node" )
+      {
+        auto newRootNode = game->GetRootNode();
+        REQUIRE( newRootNode != nullptr );
+        auto properties = newRootNode->GetProperties();
+        REQUIRE( properties.size() == 3 );
+        AssertPropertiesContainRootPropertyValues(properties, SgfcUtility::MapGameTypeToNumberValue(gameType), boardSize);
+        AssertPropertiesContainsGameInfoPropertyValue(properties, propertyType, recorderName);
+      }
+    }
+  }
+
+  GIVEN( "SgfcNode has a game info node" )
+  {
+    auto propertyType = SgfcPropertyType::US;
+    SgfcSimpleText recorderName = "foo";
+    auto gameInfoProperty = CreateSimpleTextProperty(propertyType, recorderName);
+    leafNode->AppendProperty(gameInfoProperty);
+    auto gameInfo = leafNode->CreateGameInfo();
+    REQUIRE( gameInfo->GetRecorderName() == recorderName );
+    SgfcSimpleText newRecorderName = "bar";
+    gameInfo->SetRecorderName(newRecorderName);
+
+    WHEN( "SgfcNode writes the ISgfcGameInfo object" )
+    {
+      leafNode->WriteGameInfo(gameInfo);
+
+      THEN( "The game info properties are written to the game info node" )
+      {
+        auto leafNodeProperties = leafNode->GetProperties();
+        REQUIRE( leafNodeProperties.size() == 1 );
+        AssertPropertiesContainsGameInfoPropertyValue(leafNodeProperties, propertyType, newRecorderName);
+        REQUIRE( rootNode->GetProperties().size() == 2 );
+        REQUIRE( intermediateNode->GetProperties().size() == 0 );
+        REQUIRE( intermediateSiblingNode->GetProperties().size() == 0 );
+      }
+    }
+  }
+}
+

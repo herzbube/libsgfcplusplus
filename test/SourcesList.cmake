@@ -29,6 +29,10 @@ set (
   sgfc/save/SgfcSaveStreamTest.cpp
   sgfc/save/SgfcSgfContentTest.cpp
   ${SOURCES_LIST_FILE_NAME}
+  AssertHelperFunctions.h
+  AssertHelperFunctions.cpp
+  SetupHelperFunctions.h
+  SetupHelperFunctions.cpp
   TestDataGenerator.cpp
   TestDataGenerator.h
 )
