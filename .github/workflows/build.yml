@@ -28,7 +28,7 @@ jobs:
     - name: Checking out the sources
       uses: actions/checkout@v2
       with:
-        submodules: true
+        submodules: recursive
 
     - name: Generate build system (macOS and Ubuntu)
       run: |
