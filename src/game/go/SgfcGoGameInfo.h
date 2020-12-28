@@ -58,14 +58,14 @@ namespace LibSgfcPlusPlus
     virtual SgfcReal GetKomi() const override;
     virtual void SetKomi(SgfcReal komi) override;
     virtual SgfcGoRuleset GetGoRuleset() const override;
-    virtual void SetRuleset(SgfcGoRuleset goRuleset) override;
+    virtual void SetGoRuleset(SgfcGoRuleset goRuleset) override;
     virtual void SetRulesName(const SgfcSimpleText& rulesName) override;
 
     virtual SgfcGoPlayerRank GetGoBlackPlayerRank() const override;
-    virtual void SetBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank) override;
+    virtual void SetGoBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank) override;
     virtual void SetBlackPlayerRank(const SgfcSimpleText& blackPlayerRank) override;
     virtual SgfcGoPlayerRank GetGoWhitePlayerRank() const override;
-    virtual void SetWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank) override;
+    virtual void SetGoWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank) override;
     virtual void SetWhitePlayerRank(const SgfcSimpleText& whitePlayerRank) override;
 
     virtual const ISgfcGoGameInfo* ToGoGameInfo() const override;

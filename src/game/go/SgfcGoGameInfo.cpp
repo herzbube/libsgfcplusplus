@@ -75,7 +75,7 @@ namespace LibSgfcPlusPlus
     return this->goRuleset;
   }
 
-  void SgfcGoGameInfo::SetRuleset(SgfcGoRuleset goRuleset)
+  void SgfcGoGameInfo::SetGoRuleset(SgfcGoRuleset goRuleset)
   {
     this->goRuleset = goRuleset;
     SetRulesName(SgfcGoRuleset::ToPropertyValue(goRuleset));
@@ -92,7 +92,7 @@ namespace LibSgfcPlusPlus
     return this->goBlackPlayerRank;
   }
 
-  void SgfcGoGameInfo::SetBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank)
+  void SgfcGoGameInfo::SetGoBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank)
   {
     this->goBlackPlayerRank = goBlackPlayerRank;
     SgfcGameInfo::SetBlackPlayerRank(SgfcGoPlayerRank::ToPropertyValue(goBlackPlayerRank));
@@ -109,7 +109,7 @@ namespace LibSgfcPlusPlus
     return this->goWhitePlayerRank;
   }
 
-  void SgfcGoGameInfo::SetWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank)
+  void SgfcGoGameInfo::SetGoWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank)
   {
     this->goWhitePlayerRank = goWhitePlayerRank;
     SgfcGameInfo::SetWhitePlayerRank(SgfcGoPlayerRank::ToPropertyValue(goWhitePlayerRank));

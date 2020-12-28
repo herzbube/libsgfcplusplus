@@ -82,7 +82,7 @@ namespace LibSgfcPlusPlus
     /// GetRulesName().
     ///
     /// @see SgfcPropertyType::RU
-    virtual void SetRuleset(SgfcGoRuleset goRuleset) = 0;
+    virtual void SetGoRuleset(SgfcGoRuleset goRuleset) = 0;
 
     /// @brief Returns the rank of the black player. The default value is
     /// an SgfcGoPlayerRank object which has the @e IsValid property set to
@@ -105,7 +105,7 @@ namespace LibSgfcPlusPlus
     /// GetBlackPlayerRank().
     ///
     /// @see SgfcPropertyType::BR
-    virtual void SetBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank) = 0;
+    virtual void SetGoBlackPlayerRank(SgfcGoPlayerRank goBlackPlayerRank) = 0;
 
     /// @brief Returns the rank of the white player. The default value is
     /// an SgfcGoPlayerRank object which has the @e IsValid property set to
@@ -128,6 +128,6 @@ namespace LibSgfcPlusPlus
     /// GetWhitePlayerRank().
     ///
     /// @see SgfcPropertyType::WR
-    virtual void SetWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank) = 0;
+    virtual void SetGoWhitePlayerRank(SgfcGoPlayerRank goWhitePlayerRank) = 0;
   };
 }
