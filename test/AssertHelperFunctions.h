@@ -22,6 +22,10 @@
 #include <SgfcPropertyType.h>
 #include <SgfcTypedefs.h>
 
+// C++ Standard Library includes
+#include <memory>
+#include <vector>
+
 namespace LibSgfcPlusPlus
 {
   // Forward declarations
