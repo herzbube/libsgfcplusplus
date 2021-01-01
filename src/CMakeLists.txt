@@ -22,6 +22,9 @@ if ( ${ICONV_NEEDS_COMPILING} )
     message ( FATAL_ERROR "List of iconv header files not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
   endif()
 endif()
+if ( NOT DEFINED MASTER_HEADER_FILE_TEMPLATE )
+  message ( FATAL_ERROR "Master header file not defined by ${CMAKE_CURRENT_SOURCE_DIR}/${SOURCES_LIST_FILE_NAME}" )
+endif()
 
 # Setting VERSION_NO_MAIN "defines away" the SGFC main() function. An
 # alternative would be to exclude main.c from the build, but this would make
@@ -133,6 +136,7 @@ if ( ${AT_LEAST_ONE_SHARED_LIBRARY_IS_ENABLED} )
     # SOURCES_ICONV and HEADERS_ICONV are empty and nothing is added.
     ${SOURCES_ICONV}
     ${HEADERS_ICONV}
+    ${MASTER_HEADER_FILE_TEMPLATE}
   )
 endif()
 if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
@@ -150,6 +154,7 @@ if ( ${AT_LEAST_ONE_STATIC_LIBRARY_IS_ENABLED} )
     # SOURCES_ICONV and HEADERS_ICONV are empty and nothing is added.
     ${SOURCES_ICONV}
     ${HEADERS_ICONV}
+    ${MASTER_HEADER_FILE_TEMPLATE}
   )
 endif()
 
@@ -172,16 +177,53 @@ if ( ${ENABLE_STATIC_LIBRARY} )
   )
 endif()
 
+# Generates the master header file of a framework. The master header file is
+# a single header file that includes all the other public header files.
+function(generateFrameworkMasterHeaderFile FRAMEWORK_NAME MASTER_HEADER_FILE )
+  set ( MASTER_HEADER_FILE_IN ${MASTER_HEADER_FILE}.in )
+  file ( REMOVE ${MASTER_HEADER_FILE_IN} )
+
+  file ( APPEND ${MASTER_HEADER_FILE_IN} "// This is a generated file. Do not edit!\n\n" )
+
+  # Write content of template file followed by an empty line to separate the
+  # include statements
+  file ( READ "${MASTER_HEADER_FILE_TEMPLATE}" MASTER_HEADER_FILE_TEMPLATE_CONTENTS )
+  file ( APPEND ${MASTER_HEADER_FILE_IN} "${MASTER_HEADER_FILE_TEMPLATE_CONTENTS}" )
+
+  foreach ( HEADER_PUBLIC_FILE_PATH ${HEADERS_PUBLIC} )
+    get_filename_component( HEADER_PUBLIC_FILE_NAME "${HEADER_PUBLIC_FILE_PATH}" NAME )
+    set ( INCLUDE_LINE "#import <${FRAMEWORK_NAME}/${HEADER_PUBLIC_FILE_NAME}>" )
+    list ( APPEND INCLUDE_LINES "${INCLUDE_LINE}" )
+  endforeach()
+  string(REPLACE ";" "\n" INCLUDE_LINES "${INCLUDE_LINES}")
+
+  # Write the include statements with a trailing newline for the last include
+  # statement
+  file ( APPEND ${MASTER_HEADER_FILE_IN} "${INCLUDE_LINES}" )
+  file ( APPEND ${MASTER_HEADER_FILE_IN} "\n" )
+
+  configure_file(
+    "${MASTER_HEADER_FILE_IN}"
+    "${MASTER_HEADER_FILE}"
+    COPYONLY
+  )
+endfunction()
+
 # For macOS and iOS we also provide a shared library framework and a static
 # library framework. They are composed of the exact same stuff as the regular
 # libraries.
 if ( ${ENABLE_SHARED_FRAMEWORK} )
+  set ( SHARED_FRAMEWORK_MASTER_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${SHARED_FRAMEWORK_OUTPUT_NAME}.h )
+  set ( SHARED_FRAMEWORK_HEADERS_PUBLIC ${HEADERS_PUBLIC} )
+  list ( APPEND SHARED_FRAMEWORK_HEADERS_PUBLIC "${SHARED_FRAMEWORK_MASTER_HEADER_FILE}" )
+  generateFrameworkMasterHeaderFile( ${SHARED_FRAMEWORK_OUTPUT_NAME} ${SHARED_FRAMEWORK_MASTER_HEADER_FILE} )
+
   add_library (
     ${SHARED_FRAMEWORK_TARGET_NAME}
     SHARED
     $<TARGET_OBJECTS:${SHARED_OBJECT_LIBRARY_TARGET_NAME}>
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
-    # Furtherdown we invoke set_property() to set the targets' PUBLIC_HEADER
+    # Further down we invoke set_property() to set the targets' PUBLIC_HEADER
     # property. For the shared and static library targets this works fine and
     # causes CMake to copy the header files to their proper destination at
     # installation time. For the framework targets, just setting the PUBLIC_HEADER
@@ -190,10 +232,15 @@ if ( ${ENABLE_SHARED_FRAMEWORK} )
     # into the framework bundle at build time. This workaround can be found on
     # the CMake mailing list [1] in a thread dating from 2015.
     # [1] http://cmake.3232098.n2.nabble.com/OS-X-framework-headers-with-capital-letters-td7591087.html
-    ${HEADERS_PUBLIC}
+    ${SHARED_FRAMEWORK_HEADERS_PUBLIC}
   )
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
+  set ( STATIC_FRAMEWORK_MASTER_HEADER_FILE ${CMAKE_CURRENT_BINARY_DIR}/${STATIC_FRAMEWORK_OUTPUT_NAME}.h )
+  set ( STATIC_FRAMEWORK_HEADERS_PUBLIC ${HEADERS_PUBLIC} )
+  list ( APPEND STATIC_FRAMEWORK_HEADERS_PUBLIC "${STATIC_FRAMEWORK_MASTER_HEADER_FILE}" )
+  generateFrameworkMasterHeaderFile( ${STATIC_FRAMEWORK_OUTPUT_NAME} ${STATIC_FRAMEWORK_MASTER_HEADER_FILE} )
+
   add_library (
     ${STATIC_FRAMEWORK_TARGET_NAME}
     STATIC
@@ -201,7 +248,7 @@ if ( ${ENABLE_STATIC_FRAMEWORK} )
     ${SOURCE_FILE_EXCEPTED_FROM_OBJECT_LIBRARY}
     # For an explanation of this line, see the comment above in the add_library()
     # command for SHARED_FRAMEWORK_TARGET_NAME.
-    ${HEADERS_PUBLIC}
+    ${STATIC_FRAMEWORK_HEADERS_PUBLIC}
   )
 endif()
 
@@ -254,13 +301,13 @@ endif()
 if ( ${ENABLE_SHARED_FRAMEWORK} )
   set_property (
     TARGET ${SHARED_FRAMEWORK_TARGET_NAME}
-    PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+    PROPERTY PUBLIC_HEADER ${SHARED_FRAMEWORK_HEADERS_PUBLIC}
   )
 endif()
 if ( ${ENABLE_STATIC_FRAMEWORK} )
   set_property (
     TARGET ${STATIC_FRAMEWORK_TARGET_NAME}
-    PROPERTY PUBLIC_HEADER ${HEADERS_PUBLIC}
+    PROPERTY PUBLIC_HEADER ${STATIC_FRAMEWORK_HEADERS_PUBLIC}
   )
 endif()
 

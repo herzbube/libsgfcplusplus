@@ -188,6 +188,11 @@ set (
 )
 
 set (
+  MASTER_HEADER_FILE_TEMPLATE
+  MasterHeaderFile.h.in
+)
+
+set (
   HEADERS_PUBLIC_FOLDER
   ../include
 )
