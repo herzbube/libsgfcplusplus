@@ -57,6 +57,15 @@ namespace LibSgfcPlusPlus
       const std::string& value) const override;
     //@}
 
+    /// @name Single property values - Special value types
+    //@{
+    virtual std::shared_ptr<ISgfcNumberPropertyValue> CreateGameTypePropertyValue(
+      SgfcGameType gameType) const override;
+    virtual std::shared_ptr<ISgfcPropertyValue> CreateBoardSizePropertyValue(
+      SgfcBoardSize boardSize,
+      SgfcGameType gameType) const override;
+    //@}
+
     /// @name Single property values - Go game value types
     //@{
     virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(

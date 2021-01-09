@@ -20,6 +20,7 @@
 #include "SgfcBoardSize.h"
 #include "SgfcColor.h"
 #include "SgfcDouble.h"
+#include "SgfcGameType.h"
 #include "SgfcTypedefs.h"
 
 // Project includes (generated)
@@ -41,6 +42,7 @@ namespace LibSgfcPlusPlus
   class ISgfcMovePropertyValue;
   class ISgfcNumberPropertyValue;
   class ISgfcPointPropertyValue;
+  class ISgfcPropertyValue;
   class ISgfcRealPropertyValue;
   class ISgfcSimpleTextPropertyValue;
   class ISgfcSinglePropertyValue;
@@ -115,6 +117,38 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyValueType::Unknown.
     virtual std::shared_ptr<ISgfcSinglePropertyValue> CreateCustomPropertyValue(
       const std::string& value) const = 0;
+    //@}
+
+    /// @name Single property values - Special value types
+    //@{
+    /// @brief Returns a newly constructed ISgfcNumberPropertyValue object
+    /// that has an SgfcNumber value that corresponds to @a gameType.
+    /// @a gameType must not be #SgfcGameType::Unknown.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a gameType is
+    /// #SgfcGameType::Unknown.
+    virtual std::shared_ptr<ISgfcNumberPropertyValue> CreateGameTypePropertyValue(
+      SgfcGameType gameType) const = 0;
+
+    /// @brief Returns a newly constructed ISgfcPropertyValue object that
+    /// that has a value that corresponds to @a boardSize. @a gameType must be
+    /// provided for validating @a boardSize. @a gameType must not be
+    /// #SgfcGameType::Unknown.
+    ///
+    /// The returned ISgfcPropertyValue is an ISgfcNumberPropertyValue
+    /// object if SgfcBoardSize::IsSquare() returns true for @a boardSize.
+    ///
+    /// The returned ISgfcPropertyValue is an ISgfcComposedPropertyValue
+    /// object consisting of two  ISgfcNumberPropertyValue objects if
+    /// SgfcBoardSize::IsSquare() returns false for @a boardSize.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a boardSize is not valid,
+    /// i.e. if it violates the constraints defined by the SGF standard. See the
+    /// documentation of SgfcConstants::BoardSizeInvalid for details. Is also
+    /// thrown if @a gameType is #SgfcGameType::Unknown.
+    virtual std::shared_ptr<ISgfcPropertyValue> CreateBoardSizePropertyValue(
+      SgfcBoardSize boardSize,
+      SgfcGameType gameType) const = 0;
     //@}
 
     /// @name Single property values - Go game value types

@@ -32,6 +32,7 @@
 #include "../game/go/SgfcGoMove.h"
 #include "../game/go/SgfcGoPoint.h"
 #include "../game/go/SgfcGoStone.h"
+#include "../SgfcUtility.h"
 #include "SgfcPropertyValueFactory.h"
 
 // C++ Standard Library includes
@@ -146,6 +147,31 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcSinglePropertyValue> valueObject = std::shared_ptr<ISgfcSinglePropertyValue>(
       new SgfcSinglePropertyValue(value));
     return valueObject;
+  }
+
+  std::shared_ptr<ISgfcNumberPropertyValue> SgfcPropertyValueFactory::CreateGameTypePropertyValue(
+    SgfcGameType gameType) const
+  {
+    if (gameType == SgfcGameType::Unknown)
+      throw std::invalid_argument("SgfcPropertyValueFactory::CreateGameTypePropertyValue failed: Game type is SgfcGameType::Unknown");
+
+    SgfcNumber gameTypeAsNumber = SgfcUtility::MapGameTypeToNumberValue(gameType);
+    return CreateNumberPropertyValue(gameTypeAsNumber);
+  }
+
+  std::shared_ptr<ISgfcPropertyValue> SgfcPropertyValueFactory::CreateBoardSizePropertyValue(
+    SgfcBoardSize boardSize,
+    SgfcGameType gameType) const
+  {
+    if (gameType == SgfcGameType::Unknown)
+      throw std::invalid_argument("SgfcPropertyValueFactory::CreateBoardSizePropertyValue failed: Game type is SgfcGameType::Unknown");
+    if (! SgfcUtility::IsBoardSizeValid(boardSize, gameType))
+      throw std::invalid_argument("SgfcPropertyValueFactory::CreateBoardSizePropertyValue failed: Board size is invalid");
+
+    if (boardSize.IsSquare())
+      return CreateNumberPropertyValue(boardSize.Columns);
+    else
+      return CreateComposedNumberAndNumberPropertyValue(boardSize.Columns, boardSize.Rows);
   }
 
   std::shared_ptr<ISgfcGoPointPropertyValue> SgfcPropertyValueFactory::CreateGoPointPropertyValue(
