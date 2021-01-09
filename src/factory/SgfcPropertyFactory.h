@@ -36,47 +36,47 @@ namespace LibSgfcPlusPlus
     /// @name ISgfcProperty - Create with property type
     //@{
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
-      SgfcPropertyType propertyType);
+      SgfcPropertyType propertyType) const override;
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue);
+      std::shared_ptr<ISgfcPropertyValue> propertyValue) const override;
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const override;
     //@}
 
     /// @name ISgfcProperty - Create with property name
     //@{
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
-      const std::string& propertyName);
+      const std::string& propertyName) const override;
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue);
+      std::shared_ptr<ISgfcPropertyValue> propertyValue) const override;
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const override;
     //@}
 
     /// @name Concrete property types - ISgfcBoardSizeProperty
     //@{
-    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty();
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty() const override;
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
-      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const override;
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
-      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue);
+      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) const override;
     //@}
 
     /// @name Concrete property types - ISgfcGameTypeProperty
     //@{
-    virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty();
+    virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty() const override;
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(
-      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue);
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const override;
     //@}
 
   private:
     std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
       const std::string& propertyName,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues);
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const;
   };
 }

@@ -63,7 +63,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if @a propertyType is
     /// SgfcPropertyType::Unknown.
-    virtual std::shared_ptr<ISgfcProperty> CreateProperty(SgfcPropertyType propertyType) = 0;
+    virtual std::shared_ptr<ISgfcProperty> CreateProperty(SgfcPropertyType propertyType) const = 0;
 
     /// @brief Returns a newly constructed ISgfcProperty object that has the
     /// specified property type @a propertyType and the specified property
@@ -83,7 +83,7 @@ namespace LibSgfcPlusPlus
     /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
+      std::shared_ptr<ISgfcPropertyValue> propertyValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcProperty object that has the
     /// specified property type @a propertyType and the specified property
@@ -105,7 +105,7 @@ namespace LibSgfcPlusPlus
     /// CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       SgfcPropertyType propertyType,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const = 0;
 
     /// @brief Returns a newly constructed ISgfcProperty object that has the
     /// specified property name @a propertyName. The property type is inferred
@@ -122,7 +122,7 @@ namespace LibSgfcPlusPlus
     /// SgfcPropertyType::GM, the returned ISgfcProperty object is an instance
     /// of ISgfcBoardSizeProperty or ISgfcGameTypeProperty.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
-      const std::string& propertyName) = 0;
+      const std::string& propertyName) const = 0;
 
     /// @brief Returns a newly constructed ISgfcProperty object that has the
     /// specified property name @a propertyName and the specified property
@@ -148,7 +148,7 @@ namespace LibSgfcPlusPlus
     /// of CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
-      std::shared_ptr<ISgfcPropertyValue> propertyValue) = 0;
+      std::shared_ptr<ISgfcPropertyValue> propertyValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcProperty object that has the
     /// specified property name @a propertyName and the specified property
@@ -176,11 +176,11 @@ namespace LibSgfcPlusPlus
     /// CreateBoardSizeProperty() or CreateGameTypeProperty() for details.
     virtual std::shared_ptr<ISgfcProperty> CreateProperty(
       const std::string& propertyName,
-      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) = 0;
+      const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const = 0;
 
     /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
     /// has no value. The property is not associated with any node.
-    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty() = 0;
+    virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty() const = 0;
 
     /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
     /// has the specified property value @a propertyValue. The property is not
@@ -193,7 +193,7 @@ namespace LibSgfcPlusPlus
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
     /// @e nullptr.
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
-      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) = 0;
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcBoardSizeProperty object that
     /// has the specified property value @a propertyValue. The property is not
@@ -207,11 +207,11 @@ namespace LibSgfcPlusPlus
     /// @e nullptr, or if the @a propertyValue object is not composed of two
     /// ISgfcNumberPropertyValue objects.
     virtual std::shared_ptr<ISgfcBoardSizeProperty> CreateBoardSizeProperty(
-      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) = 0;
+      std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) const = 0;
 
     /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
     /// has no value. The property is not associated with any node.
-    virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty() = 0;
+    virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty() const = 0;
 
     /// @brief Returns a newly constructed ISgfcGameTypeProperty object that
     /// has the specified property value @a propertyValue. The property is not
@@ -221,6 +221,6 @@ namespace LibSgfcPlusPlus
     /// @exception std::invalid_argument Is thrown if @a propertyValue is
     /// @e nullptr.
     virtual std::shared_ptr<ISgfcGameTypeProperty> CreateGameTypeProperty(
-      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) = 0;
+      std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const = 0;
   };
 }

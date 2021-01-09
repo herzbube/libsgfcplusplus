@@ -38,7 +38,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
-    SgfcPropertyType propertyType)
+    SgfcPropertyType propertyType) const
   {
     std::shared_ptr<ISgfcProperty> property = CreateProperty(
       propertyType,
@@ -49,7 +49,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
     SgfcPropertyType propertyType,
-    std::shared_ptr<ISgfcPropertyValue> propertyValue)
+    std::shared_ptr<ISgfcPropertyValue> propertyValue) const
   {
     std::shared_ptr<ISgfcProperty> property = CreateProperty(
       propertyType,
@@ -60,7 +60,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
     SgfcPropertyType propertyType,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const
   {
     std::string propertyName = SgfcUtility::MapPropertyTypeToPropertyName(propertyType);
 
@@ -73,7 +73,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
-    const std::string& propertyName)
+    const std::string& propertyName) const
   {
     std::shared_ptr<ISgfcProperty> property = CreateProperty(
       propertyName,
@@ -84,7 +84,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
     const std::string& propertyName,
-    std::shared_ptr<ISgfcPropertyValue> propertyValue)
+    std::shared_ptr<ISgfcPropertyValue> propertyValue) const
   {
     std::shared_ptr<ISgfcProperty> property = CreateProperty(
       propertyName,
@@ -95,7 +95,7 @@ namespace LibSgfcPlusPlus
 
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
     const std::string& propertyName,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const
   {
     SgfcPropertyType propertyType = SgfcUtility::MapPropertyNameToPropertyType(propertyName);
 
@@ -107,7 +107,7 @@ namespace LibSgfcPlusPlus
     return property;
   }
 
-  std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty()
+  std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty() const
   {
     std::shared_ptr<ISgfcBoardSizeProperty> property =
       std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty());
@@ -116,7 +116,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty(
-    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue)
+    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const
   {
     std::shared_ptr<ISgfcBoardSizeProperty> property =
       std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty(propertyValue));
@@ -125,7 +125,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcBoardSizeProperty> SgfcPropertyFactory::CreateBoardSizeProperty(
-    std::shared_ptr<ISgfcComposedPropertyValue> propertyValue)
+    std::shared_ptr<ISgfcComposedPropertyValue> propertyValue) const
   {
     std::shared_ptr<ISgfcBoardSizeProperty> property =
       std::shared_ptr<ISgfcBoardSizeProperty>(new SgfcBoardSizeProperty(propertyValue));
@@ -133,7 +133,7 @@ namespace LibSgfcPlusPlus
     return property;
   }
 
-  std::shared_ptr<ISgfcGameTypeProperty> SgfcPropertyFactory::CreateGameTypeProperty()
+  std::shared_ptr<ISgfcGameTypeProperty> SgfcPropertyFactory::CreateGameTypeProperty() const
   {
     std::shared_ptr<ISgfcGameTypeProperty> property =
       std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty());
@@ -142,7 +142,7 @@ namespace LibSgfcPlusPlus
   }
 
   std::shared_ptr<ISgfcGameTypeProperty> SgfcPropertyFactory::CreateGameTypeProperty(
-    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue)
+    std::shared_ptr<ISgfcNumberPropertyValue> propertyValue) const
   {
     std::shared_ptr<ISgfcGameTypeProperty> property =
       std::shared_ptr<ISgfcGameTypeProperty>(new SgfcGameTypeProperty(propertyValue));
@@ -153,7 +153,7 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcProperty> SgfcPropertyFactory::CreateProperty(
     SgfcPropertyType propertyType,
     const std::string& propertyName,
-    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues)
+    const std::vector<std::shared_ptr<ISgfcPropertyValue>>& propertyValues) const
   {
     if (propertyType == SgfcPropertyType::SZ)
     {
