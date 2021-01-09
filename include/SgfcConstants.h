@@ -56,13 +56,11 @@ namespace LibSgfcPlusPlus
 
     /// @name ISgfcMessage related constants
     //@{
-    /// @brief Indicates an invalid line number. This is used for fatal error
-    /// messages that do not refer to a specific line number in a piece of
-    /// SGF content.
+    /// @brief Indicates an invalid line number. This is used for messages
+    /// that do not refer to a specific line number in a piece of SGF content.
     static const int InvalidLineNumber;
-    /// @brief Indicates an invalid column number. This is used for fatal error
-    /// messages that do not refer to a specific column number in a piece of
-    /// SGF content.
+    /// @brief Indicates an invalid column number. This is used for messages
+    /// that do not refer to a specific column number in a piece of SGF content.
     static const int InvalidColumnNumber;
     /// @brief A library error number (= errno value) indicating "no error".
     /// This is defined to be the value 0 (zero).
