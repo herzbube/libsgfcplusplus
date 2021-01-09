@@ -59,7 +59,7 @@ namespace LibSgfcPlusPlus
     SgfcGameType gameType)
    {
      if (propertyValues.size() == 0)
-       return SgfcUtility::GetDefaultBoardSize(gameType);
+       return SgfcBoardSize::GetDefaultBoardSize(gameType);
 
      if (propertyValues.size() > 1)
        return SgfcConstants::BoardSizeInvalid;
@@ -67,7 +67,7 @@ namespace LibSgfcPlusPlus
      auto propertyValue = propertyValues.front();
 
      if (propertyValue == nullptr)
-       return SgfcUtility::GetDefaultBoardSize(gameType);
+       return SgfcBoardSize::GetDefaultBoardSize(gameType);
 
      SgfcBoardSize boardSize;
      if (propertyValue->IsComposedValue())
@@ -78,7 +78,7 @@ namespace LibSgfcPlusPlus
      if (boardSize == SgfcConstants::BoardSizeInvalid)
        return boardSize;
 
-     bool isBoardSizeValid = SgfcUtility::IsBoardSizeValid(boardSize, gameType);
+     bool isBoardSizeValid = boardSize.IsValid(gameType);
      if (isBoardSizeValid)
        return boardSize;
      else

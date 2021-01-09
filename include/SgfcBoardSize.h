@@ -17,6 +17,7 @@
 #pragma once
 
 // Project includes
+#include "SgfcGameType.h"
 #include "SgfcTypedefs.h"
 
 // Project includes (generated)
@@ -52,6 +53,15 @@ namespace LibSgfcPlusPlus
     /// Returns false if the board size represents a rectangular board.
     bool IsSquare() const;
 
+    /// @brief Returns true if @a boardSize is a valid board size for
+    /// @a gameType. Returns false if @a boardSize is not a valid board size
+    /// for @a gameType.
+    ///
+    /// A board size is invalid if it violates the constraints defined by the
+    /// SGF standard. See the documentation of SgfcConstants::BoardSizeInvalid
+    /// for details.
+    bool IsValid(SgfcGameType gameType) const;
+
     /// @brief Returns true if the number of columns and rows is the same for
     /// the current SgfcBoardSize object and for @a other. Returns false if
     /// either the number of columns or rows or both is different.
@@ -61,5 +71,10 @@ namespace LibSgfcPlusPlus
     /// is different for the current SgfcBoardSize object and for @a other.
     /// Returns false if the number of columns and rows is the same.
     bool operator!=(const SgfcBoardSize& other) const;
+
+    /// @brief Returns the default board size for @a gameType, as specified by
+    /// the SGF standard. Returns SgfcConstants::BoardSizeNone if the SGF
+    /// standard does not specify a default board size for @a gameType.
+    static SgfcBoardSize GetDefaultBoardSize(SgfcGameType gameType);
   };
 }

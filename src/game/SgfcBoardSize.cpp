@@ -16,12 +16,46 @@
 
 // Project includes
 #include "../../include/SgfcBoardSize.h"
+#include "../../include/SgfcConstants.h"
 
 namespace LibSgfcPlusPlus
 {
   bool SgfcBoardSize::IsSquare() const
   {
     return (this->Columns == this->Rows);
+  }
+
+  bool SgfcBoardSize::IsValid(SgfcGameType gameType) const
+  {
+    if (this->Columns < SgfcConstants::BoardSizeMinimum.Columns ||
+        this->Rows < SgfcConstants::BoardSizeMinimum.Rows)
+    {
+      return false;
+    }
+
+    if (gameType == SgfcGameType::Go)
+    {
+      if (this->Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
+          this->Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  SgfcBoardSize SgfcBoardSize::GetDefaultBoardSize(SgfcGameType gameType)
+  {
+    switch (gameType)
+    {
+      case SgfcGameType::Go:
+        return SgfcConstants::BoardSizeDefaultGo;
+      case SgfcGameType::Chess:
+        return SgfcConstants::BoardSizeDefaultChess;
+      default:
+        return SgfcConstants::BoardSizeNone;
+    }
   }
 
   bool SgfcBoardSize::operator==(const SgfcBoardSize& other) const

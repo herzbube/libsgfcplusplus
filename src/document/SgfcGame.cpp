@@ -80,11 +80,11 @@ namespace LibSgfcPlusPlus
   SgfcBoardSize SgfcGame::GetBoardSize() const
   {
     if (this->rootNode == nullptr)
-      return SgfcUtility::GetDefaultBoardSize(this->GetGameType());
+      return SgfcBoardSize::GetDefaultBoardSize(this->GetGameType());
 
     auto property = this->rootNode->GetProperty(SgfcPropertyType::SZ);
     if (property == nullptr)
-      return SgfcUtility::GetDefaultBoardSize(this->GetGameType());
+      return SgfcBoardSize::GetDefaultBoardSize(this->GetGameType());
 
     return SgfcGameUtility::GetBoardSize(property->GetPropertyValues(), this->GetGameType());
   }

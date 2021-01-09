@@ -37,7 +37,7 @@ namespace LibSgfcPlusPlus
   SgfcGameInfo::SgfcGameInfo()
     : gameType(SgfcConstants::DefaultGameType)
     , gameTypeAsNumber(SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType))
-    , boardSize(SgfcUtility::GetDefaultBoardSize(SgfcConstants::DefaultGameType))
+    , boardSize(SgfcBoardSize::GetDefaultBoardSize(SgfcConstants::DefaultGameType))
     , recorderName(SgfcConstants::NoneValueString)
     , sourceName(SgfcConstants::NoneValueString)
     , annotationAuthor(SgfcConstants::NoneValueString)
@@ -462,7 +462,7 @@ namespace LibSgfcPlusPlus
 
     auto propertySZ = rootNode->GetProperty(SgfcPropertyType::SZ);
     if (propertySZ == nullptr)
-      this->boardSize = SgfcUtility::GetDefaultBoardSize(this->gameType);
+      this->boardSize = SgfcBoardSize::GetDefaultBoardSize(this->gameType);
     else
       this->boardSize = SgfcGameUtility::GetBoardSize(propertySZ->GetPropertyValues(), this->gameType);
   }

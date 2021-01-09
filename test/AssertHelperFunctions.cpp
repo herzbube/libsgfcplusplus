@@ -38,7 +38,7 @@ namespace LibSgfcPlusPlus
   {
     REQUIRE( gameInfo->GetGameType() == SgfcConstants::DefaultGameType );
     REQUIRE( gameInfo->GetGameTypeAsNumber() == SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType) );
-    REQUIRE( gameInfo->GetBoardSize() == SgfcUtility::GetDefaultBoardSize(SgfcConstants::DefaultGameType) );
+    REQUIRE( gameInfo->GetBoardSize() == SgfcBoardSize::GetDefaultBoardSize(SgfcConstants::DefaultGameType) );
 
     REQUIRE( gameInfo->GetRecorderName() == SgfcConstants::NoneValueString );
     REQUIRE( gameInfo->GetSourceName() == SgfcConstants::NoneValueString );

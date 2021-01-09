@@ -1459,7 +1459,7 @@ SCENARIO( "SgfcNode creates an ISgfcGameInfo object", "[document]" )
     {
       SgfcGameType expectedGameType = SgfcConstants::DefaultGameType;
       SgfcNumber expectedGameTypeAsNumber = SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
-      SgfcBoardSize expectedBoardSize = SgfcUtility::GetDefaultBoardSize(expectedGameType);
+      SgfcBoardSize expectedBoardSize = SgfcBoardSize::GetDefaultBoardSize(expectedGameType);
 
       auto gameInfo = rootNode->CreateGameInfo();
 
@@ -1476,7 +1476,7 @@ SCENARIO( "SgfcNode creates an ISgfcGameInfo object", "[document]" )
     {
       SgfcGameType expectedGameType = SgfcConstants::DefaultGameType;
       SgfcNumber expectedGameTypeAsNumber = SgfcUtility::MapGameTypeToNumberValue(SgfcConstants::DefaultGameType);
-      SgfcBoardSize expectedBoardSize = SgfcUtility::GetDefaultBoardSize(expectedGameType);
+      SgfcBoardSize expectedBoardSize = SgfcBoardSize::GetDefaultBoardSize(expectedGameType);
 
       auto gameInfo = leafNode->CreateGameInfo();
 

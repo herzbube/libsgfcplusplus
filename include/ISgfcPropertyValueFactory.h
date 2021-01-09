@@ -130,22 +130,21 @@ namespace LibSgfcPlusPlus
     virtual std::shared_ptr<ISgfcNumberPropertyValue> CreateGameTypePropertyValue(
       SgfcGameType gameType) const = 0;
 
-    /// @brief Returns a newly constructed ISgfcPropertyValue object that
-    /// that has a value that corresponds to @a boardSize. @a gameType must be
-    /// provided for validating @a boardSize. @a gameType must not be
-    /// #SgfcGameType::Unknown.
+    /// @brief Returns a newly constructed ISgfcPropertyValue object that has
+    /// a value that corresponds to @a boardSize. @a boardSize must be valid.
+    /// @a gameType must be provided for validating @a boardSize. @a gameType
+    /// must not be #SgfcGameType::Unknown.
     ///
-    /// The returned ISgfcPropertyValue is an ISgfcNumberPropertyValue
+    /// The returned ISgfcPropertyValue object is an ISgfcNumberPropertyValue
     /// object if SgfcBoardSize::IsSquare() returns true for @a boardSize.
     ///
-    /// The returned ISgfcPropertyValue is an ISgfcComposedPropertyValue
-    /// object consisting of two  ISgfcNumberPropertyValue objects if
+    /// The returned ISgfcPropertyValue object is an ISgfcComposedPropertyValue
+    /// object consisting of two ISgfcNumberPropertyValue objects if
     /// SgfcBoardSize::IsSquare() returns false for @a boardSize.
     ///
-    /// @exception std::invalid_argument Is thrown if @a boardSize is not valid,
-    /// i.e. if it violates the constraints defined by the SGF standard. See the
-    /// documentation of SgfcConstants::BoardSizeInvalid for details. Is also
-    /// thrown if @a gameType is #SgfcGameType::Unknown.
+    /// @exception std::invalid_argument Is thrown if @a gameType is
+    /// #SgfcGameType::Unknown, or if @a boardSize is not valid, i.e. if it's
+    /// IsValid() method returns false.
     virtual std::shared_ptr<ISgfcPropertyValue> CreateBoardSizePropertyValue(
       SgfcBoardSize boardSize,
       SgfcGameType gameType) const = 0;

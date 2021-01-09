@@ -35,7 +35,6 @@
 #include <ISgfcTextPropertyValue.h>
 #include <SgfcConstants.h>
 #include <parsing/SgfcPropertyDecoder.h>
-#include <SgfcUtility.h>
 
 // SGFC includes
 extern "C"
@@ -481,7 +480,7 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
 
       auto mapEntry = GENERATE( from_range(SgfcConstants::GameTypeToGameTypeAsNumberMap) );
       auto gameType = mapEntry.first;
-      auto expectedBoardSize = SgfcUtility::GetDefaultBoardSize(gameType);
+      auto expectedBoardSize = SgfcBoardSize::GetDefaultBoardSize(gameType);
 
       THEN( "Probing returns the default board size for the game type as specified by the SGF standard" )
       {
@@ -498,7 +497,7 @@ SCENARIO( "SgfcPropertyDecoder probes an SGF node for a property of type SgfcPro
 
       auto mapEntry = GENERATE( from_range(SgfcConstants::GameTypeToGameTypeAsNumberMap) );
       auto gameType = mapEntry.first;
-      auto expectedBoardSize = SgfcUtility::GetDefaultBoardSize(gameType);
+      auto expectedBoardSize = SgfcBoardSize::GetDefaultBoardSize(gameType);
 
       THEN( "Probing returns the default board size for the game type as specified by the SGF standard" )
       {

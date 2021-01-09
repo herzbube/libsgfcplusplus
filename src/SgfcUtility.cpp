@@ -128,39 +128,6 @@ namespace LibSgfcPlusPlus
       return SgfcGameType::Unknown;
   }
 
-  SgfcBoardSize SgfcUtility::GetDefaultBoardSize(SgfcGameType gameType)
-  {
-    switch (gameType)
-    {
-      case SgfcGameType::Go:
-        return SgfcConstants::BoardSizeDefaultGo;
-      case SgfcGameType::Chess:
-        return SgfcConstants::BoardSizeDefaultChess;
-      default:
-        return SgfcConstants::BoardSizeNone;
-    }
-  }
-
-  bool SgfcUtility::IsBoardSizeValid(SgfcBoardSize boardSize, SgfcGameType gameType)
-  {
-    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns ||
-        boardSize.Rows < SgfcConstants::BoardSizeMinimum.Rows)
-    {
-      return false;
-    }
-
-    if (gameType == SgfcGameType::Go)
-    {
-      if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
-          boardSize.Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
-      {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
   SgfcExitCode SgfcUtility::GetSgfcExitCodeFromMessageCollection(
     const std::vector<std::shared_ptr<ISgfcMessage>>& messageCollection)
   {

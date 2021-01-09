@@ -18,7 +18,6 @@
 
 // Project includes
 #include "../include/ISgfcMessage.h"
-#include "../include/SgfcBoardSize.h"
 #include "../include/SgfcExitCode.h"
 #include "../include/SgfcGameType.h"
 #include "../include/SgfcArgumentType.h"
@@ -126,20 +125,6 @@ namespace LibSgfcPlusPlus
     /// This is a convenience function that looks up @a gameTypeAsNumber in
     /// SgfcConstants::GameTypeAsNumberToGameTypeMap.
     static SgfcGameType MapNumberValueToGameType(SgfcNumber gameTypeAsNumber);
-
-    /// @brief Returns the default board size for @a gameType, as specified by
-    /// the SGF standard. Returns SgfcConstants::BoardSizeNone if the SGF
-    /// standard does not specify a default board size for @a gameType.
-    static SgfcBoardSize GetDefaultBoardSize(SgfcGameType gameType);
-
-    /// @brief Returns true if @a boardSize is a valid board size for
-    /// @a gameType. Returns false if @a boardSize is not a valid board size
-    /// for @a gameType.
-    ///
-    /// A board size is invalid if it violates the constraints defined by the
-    /// SGF standard. See the documentation of SgfcConstants::BoardSizeInvalid
-    /// for details.
-    static bool IsBoardSizeValid(SgfcBoardSize boardSize, SgfcGameType gameType);
 
     /// @brief Returns an SgfcExitCode value that represents the messages
     /// in @a messageCollection. See the documentation of the individual

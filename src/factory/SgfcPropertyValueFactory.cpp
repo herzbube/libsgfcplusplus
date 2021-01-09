@@ -165,7 +165,7 @@ namespace LibSgfcPlusPlus
   {
     if (gameType == SgfcGameType::Unknown)
       throw std::invalid_argument("SgfcPropertyValueFactory::CreateBoardSizePropertyValue failed: Game type is SgfcGameType::Unknown");
-    if (! SgfcUtility::IsBoardSizeValid(boardSize, gameType))
+    if (! boardSize.IsValid(gameType))
       throw std::invalid_argument("SgfcPropertyValueFactory::CreateBoardSizePropertyValue failed: Board size is invalid");
 
     if (boardSize.IsSquare())
