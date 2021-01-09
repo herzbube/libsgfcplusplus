@@ -172,6 +172,7 @@ Cross-compiling for iOS is mentioned and explained in the `cmake-toolchains` man
 These commands create a Release configuration build of the static library and static library framework for iOS on a macOS machine where Xcode is installed:
 
     cmake .. -G Xcode \
+      -T buildsystem=1
       -DCMAKE_SYSTEM_NAME=iOS \
       "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" \
       -DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO \
@@ -182,10 +183,11 @@ These commands create a Release configuration build of the static library and st
 
 Notes:
 
-- We list two architectures: `x86_64` for the simulator build, and `arm64` for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use `lipo -info /path/to/file` to check what's inside such a file.
+- The option `-T buildsystem=1` is new in CMake 3.19 and takes effect only if Xcode 12 is used as the build system. Without the option CMake uses the Xcode “new build system” which, at the time of writing this, causes the build to fail. Using the option may become unnecessary once the underlying issue has been fixed in CMake. For details see [issue 21282](https://gitlab.kitware.com/cmake/cmake/-/issues/21282) on the CMake issue tracker.
+- We list two architectures: `x86_64` for the simulator build, and `arm64` for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use `lipo -info /path/to/file` to check what's inside such a file. Omitting `CMAKE_OSX_ARCHITECTURES` builds slices for all default architectures.
 - Setting the `ONLY_ACTIVE_ARCH` flag to `NO` is important so that Xcode really builds those architectures we just mentioned. If we didn't set this Xcode would only build the architecture in the `NATIVE_ARCH` Xcode build setting.
-- Setting the CMake property `IOS_INSTALL_COMBINED` to `YES` causes the targets to be built  for both the device SDK and the simulator SDK. It's not known why exactly this is needed in addition to the previous settings.
-- It's important that the build is made with the target `install` because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with `cmake --install`), CMake will be unable to find the generated library files. The reason fo these quirks is not known.
+- Setting the CMake property `IOS_INSTALL_COMBINED` to `YES` causes the targets to be built for both the device SDK and the simulator SDK. An `arm64` build made with the device SDK is slightly different than an `arm64` build made with the simulator SDK. CMake figures out on its own which SDK it must use to build each architecture. The property also indicates to CMake that it needs to build **all** architectures in `CMAKE_OSX_ARCHITECTURES`, not just the first, and to stitch together all resulting slices into a universal binary.
+- It's important that the build is made with the target `install` because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with `cmake --install`), CMake will be unable to find the generated library files. The exact reason fo these quirks is not known, but is likely rooted in the fact that cross-compiling for iOS is rather unusual because it requires CMake to perform several builds in one step.
 - Because we do the build and the installation all in one step, we can't specify the installation prefix during that step (the `--prefix` option cannot be used with `cmake --build`). For this reason we set `INSTALL_PREFIX` during configuration.
 
 ## Codesigning when building for iOS
