@@ -192,7 +192,7 @@ function(generateFrameworkMasterHeaderFile FRAMEWORK_NAME MASTER_HEADER_FILE )
 
   foreach ( HEADER_PUBLIC_FILE_PATH ${HEADERS_PUBLIC} )
     get_filename_component( HEADER_PUBLIC_FILE_NAME "${HEADER_PUBLIC_FILE_PATH}" NAME )
-    set ( INCLUDE_LINE "#import <${FRAMEWORK_NAME}/${HEADER_PUBLIC_FILE_NAME}>" )
+    set ( INCLUDE_LINE "#include <${FRAMEWORK_NAME}/${HEADER_PUBLIC_FILE_NAME}>" )
     list ( APPEND INCLUDE_LINES "${INCLUDE_LINE}" )
   endforeach()
   string(REPLACE ";" "\n" INCLUDE_LINES "${INCLUDE_LINES}")
