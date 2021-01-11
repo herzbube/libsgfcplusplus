@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html">SgfcNode</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html">SgfcNode</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -85,7 +85,7 @@ Inheritance diagram for LibSgfcPlusPlus::SgfcNode:</div>
  <div class="center">
   <img src="class_lib_sgfc_plus_plus_1_1_sgfc_node.png" usemap="#LibSgfcPlusPlus::SgfcNode_map" alt=""/>
   <map id="LibSgfcPlusPlus::SgfcNode_map" name="LibSgfcPlusPlus::SgfcNode_map">
-<area href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes...." alt="LibSgfcPlusPlus::ISgfcNode" shape="rect" coords="0,0,168,24"/>
+<area href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes...." alt="LibSgfcPlusPlus::ISgfcNode" shape="rect" coords="0,0,256,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -99,78 +99,122 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#afd5c33a23e63465a888b68269c0568b0">~SgfcNode</a> ()</td></tr>
 <tr class="memdesc:afd5c33a23e63465a888b68269c0568b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi...">SgfcNode</a> object. <br /></td></tr>
 <tr class="separator:afd5c33a23e63465a888b68269c0568b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22d9d27d8bade98786627201aa8bfec9"><td class="memItemLeft" align="right" valign="top"><a id="a22d9d27d8bade98786627201aa8bfec9"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a22d9d27d8bade98786627201aa8bfec9">GetFirstChild</a> () const</td></tr>
-<tr class="memdesc:a22d9d27d8bade98786627201aa8bfec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's first child node. Returns <em>nullptr</em> if the node has no children. <br /></td></tr>
-<tr class="separator:a22d9d27d8bade98786627201aa8bfec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca08361933248a0736a6986b9af418f1"><td class="memItemLeft" align="right" valign="top"><a id="aca08361933248a0736a6986b9af418f1"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aca08361933248a0736a6986b9af418f1">GetFirstChild</a> () const override</td></tr>
+<tr class="memdesc:aca08361933248a0736a6986b9af418f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's first child node. Returns <em>nullptr</em> if the node has no children. <br /></td></tr>
+<tr class="separator:aca08361933248a0736a6986b9af418f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa11eefe659bb3c602d362625ddfa91d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa11eefe659bb3c602d362625ddfa91d0">SetFirstChild</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node)</td></tr>
 <tr class="memdesc:aa11eefe659bb3c602d362625ddfa91d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the node's first child node to <em>node</em>, overwriting the previously set first child node. This method performs no relinking of any kind.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa11eefe659bb3c602d362625ddfa91d0">More...</a><br /></td></tr>
 <tr class="separator:aa11eefe659bb3c602d362625ddfa91d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae35b617078c88a73638c4e1bc8ba22b9"><td class="memItemLeft" align="right" valign="top"><a id="ae35b617078c88a73638c4e1bc8ba22b9"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ae35b617078c88a73638c4e1bc8ba22b9">GetLastChild</a> () const</td></tr>
-<tr class="memdesc:ae35b617078c88a73638c4e1bc8ba22b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's last child node. Returns <em>nullptr</em> if the node has no children. <br /></td></tr>
-<tr class="separator:ae35b617078c88a73638c4e1bc8ba22b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9ef4247d7384de0449a6ef8ca6d8c1b"><td class="memItemLeft" align="right" valign="top"><a id="aa9ef4247d7384de0449a6ef8ca6d8c1b"></a>
-virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa9ef4247d7384de0449a6ef8ca6d8c1b">GetChildren</a> () const</td></tr>
-<tr class="memdesc:aa9ef4247d7384de0449a6ef8ca6d8c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection of child nodes of the node. The collection is ordered, beginning with the first child node and ending with the last child node. The collection is empty if the node has no children. <br /></td></tr>
-<tr class="separator:aa9ef4247d7384de0449a6ef8ca6d8c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d54e03f3e5a255cfef494e7be5cb42b"><td class="memItemLeft" align="right" valign="top"><a id="a9d54e03f3e5a255cfef494e7be5cb42b"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a9d54e03f3e5a255cfef494e7be5cb42b">HasChildren</a> () const</td></tr>
-<tr class="memdesc:a9d54e03f3e5a255cfef494e7be5cb42b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has one or more children. Returns false if the node has no children. <br /></td></tr>
-<tr class="separator:a9d54e03f3e5a255cfef494e7be5cb42b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ad042226e46c43523b76136a5d575a2"><td class="memItemLeft" align="right" valign="top"><a id="a7ad042226e46c43523b76136a5d575a2"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a7ad042226e46c43523b76136a5d575a2">GetNextSibling</a> () const</td></tr>
-<tr class="memdesc:a7ad042226e46c43523b76136a5d575a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's next sibling node. Returns <em>nullptr</em> if the node has no next sibling node, i.e. if the node is the last child of its parent. <br /></td></tr>
-<tr class="separator:a7ad042226e46c43523b76136a5d575a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27f5b7904dfe67d1031de34eb460690b"><td class="memItemLeft" align="right" valign="top"><a id="a27f5b7904dfe67d1031de34eb460690b"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a27f5b7904dfe67d1031de34eb460690b">GetLastChild</a> () const override</td></tr>
+<tr class="memdesc:a27f5b7904dfe67d1031de34eb460690b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's last child node. Returns <em>nullptr</em> if the node has no children. <br /></td></tr>
+<tr class="separator:a27f5b7904dfe67d1031de34eb460690b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affac1a5cd88d19ee0e0f78c9347983b0"><td class="memItemLeft" align="right" valign="top"><a id="affac1a5cd88d19ee0e0f78c9347983b0"></a>
+virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#affac1a5cd88d19ee0e0f78c9347983b0">GetChildren</a> () const override</td></tr>
+<tr class="memdesc:affac1a5cd88d19ee0e0f78c9347983b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection of child nodes of the node. The collection is ordered, beginning with the first child node and ending with the last child node. The collection is empty if the node has no children. <br /></td></tr>
+<tr class="separator:affac1a5cd88d19ee0e0f78c9347983b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8faa1239610ab3f334a67e147e8580d3"><td class="memItemLeft" align="right" valign="top"><a id="a8faa1239610ab3f334a67e147e8580d3"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a8faa1239610ab3f334a67e147e8580d3">HasChildren</a> () const override</td></tr>
+<tr class="memdesc:a8faa1239610ab3f334a67e147e8580d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has one or more children. Returns false if the node has no children. <br /></td></tr>
+<tr class="separator:a8faa1239610ab3f334a67e147e8580d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a724d33ef6319cc6007f1750d98809cc7"><td class="memItemLeft" align="right" valign="top"><a id="a724d33ef6319cc6007f1750d98809cc7"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a724d33ef6319cc6007f1750d98809cc7">GetNextSibling</a> () const override</td></tr>
+<tr class="memdesc:a724d33ef6319cc6007f1750d98809cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's next sibling node. Returns <em>nullptr</em> if the node has no next sibling node, i.e. if the node is the last child of its parent. <br /></td></tr>
+<tr class="separator:a724d33ef6319cc6007f1750d98809cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7867b017765e9c511a4e5895e2f98126"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a7867b017765e9c511a4e5895e2f98126">SetNextSibling</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node)</td></tr>
 <tr class="memdesc:a7867b017765e9c511a4e5895e2f98126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the node's next sibling node to <em>node</em>, overwriting the previously set next sibling node. This method performs no relinking of any kind.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a7867b017765e9c511a4e5895e2f98126">More...</a><br /></td></tr>
 <tr class="separator:a7867b017765e9c511a4e5895e2f98126"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac184aec354beef3fa6f3ed2a45c227e7"><td class="memItemLeft" align="right" valign="top"><a id="ac184aec354beef3fa6f3ed2a45c227e7"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ac184aec354beef3fa6f3ed2a45c227e7">HasNextSibling</a> () const</td></tr>
-<tr class="memdesc:ac184aec354beef3fa6f3ed2a45c227e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a next sibling node. Returns false if the node has no next sibling node, i.e. if the node is the last child of its parent. <br /></td></tr>
-<tr class="separator:ac184aec354beef3fa6f3ed2a45c227e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fa4eb4464b1bc5a4b9d530d73c245b2"><td class="memItemLeft" align="right" valign="top"><a id="a9fa4eb4464b1bc5a4b9d530d73c245b2"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a9fa4eb4464b1bc5a4b9d530d73c245b2">GetPreviousSibling</a> () const</td></tr>
-<tr class="memdesc:a9fa4eb4464b1bc5a4b9d530d73c245b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's previous sibling node. Returns <em>nullptr</em> if the node has no previous sibling node, i.e. if the node is the first child of its parent. <br /></td></tr>
-<tr class="separator:a9fa4eb4464b1bc5a4b9d530d73c245b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad260f0578f8e4054aaa0bcccdb263f08"><td class="memItemLeft" align="right" valign="top"><a id="ad260f0578f8e4054aaa0bcccdb263f08"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ad260f0578f8e4054aaa0bcccdb263f08">HasPreviousSibling</a> () const</td></tr>
-<tr class="memdesc:ad260f0578f8e4054aaa0bcccdb263f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a previous sibling node. Returns false if the node has no previous sibling node, i.e. if the node is the first child of its parent. <br /></td></tr>
-<tr class="separator:ad260f0578f8e4054aaa0bcccdb263f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82e03ad53fcde4416f67a1f2ad33687e"><td class="memItemLeft" align="right" valign="top"><a id="a82e03ad53fcde4416f67a1f2ad33687e"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a82e03ad53fcde4416f67a1f2ad33687e">GetParent</a> () const</td></tr>
-<tr class="memdesc:a82e03ad53fcde4416f67a1f2ad33687e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's parent node. Returns <em>nullptr</em> if the node has no parent node, i.e. if the node is the root node of a game tree. <br /></td></tr>
-<tr class="separator:a82e03ad53fcde4416f67a1f2ad33687e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32c252c4880912eebe886ec39e2b90e5"><td class="memItemLeft" align="right" valign="top"><a id="a32c252c4880912eebe886ec39e2b90e5"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a32c252c4880912eebe886ec39e2b90e5">HasNextSibling</a> () const override</td></tr>
+<tr class="memdesc:a32c252c4880912eebe886ec39e2b90e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a next sibling node. Returns false if the node has no next sibling node, i.e. if the node is the last child of its parent. <br /></td></tr>
+<tr class="separator:a32c252c4880912eebe886ec39e2b90e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d6abff2243ec94a19e68eb60ae45f0b"><td class="memItemLeft" align="right" valign="top"><a id="a2d6abff2243ec94a19e68eb60ae45f0b"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a2d6abff2243ec94a19e68eb60ae45f0b">GetPreviousSibling</a> () const override</td></tr>
+<tr class="memdesc:a2d6abff2243ec94a19e68eb60ae45f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's previous sibling node. Returns <em>nullptr</em> if the node has no previous sibling node, i.e. if the node is the first child of its parent. <br /></td></tr>
+<tr class="separator:a2d6abff2243ec94a19e68eb60ae45f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4a3be18e71d083ef379343d8d333884"><td class="memItemLeft" align="right" valign="top"><a id="ab4a3be18e71d083ef379343d8d333884"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ab4a3be18e71d083ef379343d8d333884">HasPreviousSibling</a> () const override</td></tr>
+<tr class="memdesc:ab4a3be18e71d083ef379343d8d333884"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a previous sibling node. Returns false if the node has no previous sibling node, i.e. if the node is the first child of its parent. <br /></td></tr>
+<tr class="separator:ab4a3be18e71d083ef379343d8d333884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10339c9e8cbcd302d60de01e1b54e52d"><td class="memItemLeft" align="right" valign="top"><a id="a10339c9e8cbcd302d60de01e1b54e52d"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a10339c9e8cbcd302d60de01e1b54e52d">GetParent</a> () const override</td></tr>
+<tr class="memdesc:a10339c9e8cbcd302d60de01e1b54e52d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's parent node. Returns <em>nullptr</em> if the node has no parent node, i.e. if the node is the root node of a game tree. <br /></td></tr>
+<tr class="separator:a10339c9e8cbcd302d60de01e1b54e52d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9db1bebdb187a6570792a0ed66015ee2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a9db1bebdb187a6570792a0ed66015ee2">SetParent</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node)</td></tr>
 <tr class="memdesc:a9db1bebdb187a6570792a0ed66015ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the node's parent node to <em>node</em>, overwriting the previously set parent node. This method performs no relinking of any kind.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a9db1bebdb187a6570792a0ed66015ee2">More...</a><br /></td></tr>
 <tr class="separator:a9db1bebdb187a6570792a0ed66015ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92b28eba4c04a0c86fec5339b4c73e28"><td class="memItemLeft" align="right" valign="top"><a id="a92b28eba4c04a0c86fec5339b4c73e28"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a92b28eba4c04a0c86fec5339b4c73e28">HasParent</a> () const</td></tr>
-<tr class="memdesc:a92b28eba4c04a0c86fec5339b4c73e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a parent node. Returns false if the node has no parent node, i.e. if the node is the root node of a game tree. <br /></td></tr>
-<tr class="separator:a92b28eba4c04a0c86fec5339b4c73e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe7f9e461be2bdb549954bf537f8c39b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#abe7f9e461be2bdb549954bf537f8c39b">IsDescendantOf</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node) const</td></tr>
-<tr class="memdesc:abe7f9e461be2bdb549954bf537f8c39b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is a descendant of <em>node</em>, i.e. if the node is anywhere below <em>node</em> in the game tree. Returns false if the node is not a descendant of <em>node</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#abe7f9e461be2bdb549954bf537f8c39b">More...</a><br /></td></tr>
-<tr class="separator:abe7f9e461be2bdb549954bf537f8c39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73aaf67a369fd19c4eb882b84553d62b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a73aaf67a369fd19c4eb882b84553d62b">IsAncestorOf</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node) const</td></tr>
-<tr class="memdesc:a73aaf67a369fd19c4eb882b84553d62b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is an ancestor of <em>node</em>, i.e. if the node is a direct or indirect parent of <em>node</em>. Returns false if the node is not an ancestor of <em>node</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a73aaf67a369fd19c4eb882b84553d62b">More...</a><br /></td></tr>
-<tr class="separator:a73aaf67a369fd19c4eb882b84553d62b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38a1e6c0cc07527861f4963127112299"><td class="memItemLeft" align="right" valign="top"><a id="a38a1e6c0cc07527861f4963127112299"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a38a1e6c0cc07527861f4963127112299">GetRoot</a> () const</td></tr>
-<tr class="memdesc:a38a1e6c0cc07527861f4963127112299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the root node of the game tree that contains the node. Returns <em>nullptr</em> if the node is already the root node. <br /></td></tr>
-<tr class="separator:a38a1e6c0cc07527861f4963127112299"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae525e7a9e77ddf5c8e1341290d01ad41"><td class="memItemLeft" align="right" valign="top"><a id="ae525e7a9e77ddf5c8e1341290d01ad41"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ae525e7a9e77ddf5c8e1341290d01ad41">IsRoot</a> () const</td></tr>
-<tr class="memdesc:ae525e7a9e77ddf5c8e1341290d01ad41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is the root node of a game tree. Returns false if the node is not the root node of a game tree. <br /></td></tr>
-<tr class="separator:ae525e7a9e77ddf5c8e1341290d01ad41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77896a001b9d9381f30dd86bd6e0810c"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a77896a001b9d9381f30dd86bd6e0810c">GetProperties</a> () const</td></tr>
-<tr class="memdesc:a77896a001b9d9381f30dd86bd6e0810c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection with the properties of the node. The collection is empty if the node has no properties. The collection has no particular order.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a77896a001b9d9381f30dd86bd6e0810c">More...</a><br /></td></tr>
-<tr class="separator:a77896a001b9d9381f30dd86bd6e0810c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a701a8bc76aff1b4a1033f7f1b86c52af"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a701a8bc76aff1b4a1033f7f1b86c52af">SetProperties</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&gt; &amp;properties)</td></tr>
-<tr class="memdesc:a701a8bc76aff1b4a1033f7f1b86c52af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the properties of the node to the collection <em>properties</em>. The collection may be empty. The order in which properties appear in the collection is irrelevant. No SgfcPropertyType except <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> may appear more than once in the collection. No property name may appear more than once in the collection.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a701a8bc76aff1b4a1033f7f1b86c52af">More...</a><br /></td></tr>
-<tr class="separator:a701a8bc76aff1b4a1033f7f1b86c52af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1b2e77f46d6fca803a81fe901114ad4"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa1b2e77f46d6fca803a81fe901114ad4">GetProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType) const</td></tr>
-<tr class="memdesc:aa1b2e77f46d6fca803a81fe901114ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property with the specified type <em>propertyType</em> if the node has such a property. Returns <em>nullptr</em> if the node has no such property.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa1b2e77f46d6fca803a81fe901114ad4">More...</a><br /></td></tr>
-<tr class="separator:aa1b2e77f46d6fca803a81fe901114ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1455676d359bb90135911a786c93d5a8"><td class="memItemLeft" align="right" valign="top"><a id="a1455676d359bb90135911a786c93d5a8"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a1455676d359bb90135911a786c93d5a8">HasParent</a> () const override</td></tr>
+<tr class="memdesc:a1455676d359bb90135911a786c93d5a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has a parent node. Returns false if the node has no parent node, i.e. if the node is the root node of a game tree. <br /></td></tr>
+<tr class="separator:a1455676d359bb90135911a786c93d5a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0461df08faefa27b513c316d49bebba7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a0461df08faefa27b513c316d49bebba7">IsDescendantOf</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node) const override</td></tr>
+<tr class="memdesc:a0461df08faefa27b513c316d49bebba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is a descendant of <em>node</em>, i.e. if the node is anywhere below <em>node</em> in the game tree. Returns false if the node is not a descendant of <em>node</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a0461df08faefa27b513c316d49bebba7">More...</a><br /></td></tr>
+<tr class="separator:a0461df08faefa27b513c316d49bebba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab81e4c54bd712aa203982601a509e0e6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ab81e4c54bd712aa203982601a509e0e6">IsAncestorOf</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; node) const override</td></tr>
+<tr class="memdesc:ab81e4c54bd712aa203982601a509e0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is an ancestor of <em>node</em>, i.e. if the node is a direct or indirect parent of <em>node</em>. Returns false if the node is not an ancestor of <em>node</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ab81e4c54bd712aa203982601a509e0e6">More...</a><br /></td></tr>
+<tr class="separator:ab81e4c54bd712aa203982601a509e0e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30b468ebe63169ba3ab25681ad25eee4"><td class="memItemLeft" align="right" valign="top"><a id="a30b468ebe63169ba3ab25681ad25eee4"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a30b468ebe63169ba3ab25681ad25eee4">IsRoot</a> () const override</td></tr>
+<tr class="memdesc:a30b468ebe63169ba3ab25681ad25eee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node is the root node of a game tree. Returns false if the node is not the root node of a game tree. <br /></td></tr>
+<tr class="separator:a30b468ebe63169ba3ab25681ad25eee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bd6e9d3b0b435720c667fdcb643a4ba"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#ga3c2910dbdcf98ec5e930fe5b518829d7">SgfcNodeTraits</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a3bd6e9d3b0b435720c667fdcb643a4ba">GetTraits</a> () const override</td></tr>
+<tr class="memdesc:a3bd6e9d3b0b435720c667fdcb643a4ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node's traits.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a3bd6e9d3b0b435720c667fdcb643a4ba">More...</a><br /></td></tr>
+<tr class="separator:a3bd6e9d3b0b435720c667fdcb643a4ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade324ac438c5ba5c78e4c77b35cea02a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ade324ac438c5ba5c78e4c77b35cea02a">HasTrait</a> (<a class="el" href="group__public-api.html#ga04c91f52eda3884de1580dd93cc73cf7">SgfcNodeTrait</a> trait) const override</td></tr>
+<tr class="memdesc:ade324ac438c5ba5c78e4c77b35cea02a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has the trait <em>trait</em>. Returns false if the node does not have the trait <em>trait</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ade324ac438c5ba5c78e4c77b35cea02a">More...</a><br /></td></tr>
+<tr class="separator:ade324ac438c5ba5c78e4c77b35cea02a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a798476b51f248d2837293e5b5bca31f7"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7">GetRoot</a> () const override</td></tr>
+<tr class="memdesc:a798476b51f248d2837293e5b5bca31f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the root node of the game tree that contains the node. Returns the node itself if the node has no parent, i.e. if it is itself the root node.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7">More...</a><br /></td></tr>
+<tr class="separator:a798476b51f248d2837293e5b5bca31f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af288cf8fef84a20b8d4a27e200b3b9e6"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6">GetGameInfoNode</a> () const override</td></tr>
+<tr class="memdesc:af288cf8fef84a20b8d4a27e200b3b9e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first node among the node itself and its ancestors that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>. Returns <em>nullptr</em> if there is no such node.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6">More...</a><br /></td></tr>
+<tr class="separator:af288cf8fef84a20b8d4a27e200b3b9e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e3fef17bd996caef18f6e27af2ff3fc"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a1e3fef17bd996caef18f6e27af2ff3fc">GetMainVariationNodes</a> () const override</td></tr>
+<tr class="memdesc:a1e3fef17bd996caef18f6e27af2ff3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an ordered collection of nodes that form the main variation of game play found on the node itself and its first child descendants.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a1e3fef17bd996caef18f6e27af2ff3fc">More...</a><br /></td></tr>
+<tr class="separator:a1e3fef17bd996caef18f6e27af2ff3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a2e22e4f20472de0fd15777320e6c4f"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a5a2e22e4f20472de0fd15777320e6c4f">CreateGameInfo</a> () const override</td></tr>
+<tr class="memdesc:a5a2e22e4f20472de0fd15777320e6c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7" title="Returns the root node of the game tree that contains the node. Returns the node itself if the node ha...">GetRoot()</a> returns and the game info node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a5a2e22e4f20472de0fd15777320e6c4f">More...</a><br /></td></tr>
+<tr class="separator:a5a2e22e4f20472de0fd15777320e6c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7926d732aff1e86c456bbaccfef5aec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af7926d732aff1e86c456bbaccfef5aec">WriteGameInfo</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt; gameInfo) const override</td></tr>
+<tr class="memdesc:af7926d732aff1e86c456bbaccfef5aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes all root property values in <em>gameInfo</em> to the corresponding properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7" title="Returns the root node of the game tree that contains the node. Returns the node itself if the node ha...">GetRoot()</a> returns, and all game info property values in <em>gameInfo</em> to the game info node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af7926d732aff1e86c456bbaccfef5aec">More...</a><br /></td></tr>
+<tr class="separator:af7926d732aff1e86c456bbaccfef5aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84aac6eeda7f1d9087e1b0cbde65134b"><td class="memItemLeft" align="right" valign="top"><a id="a84aac6eeda7f1d9087e1b0cbde65134b"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a84aac6eeda7f1d9087e1b0cbde65134b">HasProperties</a> () const override</td></tr>
+<tr class="memdesc:a84aac6eeda7f1d9087e1b0cbde65134b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the node has one or more properties. Returns false if the node has no properties. <br /></td></tr>
+<tr class="separator:a84aac6eeda7f1d9087e1b0cbde65134b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace11dc1d3e1f5bc5085293af720c3dff"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ace11dc1d3e1f5bc5085293af720c3dff">GetProperties</a> () const override</td></tr>
+<tr class="memdesc:ace11dc1d3e1f5bc5085293af720c3dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection with the properties of the node. The collection is empty if the node has no properties. The collection has no particular order.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ace11dc1d3e1f5bc5085293af720c3dff">More...</a><br /></td></tr>
+<tr class="separator:ace11dc1d3e1f5bc5085293af720c3dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68b39de6f4e02a7aa053f1353d3672d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a68b39de6f4e02a7aa053f1353d3672d0">SetProperties</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&gt; &amp;properties) override</td></tr>
+<tr class="memdesc:a68b39de6f4e02a7aa053f1353d3672d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the properties of the node to the collection <em>properties</em>. The collection may be empty. The order in which properties appear in the collection is irrelevant. No SgfcPropertyType except <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> may appear more than once in the collection. No property name may appear more than once in the collection.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a68b39de6f4e02a7aa053f1353d3672d0">More...</a><br /></td></tr>
+<tr class="separator:a68b39de6f4e02a7aa053f1353d3672d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9e27cdc111f3466ea45423688b4785f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa9e27cdc111f3466ea45423688b4785f">SetProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; property) override</td></tr>
+<tr class="memdesc:aa9e27cdc111f3466ea45423688b4785f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>property</em> as the last property to the node's collection of properties. If the collection already contains a duplicate property that duplicate is removed first. <em>property</em> may not be <em>nullptr</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa9e27cdc111f3466ea45423688b4785f">More...</a><br /></td></tr>
+<tr class="separator:aa9e27cdc111f3466ea45423688b4785f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac818c38d4024bfd26367c645e4bc4155"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ac818c38d4024bfd26367c645e4bc4155">AppendProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; property) override</td></tr>
+<tr class="memdesc:ac818c38d4024bfd26367c645e4bc4155"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>property</em> as the last property to the node's collection of properties. <em>property</em> may not be <em>nullptr</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ac818c38d4024bfd26367c645e4bc4155">More...</a><br /></td></tr>
+<tr class="separator:ac818c38d4024bfd26367c645e4bc4155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7a3dd56eacbde7cf13e6e8e0f35a085"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ad7a3dd56eacbde7cf13e6e8e0f35a085">RemoveProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; property) override</td></tr>
+<tr class="memdesc:ad7a3dd56eacbde7cf13e6e8e0f35a085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes <em>property</em> from the node's collection of properties.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ad7a3dd56eacbde7cf13e6e8e0f35a085">More...</a><br /></td></tr>
+<tr class="separator:ad7a3dd56eacbde7cf13e6e8e0f35a085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbdb7b1bfa6c2968787600dcbc907f0a"><td class="memItemLeft" align="right" valign="top"><a id="abbdb7b1bfa6c2968787600dcbc907f0a"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#abbdb7b1bfa6c2968787600dcbc907f0a">RemoveAllProperties</a> () override</td></tr>
+<tr class="memdesc:abbdb7b1bfa6c2968787600dcbc907f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all properties from the node's collection of properties. <br /></td></tr>
+<tr class="separator:abbdb7b1bfa6c2968787600dcbc907f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7fdcfb6906af14e0dd6e3897e5957ae"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ab7fdcfb6906af14e0dd6e3897e5957ae">GetProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType) const override</td></tr>
+<tr class="memdesc:ab7fdcfb6906af14e0dd6e3897e5957ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property with the specified type <em>propertyType</em> if the node has such a property. Returns <em>nullptr</em> if the node has no such property.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ab7fdcfb6906af14e0dd6e3897e5957ae">More...</a><br /></td></tr>
+<tr class="separator:ab7fdcfb6906af14e0dd6e3897e5957ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87ac7ef6a76894d999af8bbacbb96bb3"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a87ac7ef6a76894d999af8bbacbb96bb3">GetProperty</a> (const std::string &amp;propertyName) const override</td></tr>
+<tr class="memdesc:a87ac7ef6a76894d999af8bbacbb96bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property with the specified name <em>propertyName</em> if the node has such a property. Returns <em>nullptr</em> if the node has no such property.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a87ac7ef6a76894d999af8bbacbb96bb3">More...</a><br /></td></tr>
+<tr class="separator:a87ac7ef6a76894d999af8bbacbb96bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63acb72d754c8a142f92931a34dc442e"><td class="memItemLeft" align="right" valign="top"><a id="a63acb72d754c8a142f92931a34dc442e"></a>
+virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a63acb72d754c8a142f92931a34dc442e">GetProperties</a> (<a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a> propertyCategory) const override</td></tr>
+<tr class="memdesc:a63acb72d754c8a142f92931a34dc442e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection with the properties of the node that are classified as <em>propertyCategory</em>. The collection is empty if the node has no properties with the requested category. The collection has no particular order. <br /></td></tr>
+<tr class="separator:a63acb72d754c8a142f92931a34dc442e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed192a74975ec305eae2ddf66109fcd9"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aed192a74975ec305eae2ddf66109fcd9">GetInheritedProperties</a> () const override</td></tr>
+<tr class="memdesc:aed192a74975ec305eae2ddf66109fcd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection with the most recent occurrence of each property that has the trait <a class="el" href="group__public-api.html#gga36d36275c69f2d6eed1be956d9e1d39da6711ce41907fd6bb07b48b7d1f6a60c5" title="The property is an inheritable property. Inheritable properties are properties that affect not only t...">SgfcPropertyTrait::Inheritable</a>, when found on the node itself and its ancestors. The collection is empty if no properties were found. The collection has no particular order.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aed192a74975ec305eae2ddf66109fcd9">More...</a><br /></td></tr>
+<tr class="separator:aed192a74975ec305eae2ddf66109fcd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_node"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_node')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">LibSgfcPlusPlus::ISgfcNode</a></td></tr>
 <tr class="memitem:a4bcee4e2c96432dd68549f00a5b5c3e5 inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_node"><td class="memItemLeft" align="right" valign="top"><a id="a4bcee4e2c96432dd68549f00a5b5c3e5"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a4bcee4e2c96432dd68549f00a5b5c3e5">ISgfcNode</a> ()</td></tr>
@@ -183,9 +227,204 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi...">SgfcNode</a> class provides an implementation of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> interface. See the interface header file for documentation. </p>
+<p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi...">SgfcNode</a> class inherits from std::enable_shared_from_this so that it can return a std::shared_ptr for itself (using the "this" pointer) from some of its methods. This only works if the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi...">SgfcNode</a> object is owned by another external std::shared_ptr somewhere. If there is no such external std::shared_ptr the method in question will throw std::bad_weak_ptr. This is documented on the public interface for all affected methods.</p>
+<p>The implementation of this class must take special care when it internally invokes one of the above-mentioned methods:</p><ul>
+<li>If the calling method A is const</li>
+<li>And if the called method B is also const</li>
+<li>And if the called method B returns a non-const object</li>
+<li>Then the calling method A must not do anything non-const with the returned non-const object The reason: The returned non-const object is actually the same object that invoked method B, so the const method A would do something non-const to itself. See <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7" title="Returns the root node of the game tree that contains the node. Returns the node itself if the node ha...">GetRoot()</a> for an example where const'ness is removed to open open the described hazard. </li>
+</ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a77896a001b9d9381f30dd86bd6e0810c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77896a001b9d9381f30dd86bd6e0810c">&#9670;&nbsp;</a></span>GetProperties()</h2>
+<a id="ac818c38d4024bfd26367c645e4bc4155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac818c38d4024bfd26367c645e4bc4155">&#9670;&nbsp;</a></span>AppendProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcNode::AppendProperty </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td>
+          <td class="paramname"><em>property</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds <em>property</em> as the last property to the node's collection of properties. <em>property</em> may not be <em>nullptr</em>. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>property</em> is <em>nullptr</em>, if <em>property</em> is already in the node's collection of properties, or the node's collection of properties already contains another property with the same SgfcPropertyType (except <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> which may appear more than once) or the same property name. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#af2434bccad0cb58e3d3f8365bdda0142">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="a5a2e22e4f20472de0fd15777320e6c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2e22e4f20472de0fd15777320e6c4f">&#9670;&nbsp;</a></span>CreateGameInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt; LibSgfcPlusPlus::SgfcNode::CreateGameInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7" title="Returns the root node of the game tree that contains the node. Returns the node itself if the node ha...">GetRoot()</a> returns and the game info node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns. </p>
+<p>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns <em>nullptr</em> then the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object contains only values taken from the properties in the root node, but all values that would normally be taken from the properties in the game info node have default values.</p>
+<p>If the content in the root node indicates that the game type is SgfcGameType::Go then the returned object is an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> object. The game type is SgfcGameType::Go in the following cases:</p><ul>
+<li>If the root node contains a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> that either has no value, or that has a single Number value, and that value is 0.</li>
+<li>Or if the root node does not contain a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>.</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aef7d7552bc9e06d8648b512be5edff42" title="Returns a newly constructed ISgfcGameInfo object with values taken from the properties in the root no...">ISgfcGame::CreateGameInfo()</a> </dd></dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad34b45ee149112d3f2d729a3bff8d2a4">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="af288cf8fef84a20b8d4a27e200b3b9e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af288cf8fef84a20b8d4a27e200b3b9e6">&#9670;&nbsp;</a></span>GetGameInfoNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; LibSgfcPlusPlus::SgfcNode::GetGameInfoNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the first node among the node itself and its ancestors that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>. Returns <em>nullptr</em> if there is no such node. </p>
+<p>The search starts with the node itself, then progresses to the node's parent, the node's parent's parent, etc. up to the root node of the game tree. The search returns the first node whose <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a3bd6e9d3b0b435720c667fdcb643a4ba" title="Returns the node&#39;s traits.">GetTraits()</a> method returns a value that includes <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::bad_weak_ptr</td><td>Is thrown if the method would like to return the node itself, but the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object is not wrapped by an std::shared_ptr somewhere external. It is impossible for the library client to encounter this scenario, it can only occur during internal unit testing. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#add7d7e9b5225e94e6115bd2dbb8a32ae">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="aed192a74975ec305eae2ddf66109fcd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed192a74975ec305eae2ddf66109fcd9">&#9670;&nbsp;</a></span>GetInheritedProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; &gt; LibSgfcPlusPlus::SgfcNode::GetInheritedProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a collection with the most recent occurrence of each property that has the trait <a class="el" href="group__public-api.html#gga36d36275c69f2d6eed1be956d9e1d39da6711ce41907fd6bb07b48b7d1f6a60c5" title="The property is an inheritable property. Inheritable properties are properties that affect not only t...">SgfcPropertyTrait::Inheritable</a>, when found on the node itself and its ancestors. The collection is empty if no properties were found. The collection has no particular order. </p>
+<p>The detailed search logic is this:</p><ul>
+<li>Determine a list of properties that have the trait <a class="el" href="group__public-api.html#gga36d36275c69f2d6eed1be956d9e1d39da6711ce41907fd6bb07b48b7d1f6a60c5" title="The property is an inheritable property. Inheritable properties are properties that affect not only t...">SgfcPropertyTrait::Inheritable</a>.</li>
+<li>Start examining the node itself, then the node's parent, etc. up to the game tree's root node.</li>
+<li>When a node contains one of the inheritable properties, include that property in the search result returned by the method, then stop looking for that particular property.</li>
+<li>Stop the search when all properties have been found.</li>
+</ul>
+<p>The SGF standard's description of inheritable properties includes the concept of a "setting getting cleared". The implication is that if a "setting is cleared" then, from the node's perspective, things should look as if the property that defines the setting has never been there in the first place. Ideally then the search result returned by the method should not include a property if that property's most recent occurrence "cleared the setting". The problem is the interpretation of when a setting is "being cleared". The SGF standard says that this <b>typically</b> happens when the property is set with an empty value - but <b>typically</b> is not <b>always</b>. Because the SGF standard is not definitive about the meaning, the method does not make assumptions. It simply returns a property's most recent occurrence and leaves the interpretation of the property value to the library client. </p>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#aa3f6d4ba4e04a431ed70747e2dca9364">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="a1e3fef17bd996caef18f6e27af2ff3fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e3fef17bd996caef18f6e27af2ff3fc">&#9670;&nbsp;</a></span>GetMainVariationNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt; LibSgfcPlusPlus::SgfcNode::GetMainVariationNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an ordered collection of nodes that form the main variation of game play found on the node itself and its first child descendants. </p>
+<p>The main variation is defined as the depth-first path that starts with the node itself and continues along the first child descendants down to the last node that has no more children. The collection that is returned therefore contains the following nodes in the listed order:</p>
+<ul>
+<li>Element 0: The node itself</li>
+<li>Element 1: The node's first child</li>
+<li>Element 2: The node's first child's first child</li>
+<li>Etc.</li>
+</ul>
+<p>If the node has no children the returned collection contains only the node itself.</p>
+<p>This is a convenience method that is most useful when invoked on a game info node, i.e. a node that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::bad_weak_ptr</td><td>Is thrown if the method would like to return the node itself, but the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object is not wrapped by an std::shared_ptr somewhere external. It is impossible for the library client to encounter this scenario, it can only occur during internal unit testing. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad7d3212d385fc5b067d26fca3e4a5584">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="ace11dc1d3e1f5bc5085293af720c3dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace11dc1d3e1f5bc5085293af720c3dff">&#9670;&nbsp;</a></span>GetProperties()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +441,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -215,8 +454,39 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="aa1b2e77f46d6fca803a81fe901114ad4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1b2e77f46d6fca803a81fe901114ad4">&#9670;&nbsp;</a></span>GetProperty()</h2>
+<a id="a87ac7ef6a76894d999af8bbacbb96bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87ac7ef6a76894d999af8bbacbb96bb3">&#9670;&nbsp;</a></span>GetProperty() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt; LibSgfcPlusPlus::SgfcNode::GetProperty </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>propertyName</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the property with the specified name <em>propertyName</em> if the node has such a property. Returns <em>nullptr</em> if the node has no such property. </p>
+<p>The SGF standard defines that only one of each property is allowed per node. </p>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a266cd3b2ce9cb5392e25b88c156cb7d3">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="ab7fdcfb6906af14e0dd6e3897e5957ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7fdcfb6906af14e0dd6e3897e5957ae">&#9670;&nbsp;</a></span>GetProperty() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,20 +504,118 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Returns the property with the specified type <em>propertyType</em> if the node has such a property. Returns <em>nullptr</em> if the node has no such property. </p>
+<p>If <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> and the node has several such properties, returns the property that appears first in the list that is returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#ace11dc1d3e1f5bc5085293af720c3dff" title="Returns a collection with the properties of the node. The collection is empty if the node has no prop...">GetProperties()</a>.</p>
 <p>The SGF standard defines that only one of each property is allowed per node. </p>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a6f46f1ce0406c24d3ede9165359d82d9">LibSgfcPlusPlus::ISgfcNode</a>.</p>
 
 </div>
 </div>
-<a id="a73aaf67a369fd19c4eb882b84553d62b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73aaf67a369fd19c4eb882b84553d62b">&#9670;&nbsp;</a></span>IsAncestorOf()</h2>
+<a id="a798476b51f248d2837293e5b5bca31f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a798476b51f248d2837293e5b5bca31f7">&#9670;&nbsp;</a></span>GetRoot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; LibSgfcPlusPlus::SgfcNode::GetRoot </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the root node of the game tree that contains the node. Returns the node itself if the node has no parent, i.e. if it is itself the root node. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::bad_weak_ptr</td><td>Is thrown if the method would like to return the node itself, but the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object is not wrapped by an std::shared_ptr somewhere external. It is impossible for the library client to encounter this scenario, it can only occur during internal unit testing. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a4de673baa575942c87d27f3e9807f9f0">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="a3bd6e9d3b0b435720c667fdcb643a4ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bd6e9d3b0b435720c667fdcb643a4ba">&#9670;&nbsp;</a></span>GetTraits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#ga3c2910dbdcf98ec5e930fe5b518829d7">SgfcNodeTraits</a> LibSgfcPlusPlus::SgfcNode::GetTraits </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the node's traits. </p>
+<p>Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#afdec80eabad744d960012570dd3d2b91" title="An SgfcNodeTraits value that denotes a node that has no traits.">SgfcConstants::NodeTraitsNone</a> if the node is not the root node of a game tree and if it has either no properties or only properties with <a class="el" href="group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea387baf0199e7c9cc944fae94e96448fa" title="The property is a miscellaneous property, i.e. it cannot be placed in a more specific category.">SgfcPropertyCategory::Miscellaneous</a>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#ga3c2910dbdcf98ec5e930fe5b518829d7" title="An SgfcNodeTraits value describes the traits of an ISgfcNode object. The value is a combination of in...">SgfcNodeTraits</a> </dd></dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a817972216e860adbe357ce2fec23dcee">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="ade324ac438c5ba5c78e4c77b35cea02a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade324ac438c5ba5c78e4c77b35cea02a">&#9670;&nbsp;</a></span>HasTrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool LibSgfcPlusPlus::SgfcNode::HasTrait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#ga04c91f52eda3884de1580dd93cc73cf7">SgfcNodeTrait</a>&#160;</td>
+          <td class="paramname"><em>trait</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the node has the trait <em>trait</em>. Returns false if the node does not have the trait <em>trait</em>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#ga04c91f52eda3884de1580dd93cc73cf7" title="SgfcNodeTrait enumerates the individual traits that an ISgfcNode object can have. An ISgfcNode object...">SgfcNodeTrait</a> </dd></dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a1359f95add5cfd69310e3c421b8ab1c8">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="ab81e4c54bd712aa203982601a509e0e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab81e4c54bd712aa203982601a509e0e6">&#9670;&nbsp;</a></span>IsAncestorOf()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -265,7 +633,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -282,8 +650,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="abe7f9e461be2bdb549954bf537f8c39b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe7f9e461be2bdb549954bf537f8c39b">&#9670;&nbsp;</a></span>IsDescendantOf()</h2>
+<a id="a0461df08faefa27b513c316d49bebba7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0461df08faefa27b513c316d49bebba7">&#9670;&nbsp;</a></span>IsDescendantOf()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -301,7 +669,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -315,6 +683,42 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </dl>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a64ca01ff3fc72c4078d8957e8cdf4b1e">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="ad7a3dd56eacbde7cf13e6e8e0f35a085"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7a3dd56eacbde7cf13e6e8e0f35a085">&#9670;&nbsp;</a></span>RemoveProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcNode::RemoveProperty </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td>
+          <td class="paramname"><em>property</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes <em>property</em> from the node's collection of properties. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>property</em> is not part of the node's collection of properties. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a4a2e45fb564070dfbe0bcf2b633dbe7a">LibSgfcPlusPlus::ISgfcNode</a>.</p>
 
 </div>
 </div>
@@ -381,8 +785,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="a701a8bc76aff1b4a1033f7f1b86c52af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a701a8bc76aff1b4a1033f7f1b86c52af">&#9670;&nbsp;</a></span>SetProperties()</h2>
+<a id="a68b39de6f4e02a7aa053f1353d3672d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68b39de6f4e02a7aa053f1353d3672d0">&#9670;&nbsp;</a></span>SetProperties()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,7 +804,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -415,6 +819,86 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </dl>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a36338f0ad9b8ca290f278ec6749a48ed">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="aa9e27cdc111f3466ea45423688b4785f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9e27cdc111f3466ea45423688b4785f">&#9670;&nbsp;</a></span>SetProperty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcNode::SetProperty </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td>
+          <td class="paramname"><em>property</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds <em>property</em> as the last property to the node's collection of properties. If the collection already contains a duplicate property that duplicate is removed first. <em>property</em> may not be <em>nullptr</em>. </p>
+<p>Duplicate elimination works like this:</p><ul>
+<li>If <em>property</em> has <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> then the collection is searched for a duplicate by property name only.</li>
+<li>If <em>property</em> has a property type that is not <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> then the collection is searched for a duplicate both by property type and by property name.</li>
+</ul>
+<p>The method does nothing if the node's collection of properties already contains <em>property</em>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>property</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a7c12248bb544939e0784f8909dd95851">LibSgfcPlusPlus::ISgfcNode</a>.</p>
+
+</div>
+</div>
+<a id="af7926d732aff1e86c456bbaccfef5aec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7926d732aff1e86c456bbaccfef5aec">&#9670;&nbsp;</a></span>WriteGameInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcNode::WriteGameInfo </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td>
+          <td class="paramname"><em>gameInfo</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes all root property values in <em>gameInfo</em> to the corresponding properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a798476b51f248d2837293e5b5bca31f7" title="Returns the root node of the game tree that contains the node. Returns the node itself if the node ha...">GetRoot()</a> returns, and all game info property values in <em>gameInfo</em> to the game info node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns. </p>
+<p>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#af288cf8fef84a20b8d4a27e200b3b9e6" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a> returns <em>nullptr</em> then the game info property values in <em>gameInfo</em> are written to the root node.</p>
+<p>Game info property values are written only if they are not equal to their default values (already existing property values are overwritten). Game info property values that are equal to their default value cause the property to be removed, if it exists, from the game info node.</p>
+<p>Root property values are always written, regardless of whether they are equal to their default values.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>gameInfo</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a3d5f3db1b6806d1be1353f90c9b9afe3">LibSgfcPlusPlus::ISgfcNode</a>.</p>
 
 </div>
 </div>

@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html">SgfcPropertyDecoder</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html">SgfcPropertyDecoder</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -90,6 +90,12 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a82894cb22d9de114763b86e99c135b15">~SgfcPropertyDecoder</a> ()</td></tr>
 <tr class="memdesc:a82894cb22d9de114763b86e99c135b15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html" title="The SgfcPropertyDecoder class parses the raw strings that SGFC provides for SGF properties and their ...">SgfcPropertyDecoder</a> object. <br /></td></tr>
 <tr class="separator:a82894cb22d9de114763b86e99c135b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1680935a70ab34a069c768cfdb7227d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#ad1680935a70ab34a069c768cfdb7227d">GetEscapProcessingEnabled</a> () const</td></tr>
+<tr class="memdesc:ad1680935a70ab34a069c768cfdb7227d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if escape processing is enabled. Returns false if escape processing is diabled. The default is false.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#ad1680935a70ab34a069c768cfdb7227d">More...</a><br /></td></tr>
+<tr class="separator:ad1680935a70ab34a069c768cfdb7227d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b6fdb14fe6f19459ead9f9ce84f73f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a43b6fdb14fe6f19459ead9f9ce84f73f">SetEscapeProcessingEnabled</a> (bool escapeProcessingEnabled)</td></tr>
+<tr class="memdesc:a43b6fdb14fe6f19459ead9f9ce84f73f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables escape processing if <em>escapeProcessingEnabled</em> is true. Disables escape processing if <em>escapeProcessingEnabled</em> is false.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a43b6fdb14fe6f19459ead9f9ce84f73f">More...</a><br /></td></tr>
+<tr class="separator:a43b6fdb14fe6f19459ead9f9ce84f73f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c4132d5e5ef6d8fd1568b9144fffcbb"><td class="memItemLeft" align="right" valign="top"><a id="a0c4132d5e5ef6d8fd1568b9144fffcbb"></a>
 <a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a0c4132d5e5ef6d8fd1568b9144fffcbb">GetPropertyType</a> () const</td></tr>
 <tr class="memdesc:a0c4132d5e5ef6d8fd1568b9144fffcbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SgfcPropertyType value that corresponds to the SGF property with which <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html" title="The SgfcPropertyDecoder class parses the raw strings that SGFC provides for SGF properties and their ...">SgfcPropertyDecoder</a> was constructed. Returns <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> for properties that are not defined in the SGF standard. <br /></td></tr>
@@ -205,16 +211,37 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a7e9b7730b05c4a2e598c4f984b3ae742" title="The default board size if the game type is SgfcGameType::Go.">SgfcConstants::BoardSizeDefaultGo</a></td><td>If the property is not present and <em>gameType</em> is SgfcGameType::Go. </td></tr>
     <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a3fe31f14eb50890fe6f05964a91b1888" title="The default board size if the game type is SgfcGameType::Chess.">SgfcConstants::BoardSizeDefaultChess</a></td><td>If the property is not present and <em>gameType</em> is SgfcGameType::Chess. </td></tr>
     <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a></td><td>If the property is not present and <em>gameType</em> is neither SgfcGameType::Go nor SgfcGameType::Chess. </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a></td><td>If the property is present but has an invalid value. A board size is invalid if it violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details.</td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a></td><td>If the property is present but its <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> value violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::domain_error</td><td>Is thrown if something about <em>sgfNode</em> is not as expected. This exception should never be thrown, but when it <b>is</b> thrown this is an indicator for an interfacing problem with SGFC. The exception is known to be thrown in the following cases: 1) <em>sgfNode</em> is nullptr. 2) <em>sgfNode</em> contains an SZ property that has no value, or a value that is neither a Number string nor a composed value consisting of two Number strings. 3) <em>sgfNode</em> contains an SZ property that has a composed value although <em>gameType</em> is SgfcGameType::Go. </td></tr>
+    <tr><td class="paramname">std::domain_error</td><td>Is thrown if something about <em>sgfNode</em> is not as expected. This exception should never be thrown, but when it <b>is</b> thrown this is an indicator for an interfacing problem with SGFC. The exception is known to be thrown in the following cases: 1) <em>sgfNode</em> is nullptr. 2) <em>sgfNode</em> contains an SZ property that has no value, or a value that is neither a Number string nor a composed value consisting of two Number strings. </td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad1680935a70ab34a069c768cfdb7227d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1680935a70ab34a069c768cfdb7227d">&#9670;&nbsp;</a></span>GetEscapProcessingEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool LibSgfcPlusPlus::SgfcPropertyDecoder::GetEscapProcessingEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if escape processing is enabled. Returns false if escape processing is diabled. The default is false. </p>
+<p>When escape processing is enabled <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html" title="The SgfcPropertyDecoder class parses the raw strings that SGFC provides for SGF properties and their ...">SgfcPropertyDecoder</a> removes escape characters from SimpleText and Text property values, and from Move/Point/Stone property values if the game type is not SgfcGameType::Go.</p>
+<p>The default for this setting used to be true, but beginning with V2.00 SGFC now removes all escape characters for us. The setting is left in place because programming the escape processing was a substantial amount of work, and it may become necessary to enable it again at some time in the future. </p>
 
 </div>
 </div>
@@ -251,15 +278,15 @@ Static Public Member Functions</h2></td></tr>
 </dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">SgfcGameType</td><td>If the property is present and has a value defined in the SGF standard, returns the SgfcGameType value that corresponds to the property value. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
+    <tr><td class="paramname">SgfcGameType</td><td>If the property is present and has a single Number value, and that value is defined in the SGF standard, then the SgfcGameType value that corresponds to the Number value is returned. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
     <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a></td><td>If the property is not present. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
-    <tr><td class="paramname">SgfcGameType::Unknown</td><td>If the property is present and has a value that is not defined in the SGF standard.</td></tr>
+    <tr><td class="paramname">SgfcGameType::Unknown</td><td>If the property is present and has a single Number value, but that value is not defined in the SGF standard.</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::domain_error</td><td>Is thrown if something about <em>sgfNode</em> is not as expected. This exception should never be thrown, but when it <b>is</b> thrown this is an indicator for an interfacing problem with SGFC. The exception is known to be thrown in the following cases: 1) <em>sgfNode</em> is nullptr. 2) <em>sgfNode</em> contains a GM property that has no value, or a value that is not a Number string, or a composed value. </td></tr>
+    <tr><td class="paramname">std::domain_error</td><td>Is thrown if something about <em>sgfNode</em> is not as expected. This exception should never be thrown, but when it <b>is</b> thrown this is an indicator for an interfacing problem with SGFC. The exception is known to be thrown in the following cases: 1) <em>sgfNode</em> is nullptr. 2) <em>sgfNode</em> contains a GM property that has no value, or more than one value, or a single value that is not a Number string, or a composed value. </td></tr>
   </table>
   </dd>
 </dl>
@@ -297,7 +324,7 @@ Static Public Member Functions</h2></td></tr>
 <li>SGFC is expected to trim leading and trailing whitespace from values that are not SimpleText or Text. Without trimming this method would be unable to recognize Double and Color values.</li>
 <li>In SimpleText values, SGFC is expected to convert whitespace characters other than space to space (i.e. line breaks are not preserved). Due to shortcomings in SGFC's handling of line breaks this method adds its own line break handling, so currently SGFC's line break handling is irrelevant to the implementation of this method. See the next note for details.</li>
 <li>In Text values, SGFC is expected to convert whitespace characters other than line breaks are converted to space (i.e. line breaks are preserved). SGFC is also expected to remove escaped line breaks. Due to shortcomings in SGFC's handling of line breaks this method adds its own line break handling, so currently SGFC's line break handling is irrelevant to the implementation of this method. See the next note for details.</li>
-<li>In SimpleText and Text values, all unnecessary escape characters are removed. E.g. escaping the "a" character is not necessary, so when SGFC sees "\a" it removes the unnecessary escape character and this method gets to process only "a". In short, this method does not perform any escape character handling.</li>
+<li>In SimpleText and Text values, all escape characters are removed.</li>
 <li>In Move values, if the game type is Go and the board size is &lt;= 19x19, SGFC is expected to convert the value "tt" to an empty string. According to the SGF standard an empty string and value "tt" both express a pass move, but in FF4 the "tt" representation is kept only for compatibility with FF3.</li>
 </ul>
 </dd>
@@ -311,6 +338,27 @@ If <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html" 
 </dd>
 <dd>
 This documentation has to be replicated on the public interface. specifically, the notes regarding the expected pre-processing performed by SGFC must be available as well in the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html#afb931e136f4ed3c093745cc426e545b4" title="Returns the property value as a raw string, i.e. as close as possible as it appears in the original S...">ISgfcSinglePropertyValue::GetRawValue()</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a43b6fdb14fe6f19459ead9f9ce84f73f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43b6fdb14fe6f19459ead9f9ce84f73f">&#9670;&nbsp;</a></span>SetEscapeProcessingEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcPropertyDecoder::SetEscapeProcessingEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>escapeProcessingEnabled</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables escape processing if <em>escapeProcessingEnabled</em> is true. Disables escape processing if <em>escapeProcessingEnabled</em> is false. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#ad1680935a70ab34a069c768cfdb7227d" title="Returns true if escape processing is enabled. Returns false if escape processing is diabled....">GetEscapProcessingEnabled()</a> </dd></dl>
 
 </div>
 </div>

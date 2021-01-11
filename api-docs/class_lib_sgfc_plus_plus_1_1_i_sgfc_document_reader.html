@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -102,12 +102,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a93e56d85c2d16f4e04667342bed055ac"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_arguments.html">ISgfcArguments</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">GetArguments</a> () const =0</td></tr>
 <tr class="memdesc:a93e56d85c2d16f4e04667342bed055ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an object with the collection of arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> passes on to SGFC whenever it performs a read operation.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">More...</a><br /></td></tr>
 <tr class="separator:a93e56d85c2d16f4e04667342bed055ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5e15840c652816b2307c903ec4703f6"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html">ISgfcDocumentReadResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa5e15840c652816b2307c903ec4703f6">ReadSgfFile</a> (const std::string &amp;sgfFilePath)=0</td></tr>
-<tr class="memdesc:aa5e15840c652816b2307c903ec4703f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads SGF data from a single .sgf file located at the specified path and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa5e15840c652816b2307c903ec4703f6">More...</a><br /></td></tr>
-<tr class="separator:aa5e15840c652816b2307c903ec4703f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac618ef78d1e8fd978700262b19097362"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html">ISgfcDocumentReadResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#ac618ef78d1e8fd978700262b19097362">ReadSgfContent</a> (const std::string &amp;sgfContent)=0</td></tr>
-<tr class="memdesc:ac618ef78d1e8fd978700262b19097362"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads SGF data from the specified string and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#ac618ef78d1e8fd978700262b19097362">More...</a><br /></td></tr>
-<tr class="separator:ac618ef78d1e8fd978700262b19097362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0217171a30d6424f2057d5363963633"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html">ISgfcDocumentReadResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">ReadSgfFile</a> (const std::string &amp;sgfFilePath) const =0</td></tr>
+<tr class="memdesc:aa0217171a30d6424f2057d5363963633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads SGF data from a single .sgf file located at the specified path and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">More...</a><br /></td></tr>
+<tr class="separator:aa0217171a30d6424f2057d5363963633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a385d5c949877746af79bbf6aab9d7ea4"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html">ISgfcDocumentReadResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">ReadSgfContent</a> (const std::string &amp;sgfContent) const =0</td></tr>
+<tr class="memdesc:a385d5c949877746af79bbf6aab9d7ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads SGF data from the specified string and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">More...</a><br /></td></tr>
+<tr class="separator:a385d5c949877746af79bbf6aab9d7ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> interface provides functions to generate <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> objects by reading SGF data from the filesystem or from in-memory data. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> operates the SGFC backend to achieve its task. Use <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html" title="The SgfcPlusPlusFactory class is a class that contains only static functions. The functions are used ...">SgfcPlusPlusFactory</a> to construct new <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> objects. </p>
@@ -138,12 +138,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Returns an object with the collection of arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> passes on to SGFC whenever it performs a read operation. </p>
 <p>The collection of arguments is initially empty. Add arguments to the collection to change the way how SGFC reads SGF content. The collection retains its state between read operations so that repeated read operations use the same arguments. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a6de4196dde4115fc574c3dd01b234ec9">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a51773c4ea63ff0d081d7a1c34c1bdd02">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
 
 </div>
 </div>
-<a id="ac618ef78d1e8fd978700262b19097362"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac618ef78d1e8fd978700262b19097362">&#9670;&nbsp;</a></span>ReadSgfContent()</h2>
+<a id="a385d5c949877746af79bbf6aab9d7ea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a385d5c949877746af79bbf6aab9d7ea4">&#9670;&nbsp;</a></span>ReadSgfContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +156,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>sgfContent</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -169,12 +169,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Reads SGF data from the specified string and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns. </p>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html" title="The ISgfcDocumentReadResult interface provides access to the result of a read operation performed by ...">ISgfcDocumentReadResult</a> object that provides the result of the read operation. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#aefc6e67a550ef80b7f2ba96b91b3dd9a">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a887490659055a9ff78fd792bc91f24d8">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
 
 </div>
 </div>
-<a id="aa5e15840c652816b2307c903ec4703f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5e15840c652816b2307c903ec4703f6">&#9670;&nbsp;</a></span>ReadSgfFile()</h2>
+<a id="aa0217171a30d6424f2057d5363963633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0217171a30d6424f2057d5363963633">&#9670;&nbsp;</a></span>ReadSgfFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +187,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>sgfFilePath</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -200,7 +200,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Reads SGF data from a single .sgf file located at the specified path and puts the data through the SGFC parser, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac" title="Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...">GetArguments()</a> currently returns. </p>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html" title="The ISgfcDocumentReadResult interface provides access to the result of a read operation performed by ...">ISgfcDocumentReadResult</a> object that provides the result of the read operation. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a5f873279ac58c80c4deb1048fc5c87c5">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_reader.html#a97a79af41fa6fadced053f0eca80f7d4">LibSgfcPlusPlus::SgfcDocumentReader</a>.</p>
 
 </div>
 </div>

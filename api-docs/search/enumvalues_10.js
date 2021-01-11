@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['sgf_1221',['Sgf',['../group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa668c338524279a8f868d0008b260bf2e',1,'LibSgfcPlusPlus']]],
-  ['simpletext_1222',['SimpleText',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a72ea19aa69889d61c8a83e4f8ff689bd',1,'LibSgfcPlusPlus']]],
-  ['sl_1223',['SL',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a74b8d5453b654b3a79e7b8985a2fc71c',1,'LibSgfcPlusPlus']]],
-  ['sq_1224',['SQ',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a1249ab51832d31d2c1a0ac36b9ffaa2d',1,'LibSgfcPlusPlus']]],
-  ['st_1225',['ST',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737aec8e57d71f07e31203035548b79d03c8',1,'LibSgfcPlusPlus']]],
-  ['stone_1226',['Stone',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2ff4ab1d379832d3edee28194fb4e7b2',1,'LibSgfcPlusPlus']]],
-  ['sz_1227',['SZ',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa',1,'LibSgfcPlusPlus']]]
+  ['readsgfcontentfromfilesystemerror_1743',['ReadSgfContentFromFilesystemError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea28e70278cafe2c16fdac08dec831ab33',1,'LibSgfcPlusPlus']]],
+  ['real_1744',['Real',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a7f80fcc452c2f1ed2bb51b39d0864df1',1,'LibSgfcPlusPlus']]],
+  ['requestedpropertydeleted_1745',['RequestedPropertyDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea95f72739c28ceddf153ffc5c391380b5',1,'LibSgfcPlusPlus']]],
+  ['reversevariationordering_1746',['ReverseVariationOrdering',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a2625a8aaaec896183760b10d9d8e4482',1,'LibSgfcPlusPlus']]],
+  ['root_1747',['Root',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7afa03eb688ad8aa1db593d33dabd89bad',1,'LibSgfcPlusPlus::Root()'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eafa03eb688ad8aa1db593d33dabd89bad',1,'LibSgfcPlusPlus::Root()']]],
+  ['rootpropertydeleted_1748',['RootPropertyDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea4247e98b46dcfaf658b8eb211ee30367',1,'LibSgfcPlusPlus']]]
 ];

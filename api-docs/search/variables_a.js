@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['parseargumenterrormessageid_1122',['ParseArgumentErrorMessageID',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a8ef4cbf42de0d13274e5b4e3d34d5d8e',1,'LibSgfcPlusPlus::SgfcConstants']]],
-  ['propertynametopropertytypemap_1123',['PropertyNameToPropertyTypeMap',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a18bd31d38e4e87adfba8906f403bb9b1',1,'LibSgfcPlusPlus::SgfcConstants']]],
-  ['propertytypetopropertynamemap_1124',['PropertyTypeToPropertyNameMap',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa997033c36f6fd61e3aa383ae82fb33c',1,'LibSgfcPlusPlus::SgfcConstants']]],
-  ['propertyvaluebegintoken_1125',['PropertyValueBeginToken',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a79ec00de9fe17c8d0325290f3e77adb3',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
-  ['propertyvalueendtoken_1126',['PropertyValueEndToken',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#adfe86920e59ab644d55be5fbf945a968',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]]
+  ['libraryerrornumbernoerror_1532',['LibraryErrorNumberNoError',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#ab0fc4934262b04d9de551715a29b77dc',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['libraryname_1533',['LibraryName',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a924512eb2a8731ef3ce5183cd74190f4',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['libraryversion_1534',['LibraryVersion',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a8eca37ddc96291ea59d883b300ce881f',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['lineendingspattern_1535',['LineEndingsPattern',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a605452ae73bf9f9e5e9c6244f0f2387d',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['linetoken_1536',['LineToken',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#adfbc9d798f40bc5ad0fa471452ab4d0d',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]]
 ];

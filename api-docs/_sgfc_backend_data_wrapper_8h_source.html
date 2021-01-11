@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,48 +71,65 @@ $(function() {
 <div class="title">SgfcBackendDataWrapper.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Project includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;SgfcBackendDataState.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// Forward declarations</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">struct </span>SGFInfo;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">   47</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">SgfcBackendDataWrapper</a></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">SgfcBackendDataWrapper</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">SgfcBackendDataWrapper</a>(<span class="keyword">const</span> std::string&amp; sgfContent);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#ae2806947d8ba2f981808cd7b6b6ee020">~SgfcBackendDataWrapper</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    SGFInfo* <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a190fc3b7ccf2050c58b9c66cb4d9c824">GetSgfData</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    SGFInfo* sgfData;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> dataState;</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Project includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;SgfcBackendDataState.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// Forward declarations</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">struct </span>SGFInfo;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">   63</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">SgfcBackendDataWrapper</a></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">SgfcBackendDataWrapper</a>();</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> InitializeFileBuffer(<span class="keyword">const</span> std::string&amp; sgfContent) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html">SgfcBackendController</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> GetDataState() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> SetDataState(<a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> dataState);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  };</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">SgfcBackendDataWrapper</a>(<span class="keyword">const</span> std::string&amp; sgfContent);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#ae2806947d8ba2f981808cd7b6b6ee020">~SgfcBackendDataWrapper</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    SGFInfo* <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a190fc3b7ccf2050c58b9c66cb4d9c824">GetSgfData</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    SGFInfo* sgfData;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> dataState;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> InitializeFileBuffer(<span class="keyword">const</span> std::string&amp; sgfContent) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html">SgfcBackendController</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> GetDataState() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> SetDataState(<a class="code" href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">SgfcBackendDataState</a> dataState);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  };</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_controller_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html">LibSgfcPlusPlus::SgfcBackendController</a></div><div class="ttdoc">The SgfcBackendController class encapsuslates the SGFC backend and is responsible for coordinating ac...</div><div class="ttdef"><b>Definition:</b> SgfcBackendController.h:50</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">LibSgfcPlusPlus::SgfcBackendDataWrapper</a></div><div class="ttdoc">The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.h:48</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_a720ee4248d675e10bbb8ea95494f6ef6"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">LibSgfcPlusPlus::SgfcBackendDataWrapper::SgfcBackendDataWrapper</a></div><div class="ttdeci">SgfcBackendDataWrapper()</div><div class="ttdoc">Initializes a newly constructed SgfcBackendDataWrapper object that wraps an empty SGFInfo data struct...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:17</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_ae2806947d8ba2f981808cd7b6b6ee020"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#ae2806947d8ba2f981808cd7b6b6ee020">LibSgfcPlusPlus::SgfcBackendDataWrapper::~SgfcBackendDataWrapper</a></div><div class="ttdeci">virtual ~SgfcBackendDataWrapper()</div><div class="ttdoc">Destroys and cleans up the SgfcBackendDataWrapper object.</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:34</div></div>
-<div class="ttc" id="agroup__internals_html_ga571441add19dc4c28e8f7cdfcf8b0c66"><div class="ttname"><a href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">LibSgfcPlusPlus::SgfcBackendDataState</a></div><div class="ttdeci">SgfcBackendDataState</div><div class="ttdoc">SgfcBackendDataState enumerates the states that the SGFInfo data structure encapsulated by SgfcBacken...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataState.h:10</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_a190fc3b7ccf2050c58b9c66cb4d9c824"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a190fc3b7ccf2050c58b9c66cb4d9c824">LibSgfcPlusPlus::SgfcBackendDataWrapper::GetSgfData</a></div><div class="ttdeci">SGFInfo * GetSgfData() const</div><div class="ttdoc">Returns a pointer to the SGFInfo data object that the SgfcBackendDataWrapper encapsulates.</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:41</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_controller_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html">LibSgfcPlusPlus::SgfcBackendController</a></div><div class="ttdoc">The SgfcBackendController class encapsuslates the SGFC backend and is responsible for coordinating ac...</div><div class="ttdef"><b>Definition:</b> SgfcBackendController.h:94</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">LibSgfcPlusPlus::SgfcBackendDataWrapper</a></div><div class="ttdoc">The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.h:64</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_a720ee4248d675e10bbb8ea95494f6ef6"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">LibSgfcPlusPlus::SgfcBackendDataWrapper::SgfcBackendDataWrapper</a></div><div class="ttdeci">SgfcBackendDataWrapper()</div><div class="ttdoc">Initializes a newly constructed SgfcBackendDataWrapper object that wraps an empty SGFInfo data struct...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:32</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_ae2806947d8ba2f981808cd7b6b6ee020"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#ae2806947d8ba2f981808cd7b6b6ee020">LibSgfcPlusPlus::SgfcBackendDataWrapper::~SgfcBackendDataWrapper</a></div><div class="ttdeci">virtual ~SgfcBackendDataWrapper()</div><div class="ttdoc">Destroys and cleans up the SgfcBackendDataWrapper object.</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:47</div></div>
+<div class="ttc" id="agroup__internals_html_ga571441add19dc4c28e8f7cdfcf8b0c66"><div class="ttname"><a href="group__internals.html#ga571441add19dc4c28e8f7cdfcf8b0c66">LibSgfcPlusPlus::SgfcBackendDataState</a></div><div class="ttdeci">SgfcBackendDataState</div><div class="ttdoc">SgfcBackendDataState enumerates the states that the SGFInfo data structure encapsulated by SgfcBacken...</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataState.h:26</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper_html_a190fc3b7ccf2050c58b9c66cb4d9c824"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a190fc3b7ccf2050c58b9c66cb4d9c824">LibSgfcPlusPlus::SgfcBackendDataWrapper::GetSgfData</a></div><div class="ttdeci">SGFInfo * GetSgfData() const</div><div class="ttdoc">Returns a pointer to the SGFInfo data object that the SgfcBackendDataWrapper encapsulates.</div><div class="ttdef"><b>Definition:</b> SgfcBackendDataWrapper.cpp:56</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

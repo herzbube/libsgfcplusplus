@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,21 +71,38 @@ $(function() {
 <div class="title">SgfcDataLocation.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">    9</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">SgfcDataLocation</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39caac52cf637478f3656a1fdee5c02324fd">Filesystem</a>,</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e">InMemoryBuffer</a>,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  };</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">   25</a></span>&#160;  <span class="keyword">enum class</span> <a class="code" href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">SgfcDataLocation</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39caac52cf637478f3656a1fdee5c02324fd">Filesystem</a>,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e">InMemoryBuffer</a>,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  };</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__internals_html_gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e"><div class="ttname"><a href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e">LibSgfcPlusPlus::SgfcDataLocation::InMemoryBuffer</a></div><div class="ttdeci">@ InMemoryBuffer</div><div class="ttdoc">The SGF data is read from or written to an in-memory buffer, typically an std::string.</div></div>
-<div class="ttc" id="agroup__internals_html_ga6a21fef64ecbdea6ee14ee06f834c39c"><div class="ttname"><a href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">LibSgfcPlusPlus::SgfcDataLocation</a></div><div class="ttdeci">SgfcDataLocation</div><div class="ttdoc">SgfcDataLocation enumerates the locations where SGF data can be read from or written to.</div><div class="ttdef"><b>Definition:</b> SgfcDataLocation.h:10</div></div>
+<div class="ttc" id="agroup__internals_html_ga6a21fef64ecbdea6ee14ee06f834c39c"><div class="ttname"><a href="group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c">LibSgfcPlusPlus::SgfcDataLocation</a></div><div class="ttdeci">SgfcDataLocation</div><div class="ttdoc">SgfcDataLocation enumerates the locations where SGF data can be read from or written to.</div><div class="ttdef"><b>Definition:</b> SgfcDataLocation.h:26</div></div>
 <div class="ttc" id="agroup__internals_html_gga6a21fef64ecbdea6ee14ee06f834c39caac52cf637478f3656a1fdee5c02324fd"><div class="ttname"><a href="group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39caac52cf637478f3656a1fdee5c02324fd">LibSgfcPlusPlus::SgfcDataLocation::Filesystem</a></div><div class="ttdeci">@ Filesystem</div><div class="ttdoc">The SGF data is read from or written to a file in the filesystem.</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

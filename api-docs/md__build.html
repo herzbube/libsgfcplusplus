@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -69,23 +69,24 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>This document contains instructions on how to build, install and execute all parts of the project: The software library itself, the unit tests, a sample program and the API documentation.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Prerequisites</h1>
+<p>The project requires CMake 3.10 or newer to build, and a reasonably modern version of Git to clone the project repository and fetch some Git submodules. Building the API documentation requires Doxygen.</p>
+<p>Use your package manager of choice to install these components on your system. On macOS the recommended package manager is <a href="https://brew.sh/">Homebrew</a>, on Windows it's <a href="https://chocolatey.org/">Chocolatey</a>.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
 How to build</h1>
-<p>The project requires CMake 3.10 or newer to build.</p>
 <p>After cloning the repository you must first initialize its Git submodules: </p><pre class="fragment">cd /path/to/project
 git submodule update --init --recursive
-</pre><p>In the next step you apply some patches to SGFC: </p><pre class="fragment">cd sgfc
-for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
-cd ..
-</pre><p>Now you're ready to build. These commands should do it: </p><pre class="fragment">mkdir build
+</pre><p>Now you're ready to build. On platforms that support Makefile-based build systems these commands should do it: </p><pre class="fragment">mkdir build
 cd build
 # If you want a debug build then replace "Release" with "Debug"
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build .
-</pre><h1><a class="anchor" id="autotoc_md2"></a>
+</pre><p>Building with Xcode or Visual Studio is explained in sections further down.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 How to test</h1>
 <p>After building you can run tests from the <code>build</code> folder with this command: </p><pre class="fragment">ctest
 </pre><p>Why does <code>ctest</code> report only a single test? This is because CMake sees the Catch2 test runner as a single test, when in fact the test runner is only the "facade" of the project's entire test suite. Execute the Catch2 test runner directly, with something like the following command, to see more detailed results. The command may vary on different platforms. </p><pre class="fragment">./test/libsgfcplusplus-test
-</pre><h1><a class="anchor" id="autotoc_md3"></a>
+</pre><h1><a class="anchor" id="autotoc_md4"></a>
 How to install</h1>
 <p>After the tests have run successfully you install the build products to a destination folder of your choice. CMake 3.15 and newer include a command line option <code>--install</code> which can be used like this: </p><pre class="fragment">cmake --install . --prefix /path/to/destfolder
 </pre><p>Older CMake versions don't have the <code>--install</code> command line option and you must use the generated build system to perform the installation. You also have to define the prefix folder when you generate the build system. Example for <code>make</code>: </p><pre class="fragment">cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/destfolder ..
@@ -94,10 +95,16 @@ make install
 </pre><p>The following things will be installed:</p>
 <ul>
 <li>Subfolder <code>lib</code>: A shared library and a static library.</li>
-<li>Subfolder <code>include</code>: The library's public header files.</li>
+<li>Subfolder <code>include/libsgfcplusplus</code>: The library's public header files.</li>
 <li>Subfolder <code>Frameworks</code>: A shared library framework and a static library framework.</li>
+<li>Subfolder <code>lib/libsgfcplusplus</code>: CMake package files.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<p>A couple of notes:</p>
+<ul>
+<li>Public header files: Unless downstream projects specify the subfolder as an include directory to their compiler, they will have to use include statements that include the subfolder name. Example: <code>#include &lt;libsgfcplusplus/SgfcPlusPlusFactory.h&gt;</code>.</li>
+<li>The CMake package files are there so that a downstream project that also uses CMake to generate its build system can easily integrate libsgfc++ into its own build with the CMake command <code>find_package()</code>. See the section "CMake support for downstream projects" below for more details.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md5"></a>
 How to generate and install the API documentation</h1>
 <p>The library's source code is documented with <a href="https://www.doxygen.org/">Doxygen</a> formatted inline comments. To generate the documentation you have to have Doxygen installed.</p>
 <p>Generating and installing the API documentation is optional, and therefore is not part of the regular software build. These are the commands that need be invoked separately: </p><pre class="fragment">cd build
@@ -111,7 +118,7 @@ cmake --install . --component libsgfcplusplus-doc --prefix /path/to/destfolder
 <li>If you modified <code>doc/CMakeLists.txt</code> so that Doxygen generates more output formats you also have to edit <code>doc/SourcesList.cmake</code> to make sure that the additional output formats are installed. Set the <code>OUTPUT_DIRECTORIES</code> variable accordingly.</li>
 <li>By default Doxygen generates documentation for both the public API part and the internal implementation part of the library. If you only want the public API part you can edit <code>doc/SourcesList.cmake</code> and change the <code>SOURCES</code> variable so that it does not include the <code>src</code> subfolder. If you leave the configuration as it is, then you can still focus on just the public API docs by navigating to the "Public API" module in the generated documentation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Sample code</h1>
 <p>The <code>example</code> folder contains sample code that demonstrates how to use the library in a client application. When you build the project a simple command line program is also built that you can invoke in one of four modes to run the sample code.</p>
 <div class="fragment"><div class="line">Usage:</div>
@@ -126,7 +133,7 @@ Sample code</h1>
 <li>Mode "docwrite" demonstrates the usage of <code>ISgfcDocumentWriter</code>.</li>
 <li>Mode "buildtree" demonstrates the usage of the various factories to programmatically build a game tree.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Enabling/disabling build parts</h1>
 <p>The default build builds everything, but if you wish you can disable certain parts by setting the corresponding variables:</p>
 <ul>
@@ -142,9 +149,9 @@ cmake --build .
 </pre><p>You can also set the variable <code>ENABLE_DEFAULT</code> to <code>NO</code> as a quick way to change the default from "build everything" to "build nothing". After that you can enable only certain parts.</p>
 <p>The following example only builds the shared library: </p><pre class="fragment">cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_DEFAULT=NO -DENABLE_SHARED_LIBRARY=YES ..
 cmake --build .
-</pre><h1><a class="anchor" id="autotoc_md7"></a>
+</pre><h1><a class="anchor" id="autotoc_md8"></a>
 Xcode build</h1>
-<p>In the previous section you have seen how to generate a Makefile-based build system. Cmake can also generate an Xcode project, like this: </p><pre class="fragment">cd build
+<p>In the previous section you have seen how to generate a Makefile-based build system. CMake can also generate an Xcode project, like this: </p><pre class="fragment">cd build
 cmake -G Xcode ..
 
 # Launch Xcode with the generated project
@@ -152,10 +159,33 @@ open libsgfc++.xcodeproj
 </pre><p>The <code>ALL_BUILD</code> target in the Xcode project builds all targets, i.e. both the shared and the static libraries, the shared and static library frameworks, and the unit tests.</p>
 <p>The <code>RUN_TESTS</code> target builds the unit test target and executes a custom post-build script that is supposed to run the test. The post-build script currently doesn't seem to work. It is therefore recommended building the unit test target (<code>libsgfc++-test</code>) and selecting "Product &gt; Run" to execute the test runner. This always works, and Xcode is even nice enough to pop up an output pane that shows you the output of the command line test runner.</p>
 <p>The <code>ZERO_CHECK</code> target checks whether your <code>CMakeLists.txt</code> files have changed and if necessary updates the Xcode project with the changes.</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
+Building on Windows</h1>
+<h2><a class="anchor" id="autotoc_md10"></a>
+Visual Studio</h2>
+<p>CMake can generate a Visual Studio solution like this: </p><pre class="fragment">cd build
+cmake -G "Visual Studio 16 2019" ..
+</pre><p>If you use a different version of Visual Studio replace the <code>-G</code> parameter value. Invoking just <code>cmake -G</code> prints out available values.</p>
+<p>When CMake has finished you can launch Visual Studio with the generated solution file <code>libsgfc++.sln</code>.</p>
+<p>The above generates a true "out of source" build system that is so typical for CMake. An alternative approach is shown in the article <a href="https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio">CMake projects in Visual Studio</a> on Microsoft's official documentation site. This is a convenient GUI-only approach, but it generates stuff in two folders <code>.vs</code> and <code>out</code> in the project root.</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Cygwin</h2>
+<p>Some packages need to be installed before building can start:</p>
+<ul>
+<li>Either clang or gcc</li>
+<li>CMake</li>
+<li>make</li>
+<li>libiconv</li>
+</ul>
+<p>Once all packages are installed the Cygwin build works just like it does on other UNIX-like systems. Just follow the steps in the first sections at the top of this document.</p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+MinGW/MSYS</h2>
+<p>No instructions available. This has not been tested yet.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Cross-compiling for iOS</h1>
 <p>Cross-compiling for iOS is mentioned and explained in the <code>cmake-toolchains</code> man page, which is also available <a href="https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-ios-tvos-or-watchos">from the CMake website</a>.</p>
 <p>These commands create a Release configuration build of the static library and static library framework for iOS on a macOS machine where Xcode is installed: </p><pre class="fragment">cmake .. -G Xcode \
+  -T buildsystem=1
   -DCMAKE_SYSTEM_NAME=iOS \
   "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" \
   -DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO \
@@ -165,13 +195,14 @@ Cross-compiling for iOS</h1>
 cmake --build . --config Release --target install
 </pre><p>Notes:</p>
 <ul>
-<li>We list two architectures: <code>x86_64</code> for the simulator build, and <code>arm64</code> for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use <code>lipo -info /path/to/file</code> to check what's inside such a file.</li>
+<li>The option <code>-T buildsystem=1</code> is new in CMake 3.19 and takes effect only if Xcode 12 is used as the build system. Without the option CMake uses the Xcode “new build system” which, at the time of writing this, causes the build to fail. Using the option may become unnecessary once the underlying issue has been fixed in CMake. For details see <a href="https://gitlab.kitware.com/cmake/cmake/-/issues/21282">issue 21282</a> on the CMake issue tracker.</li>
+<li>We list two architectures: <code>x86_64</code> for the simulator build, and <code>arm64</code> for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use <code>lipo -info /path/to/file</code> to check what's inside such a file. Omitting <code>CMAKE_OSX_ARCHITECTURES</code> builds slices for all default architectures.</li>
 <li>Setting the <code>ONLY_ACTIVE_ARCH</code> flag to <code>NO</code> is important so that Xcode really builds those architectures we just mentioned. If we didn't set this Xcode would only build the architecture in the <code>NATIVE_ARCH</code> Xcode build setting.</li>
-<li>Setting the CMake property <code>IOS_INSTALL_COMBINED</code> to <code>YES</code> causes the targets to be built for both the device SDK and the simulator SDK. It's not known why exactly this is needed in addition to the previous settings.</li>
-<li>It's important that the build is made with the target <code>install</code> because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with <code>cmake --install</code>), CMake will be unable to find the generated library files. The reason fo these quirks is not known.</li>
+<li>Setting the CMake property <code>IOS_INSTALL_COMBINED</code> to <code>YES</code> causes the targets to be built for both the device SDK and the simulator SDK. An <code>arm64</code> build made with the device SDK is slightly different than an <code>arm64</code> build made with the simulator SDK. CMake figures out on its own which SDK it must use to build each architecture. The property also indicates to CMake that it needs to build <b>all</b> architectures in <code>CMAKE_OSX_ARCHITECTURES</code>, not just the first, and to stitch together all resulting slices into a universal binary.</li>
+<li>It's important that the build is made with the target <code>install</code> because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with <code>cmake --install</code>), CMake will be unable to find the generated library files. The exact reason fo these quirks is not known, but is likely rooted in the fact that cross-compiling for iOS is rather unusual because it requires CMake to perform several builds in one step.</li>
 <li>Because we do the build and the installation all in one step, we can't specify the installation prefix during that step (the <code>--prefix</code> option cannot be used with <code>cmake --build</code>). For this reason we set <code>INSTALL_PREFIX</code> during configuration.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md9"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Codesigning when building for iOS</h1>
 <p>For iOS builds the project default is to <b>not</b> build the shared library, shared library framework, unit tests or the examples. The reason is that when built for the device these binaries all require codesigning, but since the project does not provide a codesigning identity the build would just fail.</p>
 <p>The following example shows how you can force the shared library to be built with a codesigning identity of your own. </p><pre class="fragment">cmake .. -G Xcode \
@@ -179,16 +210,44 @@ Codesigning when building for iOS</h1>
   -DENABLE_SHARED_LIBRARY=YES \
   -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY=&lt;identity&gt;
 </pre><p><b>Note:</b> You can find out your codesigning identy with this command: <code>xcrun security find-identity -v -p codesigning</code>. It's the long hex string at the start of the output.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Deployment target and bundle identifier when building for iOS</h1>
 <p>Should you try to build unit tests or the examples for iOS (by setting <code>ENABLE_TESTS</code> or <code>ENEABLE_EXAMPLES</code> to <code>YES</code>) you will encounter two obstacles.</p>
 <ol type="1">
 <li>The unit test library (Catch2) header contains code that is available only since iOS 10.0. Because of this you have to set the deployment target to 10.0. This tells the compiler to generate binaries that at runtime require iOS 10.0 as the minimum iOS version. The deployment target is set with the CMake option <code>-DCMAKE_OSX_DEPLOYMENT_TARGET=10.0</code>.</li>
 </ol>
 <ol type="1">
-<li>The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the <a href="https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html">CMake documentation for MACOSX_BUNDLE</a>. </li>
+<li>The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the <a href="https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html">CMake documentation for MACOSX_BUNDLE</a>.</li>
 </ol>
-</div></div><!-- contents -->
+<h1><a class="anchor" id="autotoc_md16"></a>
+CMake support for downstream projects</h1>
+<p>libsgfc++ exports its CMake targets (both from the build tree and from the install tree) as a CMake package. This allows downstream projects that also use CMake to generate their build system to easily integrate libsgfc++ into their own build. The CMake command for this is <code>find_package()</code>.</p>
+<p>If libsgfc++ has been installed to a system-wide installation path (e.g. <code>/usr/local</code>) then it can be found without specifying a path. The search logic employed by <code>find_package()</code> is exceedingly complicated and is not documented here. If you want to know more look it up in the CMake documentation of the <code>find_package()</code> command.</p>
+<p>An example: </p><pre class="fragment">find_package (
+  libsgfcplusplus
+  0.1
+  EXACT
+)
+</pre><p>If libsgfc++ has been installed to some non-standard path, then the downstream project must provide a hint where to look for the CMake package files. The hint should be the installation prefix used to install libsgfc++, not the subfolder where the CMake package files actually reside. Again, <code>find_package()</code> employs clever search logic to probe for the files.</p>
+<p>Another example: </p><pre class="fragment">find_package (
+  libsgfcplusplus
+  0.1
+  EXACT
+  HINT /path/to/installation-prefix
+)
+</pre><p>As can be seen in the examples, the package name to use is <code>libsgfcplusplus</code>. The exported targets all have the prefix <code>libsgfcplusplus::</code>. The exported targets are:</p>
+<ul>
+<li><code>libsgfcplusplus::libsgfcplusplus_shared</code></li>
+<li><code>libsgfcplusplus::libsgfcplusplus_static</code></li>
+<li><code>libsgfcplusplus::libsgfcplusplus_shared_framework</code></li>
+<li><code>libsgfcplusplus::libsgfcplusplus_static_framework</code></li>
+</ul>
+<p>To use the exported targets after <code>find_package()</code> has successfully located the package, the downstream project typically specifies the exported target names in their <code>target_link_libraries()</code> commands. Example: </p><pre class="fragment">target_link_libraries (
+  downstream-target-name
+  libsgfcplusplus::libsgfcplusplus_shared
+)
+</pre><p>This not only adds the link instructions (including to the <code>iconv</code> dependency) to the downstream target, it also adds the INTERFACE include directories of the linked libsgfc++ target to the include directories of the downstream target. This way the downstream project can write <code>#include</code> statements like this in their source code: </p><pre class="fragment">#include &lt;libsgfcplusplus/SgfcPlusPlusFactory.h&gt;
+</pre> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

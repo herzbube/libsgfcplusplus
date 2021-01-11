@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">SgfcOptions</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">SgfcOptions</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,34 +75,86 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...">SgfcOptions</a> class is used to capture a snapshot of the option values that SGFC sets up when it parses its command line arguments, and to reconfigure SGFC with those captured values at a later time.  
+<p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> class is used to capture a snapshot of the option values in an SGFCOptions struct, and to reconfigure an SGFCOptions struct with those captured values at a later time.  
  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_sgfc_options_8h_source.html">SgfcOptions.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a032bf2f449e672cccd04feacb7d6f0e3"><td class="memItemLeft" align="right" valign="top"><a id="a032bf2f449e672cccd04feacb7d6f0e3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">SgfcOptions</a> ()</td></tr>
-<tr class="memdesc:a032bf2f449e672cccd04feacb7d6f0e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...">SgfcOptions</a> object. The object holds default option values. <br /></td></tr>
+<tr class="memitem:a032bf2f449e672cccd04feacb7d6f0e3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">SgfcOptions</a> ()</td></tr>
+<tr class="memdesc:a032bf2f449e672cccd04feacb7d6f0e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> object. The object holds default option values.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">More...</a><br /></td></tr>
 <tr class="separator:a032bf2f449e672cccd04feacb7d6f0e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a547afc1ae3eff6f3b3d1f86199322d4b"><td class="memItemLeft" align="right" valign="top"><a id="a547afc1ae3eff6f3b3d1f86199322d4b"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a547afc1ae3eff6f3b3d1f86199322d4b">~SgfcOptions</a> ()</td></tr>
-<tr class="memdesc:a547afc1ae3eff6f3b3d1f86199322d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...">SgfcOptions</a> object. <br /></td></tr>
+<tr class="memdesc:a547afc1ae3eff6f3b3d1f86199322d4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> object. <br /></td></tr>
 <tr class="separator:a547afc1ae3eff6f3b3d1f86199322d4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03e0c5fc342a9f7959cad42a9024b397"><td class="memItemLeft" align="right" valign="top"><a id="a03e0c5fc342a9f7959cad42a9024b397"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a03e0c5fc342a9f7959cad42a9024b397">CaptureOptions</a> ()</td></tr>
-<tr class="memdesc:a03e0c5fc342a9f7959cad42a9024b397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Captures a snapshot of the option values that SGFC is currently configured with. <br /></td></tr>
-<tr class="separator:a03e0c5fc342a9f7959cad42a9024b397"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f01b55fcb93de85bfa49fbd35271ba3"><td class="memItemLeft" align="right" valign="top"><a id="a1f01b55fcb93de85bfa49fbd35271ba3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a1f01b55fcb93de85bfa49fbd35271ba3">RestoreOptions</a> () const</td></tr>
-<tr class="memdesc:a1f01b55fcb93de85bfa49fbd35271ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconfigures SGFC with the option values that the SgfcOption object currently holds. <br /></td></tr>
-<tr class="separator:a1f01b55fcb93de85bfa49fbd35271ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55eb90e4c70a3a9d9730da36d724a275"><td class="memItemLeft" align="right" valign="top"><a id="a55eb90e4c70a3a9d9730da36d724a275"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a55eb90e4c70a3a9d9730da36d724a275">CaptureOptions</a> (const SGFCOptions *sourceOptions)</td></tr>
+<tr class="memdesc:a55eb90e4c70a3a9d9730da36d724a275"><td class="mdescLeft">&#160;</td><td class="mdescRight">Captures a snapshot of the option values in <em>sourceOptions</em>. <br /></td></tr>
+<tr class="separator:a55eb90e4c70a3a9d9730da36d724a275"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a021a576f3c3d35d5400d3a2686a44ee8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a021a576f3c3d35d5400d3a2686a44ee8">RestoreOptions</a> (SGFCOptions *targetOptions) const</td></tr>
+<tr class="memdesc:a021a576f3c3d35d5400d3a2686a44ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconfigures <em>targetOptions</em> with the option values that the SgfcOption object currently holds.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a021a576f3c3d35d5400d3a2686a44ee8">More...</a><br /></td></tr>
+<tr class="separator:a021a576f3c3d35d5400d3a2686a44ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...">SgfcOptions</a> class is used to capture a snapshot of the option values that SGFC sets up when it parses its command line arguments, and to reconfigure SGFC with those captured values at a later time. </p>
-<p>Calling the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a1f01b55fcb93de85bfa49fbd35271ba3" title="Reconfigures SGFC with the option values that the SgfcOption object currently holds.">RestoreOptions()</a> method of a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...">SgfcOptions</a> object (i.e. before its <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a03e0c5fc342a9f7959cad42a9024b397" title="Captures a snapshot of the option values that SGFC is currently configured with.">CaptureOptions()</a> method is called for the first time) can be used to reconfigure SGFC with its default option values, as if the command line utility had just started up. This should be used every time just before SGFC is instructed to parse command line arguments. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> class is used to capture a snapshot of the option values in an SGFCOptions struct, and to reconfigure an SGFCOptions struct with those captured values at a later time. </p>
+<p>Some notes about the internal workings of SGFC:</p><ul>
+<li>An SGFCOptions struct is part of the SGFInfo struct that is passed as a parameter to all major SGFC functions, including ParseArgs(). Thus the option values are available everywhere in SGFC.</li>
+<li>When SGFInfo is created/initialized with SetupSGFInfo() a custom SGFCOptions object can be passed as a parameter. SetupSGFInfo() uses this to populate the SGFInfo object. This is the mechanism how an SGFCOptions with arbitrary values can be injected into SGFC.</li>
+<li>When SetupSGFInfo() receives no custom SGFCOptions object, it invokes the SGFC global function SGFCDefaultOptions() to construct a new SGFCOptions object with default values. SGFCDefaultOptions() can also be invoked outside of the context of SetupSGFInfo().</li>
+<li>When ParseArgs() is invoked it parses the command line arguments that are specified as a parameter and populates the SGFCOptions object inside the SGFInfo object with values that result from these parsing activities. The purpose of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> class is to capture the values in such an SGFCOptions object. </li>
+</ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a032bf2f449e672cccd04feacb7d6f0e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a032bf2f449e672cccd04feacb7d6f0e3">&#9670;&nbsp;</a></span>SgfcOptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">LibSgfcPlusPlus::SgfcOptions::SgfcOptions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> object. The object holds default option values. </p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>Is thrown if SGFC fails to allocate memory. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a021a576f3c3d35d5400d3a2686a44ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a021a576f3c3d35d5400d3a2686a44ee8">&#9670;&nbsp;</a></span>RestoreOptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void LibSgfcPlusPlus::SgfcOptions::RestoreOptions </td>
+          <td>(</td>
+          <td class="paramtype">SGFCOptions *&#160;</td>
+          <td class="paramname"><em>targetOptions</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reconfigures <em>targetOptions</em> with the option values that the SgfcOption object currently holds. </p>
+<p>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a55eb90e4c70a3a9d9730da36d724a275" title="Captures a snapshot of the option values in sourceOptions.">CaptureOptions()</a> has never been invoked before, this applies default option values to <em>targetOptions</em>.</p>
+<dl class="section attention"><dt>Attention</dt><dd>The members SGFCOptions::forced_encoding and SGFCOptions::default_encoding in <em>targetOptions</em> are configured with pointers into buffers that are valid only for a limited time. The pointers become invalid as soon as CaptureOptions is invoked the next time on the same <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> object, or when the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html" title="The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...">SgfcOptions</a> object is destroyed. </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/patrick/dev/libsgfcplusplus/src/sgfc/backend/<a class="el" href="_sgfc_options_8h_source.html">SgfcOptions.h</a></li>
 <li>/Users/patrick/dev/libsgfcplusplus/src/sgfc/backend/SgfcOptions.cpp</li>
 </ul>

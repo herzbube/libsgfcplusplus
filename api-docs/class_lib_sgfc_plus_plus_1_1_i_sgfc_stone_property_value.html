@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html">ISgfcStonePropertyValue</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html">ISgfcStonePropertyValue</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -104,12 +104,13 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html#a27a7041dfcf231ad4614c4f80b2d3804">~ISgfcStonePropertyValue</a> ()</td></tr>
 <tr class="memdesc:a27a7041dfcf231ad4614c4f80b2d3804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html" title="The ISgfcStonePropertyValue interface provides access to one of the values of a property of an SGF no...">ISgfcStonePropertyValue</a> object. <br /></td></tr>
 <tr class="separator:a27a7041dfcf231ad4614c4f80b2d3804"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4923d3c6867b11b42c3101c15cb56731"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html#a4923d3c6867b11b42c3101c15cb56731">GetRawStoneValue</a> () const =0</td></tr>
-<tr class="memdesc:a4923d3c6867b11b42c3101c15cb56731"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the uninterpreted stone value. This is the same value that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html#afb931e136f4ed3c093745cc426e545b4" title="Returns the property value as a raw string, i.e. as close as possible as it appears in the original S...">GetRawValue()</a> returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html#a4923d3c6867b11b42c3101c15cb56731">More...</a><br /></td></tr>
-<tr class="separator:a4923d3c6867b11b42c3101c15cb56731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8b599dbf0d0c48c9adc6f906f15697"><td class="memItemLeft" align="right" valign="top"><a id="acc8b599dbf0d0c48c9adc6f906f15697"></a>
+virtual <a class="el" href="group__public-api.html#ga4dcd031645f1aa157daf250c0a40260b">SgfcStone</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html#acc8b599dbf0d0c48c9adc6f906f15697">GetStoneValue</a> () const =0</td></tr>
+<tr class="memdesc:acc8b599dbf0d0c48c9adc6f906f15697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property value interpreted as an SgfcStone value. <br /></td></tr>
+<tr class="separator:acc8b599dbf0d0c48c9adc6f906f15697"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3c8fb40e5876f9d1e6b085df1037be5"><td class="memItemLeft" align="right" valign="top"><a id="ab3c8fb40e5876f9d1e6b085df1037be5"></a>
 virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html">ISgfcGoStonePropertyValue</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html#ab3c8fb40e5876f9d1e6b085df1037be5">ToGoStoneValue</a> () const =0</td></tr>
-<tr class="memdesc:ab3c8fb40e5876f9d1e6b085df1037be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html" title="The ISgfcGoStonePropertyValue interface makes the property value data of a property of type SgfcPrope...">ISgfcGoStonePropertyValue</a> object if the game tree that this property value is associated with has SgfcGameType::Go. Returns <em>nullptr</em> otherwise. The caller is not the owner of the returned object. <br /></td></tr>
+<tr class="memdesc:ab3c8fb40e5876f9d1e6b085df1037be5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html" title="The ISgfcGoStonePropertyValue interface makes the property value data of a property of type SgfcPrope...">ISgfcGoStonePropertyValue</a> object if the property value object was created specifically for SgfcGameType::Go. Returns <em>nullptr</em> otherwise. The caller is not the owner of the returned object. <br /></td></tr>
 <tr class="separator:ab3c8fb40e5876f9d1e6b085df1037be5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">LibSgfcPlusPlus::ISgfcSinglePropertyValue</a></td></tr>
 <tr class="memitem:a26e38cef6d31a1c2a3d90590aa0679c2 inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value"><td class="memItemLeft" align="right" valign="top"><a id="a26e38cef6d31a1c2a3d90590aa0679c2"></a>
@@ -193,38 +194,7 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_p
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html" title="The ISgfcStonePropertyValue interface provides access to one of the values of a property of an SGF no...">ISgfcStonePropertyValue</a> interface provides access to one of the values of a property of an SGF node. The value type is <a class="el" href="group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2ff4ab1d379832d3edee28194fb4e7b2" title="The property value describes a game piece and its location on the game board. The value&#39;s string repr...">SgfcPropertyValueType::Stone</a>. </p>
 <p><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html" title="The ISgfcStonePropertyValue interface provides access to one of the values of a property of an SGF no...">ISgfcStonePropertyValue</a> is immutable, i.e. once the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_stone_property_value.html" title="The ISgfcStonePropertyValue interface provides access to one of the values of a property of an SGF no...">ISgfcStonePropertyValue</a> object is constructed it cannot be changed. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4923d3c6867b11b42c3101c15cb56731"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4923d3c6867b11b42c3101c15cb56731">&#9670;&nbsp;</a></span>GetRawStoneValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::string LibSgfcPlusPlus::ISgfcStonePropertyValue::GetRawStoneValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the uninterpreted stone value. This is the same value that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html#afb931e136f4ed3c093745cc426e545b4" title="Returns the property value as a raw string, i.e. as close as possible as it appears in the original S...">GetRawValue()</a> returns. </p>
-<p>The SGF standard does not provide a universal definition of how a stone value should look like. Instead it says that the interpretation of stone values is game specific. </p>
-
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_stone_property_value.html#af954d304d162dffd225db332e1d6435f">LibSgfcPlusPlus::SgfcStonePropertyValue</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/patrick/dev/libsgfcplusplus/include/<a class="el" href="_i_sgfc_stone_property_value_8h_source.html">ISgfcStonePropertyValue.h</a></li>
 <li>/Users/patrick/dev/libsgfcplusplus/src/interface/public/ISgfcStonePropertyValue.cpp</li>
 </ul>

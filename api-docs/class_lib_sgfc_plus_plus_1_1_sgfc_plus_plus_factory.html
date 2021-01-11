@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html">SgfcPlusPlusFactory</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html">SgfcPlusPlusFactory</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -103,22 +103,32 @@ static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sg
 <tr class="separator:aba234967cf67f65377d3656872b56ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a227685392ad614dc9defd3e242d8dce6"><td class="memItemLeft" align="right" valign="top"><a id="a227685392ad614dc9defd3e242d8dce6"></a>
 static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a227685392ad614dc9defd3e242d8dce6">CreateDocument</a> ()</td></tr>
-<tr class="memdesc:a227685392ad614dc9defd3e242d8dce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> object. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> is empty and contains no games. <br /></td></tr>
+<tr class="memdesc:a227685392ad614dc9defd3e242d8dce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> object. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> content consists of a single <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object with an empty root node. <br /></td></tr>
 <tr class="separator:a227685392ad614dc9defd3e242d8dce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefc11559f24171431e553747fa523c1b"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#aefc11559f24171431e553747fa523c1b">CreateDocument</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt; game)</td></tr>
 <tr class="memdesc:aefc11559f24171431e553747fa523c1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> object. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> content consists of the specified game <em>game</em>. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> object takes ownership of <em>game</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#aefc11559f24171431e553747fa523c1b">More...</a><br /></td></tr>
 <tr class="separator:aefc11559f24171431e553747fa523c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51c1dd568670c112bd6d235f8ced0f7d"><td class="memItemLeft" align="right" valign="top"><a id="a51c1dd568670c112bd6d235f8ced0f7d"></a>
 static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a51c1dd568670c112bd6d235f8ced0f7d">CreateGame</a> ()</td></tr>
-<tr class="memdesc:a51c1dd568670c112bd6d235f8ced0f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object. The game type is <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a>. The game is not associated with any document. The game has no game tree. <br /></td></tr>
+<tr class="memdesc:a51c1dd568670c112bd6d235f8ced0f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object. The game type is <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a>. The game is not associated with any document. The game has a game tree that consists of an empty root node. <br /></td></tr>
 <tr class="separator:a51c1dd568670c112bd6d235f8ced0f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab739f7c9bb6b0ac0faf5ed164a1c46c2"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#ab739f7c9bb6b0ac0faf5ed164a1c46c2">CreateGame</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; rootNode)</td></tr>
-<tr class="memdesc:ab739f7c9bb6b0ac0faf5ed164a1c46c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object. The game tree's root node is <em>rootNode</em>. The game type depends on the content of the root node. The game is not associated with any document. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object takes ownership of <em>rootNode</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#ab739f7c9bb6b0ac0faf5ed164a1c46c2">More...</a><br /></td></tr>
+<tr class="memdesc:ab739f7c9bb6b0ac0faf5ed164a1c46c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object. The game tree's root node is <em>rootNode</em>. The game type depends on the content of the root node. The game is not associated with any document. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object takes ownership of <em>rootNode</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#ab739f7c9bb6b0ac0faf5ed164a1c46c2">More...</a><br /></td></tr>
 <tr class="separator:ab739f7c9bb6b0ac0faf5ed164a1c46c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96f651ebf3ed5fc8e04878a265d7c0f1"><td class="memItemLeft" align="right" valign="top"><a id="a96f651ebf3ed5fc8e04878a265d7c0f1"></a>
 static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a96f651ebf3ed5fc8e04878a265d7c0f1">CreateNode</a> ()</td></tr>
 <tr class="memdesc:a96f651ebf3ed5fc8e04878a265d7c0f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object that has no parent, child or sibling and is not associated with any game. <br /></td></tr>
 <tr class="separator:a96f651ebf3ed5fc8e04878a265d7c0f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382d93cd50d1c3dbe4d9774224754825"><td class="memItemLeft" align="right" valign="top"><a id="a382d93cd50d1c3dbe4d9774224754825"></a>
+static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html">ISgfcGoGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a382d93cd50d1c3dbe4d9774224754825">CreateGameInfo</a> ()</td></tr>
+<tr class="memdesc:a382d93cd50d1c3dbe4d9774224754825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> object with default values. <br /></td></tr>
+<tr class="separator:a382d93cd50d1c3dbe4d9774224754825"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3993a1950d1fe6d529ebe593ababe68"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#aa3993a1950d1fe6d529ebe593ababe68">CreateGameInfo</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; rootNode)</td></tr>
+<tr class="memdesc:aa3993a1950d1fe6d529ebe593ababe68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in root node <em>rootNode</em>. All values that would normally be taken from the properties in the game info node have default values.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#aa3993a1950d1fe6d529ebe593ababe68">More...</a><br /></td></tr>
+<tr class="separator:aa3993a1950d1fe6d529ebe593ababe68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e735c0ea16651822b39606b2f8d787"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a23e735c0ea16651822b39606b2f8d787">CreateGameInfo</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; rootNode, std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; gameInfoNode)</td></tr>
+<tr class="memdesc:a23e735c0ea16651822b39606b2f8d787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the content of root node <em>rootNode</em> and from game info node <em>gameInfoNode</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a23e735c0ea16651822b39606b2f8d787">More...</a><br /></td></tr>
+<tr class="separator:a23e735c0ea16651822b39606b2f8d787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8de0ca8642886652780fa89f2489fd76"><td class="memItemLeft" align="right" valign="top"><a id="a8de0ca8642886652780fa89f2489fd76"></a>
 static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html">ISgfcPropertyFactory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html#a8de0ca8642886652780fa89f2489fd76">CreatePropertyFactory</a> ()</td></tr>
 <tr class="memdesc:a8de0ca8642886652780fa89f2489fd76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html" title="The ISgfcPropertyFactory interface provides factory methods for creating ISgfcProperty objects,...">ISgfcPropertyFactory</a> object that can be used to create <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> objects, and objects of every known sub-type of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a>. <br /></td></tr>
@@ -189,10 +199,96 @@ static std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sg
 </table>
 </div><div class="memdoc">
 
-<p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object. The game tree's root node is <em>rootNode</em>. The game type depends on the content of the root node. The game is not associated with any document. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object takes ownership of <em>rootNode</em>. </p>
+<p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object. The game tree's root node is <em>rootNode</em>. The game type depends on the content of the root node. The game is not associated with any document. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object takes ownership of <em>rootNode</em>. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>rootNode</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa3993a1950d1fe6d529ebe593ababe68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3993a1950d1fe6d529ebe593ababe68">&#9670;&nbsp;</a></span>CreateGameInfo() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt; LibSgfcPlusPlus::SgfcPlusPlusFactory::CreateGameInfo </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td>
+          <td class="paramname"><em>rootNode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in root node <em>rootNode</em>. All values that would normally be taken from the properties in the game info node have default values. </p>
+<p>If the content of <em>rootNode</em> indicates that the game type is SgfcGameType::Go then the returned object is an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> object. The game type is SgfcGameType::Go in the following cases:</p><ul>
+<li>If <em>rootNode</em> contains a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> that either has no value, or that has a single Number value, and that value is 0.</li>
+<li>Or if <em>rootNode</em> does not contain a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>.</li>
+</ul>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>rootNode</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a23e735c0ea16651822b39606b2f8d787"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e735c0ea16651822b39606b2f8d787">&#9670;&nbsp;</a></span>CreateGameInfo() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt; LibSgfcPlusPlus::SgfcPlusPlusFactory::CreateGameInfo </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td>
+          <td class="paramname"><em>rootNode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;&#160;</td>
+          <td class="paramname"><em>gameInfoNode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the content of root node <em>rootNode</em> and from game info node <em>gameInfoNode</em>. </p>
+<p>If the content in <em>rootNode</em> indicates that the game type is SgfcGameType::Go then the returned object is an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> object. The game type is SgfcGameType::Go in the following cases:</p><ul>
+<li>If <em>rootNode</em> contains a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> that either has no value, or that has a single Number value, and that value is 0.</li>
+<li>Or if <em>rootNode</em> does not contain a property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>.</li>
+</ul>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>rootNode</em> is <em>nullptr</em> or if <em>gameInfoNode</em> is <em>nullptr</em>. </td></tr>
   </table>
   </dd>
 </dl>

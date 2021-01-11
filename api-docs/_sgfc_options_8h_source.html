@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,57 +71,58 @@ $(function() {
 <div class="title">SgfcOptions.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">   21</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">SgfcOptions</a></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">SgfcOptions</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a547afc1ae3eff6f3b3d1f86199322d4b">~SgfcOptions</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a03e0c5fc342a9f7959cad42a9024b397">CaptureOptions</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a1f01b55fcb93de85bfa49fbd35271ba3">RestoreOptions</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">char</span> option_warnings;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">char</span> option_keep_head;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">char</span> option_keep_unknown_props;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">char</span> option_keep_obsolete_props;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">char</span> option_del_empty_nodes;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">char</span> option_del_move_markup;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">char</span> option_split_file;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">char</span> option_write_critical;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">char</span> option_interactive;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">char</span> option_linebreaks;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">char</span> option_softlinebreaks;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">char</span> option_nodelinebreaks;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">char</span> option_expandcpl;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">char</span> option_pass_tt;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">char</span> option_fix_variation;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">char</span> option_findstart;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">char</span> option_game_signature;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">char</span> option_strict_checking;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">char</span> option_reorder_variations;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::vector&lt;bool&gt; error_enabled;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    std::vector&lt;bool&gt; delete_property;</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// Forward declarations</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">struct </span>SGFCOptions;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">   52</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">SgfcOptions</a></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">SgfcOptions</a>();</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> GetErrorCount();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">int</span> GetPropertyCount();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  };</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a547afc1ae3eff6f3b3d1f86199322d4b">~SgfcOptions</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a55eb90e4c70a3a9d9730da36d724a275">CaptureOptions</a>(<span class="keyword">const</span> SGFCOptions* sourceOptions);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a021a576f3c3d35d5400d3a2686a44ee8">RestoreOptions</a>(SGFCOptions* targetOptions) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    SGFCOptions* options;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    std::string defaultEncoding;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    std::string forcedEncoding;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> CopyOptions(<span class="keyword">const</span> SGFCOptions* sourceOptions, SGFCOptions* targetOptions) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  };</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a03e0c5fc342a9f7959cad42a9024b397"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a03e0c5fc342a9f7959cad42a9024b397">LibSgfcPlusPlus::SgfcOptions::CaptureOptions</a></div><div class="ttdeci">void CaptureOptions()</div><div class="ttdoc">Captures a snapshot of the option values that SGFC is currently configured with.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:47</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">LibSgfcPlusPlus::SgfcOptions</a></div><div class="ttdoc">The SgfcOptions class is used to capture a snapshot of the option values that SGFC sets up when it pa...</div><div class="ttdef"><b>Definition:</b> SgfcOptions.h:22</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a032bf2f449e672cccd04feacb7d6f0e3"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">LibSgfcPlusPlus::SgfcOptions::SgfcOptions</a></div><div class="ttdeci">SgfcOptions()</div><div class="ttdoc">Initializes a newly constructed SgfcOptions object. The object holds default option values.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:14</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a1f01b55fcb93de85bfa49fbd35271ba3"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a1f01b55fcb93de85bfa49fbd35271ba3">LibSgfcPlusPlus::SgfcOptions::RestoreOptions</a></div><div class="ttdeci">void RestoreOptions() const</div><div class="ttdoc">Reconfigures SGFC with the option values that the SgfcOption object currently holds.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:78</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a547afc1ae3eff6f3b3d1f86199322d4b"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a547afc1ae3eff6f3b3d1f86199322d4b">LibSgfcPlusPlus::SgfcOptions::~SgfcOptions</a></div><div class="ttdeci">virtual ~SgfcOptions()</div><div class="ttdoc">Destroys and cleans up the SgfcOptions object.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:43</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a55eb90e4c70a3a9d9730da36d724a275"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a55eb90e4c70a3a9d9730da36d724a275">LibSgfcPlusPlus::SgfcOptions::CaptureOptions</a></div><div class="ttdeci">void CaptureOptions(const SGFCOptions *sourceOptions)</div><div class="ttdoc">Captures a snapshot of the option values in sourceOptions.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:49</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html">LibSgfcPlusPlus::SgfcOptions</a></div><div class="ttdoc">The SgfcOptions class is used to capture a snapshot of the option values in an SGFCOptions struct,...</div><div class="ttdef"><b>Definition:</b> SgfcOptions.h:53</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a032bf2f449e672cccd04feacb7d6f0e3"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a032bf2f449e672cccd04feacb7d6f0e3">LibSgfcPlusPlus::SgfcOptions::SgfcOptions</a></div><div class="ttdeci">SgfcOptions()</div><div class="ttdoc">Initializes a newly constructed SgfcOptions object. The object holds default option values.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:32</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a021a576f3c3d35d5400d3a2686a44ee8"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a021a576f3c3d35d5400d3a2686a44ee8">LibSgfcPlusPlus::SgfcOptions::RestoreOptions</a></div><div class="ttdeci">void RestoreOptions(SGFCOptions *targetOptions) const</div><div class="ttdoc">Reconfigures targetOptions with the option values that the SgfcOption object currently holds.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:79</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_options_html_a547afc1ae3eff6f3b3d1f86199322d4b"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_options.html#a547afc1ae3eff6f3b3d1f86199322d4b">LibSgfcPlusPlus::SgfcOptions::~SgfcOptions</a></div><div class="ttdeci">virtual ~SgfcOptions()</div><div class="ttdoc">Destroys and cleans up the SgfcOptions object.</div><div class="ttdef"><b>Definition:</b> SgfcOptions.cpp:44</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

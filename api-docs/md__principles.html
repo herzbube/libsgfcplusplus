@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -67,7 +67,7 @@ $(function() {
 <div class="title">Library design and working principles </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md20"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md32"></a>
 Public API vs. private implementation</h1>
 <p>The library has been designed with a strict separation of the library's public API from the library's private implementation.</p>
 <p>All public types are one of the following:</p>
@@ -77,27 +77,18 @@ Public API vs. private implementation</h1>
 <li>A <code>static</code>-declared factory class <code>SgfcPlusPlusFactory</code>.</li>
 </ul>
 <p>The library-internal types that provide the implementations for the public interfaces are marked with a declaration that explicitly sets symbol visibility of these types to "hidden". The goal is that the library client never instantiates library objects on its own, but instead uses the top-level factory class <code>SgfcPlusPlusFactory</code> to do so.</p>
-<h1><a class="anchor" id="autotoc_md21"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Memory management</h1>
 <p>The library attempts to protect the library client from having to perform any sort of memory management by making use of <code>std::shared_ptr</code>. This smart pointer type has been introduced to the C++ standard in C++11, and if you don't know it yet then you should be quick to <a href="https://en.cppreference.com/w/cpp/memory/shared_ptr">learn more about it</a>.</p>
 <p>The goal is, essentially, that the library client can pass around references to library objects without having to constantly think about pointer/reference mechanics and who is responsible for destroying those objects. For example, after the library client has read an SGF file and has obtained a reference to the resulting <code>ISgfcDocument</code> object, the entire object tree that represents the game trees in the SGF file can be safely passed around using the <code>ISgfcDocument</code> reference. Once the library client removes the last reference to the <code>ISgfcDocument</code> object, the entire object tree will be safely deallocated.</p>
 <p>In a few places where it is necessary to break reference cycles the library uses <code>std::weak_ptr</code> instead of <code>std::shared_ptr</code>.</p>
 <p>A number of interfaces contain convenience methods that help with downcasting the interface type to a more specific sub-type. These methods are named <code>To...()</code> and return a raw pointer without an encapsulating <code>std::shared_ptr</code>. The caller of any these methods is not the owner of the returned object and must <b>never</b> destroy the returned object. Example: <code>ToNumberValue()</code> and many other similar methods in <code>ISgfcSinglePropertyValue</code>.</p>
-<h1><a class="anchor" id="autotoc_md22"></a>
-Thread safety</h1>
-<p>The library is designed to be thread-safe.</p>
-<p>Where it concerns the library code itself, thread safety is achieved simply by avoiding global and static-declared variables. The only <code>static</code>-declared entities are:</p>
-<ul>
-<li>Constants that are initialized once when the runtime starts (e.g. members of <code>SgfcConstants</code>)</li>
-<li>Classes and/or methods that have no state (e.g. <code>SgfcPlusPlusFactory</code>)</li>
-</ul>
-<p>Where it concerns the SGFC code wrapped by the library, things are not quite that simple. SGFC uses many global and <code>static</code>-declared variables which cannot be "patched away" without also fundamentally changing the way how SGFC was coded. Whether or not this is a flaw in SGFC is debatable, after all SGFC was written as a command line utility and therefore the code rightfully can expect to run only once. In any case, the library works around the problem by funnelling all SGFC operations through a single "gate keeper" class (<code>SgfcBackendController</code>). To ensure thread safety this gate keeper uses a central <code>std::mutex</code> to serialize all SGFC operations. Because of this no two operations can ever run at the same time.</p>
-<p>In addition to serializing SGFC operations, the gate keeper also takes action to allow the repeated use of SGFC in the first place. The most important points here are:</p>
-<ul>
-<li>At the start of an operation the gate keeper resets all of SGFC's global state to initial values, just as if the SGFC command line program had started up from scratch. It does this by executing a series of functions added to SGFC by a patch (<code>005-resetglobalvariables.patch</code>).</li>
-<li>The gate keeper takes responsibility for deallocating memory allocated by SGFC as a result of parsing SGF data.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
+Concurrency</h1>
+<p>Using the factories concurrently is safe.</p>
+<p>A library client can also safely perform concurrent load or save operations using different document reader/writer objects and document object trees. The actual SGFC backend operations are serialized by libsgfc++, though, because SGFC uses a single global hook/callback function for sending message data back to libsgfc++. Serializing the operations makes sure that an operation on thread A does not receive messages generated by an operaton on thread B, or vice versa. Serialization is implemented in the <code>SgfcBackendController</code> class using a central <code>std::mutex</code>.</p>
+<p>No other precautions have been taken to make libsgfc++ thread-safe. If the library client wants to operate on the same document object tree in different threads then it must make sure that access is properly synchronized.</p>
+<h1><a class="anchor" id="autotoc_md35"></a>
 Operation modes</h1>
 <p>The library has abstracted SGFC's functionality into 3 interfaces which can be seen to represent the library's main operation modes:</p>
 <ol type="1">
@@ -120,18 +111,13 @@ Operation modes</h1>
 </li>
 </ol>
 <p>In all of these modes the library client can specify arguments that indicate how SGFC should perform the read and/or write operations. The available arguments are a subset of the SGFC command line arguments. Certain arguments (e.g. <code>--help</code>, <code>-i</code>) are not available because they do not make sense in a library context, or because the library does not support them.</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
-File system interaction</h1>
-<p>In all three operation modes described in the previous section the library client can specify an in-memory string buffer as source or destination for the SGF data. Even though on the surface it seems as if no interaction with the file system occurs in this usage scenario, this is not true.</p>
-<p>It should be noted that even in the in-memory string buffer scenario, under the hood either the library or SGFC writes the SGF data to a temporary file, then reads the data again from that file.</p>
-<p>The reason is simple: Less modifications to SGFC were required to implement the functionality. If the way how this is currently implemented proves to be a problem, it should be possible to further patch SGFC so that file system interaction is no longer necessry.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Error handling</h1>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md37"></a>
 SGFC messages</h2>
 <p>When SGFC reads or writes SGF data it often generates one or more messages. Every message has an ID, and every message ID is an indicator for what the message is about. The SGFC documentation lists all messages with their IDs and meanings.</p>
-<p>The library parses the raw message strings generated by SGFC and makes them available to the library client in the form of a collection of <code>ISgfcMessage</code> objects. These objects provide the information in the raw message strings in a structured form so that the library client can programmatically evaluate the message content and possibly handle certain warnings or errors.</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<p>The library processes the message data generated by SGFC and makes it available to the library client in the form of a collection of <code>ISgfcMessage</code> objects. These objects provide the data in a structured form so that the library client can programmatically evaluate the message content and possibly handle certain warnings or errors.</p>
+<h2><a class="anchor" id="autotoc_md38"></a>
 Exceptions</h2>
 <p>Yes, the library <b>does</b> throw exceptions! The API documentation mentions all exceptions that can be thrown. The library client is responsible to handle the documented exceptions, or face the consequences. Any exceptions that are thrown are thrown by value so the library client can catch them by reference (e.g. <code>catch (std::invalid_argument&amp; e)</code>).</p>
 <p>The library throws certain exceptions when the library client makes mistakes using the library API. Examples:</p>
@@ -141,46 +127,12 @@ Exceptions</h2>
 </ul>
 <p>The library may also throw <code>std::domain_error</code> when an unexpected SGFC interfacing problem occurs. Although this may not be the fault of the library client, the design goal here is to fail fast and hard to find out about such problems sooner rather than later. If you encounter such a problem don't hesitate to file a bug report!</p>
 <p>Full disclosure: The library can throw <code>std::logic_error</code> when a library coding error occurs (e.g. an enumeration value was forgotten in a <code>switch</code> statement). Obviously this should never happen, unit tests should have caught such problems before they library was released, etc. etc. Again, the design goal is to find these problems and not sweep them under the rug. Apologies in advance if it <em>does</em> happen, and please file a bug report.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Document concept</h1>
-<p>When the library reads SGF data from a source, it makes that data available as an <code>ISgfcDocument</code>. Currently such a document is equivalent to what the SGF standard shows as a "collection of game trees" in its EBNF definition.</p>
-<p>In a future version of the library the document concept might be expanded. For instance it might be possible to add meta data to a document.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
-Go support</h1>
-<p>The SGF standard does not specify how to interpret Point, Stone and Move property values. However, the library treats Go as a first class citizen, in a similar way that SGFC does, and provides the following Go-specific types:</p>
-<ul>
-<li><code>ISgfcGoPoint</code> and <code>ISgfcGoPointPropertyValue</code></li>
-<li><code>ISgfcGoStone</code> and <code>ISgfcGoStonePropertyValue</code></li>
-<li><code>ISgfcGoMove</code> and <code>ISgfcGoMovePropertyValue</code></li>
-</ul>
-<p>In order for this support to be possible, the library needs to analyze the game type and board size properties (GM and SZ). For this purpose the library makes the following special property types available:</p>
-<ul>
-<li><code>ISgfcGameTypeProperty</code></li>
-<li><code>ISgfcBoardSizeProperty</code></li>
-</ul>
-<h1><a class="anchor" id="autotoc_md30"></a>
-SGF conformity</h1>
-<p>Some notes regarding SGF conformity:</p>
-<ul>
-<li>The following has been repeatedly stated elsewhere, but to reiterate:<ul>
-<li>SGF data read by the library (SGFC) can be in any of the FF1 - FF4 formats.</li>
-<li>SGF data written by the library (SGFC) is always in the FF4 format.</li>
-<li>When <code>ISgfcDocumentReader</code> reads SGF data, the object tree under the resulting <code>ISgfcDocument</code> is already in FF4 format.</li>
-</ul>
-</li>
-<li>The EBNF in the SGF standard says that a property must have at least one value. This can be a value that has the value type "None", which the SGF standard defines to be an empty string. The meaning for the file content is clear: Something like <code>XY[]</code> is possible. In the library's object model, however, a "None" value is translated to an empty collection of property values. In other words, <code>ISgfcProperty::GetPropertyValues</code> returns a collection with zero elements.</li>
-<li>The library makes no attempt to check the validity of property values assigned to a property with <code>ISgfcProperty::SetPropertyValues</code>. A last-ditch attempt at validation is made by SGFC later when the SGF data is written to a destination, but this is unlikely to catch all mistakes. It is ultimately the responsibility of the library client to take care that the values are valid. The consequence of faulty values is that the library client might be unable to read in the game tree again after it has been written out.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md31"></a>
-Escaping</h1>
-<p>The SGF standard requires that certain characters need to be escaped to protect them from interpretation by an SGF parser (e.g. by SGFC). For instance a closing brace character "]" that appears in a SimpleText property value must be escaped.</p>
-<p>libsgfc++ performs escaping and unescaping on behalf of the library client, so the library client can work naturally with unescaped values at all times. The library does this for properties of type Text, SimpleText, Point, Stone and Move.</p>
-<p>Let's assume a SimpleText property value "foo [bar]". In an .sgf file that value will appear as "foo [bar\]". When the library client reads the .sgf file it will see the already unescaped value "foo [bar]". When the library client wants to write an .sgf file it can use the unescaped value and libsgfc++ will add the escape character on the fly.</p>
-<p><b>Note:</b> If the library client performs its own escaping, the resulting SGF content will be "double-escaped".</p>
-<h1><a class="anchor" id="autotoc_md32"></a>
-Line breaks</h1>
-<p>TODO</p>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<p>When the library reads SGF data from a source, it makes that data available as an <code>ISgfcDocument</code>. <code>ISgfcDocument</code> objects can also be built programmatically from scratch using the library's factories.</p>
+<p>Currently such a document is equivalent to what the SGF standard shows as a "collection of game trees" in its EBNF definition. In a future version of the library the document concept might be expanded. For instance it might be possible to add meta data to a document.</p>
+<p>Documents can be written back as SGF data to a destination. Documents can also be validated by simulating a write operation - this can be useful for <code>ISgfcDocument</code> objects that were built programmatically.</p>
+<h1><a class="anchor" id="autotoc_md40"></a>
 Virtual inheritance</h1>
 <p>Because C++ does not have a dedicated interface feature, the library implementation is forced to employ multiple inheritance. The interface class <code>ISgfcSinglePropertyValue</code> is inherited multiple times in all typed property value classes (e.g. <code>SgfcColorPropertyValue</code>):</p>
 <ul>
@@ -194,9 +146,16 @@ Virtual inheritance</h1>
 <li>Subclasses of <code>ISgfcProperty</code> (because of typed property classes such as <code>SgfcGameTypeProperty</code>)</li>
 <li>Subclasses of <code>ISgfcMovePropertyValue</code>(because of <code>SgfcGoMovePropertyValue</code>)</li>
 <li>Subclasses of <code>ISgfcPointPropertyValue</code>(because of <code>SgfcGoPointPropertyValue</code>)</li>
-<li>Subclasses of <code>ISgfcStonePropertyValue</code>(because of <code>SgfcGoStonePropertyValue</code>) </li>
+<li>Subclasses of <code>ISgfcStonePropertyValue</code>(because of <code>SgfcGoStonePropertyValue</code>)</li>
 </ul>
-</div></div><!-- contents -->
+<p><b>IMPORTANT:</b> Where virtual inheritance is in play downcasting must be done with <code>dynamic_cast</code> or <code>std::dynamic_pointer_cast</code>, <b>NOT</b> with <code>static_cast</code> or <code>std::static_pointer_cast</code>. An example:</p>
+<div class="fragment"><div class="line">std::shared_ptr&lt;ISgfcPropertyValue&gt; propertyValue = [...]  // get it from somewhere</div>
+<div class="line"> </div>
+<div class="line">[...]  // somehow determine that it&#39;s a Number value</div>
+<div class="line"> </div>
+<div class="line">std::shared_ptr&lt;ISgfcNumberPropertyValue&gt; numberValueSharedPtr =</div>
+<div class="line">  std::dynamic_pointer_cast&lt;ISgfcNumberPropertyValue&gt;(propertyValue);</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

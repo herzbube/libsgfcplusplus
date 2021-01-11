@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -67,7 +67,7 @@ $(function() {
 <div class="title">Coding guidelines </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md12"></a>
+<div class="textblock"><h1><a class="anchor" id="autotoc_md24"></a>
 Naming</h1>
 <ul>
 <li>Class names start with an uppercase letter.</li>
@@ -77,7 +77,7 @@ Naming</h1>
 <li>Getter/setter methods should be named after the member variable they encapsulate (e.g. the <code>firstChild</code> member variable should have a <code>GetFirstChild</code> and <code>SetFirstChild</code> getter/setter).</li>
 <li>Find good names for variables, methods and classes; don't hesitate to use long names; never (!) use abbreviations; don't use i, j, k for loop variables.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Indentation and formatting</h1>
 <ul>
 <li>Spaces, no tabs.</li>
@@ -88,12 +88,12 @@ Indentation and formatting</h1>
 <li>Pointers: No space between the type name and the asterisk; e.g. <code>Foo* foo</code>, not <code>Foo *foo</code>.</li>
 <li>Use braces liberally to improve readability, but don't hesitate to omit them in long <code>if</code>- or <code>switch</code>-clauses that use only one-line statements. Readability is the most important aspect here - sometimes the right use of braces can create a visual pattern that immediately tells the reader how the program flows.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Preprocessor</h1>
 <ul>
 <li>No preprocessor macros unless absolutely necessary.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Header files</h1>
 <ul>
 <li>Use <code>#pragma once</code>. This pragma is well supported by all major compilers and vastly preferrable over preprocessor macro guards.</li>
@@ -101,7 +101,7 @@ Header files</h1>
 <li>No inline code in header files.</li>
 <li>Avoid including header files in other header files, whenever possible use forward declarations.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Code structure</h1>
 <ul>
 <li>Only one variable declaration per line.</li>
@@ -113,15 +113,16 @@ Code structure</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 C++ language features</h1>
 <ul>
 <li>Absolutely <b>no</b> multiple inheritance, except where it's needed for implementing interfaces.</li>
 <li>Declare methods <code>const</code> unless there is a reason not to.</li>
+<li>Always use <code>override</code> to declare overrides.</li>
 <li>No templates unless there is a good reason to.</li>
 <li>Throw exceptions by value so that the caller does not have to deal with memory management in the exception handler (e.g. <code>throw std::invalid_argument()</code> not <code>throw new std::invalid_argument()</code>).</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Other stuff</h1>
 <ul>
 <li>Everything should be documented with Doxygen documentation blocks; exceptions are possible but should remain rare.</li>

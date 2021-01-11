@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,22 +71,39 @@ $(function() {
 <div class="title">SgfcColor.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Project includes (generated)</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SgfcPlusPlusExport.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">   12</a></span>&#160;  <span class="keyword">enum class</span> SGFCPLUSPLUS_EXPORT <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3ae90dfb84e30edf611e326eeb04d680de">Black</a>,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3a25a81701fbfa4a1efdf660a950c1d006">White</a>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  };</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Project includes (generated)</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;SgfcPlusPlusExport.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">   28</a></span>&#160;  <span class="keyword">enum class</span> SGFCPLUSPLUS_EXPORT <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3ae90dfb84e30edf611e326eeb04d680de">Black</a>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3a25a81701fbfa4a1efdf660a950c1d006">White</a>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__public-api_html_ga161f86c5b117751868dbb6458cff15f3"><div class="ttname"><a href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">LibSgfcPlusPlus::SgfcColor</a></div><div class="ttdeci">SgfcColor</div><div class="ttdoc">SgfcColor enumerates the values that a property value of type SgfcPropertyValueType::Color can have.</div><div class="ttdef"><b>Definition:</b> SgfcColor.h:13</div></div>
+<div class="ttc" id="agroup__public-api_html_ga161f86c5b117751868dbb6458cff15f3"><div class="ttname"><a href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">LibSgfcPlusPlus::SgfcColor</a></div><div class="ttdeci">SgfcColor</div><div class="ttdoc">SgfcColor enumerates the values that a property value of type SgfcPropertyValueType::Color can have.</div><div class="ttdef"><b>Definition:</b> SgfcColor.h:29</div></div>
 <div class="ttc" id="agroup__public-api_html_gga161f86c5b117751868dbb6458cff15f3ae90dfb84e30edf611e326eeb04d680de"><div class="ttname"><a href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3ae90dfb84e30edf611e326eeb04d680de">LibSgfcPlusPlus::SgfcColor::Black</a></div><div class="ttdeci">@ Black</div><div class="ttdoc">The property value signifies the abstract color &quot;Black&quot;.</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <div class="ttc" id="agroup__public-api_html_gga161f86c5b117751868dbb6458cff15f3a25a81701fbfa4a1efdf660a950c1d006"><div class="ttname"><a href="group__public-api.html#gga161f86c5b117751868dbb6458cff15f3a25a81701fbfa4a1efdf660a950c1d006">LibSgfcPlusPlus::SgfcColor::White</a></div><div class="ttdeci">@ White</div><div class="ttdoc">The property value signifies the abstract color &quot;White&quot;.</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

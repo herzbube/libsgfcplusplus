@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -102,18 +102,35 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:af8438f369721dfddd01357f2594cdb06"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_arguments.html">ISgfcArguments</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">GetArguments</a> () const =0</td></tr>
 <tr class="memdesc:af8438f369721dfddd01357f2594cdb06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an object with the collection of arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> passes on to SGFC whenever it performs a write operation.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">More...</a><br /></td></tr>
 <tr class="separator:af8438f369721dfddd01357f2594cdb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9721b2098dab0d55b33b6c50efffad7f"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a9721b2098dab0d55b33b6c50efffad7f">WriteSgfFile</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document, const std::string &amp;sgfFilePath)=0</td></tr>
-<tr class="memdesc:a9721b2098dab0d55b33b6c50efffad7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of <em>document</em> to a single .sgf file located at the specified path, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a9721b2098dab0d55b33b6c50efffad7f">More...</a><br /></td></tr>
-<tr class="separator:a9721b2098dab0d55b33b6c50efffad7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada1fce3086c4487a07340cf223d05dcc"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ada1fce3086c4487a07340cf223d05dcc">WriteSgfContent</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document, std::string &amp;sgfContent)=0</td></tr>
-<tr class="memdesc:ada1fce3086c4487a07340cf223d05dcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of <em>document</em> into the specified string object <em>sgfContent</em>, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ada1fce3086c4487a07340cf223d05dcc">More...</a><br /></td></tr>
-<tr class="separator:ada1fce3086c4487a07340cf223d05dcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77644ffe0036d1231459f1f14e0728de"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">WriteSgfFile</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document, const std::string &amp;sgfFilePath) const =0</td></tr>
+<tr class="memdesc:a77644ffe0036d1231459f1f14e0728de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of <em>document</em> to a single .sgf file located at the specified path, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">More...</a><br /></td></tr>
+<tr class="separator:a77644ffe0036d1231459f1f14e0728de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad445cd935919bd09486d7862eab2640b"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">WriteSgfContent</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document, std::string &amp;sgfContent) const =0</td></tr>
+<tr class="memdesc:ad445cd935919bd09486d7862eab2640b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the content of <em>document</em> into the specified string object <em>sgfContent</em>, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">More...</a><br /></td></tr>
+<tr class="separator:ad445cd935919bd09486d7862eab2640b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b4a0e28b4a3185afd08d25ac94cf6d"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">ValidateDocument</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document) const =0</td></tr>
+<tr class="memdesc:a29b4a0e28b4a3185afd08d25ac94cf6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the content of <em>document</em> by simulating a write operation, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">More...</a><br /></td></tr>
+<tr class="separator:a29b4a0e28b4a3185afd08d25ac94cf6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affc526ffaded7d453b57253df37ff30c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">DebugPrintToConsole</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt; document) const =0</td></tr>
 <tr class="memdesc:affc526ffaded7d453b57253df37ff30c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes the content of <em>document</em> into an SGF content stream and prints that stream to stdout for debugging purposes.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">More...</a><br /></td></tr>
 <tr class="separator:affc526ffaded7d453b57253df37ff30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> interface provides functions to generate SGF data from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> objects and to either write that data to the filesystem or make it available as an in-memory string. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> operates the SGFC backend to achieve its task. Use <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_plus_plus_factory.html" title="The SgfcPlusPlusFactory class is a class that contains only static functions. The functions are used ...">SgfcPlusPlusFactory</a> to construct new <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> objects. </p>
+<p>Before <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> can invoke the SGFC backend's write function it generates SGF data from the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> whose content should be written, then passes the SGF data through the SGFC backend's load/parse functions for data validation. For this to work <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> has to perform escaping of characters in the SGF data that are also used for the SGF skeleton. See the SGF specification if you don't know what "escaping" is about.</p>
+<p>As the SGF skeleton is made up of ASCII characters only, the characters that require escaping are all ASCII characters. But the SGF standard allows SgfcSimpleText and SgfcText property values to have a non-ASCII character encoding. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> doesn't care about the actual character encoding that is in use, it simply scans property values for characters to escape on the byte level. This means that the character encoding used for property values of type SgfcSimpleText and SgfcText must be a character encoding that is "ASCII-safe".</p>
+<p>ASCII-safe means:</p><ul>
+<li>The character encoding must encode ASCII characters with their single byte values from the ASCII table; and</li>
+<li>The character encoding must not use the byte values of ASCII characters to encode anything else but ASCII characters.</li>
+</ul>
+<p>For instance, the ASCII character "]" has the hex value 0x5d in the ASCII table. The character encoding must therefore use 0x5d to encode the character "]", and it must guarantee that, regardless of what else is encoded, the value 0x5d does not appear anywhere in the encoded byte stream except to encode the character "]".</p>
+<p>Single-byte character encodings such as the ISO-8859 family usually are ASCII-safe because they have been designed like that. Multi-byte encodings, however, should not be considered ASCII-safe unless they are known to be. Big5 and Shift_JIS are notable examples that are <b>not</b> ASCII-safe - see SgfNotes.md for concrete details. UTF-8 is a notable example that <b>is</b> ASCII-safe.</p>
+<p>As already mentioned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> passes the SGF data it has generated and escaped to the SGFC backend's load/parse functions, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> returns at that point. The processing is almost exactly the same as when <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> had been used to read the SGF data. If the library client does not do anything special, this is the default behahviour:</p><ul>
+<li><a class="el" href="group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800ac028e0fea2c3668d3b0bfda4fef4211b" title="Select how to determine the character encoding(s) used to decode SGF content. This argument requires ...">SgfcArgumentType::EncodingMode</a> 1 is used.</li>
+<li>The first CA property value determines the encoding to use.</li>
+<li>UTF-8 is used as the default encoding if there is no CA property value.</li>
+</ul>
+<p>The last point is the only difference to <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a>, which uses ISO-8859-1 as the default encoding. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> uses UTF-8 because it assumes that library clients work with UTF-8. A library client that wants a different default encoding must change the arguments returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="affc526ffaded7d453b57253df37ff30c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#affc526ffaded7d453b57253df37ff30c">&#9670;&nbsp;</a></span>DebugPrintToConsole()</h2>
@@ -143,7 +160,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>This is useful to see the SGF content that the writer would pass to SGFC for parsing and writing.</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>Remove this prior to release. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#aa382cba2950433e97055faef43c6b3e3">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#af0a40022a205ebfbe4a62fe434561a15">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
 
 </div>
 </div>
@@ -171,14 +188,54 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Returns an object with the collection of arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> passes on to SGFC whenever it performs a write operation. </p>
-<p>The collection of arguments is initially empty. Add arguments to the collection to change the way how SGFC writes SGF content. The collection retains its state between write operations so that repeated write operations use the same arguments. </p>
+<p>The collection of arguments initially contains <a class="el" href="group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800ac4f7952556ff776afb5774ae0fceb4ec" title="Select the default encoding to be used if the SGF content does not contain a CA property....">SgfcArgumentType::DefaultEncoding</a> with the parameter "UTF-8". This allows an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> to be passed to <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> for writing whose game trees don't contain an <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a3e8d115eb4b32b9e9479f387dbe14ee1" title="The encoding (aka &quot;character set) used for SimpleText and Text type property values in the game tree....">SgfcPropertyType::CA</a> property value. Read the class documentation for details about encodings.</p>
+<p>Add arguments to the collection to change the way how SGFC writes SGF content. The collection retains its state between write operations so that repeated write operations use the same arguments. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#afacceb0c1078b30bd2c7b5d20139b294">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#a32ab7900cc617da278ed7571c36997d1">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
 
 </div>
 </div>
-<a id="ada1fce3086c4487a07340cf223d05dcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada1fce3086c4487a07340cf223d05dcc">&#9670;&nbsp;</a></span>WriteSgfContent()</h2>
+<a id="a29b4a0e28b4a3185afd08d25ac94cf6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b4a0e28b4a3185afd08d25ac94cf6d">&#9670;&nbsp;</a></span>ValidateDocument()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html">ISgfcDocumentWriteResult</a>&gt; LibSgfcPlusPlus::ISgfcDocumentWriter::ValidateDocument </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt;&#160;</td>
+          <td class="paramname"><em>document</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates the content of <em>document</em> by simulating a write operation, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns. </p>
+<p>Before <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> can invoke the SGFC backend's write function, it needs to pass the SGF content through the SGFC backend's load/parse functions. The messages in the result object therefore are a combination of a full cycle of SGFC backend load/parse/write operations.</p>
+<dl class="section attention"><dt>Attention</dt><dd>Read the class documentation for a note about encodings.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html" title="The ISgfcDocumentWriteResult interface provides access to the result of a write operation performed b...">ISgfcDocumentWriteResult</a> object that provides the result of the validation operation.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::logic_error</td><td>is thrown if <em>document</em> cannot be encoded into a string due to some fundamental error in the object tree. Currently the only known case is if the document contains one or more games that have no root node. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#af8c9dc1747dc652c0d7cab70f948ceb2">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
+
+</div>
+</div>
+<a id="ad445cd935919bd09486d7862eab2640b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad445cd935919bd09486d7862eab2640b">&#9670;&nbsp;</a></span>WriteSgfContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +258,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -212,6 +269,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Writes the content of <em>document</em> into the specified string object <em>sgfContent</em>, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns. </p>
+<p>Before <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> can invoke the SGFC backend's write function, it needs to pass the SGF content through the SGFC backend's load/parse functions. The messages in the result object therefore are a combination of a full cycle of SGFC backend load/parse/write operations.</p>
+<dl class="section attention"><dt>Attention</dt><dd>Read the class documentation for a note about encodings.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html" title="The ISgfcDocumentWriteResult interface provides access to the result of a write operation performed b...">ISgfcDocumentWriteResult</a> object that provides the result of the write operation.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -220,12 +279,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#a3997ed7546a6637f912cbc2fe9715732">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#a2e542bb497535fb9bfda9930288a0f9f">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
 
 </div>
 </div>
-<a id="a9721b2098dab0d55b33b6c50efffad7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9721b2098dab0d55b33b6c50efffad7f">&#9670;&nbsp;</a></span>WriteSgfFile()</h2>
+<a id="a77644ffe0036d1231459f1f14e0728de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77644ffe0036d1231459f1f14e0728de">&#9670;&nbsp;</a></span>WriteSgfFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -248,7 +307,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -259,6 +318,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 
 <p>Writes the content of <em>document</em> to a single .sgf file located at the specified path, using the arguments that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06" title="Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...">GetArguments()</a> currently returns. </p>
+<p>Before <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...">ISgfcDocumentWriter</a> can invoke the SGFC backend's write function, it needs to pass the SGF content through the SGFC backend's load/parse functions. The messages in the result object therefore are a combination of a full cycle of SGFC backend load/parse/write operations.</p>
+<dl class="section attention"><dt>Attention</dt><dd>Read the class documentation for a note about encodings.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>An <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_write_result.html" title="The ISgfcDocumentWriteResult interface provides access to the result of a write operation performed b...">ISgfcDocumentWriteResult</a> object that provides the result of the write operation.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -267,7 +328,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#a8d40762588c58b7779cf0b1de24d01cd">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#a22ccef50eac284d2db757e5ac61a3b8f">LibSgfcPlusPlus::SgfcDocumentWriter</a>.</p>
 
 </div>
 </div>

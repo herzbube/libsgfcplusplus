@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,40 +71,53 @@ $(function() {
 <div class="title">SgfcGoStone.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Project includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../../../include/ISgfcGoStone.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">   14</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">SgfcGoStone</a> : <span class="keyword">public</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">ISgfcGoStone</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7be1a83212b21e61b6158263b7d1f1b9">SgfcGoStone</a>(<a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> color, std::shared_ptr&lt;ISgfcGoPoint&gt; location);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7be1a83212b21e61b6158263b7d1f1b9">SgfcGoStone</a>(<a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> color);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a8aa41ff60d524b299f0f492ab8b86cc6">~SgfcGoStone</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a39714ea885b7b89b0fc11d5ed3d88004">GetColor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7151ec687b63ab13173e05ee58e2af2d">HasLocation</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcGoPoint&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a37ef7a2801aa69f6d9cc69d905742049">GetLocation</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> color;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::shared_ptr&lt;ISgfcGoPoint&gt; location;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Project includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;../../../include/ISgfcGoStone.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">   30</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">SgfcGoStone</a> : <span class="keyword">public</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">ISgfcGoStone</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7be1a83212b21e61b6158263b7d1f1b9">SgfcGoStone</a>(<a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> color, std::shared_ptr&lt;ISgfcGoPoint&gt; location);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a8aa41ff60d524b299f0f492ab8b86cc6">~SgfcGoStone</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a6af2cc72876f8dfe184fd80450583241">GetColor</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcGoPoint&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a6faff2618d2a6c9415d98a62abbc81a4">GetLocation</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> color;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    std::shared_ptr&lt;ISgfcGoPoint&gt; location;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  };</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a8aa41ff60d524b299f0f492ab8b86cc6"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a8aa41ff60d524b299f0f492ab8b86cc6">LibSgfcPlusPlus::SgfcGoStone::~SgfcGoStone</a></div><div class="ttdeci">virtual ~SgfcGoStone()</div><div class="ttdoc">Destroys and cleans up the SgfcGoStone object.</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:23</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">LibSgfcPlusPlus::ISgfcGoStone</a></div><div class="ttdoc">The ISgfcGoStone interface represents a Go stone.</div><div class="ttdef"><b>Definition:</b> ISgfcGoStone.h:29</div></div>
-<div class="ttc" id="agroup__public-api_html_ga161f86c5b117751868dbb6458cff15f3"><div class="ttname"><a href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">LibSgfcPlusPlus::SgfcColor</a></div><div class="ttdeci">SgfcColor</div><div class="ttdoc">SgfcColor enumerates the values that a property value of type SgfcPropertyValueType::Color can have.</div><div class="ttdef"><b>Definition:</b> SgfcColor.h:13</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a7be1a83212b21e61b6158263b7d1f1b9"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7be1a83212b21e61b6158263b7d1f1b9">LibSgfcPlusPlus::SgfcGoStone::SgfcGoStone</a></div><div class="ttdeci">SgfcGoStone(SgfcColor color, std::shared_ptr&lt; ISgfcGoPoint &gt; location)</div><div class="ttdoc">Initializes a newly constructed SgfcGoStone object. color and location indicate the color and locatio...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:9</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a39714ea885b7b89b0fc11d5ed3d88004"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a39714ea885b7b89b0fc11d5ed3d88004">LibSgfcPlusPlus::SgfcGoStone::GetColor</a></div><div class="ttdeci">virtual SgfcColor GetColor() const</div><div class="ttdoc">Returns the color of the stone.</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:27</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a7151ec687b63ab13173e05ee58e2af2d"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7151ec687b63ab13173e05ee58e2af2d">LibSgfcPlusPlus::SgfcGoStone::HasLocation</a></div><div class="ttdeci">virtual bool HasLocation() const</div><div class="ttdoc">Returns true if the stone is located on the board and its location is known (GetLocation() does not r...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:32</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a37ef7a2801aa69f6d9cc69d905742049"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a37ef7a2801aa69f6d9cc69d905742049">LibSgfcPlusPlus::SgfcGoStone::GetLocation</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcGoPoint &gt; GetLocation() const</div><div class="ttdoc">Returns the location of the stone on the Go board. Returns nullptr if the location of the stone on th...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:37</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">LibSgfcPlusPlus::SgfcGoStone</a></div><div class="ttdoc">The SgfcGoStone class provides an implementation of the ISgfcGoStone interface. See the interface hea...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.h:15</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a8aa41ff60d524b299f0f492ab8b86cc6"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a8aa41ff60d524b299f0f492ab8b86cc6">LibSgfcPlusPlus::SgfcGoStone::~SgfcGoStone</a></div><div class="ttdeci">virtual ~SgfcGoStone()</div><div class="ttdoc">Destroys and cleans up the SgfcGoStone object.</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:33</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">LibSgfcPlusPlus::ISgfcGoStone</a></div><div class="ttdoc">The ISgfcGoStone interface represents a Go stone.</div><div class="ttdef"><b>Definition:</b> ISgfcGoStone.h:41</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a6faff2618d2a6c9415d98a62abbc81a4"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a6faff2618d2a6c9415d98a62abbc81a4">LibSgfcPlusPlus::SgfcGoStone::GetLocation</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcGoPoint &gt; GetLocation() const override</div><div class="ttdoc">Returns the location of the stone on the Go board.</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:42</div></div>
+<div class="ttc" id="agroup__public-api_html_ga161f86c5b117751868dbb6458cff15f3"><div class="ttname"><a href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">LibSgfcPlusPlus::SgfcColor</a></div><div class="ttdeci">SgfcColor</div><div class="ttdoc">SgfcColor enumerates the values that a property value of type SgfcPropertyValueType::Color can have.</div><div class="ttdef"><b>Definition:</b> SgfcColor.h:29</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a7be1a83212b21e61b6158263b7d1f1b9"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a7be1a83212b21e61b6158263b7d1f1b9">LibSgfcPlusPlus::SgfcGoStone::SgfcGoStone</a></div><div class="ttdeci">SgfcGoStone(SgfcColor color, std::shared_ptr&lt; ISgfcGoPoint &gt; location)</div><div class="ttdoc">Initializes a newly constructed SgfcGoStone object. color and location indicate the color and locatio...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:25</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html_a6af2cc72876f8dfe184fd80450583241"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#a6af2cc72876f8dfe184fd80450583241">LibSgfcPlusPlus::SgfcGoStone::GetColor</a></div><div class="ttdeci">virtual SgfcColor GetColor() const override</div><div class="ttdoc">Returns the color of the stone.</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.cpp:37</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_go_stone_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">LibSgfcPlusPlus::SgfcGoStone</a></div><div class="ttdoc">The SgfcGoStone class provides an implementation of the ISgfcGoStone interface. See the interface hea...</div><div class="ttdef"><b>Definition:</b> SgfcGoStone.h:31</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

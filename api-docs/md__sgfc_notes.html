@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -68,16 +68,15 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This document contains assorted notes about SGFC, how it operates, and the consequences this has for libsgfc++ and/or the library client.</p>
-<p>These notes can be important to understand the implementation of libsgfc++.</p>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<p>If you simply want to use libsgfc++ you don't need to read this file, instead <a class="el" href="md__sgf_notes.html">SGF notes</a> is the document for you.</p>
+<p>If you want to develop for libsgfc++ then these notes can be important to understand the implementation of libsgfc++.</p>
+<h1><a class="anchor" id="autotoc_md54"></a>
 Escaping</h1>
-<p>On reading SimpleText/Text property values, SGFC removes escape characters that don't do anything (e.g. <code>\a</code>, or <code>\:</code> in a non-composed property value) but preserves escape characters that have a purpose: <code>\\</code>, <code>\]</code> and <code>\:</code>.</p>
-<p>On writing SimpleText/Text property values, SGFC does not add escape characters because it expects that those escape characters that have a purpose are still there.</p>
-<p>libsgfc++ removes escape characters from SimpleText/Text property values so that the library client does not have to deal with them.</p>
-<p>Because SGFC does not add escape characters, libsgfc++ is responsible for adding escape characters back to SimpleText/Text property values to protect the special characters "\", "]" and ":".</p>
-<p>Technical detail: libsgfc++ escapes the ":" character even if the property value is not composed, but SGFC then removes that useless escape character again during <code>SaveSGF()</code>.</p>
-<p>For application-specific properties and Point/Move/Stone properties of game types != Go, libsgfc++ has no idea how the value type is structured. It therefore performs automatic escaping/unescaping only for the end-of-value character "]".</p>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<p>On reading SimpleText/Text property values, and values of Point/Move/Stone properties of game types != Go, SGFC removes all escape characters.</p>
+<p>On writing these property values, SGFC adds escape characters back where they are needed to protect the SGF skeleton.</p>
+<p>Also see the detailed comments in <code>SgfcPropertyDecoder</code> and <code>SgfcDocumentEncoder</code>.</p>
+<p><b>Note:</b> <code>SgfcPropertyDecoder</code> used to perform some escape processing, but this became unnecessary when SGFC V2.00 started to remove all escape characters. The code that performs the processing has been left in but made optional and disabled by default. Some comments may still mention the old behaviour.</p>
+<h1><a class="anchor" id="autotoc_md55"></a>
 Line breaks</h1>
 <p>SGFC detects any kind of line breaks when it reads/parses SGF content.</p>
 <p>However, the kind of line break SGFC uses when writing SGF content is determined at compile time. By default SGFC uses a single LF character. This can be changed by redefining the pre-processor macro <code>EOLCHAR</code> to something else during compilation. The macro must resolve into a single character, such as a LF character (already the default) or a CR character (used on classic MacOS systems). If you undefine <code>EOLCHAR</code> then SGFC will write two characters, a LF followed by a CR, which is the standard on Windows/MS-DOS systems.</p>
@@ -87,25 +86,7 @@ Line breaks</h1>
 <li>SimpleText property values: SGFC converts unescaped line breaks into a single space character. SGFC removes escaped line breaks (including the escape character). libsgfc++ never gets to see escaped line breaks.</li>
 </ul>
 <p>When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as needed.</p>
-<h1><a class="anchor" id="autotoc_md37"></a>
-Known bug when handling composed values with SimpleText</h1>
-<p>SGFC has a known bug when handling composed values where the second value is a SimpleText value. In such a scenario, SGFC has problems detecting unescaped and escaped line breaks. Note that if the SimpleText value is the first value of the composed value, then SGFC handles line breaks correctly.</p>
-<p>Two properties are currently known to have a problem:</p>
-<ul>
-<li>Property "AP": SGFC detects neither unescaped nor escaped line breaks.</li>
-<li>Property "LB": SGFC detects escaped line breaks, but not unescaped line breaks.</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
-Known bugs when handling composed SZ values</h1>
-<p>SGFC has two known bugs when handling composed SZ values:</p>
-<ol type="1">
-<li>If GM = 1 and SZ = 3:4 then SGFC does not fix the problem. The output still contains SZ[3:4]. Expected: SGFC assumes board size 19, as it does in all other cases where the SZ property is missing or has a missing or invalid value.</li>
-</ol>
-<ol type="1">
-<li>If GM != 1 and SZ = 3:foo then SGFC does not recognize the non-numeric second value and does not fix the problem. The output still contains SZ[3:foo]. Expected: SGFC removes the property, as it does when a non-numeric single value is specified, or the first value of the composed value is non-numeric.</li>
-</ol>
-<p>libsgfc++ does not handle these errors, it discards the entire SGF content.</p>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Pass moves for Go games</h1>
 <p>For Go <a href="https://www.red-bean.com/sgf/go.html#types">the SGF standard defines</a> that black or white pass moves can have either value "" (an empty string) or "tt". The latter counts as pass move only for board sizes &lt;= 19, for larger boards "tt" is a normal move. The SGF standard also mentions that "tt" is kept only for compatibility with FF3.</p>
 <p>The observed behaviour is that SGFC can deal with "tt" both on reading and writing, and it always performs the conversion to an empty string in an attempt to produce FF4 content. Consequently:</p>
@@ -113,16 +94,70 @@ Pass moves for Go games</h1>
 <li>When <code>ISgfcDocumentReader</code> reads SGF content with "tt" property values, the resulting <code>ISgfcDocument</code> will contain pass moves with empty string property values.</li>
 <li>When an <code>ISgfcDocument</code> is programmatically set up with black or white move properties that have value "tt", and the document is then passed to <code>ISgfcDocumentWriter</code> for writing, the resulting SGF content will contain pass moves with empty string property values.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md40"></a>
+<h1><a class="anchor" id="autotoc_md57"></a>
 Compressed point lists</h1>
 <p>SGFC automatically expands compressed point lists during parsing when the game type is Go (GM[1]). See <code>Check_Pos()</code>. It compresses them again during saving unless the <code>-e</code> option is specified. See <code>WriteNode()</code>.</p>
 <p>It's impossible to preserve the original format in all cases, because SGFC normalizes the input during parsing, but it does not record any traces of what it did.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md58"></a>
 Why document writing works like it does today</h1>
 <p>The original idea was that the <code>SgfcDocumentEncoder</code> class creates data structures using the structs that SGFC defines (e.g. <code>Node</code>, <code>Property</code>, <code>PropValue</code>). In theory it should have been as easy as invoking the appropriate SGFC helper functions, such as <code>NewNode()</code> or <code>NewProperty()</code>, to create the data structures. In practice this scheme turned out at first to be problematic, and then doomed.</p>
-<p>The first minor problem is accessibility of the involved functions: <code>NewNode()</code> is declared <code>extern</code>, so it can be used by <code>SgfcDocumentEncoder</code> easily. <code>NewProperty()</code> and other functions, on the other hand, are declared <code>static</code> inside <code>load.c</code>, so it would have been necessary to further patch SGFC in order to be able to use those functions.</p>
+<p>The first minor problem is accessibility of the involved functions: <code>NewNode()</code> is declared <code>extern</code>, so it can be used by <code>SgfcDocumentEncoder</code> easily. <code>NewProperty()</code> and other functions, on the other hand, are declared <code>static</code> inside <code>load.c</code>, so it would have been necessary to patch SGFC in order to be able to use those functions.</p>
 <p>The next problem, which turned out to be the real bummer, is that each <code>Property</code> structure has a member named <code>buffer</code>, which is a pointer that SGFC expects to point deeply into the <code>SGFInfo</code> file buffer. Although <code>NewProperty()</code> sets <code>buffer</code> up for us, it expects the buffer start as a parameter, i.e. the start within the file buffer from where property parsing should begin. We can't provide <code>NewProperty()</code> with a pointer into an <code>std::string</code> buffer because that goes away when the <code>std::string</code> object is destroyed. This means we would have to create a copy of the <code>std::string</code> buffer on the heap. But then the next problem would be, who frees that memory when the SGFC operation is done? <code>FreeSGFInfo()</code> is not the one, because it assumes that the <code>Property</code> buffer is part of the file buffer, so it merely frees the file buffer. In addition to the memory management issue, there are doubts whether SGFC's parsing functions can handle an abrupt end of the file buffer - which would occur because our copy of the <code>std::string</code> buffer would naturally be bounded with a zero byte.</p>
-<p>In the end the best (because simplest and safest) idea seemed to be to just let <code>SgfcDocumentEncoder</code> generate an SGF content stream that simulates an entire file buffer. </p>
+<p>In the end the best (because simplest and safest) idea seemed to be to just let <code>SgfcDocumentEncoder</code> generate an SGF content stream that simulates an entire file buffer.</p>
+<h1><a class="anchor" id="autotoc_md59"></a>
+SGFC code reuse in a software library</h1>
+<p>This section can be seen as a very high-level approach to an inofficial SGFC API (there is no official API). You may find this interesting if you're new to SGFC and want to learn how you can reuse its code in a software project of your own.</p>
+<h2><a class="anchor" id="autotoc_md60"></a>
+The &lt;tt&gt;main()&lt;/tt&gt; function</h2>
+<p>At the highest level the SGFC codebase can be divided into two parts:</p>
+<ul>
+<li>The <code>main()</code> function</li>
+<li>Everything else</li>
+</ul>
+<p>A software library must not contain a <code>main()</code> function, so the first thing that needs to be done to enable reusing the "everything else" part is to remove the <code>main()</code> function part. This can be achieved in one of two ways:</p>
+<ul>
+<li>Don't include the file <code>main.c</code> in the build</li>
+<li>Include the file <code>main.c</code> in the build but define the preprocessor macro <code>VERSION_NO_MAIN</code> when <code>main.c</code> is compiled.</li>
+</ul>
+<p>libsgfc++ uses the second approach because it allows <code>main.c</code> to be included in IDE projects that are generated by CMake.</p>
+<h2><a class="anchor" id="autotoc_md61"></a>
+Global functions</h2>
+<p>The SGFC codebase offers a number of high-level global functions that are of interest to a library. The functions can be placed into four broad categories:</p>
+<ul>
+<li>Managing data structures<ul>
+<li>The function <code>SetupSGFInfo()</code> creates an <code>SGFInfo</code> data structure and initializes it with useful default values. An <code>SGFInfo</code> data structure must be passed as a parameter to all global functions that perform some sort of data processing. The <code>SGFInfo</code> data structure can be parameterized in a number of ways, but this is beyond the scope of this document.</li>
+<li>The function <code>FreeSGFInfo()</code> frees all memory that is currently occupied by an <code>SGFInfo</code> structure.</li>
+</ul>
+</li>
+<li>Working with arguments.<ul>
+<li>The function <code>ParseArgs()</code> processes command line arguments in the usual <code>argc</code> / <code>argv</code> format known from the <code>main()</code> function and stores the result in an <code>SGFCOptions</code> data structure.</li>
+</ul>
+</li>
+<li>Loading SGF data.<ul>
+<li>The function <code>LoadSGF()</code> loads the SGF data from the filesystem into intermediate in-memory data structures.</li>
+<li>The function <code>LoadSGFFromFileBuffer()</code> loads the SGF data from an in-memory buffer into intermediate in-memory data structures.</li>
+<li>The function <code>ParseSGF()</code> processes the intermediate data structures generated by either one of the two load functions and generates the final data structures. These are what a software library such as libsgfc++ wants to work with.</li>
+</ul>
+</li>
+<li>Saving SGF data.<ul>
+<li>The function <code>SaveSGF()</code> processes the final data structures generated by <code>ParseSGF()</code> into SGF data and saves that data, either to the filesystem or to an in-memory buffer.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md62"></a>
+Hooks/callbacks</h2>
+<p>SGFC offers a software library to tap into parts of its data processing by way of hooks/callbacks that can be installed/provided in strategic places.</p>
+<ul>
+<li>Diagnostic output. These are the messages that are printed by SGFC to standard output when it is run as command line tool. Messages are generated as a <b>transient by-product</b> of the processing done by most of the global functions mentioned in the previous section. In other words, the message data is <b>not</b> available to the caller in the data structures generated/returned by the global functions! To get hold of the message data a software library can install a hook/callback function by setting the global variable <code>print_error_output_hook</code>. The hook/callback function will then receive the message data in structured form for further processing. See the <code>SgfcMessageStream</code> class for an example how libsgfc++ implements the hook/callback.</li>
+<li>Redirecting SGF data on save. The default for <code>SaveSGF()</code> is to write the SGF data to the filesystem. A library can redirect the output to be written to somewhere else so that the library can perform further processing. SGFC provides three hook/callback opportunities to tap into the save procedure: <code>open</code> and <code>close</code> for when an SGF file would normally be opened/created and closed, and <code>putc</code> for when character data is actually output to the save stream. See the <code>SgfcSaveStream</code> class for an example how libsgfc++ implements redirection to an in-memory buffer.</li>
+<li>Preventing a call to <code>exit()</code>. SGFC has an internal central memory-allocation function (actually a preprocessor macro). When that function fails to allocate memory it invokes a "panic" function to report the out-of-memory problem. When SGFC is run as command line tool the default "panic" function prints a message to standard output and then invokes <code>exit()</code>. A software library can install its own versin of a "panic" function by setting the global variable <code>oom_panic_hook</code>. See the <code>SgfcBackendController</code> class for an example how libsgfc++ attempts to handle memory allocation failures.</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md63"></a>
+Handling of special properties</h1>
+<h3><a class="anchor" id="autotoc_md64"></a>
+The "KI" property</h3>
+<p>According to the SGFC readme document the "KI" property is a private property of the "Smart Game Board" application (SGB). The property name means "integer komi".</p>
+<p>SGFC converts "KI" to the Go-specific "KM" property, dividing the original "KI" numeric value by 2 to obtain the new "KM" value. SGFC performs this conversion in all cases, even if the game tree's game type is not Go. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

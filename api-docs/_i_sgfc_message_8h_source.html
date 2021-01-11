@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,51 +71,73 @@ $(function() {
 <div class="title">ISgfcMessage.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Project includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;SgfcMessageType.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Project includes (generated)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SgfcPlusPlusExport.h&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">   27</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a692bbabeac3047567dbe70b02d103421">   49</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a692bbabeac3047567dbe70b02d103421">GetMessageID</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">   52</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">GetMessageType</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#ac5512422e4807be4a9314fba1c62809b">   58</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#ac5512422e4807be4a9314fba1c62809b">GetLineNumber</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a84f9a202145d4422d42538cab704590f">   64</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a84f9a202145d4422d42538cab704590f">GetColumnNumber</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">   73</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">IsCriticalMessage</a>() <span class="keyword">const</span> = 0;</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Project includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;SgfcMessageID.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;SgfcMessageType.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Project includes (generated)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;SgfcPlusPlusExport.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">   38</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a7d5032b4ee902ab6fcd813650a39fd17">   60</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a7d5032b4ee902ab6fcd813650a39fd17">GetMessageID</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">   73</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">GetMessageType</a>() <span class="keyword">const</span> = 0;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">   84</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">GetMessageText</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a3948d9abf2cff7d1580f23a775a0c6f0">   89</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a3948d9abf2cff7d1580f23a775a0c6f0">GetRawMessageText</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  };</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#ac5512422e4807be4a9314fba1c62809b">   79</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#ac5512422e4807be4a9314fba1c62809b">GetLineNumber</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a84f9a202145d4422d42538cab704590f">   85</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a84f9a202145d4422d42538cab704590f">GetColumnNumber</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">   94</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">IsCriticalMessage</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#acda5e95ffe4806c87e00f27fa3456b02">  119</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#acda5e95ffe4806c87e00f27fa3456b02">GetLibraryErrorNumber</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">  122</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">GetMessageText</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#aa96210c6a3a9eb9dde423b05ae59dcba">  132</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#aa96210c6a3a9eb9dde423b05ae59dcba">GetFormattedMessageText</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  };</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a52c3597ee27be7fd0ab5401da68a100e"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">LibSgfcPlusPlus::ISgfcMessage::GetMessageText</a></div><div class="ttdeci">virtual std::string GetMessageText() const =0</div><div class="ttdoc">Returns the message text.</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a692bbabeac3047567dbe70b02d103421"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a692bbabeac3047567dbe70b02d103421">LibSgfcPlusPlus::ISgfcMessage::GetMessageID</a></div><div class="ttdeci">virtual int GetMessageID() const =0</div><div class="ttdoc">Returns the message's identification number. Returns zero or a positive number if the message was gen...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a84f9a202145d4422d42538cab704590f"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a84f9a202145d4422d42538cab704590f">LibSgfcPlusPlus::ISgfcMessage::GetColumnNumber</a></div><div class="ttdeci">virtual int GetColumnNumber() const =0</div><div class="ttdoc">Returns the number of the column (1-based) in the parsed SGF data that caused the message....</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_acda5e95ffe4806c87e00f27fa3456b02"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#acda5e95ffe4806c87e00f27fa3456b02">LibSgfcPlusPlus::ISgfcMessage::GetLibraryErrorNumber</a></div><div class="ttdeci">virtual int GetLibraryErrorNumber() const =0</div><div class="ttdoc">Returns an error number that indicates what went wrong when a standard C library function was invoked...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_ac5512422e4807be4a9314fba1c62809b"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#ac5512422e4807be4a9314fba1c62809b">LibSgfcPlusPlus::ISgfcMessage::GetLineNumber</a></div><div class="ttdeci">virtual int GetLineNumber() const =0</div><div class="ttdoc">Returns the number of the line (1-based) in the parsed SGF data that caused the message....</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a539e2073ce28d37743a2c135dac6e822"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">LibSgfcPlusPlus::ISgfcMessage::IsCriticalMessage</a></div><div class="ttdeci">virtual bool IsCriticalMessage() const =0</div><div class="ttdoc">Returns true if the message describes a critical problem. Only warning and error messages can be crit...</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a3948d9abf2cff7d1580f23a775a0c6f0"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a3948d9abf2cff7d1580f23a775a0c6f0">LibSgfcPlusPlus::ISgfcMessage::GetRawMessageText</a></div><div class="ttdeci">virtual std::string GetRawMessageText() const =0</div><div class="ttdoc">Returns the raw message text exactly as it was generated by SGFC. If the message was generated by lib...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a65cc9368d3850d5d11ef239dbfa5079c"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">LibSgfcPlusPlus::ISgfcMessage::GetMessageType</a></div><div class="ttdeci">virtual SgfcMessageType GetMessageType() const =0</div><div class="ttdoc">Returns the type of message.</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">LibSgfcPlusPlus::ISgfcMessage</a></div><div class="ttdoc">The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...</div><div class="ttdef"><b>Definition:</b> ISgfcMessage.h:28</div></div>
-<div class="ttc" id="agroup__public-api_html_ga08dd88fa8a26884fa2fd1f1a0416ecb2"><div class="ttname"><a href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">LibSgfcPlusPlus::SgfcMessageType</a></div><div class="ttdeci">SgfcMessageType</div><div class="ttdoc">SgfcMessageType enumerates all message types generated by SGFC.</div><div class="ttdef"><b>Definition:</b> SgfcMessageType.h:12</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">LibSgfcPlusPlus::ISgfcMessage</a></div><div class="ttdoc">The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...</div><div class="ttdef"><b>Definition:</b> ISgfcMessage.h:39</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_aa96210c6a3a9eb9dde423b05ae59dcba"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#aa96210c6a3a9eb9dde423b05ae59dcba">LibSgfcPlusPlus::ISgfcMessage::GetFormattedMessageText</a></div><div class="ttdeci">virtual std::string GetFormattedMessageText() const =0</div><div class="ttdoc">Returns the formatted message text as if it had been printed by SGFC on the command-line....</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_message_html_a7d5032b4ee902ab6fcd813650a39fd17"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a7d5032b4ee902ab6fcd813650a39fd17">LibSgfcPlusPlus::ISgfcMessage::GetMessageID</a></div><div class="ttdeci">virtual SgfcMessageID GetMessageID() const =0</div><div class="ttdoc">Returns the message's unique identification number.</div></div>
+<div class="ttc" id="agroup__public-api_html_ga08dd88fa8a26884fa2fd1f1a0416ecb2"><div class="ttname"><a href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">LibSgfcPlusPlus::SgfcMessageType</a></div><div class="ttdeci">SgfcMessageType</div><div class="ttdoc">SgfcMessageType enumerates all message types generated by SGFC.</div><div class="ttdef"><b>Definition:</b> SgfcMessageType.h:28</div></div>
+<div class="ttc" id="agroup__public-api_html_gafa2abf726df4472560967e1b7fc193ee"><div class="ttname"><a href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">LibSgfcPlusPlus::SgfcMessageID</a></div><div class="ttdeci">SgfcMessageID</div><div class="ttdoc">SgfcMessageID enumerates the message identification numbers that an ISgfcMessage object can have.</div><div class="ttdef"><b>Definition:</b> SgfcMessageID.h:43</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

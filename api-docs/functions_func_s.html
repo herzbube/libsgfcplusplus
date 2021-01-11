@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -66,9 +66,6 @@ $(function() {
 &#160;
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>ISgfcSgfContent()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_sgf_content.html#a8b3e7aa0105162854e3555da94ac6e5f">LibSgfcPlusPlus::ISgfcSgfContent</a>
-</li>
 <li>ISgfcSimpleTextPropertyValue()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_simple_text_property_value.html#a5ae207f6f551e41b030d914a92fc7de4">LibSgfcPlusPlus::ISgfcSimpleTextPropertyValue</a>
 </li>
@@ -81,61 +78,178 @@ $(function() {
 <li>SaveSgfContent()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_command_line.html#a631b6eb770bc417a21c2aec4c38cadca">LibSgfcPlusPlus::ISgfcCommandLine</a>
 , <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html#ae6d0d916c1a6053725c33f1bc0ad6bc6">LibSgfcPlusPlus::SgfcBackendController</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#a64221b2fc763f42939c584a5c871ba18">LibSgfcPlusPlus::SgfcCommandLine</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#a78c72205e92d5903cbdbc16bb804a33f">LibSgfcPlusPlus::SgfcCommandLine</a>
 </li>
 <li>SaveSgfFile()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_command_line.html#a152dae57dcdcd5e6c56faade387510a4">LibSgfcPlusPlus::ISgfcCommandLine</a>
 , <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html#aaa3521ec22078defc2b04600bf24eea4">LibSgfcPlusPlus::SgfcBackendController</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#ab9d850d5df1d54497207145cfe8e5915">LibSgfcPlusPlus::SgfcCommandLine</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#ae0987e9b44c429306f07ffef83d51677">LibSgfcPlusPlus::SgfcCommandLine</a>
+</li>
+<li>SetAnnotationAuthor()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#ac7841aaa005347b562531944ddc7d5ae">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#afdbfdcda64220a17f231ba3dc610e735">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetBlackPlayerName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a161e468df27437cdc6679d7e78ee6668">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a53bddc5cf677a935b58b25706521c194">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetBlackPlayerRank()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a667a4b2a8048286a1ad091ab011ba050">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a046403024c6cbf5dc9736347239ca972">LibSgfcPlusPlus::SgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a8f7cc5b80c66dcc4dc0935c9a4e7796c">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetBlackPlayerTeamName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a6a39aa3e4e1ed20eda9d020f13e06b3f">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#acb745e5236870011a6717f3a3c90117c">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetCopyrightInformation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#aaa5a8719cfdce9f20ade818430b8b177">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#afec92bb434c09a22b933a0e66dd89ad3">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetEscapeProcessingEnabled()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a43b6fdb14fe6f19459ead9f9ce84f73f">LibSgfcPlusPlus::SgfcPropertyDecoder</a>
+</li>
+<li>SetEventName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#adfa4e8695d6a454a233f9406d95b6246">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a500f45999dedfcd53e315f64c37371b6">LibSgfcPlusPlus::SgfcGameInfo</a>
 </li>
 <li>SetFirstChild()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html#aecd999d2a4168b8f8d5de97fea10e50a">LibSgfcPlusPlus::ISgfcTreeBuilder</a>
 , <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa11eefe659bb3c602d362625ddfa91d0">LibSgfcPlusPlus::SgfcNode</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#ae7f0e9a38dc68b0e5ece3d87be5d6d9a">LibSgfcPlusPlus::SgfcTreeBuilder</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#a114f64e8c7215d90430a4ba56060d5ec">LibSgfcPlusPlus::SgfcTreeBuilder</a>
+</li>
+<li>SetGameDates()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a3fb996fabb42ef782571a5b2c2eeb693">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a6639206ad9091a4a40b78bc5d0b3de51">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetGameInformation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a5f4fb18d60508bea5f1cae7e85fc88c8">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#acb9426ac1d2c5a593e0333bfa52db0b7">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetGameLocation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a6fc3a12fa7f3928148f360b97b93f3c3">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a1b90db04a66d2e8919dc7e5fbcad2256">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetGameName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#aa8fdcc3de4167a04cfec949d9c9d5426">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a0831d4e39cf1988f9fae6f76bcf55dcb">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetGameResult()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a415bda29192bc5d249f314066ceee5db">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#af2870da5f94498ee0410caa88c49865d">LibSgfcPlusPlus::SgfcGameInfo</a>
 </li>
 <li>SetGames()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ac482ed489c2328bc67f85668e39955d6">LibSgfcPlusPlus::ISgfcDocument</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#aa2b8f6594bef6de468f394716baf730f">LibSgfcPlusPlus::SgfcDocument</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a50163e22ae72ab68de7046af8892ad7a">LibSgfcPlusPlus::SgfcDocument</a>
+</li>
+<li>SetGoBlackPlayerRank()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#a70ceea08ef329d7fd54f128bffa5b52e">LibSgfcPlusPlus::ISgfcGoGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#ae4fc11f5a721abcab7baa499713650ed">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetGoRuleset()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#a55773edcf9c9a02f08b5dda2529bd853">LibSgfcPlusPlus::ISgfcGoGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#abf8e839382bb5f6cc542c4ade5ad67c8">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetGoWhitePlayerRank()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#acbed64843e2b73d2ea6cb1e36308d96d">LibSgfcPlusPlus::ISgfcGoGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a813063ec473a48123297d9aa08c9ca15">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetKomi()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#adce0343ad0c91ba31202c91ad6133626">LibSgfcPlusPlus::ISgfcGoGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a8e5f3ecf6ed30749c5294117663a163b">LibSgfcPlusPlus::SgfcGoGameInfo</a>
 </li>
 <li>SetNextSibling()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html#ae250b732b06fa00ec9bd9cf92ad61710">LibSgfcPlusPlus::ISgfcTreeBuilder</a>
 , <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a7867b017765e9c511a4e5895e2f98126">LibSgfcPlusPlus::SgfcNode</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#a42c9779611f4873d555c682e0e5e18de">LibSgfcPlusPlus::SgfcTreeBuilder</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#ac471751f46b3eceedf2301b393f5206d">LibSgfcPlusPlus::SgfcTreeBuilder</a>
+</li>
+<li>SetNumberOfHandicapStones()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#ae497876d0387362d9fcaf3f7c6ff4dea">LibSgfcPlusPlus::ISgfcGoGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a00caecb2700a90781eaacc2142f370d6">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetOpeningInformation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a53ce4410e8d2a1fa902841f4b9fa9b49">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#ab19b4a84064469d111c9eb5d5e793dbc">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetOvertimeInformation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#ae7cbe332af77d674b0afe76de0b850d3">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#ab9bf3d56e2e373e306ee7b3e087a8779">LibSgfcPlusPlus::SgfcGameInfo</a>
 </li>
 <li>SetParent()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html#a4638d155db1e889b25678f0b34bef4bd">LibSgfcPlusPlus::ISgfcTreeBuilder</a>
 , <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a9db1bebdb187a6570792a0ed66015ee2">LibSgfcPlusPlus::SgfcNode</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#aa98a38a0dddff15d27efc9dd64f3102c">LibSgfcPlusPlus::SgfcTreeBuilder</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_tree_builder.html#a5ec59837bdb705ef987da72d399e2026">LibSgfcPlusPlus::SgfcTreeBuilder</a>
 </li>
 <li>SetProperties()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a36338f0ad9b8ca290f278ec6749a48ed">LibSgfcPlusPlus::ISgfcNode</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a701a8bc76aff1b4a1033f7f1b86c52af">LibSgfcPlusPlus::SgfcNode</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#a68b39de6f4e02a7aa053f1353d3672d0">LibSgfcPlusPlus::SgfcNode</a>
+</li>
+<li>SetProperty()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a7c12248bb544939e0784f8909dd95851">LibSgfcPlusPlus::ISgfcNode</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node.html#aa9e27cdc111f3466ea45423688b4785f">LibSgfcPlusPlus::SgfcNode</a>
 </li>
 <li>SetPropertyValues()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e">LibSgfcPlusPlus::ISgfcProperty</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#acd7bc5d9f270325b0611531ad6ff8be4">LibSgfcPlusPlus::SgfcProperty</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a237e955dde472bac3a9e48b2601afdd1">LibSgfcPlusPlus::SgfcProperty</a>
+</li>
+<li>SetRecorderName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#ace082f6780f87afea182492615104321">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a8f2d08ca2221688008337cc2a0ddad3e">LibSgfcPlusPlus::SgfcGameInfo</a>
 </li>
 <li>SetRootNode()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a5d123bc411215757f31c633a0d602da8">LibSgfcPlusPlus::ISgfcGame</a>
-, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a4a9c0dee30a8f35483732f12c5f4f403">LibSgfcPlusPlus::SgfcGame</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#ab3af0be2bd45b15753b9b4b919a16132">LibSgfcPlusPlus::SgfcGame</a>
+</li>
+<li>SetRoundInformation()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a72a884b89d2f7f8c39fc682e1c12e417">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a6bf9c3d7f4de07920c5b652221bc7631">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetRulesName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a1fe1ad8e54b8298d9b8a07e02bf3cec2">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#af42ef475303eee26e9b8a992d38575b3">LibSgfcPlusPlus::SgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a80e8c9b66d6eb36e035e25ec8958feee">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetSourceName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#ae01080db6138def57295d3b5e8317c69">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#ab7eefa565ffc4edd996bf4c8dd535761">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetTimeLimitInSeconds()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#ae082efc7ea8e808a18547690fdb97d94">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#aa9da24ba08c9517a41dc0fbb03345544">LibSgfcPlusPlus::SgfcGameInfo</a>
 </li>
 <li>SetTreeBuilder()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#ab5e6c720295a5772a8eda6f674e03c5f">LibSgfcPlusPlus::SgfcGame</a>
 </li>
+<li>SetWhitePlayerName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#af224f12f471a6868e64975923cc12bfe">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a2dd240a01818905d6eb78e1556f94a46">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SetWhitePlayerRank()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#a92348e65841948b6eec5e078351d5e90">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a3ec24c71f59e977663a2d19042b1fcd7">LibSgfcPlusPlus::SgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html#a05bec7a087881117503321f9b9aeb9bb">LibSgfcPlusPlus::SgfcGoGameInfo</a>
+</li>
+<li>SetWhitePlayerTeamName()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html#af530d2b7c7a72240e37095708dc96850">LibSgfcPlusPlus::ISgfcGameInfo</a>
+, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html#a0e7292ec2e95aee02206cb125146577b">LibSgfcPlusPlus::SgfcGameInfo</a>
+</li>
+<li>SgfcSaveStream()
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_save_stream.html#a8f5733a314278864033cab781e04c5de">LibSgfcPlusPlus::SgfcSaveStream</a>
+</li>
 <li>SgfcSgfContent()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_sgf_content.html#a1550263a01d7e73f449cc1c6dd751b39">LibSgfcPlusPlus::SgfcSgfContent</a>
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_sgf_content.html#a92d9fd945f9201471063f90da0c4eef0">LibSgfcPlusPlus::SgfcSgfContent</a>
 </li>
 <li>SgfcSimpleTextPropertyValue()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_simple_text_property_value.html#a66edb77c1902e3b71796391e9cb66e48">LibSgfcPlusPlus::SgfcSimpleTextPropertyValue</a>
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_simple_text_property_value.html#a1861e36987ee1ff1a30bff98c017d0d1">LibSgfcPlusPlus::SgfcSimpleTextPropertyValue</a>
 </li>
 <li>SgfcSinglePropertyValue()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_single_property_value.html#a87afaf1a1e5dc522b146e7892f0a5d49">LibSgfcPlusPlus::SgfcSinglePropertyValue</a>
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_single_property_value.html#a647631df92db265f48c1a2d2f1314580">LibSgfcPlusPlus::SgfcSinglePropertyValue</a>
 </li>
 <li>SgfcStonePropertyValue()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_stone_property_value.html#aab65c17c69c5b3b50ea0919fabb4ab13">LibSgfcPlusPlus::SgfcStonePropertyValue</a>
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_stone_property_value.html#a9d4a2fc15c4f3733f3b39a159c9d8e2c">LibSgfcPlusPlus::SgfcStonePropertyValue</a>
 </li>
 <li>SplitString()
-: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a599367daf5dec29272046a0a4ae707a1">LibSgfcPlusPlus::SgfcUtility</a>
+: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac7b607207308a8faea682aeb3e83f3ed">LibSgfcPlusPlus::SgfcUtility</a>
 </li>
 <li>StringEndsWith()
 : <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a0d7bad93ee38d8c1cf5499a9b2d150b3">LibSgfcPlusPlus::SgfcUtility</a>

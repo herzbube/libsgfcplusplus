@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['partiallyloaded_1216',['PartiallyLoaded',['../group__internals.html#gga571441add19dc4c28e8f7cdfcf8b0c66a190f2b897624ed5bf6cc6dd14bc5e10a',1,'LibSgfcPlusPlus']]],
-  ['pl_1217',['PL',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a9b7d173b068dc4d5517bfae92d676437',1,'LibSgfcPlusPlus']]],
-  ['point_1218',['Point',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2a3cd5946cfd317eb99c3d32e35e2d4c',1,'LibSgfcPlusPlus']]]
+  ['ok_1730',['Ok',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7aa60852f204ed8028c1c58808b746d115',1,'LibSgfcPlusPlus']]],
+  ['outofmemoryerror_1731',['OutOfMemoryError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab07cfc8f0b3879e94bc0c27b99e33048',1,'LibSgfcPlusPlus']]]
 ];

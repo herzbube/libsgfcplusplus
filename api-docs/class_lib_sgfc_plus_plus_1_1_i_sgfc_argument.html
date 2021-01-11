@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html">ISgfcArgument</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html">ISgfcArgument</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -111,6 +111,14 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a93ebd670ac1e170553a73417963e5df7">GetIntegerTypeParameter</a> () const =0</td></tr>
 <tr class="memdesc:a93ebd670ac1e170553a73417963e5df7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the argument's integer type parameter value. The return value is undefined if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a3b56c2d4eba0e0c1fd6a865ee54cda9e" title="Returns true if the argument has an integer type parameter.">HasIntegerTypeParameter()</a> returns false. <br /></td></tr>
 <tr class="separator:a93ebd670ac1e170553a73417963e5df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a9494ed3eb8404764890cde879eb128"><td class="memItemLeft" align="right" valign="top"><a id="a9a9494ed3eb8404764890cde879eb128"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a9a9494ed3eb8404764890cde879eb128">HasStringTypeParameter</a> () const =0</td></tr>
+<tr class="memdesc:a9a9494ed3eb8404764890cde879eb128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the argument has a string type parameter. <br /></td></tr>
+<tr class="separator:a9a9494ed3eb8404764890cde879eb128"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729b8e63aded0a5b22da0557b402cb0e"><td class="memItemLeft" align="right" valign="top"><a id="a729b8e63aded0a5b22da0557b402cb0e"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a729b8e63aded0a5b22da0557b402cb0e">GetStringTypeParameter</a> () const =0</td></tr>
+<tr class="memdesc:a729b8e63aded0a5b22da0557b402cb0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the argument's string type parameter value. The return value is undefined if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a9a9494ed3eb8404764890cde879eb128" title="Returns true if the argument has a string type parameter.">HasStringTypeParameter()</a> returns false. <br /></td></tr>
+<tr class="separator:a729b8e63aded0a5b22da0557b402cb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c9b8be6f0dd73fdb44f3cf9c82461bc"><td class="memItemLeft" align="right" valign="top"><a id="a2c9b8be6f0dd73fdb44f3cf9c82461bc"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a2c9b8be6f0dd73fdb44f3cf9c82461bc">HasPropertyTypeParameter</a> () const =0</td></tr>
 <tr class="memdesc:a2c9b8be6f0dd73fdb44f3cf9c82461bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the argument has an SgfcPropertyType parameter. <br /></td></tr>
@@ -119,6 +127,14 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 virtual <a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#ae278d6f423eb2498d8d2e8b97c14ea7e">GetPropertyTypeParameter</a> () const =0</td></tr>
 <tr class="memdesc:ae278d6f423eb2498d8d2e8b97c14ea7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the argument's SgfcPropertyType parameter value. The return value is undefined if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a2c9b8be6f0dd73fdb44f3cf9c82461bc" title="Returns true if the argument has an SgfcPropertyType parameter.">HasPropertyTypeParameter()</a> returns false. <br /></td></tr>
 <tr class="separator:ae278d6f423eb2498d8d2e8b97c14ea7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3758b6e743be58c482657509ec0833c3"><td class="memItemLeft" align="right" valign="top"><a id="a3758b6e743be58c482657509ec0833c3"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a3758b6e743be58c482657509ec0833c3">HasMessageIDParameter</a> () const =0</td></tr>
+<tr class="memdesc:a3758b6e743be58c482657509ec0833c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the argument has an SgfcMessageID parameter. <br /></td></tr>
+<tr class="separator:a3758b6e743be58c482657509ec0833c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af83d0f0fec7222144083646ba6dddf05"><td class="memItemLeft" align="right" valign="top"><a id="af83d0f0fec7222144083646ba6dddf05"></a>
+virtual <a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#af83d0f0fec7222144083646ba6dddf05">GetMessageIDParameter</a> () const =0</td></tr>
+<tr class="memdesc:af83d0f0fec7222144083646ba6dddf05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the argument's SgfcMessageID parameter value. The return value is undefined if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a3758b6e743be58c482657509ec0833c3" title="Returns true if the argument has an SgfcMessageID parameter.">HasMessageIDParameter()</a> returns false. <br /></td></tr>
+<tr class="separator:af83d0f0fec7222144083646ba6dddf05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cf34562ff2ce3249b8ad3f7b9f5e9b1"><td class="memItemLeft" align="right" valign="top"><a id="a4cf34562ff2ce3249b8ad3f7b9f5e9b1"></a>
 virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_argument.html#a4cf34562ff2ce3249b8ad3f7b9f5e9b1">ToString</a> () const =0</td></tr>
 <tr class="memdesc:a4cf34562ff2ce3249b8ad3f7b9f5e9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the argument as a string, exactly as it would be specified on the SGFC command line. Examples: -n, -b1, -yMA. <br /></td></tr>

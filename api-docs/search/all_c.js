@@ -1,11 +1,24 @@
 var searchData=
 [
-  ['ma_306',['MA',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a2a6039655313bf5dab1e43523b62c374',1,'LibSgfcPlusPlus']]],
-  ['mapargumenttypetocmdlineoption_307',['MapArgumentTypeToCmdlineOption',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a1af82426fb2a58b7832538433c6e47f8',1,'LibSgfcPlusPlus::SgfcUtility']]],
-  ['mapgametypetonumbervalue_308',['MapGameTypeToNumberValue',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac885906b3fcc411a3788821380911c86',1,'LibSgfcPlusPlus::SgfcUtility']]],
-  ['mapnumbervaluetogametype_309',['MapNumberValueToGameType',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aeb430d7674c2899e15f1147bf42e001a',1,'LibSgfcPlusPlus::SgfcUtility']]],
-  ['mappropertynametopropertytype_310',['MapPropertyNameToPropertyType',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac70c763ef71cd1ceb6f7b2a3a0b89cd7',1,'LibSgfcPlusPlus::SgfcUtility']]],
-  ['mappropertytypetopropertyname_311',['MapPropertyTypeToPropertyName',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a0021b00bd031fd37f9a44c5f28157cf2',1,'LibSgfcPlusPlus::SgfcUtility']]],
-  ['mn_312',['MN',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a943afaf25ac17fe7bc39fdaae916e3a4',1,'LibSgfcPlusPlus']]],
-  ['move_313',['Move',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a6bc362dbf494c61ea117fe3c71ca48a5',1,'LibSgfcPlusPlus']]]
+  ['ma_421',['MA',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a2a6039655313bf5dab1e43523b62c374',1,'LibSgfcPlusPlus']]],
+  ['mapargumenttypetocmdlineoption_422',['MapArgumentTypeToCmdlineOption',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a1af82426fb2a58b7832538433c6e47f8',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mapgametypetonumbervalue_423',['MapGameTypeToNumberValue',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac885906b3fcc411a3788821380911c86',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mapnumbervaluetogametype_424',['MapNumberValueToGameType',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aeb430d7674c2899e15f1147bf42e001a',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mappropertycategorytonodetraits_425',['MapPropertyCategoryToNodeTraits',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a66c8b22baa01c347f2c62edebd92339b',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mappropertynametopropertytype_426',['MapPropertyNameToPropertyType',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac70c763ef71cd1ceb6f7b2a3a0b89cd7',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mappropertytypetopropertycategory_427',['MapPropertyTypeToPropertyCategory',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a51722243fc5204219b615bde26ca0a61',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mappropertytypetopropertyname_428',['MapPropertyTypeToPropertyName',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a0021b00bd031fd37f9a44c5f28157cf2',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['mappropertytypetopropertytraits_429',['MapPropertyTypeToPropertyTraits',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a4897286a22c488de7de680406804eb40',1,'LibSgfcPlusPlus::SgfcUtility']]],
+  ['markup_430',['Markup',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7ae51e08a727173e8719e480316459991e',1,'LibSgfcPlusPlus::Markup()'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eae51e08a727173e8719e480316459991e',1,'LibSgfcPlusPlus::Markup()']]],
+  ['memoryallocationfailed_431',['MemoryAllocationFailed',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaccc756faa9c309bf0bd9ed5e43dee2a0',1,'LibSgfcPlusPlus']]],
+  ['miscellaneous_432',['Miscellaneous',['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea387baf0199e7c9cc944fae94e96448fa',1,'LibSgfcPlusPlus']]],
+  ['missingsemicolonatgametreestart_433',['MissingSemicolonAtGameTreeStart',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea298373e51a038238339b948b505bc4ba',1,'LibSgfcPlusPlus']]],
+  ['mixedsetupandmove_434',['MixedSetupAndMove',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa2425c2a835eaa701b77b77ab242c089',1,'LibSgfcPlusPlus']]],
+  ['mn_435',['MN',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a943afaf25ac17fe7bc39fdaae916e3a4',1,'LibSgfcPlusPlus']]],
+  ['month_436',['Month',['../struct_lib_sgfc_plus_plus_1_1_sgfc_date.html#a99eed88f1130ce3b0772715ed0480e4b',1,'LibSgfcPlusPlus::SgfcDate']]],
+  ['morethanonegametree_437',['MoreThanOneGameTree',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea1b471d5973ecc98362f1c15fff88878f',1,'LibSgfcPlusPlus']]],
+  ['move_438',['Move',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a6bc362dbf494c61ea117fe3c71ca48a5',1,'LibSgfcPlusPlus::Move()'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea6bc362dbf494c61ea117fe3c71ca48a5',1,'LibSgfcPlusPlus::Move()'],['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a6bc362dbf494c61ea117fe3c71ca48a5',1,'LibSgfcPlusPlus::Move()']]],
+  ['moveannotation_439',['MoveAnnotation',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7ac956549f5b1db92cd2bb1775f7adf0b9',1,'LibSgfcPlusPlus::MoveAnnotation()'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eac956549f5b1db92cd2bb1775f7adf0b9',1,'LibSgfcPlusPlus::MoveAnnotation()']]],
+  ['moveannotationdeleted_440',['MoveAnnotationDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea2475d9d5319fc8da6ac3f15f71e5614e',1,'LibSgfcPlusPlus']]],
+  ['moveinrootnodesplit_441',['MoveInRootNodeSplit',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea7e81c0fedb578104a27f2fda9acacd0f',1,'LibSgfcPlusPlus']]]
 ];

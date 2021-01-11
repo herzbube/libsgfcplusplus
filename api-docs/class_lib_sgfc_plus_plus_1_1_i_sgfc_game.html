@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,7 +75,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> interface provides access to the data of one SGF game, in the form of a tree of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> objects. Each branch in the tree is a variation in game play. A tree without branches is a game without variations.  
+<p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> interface provides access to the data of one SGF game tree, in the form of a tree of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> objects.  
  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_i_sgfc_game_8h_source.html">ISgfcGame.h</a>&gt;</code></p>
@@ -93,17 +93,17 @@ Inheritance diagram for LibSgfcPlusPlus::ISgfcGame:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acedb473d1daffedcb07ea2e1b901f9e1"><td class="memItemLeft" align="right" valign="top"><a id="acedb473d1daffedcb07ea2e1b901f9e1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#acedb473d1daffedcb07ea2e1b901f9e1">ISgfcGame</a> ()</td></tr>
-<tr class="memdesc:acedb473d1daffedcb07ea2e1b901f9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object. <br /></td></tr>
+<tr class="memdesc:acedb473d1daffedcb07ea2e1b901f9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object. <br /></td></tr>
 <tr class="separator:acedb473d1daffedcb07ea2e1b901f9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a033494c59f6660a44e6d85302f91098a"><td class="memItemLeft" align="right" valign="top"><a id="a033494c59f6660a44e6d85302f91098a"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a033494c59f6660a44e6d85302f91098a">~ISgfcGame</a> ()</td></tr>
-<tr class="memdesc:a033494c59f6660a44e6d85302f91098a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> object. <br /></td></tr>
+<tr class="memdesc:a033494c59f6660a44e6d85302f91098a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> object. <br /></td></tr>
 <tr class="separator:a033494c59f6660a44e6d85302f91098a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b8904e2995076c2ccdf871c2e3ff791"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791">GetGameType</a> () const =0</td></tr>
-<tr class="memdesc:a8b8904e2995076c2ccdf871c2e3ff791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game type found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as an enumeration value.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791">More...</a><br /></td></tr>
+<tr class="memdesc:a8b8904e2995076c2ccdf871c2e3ff791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property value(s) found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, interpreted as an SgfcGameType value.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791">More...</a><br /></td></tr>
 <tr class="separator:a8b8904e2995076c2ccdf871c2e3ff791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e31ed6b556e052eb934ba91fdc3224f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#ga2c188a9d33131c58c39162299c847460">SgfcNumber</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a2e31ed6b556e052eb934ba91fdc3224f">GetGameTypeAsNumber</a> () const =0</td></tr>
-<tr class="memdesc:a2e31ed6b556e052eb934ba91fdc3224f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game type found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as a Number value. This is useful if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Unknown because the Number value is not defined in the SGF standard and cannot be mapped to a member of the enumeration SgfcGameType.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a2e31ed6b556e052eb934ba91fdc3224f">More...</a><br /></td></tr>
+<tr class="memdesc:a2e31ed6b556e052eb934ba91fdc3224f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property value(s) found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as an SgfcNumber value.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a2e31ed6b556e052eb934ba91fdc3224f">More...</a><br /></td></tr>
 <tr class="separator:a2e31ed6b556e052eb934ba91fdc3224f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af57e73540b38a8d08d87dad35542e2a0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#af57e73540b38a8d08d87dad35542e2a0">HasBoardSize</a> () const =0</td></tr>
 <tr class="memdesc:af57e73540b38a8d08d87dad35542e2a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the game has a board size. Returns false if the game has no board size.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#af57e73540b38a8d08d87dad35542e2a0">More...</a><br /></td></tr>
@@ -123,14 +123,60 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a5d123bc411215757f31c633a0d602da8">SetRootNode</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; rootNode)=0</td></tr>
 <tr class="memdesc:a5d123bc411215757f31c633a0d602da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the game tree's root node to <em>rootNode</em>. The previous root node, and with it the entire previous game tree, is discarded. <br /></td></tr>
 <tr class="separator:a5d123bc411215757f31c633a0d602da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d0f14e170651001dc72e45ec67721b6"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6">GetGameInfoNodes</a> () const =0</td></tr>
+<tr class="memdesc:a1d0f14e170651001dc72e45ec67721b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game tree's game info nodes. Returns an empty list if the game tree has no game info nodes.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6">More...</a><br /></td></tr>
+<tr class="separator:a1d0f14e170651001dc72e45ec67721b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef7d7552bc9e06d8648b512be5edff42"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aef7d7552bc9e06d8648b512be5edff42">CreateGameInfo</a> () const =0</td></tr>
+<tr class="memdesc:aef7d7552bc9e06d8648b512be5edff42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aa6f0ab1876118768e5fc56595a70c729" title="Returns the game tree&#39;s root node. Returns nullptr if HasRootNode() returns false.">GetRootNode()</a> returns and the first game info node in the list of game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aef7d7552bc9e06d8648b512be5edff42">More...</a><br /></td></tr>
+<tr class="separator:aef7d7552bc9e06d8648b512be5edff42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596baee1e76b07b20b68ce90d30f4876"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a596baee1e76b07b20b68ce90d30f4876">WriteGameInfo</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt; gameInfo)=0</td></tr>
+<tr class="memdesc:a596baee1e76b07b20b68ce90d30f4876"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes all root property values in <em>gameInfo</em> to the corresponding properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aa6f0ab1876118768e5fc56595a70c729" title="Returns the game tree&#39;s root node. Returns nullptr if HasRootNode() returns false.">GetRootNode()</a> returns, and all game info property values in <em>gameInfo</em> to the first game info node in the list of game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a596baee1e76b07b20b68ce90d30f4876">More...</a><br /></td></tr>
+<tr class="separator:a596baee1e76b07b20b68ce90d30f4876"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6da47a279d0b2bb6680f291d3f25351a"><td class="memItemLeft" align="right" valign="top"><a id="a6da47a279d0b2bb6680f291d3f25351a"></a>
 virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html">ISgfcTreeBuilder</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a6da47a279d0b2bb6680f291d3f25351a">GetTreeBuilder</a> () const =0</td></tr>
 <tr class="memdesc:a6da47a279d0b2bb6680f291d3f25351a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html" title="The ISgfcTreeBuilder interface provides methods to manipulate the nodes of a game tree.">ISgfcTreeBuilder</a> object that can be used to manipulate the game tree. <br /></td></tr>
 <tr class="separator:a6da47a279d0b2bb6680f291d3f25351a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game, in the form of a tree of ISgfcNo...">ISgfcGame</a> interface provides access to the data of one SGF game, in the form of a tree of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> objects. Each branch in the tree is a variation in game play. A tree without branches is a game without variations. </p>
+<div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS...">ISgfcGame</a> interface provides access to the data of one SGF game tree, in the form of a tree of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> objects. </p>
+<p>Each branch in the game tree is either a separate game, or a variation in game play for its parent game. A tree without branches is a single game without variations.</p>
+<p>A list of games can be obtained by invoking <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>.</p>
+<p>According to the SGF standard, the game tree's root node must contain root properties, which are used to define some global "attributes" that affect all games. Notably these include the game type and the board size. This means that if a game tree contains multiple games, all of them must have the same game type and the same board size. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aef7d7552bc9e06d8648b512be5edff42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef7d7552bc9e06d8648b512be5edff42">&#9670;&nbsp;</a></span>CreateGameInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a>&gt; LibSgfcPlusPlus::ISgfcGame::CreateGameInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object with values taken from the properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aa6f0ab1876118768e5fc56595a70c729" title="Returns the game tree&#39;s root node. Returns nullptr if HasRootNode() returns false.">GetRootNode()</a> returns and the first game info node in the list of game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>. </p>
+<p>This is a convenience method that is useful if a game contains only one game tree (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a> returns only one game info node). If the game contains more than one game tree, an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object that describes the second, third, etc. game tree can be obtained by invoking <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad34b45ee149112d3f2d729a3bff8d2a4" title="Returns a newly constructed ISgfcGameInfo object with values taken from the properties in the root no...">ISgfcNode::CreateGameInfo()</a> on the second, third, etc. game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>.</p>
+<p>If the game has no game trees (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a> returns an empty list) then the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object returned by this method contains only values taken from the properties in the root node, but all values that would normally be taken from the properties in the game info node have default values.</p>
+<p>If the game has no root node (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a6e85e6bef651f39e6b235798eccc09d8" title="Returns true if the game has a root node. Returns false if the game has no root node.">HasRootNode()</a> returns false) then the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> object contains default values.</p>
+<p>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Go then the returned object is an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> object.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad34b45ee149112d3f2d729a3bff8d2a4" title="Returns a newly constructed ISgfcGameInfo object with values taken from the properties in the root no...">ISgfcNode::CreateGameInfo()</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#ac8dafa4fc6af0f5fed043cb1b44dec4d">LibSgfcPlusPlus::SgfcGame</a>.</p>
+
+</div>
+</div>
 <a id="a741a6f8c2ecd0d3f72c81a8de5c9959e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a741a6f8c2ecd0d3f72c81a8de5c9959e">&#9670;&nbsp;</a></span>GetBoardSize()</h2>
 
@@ -158,21 +204,51 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
     <tr><td class="paramname"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a></td><td>If the property is present and has a valid value. The value is guaranteed not to be <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a> nor <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a>. </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a7e9b7730b05c4a2e598c4f984b3ae742" title="The default board size if the game type is SgfcGameType::Go.">SgfcConstants::BoardSizeDefaultGo</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Go and one of the following is true: The game has no root node, or the game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a3fe31f14eb50890fe6f05964a91b1888" title="The default board size if the game type is SgfcGameType::Chess.">SgfcConstants::BoardSizeDefaultChess</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Chess and one of the following is true: The game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns neither SgfcGameType::Go nor SgfcGameType::Chess (these are the two game types for which the SGF standard defines a default board size) and one of the following is true: The game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a></td><td>If the property is present but has an invalid value. A board size is invalid if it violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>Is thrown if a property object for <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> is found in the game's root node, but the property object is not an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a7e9b7730b05c4a2e598c4f984b3ae742" title="The default board size if the game type is SgfcGameType::Go.">SgfcConstants::BoardSizeDefaultGo</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Go and one of the following is true: The game has no root node, or the game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a3fe31f14eb50890fe6f05964a91b1888" title="The default board size if the game type is SgfcGameType::Chess.">SgfcConstants::BoardSizeDefaultChess</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Chess and one of the following is true: The game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a></td><td>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns neither SgfcGameType::Go nor SgfcGameType::Chess (these are the two game types for which the SGF standard defines a default board size) and one of the following is true: The game has a root node but the property is not present, or the game has a root node and the property is present but has no value (e.g. while the game tree is being set up programmatically). </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a></td><td>If the property is present but either its property value(s) cannot be converted to an <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> value (the property has more than one value, or it has a single value that is neither a Number nor a composed value consisting of two Number values), or if conversion is possible but the <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> value violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#ad614a6a590e17555a7eeb45b0d5ad450">LibSgfcPlusPlus::SgfcGame</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a766cda701aef30728c5e1d5ebb762335">LibSgfcPlusPlus::SgfcGame</a>.</p>
+
+</div>
+</div>
+<a id="a1d0f14e170651001dc72e45ec67721b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d0f14e170651001dc72e45ec67721b6">&#9670;&nbsp;</a></span>GetGameInfoNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::vector&lt;std::shared_ptr&lt;<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a>&gt; &gt; LibSgfcPlusPlus::ISgfcGame::GetGameInfoNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the game tree's game info nodes. Returns an empty list if the game tree has no game info nodes. </p>
+<p>This is a convenience method that searches the game tree's nodes on behalf of the caller and returns the result. The search logic is this:</p><ul>
+<li>Starting with the root node every node is examined whether it contains one or more game info properties. These are properties that are classified as <a class="el" href="group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea22eeed3b74b8fe69650bbb9e6ec51ed8" title="The property is a game info property. Game info properties provide some information about the game pl...">SgfcPropertyCategory::GameInfo</a>.</li>
+<li>When a node contains at least one game info property it is considered to be a game info node and included in the search result returned by the method.</li>
+<li>The search does not continue below a game info node. This is because the SGF standard mandates that there may be only one game info node on any path within a tree of nodes. If the root node contains at least one game info property, the search result will therefore contain only the root node. Since game info properties are usually stored in the root node this is actually the expected outcome for most of the SGF content out there.</li>
+<li>The search is performed depth-first.</li>
+</ul>
+<dl class="section see"><dt>See also</dt><dd>SgfcNodeTraits::GameInfo </dd></dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a200c9722e7c560ef4f361a461d11ba26">LibSgfcPlusPlus::SgfcGame</a>.</p>
 
 </div>
 </div>
@@ -199,23 +275,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 </table>
 </div><div class="memdoc">
 
-<p>Returns the game type found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as an enumeration value. </p>
+<p>Returns the property value(s) found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, interpreted as an SgfcGameType value. </p>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">SgfcGameType</td><td>If the property is present and has a value defined in the SGF standard, returns the SgfcGameType value that corresponds to the property value. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
-    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a></td><td>If the property is not present, or if the game has no root node, or if the property is present but has no value (e.g. while the game tree is being set up programmatically). The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
-    <tr><td class="paramname">SgfcGameType::Unknown</td><td>If the property is present and has a value that is not defined in the SGF standard. Invoke <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a2e31ed6b556e052eb934ba91fdc3224f" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameTypeAsNumber()</a> to obtain the game type as Number value.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>Is thrown if a property object for <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> is found in the game's root node, but the property object is not an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>. </td></tr>
+    <tr><td class="paramname">SgfcGameType</td><td>If the property is present and has a single Number value, and that value is defined in the SGF standard, then the SgfcGameType value that corresponds to the Number value is returned. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a></td><td>If the property is not present, or if the game has no root node, or if the property is present but has no value. The value is guaranteed not to be SgfcGameType::Unknown. </td></tr>
+    <tr><td class="paramname">SgfcGameType::Unknown</td><td>If the property is present but its value(s) cannot be converted to a Number value (the property has more than one value, or the single value is not a Number value), or if conversion is possible but the Number value is not defined in the SGF standard. Invoke <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a2e31ed6b556e052eb934ba91fdc3224f" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameTypeAsNumber()</a> to obtain the game type as Number value. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a05f7adc58bbc5919592f263a33ab8b05">LibSgfcPlusPlus::SgfcGame</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a8370361bf37a1d149e058aa9ce66a92f">LibSgfcPlusPlus::SgfcGame</a>.</p>
 
 </div>
 </div>
@@ -242,21 +312,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 </table>
 </div><div class="memdoc">
 
-<p>Returns the game type found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as a Number value. This is useful if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the game type found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Unknown because the Number value is not defined in the SGF standard and cannot be mapped to a member of the enumeration SgfcGameType. </p>
+<p>Returns the property value(s) found in the root node property of type <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, as an SgfcNumber value. </p>
+<p>This is useful if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a8b8904e2995076c2ccdf871c2e3ff791" title="Returns the property value(s) found in the root node property of type SgfcPropertyType::GM,...">GetGameType()</a> returns SgfcGameType::Unknown because the Number value is not defined in the SGF standard and cannot be mapped to a member of the enumeration SgfcGameType.</p>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">
-    <tr><td class="paramname">SgfcNumber</td><td>The Number value of the root node's <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> property. If the property is not present, or if the game has no root node, or if the property is present but has no value (e.g. while the game tree is being set up programmatically), this is the Number value that corresponds to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a>.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>Is thrown if a property object for <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> is found in the game's root node, but the property object is not an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>. </td></tr>
+    <tr><td class="paramname">SgfcNumber</td><td>If the property is present and contains a single Number value, then that Number value is returned. If the property is not present, or if the game has no root node, or if the property is present but has no value, then this method returns the Number value that corresponds to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a349c427053052ea0c8b3519642316faa" title="The default game type if the SgfcPropertyType::GM property does not exist.">SgfcConstants::DefaultGameType</a>. </td></tr>
+    <tr><td class="paramname"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#af4ed23060e13d87092b967552256b6f0" title="An SgfcNumber value that denotes a game type that is &quot;not a number&quot;.">SgfcConstants::GameTypeNaN</a></td><td>If the property is present but its value(s) cannot be converted to a Number value, either because the property has more than one value, or its single value is not a Number value. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a514479fe65f795c67f23dcf30fd95812">LibSgfcPlusPlus::SgfcGame</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a84b5538394fd24395ce1709f5ec82b7b">LibSgfcPlusPlus::SgfcGame</a>.</p>
 
 </div>
 </div>
@@ -286,7 +352,48 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>Returns true if the game has a board size. Returns false if the game has no board size. </p>
 <p>The game has no board size if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a741a6f8c2ecd0d3f72c81a8de5c9959e" title="Returns the board size found in the root node property of type SgfcPropertyType::SZ,...">GetBoardSize()</a> returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a>. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a325ce7259ecd77e7df9e670ab771edec">LibSgfcPlusPlus::SgfcGame</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a72cd091523f23fdef0ec6c2dcc1e34d9">LibSgfcPlusPlus::SgfcGame</a>.</p>
+
+</div>
+</div>
+<a id="a596baee1e76b07b20b68ce90d30f4876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596baee1e76b07b20b68ce90d30f4876">&#9670;&nbsp;</a></span>WriteGameInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LibSgfcPlusPlus::ISgfcGame::WriteGameInfo </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td>
+          <td class="paramname"><em>gameInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes all root property values in <em>gameInfo</em> to the corresponding properties in the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aa6f0ab1876118768e5fc56595a70c729" title="Returns the game tree&#39;s root node. Returns nullptr if HasRootNode() returns false.">GetRootNode()</a> returns, and all game info property values in <em>gameInfo</em> to the first game info node in the list of game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>. </p>
+<p>This is a convenience method that is useful if a game contains only one game tree (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a> returns only one game info node). If the game contains more than one game tree, then <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a3d5f3db1b6806d1be1353f90c9b9afe3" title="Writes all root property values in gameInfo to the corresponding properties in the root node that Get...">ISgfcNode::WriteGameInfo()</a> can be invoked to write the content of <em>gameInfo</em> to the second, third, etc. game info nodes returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a>.</p>
+<p>If the game has no game trees (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a1d0f14e170651001dc72e45ec67721b6" title="Returns the game tree&#39;s game info nodes. Returns an empty list if the game tree has no game info node...">GetGameInfoNodes()</a> returns an empty list) then the game info property values in <em>gameInfo</em> are written to the root node that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#aa6f0ab1876118768e5fc56595a70c729" title="Returns the game tree&#39;s root node. Returns nullptr if HasRootNode() returns false.">GetRootNode()</a> returns.</p>
+<p>If the game has no root node (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html#a6e85e6bef651f39e6b235798eccc09d8" title="Returns true if the game has a root node. Returns false if the game has no root node.">HasRootNode()</a> returns false) then a new root node is created and all property values in <em>gameInfo</em> are written to the new node.</p>
+<p>Game info property values are written only if they are not equal to their default values (already existing property values are overwritten). Game info property values that are equal to their default value cause the property to be removed, if it exists, from the game info node.</p>
+<p>Root property values are always written, regardless of whether they are equal to their default values.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>gameInfo</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_game.html#a69d34aa408bca63856fd727eacf980bd">LibSgfcPlusPlus::SgfcGame</a>.</p>
 
 </div>
 </div>

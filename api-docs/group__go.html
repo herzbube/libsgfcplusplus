@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,8 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Go<div class="ingroups"><a class="el" href="group__game.html">Game</a></div></div>  </div>
 </div><!--header-->
@@ -75,6 +76,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html">LibSgfcPlusPlus::ISgfcGoGameInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info...">ISgfcGoGameInfo</a> interface is a specialization of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> that contains additional game information that is specific for the game of Go (e.g. komi).  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html">LibSgfcPlusPlus::ISgfcGoMove</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html" title="The ISgfcGoMove interface represents a move in a Go game.">ISgfcGoMove</a> interface represents a move in a Go game.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -92,6 +96,12 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html">LibSgfcPlusPlus::ISgfcGoStonePropertyValue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html" title="The ISgfcGoStonePropertyValue interface makes the property value data of a property of type SgfcPrope...">ISgfcGoStonePropertyValue</a> interface makes the property value data of a property of type <a class="el" href="group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2ff4ab1d379832d3edee28194fb4e7b2" title="The property value describes a game piece and its location on the game board. The value&#39;s string repr...">SgfcPropertyValueType::Stone</a> available as an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> object.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone_property_value.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_player_rank.html">LibSgfcPlusPlus::SgfcGoPlayerRank</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_player_rank.html" title="The SgfcGoPlayerRank struct is a simple type that can hold the decomposed values of an SgfcPropertyTy...">SgfcGoPlayerRank</a> struct is a simple type that can hold the decomposed values of an SgfcPropertyType::BR or SgfcPropertyType::WR property value.  <a href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_player_rank.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_ruleset.html">LibSgfcPlusPlus::SgfcGoRuleset</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_ruleset.html" title="The SgfcGoRuleset struct is a simple type that can hold the decomposed values of an SgfcPropertyType:...">SgfcGoRuleset</a> struct is a simple type that can hold the decomposed values of an SgfcPropertyType::RU property value.  <a href="struct_lib_sgfc_plus_plus_1_1_sgfc_go_ruleset.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move_property_value.html">LibSgfcPlusPlus::SgfcGoMovePropertyValue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move_property_value.html" title="The SgfcGoMovePropertyValue class provides an implementation of the ISgfcGoMovePropertyValue interfac...">SgfcGoMovePropertyValue</a> class provides an implementation of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move_property_value.html" title="The ISgfcGoMovePropertyValue interface makes the property value data of a property of type SgfcProper...">ISgfcGoMovePropertyValue</a> interface. See the interface header file for documentation.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move_property_value.html#details">More...</a><br /></td></tr>
@@ -111,10 +121,138 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html">LibSgfcPlusPlus::SgfcGoStone</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html" title="The SgfcGoStone class provides an implementation of the ISgfcGoStone interface. See the interface hea...">SgfcGoStone</a> class provides an implementation of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> interface. See the interface header file for documentation.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga8b7a556e59e218a531ff683fe07025f0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__go.html#ga8b7a556e59e218a531ff683fe07025f0">LibSgfcPlusPlus::SgfcGoPlayerRankType</a> { <a class="el" href="group__go.html#gga8b7a556e59e218a531ff683fe07025f0a879d86f9846561454545ffd123284e33">LibSgfcPlusPlus::SgfcGoPlayerRankType::Kyu</a>, 
+<a class="el" href="group__go.html#gga8b7a556e59e218a531ff683fe07025f0ab47e80ecf03c856d064a77435b0c7690">LibSgfcPlusPlus::SgfcGoPlayerRankType::AmateurDan</a>, 
+<a class="el" href="group__go.html#gga8b7a556e59e218a531ff683fe07025f0a0af4c4072d08c5e56aa0fe2cdd00a077">LibSgfcPlusPlus::SgfcGoPlayerRankType::ProfessionalDan</a>
+ }</td></tr>
+<tr class="memdesc:ga8b7a556e59e218a531ff683fe07025f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">SgfcGoPlayerRankType enumerates the rank types in the traditional Go ranking system.  <a href="group__go.html#ga8b7a556e59e218a531ff683fe07025f0">More...</a><br /></td></tr>
+<tr class="separator:ga8b7a556e59e218a531ff683fe07025f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf211dcf413f8cdbf8ea200ae11f44ba1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__go.html#gaf211dcf413f8cdbf8ea200ae11f44ba1">LibSgfcPlusPlus::SgfcGoPlayerRatingType</a> { <a class="el" href="group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a5fd6174f8e6640260a150af1a8d2b340">LibSgfcPlusPlus::SgfcGoPlayerRatingType::Uncertain</a>, 
+<a class="el" href="group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a072f9734fceb02f516b50d4174ac0f18">LibSgfcPlusPlus::SgfcGoPlayerRatingType::Established</a>, 
+<a class="el" href="group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a6fcdc090caeade09d0efd6253932b6f5">LibSgfcPlusPlus::SgfcGoPlayerRatingType::Unspecified</a>
+ }</td></tr>
+<tr class="memdesc:gaf211dcf413f8cdbf8ea200ae11f44ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">SgfcGoPlayerRatingType enumerates the rating types that can apply to a Go player's rank.  <a href="group__go.html#gaf211dcf413f8cdbf8ea200ae11f44ba1">More...</a><br /></td></tr>
+<tr class="separator:gaf211dcf413f8cdbf8ea200ae11f44ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4850755a8ee7d7f21d2d4f96d90c020d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__go.html#ga4850755a8ee7d7f21d2d4f96d90c020d">LibSgfcPlusPlus::SgfcGoRulesetType</a> { <a class="el" href="group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020dab13b6429c6c3ddc1531b364fdfd82457">LibSgfcPlusPlus::SgfcGoRulesetType::AGA</a>, 
+<a class="el" href="group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020daced18520a5a8fd0358524575fc412c17">LibSgfcPlusPlus::SgfcGoRulesetType::Ing</a>, 
+<a class="el" href="group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020daf32ced6a9ba164c4b3c047fd1d7c882e">LibSgfcPlusPlus::SgfcGoRulesetType::Japanese</a>, 
+<a class="el" href="group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020da8e3eb2c69a184ad1d448afe5985f50b3">LibSgfcPlusPlus::SgfcGoRulesetType::NZ</a>
+ }</td></tr>
+<tr class="memdesc:ga4850755a8ee7d7f21d2d4f96d90c020d"><td class="mdescLeft">&#160;</td><td class="mdescRight">SgfcGoRulesetType enumerates the ruleset types that are recognized by libsgfc++.  <a href="group__go.html#ga4850755a8ee7d7f21d2d4f96d90c020d">More...</a><br /></td></tr>
+<tr class="separator:ga4850755a8ee7d7f21d2d4f96d90c020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>The Go module contains functionality related to concepts from the game of Go. </p>
 <p>The library treats the game of Go as a first-class citizen, just like SGFC, in that it contains functions and types that are tailored towards Go. Other game types are only supported in a generic way. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga8b7a556e59e218a531ff683fe07025f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8b7a556e59e218a531ff683fe07025f0">&#9670;&nbsp;</a></span>SgfcGoPlayerRankType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__go.html#ga8b7a556e59e218a531ff683fe07025f0">LibSgfcPlusPlus::SgfcGoPlayerRankType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SgfcGoPlayerRankType enumerates the rank types in the traditional Go ranking system. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga8b7a556e59e218a531ff683fe07025f0a879d86f9846561454545ffd123284e33"></a>Kyu&#160;</td><td class="fielddoc"><p>The rank type is Kyu. A Kyu rank is a student rank. The generally accepted Kyu ranks range from 30 (lowest) to 1 (highest). The notation is "30k", "29k", etc.. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8b7a556e59e218a531ff683fe07025f0ab47e80ecf03c856d064a77435b0c7690"></a>AmateurDan&#160;</td><td class="fielddoc"><p>The rank type is amateur Dan. An amateur Dan rank is a master rank. The generally accepted amateur Dan ranks range from 1 (lowest) to 7 (highest). The notation is "1d", "2d", etc.. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga8b7a556e59e218a531ff683fe07025f0a0af4c4072d08c5e56aa0fe2cdd00a077"></a>ProfessionalDan&#160;</td><td class="fielddoc"><p>The rank type is professional Dan. A professional Dan rank is a master rank. The generally accepted professional Dan ranks range from 1 (lowest) to 9 (highest). The notation is "1p", "2p", etc.. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gaf211dcf413f8cdbf8ea200ae11f44ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf211dcf413f8cdbf8ea200ae11f44ba1">&#9670;&nbsp;</a></span>SgfcGoPlayerRatingType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__go.html#gaf211dcf413f8cdbf8ea200ae11f44ba1">LibSgfcPlusPlus::SgfcGoPlayerRatingType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SgfcGoPlayerRatingType enumerates the rating types that can apply to a Go player's rank. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf211dcf413f8cdbf8ea200ae11f44ba1a5fd6174f8e6640260a150af1a8d2b340"></a>Uncertain&#160;</td><td class="fielddoc"><p>The rank of the Go player is uncertain. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf211dcf413f8cdbf8ea200ae11f44ba1a072f9734fceb02f516b50d4174ac0f18"></a>Established&#160;</td><td class="fielddoc"><p>The rank of the Go player is established. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf211dcf413f8cdbf8ea200ae11f44ba1a6fcdc090caeade09d0efd6253932b6f5"></a>Unspecified&#160;</td><td class="fielddoc"><p>The rating type that applies to the Go player's rank is not specified, i.e. it is not known whether the rank is uncertain or established. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga4850755a8ee7d7f21d2d4f96d90c020d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4850755a8ee7d7f21d2d4f96d90c020d">&#9670;&nbsp;</a></span>SgfcGoRulesetType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__go.html#ga4850755a8ee7d7f21d2d4f96d90c020d">LibSgfcPlusPlus::SgfcGoRulesetType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>SgfcGoRulesetType enumerates the ruleset types that are recognized by libsgfc++. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game....">ISgfcGameInfo</a> </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4850755a8ee7d7f21d2d4f96d90c020dab13b6429c6c3ddc1531b364fdfd82457"></a>AGA&#160;</td><td class="fielddoc"><p>The rules of the American Go Association (AGA). </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4850755a8ee7d7f21d2d4f96d90c020daced18520a5a8fd0358524575fc412c17"></a>Ing&#160;</td><td class="fielddoc"><p>The Ing rules. </p>
+<pre class="fragment">The SGF standard uses the description "The Ing rules of Goe". The word
+"Goe" is an alternative spelling of Go proposed by Ing Chang-Ki, the
+author of the ruleset, to differentiate it from the English verb
+"to go". 
+</pre> </td></tr>
+<tr><td class="fieldname"><a id="gga4850755a8ee7d7f21d2d4f96d90c020daf32ced6a9ba164c4b3c047fd1d7c882e"></a>Japanese&#160;</td><td class="fielddoc"><p>The Nihon-Kiin rule set. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4850755a8ee7d7f21d2d4f96d90c020da8e3eb2c69a184ad1d448afe5985f50b3"></a>NZ&#160;</td><td class="fielddoc"><p>The New Zealand rules. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

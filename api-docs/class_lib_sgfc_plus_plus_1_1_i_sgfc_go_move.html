@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html">ISgfcGoMove</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html">ISgfcGoMove</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -144,7 +144,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>Returns the color of the player who made the move. </p>
 <p>If <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#a7489b49ee60183b810a978feae04b404" title="Returns true if the move is a pass move. Returns false if the move is not a pass move.">IsPassMove()</a> returns false, this method returns the same value as the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a9d560d5a57be458f32627007e42be84b" title="Returns the color of the stone.">ISgfcGoStone::GetColor()</a> method of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> object returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#aa0274a8f3021ee1825d44e10a1156034" title="Returns the stone that was placed on the Go board by the move. Returns nullptr if IsPassMove() return...">GetStone()</a>. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move.html#afa90ebbdd0ba89fa6401c1a1b6fc32a7">LibSgfcPlusPlus::SgfcGoMove</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move.html#aab259d12cdc77bc88acd283927c6cde8">LibSgfcPlusPlus::SgfcGoMove</a>.</p>
 
 </div>
 </div>
@@ -172,10 +172,9 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 </div><div class="memdoc">
 
 <p>Returns the location of the stone that was placed by the move on the Go board. Returns <em>nullptr</em> if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#a7489b49ee60183b810a978feae04b404" title="Returns true if the move is a pass move. Returns false if the move is not a pass move.">IsPassMove()</a> returns true. </p>
-<p>Also returns <em>nullptr</em> if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#a7489b49ee60183b810a978feae04b404" title="Returns true if the move is a pass move. Returns false if the move is not a pass move.">IsPassMove()</a> returns false but the location of the stone that was placed by the move on the Go board is not known. This special case may occur if this <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html" title="The ISgfcGoMove interface represents a move in a Go game.">ISgfcGoMove</a> object is constructed during parsing of SGF content and the move property's value for some reason could not be interpreted.</p>
-<p>This is a convenience method that returns the same value as the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a06ea43f45016e88705e6cda6366e25e0" title="Returns the location of the stone on the Go board. Returns nullptr if the location of the stone on th...">ISgfcGoStone::GetLocation()</a> method of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> object returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#aa0274a8f3021ee1825d44e10a1156034" title="Returns the stone that was placed on the Go board by the move. Returns nullptr if IsPassMove() return...">GetStone()</a>. </p>
+<p>This is a convenience method that returns the same value as the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a06ea43f45016e88705e6cda6366e25e0" title="Returns the location of the stone on the Go board.">ISgfcGoStone::GetLocation()</a> method of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> object returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move.html#aa0274a8f3021ee1825d44e10a1156034" title="Returns the stone that was placed on the Go board by the move. Returns nullptr if IsPassMove() return...">GetStone()</a>. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move.html#a6e6cdb2f77f8577e421fdd1616f4fbee">LibSgfcPlusPlus::SgfcGoMove</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_move.html#a0b9da91c149ef9ace7874eca78e4fbbe">LibSgfcPlusPlus::SgfcGoMove</a>.</p>
 
 </div>
 </div>

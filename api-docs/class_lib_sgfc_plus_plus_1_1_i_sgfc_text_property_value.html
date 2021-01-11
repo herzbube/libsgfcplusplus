@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html">ISgfcTextPropertyValue</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html">ISgfcTextPropertyValue</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -101,9 +101,10 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html#af8f4a9a6b4c969c146d0f7502f7c1b3a">~ISgfcTextPropertyValue</a> ()</td></tr>
 <tr class="memdesc:af8f4a9a6b4c969c146d0f7502f7c1b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html" title="The ISgfcTextPropertyValue interface provides access to one of the values of a property of an SGF nod...">ISgfcTextPropertyValue</a> object. <br /></td></tr>
 <tr class="separator:af8f4a9a6b4c969c146d0f7502f7c1b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15eda2e0a1223e57edb6b05e31667ee2"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html#a15eda2e0a1223e57edb6b05e31667ee2">GetTextValue</a> () const =0</td></tr>
-<tr class="memdesc:a15eda2e0a1223e57edb6b05e31667ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property value interpreted as a text string.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html#a15eda2e0a1223e57edb6b05e31667ee2">More...</a><br /></td></tr>
-<tr class="separator:a15eda2e0a1223e57edb6b05e31667ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab387383493ffad4dd25677f9ea96afc6"><td class="memItemLeft" align="right" valign="top"><a id="ab387383493ffad4dd25677f9ea96afc6"></a>
+virtual <a class="el" href="group__public-api.html#gaf0c85a7b76b35862eeaaee67b5e661a7">SgfcText</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html#ab387383493ffad4dd25677f9ea96afc6">GetTextValue</a> () const =0</td></tr>
+<tr class="memdesc:ab387383493ffad4dd25677f9ea96afc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property value interpreted as an SgfcText value. <br /></td></tr>
+<tr class="separator:ab387383493ffad4dd25677f9ea96afc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">LibSgfcPlusPlus::ISgfcSinglePropertyValue</a></td></tr>
 <tr class="memitem:a26e38cef6d31a1c2a3d90590aa0679c2 inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value"><td class="memItemLeft" align="right" valign="top"><a id="a26e38cef6d31a1c2a3d90590aa0679c2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html#a26e38cef6d31a1c2a3d90590aa0679c2">ISgfcSinglePropertyValue</a> ()</td></tr>
@@ -186,43 +187,7 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_p
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html" title="The ISgfcTextPropertyValue interface provides access to one of the values of a property of an SGF nod...">ISgfcTextPropertyValue</a> interface provides access to one of the values of a property of an SGF node. The value type is <a class="el" href="group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a9dffbf69ffba8bc38bc4e01abf4b1675" title="The property value is a formatted string of arbitrary length. The only whitespace allowed for this st...">SgfcPropertyValueType::Text</a>. </p>
 <p><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html" title="The ISgfcTextPropertyValue interface provides access to one of the values of a property of an SGF nod...">ISgfcTextPropertyValue</a> is immutable, i.e. once the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_text_property_value.html" title="The ISgfcTextPropertyValue interface provides access to one of the values of a property of an SGF nod...">ISgfcTextPropertyValue</a> object is constructed it cannot be changed. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a15eda2e0a1223e57edb6b05e31667ee2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15eda2e0a1223e57edb6b05e31667ee2">&#9670;&nbsp;</a></span>GetTextValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::string LibSgfcPlusPlus::ISgfcTextPropertyValue::GetTextValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the property value interpreted as a text string. </p>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::logic_error</td><td>Is thrown if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html#aa299cba423c9d5b037729a8b2d2ea8f8" title="Returns true if the raw string value returned by GetRawValue() is available as a typed value....">HasTypedValue()</a> returns false. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_text_property_value.html#a234139bcf9fbeb3907ec16e30d0098d6">LibSgfcPlusPlus::SgfcTextPropertyValue</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/patrick/dev/libsgfcplusplus/include/<a class="el" href="_i_sgfc_text_property_value_8h_source.html">ISgfcTextPropertyValue.h</a></li>
 <li>/Users/patrick/dev/libsgfcplusplus/src/interface/public/ISgfcTextPropertyValue.cpp</li>
 </ul>

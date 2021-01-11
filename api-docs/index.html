@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -67,12 +67,8 @@ $(function() {
 <div class="title">libsgfc++ Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__Users_patrick_dev_libsgfcplusplus_README"></a><a href="https://travis-ci.com/herzbube/libsgfcplusplus"><img src="https://travis-ci.com/herzbube/libsgfcplusplus.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/herzbube/libsgfcplusplus/releases"><img src="https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg" alt="Github Releases" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE"><img src="https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg" alt="Github Releases" style="pointer-events: none;" class="inline"/></a></p>
-<h2><a class="anchor" id="autotoc_md55"></a>
-Project status</h2>
-<p>This software library project has grown out of its inception phase, but is still clearly pre-alpha. Please don't use it in other software projects yet, the API is far from stable.</p>
-<p>I have created a number of issues and a few milestones that are supposed to outline the next steps (alpha, beta, 1.0), but there is no due date for any of them.</p>
-<h2><a class="anchor" id="autotoc_md56"></a>
+<div class="textblock"><p><a class="anchor" id="md__Users_patrick_dev_libsgfcplusplus_README"></a><a href="https://github.com/herzbube/libsgfcplusplus/actions?query=workflow%3Abuild"><img src="https://github.com/herzbube/libsgfcplusplus/workflows/build/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/herzbube/libsgfcplusplus/releases"><img src="https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg" alt="Github Releases" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE"><img src="https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg" alt="Github Releases" style="pointer-events: none;" class="inline"/></a></p>
+<h2><a class="anchor" id="autotoc_md94"></a>
 What is it?</h2>
 <p>libsgfc++ is a C++ wrapper library around <a href="https://www.red-bean.com/sgf/sgfc/">SGFC</a>. As such, libsgfc++ offers the same functionality as SGFC:</p>
 <ul>
@@ -80,52 +76,69 @@ What is it?</h2>
 <li>Check the file content for correctness.</li>
 <li>Correct any errors.</li>
 <li>Convert FF[1] - FF[3] files to the FF[4] format.</li>
+<li>Convert files with a character encoding that is not UTF-8 to the UTF-8 character encoding.</li>
 </ul>
-<p>SGFC is written in pure C. libsgfc++ adds a thin object-oriented API layer written in C++ on top of that.</p>
-<h2><a class="anchor" id="autotoc_md57"></a>
+<p>libsgfc++ is not restricted to files, it also reads and writes SGF data from/to <code>std::string</code> without filesystem interaction.</p>
+<p>SGFC is written in pure C. libsgfc++ adds an object-oriented API layer written in C++ on top of that.</p>
+<p>libsgfc++ is cross-platform. It builds on the three major desktop operating systems (macOS, Linux, Windows) as well as on iOS. Other platforms may work as well but have not been tested.</p>
+<h2><a class="anchor" id="autotoc_md95"></a>
 What it's not</h2>
 <p>The limitations of SGFC also apply to libsgfc++. Quoting from the <a href="https://www.red-bean.com/sgf/sgfc/">SGFC website</a>:</p>
 <blockquote class="doxtable">
 <p>SGFC is intended to be a tool for SGF experts, coders and maintainers of large SGF archives. You ought to have quite some knowledge of SGF to use SGFC efficiently.</p>
 <p>SGFC was written primarily for Go/WeiQi/Baduk (GM[1]) files. It can't handle other games yet, i.e. it doesn't check any game-specific properties and values of other games than Go. It may even save erronous game-specific properties of other games! Use SGFC for other games with care. </p>
 </blockquote>
-<h2><a class="anchor" id="autotoc_md58"></a>
-Command line tool vs. software library</h2>
-<p>SGFC is very good as a command line tool, but it is not a software library. Although other programs can execute SGFC to process SGF files, they cannot make use of SGFC's functions to programmatically gain access to the actual SGF data.</p>
-<p>Enter libsgfc++.</p>
-<p>libsgfc++ applies a number of patches to the original SGFC source code to make it more suitable in a software library context. SGFC is quite unusable as a library without these modifications, because many of its routines are designed for command line usage. The main points are:</p>
-<ul>
-<li>SGFC invokes <code>exit()</code> deep within a helper function to abort program execution when it finds a fatal error in the SGF data. This is a no-go for a software library. libsgfc++ patches the <code>exit()</code> call into oblivion and replaces it with a different mechanism to report fatal errors to its clients.</li>
-<li>SGFC prints warnings and errors that occur during parsing to <code>stdout</code>. libsgfc++ modifies SGFC so that it can make these warnings and errors available to its clients in a programmatical way.</li>
-<li>SGFC uses many global and <code>static</code> variables that are initialized only once, because a command line utility only needs to run once. libsgfc++ changes this so that its clients can run the library functions over and over without stopping the program.</li>
-</ul>
-<p>Detailed information about each patch can be found in <a class="el" href="md__sgfc_patches.html">SgfcPatches.md</a>.</p>
-<h2><a class="anchor" id="autotoc_md59"></a>
+<h2><a class="anchor" id="autotoc_md96"></a>
+Project status</h2>
+<p>libsgfc++ has reached something that could be tentatively called a "beta phase". It has taken its first baby steps in an iOS project (via an Objective-C wrapper library <a href="https://github.com/herzbube/SgfcKit">SgfcKit</a>), where it will now have to prove both stability and ease of use over the coming weeks and months. Although the API should be fairly stable, if using the library turns out to be too cumbersome there can still be drastic changes.</p>
+<p>Feel free to play around with libsgfc++, but at the moment, unless you are adventurous, I still advise against using it in earnest. Feedback how to improve the library or its build process is very welcome.</p>
+<h2><a class="anchor" id="autotoc_md97"></a>
 Dependencies</h2>
-<p>At runtime this project has no dependencies except for the C/C++ runtime library and the C++ standard library.</p>
-<p>At build time this project has the following dependencies:</p>
+<p>At runtime libsgfc++ depends on the C/C++ runtime library, the C++ standard library and possibly (depending on the platform) an iconv library.</p>
+<p>At build time libsgfc++ has the following dependencies:</p>
 <ol type="1">
-<li>The main dependency, of course, is <a href="https://www.red-bean.com/sgf/sgfc/">SGFC</a>.</li>
+<li>The main dependency, of course, is <a href="https://www.red-bean.com/sgf/sgfc/">SGFC</a>. A transitive dependency inherited from SGFC is <a href="https://en.wikipedia.org/wiki/Iconv">iconv</a> (more on that see below).</li>
 <li>The second dependency is the unit test library <a href="https://github.com/catchorg/Catch2">Catch2</a>.</li>
 <li>The third dependency is the build management tool <a href="https://cmake.org/cmake/help/latest/">CMake</a>.</li>
 <li>A last dependency is <a href="https://www.doxygen.org/">Doxygen</a>, used to optionally generate the project's API documentation.</li>
 </ol>
-<p>Dependencies 1 and 2 are integrated via Git submodule.</p>
-<h2><a class="anchor" id="autotoc_md60"></a>
+<p>SGFC and Catch2 are integrated via Git submodule.</p>
+<p>iconv is integrated differently depending on the platform:</p>
+<ul>
+<li>On Apple platforms (macOS, iOS, etc.) and the Windows-based platforms Cygwin and MinGW/MSYS, iconv is expected to be present as a separate library, both at build time and at runtime. This typically is GNU <code>libiconv</code>.</li>
+<li>On Win32 the <a href="https://github.com/win-iconv/win-iconv">win-iconv project</a> provides the iconv implementation. win-iconv is integrated via Git submodule at build time. The win-iconv sources are statically linked into libsgfc++, so there is no dependency at runtime.</li>
+<li>On all other platforms iconv is expected to be present natively without a separate library. For instance on Linux the iconv implementation is provided by <code>glibc</code>.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md98"></a>
 Project build system</h2>
 <p>The project build system is <a class="el" href="md__build.html">documented here</a>.</p>
-<h2><a class="anchor" id="autotoc_md61"></a>
+<h2><a class="anchor" id="autotoc_md99"></a>
 More documentation</h2>
 <ul>
+<li><a href="https://herzbube.github.io/libsgfcplusplus/api-docs/index.html">API documentation</a> (the public API is in the "Public API" module)</li>
 <li><a class="el" href="md__why_another_library.html">Why another library?</a></li>
+<li><a class="el" href="md__sgf_notes.html">SGF notes</a>: SGF features and how libsgfc++ exposes them to the library client.</li>
 <li><a class="el" href="md__principles.html">Library design and working principles</a></li>
 <li><a class="el" href="md__sgfc_notes.html">Assorted SGFC notes</a></li>
+<li><a class="el" href="md__project_notes.html">Other project notes</a></li>
 <li><a class="el" href="md__coding_guidelines.html">Coding guidelines</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md62"></a>
+<h2><a class="anchor" id="autotoc_md100"></a>
+Acknowledgment</h2>
+<p>Thanks to Arno Hollosi, for writing SGFC in the first place, and for responding to an initial alpha version of libsgfc++ with a virtual whirlwind of changes to SGFC to make it much more library-friendly.</p>
+<h2><a class="anchor" id="autotoc_md101"></a>
 License</h2>
-<p>libsgfc++ is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License</a> (2.0).</p>
-<p>SGFC is released under the terms of the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD License</a>. </p>
+<p>libsgfc++ is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License</a> (2.0). Here's the [link to the license file](LICENSE).</p>
+<p>SGFC is released under the terms of the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD License</a>.</p>
+<ul>
+<li><a href="sgfc/COPYING">Link to local license file</a>. This works only if you have a local clone of the SGFC git submodule.</li>
+<li><a href="https://bitbucket.org/arnoh/sgfc/src/master/COPYING">Link to remote license file</a>. This link points to the <code>master</code> branch version of the license file.</li>
+</ul>
+<p>Catch2 is released under the <a href="https://www.boost.org/LICENSE_1_0.txt">Boost Software License</a> (1.0).</p>
+<ul>
+<li><a href="test/Catch2/LICENSE.txt">Link to local license file</a>. This works only if you have a local clone of the SGFC git submodule.</li>
+<li><a href="https://github.com/catchorg/Catch2/blob/master/LICENSE.txt">Link to remote license file</a>. This link points to the <code>master</code> branch version of the license file. </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

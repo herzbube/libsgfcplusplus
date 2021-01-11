@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['libraryname_1116',['LibraryName',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a924512eb2a8731ef3ce5183cd74190f4',1,'LibSgfcPlusPlus::SgfcConstants']]],
-  ['lineendingspattern_1117',['LineEndingsPattern',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a605452ae73bf9f9e5e9c6244f0f2387d',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
-  ['linetoken_1118',['LineToken',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#adfbc9d798f40bc5ad0fa471452ab4d0d',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]]
+  ['indentationwhitespace_1527',['IndentationWhitespace',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a8ba9d9f554870ef4cd5a0cfda2aff6d5',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
+  ['invalidcolumnnumber_1528',['InvalidColumnNumber',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa2834f65a4603917290304209f49b31d',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['invalidlinenumber_1529',['InvalidLineNumber',['../class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aef784ff35ce3ca889c735144c3bca6a9',1,'LibSgfcPlusPlus::SgfcConstants']]],
+  ['isvalid_1530',['IsValid',['../struct_lib_sgfc_plus_plus_1_1_sgfc_game_result.html#a64f9db830b56a51fc567fd24ec95dcc5',1,'LibSgfcPlusPlus::SgfcGameResult::IsValid()'],['../struct_lib_sgfc_plus_plus_1_1_sgfc_go_player_rank.html#a5a157ccffcf35f42a98ee04f58a842ad',1,'LibSgfcPlusPlus::SgfcGoPlayerRank::IsValid()'],['../struct_lib_sgfc_plus_plus_1_1_sgfc_go_ruleset.html#a1668616f2f3e1922bd88fb57d240d8cd',1,'LibSgfcPlusPlus::SgfcGoRuleset::IsValid()'],['../struct_lib_sgfc_plus_plus_1_1_sgfc_round_information.html#ac7eeea31eb79edc6c338d7d8a0202012',1,'LibSgfcPlusPlus::SgfcRoundInformation::IsValid()']]]
 ];

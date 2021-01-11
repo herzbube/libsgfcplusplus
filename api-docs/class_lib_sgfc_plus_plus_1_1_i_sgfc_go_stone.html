@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">ISgfcGoStone</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html">ISgfcGoStone</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -103,19 +103,14 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 virtual <a class="el" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a9d560d5a57be458f32627007e42be84b">GetColor</a> () const =0</td></tr>
 <tr class="memdesc:a9d560d5a57be458f32627007e42be84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the stone. <br /></td></tr>
 <tr class="separator:a9d560d5a57be458f32627007e42be84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaf6cffbdb49bc54c435529e8853f94e"><td class="memItemLeft" align="right" valign="top"><a id="abaf6cffbdb49bc54c435529e8853f94e"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#abaf6cffbdb49bc54c435529e8853f94e">HasLocation</a> () const =0</td></tr>
-<tr class="memdesc:abaf6cffbdb49bc54c435529e8853f94e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the stone is located on the board and its location is known (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a06ea43f45016e88705e6cda6366e25e0" title="Returns the location of the stone on the Go board. Returns nullptr if the location of the stone on th...">GetLocation()</a> does not return <em>nullptr</em>). Returns false if the location of the stone on the Go board is not known, or if the stone is not located on the board at all (<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a06ea43f45016e88705e6cda6366e25e0" title="Returns the location of the stone on the Go board. Returns nullptr if the location of the stone on th...">GetLocation()</a> returns <em>nullptr</em>). <br /></td></tr>
-<tr class="separator:abaf6cffbdb49bc54c435529e8853f94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06ea43f45016e88705e6cda6366e25e0"><td class="memItemLeft" align="right" valign="top"><a id="a06ea43f45016e88705e6cda6366e25e0"></a>
 virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html">ISgfcGoPoint</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html#a06ea43f45016e88705e6cda6366e25e0">GetLocation</a> () const =0</td></tr>
-<tr class="memdesc:a06ea43f45016e88705e6cda6366e25e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the stone on the Go board. Returns <em>nullptr</em> if the location of the stone on the Go board is not known, or if the stone is not located on the board at all. <br /></td></tr>
+<tr class="memdesc:a06ea43f45016e88705e6cda6366e25e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the location of the stone on the Go board. <br /></td></tr>
 <tr class="separator:a06ea43f45016e88705e6cda6366e25e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> interface represents a Go stone. </p>
-<p>A Go stone on a Go board is defined by its color and by its location on the Go board. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> stores an SgfcColor value and a reference to an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html" title="The ISgfcGoPoint interface represents a point on a Go board.">ISgfcGoPoint</a> object to record these two pieces of information.</p>
-<p>A Go stone for which the location on the Go board is not known, or that is not located on the board at all, does not store a reference to an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html" title="The ISgfcGoPoint interface represents a point on a Go board.">ISgfcGoPoint</a> object. </p>
+<p>A Go stone on a Go board is defined by its color and by its location on the Go board. <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone.">ISgfcGoStone</a> stores an SgfcColor value and a reference to an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html" title="The ISgfcGoPoint interface represents a point on a Go board.">ISgfcGoPoint</a> object to record these two pieces of information. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
 <li>/Users/patrick/dev/libsgfcplusplus/include/<a class="el" href="_i_sgfc_go_stone_8h_source.html">ISgfcGoStone.h</a></li>
 <li>/Users/patrick/dev/libsgfcplusplus/src/interface/public/ISgfcGoStone.cpp</li>

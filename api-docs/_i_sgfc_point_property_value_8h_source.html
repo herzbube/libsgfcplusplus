@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,37 +71,56 @@ $(function() {
 <div class="title">ISgfcPointPropertyValue.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Project includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;ISgfcSinglePropertyValue.h&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Project includes (generated)</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;SgfcPlusPlusExport.h&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <span class="comment">// Forward declarations</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">class </span>ISgfcGoPointPropertyValue;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">   23</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a> : <span class="keyword">virtual</span> <span class="keyword">public</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">ISgfcSinglePropertyValue</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#ac0503185fa6fe09c348d403bde1841ea">   38</a></span>&#160;    <span class="keyword">virtual</span> std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#ac0503185fa6fe09c348d403bde1841ea">GetRawPointValue</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">   44</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value.html">ISgfcGoPointPropertyValue</a>* <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">ToGoPointValue</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  };</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Project includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;ISgfcSinglePropertyValue.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;SgfcTypedefs.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// Project includes (generated)</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;SgfcPlusPlusExport.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="comment">// Forward declarations</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keyword">class </span>ISgfcGoPointPropertyValue;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">   40</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a> : <span class="keyword">virtual</span> <span class="keyword">public</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">ISgfcSinglePropertyValue</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">ISgfcPointPropertyValue</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a4ae1be56b5ed1a904217a1012bf82aa8">   50</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="group__public-api.html#ga00da61ad1def08ed43f025ba92748c5a">SgfcPoint</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a4ae1be56b5ed1a904217a1012bf82aa8">GetPointValue</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">   56</a></span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value.html">ISgfcGoPointPropertyValue</a>* <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">ToGoPointValue</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  };</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">LibSgfcPlusPlus::ISgfcPointPropertyValue</a></div><div class="ttdoc">The ISgfcPointPropertyValue interface provides access to one of the values of a property of an SGF no...</div><div class="ttdef"><b>Definition:</b> ISgfcPointPropertyValue.h:24</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value.html">LibSgfcPlusPlus::ISgfcGoPointPropertyValue</a></div><div class="ttdoc">The ISgfcGoPointPropertyValue interface makes the property value data of a property of type SgfcPrope...</div><div class="ttdef"><b>Definition:</b> ISgfcGoPointPropertyValue.h:23</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html_a31128784046569cc177251eedc80f5ea"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">LibSgfcPlusPlus::ISgfcPointPropertyValue::ToGoPointValue</a></div><div class="ttdeci">virtual const ISgfcGoPointPropertyValue * ToGoPointValue() const =0</div><div class="ttdoc">Returns an ISgfcGoPointPropertyValue object if the game tree that this property value is associated w...</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html_ac0503185fa6fe09c348d403bde1841ea"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#ac0503185fa6fe09c348d403bde1841ea">LibSgfcPlusPlus::ISgfcPointPropertyValue::GetRawPointValue</a></div><div class="ttdeci">virtual std::string GetRawPointValue() const =0</div><div class="ttdoc">Returns the uninterpreted point value. This is the same value that GetRawValue() returns.</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">LibSgfcPlusPlus::ISgfcSinglePropertyValue</a></div><div class="ttdoc">The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n...</div><div class="ttdef"><b>Definition:</b> ISgfcSinglePropertyValue.h:42</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html">LibSgfcPlusPlus::ISgfcPointPropertyValue</a></div><div class="ttdoc">The ISgfcPointPropertyValue interface provides access to one of the values of a property of an SGF no...</div><div class="ttdef"><b>Definition:</b> ISgfcPointPropertyValue.h:41</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value.html">LibSgfcPlusPlus::ISgfcGoPointPropertyValue</a></div><div class="ttdoc">The ISgfcGoPointPropertyValue interface makes the property value data of a property of type SgfcPrope...</div><div class="ttdef"><b>Definition:</b> ISgfcGoPointPropertyValue.h:39</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html_a31128784046569cc177251eedc80f5ea"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a31128784046569cc177251eedc80f5ea">LibSgfcPlusPlus::ISgfcPointPropertyValue::ToGoPointValue</a></div><div class="ttdeci">virtual const ISgfcGoPointPropertyValue * ToGoPointValue() const =0</div><div class="ttdoc">Returns an ISgfcGoPointPropertyValue object if the property value object was created specifically for...</div></div>
+<div class="ttc" id="agroup__public-api_html_ga00da61ad1def08ed43f025ba92748c5a"><div class="ttname"><a href="group__public-api.html#ga00da61ad1def08ed43f025ba92748c5a">LibSgfcPlusPlus::SgfcPoint</a></div><div class="ttdeci">std::string SgfcPoint</div><div class="ttdoc">The SgfcPoint type represents the Point value type defined by the SGF standard. The SGF standard does...</div><div class="ttdef"><b>Definition:</b> SgfcTypedefs.h:64</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value_html_a4ae1be56b5ed1a904217a1012bf82aa8"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html#a4ae1be56b5ed1a904217a1012bf82aa8">LibSgfcPlusPlus::ISgfcPointPropertyValue::GetPointValue</a></div><div class="ttdeci">virtual SgfcPoint GetPointValue() const =0</div><div class="ttdoc">Returns the property value interpreted as an SgfcPoint value.</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">LibSgfcPlusPlus::ISgfcSinglePropertyValue</a></div><div class="ttdoc">The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n...</div><div class="ttdef"><b>Definition:</b> ISgfcSinglePropertyValue.h:66</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

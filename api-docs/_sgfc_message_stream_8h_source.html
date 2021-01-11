@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -71,38 +71,49 @@ $(function() {
 <div class="title">SgfcMessageStream.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>LibSgfcPlusPlus</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">   20</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">SgfcMessageStream</a></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#ad659a86550f94dedd83a87661c0c3069">SgfcMessageStream</a>();</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// you may not use this file except in compliance with the License.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// You may obtain a copy of the License at</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// http://www.apache.org/licenses/LICENSE-2.0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// Unless required by applicable law or agreed to in writing, software</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// See the License for the specific language governing permissions and</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// limitations under the License.</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// -----------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// C++ Standard Library includes</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="comment">// Forward declarations</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">class </span>ISgfcMessage;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a0331e88f8173bb2f0a632aaec0d09418">~SgfcMessageStream</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    std::vector&lt;std::string&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a96329f822f742b32532016373223cd96">GetMessageStreamLines</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a4d478e89cd5682b7499db71b0884d712">GetRawMessageStreamContent</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    std::vector&lt;std::string&gt; messageStreamLines;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::string rawMessageStreamContent;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> SplitRawMessageStreamContentIntoLines();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  };</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">   41</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">SgfcMessageStream</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#ad659a86550f94dedd83a87661c0c3069">SgfcMessageStream</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a0331e88f8173bb2f0a632aaec0d09418">~SgfcMessageStream</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::vector&lt;std::shared_ptr&lt;ISgfcMessage&gt;&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a3889ccd96b01e7fdef0fd16b5707ecd9">GetMessagees</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_ad659a86550f94dedd83a87661c0c3069"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#ad659a86550f94dedd83a87661c0c3069">LibSgfcPlusPlus::SgfcMessageStream::SgfcMessageStream</a></div><div class="ttdeci">SgfcMessageStream()</div><div class="ttdoc">Initializes a newly constructed SgfcMessageStream object. Immediately acquires the message stream con...</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:33</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_a4d478e89cd5682b7499db71b0884d712"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a4d478e89cd5682b7499db71b0884d712">LibSgfcPlusPlus::SgfcMessageStream::GetRawMessageStreamContent</a></div><div class="ttdeci">std::string GetRawMessageStreamContent() const</div><div class="ttdoc">Returns the raw message stream content that SgfcMessageStream acquired during construction.</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:68</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_a0331e88f8173bb2f0a632aaec0d09418"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a0331e88f8173bb2f0a632aaec0d09418">LibSgfcPlusPlus::SgfcMessageStream::~SgfcMessageStream</a></div><div class="ttdeci">virtual ~SgfcMessageStream()</div><div class="ttdoc">Destroys and cleans up the SgfcMessageStream object.</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:43</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_a96329f822f742b32532016373223cd96"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a96329f822f742b32532016373223cd96">LibSgfcPlusPlus::SgfcMessageStream::GetMessageStreamLines</a></div><div class="ttdeci">std::vector&lt; std::string &gt; GetMessageStreamLines() const</div><div class="ttdoc">Returns the message stream content that SgfcMessageStream acquired during construction,...</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:63</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">LibSgfcPlusPlus::SgfcMessageStream</a></div><div class="ttdoc">The SgfcMessageStream class stores the content of the message stream that was generated by SGFC durin...</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.h:21</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_ad659a86550f94dedd83a87661c0c3069"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#ad659a86550f94dedd83a87661c0c3069">LibSgfcPlusPlus::SgfcMessageStream::SgfcMessageStream</a></div><div class="ttdeci">SgfcMessageStream()</div><div class="ttdoc">Initializes a newly constructed SgfcMessageStream object. The object immediately starts capturing the...</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:54</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_a3889ccd96b01e7fdef0fd16b5707ecd9"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a3889ccd96b01e7fdef0fd16b5707ecd9">LibSgfcPlusPlus::SgfcMessageStream::GetMessagees</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; ISgfcMessage &gt; &gt; GetMessagees() const</div><div class="ttdoc">Returns a collection of messages captured so far by the SgfcMessageStream object. The messages appear...</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:71</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html_a0331e88f8173bb2f0a632aaec0d09418"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html#a0331e88f8173bb2f0a632aaec0d09418">LibSgfcPlusPlus::SgfcMessageStream::~SgfcMessageStream</a></div><div class="ttdeci">virtual ~SgfcMessageStream()</div><div class="ttdoc">Destroys and cleans up the SgfcMessageStream object.</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.cpp:64</div></div>
+<div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_message_stream_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_message_stream.html">LibSgfcPlusPlus::SgfcMessageStream</a></div><div class="ttdoc">The SgfcMessageStream class captures the stream of messages that is generated by SGFC.</div><div class="ttdef"><b>Definition:</b> SgfcMessageStream.h:42</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

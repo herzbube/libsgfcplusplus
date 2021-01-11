@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -77,9 +77,10 @@ $(function() {
   <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">DebugPrintToConsole</a>(std::shared_ptr&lt; ISgfcDocument &gt; document) const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">GetArguments</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#aeba0001256f84c6851fce1aea6f39ef3">ISgfcDocumentWriter</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ada1fce3086c4487a07340cf223d05dcc">WriteSgfContent</a>(std::shared_ptr&lt; ISgfcDocument &gt; document, std::string &amp;sgfContent)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a9721b2098dab0d55b33b6c50efffad7f">WriteSgfFile</a>(std::shared_ptr&lt; ISgfcDocument &gt; document, const std::string &amp;sgfFilePath)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af583a723747b1316d92efeec59a79610">~ISgfcDocumentWriter</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">ValidateDocument</a>(std::shared_ptr&lt; ISgfcDocument &gt; document) const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">WriteSgfContent</a>(std::shared_ptr&lt; ISgfcDocument &gt; document, std::string &amp;sgfContent) const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">WriteSgfFile</a>(std::shared_ptr&lt; ISgfcDocument &gt; document, const std::string &amp;sgfFilePath) const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af583a723747b1316d92efeec59a79610">~ISgfcDocumentWriter</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

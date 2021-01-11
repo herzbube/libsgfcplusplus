@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -111,12 +111,35 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a8e5e8135af18c7b0b8101d70f82aac94"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a8e5e8135af18c7b0b8101d70f82aac94">GetPropertyName</a> () const =0</td></tr>
 <tr class="memdesc:a8e5e8135af18c7b0b8101d70f82aac94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the property.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a8e5e8135af18c7b0b8101d70f82aac94">More...</a><br /></td></tr>
 <tr class="separator:a8e5e8135af18c7b0b8101d70f82aac94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac5cabfd2e0c7c0256486f8cec2c4634"><td class="memItemLeft" align="right" valign="top"><a id="aac5cabfd2e0c7c0256486f8cec2c4634"></a>
+virtual <a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#aac5cabfd2e0c7c0256486f8cec2c4634">GetPropertyCategory</a> () const =0</td></tr>
+<tr class="memdesc:aac5cabfd2e0c7c0256486f8cec2c4634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the category that the property is classified as. Returns <a class="el" href="group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea387baf0199e7c9cc944fae94e96448fa" title="The property is a miscellaneous property, i.e. it cannot be placed in a more specific category.">SgfcPropertyCategory::Miscellaneous</a> if the property is a custom property that is not defined in the SGF standard. <br /></td></tr>
+<tr class="separator:aac5cabfd2e0c7c0256486f8cec2c4634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9f27c905123626d5e930fa695209df9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#ga42be009625cd53c61f0cec57792548f9">SgfcPropertyTraits</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#aa9f27c905123626d5e930fa695209df9">GetTraits</a> () const =0</td></tr>
+<tr class="memdesc:aa9f27c905123626d5e930fa695209df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property's traits.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#aa9f27c905123626d5e930fa695209df9">More...</a><br /></td></tr>
+<tr class="separator:aa9f27c905123626d5e930fa695209df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3dbe133ec98648fe45bd52f8729666b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ae3dbe133ec98648fe45bd52f8729666b">HasTrait</a> (<a class="el" href="group__public-api.html#ga36d36275c69f2d6eed1be956d9e1d39d">SgfcPropertyTrait</a> trait) const =0</td></tr>
+<tr class="memdesc:ae3dbe133ec98648fe45bd52f8729666b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the property has the trait <em>trait</em>. Returns false if the property does not have the trait <em>trait</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ae3dbe133ec98648fe45bd52f8729666b">More...</a><br /></td></tr>
+<tr class="separator:ae3dbe133ec98648fe45bd52f8729666b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31fc675500c265b2a7b43d1f23921831"><td class="memItemLeft" align="right" valign="top"><a id="a31fc675500c265b2a7b43d1f23921831"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a31fc675500c265b2a7b43d1f23921831">HasPropertyValues</a> () const =0</td></tr>
+<tr class="memdesc:a31fc675500c265b2a7b43d1f23921831"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the property has one or more values. Returns false if the property has no values. <br /></td></tr>
+<tr class="separator:a31fc675500c265b2a7b43d1f23921831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad53ef959ff01976128e8b93e1c0b0ef5"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ad53ef959ff01976128e8b93e1c0b0ef5">GetPropertyValues</a> () const =0</td></tr>
 <tr class="memdesc:ad53ef959ff01976128e8b93e1c0b0ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection with the values of the property. The collection is empty if the property has no values. The order in which values appear in the collection matches the order in which values were specified when the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> was constructed.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ad53ef959ff01976128e8b93e1c0b0ef5">More...</a><br /></td></tr>
 <tr class="separator:ad53ef959ff01976128e8b93e1c0b0ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a435342ecc09654d33d3634ba279f879e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e">SetPropertyValues</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&gt; &amp;propertyValues)=0</td></tr>
-<tr class="memdesc:a435342ecc09654d33d3634ba279f879e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the values of the property to <em>propertyValues</em>. The previous values are discarded.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e">More...</a><br /></td></tr>
+<tr class="memdesc:a435342ecc09654d33d3634ba279f879e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the values of the property to <em>propertyValues</em>. The previous values are discarded. <em>propertyValues</em> may not contain <em>nullptr</em>. <em>propertyValues</em> may not contain duplicates.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e">More...</a><br /></td></tr>
 <tr class="separator:a435342ecc09654d33d3634ba279f879e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f957c5112b05c1556b30a2083fb40ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a5f957c5112b05c1556b30a2083fb40ec">AppendPropertyValue</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue)=0</td></tr>
+<tr class="memdesc:a5f957c5112b05c1556b30a2083fb40ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds <em>propertyValue</em> as the last value to the property's collection of values. <em>propertyValue</em> may not be <em>nullptr</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a5f957c5112b05c1556b30a2083fb40ec">More...</a><br /></td></tr>
+<tr class="separator:a5f957c5112b05c1556b30a2083fb40ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af374c8c9e87c941d74850fb15d383360"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#af374c8c9e87c941d74850fb15d383360">RemovePropertyValue</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue)=0</td></tr>
+<tr class="memdesc:af374c8c9e87c941d74850fb15d383360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes <em>propertyValue</em> from the property's collection of values.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#af374c8c9e87c941d74850fb15d383360">More...</a><br /></td></tr>
+<tr class="separator:af374c8c9e87c941d74850fb15d383360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac227e8d0204487bbf366011dea5b2347"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ac227e8d0204487bbf366011dea5b2347">RemoveAllPropertyValues</a> ()=0</td></tr>
+<tr class="memdesc:ac227e8d0204487bbf366011dea5b2347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all values from the property's collection of values.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ac227e8d0204487bbf366011dea5b2347">More...</a><br /></td></tr>
+<tr class="separator:ac227e8d0204487bbf366011dea5b2347"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c15c888a3e1cc11b8f28d7b2fc1557"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ab5c15c888a3e1cc11b8f28d7b2fc1557">GetPropertyValue</a> () const =0</td></tr>
 <tr class="memdesc:ab5c15c888a3e1cc11b8f28d7b2fc1557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property's first value if the property has any values. Returns <em>nullptr</em> if the property has no values.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#ab5c15c888a3e1cc11b8f28d7b2fc1557">More...</a><br /></td></tr>
 <tr class="separator:ab5c15c888a3e1cc11b8f28d7b2fc1557"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,6 +155,44 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> interface provides access to the data of a single property of an SGF node. One property has 0-n values. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5f957c5112b05c1556b30a2083fb40ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f957c5112b05c1556b30a2083fb40ec">&#9670;&nbsp;</a></span>AppendPropertyValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LibSgfcPlusPlus::ISgfcProperty::AppendPropertyValue </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&#160;</td>
+          <td class="paramname"><em>propertyValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds <em>propertyValue</em> as the last value to the property's collection of values. <em>propertyValue</em> may not be <em>nullptr</em>. </p>
+<p>This setter makes no attempt to check the validity of the property's collection of values after adding <em>propertyValue</em>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e" title="Sets the values of the property to propertyValues. The previous values are discarded....">SetPropertyValues()</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em> or if <em>propertyValue</em> is already in the property's collection of values. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a21987a262be16cd05025de2436837ce8">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+
+</div>
+</div>
 <a id="a8e5e8135af18c7b0b8101d70f82aac94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e5e8135af18c7b0b8101d70f82aac94">&#9670;&nbsp;</a></span>GetPropertyName()</h2>
 
@@ -159,7 +220,7 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 <p>The property name cannot be changed after the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> has been constructed.</p>
 <p>All properties defined in the SGF standard have a name that consists of two uppercase letters. Application-specific properties not defined in the standard may not adhere to this restriction (although the standard advises against this). </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a629eb8b210edf2f695a922b836076e4c">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a1f049ab02c9f387451f2e38e09ad3f2c">LibSgfcPlusPlus::SgfcProperty</a>.</p>
 
 </div>
 </div>
@@ -189,7 +250,7 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 <p>Returns the type of the property. Returns <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> if the property is a custom property that is not defined in the SGF standard. </p>
 <p>The property type cannot be changed after the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> has been constructed. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a5209a8d413a0acaaac04de315524af98">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a2531ae87ffa6f8f9b492b8eba631725a">LibSgfcPlusPlus::SgfcProperty</a>.</p>
 
 </div>
 </div>
@@ -219,7 +280,7 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 <p>Returns the property's first value if the property has any values. Returns <em>nullptr</em> if the property has no values. </p>
 <p>This is a convenience method for properties that can have only a single value. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#ae5c41cf106f5b7e90463deb245a99e50">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a588a8996fe75eaad24ecea5d537681c6">LibSgfcPlusPlus::SgfcProperty</a>.</p>
 
 </div>
 </div>
@@ -249,7 +310,138 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 <p>Returns a collection with the values of the property. The collection is empty if the property has no values. The order in which values appear in the collection matches the order in which values were specified when the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> was constructed. </p>
 <p>The EBNF in the SGF standard says that at least one value must be present. This can be a value that has the value type "None", which is defined to be an empty string. The meaning for the file content is clear: Something like XY[] is possible. In the library's object model, however, a "None" value is translated to an empty collection. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a19213d526a9ba14ff27a634f5bbcf770">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a34bb0880f62c57c343a01e0bf8ea70af">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+
+</div>
+</div>
+<a id="aa9f27c905123626d5e930fa695209df9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9f27c905123626d5e930fa695209df9">&#9670;&nbsp;</a></span>GetTraits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="group__public-api.html#ga42be009625cd53c61f0cec57792548f9">SgfcPropertyTraits</a> LibSgfcPlusPlus::ISgfcProperty::GetTraits </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the property's traits. </p>
+<p>Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a0bf9a286afe56dfbc3531f4277e64757" title="An SgfcPropertyTraits value that denotes a property that has no traits.">SgfcConstants::PropertyTraitsNone</a> if the property has no traits.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#ga42be009625cd53c61f0cec57792548f9" title="An SgfcPropertyTraits value describes the traits of an ISgfcProperty object. The value is a combinati...">SgfcPropertyTraits</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#abcc003f47180e75f96a92fb0c4da7507">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+
+</div>
+</div>
+<a id="ae3dbe133ec98648fe45bd52f8729666b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3dbe133ec98648fe45bd52f8729666b">&#9670;&nbsp;</a></span>HasTrait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool LibSgfcPlusPlus::ISgfcProperty::HasTrait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#ga36d36275c69f2d6eed1be956d9e1d39d">SgfcPropertyTrait</a>&#160;</td>
+          <td class="paramname"><em>trait</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the property has the trait <em>trait</em>. Returns false if the property does not have the trait <em>trait</em>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#ga36d36275c69f2d6eed1be956d9e1d39d" title="SgfcPropertyTrait enumerates the individual traits that an ISgfcProperty object can have....">SgfcPropertyTrait</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a368a93f477223813be667bee197263bd">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+
+</div>
+</div>
+<a id="ac227e8d0204487bbf366011dea5b2347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac227e8d0204487bbf366011dea5b2347">&#9670;&nbsp;</a></span>RemoveAllPropertyValues()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LibSgfcPlusPlus::ISgfcProperty::RemoveAllPropertyValues </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all values from the property's collection of values. </p>
+<p>This setter makes no attempt to check the validity of the property's collection of values after removing all values.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e" title="Sets the values of the property to propertyValues. The previous values are discarded....">SetPropertyValues()</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#ad6581bdc13f2063e090161e8a7c70a03">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+
+</div>
+</div>
+<a id="af374c8c9e87c941d74850fb15d383360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af374c8c9e87c941d74850fb15d383360">&#9670;&nbsp;</a></span>RemovePropertyValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void LibSgfcPlusPlus::ISgfcProperty::RemovePropertyValue </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&#160;</td>
+          <td class="paramname"><em>propertyValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes <em>propertyValue</em> from the property's collection of values. </p>
+<p>This setter makes no attempt to check the validity of the property's collection of values after removing <em>propertyValue</em>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html#a435342ecc09654d33d3634ba279f879e" title="Sets the values of the property to propertyValues. The previous values are discarded....">SetPropertyValues()</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is not part of the property's collection of values. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a027cdff5ce1336d499322449af2aca11">LibSgfcPlusPlus::SgfcProperty</a>.</p>
 
 </div>
 </div>
@@ -277,10 +469,16 @@ virtual const <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size
 </table>
 </div><div class="memdoc">
 
-<p>Sets the values of the property to <em>propertyValues</em>. The previous values are discarded. </p>
-<p>This setter makes no attempt to check the validity of the property values. A last-ditch attempt at validation is made by SGFC later when the game tree is written to an SGF file or to an SGF content string, but this is unlikely to catch all mistakes. It is ultimately the responsibility of the library client to take care that the values are valid. The consequence of faulty values is that the library client might be unable to read in the game tree again after it has been written out. </p>
+<p>Sets the values of the property to <em>propertyValues</em>. The previous values are discarded. <em>propertyValues</em> may not contain <em>nullptr</em>. <em>propertyValues</em> may not contain duplicates. </p>
+<p>This setter makes no attempt to check the validity of the property values. A last-ditch attempt at validation is made by SGFC later when the game tree is written to an SGF file or to an SGF content string, but this is unlikely to catch all mistakes. It is ultimately the responsibility of the library client to take care that the values are valid. The consequence of faulty values is that the library client might be unable to read in the game tree again after it has been written out.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValues</em> contains a <em>nullptr</em> element, or if <em>propertyValues</em> contains duplicate elements. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#acd7bc5d9f270325b0611531ad6ff8be4">LibSgfcPlusPlus::SgfcProperty</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property.html#a237e955dde472bac3a9e48b2601afdd1">LibSgfcPlusPlus::SgfcProperty</a>.</p>
 
 </div>
 </div>

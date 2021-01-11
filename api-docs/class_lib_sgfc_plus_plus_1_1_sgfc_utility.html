@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html">SgfcUtility</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html">SgfcUtility</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -88,19 +88,21 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac70c763ef71cd1ceb6f7b2a3a0b89cd7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac70c763ef71cd1ceb6f7b2a3a0b89cd7">MapPropertyNameToPropertyType</a> (const std::string &amp;propertyName)</td></tr>
 <tr class="memdesc:ac70c763ef71cd1ceb6f7b2a3a0b89cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SgfcPropertyType value that corresponds to <em>propertyName</em>. Returns <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> if <em>propertyName</em> cannot be mapped, which is the case if <em>propertyName</em> is not the name of a property as defined by the SGF standard.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac70c763ef71cd1ceb6f7b2a3a0b89cd7">More...</a><br /></td></tr>
 <tr class="separator:ac70c763ef71cd1ceb6f7b2a3a0b89cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51722243fc5204219b615bde26ca0a61"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a51722243fc5204219b615bde26ca0a61">MapPropertyTypeToPropertyCategory</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType)</td></tr>
+<tr class="memdesc:a51722243fc5204219b615bde26ca0a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property category, as defined by the SGF standard, that corresponds to <em>propertyType</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a51722243fc5204219b615bde26ca0a61">More...</a><br /></td></tr>
+<tr class="separator:a51722243fc5204219b615bde26ca0a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4897286a22c488de7de680406804eb40"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#ga42be009625cd53c61f0cec57792548f9">SgfcPropertyTraits</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a4897286a22c488de7de680406804eb40">MapPropertyTypeToPropertyTraits</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType)</td></tr>
+<tr class="memdesc:a4897286a22c488de7de680406804eb40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the property traits, as defined by the SGF standard, that the property with property type <em>propertyType</em> has.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a4897286a22c488de7de680406804eb40">More...</a><br /></td></tr>
+<tr class="separator:a4897286a22c488de7de680406804eb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c8b22baa01c347f2c62edebd92339b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#ga3c2910dbdcf98ec5e930fe5b518829d7">SgfcNodeTraits</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a66c8b22baa01c347f2c62edebd92339b">MapPropertyCategoryToNodeTraits</a> (<a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a> propertyCategory)</td></tr>
+<tr class="memdesc:a66c8b22baa01c347f2c62edebd92339b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node trait, as defined by the SGF standard, that corresponds to <em>propertyCategory</em>. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#afdec80eabad744d960012570dd3d2b91" title="An SgfcNodeTraits value that denotes a node that has no traits.">SgfcConstants::NodeTraitsNone</a> if <em>propertyCategory</em> cannot be mapped.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a66c8b22baa01c347f2c62edebd92339b">More...</a><br /></td></tr>
+<tr class="separator:a66c8b22baa01c347f2c62edebd92339b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac885906b3fcc411a3788821380911c86"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#ga2c188a9d33131c58c39162299c847460">SgfcNumber</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac885906b3fcc411a3788821380911c86">MapGameTypeToNumberValue</a> (<a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType)</td></tr>
 <tr class="memdesc:ac885906b3fcc411a3788821380911c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SgfcNumber value that corresponds to the SgfcGameType value <em>gameType</em>. <em>gameType</em> must not be SgfcGameType::Unknown.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac885906b3fcc411a3788821380911c86">More...</a><br /></td></tr>
 <tr class="separator:ac885906b3fcc411a3788821380911c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb430d7674c2899e15f1147bf42e001a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aeb430d7674c2899e15f1147bf42e001a">MapNumberValueToGameType</a> (<a class="el" href="group__public-api.html#ga2c188a9d33131c58c39162299c847460">SgfcNumber</a> gameTypeAsNumber)</td></tr>
 <tr class="memdesc:aeb430d7674c2899e15f1147bf42e001a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the SgfcGameType value that corresponds to the Number value <em>gameTypeAsNumber</em>. Returns SgfcGameType::Unknown if the Number value cannot be mapped, which is the case if the Number value does not correspond to one of the known values defined by the SGF standard.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aeb430d7674c2899e15f1147bf42e001a">More...</a><br /></td></tr>
 <tr class="separator:aeb430d7674c2899e15f1147bf42e001a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b8b35092f13405880af180419b9283b"><td class="memItemLeft" align="right" valign="top"><a id="a4b8b35092f13405880af180419b9283b"></a>
-static <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a4b8b35092f13405880af180419b9283b">GetDefaultBoardSize</a> (<a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType)</td></tr>
-<tr class="memdesc:a4b8b35092f13405880af180419b9283b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the default board size for <em>gameType</em>, as specified by the SGF standard. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a> if the SGF standard does not specify a default board size for <em>gameType</em>. <br /></td></tr>
-<tr class="separator:a4b8b35092f13405880af180419b9283b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa113ee20b98263e9f80a532a61058ad2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aa113ee20b98263e9f80a532a61058ad2">IsBoardSizeValid</a> (<a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> boardSize, <a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType)</td></tr>
-<tr class="memdesc:aa113ee20b98263e9f80a532a61058ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if <em>boardSize</em> is a valid board size for <em>gameType</em>. Returns false if <em>boardSize</em> is not a valid board size for <em>gameType</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#aa113ee20b98263e9f80a532a61058ad2">More...</a><br /></td></tr>
-<tr class="separator:aa113ee20b98263e9f80a532a61058ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b9d8c0e0796ffa77acc90fd91c24d9a"><td class="memItemLeft" align="right" valign="top"><a id="a7b9d8c0e0796ffa77acc90fd91c24d9a"></a>
 static <a class="el" href="group__public-api.html#ga9c6f34d212170150f430da96e13bf5c7">SgfcExitCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a7b9d8c0e0796ffa77acc90fd91c24d9a">GetSgfcExitCodeFromMessageCollection</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">ISgfcMessage</a> &gt;&gt; &amp;messageCollection)</td></tr>
 <tr class="memdesc:a7b9d8c0e0796ffa77acc90fd91c24d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an SgfcExitCode value that represents the messages in <em>messageCollection</em>. See the documentation of the individual enumeration values for details. <br /></td></tr>
@@ -136,6 +138,10 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a599367daf5dec29272046a0a4ae707a1">SplitString</a> (const std::string &amp;string, char delimiter)</td></tr>
 <tr class="memdesc:a599367daf5dec29272046a0a4ae707a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits <em>string</em> into substrings using the single character <em>delimiter</em> as the delimiter. <br /></td></tr>
 <tr class="separator:a599367daf5dec29272046a0a4ae707a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b607207308a8faea682aeb3e83f3ed"><td class="memItemLeft" align="right" valign="top"><a id="ac7b607207308a8faea682aeb3e83f3ed"></a>
+static std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ac7b607207308a8faea682aeb3e83f3ed">SplitString</a> (const std::string &amp;string, const std::string &amp;delimiter)</td></tr>
+<tr class="memdesc:ac7b607207308a8faea682aeb3e83f3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits <em>string</em> into substrings using the string <em>delimiter</em> as the delimiter. <br /></td></tr>
+<tr class="separator:ac7b607207308a8faea682aeb3e83f3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1079a6dad9d809d1280cc9131d487ad"><td class="memItemLeft" align="right" valign="top"><a id="ab1079a6dad9d809d1280cc9131d487ad"></a>
 static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ab1079a6dad9d809d1280cc9131d487ad">CreateUuid</a> ()</td></tr>
 <tr class="memdesc:ab1079a6dad9d809d1280cc9131d487ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly generated random UUID. <br /></td></tr>
@@ -147,7 +153,7 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memdesc:a63a329a546999da1524f2111da9af2a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the file located at <em>path</em> in the filesystem if it exists. Does nothing if the file does not exist.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a63a329a546999da1524f2111da9af2a6">More...</a><br /></td></tr>
 <tr class="separator:a63a329a546999da1524f2111da9af2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09d185162a3bafddeaa91634a876c2ec"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a09d185162a3bafddeaa91634a876c2ec">AppendTextToFile</a> (const std::string &amp;path, const std::string &amp;string)</td></tr>
-<tr class="memdesc:a09d185162a3bafddeaa91634a876c2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <em>string</em> to the the file located at <em>path</em> in the filesystem. If the file does not exist it is created.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a09d185162a3bafddeaa91634a876c2ec">More...</a><br /></td></tr>
+<tr class="memdesc:a09d185162a3bafddeaa91634a876c2ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <em>string</em> to the file located at <em>path</em> in the filesystem. If the file does not exist it is created.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#a09d185162a3bafddeaa91634a876c2ec">More...</a><br /></td></tr>
 <tr class="separator:a09d185162a3bafddeaa91634a876c2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2060bb1113ea22521553be1d48382e2"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ab2060bb1113ea22521553be1d48382e2">ReadFileContent</a> (const std::string &amp;path)</td></tr>
 <tr class="memdesc:ab2060bb1113ea22521553be1d48382e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the entire content of the file located at <em>path</em> in the filesystem into memory and returns the content as a string.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#ab2060bb1113ea22521553be1d48382e2">More...</a><br /></td></tr>
@@ -190,7 +196,7 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 </table>
 </div><div class="memdoc">
 
-<p>Appends <em>string</em> to the the file located at <em>path</em> in the filesystem. If the file does not exist it is created. </p>
+<p>Appends <em>string</em> to the file located at <em>path</em> in the filesystem. If the file does not exist it is created. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::runtime_error</td><td>Is thrown if the file cannot be opened for writing for any reason. </td></tr>
@@ -399,45 +405,6 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 </div>
 </div>
-<a id="aa113ee20b98263e9f80a532a61058ad2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa113ee20b98263e9f80a532a61058ad2">&#9670;&nbsp;</a></span>IsBoardSizeValid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool LibSgfcPlusPlus::SgfcUtility::IsBoardSizeValid </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a>&#160;</td>
-          <td class="paramname"><em>boardSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a>&#160;</td>
-          <td class="paramname"><em>gameType</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns true if <em>boardSize</em> is a valid board size for <em>gameType</em>. Returns false if <em>boardSize</em> is not a valid board size for <em>gameType</em>. </p>
-<p>A board size is invalid if it violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details. </p>
-
-</div>
-</div>
 <a id="a1af82426fb2a58b7832538433c6e47f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1af82426fb2a58b7832538433c6e47f8">&#9670;&nbsp;</a></span>MapArgumentTypeToCmdlineOption()</h2>
 
@@ -537,6 +504,35 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 </div>
 </div>
+<a id="a66c8b22baa01c347f2c62edebd92339b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c8b22baa01c347f2c62edebd92339b">&#9670;&nbsp;</a></span>MapPropertyCategoryToNodeTraits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#ga3c2910dbdcf98ec5e930fe5b518829d7">SgfcNodeTraits</a> LibSgfcPlusPlus::SgfcUtility::MapPropertyCategoryToNodeTraits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a>&#160;</td>
+          <td class="paramname"><em>propertyCategory</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the node trait, as defined by the SGF standard, that corresponds to <em>propertyCategory</em>. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#afdec80eabad744d960012570dd3d2b91" title="An SgfcNodeTraits value that denotes a node that has no traits.">SgfcConstants::NodeTraitsNone</a> if <em>propertyCategory</em> cannot be mapped. </p>
+<p>This is a convenience function that looks up <em>propertyCategory</em> in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a98ef8e0d5a307dd35bc0bc50151d64c1" title="Maps values from the enumeration SgfcPropertyCategory to values from the enumeration SgfcNodeTrait.">SgfcPrivateConstants::PropertyCategoryToNodeTraitMap</a>. </p>
+
+</div>
+</div>
 <a id="ac70c763ef71cd1ceb6f7b2a3a0b89cd7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac70c763ef71cd1ceb6f7b2a3a0b89cd7">&#9670;&nbsp;</a></span>MapPropertyNameToPropertyType()</h2>
 
@@ -563,6 +559,41 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 
 <p>Returns the SgfcPropertyType value that corresponds to <em>propertyName</em>. Returns <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a> if <em>propertyName</em> cannot be mapped, which is the case if <em>propertyName</em> is not the name of a property as defined by the SGF standard. </p>
 <p>This is a convenience function that looks up <em>propertyName</em> in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a18bd31d38e4e87adfba8906f403bb9b1" title="Maps property names as defined by the SGF standard to values from the enumeration SgfcPropertyType.">SgfcConstants::PropertyNameToPropertyTypeMap</a>. </p>
+
+</div>
+</div>
+<a id="a51722243fc5204219b615bde26ca0a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51722243fc5204219b615bde26ca0a61">&#9670;&nbsp;</a></span>MapPropertyTypeToPropertyCategory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#ga5fa9f7d6335605ed50e8832d86fc573e">SgfcPropertyCategory</a> LibSgfcPlusPlus::SgfcUtility::MapPropertyTypeToPropertyCategory </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td>
+          <td class="paramname"><em>propertyType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the property category, as defined by the SGF standard, that corresponds to <em>propertyType</em>. </p>
+<p>This is a convenience function that looks up <em>propertyType</em> in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a09feba41493d5af59d9d2d45a550a6c9" title="Maps values from the enumeration SgfcPropertyType to values from the enumeration SgfcPropertyCategory...">SgfcConstants::PropertyTypeToPropertyCategoryMap</a>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if there is no mapping, i.e. if <em>propertyType</em> does not appear in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a09feba41493d5af59d9d2d45a550a6c9" title="Maps values from the enumeration SgfcPropertyType to values from the enumeration SgfcPropertyCategory...">SgfcConstants::PropertyTypeToPropertyCategoryMap</a>. If this occurs it indicates a programming error in the library, i.e. an SgfcPropertyType value was not added to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a09feba41493d5af59d9d2d45a550a6c9" title="Maps values from the enumeration SgfcPropertyType to values from the enumeration SgfcPropertyCategory...">SgfcConstants::PropertyTypeToPropertyCategoryMap</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -595,6 +626,41 @@ static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if there is no mapping, i.e. if <em>propertyType</em> does not appear in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa997033c36f6fd61e3aa383ae82fb33c" title="Maps values from the enumeration SgfcPropertyType to property names as defined by the SGF standard....">SgfcConstants::PropertyTypeToPropertyNameMap</a>. This should only occur if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>, because obviously that property type has no corresponding property name. Otherwise this indicates a programming error in the library, i.e. an SgfcPropertyType value was not added to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa997033c36f6fd61e3aa383ae82fb33c" title="Maps values from the enumeration SgfcPropertyType to property names as defined by the SGF standard....">SgfcConstants::PropertyTypeToPropertyNameMap</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4897286a22c488de7de680406804eb40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4897286a22c488de7de680406804eb40">&#9670;&nbsp;</a></span>MapPropertyTypeToPropertyTraits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#ga42be009625cd53c61f0cec57792548f9">SgfcPropertyTraits</a> LibSgfcPlusPlus::SgfcUtility::MapPropertyTypeToPropertyTraits </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td>
+          <td class="paramname"><em>propertyType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the property traits, as defined by the SGF standard, that the property with property type <em>propertyType</em> has. </p>
+<p>This is a convenience function that looks up <em>propertyType</em> in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a6ac048432e50b83645d80f8d38c00c57" title="Maps values from the enumeration SgfcPropertyType to SgfcPropertyTraits values.">SgfcConstants::PropertyTypeToPropertyTraitsMap</a>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if there is no mapping, i.e. if <em>propertyType</em> does not appear in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a6ac048432e50b83645d80f8d38c00c57" title="Maps values from the enumeration SgfcPropertyType to SgfcPropertyTraits values.">SgfcConstants::PropertyTypeToPropertyTraitsMap</a>. If this occurs it indicates a programming error in the library, i.e. an SgfcPropertyType value was not added to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a6ac048432e50b83645d80f8d38c00c57" title="Maps values from the enumeration SgfcPropertyType to SgfcPropertyTraits values.">SgfcConstants::PropertyTypeToPropertyTraitsMap</a>. </td></tr>
   </table>
   </dd>
 </dl>

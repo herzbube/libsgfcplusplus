@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,12 +63,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -87,6 +88,9 @@ Public Member Functions</h2></td></tr>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#a7fd744cc5310596df1a1353f7b80edb2">IsSquare</a> () const</td></tr>
 <tr class="memdesc:a7fd744cc5310596df1a1353f7b80edb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the board size represents a square board. Returns false if the board size represents a rectangular board. <br /></td></tr>
 <tr class="separator:a7fd744cc5310596df1a1353f7b80edb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e63f29ca4c47b529a004546e95ff97"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#a25e63f29ca4c47b529a004546e95ff97">IsValid</a> (<a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType) const</td></tr>
+<tr class="memdesc:a25e63f29ca4c47b529a004546e95ff97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if <em>boardSize</em> is a valid board size for <em>gameType</em>. Returns false if <em>boardSize</em> is not a valid board size for <em>gameType</em>.  <a href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#a25e63f29ca4c47b529a004546e95ff97">More...</a><br /></td></tr>
+<tr class="separator:a25e63f29ca4c47b529a004546e95ff97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713168fd29601330a785a6d4d94c27b4"><td class="memItemLeft" align="right" valign="top"><a id="a713168fd29601330a785a6d4d94c27b4"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#a713168fd29601330a785a6d4d94c27b4">operator==</a> (const <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> &amp;other) const</td></tr>
 <tr class="memdesc:a713168fd29601330a785a6d4d94c27b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the number of columns and rows is the same for the current <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> object and for <em>other</em>. Returns false if either the number of columns or rows or both is different. <br /></td></tr>
@@ -95,6 +99,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stru
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#ad428bf010b37c7ae5b41e71a75dee250">operator!=</a> (const <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> &amp;other) const</td></tr>
 <tr class="memdesc:ad428bf010b37c7ae5b41e71a75dee250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if either the number of columns or rows or both is different for the current <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> object and for <em>other</em>. Returns false if the number of columns and rows is the same. <br /></td></tr>
 <tr class="separator:ad428bf010b37c7ae5b41e71a75dee250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a41741b1e492e4095fb8a4041b988cf27"><td class="memItemLeft" align="right" valign="top"><a id="a41741b1e492e4095fb8a4041b988cf27"></a>
+static <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html#a41741b1e492e4095fb8a4041b988cf27">GetDefaultBoardSize</a> (<a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType)</td></tr>
+<tr class="memdesc:a41741b1e492e4095fb8a4041b988cf27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the default board size for <em>gameType</em>, as specified by the SGF standard. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a> if the SGF standard does not specify a default board size for <em>gameType</em>. <br /></td></tr>
+<tr class="separator:a41741b1e492e4095fb8a4041b988cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -110,7 +121,29 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> struct is a simple type that can hold the value of <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a>. The constant <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a24fcc69699c52bb7ff2ab744c3d311c4" title="A board size value denoting &quot;no board size&quot;.">SgfcConstants::BoardSizeNone</a> is used to indicate that <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> does not exist on a game tree's root node. </p>
 <p>The SGF standard specifies that for square boards the SGF property must hold only a single SgfcNumber value. <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ....">SgfcBoardSize</a> is not that flexible, it always stores two values. In case of a square board the two values hold the same numeric value. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a25e63f29ca4c47b529a004546e95ff97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25e63f29ca4c47b529a004546e95ff97">&#9670;&nbsp;</a></span>IsValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool LibSgfcPlusPlus::SgfcBoardSize::IsValid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a>&#160;</td>
+          <td class="paramname"><em>gameType</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true if <em>boardSize</em> is a valid board size for <em>gameType</em>. Returns false if <em>boardSize</em> is not a valid board size for <em>gameType</em>. </p>
+<p>A board size is invalid if it violates the constraints defined by the SGF standard. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a804289f40350129e5c0468ba1a178556" title="A board size value denoting &quot;invalid board size&quot;.">SgfcConstants::BoardSizeInvalid</a> for details. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>/Users/patrick/dev/libsgfcplusplus/include/<a class="el" href="_sgfc_board_size_8h_source.html">SgfcBoardSize.h</a></li>
 <li>/Users/patrick/dev/libsgfcplusplus/src/game/SgfcBoardSize.cpp</li>
 </ul>

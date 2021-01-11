@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -76,13 +76,14 @@ $(function() {
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#aab8f619a7b8dba8ff1f196aad2fd2430">AppendGame</a>(std::shared_ptr&lt; ISgfcGame &gt; game)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a39fc13bd25dfbe8408f45cc919e05fb9">DebugPrintToConsole</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312">GetGames</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a3d9e5e739461d8af9d6b3c1ab67b9591">IsEmpty</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a6f404f1ff4359d43d621264f4ff06634">ISgfcDocument</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a43fdb669b30ec113705b009f7c31a1c0">RemoveAllGames</a>()=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#aff1d9d81f1f5a8e6b6d2c1bd6fd7db12">RemoveGame</a>(std::shared_ptr&lt; ISgfcGame &gt; game)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ac482ed489c2328bc67f85668e39955d6">SetGames</a>(const std::vector&lt; std::shared_ptr&lt; ISgfcGame &gt;&gt; &amp;games)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a14415a7e8e0e3f902e542a66968dd4ef">~ISgfcDocument</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ab0d314a7d599cde2d40538edc7eb9141">GetGame</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312">GetGames</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a3d9e5e739461d8af9d6b3c1ab67b9591">IsEmpty</a>() const =0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a6f404f1ff4359d43d621264f4ff06634">ISgfcDocument</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a43fdb669b30ec113705b009f7c31a1c0">RemoveAllGames</a>()=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#aff1d9d81f1f5a8e6b6d2c1bd6fd7db12">RemoveGame</a>(std::shared_ptr&lt; ISgfcGame &gt; game)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ac482ed489c2328bc67f85668e39955d6">SetGames</a>(const std::vector&lt; std::shared_ptr&lt; ISgfcGame &gt;&gt; &amp;games)=0</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a14415a7e8e0e3f902e542a66968dd4ef">~ISgfcDocument</a>()</td><td class="entry"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">LibSgfcPlusPlus::ISgfcDocument</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

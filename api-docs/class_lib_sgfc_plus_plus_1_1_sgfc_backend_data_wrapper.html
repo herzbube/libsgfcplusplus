@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">SgfcBackendDataWrapper</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html">SgfcBackendDataWrapper</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -85,11 +85,11 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a720ee4248d675e10bbb8ea95494f6ef6"><td class="memItemLeft" align="right" valign="top"><a id="a720ee4248d675e10bbb8ea95494f6ef6"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#a720ee4248d675e10bbb8ea95494f6ef6">SgfcBackendDataWrapper</a> ()</td></tr>
-<tr class="memdesc:a720ee4248d675e10bbb8ea95494f6ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html" title="The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...">SgfcBackendDataWrapper</a> object that wraps an empty SGFInfo data structure. The data state is <a class="el" href="group__internals.html#gga571441add19dc4c28e8f7cdfcf8b0c66a5111e24c1ecc6266ce0de4b4dc42033b" title="The SGFInfo data structure is allocated and empty. It contains neither a raw file buffer with SGF con...">SgfcBackendDataState::NotLoaded</a>. <br /></td></tr>
+<tr class="memdesc:a720ee4248d675e10bbb8ea95494f6ef6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html" title="The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...">SgfcBackendDataWrapper</a> object that wraps an empty SGFInfo data structure. SGFC save operations that use the SGFInfo object will write data to a memory buffer. The data state is <a class="el" href="group__internals.html#gga571441add19dc4c28e8f7cdfcf8b0c66a5111e24c1ecc6266ce0de4b4dc42033b" title="The SGFInfo data structure is allocated and empty. It contains neither a raw file buffer with SGF con...">SgfcBackendDataState::NotLoaded</a>. <br /></td></tr>
 <tr class="separator:a720ee4248d675e10bbb8ea95494f6ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafe52d03e9f3e177313cad6a5514f8ce"><td class="memItemLeft" align="right" valign="top"><a id="aafe52d03e9f3e177313cad6a5514f8ce"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#aafe52d03e9f3e177313cad6a5514f8ce">SgfcBackendDataWrapper</a> (const std::string &amp;sgfContent)</td></tr>
-<tr class="memdesc:aafe52d03e9f3e177313cad6a5514f8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html" title="The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...">SgfcBackendDataWrapper</a> object that wraps an SGFInfo data structure that contains a file buffer with a duplicate of the content of <em>sgfContent</em>. The data state is <a class="el" href="group__internals.html#gga571441add19dc4c28e8f7cdfcf8b0c66a190f2b897624ed5bf6cc6dd14bc5e10a" title="The SGFInfo data structure is allocated and contains a raw file buffer with SGF content,...">SgfcBackendDataState::PartiallyLoaded</a>. <br /></td></tr>
+<tr class="memdesc:aafe52d03e9f3e177313cad6a5514f8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html" title="The SgfcBackendDataWrapper class is a wrapper around the SGFInfo data structure that is defined by th...">SgfcBackendDataWrapper</a> object that wraps an SGFInfo data structure that contains a file buffer with a duplicate of the content of <em>sgfContent</em>. SGFC save operations that use the SGFInfo object will write data to a memory buffer. The data state is <a class="el" href="group__internals.html#gga571441add19dc4c28e8f7cdfcf8b0c66a190f2b897624ed5bf6cc6dd14bc5e10a" title="The SGFInfo data structure is allocated and contains a raw file buffer with SGF content,...">SgfcBackendDataState::PartiallyLoaded</a>. <br /></td></tr>
 <tr class="separator:aafe52d03e9f3e177313cad6a5514f8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2806947d8ba2f981808cd7b6b6ee020"><td class="memItemLeft" align="right" valign="top"><a id="ae2806947d8ba2f981808cd7b6b6ee020"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_backend_data_wrapper.html#ae2806947d8ba2f981808cd7b6b6ee020">~SgfcBackendDataWrapper</a> ()</td></tr>

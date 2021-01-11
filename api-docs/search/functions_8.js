@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['loadsgfcontent_880',['LoadSgfContent',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_command_line.html#a571319d546062eb3de65a015e7d0859a',1,'LibSgfcPlusPlus::ISgfcCommandLine::LoadSgfContent()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html#adaf86dfd8d27c8fa43f4bda19ba72e68',1,'LibSgfcPlusPlus::SgfcBackendController::LoadSgfContent()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#ad23d1c83d63b4521bb047f1b4b2de851',1,'LibSgfcPlusPlus::SgfcCommandLine::LoadSgfContent()']]],
-  ['loadsgffile_881',['LoadSgfFile',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_command_line.html#adf1241357d749d386ecae36760d102e7',1,'LibSgfcPlusPlus::ISgfcCommandLine::LoadSgfFile()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_backend_controller.html#ac398015e789f88559703325cbc4e6414',1,'LibSgfcPlusPlus::SgfcBackendController::LoadSgfFile()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html#a6f152449080718280fcbd4a53508daca',1,'LibSgfcPlusPlus::SgfcCommandLine::LoadSgfFile()']]]
+  ['joinpathcomponents_1228',['JoinPathComponents',['../class_lib_sgfc_plus_plus_1_1_sgfc_utility.html#afcbe812b6103a4929e749685134d2e1e',1,'LibSgfcPlusPlus::SgfcUtility']]]
 ];

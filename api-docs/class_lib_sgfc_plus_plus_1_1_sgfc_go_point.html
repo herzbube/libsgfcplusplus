@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html">SgfcGoPoint</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html">SgfcGoPoint</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -91,36 +91,36 @@ Inheritance diagram for LibSgfcPlusPlus::SgfcGoPoint:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae9e5e5c8931b830cf658e49e974d007e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ae9e5e5c8931b830cf658e49e974d007e">SgfcGoPoint</a> (const std::string &amp;pointValue, <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> boardSize)</td></tr>
-<tr class="memdesc:ae9e5e5c8931b830cf658e49e974d007e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html" title="The SgfcGoPoint class provides an implementation of the ISgfcGoPoint interface. See the interface hea...">SgfcGoPoint</a> object. The object refers to the point specified by <em>pointValue</em>. <em>boardSize</em> indicates the size of the Go board that the Go point is located on.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ae9e5e5c8931b830cf658e49e974d007e">More...</a><br /></td></tr>
-<tr class="separator:ae9e5e5c8931b830cf658e49e974d007e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ad41f248a79bc15d994aec191a98e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#af1ad41f248a79bc15d994aec191a98e1">SgfcGoPoint</a> (const <a class="el" href="group__public-api.html#ga00da61ad1def08ed43f025ba92748c5a">SgfcPoint</a> &amp;pointValue, <a class="el" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> boardSize)</td></tr>
+<tr class="memdesc:af1ad41f248a79bc15d994aec191a98e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html" title="The SgfcGoPoint class provides an implementation of the ISgfcGoPoint interface. See the interface hea...">SgfcGoPoint</a> object. The object refers to the point specified by <em>pointValue</em>. <em>boardSize</em> indicates the size of the Go board that the Go point is located on.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#af1ad41f248a79bc15d994aec191a98e1">More...</a><br /></td></tr>
+<tr class="separator:af1ad41f248a79bc15d994aec191a98e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eb30e609300e3eec749fbbc7d32851d"><td class="memItemLeft" align="right" valign="top"><a id="a1eb30e609300e3eec749fbbc7d32851d"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a1eb30e609300e3eec749fbbc7d32851d">~SgfcGoPoint</a> ()</td></tr>
 <tr class="memdesc:a1eb30e609300e3eec749fbbc7d32851d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html" title="The SgfcGoPoint class provides an implementation of the ISgfcGoPoint interface. See the interface hea...">SgfcGoPoint</a> object. <br /></td></tr>
 <tr class="separator:a1eb30e609300e3eec749fbbc7d32851d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa95e5deef24925d1e31326375de096f"><td class="memItemLeft" align="right" valign="top"><a id="afa95e5deef24925d1e31326375de096f"></a>
-virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#afa95e5deef24925d1e31326375de096f">GetXPosition</a> (<a class="el" href="group__public-api.html#gaa58b344213ba50b611c7b80aa17d7561">SgfcCoordinateSystem</a> coordinateSystem) const</td></tr>
-<tr class="memdesc:afa95e5deef24925d1e31326375de096f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 1-based numeric x-axis position of the point in the desired coordinate system <em>coordinateSystem</em>. <br /></td></tr>
-<tr class="separator:afa95e5deef24925d1e31326375de096f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadaefa4aff9ec0c38b31a5c805ed923"><td class="memItemLeft" align="right" valign="top"><a id="abadaefa4aff9ec0c38b31a5c805ed923"></a>
-virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#abadaefa4aff9ec0c38b31a5c805ed923">GetYPosition</a> (<a class="el" href="group__public-api.html#gaa58b344213ba50b611c7b80aa17d7561">SgfcCoordinateSystem</a> coordinateSystem) const</td></tr>
-<tr class="memdesc:abadaefa4aff9ec0c38b31a5c805ed923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 1-based numeric y-axis position of the point in the desired coordinate system <em>coordinateSystem</em>. <br /></td></tr>
-<tr class="separator:abadaefa4aff9ec0c38b31a5c805ed923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a061dc838e2875276c40a698e7c01a13c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a061dc838e2875276c40a698e7c01a13c">HasPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const</td></tr>
-<tr class="memdesc:a061dc838e2875276c40a698e7c01a13c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a4d0122057c6e8be29c6f5dc7f200bd6d" title="Returns the position of the point as a single string value in the desired notation goPointNotation....">GetPosition()</a>, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#afa95e5deef24925d1e31326375de096f" title="Returns the 1-based numeric x-axis position of the point in the desired coordinate system coordinateS...">GetXPosition()</a> and <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#abadaefa4aff9ec0c38b31a5c805ed923" title="Returns the 1-based numeric y-axis position of the point in the desired coordinate system coordinateS...">GetYPosition()</a> return a non-empty string for the desired notation <em>goPointNotation</em>. Returns false if these methods return an empty string.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a061dc838e2875276c40a698e7c01a13c">More...</a><br /></td></tr>
-<tr class="separator:a061dc838e2875276c40a698e7c01a13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d0122057c6e8be29c6f5dc7f200bd6d"><td class="memItemLeft" align="right" valign="top"><a id="a4d0122057c6e8be29c6f5dc7f200bd6d"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a4d0122057c6e8be29c6f5dc7f200bd6d">GetPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const</td></tr>
-<tr class="memdesc:a4d0122057c6e8be29c6f5dc7f200bd6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the point as a single string value in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a061dc838e2875276c40a698e7c01a13c" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
-<tr class="separator:a4d0122057c6e8be29c6f5dc7f200bd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2019596086e45ef2d2587803b859e003"><td class="memItemLeft" align="right" valign="top"><a id="a2019596086e45ef2d2587803b859e003"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a2019596086e45ef2d2587803b859e003">GetXPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const</td></tr>
-<tr class="memdesc:a2019596086e45ef2d2587803b859e003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the x-axis compound of the point's position in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a061dc838e2875276c40a698e7c01a13c" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
-<tr class="separator:a2019596086e45ef2d2587803b859e003"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1fdbfef507850b2e243a3f69bcc4094"><td class="memItemLeft" align="right" valign="top"><a id="ad1fdbfef507850b2e243a3f69bcc4094"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ad1fdbfef507850b2e243a3f69bcc4094">GetYPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const</td></tr>
-<tr class="memdesc:ad1fdbfef507850b2e243a3f69bcc4094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the y-axis compound of the point's position in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a061dc838e2875276c40a698e7c01a13c" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
-<tr class="separator:ad1fdbfef507850b2e243a3f69bcc4094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4a5665a293c12466d01074554d10cca"><td class="memItemLeft" align="right" valign="top"><a id="af4a5665a293c12466d01074554d10cca"></a>
+virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#af4a5665a293c12466d01074554d10cca">GetXPosition</a> (<a class="el" href="group__public-api.html#gaa58b344213ba50b611c7b80aa17d7561">SgfcCoordinateSystem</a> coordinateSystem) const override</td></tr>
+<tr class="memdesc:af4a5665a293c12466d01074554d10cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 1-based numeric x-axis position of the point in the desired coordinate system <em>coordinateSystem</em>. <br /></td></tr>
+<tr class="separator:af4a5665a293c12466d01074554d10cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7fe268e8ddd45ae62a6a25331ab6ab4"><td class="memItemLeft" align="right" valign="top"><a id="ab7fe268e8ddd45ae62a6a25331ab6ab4"></a>
+virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab7fe268e8ddd45ae62a6a25331ab6ab4">GetYPosition</a> (<a class="el" href="group__public-api.html#gaa58b344213ba50b611c7b80aa17d7561">SgfcCoordinateSystem</a> coordinateSystem) const override</td></tr>
+<tr class="memdesc:ab7fe268e8ddd45ae62a6a25331ab6ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 1-based numeric y-axis position of the point in the desired coordinate system <em>coordinateSystem</em>. <br /></td></tr>
+<tr class="separator:ab7fe268e8ddd45ae62a6a25331ab6ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dce660c6338f182857885dc6b7a1235"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a6dce660c6338f182857885dc6b7a1235">HasPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const override</td></tr>
+<tr class="memdesc:a6dce660c6338f182857885dc6b7a1235"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab896c071021c8861bbaa68716411411a" title="Returns the position of the point as a single string value in the desired notation goPointNotation....">GetPosition()</a>, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#af4a5665a293c12466d01074554d10cca" title="Returns the 1-based numeric x-axis position of the point in the desired coordinate system coordinateS...">GetXPosition()</a> and <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab7fe268e8ddd45ae62a6a25331ab6ab4" title="Returns the 1-based numeric y-axis position of the point in the desired coordinate system coordinateS...">GetYPosition()</a> return a non-empty string for the desired notation <em>goPointNotation</em>. Returns false if these methods return an empty string.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a6dce660c6338f182857885dc6b7a1235">More...</a><br /></td></tr>
+<tr class="separator:a6dce660c6338f182857885dc6b7a1235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab896c071021c8861bbaa68716411411a"><td class="memItemLeft" align="right" valign="top"><a id="ab896c071021c8861bbaa68716411411a"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab896c071021c8861bbaa68716411411a">GetPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const override</td></tr>
+<tr class="memdesc:ab896c071021c8861bbaa68716411411a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the point as a single string value in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a6dce660c6338f182857885dc6b7a1235" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
+<tr class="separator:ab896c071021c8861bbaa68716411411a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c9de26d29aa39059ab4f8f609d87d38"><td class="memItemLeft" align="right" valign="top"><a id="a7c9de26d29aa39059ab4f8f609d87d38"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a7c9de26d29aa39059ab4f8f609d87d38">GetXPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const override</td></tr>
+<tr class="memdesc:a7c9de26d29aa39059ab4f8f609d87d38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the x-axis compound of the point's position in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a6dce660c6338f182857885dc6b7a1235" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
+<tr class="separator:a7c9de26d29aa39059ab4f8f609d87d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4debfb5bcd0bcea6cb9e02f61fbb77"><td class="memItemLeft" align="right" valign="top"><a id="acf4debfb5bcd0bcea6cb9e02f61fbb77"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#acf4debfb5bcd0bcea6cb9e02f61fbb77">GetYPosition</a> (<a class="el" href="group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea">SgfcGoPointNotation</a> goPointNotation) const override</td></tr>
+<tr class="memdesc:acf4debfb5bcd0bcea6cb9e02f61fbb77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the y-axis compound of the point's position in the desired notation <em>goPointNotation</em>. Returns an empty string if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a6dce660c6338f182857885dc6b7a1235" title="Returns true if GetPosition(), GetXPosition() and GetYPosition() return a non-empty string for the de...">HasPosition()</a> returns false for <em>goPointNotation</em>. <br /></td></tr>
+<tr class="separator:acf4debfb5bcd0bcea6cb9e02f61fbb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html">LibSgfcPlusPlus::ISgfcGoPoint</a></td></tr>
 <tr class="memitem:a2e86b16e867ae5411c263b1af4c7155c inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point"><td class="memItemLeft" align="right" valign="top"><a id="a2e86b16e867ae5411c263b1af4c7155c"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html#a2e86b16e867ae5411c263b1af4c7155c">ISgfcGoPoint</a> ()</td></tr>
@@ -134,8 +134,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html" title="The SgfcGoPoint class provides an implementation of the ISgfcGoPoint interface. See the interface hea...">SgfcGoPoint</a> class provides an implementation of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html" title="The ISgfcGoPoint interface represents a point on a Go board.">ISgfcGoPoint</a> interface. See the interface header file for documentation. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae9e5e5c8931b830cf658e49e974d007e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9e5e5c8931b830cf658e49e974d007e">&#9670;&nbsp;</a></span>SgfcGoPoint()</h2>
+<a id="af1ad41f248a79bc15d994aec191a98e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ad41f248a79bc15d994aec191a98e1">&#9670;&nbsp;</a></span>SgfcGoPoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -143,7 +143,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">LibSgfcPlusPlus::SgfcGoPoint::SgfcGoPoint </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__public-api.html#ga00da61ad1def08ed43f025ba92748c5a">SgfcPoint</a> &amp;&#160;</td>
           <td class="paramname"><em>pointValue</em>, </td>
         </tr>
         <tr>
@@ -164,7 +164,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p><em>pointValue</em> can be given in any one of the notations enumerated in SgfcGoPointNotation.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>boardSize</em> refers to a board that is not square, a board with size smaller than the minimum required by the SGF standard (<a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#ae64444c8c0861c0a1d42f669c6bb3f10" title="The minimum board size that is required for SgfcPropertyType::SZ.">SgfcConstants::BoardSizeMinimum</a>), or a board with size larger than the maximum allowed by the SGF standard (<a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a82b250d156c8b50ba589dfd84e728ed9" title="The maximum board size that is allowed for SgfcPropertyType::SZ if the game type is SgfcGameType::Go.">SgfcConstants::BoardSizeMaximumGo</a>). Is also thrown if <em>pointValue</em> is not given in one of the notations enumerated in SgfcGoPointNotation, or if <em>pointValue</em> violates one of the restrictions imposed by the used notation (e.g. y-axis compound larger than 25 when <a class="el" href="group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaafb1b6e23a3767d2a31ef7899e6dd3f1e" title="The &quot;A1&quot; hybrid notation for representing a Go Point location. Example: &quot;F17&quot;.">SgfcGoPointNotation::Hybrid</a> is used), or if <em>pointValue</em> refers to an invalid location on the board (e.g. an x-axis or y-axis location that exceeds the board size specified by <em>boardSize</em>, or a compound &lt; 1 when <a class="el" href="group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa666df2f48cd16f38212c093999248769" title="The &quot;1-1&quot; figure notation for representing a Go Point location. Example: &quot;6-17&quot;.">SgfcGoPointNotation::Figure</a> is used). </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>boardSize</em> refers to a board with size smaller than the minimum required by the SGF standard (<a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#ae64444c8c0861c0a1d42f669c6bb3f10" title="The minimum board size that is required for SgfcPropertyType::SZ.">SgfcConstants::BoardSizeMinimum</a>), or a board with size larger than the maximum allowed by the SGF standard (<a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a82b250d156c8b50ba589dfd84e728ed9" title="The maximum board size that is allowed for SgfcPropertyType::SZ if the game type is SgfcGameType::Go.">SgfcConstants::BoardSizeMaximumGo</a>). Is also thrown if <em>pointValue</em> is not given in one of the notations enumerated in SgfcGoPointNotation, or if <em>pointValue</em> violates one of the restrictions imposed by the used notation (e.g. y-axis compound larger than 25 when <a class="el" href="group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaafb1b6e23a3767d2a31ef7899e6dd3f1e" title="The &quot;A1&quot; hybrid notation for representing a Go Point location. Example: &quot;F17&quot;.">SgfcGoPointNotation::Hybrid</a> is used), or if <em>pointValue</em> refers to an invalid location on the board (e.g. an x-axis or y-axis location that exceeds the board size specified by <em>boardSize</em>, or a compound &lt; 1 when <a class="el" href="group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa666df2f48cd16f38212c093999248769" title="The &quot;1-1&quot; figure notation for representing a Go Point location. Example: &quot;6-17&quot;.">SgfcGoPointNotation::Figure</a> is used). </td></tr>
   </table>
   </dd>
 </dl>
@@ -172,8 +172,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a061dc838e2875276c40a698e7c01a13c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a061dc838e2875276c40a698e7c01a13c">&#9670;&nbsp;</a></span>HasPosition()</h2>
+<a id="a6dce660c6338f182857885dc6b7a1235"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dce660c6338f182857885dc6b7a1235">&#9670;&nbsp;</a></span>HasPosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,12 +191,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns true if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#a4d0122057c6e8be29c6f5dc7f200bd6d" title="Returns the position of the point as a single string value in the desired notation goPointNotation....">GetPosition()</a>, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#afa95e5deef24925d1e31326375de096f" title="Returns the 1-based numeric x-axis position of the point in the desired coordinate system coordinateS...">GetXPosition()</a> and <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#abadaefa4aff9ec0c38b31a5c805ed923" title="Returns the 1-based numeric y-axis position of the point in the desired coordinate system coordinateS...">GetYPosition()</a> return a non-empty string for the desired notation <em>goPointNotation</em>. Returns false if these methods return an empty string. </p>
+<p>Returns true if <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab896c071021c8861bbaa68716411411a" title="Returns the position of the point as a single string value in the desired notation goPointNotation....">GetPosition()</a>, <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#af4a5665a293c12466d01074554d10cca" title="Returns the 1-based numeric x-axis position of the point in the desired coordinate system coordinateS...">GetXPosition()</a> and <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html#ab7fe268e8ddd45ae62a6a25331ab6ab4" title="Returns the 1-based numeric y-axis position of the point in the desired coordinate system coordinateS...">GetYPosition()</a> return a non-empty string for the desired notation <em>goPointNotation</em>. Returns false if these methods return an empty string. </p>
 <p>The methods may return an empty string if the desired notation cannot represent the point location. See the documentation of each SgfcGoPointNotation enum value for a definition of the notation and its limitations. Notably, the "A1" hybrid notation cannot represent point locations with an x- or y-axis position greater than 25. </p>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point.html#abafb85b1be6b8631ee4bbda0bfee98ab">LibSgfcPlusPlus::ISgfcGoPoint</a>.</p>

@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -106,6 +106,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312">GetGames</a> () const =0</td></tr>
 <tr class="memdesc:a7753e489dece4c0ae087fd6c69432312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a collection of games that together make up the document. <br /></td></tr>
 <tr class="separator:a7753e489dece4c0ae087fd6c69432312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0d314a7d599cde2d40538edc7eb9141"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ab0d314a7d599cde2d40538edc7eb9141">GetGame</a> () const =0</td></tr>
+<tr class="memdesc:ab0d314a7d599cde2d40538edc7eb9141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first game from the collection of games that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312" title="Returns a collection of games that together make up the document.">GetGames()</a> returns. Returns <em>nullptr</em> if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312" title="Returns a collection of games that together make up the document.">GetGames()</a> returns an empty collection.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ab0d314a7d599cde2d40538edc7eb9141">More...</a><br /></td></tr>
+<tr class="separator:ab0d314a7d599cde2d40538edc7eb9141"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac482ed489c2328bc67f85668e39955d6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ac482ed489c2328bc67f85668e39955d6">SetGames</a> (const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a> &gt;&gt; &amp;games)=0</td></tr>
 <tr class="memdesc:ac482ed489c2328bc67f85668e39955d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the collection of games that together make up the document to <em>games</em>, replacing the previous collection. <em>games</em> may not contain <em>nullptr</em>. <em>games</em> may not contain duplicates.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#ac482ed489c2328bc67f85668e39955d6">More...</a><br /></td></tr>
 <tr class="separator:ac482ed489c2328bc67f85668e39955d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,7 +161,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#affb0f45cf37ca84415c63863aad4195a">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#af2c651b56f706816354d87c0d68f7b97">LibSgfcPlusPlus::SgfcDocument</a>.</p>
 
 </div>
 </div>
@@ -188,7 +191,37 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <p>Prints the content of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> to stdout for debugging purposes. </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Remove this prior to release. </dd></dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#ab314052906fcfa1082e5e7257a0d3fd2">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a9acd9ef5cc4951b36899eb3d2aae6097">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+
+</div>
+</div>
+<a id="ab0d314a7d599cde2d40538edc7eb9141"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0d314a7d599cde2d40538edc7eb9141">&#9670;&nbsp;</a></span>GetGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::shared_ptr&lt;<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html">ISgfcGame</a>&gt; LibSgfcPlusPlus::ISgfcDocument::GetGame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the first game from the collection of games that <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312" title="Returns a collection of games that together make up the document.">GetGames()</a> returns. Returns <em>nullptr</em> if <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html#a7753e489dece4c0ae087fd6c69432312" title="Returns a collection of games that together make up the document.">GetGames()</a> returns an empty collection. </p>
+<p>This is a convenience method which simplifies the majority of cases where a document only contains a single game. </p>
+
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a5be8563e02046d9b8813565c3665bc15">LibSgfcPlusPlus::SgfcDocument</a>.</p>
 
 </div>
 </div>
@@ -218,7 +251,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <p>Returns true if the document has no content. Returns false if the document has some content. </p>
 <p>The document is empty if it contains no games. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#aa0843c2c5c64d3867c57972c209ee281">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#ac6dc5f521f99331b6c00db6d1c6004ba">LibSgfcPlusPlus::SgfcDocument</a>.</p>
 
 </div>
 </div>
@@ -254,7 +287,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a721d353eb9b5ea4371d91365b2f8da72">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a4e9660a5de1e2882c46d1a5c4e22b76e">LibSgfcPlusPlus::SgfcDocument</a>.</p>
 
 </div>
 </div>
@@ -290,7 +323,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#aa2b8f6594bef6de468f394716baf730f">LibSgfcPlusPlus::SgfcDocument</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document.html#a50163e22ae72ab68de7046af8892ad7a">LibSgfcPlusPlus::SgfcDocument</a>.</p>
 
 </div>
 </div>

@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html">ISgfcPropertyFactory</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html">ISgfcPropertyFactory</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -99,47 +99,47 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#afc13b5cb6c2d15214242e8c5a7fd47f8">~ISgfcPropertyFactory</a> ()</td></tr>
 <tr class="memdesc:afc13b5cb6c2d15214242e8c5a7fd47f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html" title="The ISgfcPropertyFactory interface provides factory methods for creating ISgfcProperty objects,...">ISgfcPropertyFactory</a> object. <br /></td></tr>
 <tr class="separator:afc13b5cb6c2d15214242e8c5a7fd47f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45abad710fb889fbe567efbabec89153"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a45abad710fb889fbe567efbabec89153">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType)=0</td></tr>
-<tr class="memdesc:a45abad710fb889fbe567efbabec89153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em>. The property has no values. The property is not associated with any node.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a45abad710fb889fbe567efbabec89153">More...</a><br /></td></tr>
-<tr class="separator:a45abad710fb889fbe567efbabec89153"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e6f411a7cd6a25128c9207c63b3d56"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a18e6f411a7cd6a25128c9207c63b3d56">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType, std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue)=0</td></tr>
-<tr class="memdesc:a18e6f411a7cd6a25128c9207c63b3d56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em> and the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a18e6f411a7cd6a25128c9207c63b3d56">More...</a><br /></td></tr>
-<tr class="separator:a18e6f411a7cd6a25128c9207c63b3d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47dbe51f66c2888beeaad4a76f503449"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a47dbe51f66c2888beeaad4a76f503449">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&gt; &amp;propertyValues)=0</td></tr>
-<tr class="memdesc:a47dbe51f66c2888beeaad4a76f503449"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em> and the specified property values <em>propertyValues</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> objects in <em>propertyValues</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a47dbe51f66c2888beeaad4a76f503449">More...</a><br /></td></tr>
-<tr class="separator:a47dbe51f66c2888beeaad4a76f503449"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c2afbb7e22d9db3a05e87c2dfcd8778"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a5c2afbb7e22d9db3a05e87c2dfcd8778">CreateProperty</a> (const std::string &amp;propertyName)=0</td></tr>
-<tr class="memdesc:a5c2afbb7e22d9db3a05e87c2dfcd8778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em>. The property type is inferred from the property name. The property has no values. The property is not associated with any node.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a5c2afbb7e22d9db3a05e87c2dfcd8778">More...</a><br /></td></tr>
-<tr class="separator:a5c2afbb7e22d9db3a05e87c2dfcd8778"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18115f3b6fbfb3753205faef5464b38e"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a18115f3b6fbfb3753205faef5464b38e">CreateProperty</a> (const std::string &amp;propertyName, std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue)=0</td></tr>
-<tr class="memdesc:a18115f3b6fbfb3753205faef5464b38e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em> and the specified property value <em>propertyValue</em>. The property type is inferred from the property name. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a18115f3b6fbfb3753205faef5464b38e">More...</a><br /></td></tr>
-<tr class="separator:a18115f3b6fbfb3753205faef5464b38e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0275b041171238d8e65341b3f9ea2635"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a0275b041171238d8e65341b3f9ea2635">CreateProperty</a> (const std::string &amp;propertyName, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&gt; &amp;propertyValues)=0</td></tr>
-<tr class="memdesc:a0275b041171238d8e65341b3f9ea2635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em> and the specified property values <em>propertyValues</em>. The property type is inferred from the property name. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> objects in <em>propertyValues</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a0275b041171238d8e65341b3f9ea2635">More...</a><br /></td></tr>
-<tr class="separator:a0275b041171238d8e65341b3f9ea2635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af111f89ffec4e927fe93d15d59e39646"><td class="memItemLeft" align="right" valign="top"><a id="af111f89ffec4e927fe93d15d59e39646"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af111f89ffec4e927fe93d15d59e39646">CreateBoardSizeProperty</a> ()=0</td></tr>
-<tr class="memdesc:af111f89ffec4e927fe93d15d59e39646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has no value. The property is not associated with any node. <br /></td></tr>
-<tr class="separator:af111f89ffec4e927fe93d15d59e39646"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8319769bbf8f8330e875ee2dd0623b53"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a8319769bbf8f8330e875ee2dd0623b53">CreateBoardSizeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt; propertyValue)=0</td></tr>
-<tr class="memdesc:a8319769bbf8f8330e875ee2dd0623b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a8319769bbf8f8330e875ee2dd0623b53">More...</a><br /></td></tr>
-<tr class="separator:a8319769bbf8f8330e875ee2dd0623b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad340e010c90bb9e12592052b20cf8a95"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#ad340e010c90bb9e12592052b20cf8a95">CreateBoardSizeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">ISgfcComposedPropertyValue</a> &gt; propertyValue)=0</td></tr>
-<tr class="memdesc:ad340e010c90bb9e12592052b20cf8a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html" title="The ISgfcComposedPropertyValue interface provides access to one of the values of a property of an SGF...">ISgfcComposedPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#ad340e010c90bb9e12592052b20cf8a95">More...</a><br /></td></tr>
-<tr class="separator:ad340e010c90bb9e12592052b20cf8a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ea0fc89e5ffdee57166a42ada05d4ae"><td class="memItemLeft" align="right" valign="top"><a id="a2ea0fc89e5ffdee57166a42ada05d4ae"></a>
-virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html">ISgfcGameTypeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a2ea0fc89e5ffdee57166a42ada05d4ae">CreateGameTypeProperty</a> ()=0</td></tr>
-<tr class="memdesc:a2ea0fc89e5ffdee57166a42ada05d4ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object that has no value. The property is not associated with any node. <br /></td></tr>
-<tr class="separator:a2ea0fc89e5ffdee57166a42ada05d4ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60a1cd198c036c48dc2c459afb7a1f78"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html">ISgfcGameTypeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a60a1cd198c036c48dc2c459afb7a1f78">CreateGameTypeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt; propertyValue)=0</td></tr>
-<tr class="memdesc:a60a1cd198c036c48dc2c459afb7a1f78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a60a1cd198c036c48dc2c459afb7a1f78">More...</a><br /></td></tr>
-<tr class="separator:a60a1cd198c036c48dc2c459afb7a1f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a782d48c7c6e15d63ef6babab9016d5"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a9a782d48c7c6e15d63ef6babab9016d5">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType) const =0</td></tr>
+<tr class="memdesc:a9a782d48c7c6e15d63ef6babab9016d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em>. The property has no values. The property is not associated with any node.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a9a782d48c7c6e15d63ef6babab9016d5">More...</a><br /></td></tr>
+<tr class="separator:a9a782d48c7c6e15d63ef6babab9016d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b2f729149625a01c5d82b51520d2c25"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a0b2f729149625a01c5d82b51520d2c25">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType, std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue) const =0</td></tr>
+<tr class="memdesc:a0b2f729149625a01c5d82b51520d2c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em> and the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a0b2f729149625a01c5d82b51520d2c25">More...</a><br /></td></tr>
+<tr class="separator:a0b2f729149625a01c5d82b51520d2c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7731fa7c64a1a2c7692ddeec30ebe2c"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#aa7731fa7c64a1a2c7692ddeec30ebe2c">CreateProperty</a> (<a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> propertyType, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&gt; &amp;propertyValues) const =0</td></tr>
+<tr class="memdesc:aa7731fa7c64a1a2c7692ddeec30ebe2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property type <em>propertyType</em> and the specified property values <em>propertyValues</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> objects in <em>propertyValues</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#aa7731fa7c64a1a2c7692ddeec30ebe2c">More...</a><br /></td></tr>
+<tr class="separator:aa7731fa7c64a1a2c7692ddeec30ebe2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c635e0423fbe2de83b85d375731efd"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a07c635e0423fbe2de83b85d375731efd">CreateProperty</a> (const std::string &amp;propertyName) const =0</td></tr>
+<tr class="memdesc:a07c635e0423fbe2de83b85d375731efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em>. The property type is inferred from the property name. The property has no values. The property is not associated with any node.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a07c635e0423fbe2de83b85d375731efd">More...</a><br /></td></tr>
+<tr class="separator:a07c635e0423fbe2de83b85d375731efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3845f4f3be3d248397ebcd02d31c287"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#ab3845f4f3be3d248397ebcd02d31c287">CreateProperty</a> (const std::string &amp;propertyName, std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt; propertyValue) const =0</td></tr>
+<tr class="memdesc:ab3845f4f3be3d248397ebcd02d31c287"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em> and the specified property value <em>propertyValue</em>. The property type is inferred from the property name. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#ab3845f4f3be3d248397ebcd02d31c287">More...</a><br /></td></tr>
+<tr class="separator:ab3845f4f3be3d248397ebcd02d31c287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42dd574329941d2790e6eb9cecea5c06"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a42dd574329941d2790e6eb9cecea5c06">CreateProperty</a> (const std::string &amp;propertyName, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a> &gt;&gt; &amp;propertyValues) const =0</td></tr>
+<tr class="memdesc:a42dd574329941d2790e6eb9cecea5c06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object that has the specified property name <em>propertyName</em> and the specified property values <em>propertyValues</em>. The property type is inferred from the property name. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.">ISgfcPropertyValue</a> objects in <em>propertyValues</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a42dd574329941d2790e6eb9cecea5c06">More...</a><br /></td></tr>
+<tr class="separator:a42dd574329941d2790e6eb9cecea5c06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52fe3db2b67a5391b63b892bef993b3c"><td class="memItemLeft" align="right" valign="top"><a id="a52fe3db2b67a5391b63b892bef993b3c"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a52fe3db2b67a5391b63b892bef993b3c">CreateBoardSizeProperty</a> () const =0</td></tr>
+<tr class="memdesc:a52fe3db2b67a5391b63b892bef993b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has no value. The property is not associated with any node. <br /></td></tr>
+<tr class="separator:a52fe3db2b67a5391b63b892bef993b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e7902a1e2aae65ecf17f07ec054af56"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a1e7902a1e2aae65ecf17f07ec054af56">CreateBoardSizeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt; propertyValue) const =0</td></tr>
+<tr class="memdesc:a1e7902a1e2aae65ecf17f07ec054af56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a1e7902a1e2aae65ecf17f07ec054af56">More...</a><br /></td></tr>
+<tr class="separator:a1e7902a1e2aae65ecf17f07ec054af56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86e46865bdb32cc6ea02d199a632dc65"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html">ISgfcBoardSizeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a86e46865bdb32cc6ea02d199a632dc65">CreateBoardSizeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">ISgfcComposedPropertyValue</a> &gt; propertyValue) const =0</td></tr>
+<tr class="memdesc:a86e46865bdb32cc6ea02d199a632dc65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html" title="The ISgfcComposedPropertyValue interface provides access to one of the values of a property of an SGF...">ISgfcComposedPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a86e46865bdb32cc6ea02d199a632dc65">More...</a><br /></td></tr>
+<tr class="separator:a86e46865bdb32cc6ea02d199a632dc65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21674255e46f4f85a2b87e97d4c2ca87"><td class="memItemLeft" align="right" valign="top"><a id="a21674255e46f4f85a2b87e97d4c2ca87"></a>
+virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html">ISgfcGameTypeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a21674255e46f4f85a2b87e97d4c2ca87">CreateGameTypeProperty</a> () const =0</td></tr>
+<tr class="memdesc:a21674255e46f4f85a2b87e97d4c2ca87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object that has no value. The property is not associated with any node. <br /></td></tr>
+<tr class="separator:a21674255e46f4f85a2b87e97d4c2ca87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9868c976b01f69d8414cf7e58aef912"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html">ISgfcGameTypeProperty</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af9868c976b01f69d8414cf7e58aef912">CreateGameTypeProperty</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt; propertyValue) const =0</td></tr>
+<tr class="memdesc:af9868c976b01f69d8414cf7e58aef912"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object <em>propertyValue</em>.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af9868c976b01f69d8414cf7e58aef912">More...</a><br /></td></tr>
+<tr class="separator:af9868c976b01f69d8414cf7e58aef912"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html" title="The ISgfcPropertyFactory interface provides factory methods for creating ISgfcProperty objects,...">ISgfcPropertyFactory</a> interface provides factory methods for creating <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> objects, and objects of every known sub-type of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad340e010c90bb9e12592052b20cf8a95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad340e010c90bb9e12592052b20cf8a95">&#9670;&nbsp;</a></span>CreateBoardSizeProperty() <span class="overload">[1/2]</span></h2>
+<a id="a86e46865bdb32cc6ea02d199a632dc65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86e46865bdb32cc6ea02d199a632dc65">&#9670;&nbsp;</a></span>CreateBoardSizeProperty() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +152,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">ISgfcComposedPropertyValue</a> &gt;&#160;</td>
           <td class="paramname"><em>propertyValue</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -166,17 +166,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>This overload constructs an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that describes a rectangular board.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em> or if the <em>propertyValue</em> object is not composed of two <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> objects, or if any of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object's method HasTypedValue() returns false. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em>, or if the <em>propertyValue</em> object is not composed of two <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> objects. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a7c379cae6ba1f8e50a809d58cfedd627">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a412aa71f3a0b832981192672dd7c8dda">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a8319769bbf8f8330e875ee2dd0623b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8319769bbf8f8330e875ee2dd0623b53">&#9670;&nbsp;</a></span>CreateBoardSizeProperty() <span class="overload">[2/2]</span></h2>
+<a id="a1e7902a1e2aae65ecf17f07ec054af56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e7902a1e2aae65ecf17f07ec054af56">&#9670;&nbsp;</a></span>CreateBoardSizeProperty() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +189,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt;&#160;</td>
           <td class="paramname"><em>propertyValue</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -203,17 +203,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>This overload constructs an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> object that describes a square board.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em> or if the <em>propertyValue</em> object's method HasTypedValue() returns false. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em>. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#acb0cd3fb7456067bb6fcba797803c4c0">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a219ce4d135da86764f6a6cba0d848a03">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a60a1cd198c036c48dc2c459afb7a1f78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60a1cd198c036c48dc2c459afb7a1f78">&#9670;&nbsp;</a></span>CreateGameTypeProperty()</h2>
+<a id="af9868c976b01f69d8414cf7e58aef912"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9868c976b01f69d8414cf7e58aef912">&#9670;&nbsp;</a></span>CreateGameTypeProperty()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -226,7 +226,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
           <td>(</td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html">ISgfcNumberPropertyValue</a> &gt;&#160;</td>
           <td class="paramname"><em>propertyValue</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -239,17 +239,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>Returns a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object that has the specified property value <em>propertyValue</em>. The property is not associated with any node. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a> object takes ownership of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_number_property_value.html" title="The ISgfcNumberPropertyValue interface provides access to one of the values of a property of an SGF n...">ISgfcNumberPropertyValue</a> object <em>propertyValue</em>. </p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em> or if the <em>propertyValue</em> object's method HasTypedValue() returns false. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em>. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a5bbb4e6a94a9184b9c8f9a32f4c3fc39">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a000766cd4076d7b4bbb8f64f1ccd634d">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a5c2afbb7e22d9db3a05e87c2dfcd8778"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c2afbb7e22d9db3a05e87c2dfcd8778">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[1/6]</span></h2>
+<a id="a07c635e0423fbe2de83b85d375731efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07c635e0423fbe2de83b85d375731efd">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -262,7 +262,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>propertyName</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -276,12 +276,12 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>Attempts to map <em>propertyName</em> to a value in the enumeration SgfcPropertyType. If the mapping succeeds the result of invoking this method is the same as invoking the overload that takes an SgfcPropertyType value. If the mapping fails then the resulting <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object has <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>.</p>
 <p>If the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, the returned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object is an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>. </p>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#aa5f1d6437adaed59f2cd3e05054b9e6b">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a15e750840e2bf6ca19059e9e792daef4">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a0275b041171238d8e65341b3f9ea2635"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0275b041171238d8e65341b3f9ea2635">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[2/6]</span></h2>
+<a id="a42dd574329941d2790e6eb9cecea5c06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42dd574329941d2790e6eb9cecea5c06">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,7 +304,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -319,17 +319,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>If the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, the returned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object is an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValues</em> contains more than one value or the value does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af111f89ffec4e927fe93d15d59e39646" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a2ea0fc89e5ffdee57166a42ada05d4ae" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValues</em> contains a <em>nullptr</em> element, or if <em>propertyValues</em> contains duplicate elements. Is also thrown if the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValues</em> contains more than one value or the value does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a52fe3db2b67a5391b63b892bef993b3c" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a21674255e46f4f85a2b87e97d4c2ca87" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#acdd897a240ea7d95c8591dddb6d56567">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a2573f9c34ec38b69edcf82fad8a31947">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a18115f3b6fbfb3753205faef5464b38e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18115f3b6fbfb3753205faef5464b38e">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[3/6]</span></h2>
+<a id="ab3845f4f3be3d248397ebcd02d31c287"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3845f4f3be3d248397ebcd02d31c287">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -352,7 +352,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -367,17 +367,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>If the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, the returned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object is an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValue</em> does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af111f89ffec4e927fe93d15d59e39646" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a2ea0fc89e5ffdee57166a42ada05d4ae" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyValue</em> is <em>nullptr</em>. Is also thrown if the mapped SgfcPropertyType value is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValue</em> does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a52fe3db2b67a5391b63b892bef993b3c" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a21674255e46f4f85a2b87e97d4c2ca87" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a9a59d88a02c3347f2ba98f219c0be1fd">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a59c1087176597594dfda8c22052d88da">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a45abad710fb889fbe567efbabec89153"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45abad710fb889fbe567efbabec89153">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[4/6]</span></h2>
+<a id="a9a782d48c7c6e15d63ef6babab9016d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a782d48c7c6e15d63ef6babab9016d5">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -390,7 +390,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
           <td>(</td>
           <td class="paramtype"><a class="el" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a>&#160;</td>
           <td class="paramname"><em>propertyType</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -409,12 +409,12 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#aba518280e5a3f670a3a4927da0b997e7">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a296aa2537b0184c7203cc14767a33813">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a47dbe51f66c2888beeaad4a76f503449"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47dbe51f66c2888beeaad4a76f503449">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[5/6]</span></h2>
+<a id="aa7731fa7c64a1a2c7692ddeec30ebe2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7731fa7c64a1a2c7692ddeec30ebe2c">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[5/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -437,7 +437,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -451,17 +451,17 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>If <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, the returned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object is an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>, or, in case <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, if <em>propertyValues</em> contains more than one value or the value does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af111f89ffec4e927fe93d15d59e39646" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a2ea0fc89e5ffdee57166a42ada05d4ae" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>, or if <em>propertyValues</em> contains a <em>nullptr</em> element, or if <em>propertyValues</em> contains duplicate elements. Is also thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValues</em> contains more than one value or the value does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a52fe3db2b67a5391b63b892bef993b3c" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a21674255e46f4f85a2b87e97d4c2ca87" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#ada9087952d16f4e29a3c47670efb811c">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a7f7d836ed1717a8f0a39800c77e359f6">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>
-<a id="a18e6f411a7cd6a25128c9207c63b3d56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18e6f411a7cd6a25128c9207c63b3d56">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[6/6]</span></h2>
+<a id="a0b2f729149625a01c5d82b51520d2c25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b2f729149625a01c5d82b51520d2c25">&#9670;&nbsp;</a></span>CreateProperty() <span class="overload">[6/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,7 +484,7 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -498,12 +498,12 @@ virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_s
 <p>If <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, the returned <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node....">ISgfcProperty</a> object is an instance of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_board_size_property.html" title="The ISgfcBoardSizeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::SZ....">ISgfcBoardSizeProperty</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM....">ISgfcGameTypeProperty</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>, or, in case <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a>, if <em>propertyValue</em> does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#af111f89ffec4e927fe93d15d59e39646" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a2ea0fc89e5ffdee57166a42ada05d4ae" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e" title="The property type is unknown, i.e. the property is a custom property not defined by the SGF standard.">SgfcPropertyType::Unknown</a>, or if <em>propertyValue</em> is <em>nullptr</em>. Is also thrown if <em>propertyType</em> is <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a715f9a16ad2c8290efe57b63d279d8fa" title="Define the board size. Property value type: Either a single Number, or a composed Number/Number (i....">SgfcPropertyType::SZ</a> or <a class="el" href="group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a64f3bd1741ab8d6ba545a1ae09bb8728" title="The type of game that is stored in the game tree. Property value type: Number.">SgfcPropertyType::GM</a> and <em>propertyValue</em> does not meet the requirements of these property types. See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a52fe3db2b67a5391b63b892bef993b3c" title="Returns a newly constructed ISgfcBoardSizeProperty object that has no value. The property is not asso...">CreateBoardSizeProperty()</a> or <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_factory.html#a21674255e46f4f85a2b87e97d4c2ca87" title="Returns a newly constructed ISgfcGameTypeProperty object that has no value. The property is not assoc...">CreateGameTypeProperty()</a> for details. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a6a9300c5c410b48fd9c29897354ded70">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
+<p>Implemented in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_factory.html#a2df0d305dea6bd6019177fedd9ff39a5">LibSgfcPlusPlus::SgfcPropertyFactory</a>.</p>
 
 </div>
 </div>

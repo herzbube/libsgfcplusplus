@@ -24,7 +24,7 @@
    <div id="projectname">libsgfc++
    &#160;<span id="projectnumber">0.1</span>
    </div>
-   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) files.</div>
+   <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
  </tr>
  </tbody>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>LibSgfcPlusPlus</b></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html">SgfcMessage</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></li><li class="navelem"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html">SgfcMessage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -91,41 +91,43 @@ Inheritance diagram for LibSgfcPlusPlus::SgfcMessage:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a17d16fa0f38fb5d97ad5b6c3d3420a3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a17d16fa0f38fb5d97ad5b6c3d3420a3c">SgfcMessage</a> (int messageID, <a class="el" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a> messageType, int lineNumber, int columnNumber, bool isCriticalMessage, const std::string &amp;messageText, const std::string &amp;rawMessageText)</td></tr>
-<tr class="memdesc:a17d16fa0f38fb5d97ad5b6c3d3420a3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The message ID must be zero or a positive number.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a17d16fa0f38fb5d97ad5b6c3d3420a3c">More...</a><br /></td></tr>
-<tr class="separator:a17d16fa0f38fb5d97ad5b6c3d3420a3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb0d7b2457ae80c3ba7802737aeca272"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#afb0d7b2457ae80c3ba7802737aeca272">SgfcMessage</a> (int messageID, const std::string &amp;messageText)</td></tr>
-<tr class="memdesc:afb0d7b2457ae80c3ba7802737aeca272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> has message type <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a>. The message ID must be a negative number.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#afb0d7b2457ae80c3ba7802737aeca272">More...</a><br /></td></tr>
-<tr class="separator:afb0d7b2457ae80c3ba7802737aeca272"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67ad5cd6334b7ee222985d3773a715cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a67ad5cd6334b7ee222985d3773a715cd">SgfcMessage</a> (<a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a> messageID, <a class="el" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a> messageType, int lineNumber, int columnNumber, bool isCriticalMessage, int libraryErrorNumber, const std::string &amp;messageText, const std::string &amp;formattedMessageText)</td></tr>
+<tr class="memdesc:a67ad5cd6334b7ee222985d3773a715cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a67ad5cd6334b7ee222985d3773a715cd">More...</a><br /></td></tr>
+<tr class="separator:a67ad5cd6334b7ee222985d3773a715cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b7b6aae917b045c98e4e1aa2f461f66"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a7b7b6aae917b045c98e4e1aa2f461f66">SgfcMessage</a> (<a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a> messageID, const std::string &amp;messageText)</td></tr>
+<tr class="memdesc:a7b7b6aae917b045c98e4e1aa2f461f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> has message type <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a7b7b6aae917b045c98e4e1aa2f461f66">More...</a><br /></td></tr>
+<tr class="separator:a7b7b6aae917b045c98e4e1aa2f461f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae4557a50bacf7eae889bb81ae711189"><td class="memItemLeft" align="right" valign="top"><a id="aae4557a50bacf7eae889bb81ae711189"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#aae4557a50bacf7eae889bb81ae711189">~SgfcMessage</a> ()</td></tr>
 <tr class="memdesc:aae4557a50bacf7eae889bb81ae711189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html" title="The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...">ISgfcMessage</a> object. <br /></td></tr>
 <tr class="separator:aae4557a50bacf7eae889bb81ae711189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7640731c2e6edb15ce88a616d35386e0"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a7640731c2e6edb15ce88a616d35386e0">GetMessageID</a> () const</td></tr>
-<tr class="memdesc:a7640731c2e6edb15ce88a616d35386e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the message's identification number. Returns zero or a positive number if the message was generated by SGFC. Returns a negative number if the message was generated by libsgfc++.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a7640731c2e6edb15ce88a616d35386e0">More...</a><br /></td></tr>
-<tr class="separator:a7640731c2e6edb15ce88a616d35386e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b3a63adcecb67b3e7c676a448efbac1"><td class="memItemLeft" align="right" valign="top"><a id="a1b3a63adcecb67b3e7c676a448efbac1"></a>
-virtual <a class="el" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a1b3a63adcecb67b3e7c676a448efbac1">GetMessageType</a> () const</td></tr>
-<tr class="memdesc:a1b3a63adcecb67b3e7c676a448efbac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of message. <br /></td></tr>
-<tr class="separator:a1b3a63adcecb67b3e7c676a448efbac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c7676e8b3aa5d9a5f453d4a110e394e"><td class="memItemLeft" align="right" valign="top"><a id="a2c7676e8b3aa5d9a5f453d4a110e394e"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a2c7676e8b3aa5d9a5f453d4a110e394e">GetLineNumber</a> () const</td></tr>
-<tr class="memdesc:a2c7676e8b3aa5d9a5f453d4a110e394e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of the line (1-based) in the parsed SGF data that caused the message. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aef784ff35ce3ca889c735144c3bca6a9" title="Indicates an invalid line number. This is used for fatal error messages that do not refer to a specif...">SgfcConstants::InvalidLineNumber</a> if the message does not refer to a specific line in the SGF data (most fatal errors, but also some errors and warnings). <br /></td></tr>
-<tr class="separator:a2c7676e8b3aa5d9a5f453d4a110e394e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a65a96e2e6f36f4c1a71bbfc3e27e23"><td class="memItemLeft" align="right" valign="top"><a id="a3a65a96e2e6f36f4c1a71bbfc3e27e23"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a3a65a96e2e6f36f4c1a71bbfc3e27e23">GetColumnNumber</a> () const</td></tr>
-<tr class="memdesc:a3a65a96e2e6f36f4c1a71bbfc3e27e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of the column (1-based) in the parsed SGF data that caused the message. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa2834f65a4603917290304209f49b31d" title="Indicates an invalid column number. This is used for fatal error messages that do not refer to a spec...">SgfcConstants::InvalidColumnNumber</a> if the message does not refer to a specific column in the SGF data (most fatal errors, but also some errors and warnings). <br /></td></tr>
-<tr class="separator:a3a65a96e2e6f36f4c1a71bbfc3e27e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1fef5b4b88ec9c89d794e418d5aad7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#abd1fef5b4b88ec9c89d794e418d5aad7">IsCriticalMessage</a> () const</td></tr>
-<tr class="memdesc:abd1fef5b4b88ec9c89d794e418d5aad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the message describes a critical problem. Only warning and error messages can be critical. Always returns false for fatal errors.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#abd1fef5b4b88ec9c89d794e418d5aad7">More...</a><br /></td></tr>
-<tr class="separator:abd1fef5b4b88ec9c89d794e418d5aad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3648f8bbfc28c288d25cf155133075ad"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a3648f8bbfc28c288d25cf155133075ad">GetMessageText</a> () const</td></tr>
-<tr class="memdesc:a3648f8bbfc28c288d25cf155133075ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the message text.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a3648f8bbfc28c288d25cf155133075ad">More...</a><br /></td></tr>
-<tr class="separator:a3648f8bbfc28c288d25cf155133075ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a151bd99fd1f69c8bdec5f342e1235804"><td class="memItemLeft" align="right" valign="top"><a id="a151bd99fd1f69c8bdec5f342e1235804"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a151bd99fd1f69c8bdec5f342e1235804">GetRawMessageText</a> () const</td></tr>
-<tr class="memdesc:a151bd99fd1f69c8bdec5f342e1235804"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the raw message text exactly as it was generated by SGFC. If the message was generated by libsgfc++ this returns the same value as <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a3648f8bbfc28c288d25cf155133075ad" title="Returns the message text.">GetMessageText()</a>. <br /></td></tr>
-<tr class="separator:a151bd99fd1f69c8bdec5f342e1235804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44892af7a7ddef057214724e2052b8df"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a44892af7a7ddef057214724e2052b8df">GetMessageID</a> () const override</td></tr>
+<tr class="memdesc:a44892af7a7ddef057214724e2052b8df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the message's unique identification number.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a44892af7a7ddef057214724e2052b8df">More...</a><br /></td></tr>
+<tr class="separator:a44892af7a7ddef057214724e2052b8df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993adee5d995d95914db999b95ee057d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a993adee5d995d95914db999b95ee057d">GetMessageType</a> () const override</td></tr>
+<tr class="memdesc:a993adee5d995d95914db999b95ee057d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of message.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a993adee5d995d95914db999b95ee057d">More...</a><br /></td></tr>
+<tr class="separator:a993adee5d995d95914db999b95ee057d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa819e4a74dfaf00ed15c3079ccb6149d"><td class="memItemLeft" align="right" valign="top"><a id="aa819e4a74dfaf00ed15c3079ccb6149d"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#aa819e4a74dfaf00ed15c3079ccb6149d">GetLineNumber</a> () const override</td></tr>
+<tr class="memdesc:aa819e4a74dfaf00ed15c3079ccb6149d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of the line (1-based) in the parsed SGF data that caused the message. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aef784ff35ce3ca889c735144c3bca6a9" title="Indicates an invalid line number. This is used for messages that do not refer to a specific line numb...">SgfcConstants::InvalidLineNumber</a> if the message does not refer to a specific line in the SGF data (most fatal errors, but also some errors and warnings). <br /></td></tr>
+<tr class="separator:aa819e4a74dfaf00ed15c3079ccb6149d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e764489aa1a91ba63a0c58f7807bb8c"><td class="memItemLeft" align="right" valign="top"><a id="a2e764489aa1a91ba63a0c58f7807bb8c"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a2e764489aa1a91ba63a0c58f7807bb8c">GetColumnNumber</a> () const override</td></tr>
+<tr class="memdesc:a2e764489aa1a91ba63a0c58f7807bb8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of the column (1-based) in the parsed SGF data that caused the message. Returns <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#aa2834f65a4603917290304209f49b31d" title="Indicates an invalid column number. This is used for messages that do not refer to a specific column ...">SgfcConstants::InvalidColumnNumber</a> if the message does not refer to a specific column in the SGF data (most fatal errors, but also some errors and warnings). <br /></td></tr>
+<tr class="separator:a2e764489aa1a91ba63a0c58f7807bb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38bace7907349ac38f3f0a0c699f8a2e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a38bace7907349ac38f3f0a0c699f8a2e">IsCriticalMessage</a> () const override</td></tr>
+<tr class="memdesc:a38bace7907349ac38f3f0a0c699f8a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the message describes a critical problem. Only warning and error messages can be critical. Always returns false for fatal errors.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#a38bace7907349ac38f3f0a0c699f8a2e">More...</a><br /></td></tr>
+<tr class="separator:a38bace7907349ac38f3f0a0c699f8a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac01511c2743ea01cc8cd03574fd50d19"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#ac01511c2743ea01cc8cd03574fd50d19">GetLibraryErrorNumber</a> () const override</td></tr>
+<tr class="memdesc:ac01511c2743ea01cc8cd03574fd50d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an error number that indicates what went wrong when a standard C library function was invoked by SGFC. The value 0 (zero) indicates "no error", a non-zero value indicates an error.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#ac01511c2743ea01cc8cd03574fd50d19">More...</a><br /></td></tr>
+<tr class="separator:ac01511c2743ea01cc8cd03574fd50d19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac36ccf569e518ce826b75cc8fbfdf663"><td class="memItemLeft" align="right" valign="top"><a id="ac36ccf569e518ce826b75cc8fbfdf663"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#ac36ccf569e518ce826b75cc8fbfdf663">GetMessageText</a> () const override</td></tr>
+<tr class="memdesc:ac36ccf569e518ce826b75cc8fbfdf663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the message text. <br /></td></tr>
+<tr class="separator:ac36ccf569e518ce826b75cc8fbfdf663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf3c04401c0f074d5cd0c8e68ceb3cc3"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#abf3c04401c0f074d5cd0c8e68ceb3cc3">GetFormattedMessageText</a> () const override</td></tr>
+<tr class="memdesc:abf3c04401c0f074d5cd0c8e68ceb3cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the formatted message text as if it had been printed by SGFC on the command-line. If the message was generated by libsgfc++ this returns the same value as <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#ac36ccf569e518ce826b75cc8fbfdf663" title="Returns the message text.">GetMessageText()</a>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#abf3c04401c0f074d5cd0c8e68ceb3cc3">More...</a><br /></td></tr>
+<tr class="separator:abf3c04401c0f074d5cd0c8e68ceb3cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_message"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_message')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html">LibSgfcPlusPlus::ISgfcMessage</a></td></tr>
 <tr class="memitem:a745190bce88d4e45c69c8bf001f4c684 inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_message"><td class="memItemLeft" align="right" valign="top"><a id="a745190bce88d4e45c69c8bf001f4c684"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a745190bce88d4e45c69c8bf001f4c684">ISgfcMessage</a> ()</td></tr>
@@ -139,8 +141,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> class provides an implementation of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html" title="The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...">ISgfcMessage</a> interface. See the interface header file for documentation. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a17d16fa0f38fb5d97ad5b6c3d3420a3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17d16fa0f38fb5d97ad5b6c3d3420a3c">&#9670;&nbsp;</a></span>SgfcMessage() <span class="overload">[1/2]</span></h2>
+<a id="a67ad5cd6334b7ee222985d3773a715cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67ad5cd6334b7ee222985d3773a715cd">&#9670;&nbsp;</a></span>SgfcMessage() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,7 +150,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">LibSgfcPlusPlus::SgfcMessage::SgfcMessage </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a>&#160;</td>
           <td class="paramname"><em>messageID</em>, </td>
         </tr>
         <tr>
@@ -178,6 +180,12 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>libraryErrorNumber</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>messageText</em>, </td>
         </tr>
@@ -185,7 +193,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>rawMessageText</em>&#160;</td>
+          <td class="paramname"><em>formattedMessageText</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -195,11 +203,11 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The message ID must be zero or a positive number. </p>
+<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. </p>
 <p>This constructor is intended to be used for messages that are generated by SGFC.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>messageID</em> is not zero or a positive number. Is thrown if the message type is <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a> and <em>isCriticalMessage</em> is true.</td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if the numeric value underlying <em>messageID</em> is not zero or a positive number. Is thrown if the message type is <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a> and <em>isCriticalMessage</em> is true.</td></tr>
   </table>
   </dd>
 </dl>
@@ -207,8 +215,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
-<a id="afb0d7b2457ae80c3ba7802737aeca272"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb0d7b2457ae80c3ba7802737aeca272">&#9670;&nbsp;</a></span>SgfcMessage() <span class="overload">[2/2]</span></h2>
+<a id="a7b7b6aae917b045c98e4e1aa2f461f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b7b6aae917b045c98e4e1aa2f461f66">&#9670;&nbsp;</a></span>SgfcMessage() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,7 +224,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
         <tr>
           <td class="memname">LibSgfcPlusPlus::SgfcMessage::SgfcMessage </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype"><a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a>&#160;</td>
           <td class="paramname"><em>messageID</em>, </td>
         </tr>
         <tr>
@@ -233,11 +241,11 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> has message type <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a>. The message ID must be a negative number. </p>
+<p>Initializes a newly constructed <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> object with the supplied parameter values. The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea...">SgfcMessage</a> has message type <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a>. </p>
 <p>This constructor is intended to be used for messages that are generated by libsgfc++.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>messageID</em> is not a negative number </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if the numeric value underlying <em>messageID</em> is not a negative number </td></tr>
   </table>
   </dd>
 </dl>
@@ -245,8 +253,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7640731c2e6edb15ce88a616d35386e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7640731c2e6edb15ce88a616d35386e0">&#9670;&nbsp;</a></span>GetMessageID()</h2>
+<a id="abf3c04401c0f074d5cd0c8e68ceb3cc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf3c04401c0f074d5cd0c8e68ceb3cc3">&#9670;&nbsp;</a></span>GetFormattedMessageText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,7 +263,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int LibSgfcPlusPlus::SgfcMessage::GetMessageID </td>
+          <td class="memname">std::string LibSgfcPlusPlus::SgfcMessage::GetFormattedMessageText </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -263,21 +271,20 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the message's identification number. Returns zero or a positive number if the message was generated by SGFC. Returns a negative number if the message was generated by libsgfc++. </p>
-<p>Every message generated by SGFC has its own unique message ID. Consult the SGFC documentation for a list of message IDs. SGFC calls them "error codes". The exception is when libsgfc++ is unable to determine the message ID when it parses the raw message text - if that happens libsgfc++ sets the message ID to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#a0bcfa5a53d31255906cd7c3388123c57" title="Indicates that the message was generated by SGFC, but libsgfc++ was unable to determine the message I...">SgfcConstants::UnknownSgfcMessageID</a>.</p>
-<p>Every message generated by libsgfc++ also has its own unique message ID. Documented constants for these are available in <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html" title="The SgfcConstants class is a container class for constants.">SgfcConstants</a>. Messages generated by libsgfc++ are always fatal errors. </p>
+<p>Returns the formatted message text as if it had been printed by SGFC on the command-line. If the message was generated by libsgfc++ this returns the same value as <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#ac36ccf569e518ce826b75cc8fbfdf663" title="Returns the message text.">GetMessageText()</a>. </p>
+<p>When the command-line version of SGFC prints messages it assembles the individual message parts into a formatted text. libsgfc++ emulates this formatting as closely as possible to generate the value returned by this method. There is no guarantee for an exact match, though. </p>
 
-<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a692bbabeac3047567dbe70b02d103421">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#aa96210c6a3a9eb9dde423b05ae59dcba">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
 
 </div>
 </div>
-<a id="a3648f8bbfc28c288d25cf155133075ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3648f8bbfc28c288d25cf155133075ad">&#9670;&nbsp;</a></span>GetMessageText()</h2>
+<a id="ac01511c2743ea01cc8cd03574fd50d19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac01511c2743ea01cc8cd03574fd50d19">&#9670;&nbsp;</a></span>GetLibraryErrorNumber()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -286,7 +293,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string LibSgfcPlusPlus::SgfcMessage::GetMessageText </td>
+          <td class="memname">int LibSgfcPlusPlus::SgfcMessage::GetLibraryErrorNumber </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -294,21 +301,88 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the message text. </p>
-<p>For messages generated by SGFC this is the raw message text minus the content that was parsed.</p>
-<p>When the raw message text is parsed, consecutive whitespace characters are condensed into a single space character. For messages generated by SGFC this message text can therefore differ from the original raw message text in the amount or kind of whitespace used. </p>
+<p>Returns an error number that indicates what went wrong when a standard C library function was invoked by SGFC. The value 0 (zero) indicates "no error", a non-zero value indicates an error. </p>
+<p>As a convenience the library provides the constant <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_constants.html#ab0fc4934262b04d9de551715a29b77dc" title="A library error number (= errno value) indicating &quot;no error&quot;. This is defined to be the value 0 (zero...">SgfcConstants::LibraryErrorNumberNoError</a> in case you prefer to use a constant to implement your program logic.</p>
+<p>A non-zero value is a copy of the global <em>errno</em> value, made shortly after the failing function call. In the unlikely case that you need to evaluate this, consult the standard C library documentation of <em>errno</em>.</p>
+<p>In case this method returns a non-zero error number, the text returned by <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_message.html#abf3c04401c0f074d5cd0c8e68ceb3cc3" title="Returns the formatted message text as if it had been printed by SGFC on the command-line....">GetFormattedMessageText()</a> already includes an error message that results from invoking <em>strerror()</em> with the error number.</p>
+<dl class="section note"><dt>Note</dt><dd>Messages for which this method returns a non-zero value are usually fatal error messages related to file I/O. There is no guarantee that this will always be the case, though.</dd>
+<dd>
+This method always returns 0 (zero) for messages generated by libsgfc++. </dd></dl>
 
-<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a52c3597ee27be7fd0ab5401da68a100e">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#acda5e95ffe4806c87e00f27fa3456b02">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
 
 </div>
 </div>
-<a id="abd1fef5b4b88ec9c89d794e418d5aad7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd1fef5b4b88ec9c89d794e418d5aad7">&#9670;&nbsp;</a></span>IsCriticalMessage()</h2>
+<a id="a44892af7a7ddef057214724e2052b8df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44892af7a7ddef057214724e2052b8df">&#9670;&nbsp;</a></span>GetMessageID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee">SgfcMessageID</a> LibSgfcPlusPlus::SgfcMessage::GetMessageID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the message's unique identification number. </p>
+<p>Every message generated by SGFC has its own unique message ID. Consult the SGFC documentation for a list of message IDs. SGFC calls them "error codes". The exception is when libsgfc++ is unable to determine the message ID when it receives the message data from SGFC - in the very unlikely case that this happens libsgfc++ sets the message ID to SgfcConstants::UnknownSgfcMessageID.</p>
+<p>Every message generated by libsgfc++ also has its own unique message ID that is distinct from all SGFC-generated message IDs.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#gafa2abf726df4472560967e1b7fc193ee" title="SgfcMessageID enumerates the message identification numbers that an ISgfcMessage object can have.">SgfcMessageID</a> </dd></dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a7d5032b4ee902ab6fcd813650a39fd17">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
+
+</div>
+</div>
+<a id="a993adee5d995d95914db999b95ee057d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a993adee5d995d95914db999b95ee057d">&#9670;&nbsp;</a></span>GetMessageType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2">SgfcMessageType</a> LibSgfcPlusPlus::SgfcMessage::GetMessageType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the type of message. </p>
+<p>Messages generated by SGFC can be of all types. Messages generated by libsgfc++ are always fatal errors (although this may change in the future).</p>
+<dl class="section attention"><dt>Attention</dt><dd>For SGFC-generated messages one and the same message ID can have different message types, depending on the context in which the message is generated. Examples: <a class="el" href="group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab0e60663a2c33f878ce30da175ab71c3" title="SGFC found (and deleted) an empty property value.">SgfcMessageID::EmptyValueDeleted</a>, <a class="el" href="group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeabc931a2842a6bf828014eaddadd3e680" title="SGFC found (and corrected) an illegal single property value.">SgfcMessageID::IllegalSingleValueCorrected</a>, etc.. Refer to the SGFC documentation for details. </dd></dl>
+
+<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a65cc9368d3850d5d11ef239dbfa5079c">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
+
+</div>
+</div>
+<a id="a38bace7907349ac38f3f0a0c699f8a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38bace7907349ac38f3f0a0c699f8a2e">&#9670;&nbsp;</a></span>IsCriticalMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -325,13 +399,13 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Returns true if the message describes a critical problem. Only warning and error messages can be critical. Always returns false for fatal errors. </p>
-<p>A critical problem indicates that the SGF content parsed by SGFC may be severly damaged and that information may be lost if the parsed SGF data is written. </p>
+<p>A critical problem indicates that the SGF content parsed by SGFC may be severely damaged and that information may be lost if the parsed SGF data is written. </p>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html#a539e2073ce28d37743a2c135dac6e822">LibSgfcPlusPlus::ISgfcMessage</a>.</p>
 
