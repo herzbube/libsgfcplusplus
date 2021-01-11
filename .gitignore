@@ -1,14 +1,18 @@
 # Build products
-DerivedData/
 build/
 
-# Xcode project
-libsgfcplusplus.xcodeproj/
+# Visual Studio
+# These folders are created when the project folder is opened
+# in Visual Studio, as recommended on the Microsoft docs page
+# for CMake projects.
+.vs/
+out/
 
 # Other folders with generated leftovers from
 # master branch
 sgfc/
 test/
+win-iconv/
 
 # Other files
 .DS_Store
