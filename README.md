@@ -2,12 +2,6 @@
 [![Github Releases](https://img.shields.io/github/release/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/releases)
 [![Github Releases](https://img.shields.io/github/license/herzbube/libsgfcplusplus.svg)](https://github.com/herzbube/libsgfcplusplus/blob/master/LICENSE)
 
-## Project status
-
-This software library project has grown out of its inception phase, but is still in a pre-release stage. Please don't use it in other software projects yet, the API is far from stable.
-
-I have created a number of issues and a few milestones that are supposed to outline the next steps (alpha, beta, 1.0), but there is no due date for any of them.
-
 ## What is it?
 
 libsgfc++ is a C++ wrapper library around [SGFC](https://www.red-bean.com/sgf/sgfc/). As such, libsgfc++ offers the same functionality as SGFC:
@@ -32,13 +26,19 @@ The limitations of SGFC also apply to libsgfc++. Quoting from the [SGFC website]
 > 
 > SGFC was written primarily for Go/WeiQi/Baduk (GM[1]) files. It can't handle other games yet, i.e. it doesn't check any game-specific properties and values of other games than Go. It may even save erronous game-specific properties of other games! Use SGFC for other games with care. 
 
+## Project status
+
+libsgfc++ has reached something that could be tentatively called a "beta phase". It has taken its first baby steps in an iOS project (via an Objective-C wrapper library [SgfcKit](https://github.com/herzbube/SgfcKit)), where it will now have to prove both stability and ease of use over the coming weeks and months. Although the API should be fairly stable, if using the library turns out to be too cumbersome there can still be drastic changes.
+
+Feel free to play around with libsgfc++, but at the moment, unless you are adventurous, I still advise against using it in earnest. Feedback how to improve the library or its build process is very welcome.
+
 ## Dependencies
 
 At runtime libsgfc++ depends on the C/C++ runtime library, the C++ standard library and possibly (depending on the platform) an iconv library.
 
 At build time libsgfc++ has the following dependencies:
 
-1. The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/). A transitive dependency inherited from SGFC is [iconv](https://en.wikipedia.org/wiki/Iconv).
+1. The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/). A transitive dependency inherited from SGFC is [iconv](https://en.wikipedia.org/wiki/Iconv) (more on that see below).
 2. The second dependency is the unit test library [Catch2](https://github.com/catchorg/Catch2).
 3. The third dependency is the build management tool [CMake](https://cmake.org/cmake/help/latest/).
 4. A last dependency is [Doxygen](https://www.doxygen.org/), used to optionally generate the project's API documentation.
