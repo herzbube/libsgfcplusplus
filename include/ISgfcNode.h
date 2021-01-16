@@ -157,6 +157,7 @@ namespace LibSgfcPlusPlus
     /// returns a value that includes SgfcNodeTrait::GameInfo.
     ///
     /// @see SgfcNodeTrait::GameInfo
+    /// @see GetMainVariationNodes()
     ///
     /// @exception std::bad_weak_ptr Is thrown if the method would like to
     /// return the node itself, but the ISgfcNode object is not wrapped by an
@@ -165,25 +166,41 @@ namespace LibSgfcPlusPlus
     /// unit testing.
     virtual std::shared_ptr<ISgfcNode> GetGameInfoNode() const = 0;
 
-    /// @brief Returns an ordered collection of nodes that form the main
-    /// variation of game play found on the node itself and its first child
-    /// descendants.
+    /// @brief Returns an ordered collection of nodes that consists of the
+    /// node's ancestors up to the root node, the node itself, and the main
+    /// variation of game play found on the node's first child descendants.
     ///
     /// The main variation is defined as the depth-first path that starts with
     /// the node itself and continues along the first child descendants down
     /// to the last node that has no more children. The collection that is
     /// returned therefore contains the following nodes in the listed order:
     ///
-    /// - Element 0: The node itself
-    /// - Element 1: The node's first child
-    /// - Element 2: The node's first child's first child
+    /// - Element 0: The root node
+    /// - Element 1: The root node's child that leads to the node itself (not
+    ///   necessarily the first child)
+    /// - Element 2: The root node child's child that leads to the node itself
+    ///   (not necessarily the first child)
+    /// - [...]
+    /// - Element n: The node itself
+    /// - Element n+1: The node's first child
+    /// - Element n+2: The node's first child's first child
     /// - Etc.
     ///
-    /// If the node has no children the returned collection contains only the
+    /// If the node is the root node the returned collection's first element
+    /// is the node itself. If the node has no children the returned
+    /// collection's last element is the node itself. If the node is the root
+    /// node and it has no children the returned collection contains only the
     /// node itself.
     ///
     /// This is a convenience method that is most useful when invoked on a
     /// game info node, i.e. a node that has the trait SgfcNodeTrait::GameInfo.
+    /// The returned collection fully spans the game tree from root node to leaf
+    /// node along a distinct path that contains the game info node on which the
+    /// method was invoked. The returned collection effectively represents a
+    /// full game.
+    ///
+    /// @see SgfcNodeTrait::GameInfo
+    /// @see GetGameInfoNode()
     ///
     /// @exception std::bad_weak_ptr Is thrown if the method would like to
     /// return the node itself, but the ISgfcNode object is not wrapped by an

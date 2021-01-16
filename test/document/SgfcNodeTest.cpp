@@ -1297,12 +1297,14 @@ SCENARIO( "SgfcNode is used to perform a game tree search", "[document]" )
   auto intermediateNode = std::make_shared<SgfcNode>();
   auto intermediateSiblingNode = std::make_shared<SgfcNode>();
   auto leafNode = std::make_shared<SgfcNode>();
+  auto childOfIntermediateSiblingNode = std::make_shared<SgfcNode>();
   auto nodeInOtherTree = std::make_shared<SgfcNode>();;
 
   game->SetRootNode(rootNode);
   treeBuilder.SetFirstChild(rootNode, intermediateNode);
   treeBuilder.SetNextSibling(intermediateNode, intermediateSiblingNode);
   treeBuilder.SetFirstChild(intermediateNode, leafNode);
+  treeBuilder.SetFirstChild(intermediateSiblingNode, childOfIntermediateSiblingNode);
 
   GIVEN( "SgfcNode is queried for the root node" )
   {
@@ -1405,33 +1407,57 @@ SCENARIO( "SgfcNode is used to perform a game tree search", "[document]" )
       std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateNode, leafNode };
       auto mainVariationNodes = rootNode->GetMainVariationNodes();
 
-      THEN( "SgfcNode returns all direct descendants from the root node until the leaf node" )
+      THEN( "SgfcNode returns the root node and all direct descendants until the leaf node" )
       {
-        REQUIRE( mainVariationNodes.size() == 3 );
+        REQUIRE( mainVariationNodes.size() == expectedMainVariationNodes.size() );
         REQUIRE( mainVariationNodes == expectedMainVariationNodes );
       }
     }
 
-    WHEN( "An intermediate node is queried" )
+    WHEN( "An intermediate node on the game tree's main variation is queried" )
     {
-      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { intermediateNode, leafNode };
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateNode, leafNode };
       auto mainVariationNodes = intermediateNode->GetMainVariationNodes();
 
-      THEN( "SgfcNode returns all direct descendants from the intermediate node until the leaf node" )
+      THEN( "SgfcNode returns all ancestors of the intermediate node, the intermediate node and all direct descendants until the leaf node" )
       {
-        REQUIRE( mainVariationNodes.size() == 2 );
+        REQUIRE( mainVariationNodes.size() == expectedMainVariationNodes.size() );
         REQUIRE( mainVariationNodes == expectedMainVariationNodes );
       }
     }
 
-    WHEN( "A leaf node is queried" )
+    WHEN( "An intermediate node not on the game tree's main variation is queried" )
     {
-      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { leafNode };
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateSiblingNode, childOfIntermediateSiblingNode };
+      auto mainVariationNodes = intermediateSiblingNode->GetMainVariationNodes();
+
+      THEN( "SgfcNode returns all ancestors of the intermediate node, the intermediate node and all direct descendants until the leaf node" )
+      {
+        REQUIRE( mainVariationNodes.size() == expectedMainVariationNodes.size() );
+        REQUIRE( mainVariationNodes == expectedMainVariationNodes );
+      }
+    }
+
+    WHEN( "A leaf node on the game tree's main variation is queried" )
+    {
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateNode, leafNode };
       auto mainVariationNodes = leafNode->GetMainVariationNodes();
 
-      THEN( "SgfcNode returns only the leaf node itself" )
+      THEN( "SgfcNode returns all ancestors and the leaf node itself" )
       {
-        REQUIRE( mainVariationNodes.size() == 1 );
+        REQUIRE( mainVariationNodes.size() == expectedMainVariationNodes.size() );
+        REQUIRE( mainVariationNodes == expectedMainVariationNodes );
+      }
+    }
+
+    WHEN( "A leaf node not on the game tree's main variation is queried" )
+    {
+      std::vector<std::shared_ptr<ISgfcNode>> expectedMainVariationNodes = { rootNode, intermediateSiblingNode, childOfIntermediateSiblingNode };
+      auto mainVariationNodes = childOfIntermediateSiblingNode->GetMainVariationNodes();
+
+      THEN( "SgfcNode returns all ancestors and the leaf node itself" )
+      {
+        REQUIRE( mainVariationNodes.size() == expectedMainVariationNodes.size() );
         REQUIRE( mainVariationNodes == expectedMainVariationNodes );
       }
     }

@@ -23,6 +23,7 @@
 
 // C++ Standard Library includes
 #include <algorithm>
+#include <list>
 #include <map>
 #include <set>
 #include <sstream>
@@ -245,18 +246,23 @@ namespace LibSgfcPlusPlus
 
   std::vector<std::shared_ptr<ISgfcNode>> SgfcNode::GetMainVariationNodes() const
   {
-    std::vector<std::shared_ptr<ISgfcNode>> mainVariationNodes;
+    // Use std::list because std::vector has no push_front()
+    std::list<std::shared_ptr<ISgfcNode>> mainVariationNodesList;
 
     // See comment in GetRoot() about shared_from_this
-    std::shared_ptr<ISgfcNode> node = std::const_pointer_cast<SgfcNode>(shared_from_this());
+    std::shared_ptr<ISgfcNode> thisNode = std::const_pointer_cast<SgfcNode>(shared_from_this());
 
-    while (node)
+    for (auto node = thisNode->GetParent(); node != nullptr; node = node->GetParent())
+      mainVariationNodesList.push_front(node);
+
+    for (auto node = thisNode; node != nullptr; node = node->GetFirstChild())
+      mainVariationNodesList.push_back(node);
+
+    return
     {
-      mainVariationNodes.push_back(node);
-      node = node->GetFirstChild();
-    }
-
-    return mainVariationNodes;
+      std::make_move_iterator(std::begin(mainVariationNodesList)),
+      std::make_move_iterator(std::end(mainVariationNodesList))
+    };
   }
 
   std::shared_ptr<ISgfcGameInfo> SgfcNode::CreateGameInfo() const
