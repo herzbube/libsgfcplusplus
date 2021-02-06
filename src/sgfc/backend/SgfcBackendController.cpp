@@ -328,10 +328,12 @@ namespace LibSgfcPlusPlus
         // even for SgfcDataLocation::InMemoryBuffer where we dont actually
         // interact with the filesystem. SaveSGF() can handle an empty file
         // name.
-        // SaveSGF returns false if a fatal error occurred
+        // SaveSGF returns false if a fatal error occurred (which is exposed
+        // to clients via ISgfcMessage) or in case the save handler factory
+        // method in SgfcSaveStream returns nothing, i.e. an interfacing issue.
         bool saveDataWasSuccessful = SaveSGF(sgfDataWrapper->GetSgfData(), &SgfcSaveStream::CreateSaveFileHandler, sgfFilePath.c_str());
-
-        savedSgfContents = saveStream.GetSgfContents();
+        if (saveDataWasSuccessful)
+          savedSgfContents = saveStream.GetSgfContents();
       }
 
       // Here we get all messages, even messages from LoadSGFFromFileBuffer

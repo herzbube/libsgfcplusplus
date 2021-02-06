@@ -1206,8 +1206,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, invalidGoBoardSize);
 
-      SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
-
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
         AssertInvalidGoMoveStrings(propertyDecoder, SgfcPropertyType::B, rawValueSgfNotation, moveValueSgfNotation);
@@ -1234,8 +1232,6 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
       sgfProperty.idstr = const_cast<char*>("B");
       sgfProperty.value = &propertyValue;
       SgfcPropertyDecoder propertyDecoder(&sgfProperty, gameType, testData.second);
-
-      SgfcColor expectedColor = propertyDecoder.GetPropertyType() == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
 
       THEN( "SgfcPropertyDecoder fails to decode the Move string value but provides it as ISgfcMovePropertyValue" )
       {
@@ -2279,8 +2275,6 @@ void AssertValidMoveStrings(const ISgfcSinglePropertyValue* propertySingleValue,
 
 void AssertInvalidGoMoveStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& moveValue)
 {
-  SgfcColor expectedColor = propertyType == SgfcPropertyType::B ? SgfcColor::Black : SgfcColor::White;
-
   REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );
@@ -2324,8 +2318,6 @@ void AssertValidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcP
 
 void AssertInvalidGoStoneStrings(const SgfcPropertyDecoder& propertyDecoder, SgfcPropertyType propertyType, const std::string& rawValue, const SgfcMove& stoneValue)
 {
-  SgfcColor expectedColor = propertyType == SgfcPropertyType::AB ? SgfcColor::Black : SgfcColor::White;
-
   REQUIRE( propertyDecoder.GetPropertyType() == propertyType );
   auto propertyValues = propertyDecoder.GetPropertyValues();
   REQUIRE( propertyValues.size() == 1 );

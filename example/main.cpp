@@ -356,7 +356,7 @@ int main(int argc, char** argv)
 
   std::string mode = argv[1];
 
-  int exitCode;
+  int exitCode = 1;
   if (mode == "cmdline")
   {
     std::string inputFilePath = argv[2];

@@ -103,7 +103,6 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcNode> currentNode = rootNode;
     Node* sgfCurrentNode = sgfRootNode;
     std::shared_ptr<ISgfcNode> currentParentNode = nullptr;
-    Node* sgfCurrentParentNode = nullptr;
 
     while (true)
     {
@@ -120,7 +119,6 @@ namespace LibSgfcPlusPlus
         stack.push(currentStackEntry);
 
         currentParentNode = currentNode;
-        sgfCurrentParentNode = sgfCurrentNode;
 
         currentNode = nullptr;
         sgfCurrentNode = sgfCurrentNode->child;
@@ -146,7 +144,6 @@ namespace LibSgfcPlusPlus
         }
 
         currentParentNode = currentNode->GetParent();
-        sgfCurrentParentNode = sgfCurrentNode->parent;
 
         currentNode = nullptr;
         sgfCurrentNode = sgfCurrentNode->sibling;
