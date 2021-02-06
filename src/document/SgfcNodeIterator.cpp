@@ -19,6 +19,7 @@
 
 // C++ Standard Library includes
 #include <stack>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
