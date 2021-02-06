@@ -46,6 +46,7 @@
 #include <algorithm>
 #include <iostream>
 #include <set>
+#include <stack>
 #include <stdexcept>
 
 // SGFC includes
@@ -82,40 +83,79 @@ namespace LibSgfcPlusPlus
       this->games.push_back(game);
 
       std::shared_ptr<ISgfcTreeBuilder> treeBuilder = game->GetTreeBuilder();
-      RecursiveParseDepthFirst(rootNode, sgfRootNode, gameType, boardSize, treeBuilder);
+      ParseGameTreeDepthFirst(rootNode, sgfRootNode, gameType, boardSize, treeBuilder);
 
       sgfRootNode = sgfRootNode->sibling;
       sgfTreeInfo = sgfTreeInfo->next;
     }
   }
 
-  void SgfcDocument::RecursiveParseDepthFirst(
-    std::shared_ptr<ISgfcNode> parentNode,
-    Node* sgfParentNode,
+  void SgfcDocument::ParseGameTreeDepthFirst(
+    std::shared_ptr<ISgfcNode> rootNode,
+    Node* sgfRootNode,
     SgfcGameType gameType,
     SgfcBoardSize boardSize,
     std::shared_ptr<ISgfcTreeBuilder> treeBuilder)
   {
-    Node* sgfFirstChildNode = sgfParentNode->child;
-    if (sgfFirstChildNode == nullptr)
-      return;
+    std::stack<std::pair<std::shared_ptr<ISgfcNode>, Node*>> stack;
+    std::pair<std::shared_ptr<ISgfcNode>, Node*> currentStackEntry;
 
-    auto firstChildNode = SgfcPlusPlusFactory::CreateNode();
-    treeBuilder->SetFirstChild(parentNode, firstChildNode);
-    ParseProperties(firstChildNode, sgfFirstChildNode, gameType, boardSize);
+    std::shared_ptr<ISgfcNode> currentNode = rootNode;
+    Node* sgfCurrentNode = sgfRootNode;
+    std::shared_ptr<ISgfcNode> currentParentNode = nullptr;
+    Node* sgfCurrentParentNode = nullptr;
 
-    RecursiveParseDepthFirst(firstChildNode, sgfFirstChildNode, gameType, boardSize, treeBuilder);
-
-    Node* sgfNextSiblingNode = sgfFirstChildNode->sibling;
-    while (sgfNextSiblingNode != nullptr)
+    while (true)
     {
-      auto nextSiblingNode = SgfcPlusPlusFactory::CreateNode();
-      treeBuilder->AppendChild(parentNode, nextSiblingNode);
-      ParseProperties(nextSiblingNode, sgfNextSiblingNode, gameType, boardSize);
+      while (sgfCurrentNode)
+      {
+        if (sgfCurrentNode != sgfRootNode)
+        {
+          currentNode = SgfcPlusPlusFactory::CreateNode();
+          treeBuilder->AppendChild(currentParentNode, currentNode);
+          ParseProperties(currentNode, sgfCurrentNode, gameType, boardSize);
+        }
 
-      RecursiveParseDepthFirst(nextSiblingNode, sgfNextSiblingNode, gameType, boardSize, treeBuilder);
+        currentStackEntry = std::make_pair(currentNode, sgfCurrentNode);
+        stack.push(currentStackEntry);
 
-      sgfNextSiblingNode = sgfNextSiblingNode->sibling;
+        currentParentNode = currentNode;
+        sgfCurrentParentNode = sgfCurrentNode;
+
+        currentNode = nullptr;
+        sgfCurrentNode = sgfCurrentNode->child;
+      }
+
+      if (! stack.empty())
+      {
+        currentStackEntry = stack.top();
+        stack.pop();
+
+        currentNode = currentStackEntry.first;
+        sgfCurrentNode = currentStackEntry.second;
+
+        if (sgfCurrentNode == sgfRootNode)
+        {
+          // We're back at the root node, we can stop (because it's the root
+          // node we don't need to check siblings). Note: This check is needed
+          // because if SGF content has multiple game trees SGFC will generate
+          // root nodes that have siblings (the sibling pointing to the ext
+          // game tree), but in this method we want to parse only the one game
+          // tree below the root node that we were invoked with.
+          break;
+        }
+
+        currentParentNode = currentNode->GetParent();
+        sgfCurrentParentNode = sgfCurrentNode->parent;
+
+        currentNode = nullptr;
+        sgfCurrentNode = sgfCurrentNode->sibling;
+      }
+      else
+      {
+        // We're done
+        break;
+      }
     }
   }
 

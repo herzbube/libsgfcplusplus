@@ -46,7 +46,7 @@ namespace LibSgfcPlusPlus
   };
 
   /// @brief Defines the signature of the callback method that SgfcNodeIterator
-  /// is invoking whenever it visits a node.
+  /// invokes when it visits a node.
   ///
   /// The callback parameter is the node that is being visited. The return value
   /// is an instruction to SgfcNodeIterator how it should continue with the
@@ -69,6 +69,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Iterates over the tree of nodes depth-first, starting with
     /// @a startNode. Invokes @a nodeVisitCallback whenever a node is visited.
+    /// @a nodeVisitCallback must not be @e nullptr.
     ///
     /// When @a nodeVisitCallback returns the iteration continues according to
     /// the SgfcNodeIterationContinuation value that @a nodeVisitCallback
@@ -81,16 +82,20 @@ namespace LibSgfcPlusPlus
     /// with @a startNode as the parameter, after which the depth-first
     /// iteration begins.
     ///
-    /// @a startNode typically is the root node of the tree of nodes to be
-    /// iterated. Even if this not the case and @a startNode has siblings and/or
-    /// a parent, the iteration never visits the siblings and/or the parent
-    /// of @a startNode.
+    /// @a startNode typically is the root node of a tree of nodes to be
+    /// iterated. If this not the case the iteration may visit the next siblings
+    /// of @a startNode, depending on the return value of @a nodeVisitCallback,
+    /// but the iteration never visits the parent or previous siblings of
+    /// @a startNode.
+    ///
+    /// @exception std::invalid_argument Is thrown if @a nodeVisitCallback is
+    /// @e nullptr.
     void IterateOverNodesDepthFirst(
       std::shared_ptr<ISgfcNode> startNode,
       NodeVisitCallback nodeVisitCallback) const;
 
   private:
-    SgfcNodeIterationContinuation IterateOverNodesDepthFirstRecursive(
+    void IterateOverNodesDepthFirstPrivate(
       std::shared_ptr<ISgfcNode> parentNode,
       NodeVisitCallback nodeVisitCallback) const;
   };

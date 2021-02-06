@@ -559,7 +559,7 @@ void AddEmptyRootNodeToSgfInfo(SGFInfo* sgfInfo, Node* sgfRootNode, TreeInfo* sg
   // succeeds.
   sgfRootNode->prop = nullptr;
 
-  // When root node has no child, recursive parsing of the tree by SgfcDocument
+  // When root node has no child, parsing of the tree by SgfcDocument
   // succeeds
   sgfRootNode->child = nullptr;
 

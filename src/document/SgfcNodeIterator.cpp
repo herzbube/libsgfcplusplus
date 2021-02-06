@@ -17,6 +17,9 @@
 // Project includes
 #include "SgfcNodeIterator.h"
 
+// C++ Standard Library includes
+#include <stack>
+
 namespace LibSgfcPlusPlus
 {
   SgfcNodeIterator::SgfcNodeIterator()
@@ -31,56 +34,66 @@ namespace LibSgfcPlusPlus
     std::shared_ptr<ISgfcNode> startNode,
     NodeVisitCallback nodeVisitCallback) const
   {
+    if (nodeVisitCallback == nullptr)
+      throw std::invalid_argument("IterateOverNodesDepthFirst failed: Node visit callback object is nullptr");
+
     if (startNode == nullptr)
       return;
 
-    SgfcNodeIterationContinuation iterationContinuation = nodeVisitCallback(startNode);
-    if (iterationContinuation == SgfcNodeIterationContinuation::VerticalAndLateral)
-    {
-      IterateOverNodesDepthFirstRecursive(startNode, nodeVisitCallback);
-    }
+    IterateOverNodesDepthFirstPrivate(startNode, nodeVisitCallback);
   }
 
-  SgfcNodeIterationContinuation SgfcNodeIterator::IterateOverNodesDepthFirstRecursive(
-    std::shared_ptr<ISgfcNode> parentNode,
+  void SgfcNodeIterator::IterateOverNodesDepthFirstPrivate(
+    std::shared_ptr<ISgfcNode> startNode,
     NodeVisitCallback nodeVisitCallback) const
   {
-    auto firstChildNode = parentNode->GetFirstChild();
-    if (firstChildNode == nullptr)
-      return SgfcNodeIterationContinuation::Ascend;
+    std::stack<std::shared_ptr<ISgfcNode>> stack;
 
-    SgfcNodeIterationContinuation iterationContinuation = nodeVisitCallback(firstChildNode);
-    if (iterationContinuation == SgfcNodeIterationContinuation::VerticalAndLateral)
-    {
-      iterationContinuation = IterateOverNodesDepthFirstRecursive(firstChildNode, nodeVisitCallback);
-      if (iterationContinuation == SgfcNodeIterationContinuation::Stop)
-        return iterationContinuation;
-    }
-    else if (iterationContinuation == SgfcNodeIterationContinuation::Ascend ||
-             iterationContinuation == SgfcNodeIterationContinuation::Stop)
-    {
-      return iterationContinuation;
-    }
+    std::shared_ptr<ISgfcNode> currentNode = startNode;
 
-    auto nextSiblingNode = firstChildNode->GetNextSibling();
-    while (nextSiblingNode != nullptr)
+    SgfcNodeIterationContinuation iterationContinuation = SgfcNodeIterationContinuation::VerticalAndLateral;
+
+    while (true)
     {
-      iterationContinuation = nodeVisitCallback(nextSiblingNode);
-      if (iterationContinuation == SgfcNodeIterationContinuation::VerticalAndLateral)
+      while (currentNode)
       {
-        IterateOverNodesDepthFirstRecursive(nextSiblingNode, nodeVisitCallback);
+        iterationContinuation = nodeVisitCallback(currentNode);
         if (iterationContinuation == SgfcNodeIterationContinuation::Stop)
-          return iterationContinuation;
+        {
+          return;
+        }
+        else if (iterationContinuation == SgfcNodeIterationContinuation::VerticalAndLateral)
+        {
+          stack.push(currentNode);
+          currentNode = currentNode->GetFirstChild();
+        }
+        else
+        {
+          break;
+        }
       }
-      else if (iterationContinuation == SgfcNodeIterationContinuation::Ascend ||
-               iterationContinuation == SgfcNodeIterationContinuation::Stop)
+
+      // currentNode can be nullptr if the most recent request to continue
+      // laterally could not be satisfied because there was no next sibling.
+      if (iterationContinuation == SgfcNodeIterationContinuation::Lateral && currentNode != nullptr)
       {
-        return iterationContinuation;
+        currentNode = currentNode->GetNextSibling();
       }
+      else
+      {
+        if (! stack.empty())
+        {
+          currentNode = stack.top();
+          stack.pop();
 
-      nextSiblingNode = nextSiblingNode->GetNextSibling();
+          currentNode = currentNode->GetNextSibling();
+        }
+        else
+        {
+          // We're done
+          break;
+        }
+      }
     }
-
-    return iterationContinuation;
   }
 }

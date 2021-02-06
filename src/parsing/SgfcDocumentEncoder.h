@@ -45,6 +45,8 @@ namespace LibSgfcPlusPlus
   /// generates with indentation and line breaks to make the content human
   /// readable. It is expected that SGFC removes that whitespace when it parses
   /// the SGF content.
+  ///
+  /// The purpose of generating human readable SGF content is to debug issues.
   class SgfcDocumentEncoder
   {
   public:
@@ -76,8 +78,8 @@ namespace LibSgfcPlusPlus
   private:
     std::shared_ptr<ISgfcDocument> document;
 
-    void RecursiveParseDepthFirst(
-      std::shared_ptr<ISgfcNode> parentNode,
+    void ParseDepthFirst(
+      std::shared_ptr<ISgfcNode> rootNode,
       std::stringstream& sgfContentStream,
       int indentationLevel) const;
 

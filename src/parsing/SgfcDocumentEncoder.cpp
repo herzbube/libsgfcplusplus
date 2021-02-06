@@ -28,6 +28,7 @@
 
 // C++ Standard Library includes
 #include <sstream>
+#include <stack>
 
 namespace LibSgfcPlusPlus
 {
@@ -65,9 +66,7 @@ namespace LibSgfcPlusPlus
       EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
       indentationLevel++;
 
-      EncodeNode(rootNode.get(), sgfContentStream, indentationLevel);
-
-      RecursiveParseDepthFirst(rootNode, sgfContentStream, indentationLevel);
+      ParseDepthFirst(rootNode, sgfContentStream, indentationLevel);
 
       indentationLevel--;
       EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
@@ -78,51 +77,58 @@ namespace LibSgfcPlusPlus
     return sgfContentStream.str();
   }
 
-  void SgfcDocumentEncoder::RecursiveParseDepthFirst(
-    std::shared_ptr<ISgfcNode> parentNode,
+  void SgfcDocumentEncoder::ParseDepthFirst(
+    std::shared_ptr<ISgfcNode> rootNode,
     std::stringstream& sgfContentStream,
     int indentationLevel) const
   {
-    std::shared_ptr<ISgfcNode> firstChildNode = parentNode->GetFirstChild();
-    if (firstChildNode == nullptr)
-      return;
+    // Implementation note: We can't use
+    // SgfcNodeIterator::IterateOverNodesDepthFirst() because of the indentation
+    // feature. SgfcNodeIterator::IterateOverNodesDepthFirst() visits a node
+    // only once, but this method needs to visit a node twice: Once when it
+    // encounters the node for the first time, and once when it pops the node
+    // from the stack. If the indentation feature is no longer needed then
+    // this method can use SgfcNodeIterator::IterateOverNodesDepthFirst().
 
-    // TODO: This kind of "lookahead" would not be necessary if we could simply
-    // get the parent node's children and do a count on them. It would also
-    // make special treatment of first child node unnecessary - we could
-    // simply iterate over all children.
-    bool hasSibling = (firstChildNode->GetNextSibling() != nullptr);
+    std::stack<std::shared_ptr<ISgfcNode>> stack;
 
-    if (hasSibling)
+    std::shared_ptr<ISgfcNode> currentNode = rootNode;
+
+    while (true)
     {
-      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
-      indentationLevel++;
-    }
+      while (currentNode)
+      {
+        if (currentNode->HasNextSibling() || currentNode->HasPreviousSibling())
+        {
+          EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
+          indentationLevel++;
+        }
 
-    EncodeNode(firstChildNode.get(), sgfContentStream, indentationLevel);
+        EncodeNode(currentNode.get(), sgfContentStream, indentationLevel);
 
-    RecursiveParseDepthFirst(firstChildNode, sgfContentStream, indentationLevel);
+        stack.push(currentNode);
 
-    if (hasSibling)
-    {
-      indentationLevel--;
-      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
-    }
+        currentNode = currentNode->GetFirstChild();
+      }
 
-    std::shared_ptr<ISgfcNode> nextSiblingNode = firstChildNode->GetNextSibling();
-    while (nextSiblingNode != nullptr)
-    {
-      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeBeginToken, sgfContentStream, indentationLevel);
-      indentationLevel++;
+      if (! stack.empty())
+      {
+        currentNode = stack.top();
+        stack.pop();
 
-      EncodeNode(nextSiblingNode.get(), sgfContentStream, indentationLevel);
+        if (currentNode->HasNextSibling() || currentNode->HasPreviousSibling())
+        {
+          indentationLevel--;
+          EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
+        }
 
-      RecursiveParseDepthFirst(nextSiblingNode, sgfContentStream, indentationLevel);
-
-      indentationLevel--;
-      EncodeGameTreeBeginOrEnd(SgfcPrivateConstants::GameTreeEndToken, sgfContentStream, indentationLevel);
-
-      nextSiblingNode = nextSiblingNode->GetNextSibling();
+        currentNode = currentNode->GetNextSibling();
+      }
+      else
+      {
+        // We're done
+        break;
+      }
     }
   }
 

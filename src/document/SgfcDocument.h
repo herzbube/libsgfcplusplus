@@ -75,9 +75,9 @@ namespace LibSgfcPlusPlus
   private:
     std::vector<std::shared_ptr<ISgfcGame>> games;
 
-    void RecursiveParseDepthFirst(
-      std::shared_ptr<ISgfcNode> parentNode,
-      Node* sgfParentNode,
+    void ParseGameTreeDepthFirst(
+      std::shared_ptr<ISgfcNode> rootNode,
+      Node* sgfRootNode,
       SgfcGameType gameType,
       SgfcBoardSize boardSize,
       std::shared_ptr<ISgfcTreeBuilder> treeBuilder);
