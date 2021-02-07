@@ -27,7 +27,7 @@ When reading SimpleText or Text property values, SGFC follows the SGF standard r
 - Text property values: SGFC preserves unescaped (= hard) line breaks. SGFC removes escaped (= soft) line breaks (including the escape character). libsgfc++ never gets to see escaped line breaks.
 - SimpleText property values: SGFC converts unescaped line breaks into a single space character. SGFC removes escaped line breaks (including the escape character). libsgfc++ never gets to see escaped line breaks.
 
-When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as needed.
+When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as it sees fit (cf. `-L` and `-t` command line options).
 
 ## Pass moves for Go games
 

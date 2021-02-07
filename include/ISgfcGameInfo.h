@@ -50,15 +50,23 @@ namespace LibSgfcPlusPlus
   /// properties (SgfcPropertyCategory::GameInfo) found in the root node and the
   /// game info node, respectively, at the time the query is made.
   ///
+  /// @note It is not possible to distinguish between a property that was not
+  /// present in the root or game info node, and a property that was present
+  /// in the root or game info but had the default property value.
+  ///
   /// Alternatively a new but empty ISgfcGameInfo object can be created via
   /// SgfcPlusPlusFactory and then populated with data as the library client
-  /// sees fit.
+  /// sees fit. The empty ISgfcGameInfo object is initialized with default
+  /// values.
   ///
   /// The values that an ISgfcGameInfo object holds can be written to an
   /// ISgfcGame or ISgfcNode. The values are converted to properties and
   /// property values that are then stored in the root node and the game info
   /// node, respectively. Properties and property values that already exist at
-  /// that time are overwritten.
+  /// that time are either overwritten, or removed if the value to be written
+  /// is the default value.
+  ///
+  /// @note It is not possible to write a property with its default value.
   ///
   /// Root property values are read-only - they must be provided at the time the
   /// ISgfcGameInfo object is constructed and cannot be changed later on. The
