@@ -35,6 +35,21 @@ Why does `ctest` report only a single test? This is because CMake sees the Catch
 
     ./test/libsgfcplusplus-test
 
+The Catch2 test runner also has more capabilities than `ctest` to control which tests should be run. Invoke the test runner with the `-h` option to see all the options that are available. Example: All test scenarios are tagged, you can list those tags like this:
+
+    ./test/libsgfcplusplus-test --list-tags
+
+To run only tests marked with certain tags specify the tags in brackets. The following examples only runs tests that are related to text encodings and/or that excercise go-specific functionality:
+
+    ./test/libsgfcplusplus-test "[encoding],[go]"   # or
+    ./test/libsgfcplusplus-test "[encoding][go]"    # and
+
+The `[filesystem]` tag marks all tests that interact with the filesystem. To exclude these:
+
+    ./test/libsgfcplusplus-test "~[filesystem]"
+
+For more details see the [Catch2 documentation](https://github.com/catchorg/Catch2/blob/devel/docs/command-line.md).
+
 ## How to install
 
 After the tests have run successfully you install the build products to a destination folder of your choice. CMake 3.15 and newer include a command line option `--install` which can be used like this:
