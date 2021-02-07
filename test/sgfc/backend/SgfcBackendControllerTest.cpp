@@ -271,44 +271,44 @@ SCENARIO( "SgfcBackendController loads SGF content from the filesystem", "[backe
   }
 }
 
-SCENARIO( "SgfcBackendController loads SGF content from a string", "[backend][zzz]" )
+SCENARIO( "SgfcBackendController loads SGF content from a string", "[backend]" )
 {
   std::vector<std::shared_ptr<ISgfcArgument>> emptyCommandLineArguments;
 
-//  GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
-//  {
-//    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
-//    {
-//      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO))
-//    };
-//    SgfcBackendController backendController(invalidCommandLineArguments);
-//
-//    WHEN( "SgfcBackendController attempts to perform the load operation" )
-//    {
-//      THEN( "The load operation throws an exception" )
-//      {
-//        REQUIRE_THROWS_AS(
-//          backendController.LoadSgfContent("(;)"),
-//          std::logic_error);
-//      }
-//    }
-//  }
-//
-//  GIVEN( "The string does not contain valid SGF data" )
-//  {
-//    std::string sgfContent = GENERATE ( "", "foobar" );
-//
-//    WHEN( "SgfcBackendController performs the load operation" )
-//    {
-//      SgfcBackendController backendController(emptyCommandLineArguments);
-//      auto loadResult = backendController.LoadSgfContent(sgfContent);
-//
-//      THEN( "The load operation result indicates failure" )
-//      {
-//        AssertErrorLoadResultWhenNoValidSgfContent(loadResult);
-//      }
-//    }
-//  }
+  GIVEN( "SgfcBackendController was constructed with invalid command line arguments" )
+  {
+    std::vector<std::shared_ptr<ISgfcArgument>> invalidCommandLineArguments =
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::HardLineBreakMode, 42))
+    };
+    SgfcBackendController backendController(invalidCommandLineArguments);
+
+    WHEN( "SgfcBackendController attempts to perform the load operation" )
+    {
+      THEN( "The load operation throws an exception" )
+      {
+        REQUIRE_THROWS_AS(
+          backendController.LoadSgfContent("(;)"),
+          std::logic_error);
+      }
+    }
+  }
+
+  GIVEN( "The string does not contain valid SGF data" )
+  {
+    std::string sgfContent = GENERATE ( "", "foobar" );
+
+    WHEN( "SgfcBackendController performs the load operation" )
+    {
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto loadResult = backendController.LoadSgfContent(sgfContent);
+
+      THEN( "The load operation result indicates failure" )
+      {
+        AssertErrorLoadResultWhenNoValidSgfContent(loadResult);
+      }
+    }
+  }
 
   GIVEN( "The string contains SGF data without warnings or errors" )
   {
