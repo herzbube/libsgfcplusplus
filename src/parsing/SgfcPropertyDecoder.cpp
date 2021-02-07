@@ -634,9 +634,7 @@ namespace LibSgfcPlusPlus
         propertyValue = GetSgfcStonePropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::Unknown:
-        // TODO: Unescape
-        propertyValue = std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
-          rawPropertyValueBuffer));
+        propertyValue = GetSgfcUnknownPropertyValueFromSgfPropertyValue(rawPropertyValueBuffer, singlePropertyValueContext);
         break;
       case SgfcPropertyValueType::None:
       default:
@@ -974,6 +972,29 @@ namespace LibSgfcPlusPlus
       }
     }
   }
+
+  std::shared_ptr<ISgfcSinglePropertyValue> SgfcPropertyDecoder::GetSgfcUnknownPropertyValueFromSgfPropertyValue(
+    const char* rawPropertyValueBuffer,
+    SgfcSinglePropertyValueContext singlePropertyValueContext) const
+  {
+    if (this->escapeProcessingEnabled)
+    {
+      std::string rawValueWithoutEscapeCharacters =
+        RemoveMandatoryEscapeCharacters(rawPropertyValueBuffer);
+
+      // No handling necessary for ":" character because properties of type
+      // Unknown can't have composed values
+
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
+        rawValueWithoutEscapeCharacters));
+    }
+    else
+    {
+      return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
+        rawPropertyValueBuffer));
+    }
+  }
+
 
   bool SgfcPropertyDecoder::DoesSgfcPropertyHaveTypedValues(
     const std::shared_ptr<ISgfcPropertyValue>& propertyValue) const

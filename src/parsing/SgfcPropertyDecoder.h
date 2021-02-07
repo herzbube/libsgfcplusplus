@@ -72,9 +72,10 @@ namespace LibSgfcPlusPlus
     /// escape processing is diabled. The default is false.
     ///
     /// When escape processing is enabled SgfcPropertyDecoder removes escape
-    /// characters from SimpleText and Text property values, and from
+    /// characters from SimpleText and Text property values, from
     /// Move/Point/Stone property values if the game type is not
-    /// SgfcGameType::Go.
+    /// SgfcGameType::Go, and from values for properties that have
+    /// #SgfcPropertyTypeUnknown.
     ///
     /// The default for this setting used to be true, but beginning with V2.00
     /// SGFC now removes all escape characters for us. The setting is left in
@@ -292,6 +293,9 @@ namespace LibSgfcPlusPlus
       const char* rawPropertyValueBuffer,
       SgfcSinglePropertyValueContext singlePropertyValueContext) const;
     std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcStonePropertyValueFromSgfPropertyValue(
+      const char* rawPropertyValueBuffer,
+      SgfcSinglePropertyValueContext singlePropertyValueContext) const;
+    std::shared_ptr<ISgfcSinglePropertyValue> GetSgfcUnknownPropertyValueFromSgfPropertyValue(
       const char* rawPropertyValueBuffer,
       SgfcSinglePropertyValueContext singlePropertyValueContext) const;
 

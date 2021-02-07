@@ -318,8 +318,6 @@ namespace LibSgfcPlusPlus
       std::vector<std::shared_ptr<SgfcSgfContent>> savedSgfContents;
 
       // Don't attempt to save if loading was not successful
-      // TODO: Currently we only skip saving if a fatal error occurred. Shouldn't
-      // we skip saving also for critical errors?
       if (loadDataWasSuccessful)
       {
         SgfcSaveStream saveStream;

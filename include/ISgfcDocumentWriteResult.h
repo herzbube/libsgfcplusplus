@@ -60,8 +60,6 @@ namespace LibSgfcPlusPlus
 
     /// @brief Prints the content of the ISgfcDocumentWriteResult to stdout for
     /// debugging purposes.
-    ///
-    /// @todo Remove this prior to release.
     virtual void DebugPrintToConsole() const = 0;
   };
 }

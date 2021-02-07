@@ -184,8 +184,6 @@ namespace LibSgfcPlusPlus
     ///
     /// This is useful to see the SGF content that the writer would pass to
     /// SGFC for parsing and writing.
-    ///
-    /// @todo Remove this prior to release.
     virtual void DebugPrintToConsole(
       std::shared_ptr<ISgfcDocument> document) const = 0;
   };

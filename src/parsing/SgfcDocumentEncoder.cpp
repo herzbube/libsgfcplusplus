@@ -156,7 +156,6 @@ namespace LibSgfcPlusPlus
   {
     sgfContentStream << property->GetPropertyName();
 
-    // TODO: Add a convenience method ISgfcProperty::HasValues/HasNoValues
     bool propertyHasNoValues = true;
 
     for (auto propertyValue : property->GetPropertyValues())
@@ -216,16 +215,15 @@ namespace LibSgfcPlusPlus
     {
       // libsgfc++ gives the library client the guarantee that SimpleText and
       // Text values don't need to contain escape characters, so we now have to
-      // add escaping. If possible we don't use the raw value!
+      // add escaping. If possible we don't use the raw value, although it
+      // should not matter:
       // - If the property value object was created programmatically then the
       //   raw value and the value passed by the library client to the factory
       //   are the same.
       // - If the property value object was created internally by ligsgfc++
       //   during reading of SGF content, then the raw value is what SGFC passed
-      //   on to libsgfc++ after performing error corrections. This still
-      //   contains escape characters, so we can't use the raw value for
-      //   encoding because the resulting SGF content would then contain
-      //   double-escaping.
+      //   on to libsgfc++ after performing error corrections. Since SGFC V2.0
+      //   this should not contain escape characters.
       case SgfcPropertyValueType::SimpleText:
       case SgfcPropertyValueType::Text:
       {
@@ -238,9 +236,11 @@ namespace LibSgfcPlusPlus
         else
           valueToEncode = singlePropertyValue->ToTextValue()->GetTextValue();
 
-        // TODO: Handle newlines
-        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(valueToEncode, singlePropertyValueContext);
+        // Newlines should not exist in a SimpleText value, but if it does
+        // SGFC will treat it as a space character when we pass it
+        // sgfContentStream for reading.
 
+        sgfContentStream << AddSimpleTextAndTextEscapeCharacters(valueToEncode, singlePropertyValueContext);
         break;
       }
 
