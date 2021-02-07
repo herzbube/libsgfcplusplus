@@ -81,16 +81,17 @@ namespace LibSgfcPlusPlus
   /// the arguments that GetArguments() returns at that point. The processing
   /// is almost exactly the same as when ISgfcDocumentReader had been used to
   /// read the SGF data. If the library client does not do anything special,
-  /// this is the default behahviour:
+  /// this is the default behaviour:
   /// - #SgfcArgumentType::EncodingMode 1 is used.
   /// - The first CA property value determines the encoding to use.
-  /// - UTF-8 is used as the default encoding if there is no CA property value.
+  /// - #SgfcArgumentType::DefaultEncoding UTF-8 is used if there is no
+  ///   CA property value.
   ///
   /// The last point is the only difference to ISgfcDocumentReader, which uses
-  /// ISO-8859-1 as the default encoding. ISgfcDocumentWriter uses UTF-8 because
-  /// it assumes that library clients work with UTF-8. A library client that
-  /// wants a different default encoding must change the arguments returned by
-  /// GetArguments().
+  /// #SgfcArgumentType::DefaultEncoding ISO-8859-1. ISgfcDocumentWriter uses
+  /// UTF-8 because it assumes that library clients work with UTF-8. A library
+  /// client that wants a different default encoding must change the arguments
+  /// returned by GetArguments().
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentWriter
   {
   public:

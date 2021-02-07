@@ -17,6 +17,7 @@
 // Project includes
 #include "../../document/SgfcDocument.h"
 #include "../../parsing/SgfcDocumentEncoder.h"
+#include "../../SgfcPrivateConstants.h"
 #include "../argument/SgfcArguments.h"
 #include "../backend/SgfcBackendController.h"
 #include "SgfcDocumentWriter.h"
@@ -30,7 +31,7 @@ namespace LibSgfcPlusPlus
   SgfcDocumentWriter::SgfcDocumentWriter()
     : arguments(new SgfcArguments())
   {
-    this->arguments->AddArgument(SgfcArgumentType::DefaultEncoding, "UTF-8");
+    this->arguments->AddArgument(SgfcArgumentType::DefaultEncoding, SgfcPrivateConstants::TextEncodingNameUTF8);
   }
 
   SgfcDocumentWriter::~SgfcDocumentWriter()

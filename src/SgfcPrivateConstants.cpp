@@ -156,6 +156,10 @@ namespace LibSgfcPlusPlus
     { SgfcArgumentType::ForcedEncoding, "--encoding" },
   };
 
+  const int SgfcPrivateConstants::EncodingModeSingleEncoding = 1;
+  const int SgfcPrivateConstants::EncodingModeMultipleEncodings = 2;
+  const int SgfcPrivateConstants::EncodingModeNoDecoding = 3;
+
   const SgfcMessageType SgfcPrivateConstants::DefaultMessageType = SgfcMessageType::FatalError;
   const bool SgfcPrivateConstants::DefaultIsCriticalMessage = false;
   const std::string SgfcPrivateConstants::DefaultMessageText = SgfcPrivateConstants::EmptyString;
@@ -179,4 +183,6 @@ namespace LibSgfcPlusPlus
     // SgfcNodeTrait::Miscellaneous (because there's no point in having such
     // a trait).
   };
+
+  const std::string SgfcPrivateConstants::TextEncodingNameUTF8 = "UTF-8";
 }

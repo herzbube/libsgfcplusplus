@@ -184,6 +184,8 @@ An additional complication to the partial encoding approach are the SGF standard
 
 All things considered it is reasonable to assume that modern-day SGF-writing applications that support non-ASCII SGF content are not strictly conforming to the SGF standard, but are using the common-sense approach of encoding the **entire** SGF content with the same character encoding.
 
+It is recommended that library clients use the UTF-8 character encoding whenever they can, first and foremost because it is a sensible universal encoding, and second because the out-of-the-box behaviour of libsgfc++ (and the backend SGFC) are geared towards using UTF-8. The following sections are considered mandatory reading if you plan to use something other than UTF-8.
+
 ### Encoding modes
 
 The library client can choose between 3 encoding modes when it reads SGF content with `ISgfcDocumentReader` or writes SGF content with `ISgfcDocumentWriter`. The selection is made by specifying `SgfcArgumentType::EncodingMode` when the read or write operation is performed. 
@@ -193,6 +195,8 @@ The documentation of `SgfcArgumentType::EncodingMode` has the details about each
 - Mode 1 (the default mode): A single encoding is used to decode the **entire** SGF content. The encoding to use is detected by probing the SGF content. If a Unicode BOM marker is found then the encoding defined by that marker is used, but the first CA property in the decoded SGF content must match the encoding detected from the BOM. If no Unicode BOM marker is found then the SGF content is probed for CA properties, and the first CA property value found is used as the encoding. If no CA property is found the default encoding ISO-8859-1 is used. Note that only this mode allows the wide-character encodings UTF-16 and UTF-32 to be processed (via BOM detection).
 - Mode 2 (specification conformant): A separate encoding is used to decode each game tree in the SGF content. The encoding is defined by the CA property value of that game tree. If a game tree has no CA property the default encoding ISO-8859-1 is used. Only SimpleText and Text property values are decoded! The SGF formatting skeleton as well as property values that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.
 - Mode 3: No decoding takes place.
+
+**Important:** When mode 1 or 2 are used for reading, the SGF content is decoded and made available to the library client as **UTF-8**.
 
 Please make sure to read the documentation of `SgfcArgumentType::EncodingMode` to understand the details. You may also wish to consult the documentation in SGFC's README file.
 
@@ -257,3 +261,34 @@ Furthermore, after the escape-processing the resulting SGF content might not eve
 A library client that programmatically creates `ISgfcDocument` object trees should use UTF-8 to encode SimpleText and Text property values. UTF-8 is a universal and ASCII-safe character encoding that causes the least amount of trouble along all routes.
 
 Specifically, `ISgfcDocumentWriter` supports only ASCII-safe character encodings to write an `ISgfcDocument` object tree. The escape-processing discussed in the previous section is the root cause for the restriction. Read the `ISgfcDocumentWriter` class documentation for some technical details.
+
+### UTF-8 support in `ISgfcDocumentReader`
+
+As mentioned in a previous section, when encoding mode 1 or 2 are used the SGF data is read into memory converted to UTF-8. However, without further measures the document object tree would still contain whatever CA property values were found in the SGF data. If these values are not UTF-8 then the document object tree would now contain wrong information about the character encoding used in-memory. This would be a problem if, for instance, the document object tree were passed to ISgfcDocumentWriter, because the writer would then use the wrong CA property values.
+
+To avoid this situation `ISgfcDocumentReader` performs the following manipulations of the document object tree after the read operation is complete:
+
+- If encoding mode 1 or 2 were used for reading `ISgfcDocumentReader` writes the CA property value "UTF-8" into the root node of each `ISgfcGame` it finds in the document. Only the root node needs to be treated such because the CA property is a root property which according to the SGF standard is only allowed in the root node. Note that the SGFC backend deletes any CA properties that it finds outside of a root node.
+- If encoding mode 3 was used for reading `ISgfcDocumentReader` does not write a CA property value because the SGF data was read into memory as-is.
+
+### UTF-8 is the default character encoding in `ISgfcDocumentWriter`
+
+`ISgfcDocumentWriter` configures itself to use UTF-8 as the default character encoding. A library client that programmatically creates a document object tree from scratch using UTF-8 data therefore does not need to explicitly set a CA property value when it wants to write the document.
+
+Library clients that want different behaviour can follow this guide when working with `ISgfcDocumentWriter`:
+
+1. Client wants to use encoding mode 1 or 2
+    - Consequence: SGF data is converted to UTF-8.
+    - Document object tree does not contain a CA property value
+        - Client does not specify its own default encoding, or a forced encoding: Document object tree data must be in UTF-8.
+        - Client specifies its own default encoding, or a forced encoding: Document object tree data must be in that character encoding.
+        - In the final output CA[UTF-8] is added.
+    - Document object tree contains a CA property value
+        - Client does not specify a forced encoding: Document object tree data must be in the character encoding specified by the CA value.
+        - Client specifies a forced encoding: Document object tree data must be in the forced encoding.
+        - In the final output CA[UTF-8] replaces the existing CA property value.
+
+2. Client wants to use encoding mode 3
+    - Consequence: SGFC reads everything into memory as-is without conversion.
+    - The presence of a CA property value in the document object tree is irrelevant. The document object tree can contain data encoded in any character encoding.
+    - No CA value is added or changed in the final output.

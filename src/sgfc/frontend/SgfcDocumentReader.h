@@ -22,6 +22,9 @@
 
 namespace LibSgfcPlusPlus
 {
+  // Forward declarations
+  class ISgfcDocument;
+
   /// @brief The SgfcDocumentReader class provides an implementation of the
   /// ISgfcDocumentReader interface. See the interface header file for
   /// documentation.
@@ -46,5 +49,7 @@ namespace LibSgfcPlusPlus
       const std::string& sgfFilePath,
       const std::string& sgfContent,
       SgfcDataLocation dataLocation) const;
+
+    void PostProcessDocument(std::shared_ptr<ISgfcDocument> document) const;
   };
 }

@@ -40,6 +40,36 @@ namespace LibSgfcPlusPlus
   /// @ingroup public-api
   /// @ingroup sgfc-frontend
   /// @ingroup document
+  ///
+  /// ISgfcDocumentReader invokes the SGFC backend's load/parse functions using
+  /// the arguments that GetArguments() returns. If the library client does not
+  /// do anything special, this is the default behaviour:
+  /// - #SgfcArgumentType::EncodingMode 1 is used.
+  /// - The first CA property value found in the SGF data determines the
+  ///   encoding to use.
+  /// - #SgfcArgumentType::DefaultEncoding ISO-8859-1 is used if there is no
+  ///   CA property value.
+  ///
+  /// When #SgfcArgumentType::EncodingMode 1 or 2 are used the SGFC backend
+  /// converts the SGF data it reads into memory to UTF-8. However, without
+  /// further measures the document object tree would still contain whatever
+  /// CA property values were found in the SGF data. If these values are not
+  /// UTF-8 then the document object tree would now contain wrong information
+  /// about the encoding used in-memory. This would be a problem if, for
+  /// instance, the document object tree were passed to ISgfcDocumentWriter,
+  /// because the writer would then use the wrong CA property values. To avoid
+  /// this situation ISgfcDocumentReader performs the following manipulations
+  /// of the document object tree after the read operation is complete:
+  /// - If #SgfcArgumentType::EncodingMode 1 or 2 were used for reading
+  ///   ISgfcDocumentReader writes the CA property value "UTF-8" into the root
+  ///   node of each ISgfcGame it finds in the document. Only the root node
+  ///   needs to be treated such because the CA property is a root property
+  ///   which according to the SGF standard is only allowed in the root node.
+  ///   Note that the SGFC backend deletes any CA properties that it finds
+  ///   outside of a root node.
+  /// - If #SgfcArgumentType::EncodingMode 3 was used for reading
+  ///   ISgfcDocumentReader does not write a CA property value because the SGF
+  ///   data was read into memory as-is.
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentReader
   {
   public:
@@ -63,6 +93,8 @@ namespace LibSgfcPlusPlus
     /// path and puts the data through the SGFC parser, using the arguments that
     /// GetArguments() currently returns.
     ///
+    /// Read the class documentation for details about encodings.
+    ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
     /// the read operation.
     virtual std::shared_ptr<ISgfcDocumentReadResult> ReadSgfFile(const std::string& sgfFilePath) const = 0;
@@ -70,6 +102,8 @@ namespace LibSgfcPlusPlus
     /// @brief Reads SGF data from the specified string and puts the data
     /// through the SGFC parser, using the arguments that GetArguments()
     /// currently returns.
+    ///
+    /// Read the class documentation for details about encodings.
     ///
     /// @return An ISgfcDocumentReadResult object that provides the result of
     /// the read operation.

@@ -15,8 +15,17 @@
 // -----------------------------------------------------------------------------
 
 // Project includes
+#include "../../../include/ISgfcGame.h"
+#include "../../../include/ISgfcNode.h"
+#include "../../../include/ISgfcProperty.h"
+#include "../../../include/ISgfcPropertyFactory.h"
+#include "../../../include/ISgfcPropertyValueFactory.h"
+#include "../../../include/ISgfcSimpleTextPropertyValue.h"
+#include "../../../include/SgfcPlusPlusFactory.h"
 #include "../../document/SgfcDocument.h"
+#include "../../SgfcPrivateConstants.h"
 #include "../../SgfcUtility.h"
+#include "../argument/SgfcArgument.h"
 #include "../argument/SgfcArguments.h"
 #include "../backend/SgfcBackendController.h"
 #include "../message/SgfcMessage.h"
@@ -100,6 +109,8 @@ namespace LibSgfcPlusPlus
         }
       }
 
+      PostProcessDocument(document);
+
       std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
         parseResult,
         document));
@@ -110,6 +121,37 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcDocumentReadResult> result = std::shared_ptr<ISgfcDocumentReadResult>(new SgfcDocumentReadResult(
         backendController.GetInvalidCommandLineReason()));
       return result;
+    }
+  }
+
+  void SgfcDocumentReader::PostProcessDocument(std::shared_ptr<ISgfcDocument> document) const
+  {
+    for (auto argument : this->arguments->GetArguments())
+    {
+      if (argument->GetArgumentType() == SgfcArgumentType::EncodingMode &&
+          argument->GetIntegerTypeParameter() == SgfcPrivateConstants::EncodingModeNoDecoding)
+      {
+        return;
+      }
+    }
+
+    auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
+    auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
+
+    for (auto game : document->GetGames())
+    {
+      if (! game->HasRootNode())
+        continue;
+
+      auto rootNode = game->GetRootNode();
+
+      // Create a new property/property value object for each game tree
+      auto caPropertyValue = propertyValueFactory->CreateSimpleTextPropertyValue(SgfcPrivateConstants::TextEncodingNameUTF8);
+      auto caProperty = propertyFactory->CreateProperty(SgfcPropertyType::CA, caPropertyValue);
+
+      // This overwrites a CA property that is already there and adds the
+      // property if it does not exist
+      rootNode->SetProperty(caProperty);
     }
   }
 }

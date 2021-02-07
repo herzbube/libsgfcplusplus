@@ -15,8 +15,10 @@
 // -----------------------------------------------------------------------------
 
 // Library includes
+#include <ISgfcSimpleTextPropertyValue.h>
 #include <sgfc/frontend/SgfcDocumentReader.h>
 #include <sgfc/argument/SgfcArguments.h>
+#include <SgfcPrivateConstants.h>
 #include <SgfcUtility.h>
 
 // Unit test library includes
@@ -26,6 +28,10 @@ using namespace LibSgfcPlusPlus;
 
 
 void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult);
+void AssertSuccessReadResultWhenValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult);
+void AssertAllRootNodesContainCaProperty(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcSimpleText& textEncodingName);
+void AssertRootNodeContainsCaProperty(std::shared_ptr<ISgfcGame> game, const SgfcSimpleText& textEncodingName);
+void AssertRootNodeDoesNotContainCaProperty(std::shared_ptr<ISgfcGame> game);
 
 
 SCENARIO( "SgfcDocumentReader is constructed", "[frontend]" )
@@ -301,6 +307,105 @@ SCENARIO("The read operation behaviour is changed by arguments", "[frontend]")
   // TODO: Add more tests that excercise the argument types
 }
 
+SCENARIO( "SgfcDocumentReader performs post-processing", "[frontend]" )
+{
+  GIVEN( "Encoding mode 1 or 2 are used" )
+  {
+    int encodingMode = GENERATE ( SgfcPrivateConstants::EncodingModeSingleEncoding, SgfcPrivateConstants::EncodingModeMultipleEncodings );
+
+    SgfcDocumentReader reader;
+    reader.GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, encodingMode);
+
+    WHEN( "The SGF content does not contain a game tree" )
+    {
+      std::string sgfContent = GENERATE ( "", "foobar" );
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "No post-processing takes place" )
+      {
+        AssertErrorReadResultWhenNoValidSgfContent(readResult);
+      }
+    }
+
+    WHEN( "The SGF content contains single game tree without a CA property" )
+    {
+      std::string sgfContent = "(;GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The CA property value UTF-8 is added" )
+      {
+        AssertAllRootNodesContainCaProperty(readResult, SgfcPrivateConstants::TextEncodingNameUTF8);
+      }
+    }
+
+    WHEN( "The SGF content contains multiple game trees without a CA property" )
+    {
+      std::string sgfContent = "(;GM[1])(;GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The CA property value UTF-8 is added" )
+      {
+        AssertAllRootNodesContainCaProperty(readResult, SgfcPrivateConstants::TextEncodingNameUTF8);
+      }
+    }
+
+    WHEN( "The SGF content contains multiple game trees, one with and one without a CA property" )
+    {
+      std::string sgfContent = "(;FF[4]GM[1]CA[ISO-8859-1])(;FF[4]GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The CA property value UTF-8 is added or overwrites the previous value" )
+      {
+        AssertAllRootNodesContainCaProperty(readResult, SgfcPrivateConstants::TextEncodingNameUTF8);
+      }
+    }
+  }
+
+  GIVEN( "Encoding mode 2 is used" )
+  {
+    SgfcDocumentReader reader;
+    reader.GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, SgfcPrivateConstants::EncodingModeMultipleEncodings);
+    reader.GetArguments()->AddArgument(SgfcArgumentType::DisableMessageID, SgfcMessageID::SgfContentHasDifferentEncodings);
+
+    WHEN( "The SGF content contains multiple game trees with different CA property values" )
+    {
+      std::string sgfContent = "(;FF[4]GM[1]CA[ISO-8859-1])(;FF[4]GM[1]CA[UTF-8])(;FF[4]GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The CA property value UTF-8 is added or overwrites the previous value" )
+      {
+        AssertAllRootNodesContainCaProperty(readResult, SgfcPrivateConstants::TextEncodingNameUTF8);
+      }
+    }
+  }
+
+  GIVEN( "Encoding mode 3 is used" )
+  {
+    SgfcDocumentReader reader;
+    reader.GetArguments()->AddArgument(SgfcArgumentType::EncodingMode, SgfcPrivateConstants::EncodingModeNoDecoding);
+    reader.GetArguments()->AddArgument(SgfcArgumentType::DisableMessageID, SgfcMessageID::SgfContentHasDifferentEncodings);
+
+    WHEN( "The SGF content contains multiple game trees with different CA property values" )
+    {
+      std::string expectedTextEncodingName1 = "ISO-8859-1";
+      std::string expectedTextEncodingName2 = "UTF-8";
+      std::string sgfContent = "(;FF[4]GM[1]CA[" + expectedTextEncodingName1 + "])(;FF[4]GM[1]CA[" + expectedTextEncodingName2 + "])(;FF[4]GM[1])";
+      auto readResult = reader.ReadSgfContent(sgfContent);
+
+      THEN( "The CA property value UTF-8 is not added and does not overwrite the previous value" )
+      {
+        AssertSuccessReadResultWhenValidSgfContent(readResult);
+        auto document = readResult->GetDocument();
+        auto games = document->GetGames();
+        REQUIRE( games.size() == 3 );
+        AssertRootNodeContainsCaProperty(games[0], expectedTextEncodingName1);
+        AssertRootNodeContainsCaProperty(games[1], expectedTextEncodingName2);
+        AssertRootNodeDoesNotContainCaProperty(games[2]);
+      }
+    }
+  }
+}
+
 void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult)
 {
   REQUIRE( readResult->GetExitCode() == SgfcExitCode::FatalError );
@@ -317,4 +422,57 @@ void AssertErrorReadResultWhenNoValidSgfContent(std::shared_ptr<ISgfcDocumentRea
   auto document = readResult->GetDocument();
   REQUIRE( document->IsEmpty() == true );
   REQUIRE( document->GetGames().size() == 0 );
+}
+
+void AssertSuccessReadResultWhenValidSgfContent(std::shared_ptr<ISgfcDocumentReadResult> readResult)
+{
+  REQUIRE( readResult->GetExitCode() == SgfcExitCode::Ok );
+  REQUIRE( readResult->IsSgfDataValid() == true );
+
+  auto parseResult = readResult->GetParseResult();
+  REQUIRE( parseResult.size() == 0 );
+
+  auto document = readResult->GetDocument();
+  REQUIRE( document->IsEmpty() == false );
+}
+
+void AssertAllRootNodesContainCaProperty(std::shared_ptr<ISgfcDocumentReadResult> readResult, const SgfcSimpleText& textEncodingName)
+{
+  AssertSuccessReadResultWhenValidSgfContent(readResult);
+
+  auto document = readResult->GetDocument();
+  auto games = document->GetGames();
+  REQUIRE( games.size() > 0 );
+
+  for (auto game : games)
+  {
+    AssertRootNodeContainsCaProperty(game, textEncodingName);
+  }
+}
+
+void AssertRootNodeContainsCaProperty(std::shared_ptr<ISgfcGame> game, const SgfcSimpleText& textEncodingName)
+{
+  REQUIRE( game->HasRootNode() == true );
+  auto rootNode = game->GetRootNode();
+
+  auto caProperty = rootNode->GetProperty(SgfcPropertyType::CA);
+  REQUIRE( caProperty != nullptr );
+  auto caPropertyValue = caProperty->GetPropertyValue();
+  REQUIRE( caPropertyValue != nullptr );
+  REQUIRE( caPropertyValue->IsComposedValue() == false );
+  auto caSinglePropertyValue = caPropertyValue->ToSingleValue();
+  REQUIRE( caSinglePropertyValue != nullptr );
+  REQUIRE( caSinglePropertyValue->GetValueType() == LibSgfcPlusPlus::SgfcPropertyValueType::SimpleText );
+  REQUIRE( caSinglePropertyValue->HasTypedValue() == true );
+  auto caSimpleTextPropertyValue = caSinglePropertyValue->ToSimpleTextValue();
+  REQUIRE( caSimpleTextPropertyValue->GetSimpleTextValue() == textEncodingName );
+}
+
+void AssertRootNodeDoesNotContainCaProperty(std::shared_ptr<ISgfcGame> game)
+{
+  REQUIRE( game->HasRootNode() == true );
+  auto rootNode = game->GetRootNode();
+
+  auto caProperty = rootNode->GetProperty(SgfcPropertyType::CA);
+  REQUIRE( caProperty == nullptr );
 }
