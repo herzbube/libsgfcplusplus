@@ -18,6 +18,7 @@
 #include <sgfc/message/SgfcMessageStream.h>
 #include <sgfc/save/SgfcSaveStream.h>
 #include <sgfc/save/SgfcSgfContent.h>
+#include <SgfcConstants.h>
 
 // Unit test library includes
 #include <catch2/catch.hpp>
@@ -46,7 +47,7 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
   SGFInfo* sgfInfo = SetupSGFInfo(NULL);
 
   char inputContent[] = "(;)";
-  std::string expectedSaveContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18])\n";
+  std::string expectedSaveContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
   SetupEmptySgfInfo(sgfInfo, inputContent, strlen(inputContent) + 1);
   LoadSGFFromFileBuffer(sgfInfo);
   ParseSGF(sgfInfo);
@@ -110,7 +111,7 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
 
     // Repeat the setup stuff at the beginning of the scenario
     char inputContent2[] = "(;C[a comment])";
-    std::string expectedSaveContent2 = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:1.18]C[a comment])\n";
+    std::string expectedSaveContent2 = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "]C[a comment])\n";
     SetupEmptySgfInfo(sgfInfo2, inputContent2, strlen(inputContent2) + 1);
     LoadSGFFromFileBuffer(sgfInfo2);
     ParseSGF(sgfInfo2);
