@@ -24,7 +24,7 @@
 namespace LibSgfcPlusPlus
 {
   const std::string SgfcConstants::LibraryName = "libsgfc++";
-  const std::string SgfcConstants::LibraryVersion = "0.1 (alpha)";
+  const std::string SgfcConstants::LibraryVersion = "1.0";
   const std::string SgfcConstants::SgfcVersion = "2.0";
 
   const int SgfcConstants::InvalidLineNumber = -1;

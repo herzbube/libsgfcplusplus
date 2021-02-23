@@ -26,12 +26,6 @@ The limitations of SGFC also apply to libsgfc++. Quoting from the [SGFC website]
 > 
 > SGFC was written primarily for Go/WeiQi/Baduk (GM[1]) files. It can't handle other games yet, i.e. it doesn't check any game-specific properties and values of other games than Go. It may even save erronous game-specific properties of other games! Use SGFC for other games with care. 
 
-## Project status
-
-libsgfc++ has reached something that could be tentatively called a "beta phase". It has taken its first baby steps in an iOS project (via an Objective-C wrapper library [SgfcKit](https://github.com/herzbube/SgfcKit)), where it will now have to prove both stability and ease of use over the coming weeks and months. Although the API should be fairly stable, if using the library turns out to be too cumbersome there can still be drastic changes.
-
-Feel free to play around with libsgfc++, but at the moment, unless you are adventurous, I still advise against using it in earnest. Feedback how to improve the library or its build process is very welcome.
-
 ## Dependencies
 
 At runtime libsgfc++ depends on the C/C++ runtime library, the C++ standard library and possibly (depending on the platform) an iconv library.
