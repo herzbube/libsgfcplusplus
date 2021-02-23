@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -428,7 +428,7 @@ typedef std::string&#160;</td><td class="memItemRight" valign="bottom"><a class=
 <tr class="memdesc:ga4dcd031645f1aa157daf250c0a40260b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The SgfcStone type represents the Stone value type defined by the SGF standard. The SGF standard does not provide a universal definition of how a Stone value should look like. Instead it says that the interpretation of Stone values is game specific. <br /></td></tr>
 <tr class="separator:ga4dcd031645f1aa157daf250c0a40260b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa775e5e540ae013c6549a12dc51a9471"><td class="memItemLeft" align="right" valign="top">typedef std::function&lt; <a class="el" href="namespace_lib_sgfc_plus_plus.html#a95a7c2c4606a5762b8c6c55125f00315">SgfcNodeIterationContinuation</a>(std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt;)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_lib_sgfc_plus_plus.html#aa775e5e540ae013c6549a12dc51a9471">NodeVisitCallback</a></td></tr>
-<tr class="memdesc:aa775e5e540ae013c6549a12dc51a9471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the signature of the callback method that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> is invoking whenever it visits a node.  <a href="namespace_lib_sgfc_plus_plus.html#aa775e5e540ae013c6549a12dc51a9471">More...</a><br /></td></tr>
+<tr class="memdesc:aa775e5e540ae013c6549a12dc51a9471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defines the signature of the callback method that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> invokes when it visits a node.  <a href="namespace_lib_sgfc_plus_plus.html#aa775e5e540ae013c6549a12dc51a9471">More...</a><br /></td></tr>
 <tr class="separator:aa775e5e540ae013c6549a12dc51a9471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -1045,7 +1045,7 @@ Other bitwise operators</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Defines the signature of the callback method that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> is invoking whenever it visits a node. </p>
+<p>Defines the signature of the callback method that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> invokes when it visits a node. </p>
 <p>The callback parameter is the node that is being visited. The return value is an instruction to <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> how it should continue with the iteration. </p>
 
 </div>

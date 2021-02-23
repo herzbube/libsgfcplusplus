@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -85,7 +85,7 @@ Line breaks</h1>
 <li>Text property values: SGFC preserves unescaped (= hard) line breaks. SGFC removes escaped (= soft) line breaks (including the escape character). libsgfc++ never gets to see escaped line breaks.</li>
 <li>SimpleText property values: SGFC converts unescaped line breaks into a single space character. SGFC removes escaped line breaks (including the escape character). libsgfc++ never gets to see escaped line breaks.</li>
 </ul>
-<p>When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as needed.</p>
+<p>When writing SimpleText or Text property values, SGFC preserves unescaped line breaks and generates escaped line breaks as it sees fit (cf. <code>-L</code> and <code>-t</code> command line options).</p>
 <h1><a class="anchor" id="autotoc_md56"></a>
 Pass moves for Go games</h1>
 <p>For Go <a href="https://www.red-bean.com/sgf/go.html#types">the SGF standard defines</a> that black or white pass moves can have either value "" (an empty string) or "tt". The latter counts as pass move only for board sizes &lt;= 19, for larger boards "tt" is a normal move. The SGF standard also mentions that "tt" is kept only for compatibility with FF3.</p>

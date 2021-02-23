@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -761,7 +761,7 @@ shift left and shift right operators, unambiguous and safe to use.
 <li>4 = Experimentally determined that this seems to be almost the same as parameter value 3. The distinction seems to be that the double line break is preserved on writing. The SGFC documentation characterizes this line break behaviour as "paragraph style
           (ISHI format, MFGO)".</li>
 </ul>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>Find out more about parameter value 4. What does "paragraph style" mean? What is the ISHI format? MFGO is likely the abbreviation for the Go playing application "Many Faces of Go". </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>Find out more about parameter value 4. What does "paragraph style" mean? What is the ISHI format? MFGO is likely the abbreviation for the Go playing application "Many Faces of Go". </dd></dl>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafdc227d85ad60d7780ac2eadbd716800a936fb1b68e7b06642d30ab99c47a716c"></a>LineBreakAtEndOfNode&#160;</td><td class="fielddoc"><p>When writing SGF content try to make each line end at the end of a node. The corresponding SGFC command line option is -L. </p>
 <p>This argument affects how SGFC formats the output when it writes SGF content:</p><ul>
@@ -846,7 +846,7 @@ shift left and shift right operators, unambiguous and safe to use.
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Mode 2 is the behaviour as designed by the SGF standard. This is somewhat antiquated as it not only allows SGF content to be partially encoded, it even allows different encodings to be used within the same piece of SGF content. It also breaks the notion of SGF as text files. Mode 1, even though it does not conform to the SGF standard, is what most likely can be expected from modern-day applications that encode an entire file and use the same encoding for the entire file.</dd></dl>
 <dl class="section attention"><dt>Attention</dt><dd>When mode 1 is used decoding occurs before parsing, when mode 2 is used decoding occurs after parsing. This can be important when SGF content is encoded with a multi-byte encoding, and one or more multi-byte characters contain bytes that correspond to ASCII characters that are relevant for the SGF format (escape character, property closing character). Examples that illustrate the problem can be found in SgfNotes.md.</dd></dl>
-<p>When mode 1 or 2 are used for reading, the SGF content is decoded and made available to the library client as UTF-8. Accordingly each decoded game tree's root node is populated with a CA property value "UTF-8". When mode 3 is used no decoding takes place and the library client receives the SGF content as-is.</p>
+<p>When mode 1 or 2 are used for reading, the SGF content is decoded and made available to the library client as UTF-8. Accordingly each decoded game tree's root node is populated with a CA property value "UTF-8". See the documentation of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html" title="The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...">ISgfcDocumentReader</a> for details how this is done. When mode 3 is used no decoding takes place and the library client receives the SGF content as-is.</p>
 <p>When node 1 or 2 are used for <b>writing</b>, the SGF content in the object tree is internally decoded according to the rules documented above before it is actually written out. This allows library clients to provide content in encodings that are not UTF-8. Care must be taken not to mix encodings in the same object tree! For instance a library client might first read SGF content from some source using encoding mode 1 or 2, which produces an object tree in UTF-8, then it could modify the object tree with values in an encoding that is <b>not</b> UTF-8. Writing out such an object tree that contains values in mixed encodings is likely to produce invalid results.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800ac4f7952556ff776afb5774ae0fceb4ec" title="Select the default encoding to be used if the SGF content does not contain a CA property....">SgfcArgumentType::DefaultEncoding</a> </dd>
 <dd>

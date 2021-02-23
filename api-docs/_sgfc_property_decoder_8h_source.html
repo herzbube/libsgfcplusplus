@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -121,80 +121,83 @@ $(function() {
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a82894cb22d9de114763b86e99c135b15">~SgfcPropertyDecoder</a>();</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#ad1680935a70ab34a069c768cfdb7227d">GetEscapProcessingEnabled</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a43b6fdb14fe6f19459ead9f9ce84f73f">SetEscapeProcessingEnabled</a>(<span class="keywordtype">bool</span> escapeProcessingEnabled);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a0c4132d5e5ef6d8fd1568b9144fffcbb">GetPropertyType</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a213b1673b2db153eeae03cce1cce5099">GetPropertyName</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    std::vector&lt;std::shared_ptr&lt;ISgfcPropertyValue&gt;&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#aff469c49722c8c644568d1bce00a405b">GetPropertyValues</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keyword">static</span> <a class="code" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#af3afb2f98a75a062827f47a69a98a11b">GetGameTypeFromNode</a>(<span class="keyword">const</span> Node* sgfNode);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">static</span> <a class="code" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#aaae0f11c880aa51100769857ec320335">GetBoardSizeFromNode</a>(<span class="keyword">const</span> Node* sgfNode, <a class="code" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType);</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordtype">bool</span> escapeProcessingEnabled;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">const</span> Property* sgfProperty;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    std::shared_ptr&lt;SgfcPropertyMetaInfo&gt; propertyMetaInfo;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> boardSize;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <a class="code" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> GetPropertyTypeInternal() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    std::vector&lt;std::shared_ptr&lt;ISgfcPropertyValue&gt;&gt; GetSgfcPropertyValuesFromSgfPropertyValue(</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      PropValue* sgfPropertyValue,</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      std::shared_ptr&lt;ISgfcPropertyValueTypeDescriptor&gt; elementValueTypeDescriptor) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    std::shared_ptr&lt;ISgfcPropertyValue&gt; GetSgfcPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;      PropValue* sgfPropertyValue,</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      std::shared_ptr&lt;ISgfcPropertyValueTypeDescriptor&gt; valueTypeDescriptor) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      <a class="code" href="group__public-api.html#gac480db649c9331cbb2a7c88cb8a55555">SgfcPropertyValueType</a> propertyValueType,</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcNumberPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcRealPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcDoublePropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcColorPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcTextPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcPointPropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcMovePropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcStonePropertyValueFromSgfPropertyValue(</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordtype">bool</span> DoesSgfcPropertyHaveTypedValues(<span class="keyword">const</span> std::shared_ptr&lt;ISgfcPropertyValue&gt;&amp; propertyValue) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> GetColorForPropertyType() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#ad1680935a70ab34a069c768cfdb7227d">GetEscapProcessingEnabled</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a43b6fdb14fe6f19459ead9f9ce84f73f">SetEscapeProcessingEnabled</a>(<span class="keywordtype">bool</span> escapeProcessingEnabled);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a0c4132d5e5ef6d8fd1568b9144fffcbb">GetPropertyType</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a213b1673b2db153eeae03cce1cce5099">GetPropertyName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    std::vector&lt;std::shared_ptr&lt;ISgfcPropertyValue&gt;&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#aff469c49722c8c644568d1bce00a405b">GetPropertyValues</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keyword">static</span> <a class="code" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#af3afb2f98a75a062827f47a69a98a11b">GetGameTypeFromNode</a>(<span class="keyword">const</span> Node* sgfNode);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <a class="code" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#aaae0f11c880aa51100769857ec320335">GetBoardSizeFromNode</a>(<span class="keyword">const</span> Node* sgfNode, <a class="code" href="group__public-api.html#ga628677a0792100aa0f813793d9df7750">SgfcGameType</a> gameType);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">bool</span> escapeProcessingEnabled;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">const</span> Property* sgfProperty;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    std::shared_ptr&lt;SgfcPropertyMetaInfo&gt; propertyMetaInfo;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <a class="code" href="struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html">SgfcBoardSize</a> boardSize;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="group__public-api.html#gad09039455b42d7073dda61cc5da0a737">SgfcPropertyType</a> GetPropertyTypeInternal() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    std::vector&lt;std::shared_ptr&lt;ISgfcPropertyValue&gt;&gt; GetSgfcPropertyValuesFromSgfPropertyValue(</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;      PropValue* sgfPropertyValue,</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;      std::shared_ptr&lt;ISgfcPropertyValueTypeDescriptor&gt; elementValueTypeDescriptor) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    std::shared_ptr&lt;ISgfcPropertyValue&gt; GetSgfcPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      PropValue* sgfPropertyValue,</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      std::shared_ptr&lt;ISgfcPropertyValueTypeDescriptor&gt; valueTypeDescriptor) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <a class="code" href="group__public-api.html#gac480db649c9331cbb2a7c88cb8a55555">SgfcPropertyValueType</a> propertyValueType,</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcNumberPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcRealPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcDoublePropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcColorPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcSimpleTextPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcTextPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcPointPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcMovePropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcStonePropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    std::shared_ptr&lt;ISgfcSinglePropertyValue&gt; GetSgfcUnknownPropertyValueFromSgfPropertyValue(</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span>* rawPropertyValueBuffer,</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    std::string RemoveSimpleTextLineBreaks(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    std::string RemoveTextLineBreaks(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    std::string RemoveSimpleTextAndTextEscapeCharacters(</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      <span class="keyword">const</span> std::string&amp; rawPropertyValue,</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    std::string RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;      <span class="keyword">const</span> std::string&amp; rawPropertyValue,</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    std::string RemoveMandatoryEscapeCharacters(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  };</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordtype">bool</span> DoesSgfcPropertyHaveTypedValues(<span class="keyword">const</span> std::shared_ptr&lt;ISgfcPropertyValue&gt;&amp; propertyValue) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <a class="code" href="group__public-api.html#ga161f86c5b117751868dbb6458cff15f3">SgfcColor</a> GetColorForPropertyType() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160; </div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    std::string RemoveSimpleTextLineBreaks(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    std::string RemoveTextLineBreaks(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    std::string RemoveSimpleTextAndTextEscapeCharacters(</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      <span class="keyword">const</span> std::string&amp; rawPropertyValue,</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    std::string RemoveMoveAndPointAndStoneEscapeCharactersForNonGoGameTypes(</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="keyword">const</span> std::string&amp; rawPropertyValue,</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    std::string RemoveMandatoryEscapeCharacters(<span class="keyword">const</span> std::string&amp; rawPropertyValue) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  };</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="agroup__parsing_html_ga79a65b78a1092a5e1f970e2346de36ee"><div class="ttname"><a href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">LibSgfcPlusPlus::SgfcSinglePropertyValueContext</a></div><div class="ttdeci">SgfcSinglePropertyValueContext</div><div class="ttdoc">SgfcSinglePropertyValueContext enumerates in which context a ISgfcSinglePropertyValue object can appe...</div><div class="ttdef"><b>Definition:</b> SgfcSinglePropertyValueContext.h:27</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_property_decoder_html_a0c4132d5e5ef6d8fd1568b9144fffcbb"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_property_decoder.html#a0c4132d5e5ef6d8fd1568b9144fffcbb">LibSgfcPlusPlus::SgfcPropertyDecoder::GetPropertyType</a></div><div class="ttdeci">SgfcPropertyType GetPropertyType() const</div><div class="ttdoc">Returns the SgfcPropertyType value that corresponds to the SGF property with which SgfcPropertyDecode...</div><div class="ttdef"><b>Definition:</b> SgfcPropertyDecoder.cpp:97</div></div>

@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['emphasized_1650',['Emphasized',['../group__public-api.html#ggaef35623d846f19d2bec904dd9b7cf012a334452f7c85da9a4abdb1b9a102486f9',1,'LibSgfcPlusPlus']]],
-  ['emptynodedeleted_1651',['EmptyNodeDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea42e88c5a994dce41f05ea6019f063d99',1,'LibSgfcPlusPlus']]],
-  ['emptyvaluedeleted_1652',['EmptyValueDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab0e60663a2c33f878ce30da175ab71c3',1,'LibSgfcPlusPlus']]],
-  ['emptyvariationignored_1653',['EmptyVariationIgnored',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeafae6d4748bd59877202cf1ff7aea5fc8',1,'LibSgfcPlusPlus']]],
-  ['enablerestrictivechecking_1654',['EnableRestrictiveChecking',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800aa8b9ce8be1f7e8b9ba258a6c8a13d030',1,'LibSgfcPlusPlus']]],
-  ['encodingdetectionfailed_1655',['EncodingDetectionFailed',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea89d9a6259c0ebdd4768e618a78a906d9',1,'LibSgfcPlusPlus']]],
-  ['encodingerrorsdetected_1656',['EncodingErrorsDetected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea13cadaf45ecf8e47d158d8e2dffe4f88',1,'LibSgfcPlusPlus']]],
-  ['encodingmode_1657',['EncodingMode',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800ac028e0fea2c3668d3b0bfda4fef4211b',1,'LibSgfcPlusPlus']]],
-  ['error_1658',['Error',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7a902b0d55fddef6f8d651fe1035b7d4bd',1,'LibSgfcPlusPlus::Error()'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2a902b0d55fddef6f8d651fe1035b7d4bd',1,'LibSgfcPlusPlus::Error()']]],
-  ['established_1659',['Established',['../group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a072f9734fceb02f516b50d4174ac0f18',1,'LibSgfcPlusPlus']]],
-  ['expandcompressedpointlists_1660',['ExpandCompressedPointLists',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a1f549d947d5a596873479343c406b9d3',1,'LibSgfcPlusPlus']]]
+  ['emphasized_1658',['Emphasized',['../group__public-api.html#ggaef35623d846f19d2bec904dd9b7cf012a334452f7c85da9a4abdb1b9a102486f9',1,'LibSgfcPlusPlus']]],
+  ['emptynodedeleted_1659',['EmptyNodeDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea42e88c5a994dce41f05ea6019f063d99',1,'LibSgfcPlusPlus']]],
+  ['emptyvaluedeleted_1660',['EmptyValueDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab0e60663a2c33f878ce30da175ab71c3',1,'LibSgfcPlusPlus']]],
+  ['emptyvariationignored_1661',['EmptyVariationIgnored',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeafae6d4748bd59877202cf1ff7aea5fc8',1,'LibSgfcPlusPlus']]],
+  ['enablerestrictivechecking_1662',['EnableRestrictiveChecking',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800aa8b9ce8be1f7e8b9ba258a6c8a13d030',1,'LibSgfcPlusPlus']]],
+  ['encodingdetectionfailed_1663',['EncodingDetectionFailed',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea89d9a6259c0ebdd4768e618a78a906d9',1,'LibSgfcPlusPlus']]],
+  ['encodingerrorsdetected_1664',['EncodingErrorsDetected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea13cadaf45ecf8e47d158d8e2dffe4f88',1,'LibSgfcPlusPlus']]],
+  ['encodingmode_1665',['EncodingMode',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800ac028e0fea2c3668d3b0bfda4fef4211b',1,'LibSgfcPlusPlus']]],
+  ['error_1666',['Error',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7a902b0d55fddef6f8d651fe1035b7d4bd',1,'LibSgfcPlusPlus::Error()'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2a902b0d55fddef6f8d651fe1035b7d4bd',1,'LibSgfcPlusPlus::Error()']]],
+  ['established_1667',['Established',['../group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a072f9734fceb02f516b50d4174ac0f18',1,'LibSgfcPlusPlus']]],
+  ['expandcompressedpointlists_1668',['ExpandCompressedPointLists',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a1f549d947d5a596873479343c406b9d3',1,'LibSgfcPlusPlus']]]
 ];

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -104,25 +104,25 @@ $(function() {
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="comment">// Forward declarations</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">class </span>ISgfcArguments;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">   43</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">   60</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcArguments&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">GetArguments</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">   68</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentReadResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">ReadSgfFile</a>(<span class="keyword">const</span> std::string&amp; sgfFilePath) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">   76</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentReadResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">ReadSgfContent</a>(<span class="keyword">const</span> std::string&amp; sgfContent) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  };</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">   73</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">ISgfcDocumentReader</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">   90</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcArguments&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">GetArguments</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">  100</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentReadResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">ReadSgfFile</a>(<span class="keyword">const</span> std::string&amp; sgfFilePath) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">  110</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentReadResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">ReadSgfContent</a>(<span class="keyword">const</span> std::string&amp; sgfContent) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  };</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader_html_a93e56d85c2d16f4e04667342bed055ac"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a93e56d85c2d16f4e04667342bed055ac">LibSgfcPlusPlus::ISgfcDocumentReader::GetArguments</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcArguments &gt; GetArguments() const =0</div><div class="ttdoc">Returns an object with the collection of arguments that ISgfcDocumentReader passes on to SGFC wheneve...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader_html_aa0217171a30d6424f2057d5363963633"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#aa0217171a30d6424f2057d5363963633">LibSgfcPlusPlus::ISgfcDocumentReader::ReadSgfFile</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcDocumentReadResult &gt; ReadSgfFile(const std::string &amp;sgfFilePath) const =0</div><div class="ttdoc">Reads SGF data from a single .sgf file located at the specified path and puts the data through the SG...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader_html_a385d5c949877746af79bbf6aab9d7ea4"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html#a385d5c949877746af79bbf6aab9d7ea4">LibSgfcPlusPlus::ISgfcDocumentReader::ReadSgfContent</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcDocumentReadResult &gt; ReadSgfContent(const std::string &amp;sgfContent) const =0</div><div class="ttdoc">Reads SGF data from the specified string and puts the data through the SGFC parser,...</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">LibSgfcPlusPlus::ISgfcDocumentReader</a></div><div class="ttdoc">The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...</div><div class="ttdef"><b>Definition:</b> ISgfcDocumentReader.h:44</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_reader.html">LibSgfcPlusPlus::ISgfcDocumentReader</a></div><div class="ttdoc">The ISgfcDocumentReader interface provides functions to generate ISgfcDocument objects by reading SGF...</div><div class="ttdef"><b>Definition:</b> ISgfcDocumentReader.h:74</div></div>
 <div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

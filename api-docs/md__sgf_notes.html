@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -215,6 +215,7 @@ Introduction</h2>
 <p>This approach is somewhat antiquated as it not only allows SGF content to be partially encoded (SimpleText and Text property values are encoded, but not the rest of the content), it even allows different character encodings to be used within the same piece of SGF content! From a modern-day point of view this seems strange, and it definitely breaks the notion of an SGF file being "just a regular text file".</p>
 <p>An additional complication to the partial encoding approach are the SGF standard's escaping rules. See the section "Escaping and multi-byte character encodings" below for details.</p>
 <p>All things considered it is reasonable to assume that modern-day SGF-writing applications that support non-ASCII SGF content are not strictly conforming to the SGF standard, but are using the common-sense approach of encoding the <b>entire</b> SGF content with the same character encoding.</p>
+<p>It is recommended that library clients use the UTF-8 character encoding whenever they can, first and foremost because it is a sensible universal encoding, and second because the out-of-the-box behaviour of libsgfc++ (and the backend SGFC) are geared towards using UTF-8. The following sections are considered mandatory reading if you plan to use something other than UTF-8.</p>
 <h2><a class="anchor" id="autotoc_md89"></a>
 Encoding modes</h2>
 <p>The library client can choose between 3 encoding modes when it reads SGF content with <code>ISgfcDocumentReader</code> or writes SGF content with <code>ISgfcDocumentWriter</code>. The selection is made by specifying <code>SgfcArgumentType::EncodingMode</code> when the read or write operation is performed.</p>
@@ -224,6 +225,7 @@ Encoding modes</h2>
 <li>Mode 2 (specification conformant): A separate encoding is used to decode each game tree in the SGF content. The encoding is defined by the CA property value of that game tree. If a game tree has no CA property the default encoding ISO-8859-1 is used. Only SimpleText and Text property values are decoded! The SGF formatting skeleton as well as property values that are not SimpleText or Text are parsed using ASCII/ISO-8859-1.</li>
 <li>Mode 3: No decoding takes place.</li>
 </ul>
+<p><b>Important:</b> When mode 1 or 2 are used for reading, the SGF content is decoded and made available to the library client as <b>UTF-8</b>.</p>
 <p>Please make sure to read the documentation of <code>SgfcArgumentType::EncodingMode</code> to understand the details. You may also wish to consult the documentation in SGFC's README file.</p>
 <h2><a class="anchor" id="autotoc_md90"></a>
 ASCII-compatible vs. ASCII-safe</h2>
@@ -264,7 +266,43 @@ Escaping and multi-byte character encodings</h2>
 <h2><a class="anchor" id="autotoc_md92"></a>
 UTF-8 is recommended for programmatically creating ISgfcDocument object trees</h2>
 <p>A library client that programmatically creates <code>ISgfcDocument</code> object trees should use UTF-8 to encode SimpleText and Text property values. UTF-8 is a universal and ASCII-safe character encoding that causes the least amount of trouble along all routes.</p>
-<p>Specifically, <code>ISgfcDocumentWriter</code> supports only ASCII-safe character encodings to write an <code>ISgfcDocument</code> object tree. The escape-processing discussed in the previous section is the root cause for the restriction. Read the <code>ISgfcDocumentWriter</code> class documentation for some technical details. </p>
+<p>Specifically, <code>ISgfcDocumentWriter</code> supports only ASCII-safe character encodings to write an <code>ISgfcDocument</code> object tree. The escape-processing discussed in the previous section is the root cause for the restriction. Read the <code>ISgfcDocumentWriter</code> class documentation for some technical details.</p>
+<h2><a class="anchor" id="autotoc_md93"></a>
+UTF-8 support in &lt;tt&gt;ISgfcDocumentReader&lt;/tt&gt;</h2>
+<p>As mentioned in a previous section, when encoding mode 1 or 2 are used the SGF data is read into memory converted to UTF-8. However, without further measures the document object tree would still contain whatever CA property values were found in the SGF data. If these values are not UTF-8 then the document object tree would now contain wrong information about the character encoding used in-memory. This would be a problem if, for instance, the document object tree were passed to ISgfcDocumentWriter, because the writer would then use the wrong CA property values.</p>
+<p>To avoid this situation <code>ISgfcDocumentReader</code> performs the following manipulations of the document object tree after the read operation is complete:</p>
+<ul>
+<li>If encoding mode 1 or 2 were used for reading <code>ISgfcDocumentReader</code> writes the CA property value "UTF-8" into the root node of each <code>ISgfcGame</code> it finds in the document. Only the root node needs to be treated such because the CA property is a root property which according to the SGF standard is only allowed in the root node. Note that the SGFC backend deletes any CA properties that it finds outside of a root node.</li>
+<li>If encoding mode 3 was used for reading <code>ISgfcDocumentReader</code> does not write a CA property value because the SGF data was read into memory as-is.</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md94"></a>
+UTF-8 is the default character encoding in &lt;tt&gt;ISgfcDocumentWriter&lt;/tt&gt;</h2>
+<p><code>ISgfcDocumentWriter</code> configures itself to use UTF-8 as the default character encoding. A library client that programmatically creates a document object tree from scratch using UTF-8 data therefore does not need to explicitly set a CA property value when it wants to write the document.</p>
+<p>Library clients that want different behaviour can follow this guide when working with <code>ISgfcDocumentWriter</code>:</p>
+<ol type="1">
+<li>Client wants to use encoding mode 1 or 2<ul>
+<li>Consequence: SGF data is converted to UTF-8.</li>
+<li>Document object tree does not contain a CA property value<ul>
+<li>Client does not specify its own default encoding, or a forced encoding: Document object tree data must be in UTF-8.</li>
+<li>Client specifies its own default encoding, or a forced encoding: Document object tree data must be in that character encoding.</li>
+<li>In the final output CA[UTF-8] is added.</li>
+</ul>
+</li>
+<li>Document object tree contains a CA property value<ul>
+<li>Client does not specify a forced encoding: Document object tree data must be in the character encoding specified by the CA value.</li>
+<li>Client specifies a forced encoding: Document object tree data must be in the forced encoding.</li>
+<li>In the final output CA[UTF-8] replaces the existing CA property value.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Client wants to use encoding mode 3<ul>
+<li>Consequence: SGFC reads everything into memory as-is without conversion.</li>
+<li>The presence of a CA property value in the document object tree is irrelevant. The document object tree can contain data encoded in any character encoding.</li>
+<li>No CA value is added or changed in the final output. </li>
+</ul>
+</li>
+</ol>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

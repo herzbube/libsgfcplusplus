@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -116,8 +116,9 @@ virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_p
 virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html">ISgfcDocument</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#a18639f22dc6086e80c0a37ba0d911512">GetDocument</a> () const override</td></tr>
 <tr class="memdesc:a18639f22dc6086e80c0a37ba0d911512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the document object that provides access to the SGF data in structured form. If <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#a338a22c77247967061eab859552ba4a4" title="Returns true if the SGF data that was loaded and parsed by the read operation is valid....">IsSgfDataValid()</a> returns false the document object that is returned contains no data. <br /></td></tr>
 <tr class="separator:a18639f22dc6086e80c0a37ba0d911512"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0b936f6d6bd504caaa2933a56cb8755"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#ae0b936f6d6bd504caaa2933a56cb8755">DebugPrintToConsole</a> () const override</td></tr>
-<tr class="memdesc:ae0b936f6d6bd504caaa2933a56cb8755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the content of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html" title="The ISgfcDocumentReadResult interface provides access to the result of a read operation performed by ...">ISgfcDocumentReadResult</a> to stdout for debugging purposes.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#ae0b936f6d6bd504caaa2933a56cb8755">More...</a><br /></td></tr>
+<tr class="memitem:ae0b936f6d6bd504caaa2933a56cb8755"><td class="memItemLeft" align="right" valign="top"><a id="ae0b936f6d6bd504caaa2933a56cb8755"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#ae0b936f6d6bd504caaa2933a56cb8755">DebugPrintToConsole</a> () const override</td></tr>
+<tr class="memdesc:ae0b936f6d6bd504caaa2933a56cb8755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the content of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html" title="The ISgfcDocumentReadResult interface provides access to the result of a read operation performed by ...">ISgfcDocumentReadResult</a> to stdout for debugging purposes. <br /></td></tr>
 <tr class="separator:ae0b936f6d6bd504caaa2933a56cb8755"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html">LibSgfcPlusPlus::ISgfcDocumentReadResult</a></td></tr>
 <tr class="memitem:afc0bc8ffacc6dae9af2f1ca2301673aa inherit pub_methods_class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result"><td class="memItemLeft" align="right" valign="top"><a id="afc0bc8ffacc6dae9af2f1ca2301673aa"></a>
@@ -185,36 +186,6 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae0b936f6d6bd504caaa2933a56cb8755"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0b936f6d6bd504caaa2933a56cb8755">&#9670;&nbsp;</a></span>DebugPrintToConsole()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void LibSgfcPlusPlus::SgfcDocumentReadResult::DebugPrintToConsole </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Prints the content of the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html" title="The ISgfcDocumentReadResult interface provides access to the result of a read operation performed by ...">ISgfcDocumentReadResult</a> to stdout for debugging purposes. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>Remove this prior to release. </dd></dl>
-
-<p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html#a2036648b662a0dc14cc0f5b4d00ab133">LibSgfcPlusPlus::ISgfcDocumentReadResult</a>.</p>
-
-</div>
-</div>
 <a id="a338a22c77247967061eab859552ba4a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a338a22c77247967061eab859552ba4a4">&#9670;&nbsp;</a></span>IsSgfDataValid()</h2>
 
@@ -240,8 +211,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 <p>Returns true if the SGF data that was loaded and parsed by the read operation is valid. Returns false if the SGF data is not valid. </p>
 <p>The SGF data is considered valid if the read operation did not generate a fatal error. A fatal error shows up in the collection of <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html" title="The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...">ISgfcMessage</a> objects that <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_read_result.html#abb06c8115ddae41335f0e1bb32fb1691" title="Returns a collection of ISgfcMessage objects which together form the parse result of the read operati...">GetParseResult()</a> returns, as an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html" title="The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,...">ISgfcMessage</a> object with message type <a class="el" href="group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86" title="The message describes a fatal error in the SGF data parsed by SGFC, or it describes a fatal error tha...">SgfcMessageType::FatalError</a>.</p>
-<p>Typical fatal errors are invalid arguments, or the SGF data could not be read e.g. because the specified SGF file does not exist.</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>The SGF data should probably also be considered invalid if there were critical errors. </dd></dl>
+<p>Typical fatal errors are invalid arguments, or the SGF data could not be read e.g. because the specified SGF file does not exist. </p>
 
 <p>Implements <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_read_result.html#a203c643bf27915ff289c67c1add5a673">LibSgfcPlusPlus::ISgfcDocumentReadResult</a>.</p>
 

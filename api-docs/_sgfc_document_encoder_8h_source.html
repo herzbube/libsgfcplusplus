@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -105,78 +105,78 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">class </span>ISgfcPropertyValue;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">class </span>ISgfcSinglePropertyValue;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">   48</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">SgfcDocumentEncoder</a></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a567978d4e64b3ae54c1c05bfefe28ccc">SgfcDocumentEncoder</a>(std::shared_ptr&lt;ISgfcDocument&gt; document);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a9f6cb230a3f0f46e37f143643efede41">~SgfcDocumentEncoder</a>();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#abc1118f829bdf98940b573e791b426e2">Encode</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    std::shared_ptr&lt;ISgfcDocument&gt; document;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> RecursiveParseDepthFirst(</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      std::shared_ptr&lt;ISgfcNode&gt; parentNode,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> EncodeNode(</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a>* node,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> EncodeProperty(</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a>* property,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">void</span> EncodePropertyValue(</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a>* propertyValue,</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> EncodeComposedPropertyValue(</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">ISgfcComposedPropertyValue</a>* composedPropertyValue,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> EncodeSinglePropertyValue(</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">ISgfcSinglePropertyValue</a>* singlePropertyValue,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> EncodeGameTreeBeginOrEnd(</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;      <span class="keyword">const</span> std::string&amp; beginOrEndToken,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> EncodeIndentation(</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordtype">int</span> indentationLevel,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      std::stringstream&amp; sgfContentStream) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    std::string AddSimpleTextAndTextEscapeCharacters(</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <span class="keyword">const</span> std::string&amp; propertyValue,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    std::string AddMandatoryEscapeCharacters(</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <span class="keyword">const</span> std::string&amp; propertyValue,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  };</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">   50</a></span>&#160;  <span class="keyword">class </span><a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">SgfcDocumentEncoder</a></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a567978d4e64b3ae54c1c05bfefe28ccc">SgfcDocumentEncoder</a>(std::shared_ptr&lt;ISgfcDocument&gt; document);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a9f6cb230a3f0f46e37f143643efede41">~SgfcDocumentEncoder</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    std::string <a class="code" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#abc1118f829bdf98940b573e791b426e2">Encode</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::shared_ptr&lt;ISgfcDocument&gt; document;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> ParseDepthFirst(</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      std::shared_ptr&lt;ISgfcNode&gt; rootNode,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> EncodeNode(</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a>* node,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> EncodeProperty(</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">ISgfcProperty</a>* property,</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> EncodePropertyValue(</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">ISgfcPropertyValue</a>* propertyValue,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> EncodeComposedPropertyValue(</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">ISgfcComposedPropertyValue</a>* composedPropertyValue,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> EncodeSinglePropertyValue(</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <span class="keyword">const</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">ISgfcSinglePropertyValue</a>* singlePropertyValue,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">void</span> EncodeGameTreeBeginOrEnd(</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;      <span class="keyword">const</span> std::string&amp; beginOrEndToken,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      std::stringstream&amp; sgfContentStream,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <span class="keywordtype">int</span> indentationLevel) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> EncodeIndentation(</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordtype">int</span> indentationLevel,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      std::stringstream&amp; sgfContentStream) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    std::string AddSimpleTextAndTextEscapeCharacters(</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <span class="keyword">const</span> std::string&amp; propertyValue,</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    std::string AddMandatoryEscapeCharacters(</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <span class="keyword">const</span> std::string&amp; propertyValue,</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <a class="code" href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">SgfcSinglePropertyValueContext</a> singlePropertyValueContext) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  };</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_property_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html">LibSgfcPlusPlus::ISgfcProperty</a></div><div class="ttdoc">The ISgfcProperty interface provides access to the data of a single property of an SGF node....</div><div class="ttdef"><b>Definition:</b> ISgfcProperty.h:45</div></div>
 <div class="ttc" id="agroup__parsing_html_ga79a65b78a1092a5e1f970e2346de36ee"><div class="ttname"><a href="group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee">LibSgfcPlusPlus::SgfcSinglePropertyValueContext</a></div><div class="ttdeci">SgfcSinglePropertyValueContext</div><div class="ttdoc">SgfcSinglePropertyValueContext enumerates in which context a ISgfcSinglePropertyValue object can appe...</div><div class="ttdef"><b>Definition:</b> SgfcSinglePropertyValueContext.h:27</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_composed_property_value.html">LibSgfcPlusPlus::ISgfcComposedPropertyValue</a></div><div class="ttdoc">The ISgfcComposedPropertyValue interface provides access to one of the values of a property of an SGF...</div><div class="ttdef"><b>Definition:</b> ISgfcComposedPropertyValue.h:44</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">LibSgfcPlusPlus::SgfcDocumentEncoder</a></div><div class="ttdoc">The SgfcDocumentEncoder class encodes the content of an ISgfcDocument object into an in-memory string...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.h:49</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html">LibSgfcPlusPlus::SgfcDocumentEncoder</a></div><div class="ttdoc">The SgfcDocumentEncoder class encodes the content of an ISgfcDocument object into an in-memory string...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.h:51</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_node_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">LibSgfcPlusPlus::ISgfcNode</a></div><div class="ttdoc">The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....</div><div class="ttdef"><b>Definition:</b> ISgfcNode.h:44</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_abc1118f829bdf98940b573e791b426e2"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#abc1118f829bdf98940b573e791b426e2">LibSgfcPlusPlus::SgfcDocumentEncoder::Encode</a></div><div class="ttdeci">std::string Encode() const</div><div class="ttdoc">Returns a string that contains the SGF data generated by encoding the content of the document with wh...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:43</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_abc1118f829bdf98940b573e791b426e2"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#abc1118f829bdf98940b573e791b426e2">LibSgfcPlusPlus::SgfcDocumentEncoder::Encode</a></div><div class="ttdeci">std::string Encode() const</div><div class="ttdoc">Returns a string that contains the SGF data generated by encoding the content of the document with wh...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:44</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html">LibSgfcPlusPlus::ISgfcPropertyValue</a></div><div class="ttdoc">The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node.</div><div class="ttdef"><b>Definition:</b> ISgfcPropertyValue.h:37</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_a9f6cb230a3f0f46e37f143643efede41"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a9f6cb230a3f0f46e37f143643efede41">LibSgfcPlusPlus::SgfcDocumentEncoder::~SgfcDocumentEncoder</a></div><div class="ttdeci">virtual ~SgfcDocumentEncoder()</div><div class="ttdoc">Destroys and cleans up the SgfcDocumentEncoder object.</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:39</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_a9f6cb230a3f0f46e37f143643efede41"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a9f6cb230a3f0f46e37f143643efede41">LibSgfcPlusPlus::SgfcDocumentEncoder::~SgfcDocumentEncoder</a></div><div class="ttdeci">virtual ~SgfcDocumentEncoder()</div><div class="ttdoc">Destroys and cleans up the SgfcDocumentEncoder object.</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:40</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html">LibSgfcPlusPlus::ISgfcSinglePropertyValue</a></div><div class="ttdoc">The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n...</div><div class="ttdef"><b>Definition:</b> ISgfcSinglePropertyValue.h:66</div></div>
 <div class="ttc" id="anamespace_lib_sgfc_plus_plus_html"><div class="ttname"><a href="namespace_lib_sgfc_plus_plus.html">LibSgfcPlusPlus</a></div><div class="ttdoc">file</div><div class="ttdef"><b>Definition:</b> ISgfcArgument.h:31</div></div>
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_a567978d4e64b3ae54c1c05bfefe28ccc"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a567978d4e64b3ae54c1c05bfefe28ccc">LibSgfcPlusPlus::SgfcDocumentEncoder::SgfcDocumentEncoder</a></div><div class="ttdeci">SgfcDocumentEncoder(std::shared_ptr&lt; ISgfcDocument &gt; document)</div><div class="ttdoc">Initializes a newly constructed SgfcDocumentEncoder object. The object encodes the content of the spe...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:34</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_sgfc_document_encoder_html_a567978d4e64b3ae54c1c05bfefe28ccc"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html#a567978d4e64b3ae54c1c05bfefe28ccc">LibSgfcPlusPlus::SgfcDocumentEncoder::SgfcDocumentEncoder</a></div><div class="ttdeci">SgfcDocumentEncoder(std::shared_ptr&lt; ISgfcDocument &gt; document)</div><div class="ttdoc">Initializes a newly constructed SgfcDocumentEncoder object. The object encodes the content of the spe...</div><div class="ttdef"><b>Definition:</b> SgfcDocumentEncoder.cpp:35</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

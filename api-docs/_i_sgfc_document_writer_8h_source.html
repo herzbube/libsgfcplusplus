@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -103,32 +103,32 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">class </span>ISgfcDocument;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">class </span>ISgfcDocumentWriteResult;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">   94</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a>();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">  116</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcArguments&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">GetArguments</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">  136</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">WriteSgfFile</a>(</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document,</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keyword">const</span> std::string&amp; sgfFilePath) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">  158</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">WriteSgfContent</a>(</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document,</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      std::string&amp; sgfContent) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">  179</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">ValidateDocument</a>(</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">  189</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">DebugPrintToConsole</a>(</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  };</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">   95</a></span>&#160;  <span class="keyword">class </span>SGFCPLUSPLUS_EXPORT <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a>();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">ISgfcDocumentWriter</a>();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">  117</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcArguments&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">GetArguments</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">  137</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">WriteSgfFile</a>(</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document,</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="keyword">const</span> std::string&amp; sgfFilePath) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">  159</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#ad445cd935919bd09486d7862eab2640b">WriteSgfContent</a>(</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document,</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;      std::string&amp; sgfContent) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">  180</a></span>&#160;    <span class="keyword">virtual</span> std::shared_ptr&lt;ISgfcDocumentWriteResult&gt; <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a29b4a0e28b4a3185afd08d25ac94cf6d">ValidateDocument</a>(</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">  188</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">DebugPrintToConsole</a>(</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;      std::shared_ptr&lt;ISgfcDocument&gt; document) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  };</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></div><div class="ttdoc">The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...</div><div class="ttdef"><b>Definition:</b> ISgfcDocumentWriter.h:95</div></div>
+<div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer_html"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html">LibSgfcPlusPlus::ISgfcDocumentWriter</a></div><div class="ttdoc">The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ...</div><div class="ttdef"><b>Definition:</b> ISgfcDocumentWriter.h:96</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer_html_affc526ffaded7d453b57253df37ff30c"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#affc526ffaded7d453b57253df37ff30c">LibSgfcPlusPlus::ISgfcDocumentWriter::DebugPrintToConsole</a></div><div class="ttdeci">virtual void DebugPrintToConsole(std::shared_ptr&lt; ISgfcDocument &gt; document) const =0</div><div class="ttdoc">Encodes the content of document into an SGF content stream and prints that stream to stdout for debug...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer_html_af8438f369721dfddd01357f2594cdb06"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#af8438f369721dfddd01357f2594cdb06">LibSgfcPlusPlus::ISgfcDocumentWriter::GetArguments</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcArguments &gt; GetArguments() const =0</div><div class="ttdoc">Returns an object with the collection of arguments that ISgfcDocumentWriter passes on to SGFC wheneve...</div></div>
 <div class="ttc" id="aclass_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer_html_a77644ffe0036d1231459f1f14e0728de"><div class="ttname"><a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#a77644ffe0036d1231459f1f14e0728de">LibSgfcPlusPlus::ISgfcDocumentWriter::WriteSgfFile</a></div><div class="ttdeci">virtual std::shared_ptr&lt; ISgfcDocumentWriteResult &gt; WriteSgfFile(std::shared_ptr&lt; ISgfcDocument &gt; document, const std::string &amp;sgfFilePath) const =0</div><div class="ttdoc">Writes the content of document to a single .sgf file located at the specified path,...</div></div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -73,6 +73,7 @@ Before the release</h1>
 <p>Things that need to be done before the actual release can take place:</p>
 <ul>
 <li>Create a release branch. All remaining work will be done in this branch. Command: <code>git checkout -b release-0.1.0 develop</code></li>
+<li>Run Xcode's analyze tool and fix all problems that are reported (except those reported for SGFC source code).</li>
 <li>Run a CI build and fix all errors (hopefully none) and warnings that are reported on all platforms.</li>
 <li>Make sure that the issues in the bugtracker are up to date</li>
 <li>If SGFC has been updated<ul>
@@ -104,7 +105,7 @@ Before the release</h1>
 Create artifacts</h1>
 <h2><a class="anchor" id="autotoc_md50"></a>
 Create an archive</h2>
-<p>TODO: Describe what to do to create a tar ball and upload it to GitHhub.</p>
+<p>GitHub can generate a .zip file on demand from any commit in the repository history. It therefore does not make sense to upload a tar ball and waste space.</p>
 <h2><a class="anchor" id="autotoc_md51"></a>
 Generate and publish API documentation</h2>
 <p>Step-by-step instructions to generate and publish the API documentation.</p>
@@ -149,9 +150,7 @@ Make the release</h1>
 </li>
 <li>Remove the release branch, both locally and, if it was pushed, on GitHub</li>
 <li>Close tickets that are not yet closed in the issue tracker, then close the milestone</li>
-<li>Create a new release on GitHub that references the git tag. Copy ChangeLog content into the release description.</li>
-<li>Update website <code>libsgfcplusplus.herzbube.ch</code></li>
-<li>Advertise the release </li>
+<li>Create a new release on GitHub that references the git tag. Copy ChangeLog content into the release description. </li>
 </ul>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -165,7 +165,7 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memdesc:add7d7e9b5225e94e6115bd2dbb8a32ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the first node among the node itself and its ancestors that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>. Returns <em>nullptr</em> if there is no such node.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#add7d7e9b5225e94e6115bd2dbb8a32ae">More...</a><br /></td></tr>
 <tr class="separator:add7d7e9b5225e94e6115bd2dbb8a32ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7d3212d385fc5b067d26fca3e4a5584"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad7d3212d385fc5b067d26fca3e4a5584">GetMainVariationNodes</a> () const =0</td></tr>
-<tr class="memdesc:ad7d3212d385fc5b067d26fca3e4a5584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an ordered collection of nodes that form the main variation of game play found on the node itself and its first child descendants.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad7d3212d385fc5b067d26fca3e4a5584">More...</a><br /></td></tr>
+<tr class="memdesc:ad7d3212d385fc5b067d26fca3e4a5584"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an ordered collection of nodes that consists of the node's ancestors up to the root node, the node itself, and the main variation of game play found on the node's first child descendants.  <a href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad7d3212d385fc5b067d26fca3e4a5584">More...</a><br /></td></tr>
 <tr class="separator:ad7d3212d385fc5b067d26fca3e4a5584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Game info access</div></td></tr>
 <tr class="memitem:ad34b45ee149112d3f2d729a3bff8d2a4"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html">ISgfcGameInfo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad34b45ee149112d3f2d729a3bff8d2a4">CreateGameInfo</a> () const =0</td></tr>
@@ -311,7 +311,9 @@ virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_p
 
 <p>Returns the first node among the node itself and its ancestors that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>. Returns <em>nullptr</em> if there is no such node. </p>
 <p>The search starts with the node itself, then progresses to the node's parent, the node's parent's parent, etc. up to the root node of the game tree. The search returns the first node whose <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#a817972216e860adbe357ce2fec23dcee" title="Returns the node&#39;s traits.">GetTraits()</a> method returns a value that includes <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a> </dd>
+<dd>
+<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#ad7d3212d385fc5b067d26fca3e4a5584" title="Returns an ordered collection of nodes that consists of the node&#39;s ancestors up to the root node,...">GetMainVariationNodes()</a></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::bad_weak_ptr</td><td>Is thrown if the method would like to return the node itself, but the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object is not wrapped by an std::shared_ptr somewhere external. It is impossible for the library client to encounter this scenario, it can only occur during internal unit testing. </td></tr>
@@ -382,16 +384,23 @@ virtual std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_p
 </table>
 </div><div class="memdoc">
 
-<p>Returns an ordered collection of nodes that form the main variation of game play found on the node itself and its first child descendants. </p>
+<p>Returns an ordered collection of nodes that consists of the node's ancestors up to the root node, the node itself, and the main variation of game play found on the node's first child descendants. </p>
 <p>The main variation is defined as the depth-first path that starts with the node itself and continues along the first child descendants down to the last node that has no more children. The collection that is returned therefore contains the following nodes in the listed order:</p>
 <ul>
-<li>Element 0: The node itself</li>
-<li>Element 1: The node's first child</li>
-<li>Element 2: The node's first child's first child</li>
+<li>Element 0: The root node</li>
+<li>Element 1: The root node's child that leads to the node itself (not necessarily the first child)</li>
+<li>Element 2: The root node child's child that leads to the node itself (not necessarily the first child)</li>
+<li>[...]</li>
+<li>Element n: The node itself</li>
+<li>Element n+1: The node's first child</li>
+<li>Element n+2: The node's first child's first child</li>
 <li>Etc.</li>
 </ul>
-<p>If the node has no children the returned collection contains only the node itself.</p>
-<p>This is a convenience method that is most useful when invoked on a game info node, i.e. a node that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>.</p>
+<p>If the node is the root node the returned collection's first element is the node itself. If the node has no children the returned collection's last element is the node itself. If the node is the root node and it has no children the returned collection contains only the node itself.</p>
+<p>This is a convenience method that is most useful when invoked on a game info node, i.e. a node that has the trait <a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a>. The returned collection fully spans the game tree from root node to leaf node along a distinct path that contains the game info node on which the method was invoked. The returned collection effectively represents a full game.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8" title="The node is a game info node. Game info nodes are nodes that contain one or more game info properties...">SgfcNodeTrait::GameInfo</a> </dd>
+<dd>
+<a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html#add7d7e9b5225e94e6115bd2dbb8a32ae" title="Returns the first node among the node itself and its ancestors that has the trait SgfcNodeTrait::Game...">GetGameInfoNode()</a></dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::bad_weak_ptr</td><td>Is thrown if the method would like to return the node itself, but the <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes....">ISgfcNode</a> object is not wrapped by an std::shared_ptr somewhere external. It is impossible for the library client to encounter this scenario, it can only occur during internal unit testing. </td></tr>

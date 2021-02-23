@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -91,7 +91,7 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a0fe3e44da5e48e73d2dca4c46d9df1a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys and cleans up the <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html" title="The SgfcNodeIterator class encapsulates reusable algorithms for iterating over a tree of ISgfcNode ob...">SgfcNodeIterator</a> object. <br /></td></tr>
 <tr class="separator:a0fe3e44da5e48e73d2dca4c46d9df1a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa891fe547d6e48f25afda76c7c87846"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html#aaa891fe547d6e48f25afda76c7c87846">IterateOverNodesDepthFirst</a> (std::shared_ptr&lt; <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html">ISgfcNode</a> &gt; startNode, <a class="el" href="namespace_lib_sgfc_plus_plus.html#aa775e5e540ae013c6549a12dc51a9471">NodeVisitCallback</a> nodeVisitCallback) const</td></tr>
-<tr class="memdesc:aaa891fe547d6e48f25afda76c7c87846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over the tree of nodes depth-first, starting with <em>startNode</em>. Invokes <em>nodeVisitCallback</em> whenever a node is visited.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html#aaa891fe547d6e48f25afda76c7c87846">More...</a><br /></td></tr>
+<tr class="memdesc:aaa891fe547d6e48f25afda76c7c87846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over the tree of nodes depth-first, starting with <em>startNode</em>. Invokes <em>nodeVisitCallback</em> whenever a node is visited. <em>nodeVisitCallback</em> must not be <em>nullptr</em>.  <a href="class_lib_sgfc_plus_plus_1_1_sgfc_node_iterator.html#aaa891fe547d6e48f25afda76c7c87846">More...</a><br /></td></tr>
 <tr class="separator:aaa891fe547d6e48f25afda76c7c87846"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -123,11 +123,17 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
       </table>
 </div><div class="memdoc">
 
-<p>Iterates over the tree of nodes depth-first, starting with <em>startNode</em>. Invokes <em>nodeVisitCallback</em> whenever a node is visited. </p>
+<p>Iterates over the tree of nodes depth-first, starting with <em>startNode</em>. Invokes <em>nodeVisitCallback</em> whenever a node is visited. <em>nodeVisitCallback</em> must not be <em>nullptr</em>. </p>
 <p>When <em>nodeVisitCallback</em> returns the iteration continues according to the SgfcNodeIterationContinuation value that <em>nodeVisitCallback</em> returns.</p>
 <p>Does nothing if <em>startNode</em> is <em>nullptr</em> and returns immediately without invoking <em>nodeVisitCallback</em>.</p>
 <p>If <em>startNode</em> is not <em>nullptr</em> then <em>nodeVisitCallback</em> is invoked with <em>startNode</em> as the parameter, after which the depth-first iteration begins.</p>
-<p><em>startNode</em> typically is the root node of the tree of nodes to be iterated. Even if this not the case and <em>startNode</em> has siblings and/or a parent, the iteration never visits the siblings and/or the parent of <em>startNode</em>. </p>
+<p><em>startNode</em> typically is the root node of a tree of nodes to be iterated. If this not the case the iteration may visit the next siblings of <em>startNode</em>, depending on the return value of <em>nodeVisitCallback</em>, but the iteration never visits the parent or previous siblings of <em>startNode</em>.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>Is thrown if <em>nodeVisitCallback</em> is <em>nullptr</em>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

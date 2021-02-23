@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -86,7 +86,12 @@ cmake --build .
 How to test</h1>
 <p>After building you can run tests from the <code>build</code> folder with this command: </p><pre class="fragment">ctest
 </pre><p>Why does <code>ctest</code> report only a single test? This is because CMake sees the Catch2 test runner as a single test, when in fact the test runner is only the "facade" of the project's entire test suite. Execute the Catch2 test runner directly, with something like the following command, to see more detailed results. The command may vary on different platforms. </p><pre class="fragment">./test/libsgfcplusplus-test
-</pre><h1><a class="anchor" id="autotoc_md4"></a>
+</pre><p>The Catch2 test runner also has more capabilities than <code>ctest</code> to control which tests should be run. Invoke the test runner with the <code>-h</code> option to see all the options that are available. Example: All test scenarios are tagged, you can list those tags like this: </p><pre class="fragment">./test/libsgfcplusplus-test --list-tags
+</pre><p>To run only tests marked with certain tags specify the tags in brackets. The following examples only runs tests that are related to text encodings and/or that excercise go-specific functionality: </p><pre class="fragment">./test/libsgfcplusplus-test "[encoding],[go]"   # or
+./test/libsgfcplusplus-test "[encoding][go]"    # and
+</pre><p>The <code>[filesystem]</code> tag marks all tests that interact with the filesystem. To exclude these: </p><pre class="fragment">./test/libsgfcplusplus-test "~[filesystem]"
+</pre><p>For more details see the <a href="https://github.com/catchorg/Catch2/blob/devel/docs/command-line.md">Catch2 documentation</a>.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
 How to install</h1>
 <p>After the tests have run successfully you install the build products to a destination folder of your choice. CMake 3.15 and newer include a command line option <code>--install</code> which can be used like this: </p><pre class="fragment">cmake --install . --prefix /path/to/destfolder
 </pre><p>Older CMake versions don't have the <code>--install</code> command line option and you must use the generated build system to perform the installation. You also have to define the prefix folder when you generate the build system. Example for <code>make</code>: </p><pre class="fragment">cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/path/to/destfolder ..

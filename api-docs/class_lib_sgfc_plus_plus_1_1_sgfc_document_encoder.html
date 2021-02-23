@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">libsgfc++
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">A C++ library that uses SGFC to read and write SGF (Smart Game Format) data.</div>
   </td>
@@ -96,7 +96,8 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html" title="The SgfcDocumentEncoder class encodes the content of an ISgfcDocument object into an in-memory string...">SgfcDocumentEncoder</a> class encodes the content of an <a class="el" href="class_lib_sgfc_plus_plus_1_1_i_sgfc_document.html" title="The ISgfcDocument interface provides access to a collection of SGF games. When you read an SGF file,...">ISgfcDocument</a> object into an in-memory string buffer that contains the SGF content stream as if it were read from an .sgf file, and that can be passed to SGFC for further processing (corrections and/or writing to an .sgf file in the filesystem). </p>
-<p>Implementation note: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html" title="The SgfcDocumentEncoder class encodes the content of an ISgfcDocument object into an in-memory string...">SgfcDocumentEncoder</a> formats the SGF content that it generates with indentation and line breaks to make the content human readable. It is expected that SGFC removes that whitespace when it parses the SGF content. </p>
+<p>Implementation note: <a class="el" href="class_lib_sgfc_plus_plus_1_1_sgfc_document_encoder.html" title="The SgfcDocumentEncoder class encodes the content of an ISgfcDocument object into an in-memory string...">SgfcDocumentEncoder</a> formats the SGF content that it generates with indentation and line breaks to make the content human readable. It is expected that SGFC removes that whitespace when it parses the SGF content.</p>
+<p>The purpose of generating human readable SGF content is to debug issues. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="abc1118f829bdf98940b573e791b426e2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc1118f829bdf98940b573e791b426e2">&#9670;&nbsp;</a></span>Encode()</h2>
