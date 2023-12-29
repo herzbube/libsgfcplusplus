@@ -276,7 +276,7 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found (and fixed) a node that was not in any variation.
     NodeNotInVariation = 66,
     /// @brief SGFC found (and corrected) an illegal variation start.
-    IllegalVariationStartCorrected = 21,
+    IllegalVariationStartCorrected = 67,
     /// @brief SGFC was invoked with an argument that is not a supported long
     /// command line option.
     ///
