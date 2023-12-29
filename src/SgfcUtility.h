@@ -158,10 +158,16 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the full path to a folder that is suitable for temporary
     /// files. The path is guaranteed to exist and to be a directory.
     ///
-    /// This is a replacement for std::filesystem::temp_directory_path().
-    /// This function was defined in C++17, but is not available on all
-    /// platforms (notably on macOS it is available only from macOS 10.15), so
-    /// we have to roll our own platform-independent function.
+    /// The implementation makes use of std::filesystem::temp_directory_path(),
+    /// which is defined in C++17 but may not be available on older platform
+    /// versions (notably on macOS it is available only from macOS 10.15). For
+    /// more details about how the path is determined, see
+    /// https://en.cppreference.com/w/cpp/filesystem/temp_directory_path.
+    ///
+    /// @exception std::filesystem::filesystem_error Is thrown if invoking the
+    /// underlying operating system API results in an error. The exception
+    /// object is constructed with the temporary folder path as the first path
+    /// argument and the operating system error code as the error code argument.
     static std::string GetTempFolderPath();
 
     /// @brief Returns the unique base name of a file that is extremely

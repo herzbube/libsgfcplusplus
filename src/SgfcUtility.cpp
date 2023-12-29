@@ -21,6 +21,7 @@
 
 // C++ Standard Library includes
 #include <cstdio>       // for remove()
+#include <filesystem>   // for std::filesystem::temp_directory_path()
 #include <fstream>      // for std::ofstream and std::ifstream
 #include <random>
 #include <sstream>
@@ -28,11 +29,9 @@
 
 // System includes
 #ifdef _MSC_VER
-  #include <Windows.h>  // for GetTempPath()
   #include <io.h>       // for _access_s()
   #include <process.h>  // for _getpid()
 #else
-  #include <cstdlib>    // for std::getenv()
   #include <unistd.h>   // for access() and getpid()
 #endif
 
@@ -190,52 +189,7 @@ namespace LibSgfcPlusPlus
 
   std::string SgfcUtility::GetTempFolderPath()
   {
-    std::string tempFolderPath;
-
-#ifdef _MSC_VER
-
-    DWORD bufferLength = MAX_PATH + 1;
-    char* buffer = new char[bufferLength];
-
-    // The Win32 API works with TCHAR, but since everything else in libsgfc++
-    // does not work with wchar or wstring we don't bother here and just use
-    // char and string.
-
-    DWORD getTempPathResult = GetTempPath(bufferLength, buffer);
-    if (getTempPathResult == 0 || getTempPathResult > bufferLength)
-    {
-      delete[] buffer;
-      throw std::runtime_error("Win32 API function GetTempPath() failed");
-    }
-
-    tempFolderPath = buffer;
-    delete[] buffer;
-
-#else
-
-    // Environment variable names taken from
-    // https://en.cppreference.com/w/cpp/filesystem/temp_directory_path
-    static std::vector<std::string> environmentVariableNames = { "TMPDIR", "TMP", "TEMP", "TEMPDIR" };
-
-    tempFolderPath = "/tmp";
-
-    for ( const auto& environmentVariableName : environmentVariableNames )
-    {
-      const char* environmentVariableValue = std::getenv(environmentVariableName.c_str());
-      if (environmentVariableValue != nullptr)
-      {
-        tempFolderPath = environmentVariableValue;
-        break;
-      }
-    }
-
-#endif
-
-    // On all platforms we have no guarantee that the folder actually exists.
-    // This works purely by convention. Because we intend to replace all this
-    // cruft with std::filesystem::temp_directory_path() anyway sooner or later,
-    // this implementation is good enough.
-
+    std::filesystem::path tempFolderPath = std::filesystem::temp_directory_path();
     return tempFolderPath;
   }
 
