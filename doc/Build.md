@@ -27,6 +27,8 @@ Building with Xcode or Visual Studio is explained in sections further down.
 
 ## How to test
 
+### Executing tests
+
 After building you can run tests from the `build` folder with this command:
 
     ctest
@@ -49,6 +51,24 @@ The `[filesystem]` tag marks all tests that interact with the filesystem. To exc
     ./test/libsgfcplusplus-test "~[filesystem]"
 
 For more details see the [Catch2 documentation](https://github.com/catchorg/Catch2/blob/devel/docs/command-line.md).
+
+
+### Integrating Catch2 into the build
+
+The libsgfc++ build system integrates Catch2 by way of the CMake commands `find_package()` or `add_subdirectory()`. It attempts to locate the package in two steps:
+
+1. First the build system looks for a system-wide package in a series of likely installation paths. The search logic is exceedingly complicated and can be looked up in the CMake documentation of the `find_package()` command.
+2. If there is no system-wide package the build system then looks for the package in a defined path where it expects to find a Catch2 source distribution. This can be either a Catch2 git repository clone or a a plain directory that is structurally identical to the repository layout. For this the build system uses the `add_subdirectory()` command.
+
+If both lookup attempts fail, the build fails.
+
+You can define the source distribution path where the build system should look for the package by defining the variable `CATCH2_SOURCEDISTRIBUTION_PREFIX`:
+
+    cmake -DCMAKE_BUILD_TYPE=Release \
+          -DCATCH2_SOURCEDISTRIBUTION_PREFIX=/path/to/folder \
+          ..
+
+If you don't define a source distribution path, the build system assumes `test/Catch2` as the default source distribution path. This path points to the Catch2 Git submodule which you have initialized at the very beginning.
 
 ## How to install
 

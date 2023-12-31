@@ -22,13 +22,13 @@ if ( ${${CATCH2_PACKAGE_FOUND_VARIABLE_NAME}} )
 else()
   message ( STATUS "System-wide Catch2 CMake package not found." )
 
-  if ( NOT DEFINED CATCH2_GITREPOSITORY_PREFIX )
-    message ( STATUS "Using default git repository prefix to find Catch2 CMake package." )
-    message ( STATUS "Define CATCH2_GITREPOSITORY_PREFIX to override this." )
+  if ( NOT DEFINED CATCH2_SOURCEDISTRIBUTION_PREFIX )
+    message ( STATUS "Using default source distribution prefix to find Catch2 CMake package." )
+    message ( STATUS "Define CATCH2_SOURCEDISTRIBUTION_PREFIX to override this." )
     # A well known path: The Catch2 Git submodule.
-    set ( CATCH2_GITREPOSITORY_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/Catch2" )
+    set ( CATCH2_SOURCEDISTRIBUTION_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/Catch2" )
   else()
-    message ( STATUS "Using user-provided git repository prefix to find Catch2 CMake package." )
+    message ( STATUS "Using user-provided source distribution prefix to find Catch2 CMake package." )
   endif()
 
   # Here we expect to find the Catch2 source distribution, either as Catch2 git
@@ -37,9 +37,9 @@ else()
   # add_subdirectory. The advantage over find_package() is that the user does
   # not need to build/install the Catch2 library separately - Catch2 is simply
   # built as part of the test project without the need of installation.
-  message ( STATUS "Adding Catch2 CMake package as sub-directory from ${CATCH2_GITREPOSITORY_PREFIX}." )
+  message ( STATUS "Adding Catch2 CMake package as sub-directory from ${CATCH2_SOURCEDISTRIBUTION_PREFIX}." )
   add_subdirectory (
-    ${CATCH2_GITREPOSITORY_PREFIX}
+    ${CATCH2_SOURCEDISTRIBUTION_PREFIX}
   )
 endif()
 
