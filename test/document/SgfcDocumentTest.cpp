@@ -25,7 +25,7 @@ extern "C"
 }
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 
 // C++ Standard Library includes
 #include <cstring>  //  needed for strlen

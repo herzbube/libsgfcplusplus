@@ -27,7 +27,8 @@ extern "C"
 }
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 using namespace LibSgfcPlusPlus;
 

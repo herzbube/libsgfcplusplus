@@ -20,7 +20,8 @@
 #include <SgfcDate.h>
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 using namespace LibSgfcPlusPlus;
 
@@ -118,7 +119,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is decomposed", "[game]" )
 {
   GIVEN( "The property value is valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesDT()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesDT()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -142,7 +143,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is decomposed", "[game]" )
 
   GIVEN( "The property value is not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesDT()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesDT()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -160,7 +161,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is composed", "[game]" )
 {
   GIVEN( "The SgfcDate objects are valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcDates()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcDates()) );
 
     WHEN( "The property value is composed" )
     {
@@ -176,7 +177,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is composed", "[game]" )
 
   GIVEN( "The SgfcDate objects are not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcDates()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcDates()) );
 
     WHEN( "The property value is composed" )
     {

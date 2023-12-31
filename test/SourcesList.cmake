@@ -1,6 +1,5 @@
 set (
   SOURCES
-  main.cpp
   document/SgfcDocumentTest.cpp
   document/SgfcGameTest.cpp
   document/SgfcNodeTest.cpp

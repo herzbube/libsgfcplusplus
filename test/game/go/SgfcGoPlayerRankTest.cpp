@@ -20,7 +20,8 @@
 #include <SgfcGoPlayerRank.h>
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 using namespace LibSgfcPlusPlus;
 
@@ -74,7 +75,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is dec
 {
   GIVEN( "The property value is valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesBRWR()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesBRWR()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -91,7 +92,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is dec
 
   GIVEN( "The property value is not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesBRWR()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesBRWR()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -109,7 +110,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is com
 {
   GIVEN( "The SgfcGoPlayerRank object is valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcGoPlayerRanks()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcGoPlayerRanks()) );
 
     WHEN( "The property value is composed" )
     {
@@ -125,7 +126,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is com
 
   GIVEN( "The SgfcGoPlayerRank object is not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcGoPlayerRanks()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcGoPlayerRanks()) );
 
     WHEN( "The property value is composed" )
     {
