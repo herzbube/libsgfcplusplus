@@ -131,9 +131,9 @@ The four modes quickly explained:
 * Mode "docwrite"  demonstrates the usage of `ISgfcDocumentWriter`.
 * Mode "buildtree"  demonstrates the usage of the various factories to programmatically build a game tree.
 
-## Enabling/disabling build parts
+## Enabling/disabling build products
 
-The default build builds everything, but if you wish you can disable certain parts by setting the corresponding variables:
+The default build builds everything, but if you wish you can disable certain build products by setting the corresponding variables:
 
 - Set `ENABLE_SHARED_LIBRARY` to `NO` to prevent the shared library from being built.
 - Set `ENABLE_STATIC_LIBRARY` to `NO` to prevent the static library from being built.
@@ -147,7 +147,7 @@ The following example builds everything except the static library framework and 
     cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC_FRAMEWORK=NO -DENABLE_EXAMPLES=NO ..
     cmake --build .
 
-You can also set the variable `ENABLE_DEFAULT` to `NO` as a quick way to change the default from "build everything" to "build nothing". After that you can enable only certain parts.
+You can also set the variable `ENABLE_DEFAULT` to `NO` as a quick way to change the default from "build everything" to "build nothing". After that you can enable only certain build products.
 
 The following example only builds the shared library:
 
