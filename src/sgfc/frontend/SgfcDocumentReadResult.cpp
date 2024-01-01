@@ -69,7 +69,7 @@ namespace LibSgfcPlusPlus
 
   void SgfcDocumentReadResult::DebugPrintToConsole() const
   {
-    std::cout << "Exit code = " << (int)GetExitCode() << std::endl;
+    std::cout << "Exit code = " << static_cast<int>(GetExitCode()) << std::endl;
     std::cout << "IsSgfDataValid = " << IsSgfDataValid() << std::endl;
 
     for (auto parseResultMessage : GetParseResult())
@@ -78,7 +78,7 @@ namespace LibSgfcPlusPlus
         << "Message ID = "
         << static_cast<int>(parseResultMessage->GetMessageID())
         << ", type = "
-        << (int)parseResultMessage->GetMessageType()
+        << static_cast<int>(parseResultMessage->GetMessageType())
         << ", line = "
         << parseResultMessage->GetLineNumber()
         << ", column = "
