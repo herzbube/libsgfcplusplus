@@ -26,8 +26,8 @@ namespace LibSgfcPlusPlus
   SgfcMessage::SgfcMessage(
     SgfcMessageID messageID,
     SgfcMessageType messageType,
-    int lineNumber,
-    int columnNumber,
+    unsigned long lineNumber,
+    unsigned long columnNumber,
     bool isCriticalMessage,
     int libraryErrorNumber,
     const std::string& messageText,
@@ -81,12 +81,12 @@ namespace LibSgfcPlusPlus
     return this->messageType;
   }
 
-  int SgfcMessage::GetLineNumber() const
+  unsigned long SgfcMessage::GetLineNumber() const
   {
     return this->lineNumber;
   }
 
-  int SgfcMessage::GetColumnNumber() const
+  unsigned long SgfcMessage::GetColumnNumber() const
   {
     return this->columnNumber;
   }

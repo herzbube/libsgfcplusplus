@@ -87,8 +87,8 @@ namespace LibSgfcPlusPlus
     // there are no thousands separators
     formattedMessageTextStream.imbue(std::locale::classic());
 
-    int lineNumber = sgfcError->row;
-    int columnNumber = sgfcError->col;
+    unsigned long lineNumber = sgfcError->row;
+    unsigned long columnNumber = sgfcError->col;
     if (lineNumber > 0 && columnNumber > 0)
     {
       formattedMessageTextStream
