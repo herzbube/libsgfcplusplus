@@ -14,7 +14,6 @@ jobs:
     # - We use the *-latest runners because we strive to build with relatively
     #   new versions of each environment that have modern compilers (we need at
     #   least C++17, see CMakeLists.txt) and tools.
-    # - As of writing this all of the *-latest runners use CMake 3.19.1.
     # - The library should not only be cross-platform, it should also not rely
     #   on any particular compiler. On macOS the clang compiler is used
     #   (AppleClang), on Ubuntu the default is GNU GCC, and on Windows it's
@@ -47,15 +46,6 @@ jobs:
       run: |
         mkdir build
         cd build
-        # Setting CMAKE_SYSTEM_VERSION defines the Windows SDK that CMake should
-        # use for the build. We have to do this in order to override the
-        # Windows SDK that CMake would select on its own. The default Windows SDK
-        # on the windows-latest runner is currently 10.0.17763.0, and for unknown
-        # reasons that SDK version breaks the build. The symptoms are many C5105
-        # warnings, and eventually also some compiler errors. Windows SDK
-        # 10.0.18362.0 is a version that is known to work and that is also known
-        # to be installed on the windows-latest runner.
-        #cmake -DCMAKE_SYSTEM_VERSION="10.0.18362.0" ..
         cmake ..
       if: matrix.os == 'windows-latest'
 
