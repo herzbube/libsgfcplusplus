@@ -190,7 +190,7 @@ namespace LibSgfcPlusPlus
   std::string SgfcUtility::GetTempFolderPath()
   {
     std::filesystem::path tempFolderPath = std::filesystem::temp_directory_path();
-    return tempFolderPath;
+    return tempFolderPath.u8string();
   }
 
   std::string SgfcUtility::GetUniqueTempFileName()
