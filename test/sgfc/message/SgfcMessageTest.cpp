@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@
 #include <SgfcConstants.h>
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 using namespace LibSgfcPlusPlus;
 
@@ -27,8 +28,8 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
   SgfcMessageID messageID = SgfcMessageID::CombinationOfPropertiesConverted;
   SgfcMessageType messageType = SgfcMessageType::Warning;
-  int lineNumber = 10;
-  int columnNumber = 20;
+  unsigned long lineNumber = 10;
+  unsigned long columnNumber = 20;
   bool isCriticalMessage = true;
   int libraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string messageText = "message text";
@@ -310,8 +311,8 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
   std::string messageText = "message text";
 
   SgfcMessageType expectedMessageType = SgfcMessageType::FatalError;
-  int expectedLineNumber = SgfcConstants::InvalidLineNumber;
-  int expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
+  unsigned long expectedLineNumber = SgfcConstants::InvalidLineNumber;
+  unsigned long expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
   bool expectedIsCriticalMessage = false;
   int expectedLibraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string expectedFormattedMessageText = messageText;

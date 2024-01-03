@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@
 #include <SgfcGoRuleset.h>
 
 // Unit test library includes
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 
 using namespace LibSgfcPlusPlus;
 
@@ -72,7 +73,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is decomposed", "[game]" )
 {
   GIVEN( "The property value is valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesRU()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidPropertyValuesRU()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -89,7 +90,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is decomposed", "[game]" )
 
   GIVEN( "The property value is not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesRU()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidPropertyValuesRU()) );
 
     WHEN( "The property value is decomposed" )
     {
@@ -107,7 +108,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is composed", "[game]" )
 {
   GIVEN( "The SgfcGoRuleset object is valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcGoRulesets()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetValidSgfcGoRulesets()) );
 
     WHEN( "The property value is composed" )
     {
@@ -123,7 +124,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is composed", "[game]" )
 
   GIVEN( "The SgfcGoRuleset object is not valid" )
   {
-    auto& testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcGoRulesets()) );
+    auto testData = GENERATE( from_range(TestDataGenerator::GetInvalidSgfcGoRulesets()) );
 
     WHEN( "The property value is composed" )
     {

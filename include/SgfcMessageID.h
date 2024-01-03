@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -276,7 +276,7 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found (and fixed) a node that was not in any variation.
     NodeNotInVariation = 66,
     /// @brief SGFC found (and corrected) an illegal variation start.
-    IllegalVariationStartCorrected = 21,
+    IllegalVariationStartCorrected = 67,
     /// @brief SGFC was invoked with an argument that is not a supported long
     /// command line option.
     ///

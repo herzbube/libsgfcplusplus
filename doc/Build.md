@@ -27,6 +27,8 @@ Building with Xcode or Visual Studio is explained in sections further down.
 
 ## How to test
 
+### Executing tests
+
 After building you can run tests from the `build` folder with this command:
 
     ctest
@@ -49,6 +51,24 @@ The `[filesystem]` tag marks all tests that interact with the filesystem. To exc
     ./test/libsgfcplusplus-test "~[filesystem]"
 
 For more details see the [Catch2 documentation](https://github.com/catchorg/Catch2/blob/devel/docs/command-line.md).
+
+
+### Integrating Catch2 into the build
+
+The libsgfc++ build system integrates Catch2 by way of the CMake commands `find_package()` or `add_subdirectory()`. It attempts to locate the package in two steps:
+
+1. First the build system looks for a system-wide package in a series of likely installation paths. The search logic is exceedingly complicated and can be looked up in the CMake documentation of the `find_package()` command.
+2. If there is no system-wide package the build system then looks for the package in a defined path where it expects to find a Catch2 source distribution. This can be either a Catch2 git repository clone or a a plain directory that is structurally identical to the repository layout. For this the build system uses the `add_subdirectory()` command.
+
+If both lookup attempts fail, the build fails.
+
+You can define the source distribution path where the build system should look for the package by defining the variable `CATCH2_SOURCEDISTRIBUTION_PREFIX`:
+
+    cmake -DCMAKE_BUILD_TYPE=Release \
+          -DCATCH2_SOURCEDISTRIBUTION_PREFIX=/path/to/folder \
+          ..
+
+If you don't define a source distribution path, the build system assumes `test/Catch2` as the default source distribution path. This path points to the Catch2 Git submodule which you have initialized at the very beginning.
 
 ## How to install
 
@@ -111,9 +131,9 @@ The four modes quickly explained:
 * Mode "docwrite"  demonstrates the usage of `ISgfcDocumentWriter`.
 * Mode "buildtree"  demonstrates the usage of the various factories to programmatically build a game tree.
 
-## Enabling/disabling build parts
+## Enabling/disabling build products
 
-The default build builds everything, but if you wish you can disable certain parts by setting the corresponding variables:
+The default build builds everything, but if you wish you can disable certain build products by setting the corresponding variables:
 
 - Set `ENABLE_SHARED_LIBRARY` to `NO` to prevent the shared library from being built.
 - Set `ENABLE_STATIC_LIBRARY` to `NO` to prevent the static library from being built.
@@ -127,7 +147,7 @@ The following example builds everything except the static library framework and 
     cmake -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC_FRAMEWORK=NO -DENABLE_EXAMPLES=NO ..
     cmake --build .
 
-You can also set the variable `ENABLE_DEFAULT` to `NO` as a quick way to change the default from "build everything" to "build nothing". After that you can enable only certain parts.
+You can also set the variable `ENABLE_DEFAULT` to `NO` as a quick way to change the default from "build everything" to "build nothing". After that you can enable only certain build products.
 
 The following example only builds the shared library:
 
@@ -182,28 +202,87 @@ No instructions available. This has not been tested yet.
 
 ## Cross-compiling for iOS
 
-Cross-compiling for iOS is mentioned and explained in the `cmake-toolchains` man page, which is also available [from the CMake website](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-ios-tvos-or-watchos).
+Cross-compiling for iOS (or for any of the other Apple device OS's) currently seems to be a bit of a moving target in CMake, due to some changes that have been going on in the Apple developer ecosystem in the last years. Driving factors are the introduction of Silicon Macs (i.e. macOS machines running on ARM processors) and the continued evolution of Xcode (e.g. introduction of a new / removal of the old build system).
 
-These commands create a Release configuration build of the static library and static library framework for iOS on a macOS machine where Xcode is installed:
+The next two sections therefore present two ways how to cross-compile for iOS: An old way, which will eventually stop working in future CMake versions (and probably does not even work today on Silicon Macs), and a new way, which may need refinement in the future but should at least work on all machines given modern versions of CMake and Xcode are used.
 
+Both solutions build on CMake's basic mechanics for cross-compiling for iOS, which are explained in the `cmake-toolchains` man page and are also available [from the CMake website](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html#cross-compiling-for-ios-tvos-or-watchos).
+
+### The old way: `IOS_INSTALL_COMBINED`
+
+Here is a set of commands that should work with CMake 3.28.1, on an Intel macOS machine where Xcode 15 is installed. This solution uses the property `IOS_INSTALL_COMBINED`, which  has been deprecated in CMake version 3.28, so the solution will eventually stop working once CMake removes the property completely. Also note that the solution most likely does not work on Silicon Macs - if you have one of these machines then jump ahead to the "new way" section below.
+
+    cd /path/to/libsgfcplusplus
+    mkdir build
+    
+    cd build
     cmake .. -G Xcode \
-      -T buildsystem=1
       -DCMAKE_SYSTEM_NAME=iOS \
       "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" \
       -DCMAKE_XCODE_ATTRIBUTE_ONLY_ACTIVE_ARCH=NO \
-      -DCMAKE_IOS_INSTALL_COMBINED=YES \
-      -DCMAKE_INSTALL_PREFIX=install
+      -DCMAKE_IOS_INSTALL_COMBINED=YES
 
-    cmake --build . --config Release --target install
+    cmake --build . --config Release
+    cmake --install . --prefix `pwd`/install
 
 Notes:
 
-- The option `-T buildsystem=1` is new in CMake 3.19 and takes effect only if Xcode 12 is used as the build system. Without the option CMake uses the Xcode “new build system” which, at the time of writing this, causes the build to fail. Using the option may become unnecessary once the underlying issue has been fixed in CMake. For details see [issue 21282](https://gitlab.kitware.com/cmake/cmake/-/issues/21282) on the CMake issue tracker.
+- The commands create a Release configuration build. The configuration is not specified in the first command via `-DCMAKE_BUILD_TYPE=Release` because the Xcode generator produces a multi-configuration build system which is capable of building both Debug and Release configurations. The configuration therefore must be selected during the `--build` step.
+- Because none of the `ENABLE_*` variables is set, the libsgfc++ project's CMake configuration internally decides to create only the static library and the static library framework. The reason is to avoid a codesigning error - see the section [Codesigning when building for iOS](#codesigning-when-building-for-ios) for more details.
 - We list two architectures: `x86_64` for the simulator build, and `arm64` for the device build. The result of both builds will be stored in the same library files, making them so-called "universal" binaries. Use `lipo -info /path/to/file` to check what's inside such a file. Omitting `CMAKE_OSX_ARCHITECTURES` builds slices for all default architectures.
 - Setting the `ONLY_ACTIVE_ARCH` flag to `NO` is important so that Xcode really builds those architectures we just mentioned. If we didn't set this Xcode would only build the architecture in the `NATIVE_ARCH` Xcode build setting.
 - Setting the CMake property `IOS_INSTALL_COMBINED` to `YES` causes the targets to be built for both the device SDK and the simulator SDK. An `arm64` build made with the device SDK is slightly different than an `arm64` build made with the simulator SDK. CMake figures out on its own which SDK it must use to build each architecture. The property also indicates to CMake that it needs to build **all** architectures in `CMAKE_OSX_ARCHITECTURES`, not just the first, and to stitch together all resulting slices into a universal binary.
-- It's important that the build is made with the target `install` because only then will CMake generate the simulator build. Also if you don't use this target and perform installation in a separate step (with `cmake --install`), CMake will be unable to find the generated library files. The exact reason fo these quirks is not known, but is likely rooted in the fact that cross-compiling for iOS is rather unusual because it requires CMake to perform several builds in one step.
-- Because we do the build and the installation all in one step, we can't specify the installation prefix during that step (the `--prefix` option cannot be used with `cmake --build`). For this reason we set `INSTALL_PREFIX` during configuration.
+- When using a modern version of CMake together with the new Xcode build system (introduced in Xcode 10) it is important that the `--build` and the `--install` steps are done separately, because only then does CMake work correctly with that new Xcode build system.
+  - With older versions of CMake it was mandatory to use the old Xcode build system (you had to specify `-T buildsystem 1` to the generate CMake command), **and** it was also mandatory to combine the build and install steps, i.e. to have only a `--build` step during which the option `--target install` is also specified.
+  - Because modern Xcode versions no longer support the old build system the combined build/install step approach is no longer viable with modern CMake/Xcode versions.
+- In the `--install` step, the `pwd` command is used because CMake requires the installation prefix to be an absolute path.
+
+### The new way: XCFramework
+
+The results of the "old way" solution are universal (aka "fat") binaries: These are binaries that can contain multiple architectures (aka "slices") as long as they are different. On Intel macOS machines this is fine because the simulator build (`x86_64` architecture) and the device build (`arm64` architecture) have different architectures, so it is no problem to store both slices in the same universal binary. On ARM macOS machines (aka Silicon Macs) this does not work, though, because on these machines the simulator build and the device build both use the `arm64` architecture.
+
+Apple's solution for this is a new kind of framework called "XCFramework": This is an enhanced framework bundle (recognizable by the extension `.xcframework`) that can contain any number of binaries for different platforms. It seems that currently CMake does not have built-in support for creating XCFrameworks, instead one has to stitch together an XCFramework bundle manually from individual framework parts using `xcodebuild -create-xcframework`. 
+
+Here is an example that was tested on an Intel Mac, but should also work on a Silicon Mac. Note that this solution no longer uses the deprecated property `IOS_INSTALL_COMBINED`
+
+```
+cd /path/to/libsgfcplusplus
+mkdir -p build/simulator build/device
+
+cd build/simulator
+cmake ../.. -G Xcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphonesimulator
+cmake --build . --config Release
+cmake --install . --prefix `pwd`/install
+
+cd ../device
+cmake ../.. -G Xcode -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_SYSROOT=iphoneos
+cmake --build . --config Release
+cmake --install . --prefix `pwd`/install
+
+cd ..
+xcodebuild -create-xcframework \
+           -framework simulator/install/Frameworks/libsgfcplusplus_static.framework \
+           -framework device/install/Frameworks/libsgfcplusplus_static.framework \
+           -output libsgfcplusplus_static.xcframework
+```
+
+Notes:
+
+- The solution creates two wholly separate builds for the simulator and device platforms, using the same set of generate/build/install commands that were also used in the "old way" solution.
+- The `CMAKE_OSX_SYSROOT` variable selects the SDK to be used for building each platform. Specifying an SDK name without a version (e.g. `iphonesimulator` instead of `iphonesimulator17.2`) selects the latest SDK version. A list of available SDKs can be obtained by running `xcodebuild -showsdks`.
+- We omit `CMAKE_OSX_ARCHITECTURES` and let Xcode build slices for all default architectures of the target platform. On Silicon Macs this should only build only an `arm64` slice for both platforms. On Intel Macs this builds only an `arm64` slice for the device platform, and both `arm64` and `x86_64` slices for the simulator platform. `-DCMAKE_OSX_ARCHITECTURES=x86_64` can be specified to avoid building two slices for the simulator.
+- For simplicity's sake the example does not specify any of the `ENABLE_*` variables. This results in both the shared library and the shared library framework to be built, although we only need the framework for stitching the XCFramework. The overhead of building the unneeded shared library is negligible, though, because it consists of the same object files as the framework. To avoid building the shared library, the options `-DENABLE_DEFAULT=NO` and `-DENABLE_STATIC_FRAMEWORK=YES` can be added to the generate command.
+- The CMake cross-compilation documentation mentions that with the Xcode generator it is possible to generate only one build system (i.e. have only one `-G` command) without specifying the SDK, and then selecting the SDK during the `--build` step with `-sdk <sdk-name>`. The same documentation also gives a warning that taking this shortcut might cause problems with commands such as `find_package()` or `find_library()`. To be on the safe side our example therefore does not use the shortcut.
+
+### Xcode's old/new build system
+
+If you see an Xcode build error "unable to attach DB" then you are likely affected by an incompatibility between the way how CMake handles `IOS_INSTALL_COMBINED` and the Xcode build system. Depending on the combination of versions of Xcode and CMake that you have, if you still want to use `IOS_INSTALL_COMBINED` you may therefore need to select the old or the new Xcode build system.
+
+Some background information:
+
+- Xcode 10 introduced a new build system, Xcode 13 deprecated the old build system and XCode 14 completely removed the old build system.
+- Since CMake 3.19 you can specify `-T buildsystem=<value>` to a CMake generator command (a command using the `-G` option) to select the Xcode build system to be used later on in the `--build` step.
+- Value "1" selects the old build system, value "12" selects the new build system. By default CMake selects the new build system.
 
 ## Codesigning when building for iOS
 
@@ -220,10 +299,18 @@ The following example shows how you can force the shared library to be built wit
 
 ## Deployment target and bundle identifier when building for iOS
 
-Should you try to build unit tests or the examples for iOS (by setting `ENABLE_TESTS` or `ENEABLE_EXAMPLES` to `YES`) you will encounter two obstacles.
+When you build libsgfc++ for iOS you may encounter errors because some build products require a certain minimum iOS version. Known cases:
 
-1. The unit test library (Catch2) header contains code that is available only since iOS 10.0. Because of this you have to set the deployment target to 10.0. This tells the compiler to generate binaries that at runtime require iOS 10.0 as the minimum iOS version. The deployment target is set with the CMake option `-DCMAKE_OSX_DEPLOYMENT_TARGET=10.0`.
-1. The unit test runner and the examples are executables, so they need to be codesigned. Unlike a shared library, executables can only be codesigned if they have a bundle identifier. The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples that is something you have to provide. There is currently no example how to build bundles - a starting point would be the [CMake documentation for MACOSX_BUNDLE](https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html).
+- libsgfc++ requires iOS 13 or newer because of its usage of `std::filesystem`
+- The unit test library (Catch2) contains code that is available only since iOS 10.0.
+
+If you have these errors you have to set the deployment target to 13.0. The deployment target is set with the CMake option `-DCMAKE_OSX_DEPLOYMENT_TARGET=13.0`.
+
+## Bundle identifier when building for iOS
+
+Should you try to build unit tests or the examples for iOS you will encounter an obstacle: The unit test runner and the examples are both executables, so they need to be codesigned, but unlike a shared library an executable can only be codesigned if it has a bundle identifier.
+
+The project does not provide any bundle identifiers, so if you insist on building the unit tests and/or the examples for iOS that is something you have to provide. There is currently no example how to build bundles - a starting point would be the [CMake documentation for MACOSX_BUNDLE](https://cmake.org/cmake/help/latest/prop_tgt/MACOSX_BUNDLE.html).
 
 ## CMake support for downstream projects
 

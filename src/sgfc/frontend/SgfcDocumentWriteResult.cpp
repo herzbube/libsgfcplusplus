@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@ namespace LibSgfcPlusPlus
 
   void SgfcDocumentWriteResult::DebugPrintToConsole() const
   {
-    std::cout << "Exit code = " << (int)GetExitCode() << std::endl;
+    std::cout << "Exit code = " << static_cast<int>(GetExitCode()) << std::endl;
 
     for (auto parseResultMessage : GetParseResult())
     {
@@ -66,7 +66,7 @@ namespace LibSgfcPlusPlus
         << "Message ID = "
         << static_cast<int>(parseResultMessage->GetMessageID())
         << ", type = "
-        << (int)parseResultMessage->GetMessageType()
+        << static_cast<int>(parseResultMessage->GetMessageType())
         << ", line = "
         << parseResultMessage->GetLineNumber()
         << ", column = "

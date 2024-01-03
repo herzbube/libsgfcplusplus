@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,10 +58,10 @@ namespace LibSgfcPlusPlus
     //@{
     /// @brief Indicates an invalid line number. This is used for messages
     /// that do not refer to a specific line number in a piece of SGF content.
-    static const int InvalidLineNumber;
+    static const unsigned long InvalidLineNumber;
     /// @brief Indicates an invalid column number. This is used for messages
     /// that do not refer to a specific column number in a piece of SGF content.
-    static const int InvalidColumnNumber;
+    static const unsigned long InvalidColumnNumber;
     /// @brief A library error number (= errno value) indicating "no error".
     /// This is defined to be the value 0 (zero).
     static const int LibraryErrorNumberNoError;

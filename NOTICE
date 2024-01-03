@@ -1,5 +1,5 @@
 libsgfc++
-Copyright 2020-2021 Patrick Näf (herzbube@herzbube.ch)
+Copyright 2020-2024 Patrick Näf (herzbube@herzbube.ch)
 
 This product uses the source code provided by the SGFC command line utility to
 read, parse and write SGF data. SGFC was developed by Arno Hollosi
