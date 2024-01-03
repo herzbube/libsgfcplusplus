@@ -26,7 +26,10 @@ jobs:
 
     steps:
     - name: Checking out the sources
-      uses: actions/checkout@v2
+      # @v4 refers to the Git tag "v4" in https://github.com/actions/checkout.
+      # The repo maintainers update the "v4" tag to always point to the latest
+      # v4 release of the checkout action.
+      uses: actions/checkout@v4
       with:
         submodules: recursive
 
