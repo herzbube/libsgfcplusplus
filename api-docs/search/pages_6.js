@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['why_20another_20library_3f_1844',['Why another library?',['../md__why_another_library.html',1,'']]]
+  ['notes_0',['notes',['../md__project_notes.html',1,'Project notes'],['../md__sgf_notes.html',1,'SGF notes'],['../md__sgfc_notes.html',1,'SGFC notes']]]
 ];

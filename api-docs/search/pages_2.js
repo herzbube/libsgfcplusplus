@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['project_20build_20system_1838',['Project build system',['../md__build.html',1,'']]],
-  ['project_20notes_1839',['Project notes',['../md__project_notes.html',1,'']]]
+  ['changelog_0',['ChangeLog',['../md__change_log.html',1,'']]],
+  ['coding_20guidelines_1',['Coding guidelines',['../md__coding_guidelines.html',1,'']]]
 ];

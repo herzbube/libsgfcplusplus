@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['libsgfcplusplus_982',['LibSgfcPlusPlus',['../namespace_lib_sgfc_plus_plus.html',1,'']]]
+  ['libsgfcplusplus_0',['LibSgfcPlusPlus',['../namespace_lib_sgfc_plus_plus.html',1,'']]]
 ];

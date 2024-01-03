@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['v_0',['V',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a5206560a306a2e085a437fd258eb57ce',1,'LibSgfcPlusPlus']]],
+  ['validatedocument_1',['validatedocument',['../class_lib_sgfc_plus_plus_1_1_i_sgfc_document_writer.html#adc48c2eb755c0f6f43a0db44257f8550',1,'LibSgfcPlusPlus::ISgfcDocumentWriter::ValidateDocument()'],['../class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html#af8c9dc1747dc652c0d7cab70f948ceb2',1,'LibSgfcPlusPlus::SgfcDocumentWriter::ValidateDocument()']]],
+  ['validation_2',['Property value validation',['../md__sgf_notes.html#autotoc_md84',1,'']]],
+  ['value_3',['value',['../md__sgf_notes.html#autotoc_md82',1,'Properties with no value'],['../group__property-value.html',1,'Property Value']]],
+  ['value_20validation_4',['Property value validation',['../md__sgf_notes.html#autotoc_md84',1,'']]],
+  ['values_5',['values',['../md__sgf_notes.html#autotoc_md88',1,'Move/Point/Stone property values'],['../md__sgf_notes.html#autotoc_md87',1,'SimpleText and Text property values']]],
+  ['valueswithoutpropertydeleted_6',['ValuesWithoutPropertyDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea8405e41049a1e9b8d654923e2b16b501',1,'LibSgfcPlusPlus']]],
+  ['variationlevelcorrected_7',['VariationLevelCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea00298ef4d6fd4b09436f039809420919',1,'LibSgfcPlusPlus']]],
+  ['variationlevelnotcorrected_8',['VariationLevelNotCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaaf68324cf3df5d5ac9813e1c735b7f07',1,'LibSgfcPlusPlus']]],
+  ['variationnestingincomplete_9',['VariationNestingIncomplete',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa85cee15906c2457a79277c51359eb2f',1,'LibSgfcPlusPlus']]],
+  ['variationreorderfailed_10',['VariationReorderFailed',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eead38ab1ebdcb7c0bfb6ec6f8178f33935',1,'LibSgfcPlusPlus']]],
+  ['version_200_201_20alpha_20october_2011_202020_11',['Version 0.1 (alpha) (October 11 2020)',['../md__change_log.html#autotoc_md32',1,'']]],
+  ['version_200_202_20beta_20january_2012_202021_12',['Version 0.2 (beta) (January 12 2021)',['../md__change_log.html#autotoc_md31',1,'']]],
+  ['version_201_200_20february_2023_202021_13',['Version 1.0 (February 23 2021)',['../md__change_log.html#autotoc_md30',1,'']]],
+  ['version_202_200_200_20january_203_202024_14',['Version 2.0.0 (January 3 2024)',['../md__change_log.html#autotoc_md24',1,'']]],
+  ['verticalandlateral_15',['VerticalAndLateral',['../namespace_lib_sgfc_plus_plus.html#a95a7c2c4606a5762b8c6c55125f00315a86f0a41f3d5f3267a3788aac4ca2053f',1,'LibSgfcPlusPlus']]],
+  ['viewerror_16',['ViewError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea6df9eba3962992c51e8b31dd0563ecb9',1,'LibSgfcPlusPlus']]],
+  ['virtual_20inheritance_17',['Virtual inheritance',['../md__principles.html#autotoc_md54',1,'']]],
+  ['visual_20studio_18',['Visual Studio',['../md__build.html#autotoc_md12',1,'']]],
+  ['vs_20ascii_20safe_19',['ASCII-compatible vs. ASCII-safe',['../md__sgf_notes.html#autotoc_md104',1,'']]],
+  ['vs_20private_20implementation_20',['Public API vs. private implementation',['../md__principles.html#autotoc_md46',1,'']]],
+  ['vs_20quotes_20syntax_20when_20including_21',['Angle syntax vs. quotes syntax when including',['../md__project_notes.html#autotoc_md60',1,'']]]
+];

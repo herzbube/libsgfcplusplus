@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['internals_1824',['Internals',['../group__internals.html',1,'']]]
+  ['factory_0',['Factory',['../group__factory.html',1,'']]],
+  ['frontend_1',['SGFC Frontend',['../group__sgfc-frontend.html',1,'']]]
 ];

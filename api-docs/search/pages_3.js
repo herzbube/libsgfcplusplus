@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['release_20steps_1840',['Release steps',['../md__release_steps.html',1,'']]]
+  ['design_20and_20working_20principles_0',['Library design and working principles',['../md__principles.html',1,'']]]
 ];

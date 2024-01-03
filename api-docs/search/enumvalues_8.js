@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['illegalcharacters_1689',['IllegalCharacters',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea8872d1fba4d7f41b1da007c3388436f4',1,'LibSgfcPlusPlus']]],
-  ['illegalcomposedvaluecorrected_1690',['IllegalComposedValueCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea1131b6c0c645c0bf8f1b263372104247',1,'LibSgfcPlusPlus']]],
-  ['illegalrootpropertyvalue_1691',['IllegalRootPropertyValue',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaeaccd5d69aa5ad8a252db01f13dcfbbd',1,'LibSgfcPlusPlus']]],
-  ['illegalsinglevaluecorrected_1692',['IllegalSingleValueCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeabc931a2842a6bf828014eaddadd3e680',1,'LibSgfcPlusPlus']]],
-  ['illegalvaluedeleted_1693',['IllegalValueDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab7bbe28aa6ff6f7486c54a02126977fc',1,'LibSgfcPlusPlus']]],
-  ['illegalvariationstartcorrected_1694',['IllegalVariationStartCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eead5d4e927c4a1a0cf9ae5f479c19e56c5',1,'LibSgfcPlusPlus']]],
-  ['illegalvariationstartignored_1695',['IllegalVariationStartIgnored',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea28cb49128988d80e89daf4f412ec24c5',1,'LibSgfcPlusPlus']]],
-  ['ing_1696',['Ing',['../group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020daced18520a5a8fd0358524575fc412c17',1,'LibSgfcPlusPlus']]],
-  ['inheritable_1697',['Inheritable',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a6711ce41907fd6bb07b48b7d1f6a60c5',1,'LibSgfcPlusPlus::Inheritable()'],['../group__public-api.html#gga36d36275c69f2d6eed1be956d9e1d39da6711ce41907fd6bb07b48b7d1f6a60c5',1,'LibSgfcPlusPlus::Inheritable()']]],
-  ['inmemorybuffer_1698',['InMemoryBuffer',['../group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e',1,'LibSgfcPlusPlus']]],
-  ['integerkomideleted_1699',['IntegerKomiDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab5901f310ff0fbd297086fedc314a750',1,'LibSgfcPlusPlus']]],
-  ['invalidmessageid_1700',['InvalidMessageID',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa12957a1127d9bb883275d9b11e0c2b7',1,'LibSgfcPlusPlus']]],
-  ['it_1701',['IT',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737acd32106bcb6de321930cf34574ea388c',1,'LibSgfcPlusPlus']]]
+  ['illegalcharacters_0',['IllegalCharacters',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea8872d1fba4d7f41b1da007c3388436f4',1,'LibSgfcPlusPlus']]],
+  ['illegalcomposedvaluecorrected_1',['IllegalComposedValueCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea1131b6c0c645c0bf8f1b263372104247',1,'LibSgfcPlusPlus']]],
+  ['illegalrootpropertyvalue_2',['IllegalRootPropertyValue',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaeaccd5d69aa5ad8a252db01f13dcfbbd',1,'LibSgfcPlusPlus']]],
+  ['illegalsinglevaluecorrected_3',['IllegalSingleValueCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeabc931a2842a6bf828014eaddadd3e680',1,'LibSgfcPlusPlus']]],
+  ['illegalvaluedeleted_4',['IllegalValueDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab7bbe28aa6ff6f7486c54a02126977fc',1,'LibSgfcPlusPlus']]],
+  ['illegalvariationstartcorrected_5',['IllegalVariationStartCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eead5d4e927c4a1a0cf9ae5f479c19e56c5',1,'LibSgfcPlusPlus']]],
+  ['illegalvariationstartignored_6',['IllegalVariationStartIgnored',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea28cb49128988d80e89daf4f412ec24c5',1,'LibSgfcPlusPlus']]],
+  ['ing_7',['Ing',['../group__go.html#gga4850755a8ee7d7f21d2d4f96d90c020daced18520a5a8fd0358524575fc412c17',1,'LibSgfcPlusPlus']]],
+  ['inheritable_8',['inheritable',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a6711ce41907fd6bb07b48b7d1f6a60c5',1,'LibSgfcPlusPlus::Inheritable'],['../group__public-api.html#gga36d36275c69f2d6eed1be956d9e1d39da6711ce41907fd6bb07b48b7d1f6a60c5',1,'LibSgfcPlusPlus::Inheritable']]],
+  ['inmemorybuffer_9',['InMemoryBuffer',['../group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39ca1ae03673281b8d3794d1ed35c5215a0e',1,'LibSgfcPlusPlus']]],
+  ['integerkomideleted_10',['IntegerKomiDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab5901f310ff0fbd297086fedc314a750',1,'LibSgfcPlusPlus']]],
+  ['invalidmessageid_11',['InvalidMessageID',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa12957a1127d9bb883275d9b11e0c2b7',1,'LibSgfcPlusPlus']]],
+  ['it_12',['IT',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737acd32106bcb6de321930cf34574ea388c',1,'LibSgfcPlusPlus']]]
 ];

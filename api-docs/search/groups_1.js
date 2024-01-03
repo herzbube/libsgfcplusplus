@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['factory_1820',['Factory',['../group__factory.html',1,'']]]
+  ['backend_0',['SGFC Backend',['../group__sgfc-backend.html',1,'']]]
 ];

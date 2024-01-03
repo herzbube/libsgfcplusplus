@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['changelog_1835',['ChangeLog',['../md__change_log.html',1,'']]],
-  ['coding_20guidelines_1836',['Coding guidelines',['../md__coding_guidelines.html',1,'']]]
+  ['and_20working_20principles_0',['Library design and working principles',['../md__principles.html',1,'']]],
+  ['another_20library_1',['Why another library?',['../md__why_another_library.html',1,'']]]
 ];

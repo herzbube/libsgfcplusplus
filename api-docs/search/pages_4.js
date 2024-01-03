@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sgfc_20notes_1841',['SGFC notes',['../md__sgfc_notes.html',1,'']]],
-  ['sgf_20notes_1842',['SGF notes',['../md__sgf_notes.html',1,'']]]
+  ['guidelines_0',['Coding guidelines',['../md__coding_guidelines.html',1,'']]]
 ];
