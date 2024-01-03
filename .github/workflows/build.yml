@@ -43,7 +43,7 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Release ..
       if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
 
-    - name: Generat build system (Windows)
+    - name: Generate build system (Windows)
       run: |
         mkdir build
         cd build
@@ -55,7 +55,7 @@ jobs:
         # warnings, and eventually also some compiler errors. Windows SDK
         # 10.0.18362.0 is a version that is known to work and that is also known
         # to be installed on the windows-latest runner.
-        cmake -DCMAKE_SYSTEM_VERSION="10.0.18362.0" ..
+        #cmake -DCMAKE_SYSTEM_VERSION="10.0.18362.0" ..
       if: matrix.os == 'windows-latest'
 
     - name: Build the project
