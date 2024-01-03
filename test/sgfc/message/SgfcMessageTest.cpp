@@ -28,8 +28,8 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
   SgfcMessageID messageID = SgfcMessageID::CombinationOfPropertiesConverted;
   SgfcMessageType messageType = SgfcMessageType::Warning;
-  int lineNumber = 10;
-  int columnNumber = 20;
+  unsigned long lineNumber = 10;
+  unsigned long columnNumber = 20;
   bool isCriticalMessage = true;
   int libraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string messageText = "message text";
@@ -311,8 +311,8 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
   std::string messageText = "message text";
 
   SgfcMessageType expectedMessageType = SgfcMessageType::FatalError;
-  int expectedLineNumber = SgfcConstants::InvalidLineNumber;
-  int expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
+  unsigned long expectedLineNumber = SgfcConstants::InvalidLineNumber;
+  unsigned long expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
   bool expectedIsCriticalMessage = false;
   int expectedLibraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string expectedFormattedMessageText = messageText;
