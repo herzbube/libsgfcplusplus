@@ -75,7 +75,7 @@ namespace LibSgfcPlusPlus
     /// characters from SimpleText and Text property values, from
     /// Move/Point/Stone property values if the game type is not
     /// SgfcGameType::Go, and from values for properties that have
-    /// #SgfcPropertyTypeUnknown.
+    /// #SgfcPropertyType::Unknown.
     ///
     /// The default for this setting used to be true, but beginning with V2.00
     /// SGFC now removes all escape characters for us. The setting is left in

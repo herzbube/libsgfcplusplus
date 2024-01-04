@@ -282,7 +282,7 @@ namespace LibSgfcPlusPlus
     /// node. This is the reason why this method prevents setting a collection
     /// that contains duplicate property types or names. Names are checked to
     /// prevent duplicates of custom properties, which have
-    /// SgfcPropertyType::Unknow.
+    /// SgfcPropertyType::Unknown.
     ///
     /// @exception std::invalid_argument Is thrown if @a properties contains
     /// @e nullptr elements, or if an SgfcPropertyType other than
