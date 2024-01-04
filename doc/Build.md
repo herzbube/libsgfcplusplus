@@ -297,7 +297,7 @@ The following example shows how you can force the shared library to be built wit
 
 **Note:** You can find out your codesigning identy with this command: `xcrun security find-identity -v -p codesigning`. It's the long hex string at the start of the output.
 
-## Deployment target and bundle identifier when building for iOS
+## Deployment target when building for iOS
 
 When you build libsgfc++ for iOS you may encounter errors because some build products require a certain minimum iOS version. Known cases:
 
