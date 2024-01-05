@@ -52,7 +52,7 @@ namespace LibSgfcPlusPlus
     ///
     /// The score only has meaning if SgfcGameResult::GameResultType is
     /// either SgfcGameResultType::BlackWin or SgfcGameResultType::WhiteWin and
-    /// if SgfcGameResultType::WinType is SgfcWinType::WinWithScore.
+    /// if SgfcGameResult::WinType is SgfcWinType::WinWithScore.
     SgfcReal Score = 0.0;
 
     /// @brief True if the SgfcGameResult object holds a valid game result.

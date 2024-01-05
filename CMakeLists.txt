@@ -21,7 +21,7 @@ project (
   # The project version.
   # Sets PROJECT_VERSION, PROJECT_VERSION_MAJOR, PROJECT_VERSION_MINOR,
   # PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK.
-  VERSION 2.0.0
+  VERSION 2.0.1
 
   # Some informational package metadata. Not necessary for the build.
   # Sets PROJECT_HOMEPAGE_URL and PROJECT_DESCRIPTION
