@@ -1,6 +1,14 @@
 # ChangeLog
 
+## Version 2.0.1 (January 5 2024)
+
+This release contains no changes to the libsgfc++ source code at all. The release is made only to fix the SGFC git submodule reference in branch `master`: The git submodule now correctly points to the `V2_0` tag in the SGFC repository.
+
+Also in this release are fixes for a number of errors in the libsgfc++ Doxygen documentation.
+
 ## Version 2.0.0 (January 3 2024)
+
+Note: The Git tag `2.0.0` in branch `master` points to the wrong commit in the SGFC git submodule.
 
 ### Features
 
@@ -30,6 +38,8 @@ A list of all issues closed for this release is available [on GitHub](https://gi
 ## Version 1.0 (February 23 2021)
 
 Initial 1.0 release that includes SGFC v2.0.
+
+Note: The Git tag `1.0` in branch `master` points to the wrong commit in the SGFC git submodule.
 
 ## Version 0.2 (beta) (January 12 2021)
 
