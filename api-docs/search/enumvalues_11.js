@@ -2,7 +2,7 @@ var searchData=
 [
   ['savesgfcontenttofilesystemerror_0',['SaveSgfContentToFilesystemError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea52b537fa8bbefca14461dc6a46134f44',1,'LibSgfcPlusPlus']]],
   ['secondvalueofcomposedvalue_1',['SecondValueOfComposedValue',['../group__parsing.html#gga79a65b78a1092a5e1f970e2346de36eeac703cd58af4713de636e23ae55b763bd',1,'LibSgfcPlusPlus']]],
-  ['setup_2',['setup',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7aad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eaad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup']]],
+  ['setup_2',['Setup',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7aad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eaad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup']]],
   ['setupstonesoutsiderootnode_3',['SetupStonesOutsideRootNode',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa681ad37afdc923986ff8ec1f20b40dc',1,'LibSgfcPlusPlus']]],
   ['sgf_4',['Sgf',['../group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa668c338524279a8f868d0008b260bf2e',1,'LibSgfcPlusPlus']]],
   ['sgfcinterfacingerror_5',['SGFCInterfacingError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeac81e5c0c7da4fb087d6fa339afcae3e1',1,'LibSgfcPlusPlus']]],

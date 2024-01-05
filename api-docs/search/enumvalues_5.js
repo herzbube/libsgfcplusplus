@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['fatalerror_0',['fatalerror',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7af245a0dc66dc8cd7d835771034eb4b86',1,'LibSgfcPlusPlus::FatalError'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86',1,'LibSgfcPlusPlus::FatalError']]],
+  ['fatalerror_0',['FatalError',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7af245a0dc66dc8cd7d835771034eb4b86',1,'LibSgfcPlusPlus::FatalError'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2af245a0dc66dc8cd7d835771034eb4b86',1,'LibSgfcPlusPlus::FatalError']]],
   ['ff_1',['FF',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a1fd406685cbdee605d0a7bebed56fdb0',1,'LibSgfcPlusPlus']]],
   ['figure_2',['Figure',['../group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa666df2f48cd16f38212c093999248769',1,'LibSgfcPlusPlus']]],
   ['filesystem_3',['Filesystem',['../group__internals.html#gga6a21fef64ecbdea6ee14ee06f834c39caac52cf637478f3656a1fdee5c02324fd',1,'LibSgfcPlusPlus']]],

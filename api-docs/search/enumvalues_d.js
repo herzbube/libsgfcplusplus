@@ -2,7 +2,7 @@ var searchData=
 [
   ['n_0',['N',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a8d9c307cb7f3c4a32822a51922d1ceaa',1,'LibSgfcPlusPlus']]],
   ['newstylepassmove_1',['NewStylePassMove',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea89eaa4857a5c3b2becd0560c06cb147a',1,'LibSgfcPlusPlus']]],
-  ['nodeannotation_2',['nodeannotation',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7acce70852c72ed07f61cd617ae9c123db',1,'LibSgfcPlusPlus::NodeAnnotation'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eacce70852c72ed07f61cd617ae9c123db',1,'LibSgfcPlusPlus::NodeAnnotation']]],
+  ['nodeannotation_2',['NodeAnnotation',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7acce70852c72ed07f61cd617ae9c123db',1,'LibSgfcPlusPlus::NodeAnnotation'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eacce70852c72ed07f61cd617ae9c123db',1,'LibSgfcPlusPlus::NodeAnnotation']]],
   ['nodenotinvariation_3',['NodeNotInVariation',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea59bdbc9cdf148bb4a4c10bc5ae098bae',1,'LibSgfcPlusPlus']]],
   ['noncomposedvaluedeleted_4',['NonComposedValueDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea728cd18b6f4f6e7833ddf8b4b00a3b98',1,'LibSgfcPlusPlus']]],
   ['none_5',['None',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a6adf97f83acf6453d4a6a4b1070f3754',1,'LibSgfcPlusPlus']]],

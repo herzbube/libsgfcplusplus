@@ -7,7 +7,7 @@ var searchData=
   ['unescapedlineendingsregex_4',['UnescapedLineEndingsRegex',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a1fd9d354c97a0358355a8a3653493a3a',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
   ['unescapedpropertyvalueendtokenregex_5',['UnescapedPropertyValueEndTokenRegex',['../class_lib_sgfc_plus_plus_1_1_sgfc_private_constants.html#a55876aabd566f0ae8edc75983d12ae4a',1,'LibSgfcPlusPlus::SgfcPrivateConstants']]],
   ['unexpectedendoffile_6',['UnexpectedEndOfFile',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeac7007939caf11cf04e3448774d6adfb6',1,'LibSgfcPlusPlus']]],
-  ['unknown_7',['unknown',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown'],['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown']]],
+  ['unknown_7',['Unknown',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown'],['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown']]],
   ['unknowncommand_8',['UnknownCommand',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeae186ae062361df4aeb3f0c5420542d8e',1,'LibSgfcPlusPlus']]],
   ['unknowncommandlineoption_9',['UnknownCommandLineOption',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea87a95947c300ea79b77fe3af98a2cbc4',1,'LibSgfcPlusPlus']]],
   ['unknownencodinginargument_10',['UnknownEncodingInArgument',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea01280295177d154b416f2c4962539b4f',1,'LibSgfcPlusPlus']]],
@@ -22,7 +22,7 @@ var searchData=
   ['upperleftorigin_19',['UpperLeftOrigin',['../group__public-api.html#ggaa58b344213ba50b611c7b80aa17d7561a2006982d07e98ff5e87c0f8101857f8c',1,'LibSgfcPlusPlus']]],
   ['usedfeaturenotdefinedinfileformat_20',['UsedFeatureNotDefinedInFileFormat',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eead43bcc77dd0e29b248a7fc9a492ab987',1,'LibSgfcPlusPlus']]],
   ['useoldpassmovenotation_21',['UseOldPassMoveNotation',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a9722b26ce566dd71a27ecbc59f95e643',1,'LibSgfcPlusPlus']]],
-  ['utf_208_20is_20recommended_20for_20programmatically_20creating_20isgfcdocument_20object_20trees_22',['UTF-8 is recommended for programmatically creating ISgfcDocument object trees',['../md__sgf_notes.html#autotoc_md106',1,'']]],
-  ['utf_208_20is_20the_20default_20character_20encoding_20in_20tt_20isgfcdocumentwriter_20tt_23',['UTF-8 is the default character encoding in &lt;tt&gt;ISgfcDocumentWriter&lt;/tt&gt;',['../md__sgf_notes.html#autotoc_md108',1,'']]],
-  ['utf_208_20support_20in_20tt_20isgfcdocumentreader_20tt_24',['UTF-8 support in &lt;tt&gt;ISgfcDocumentReader&lt;/tt&gt;',['../md__sgf_notes.html#autotoc_md107',1,'']]]
+  ['utf_208_20is_20recommended_20for_20programmatically_20creating_20isgfcdocument_20object_20trees_22',['UTF-8 is recommended for programmatically creating ISgfcDocument object trees',['../md__sgf_notes.html#autotoc_md107',1,'']]],
+  ['utf_208_20is_20the_20default_20character_20encoding_20in_20tt_20isgfcdocumentwriter_20tt_23',['UTF-8 is the default character encoding in &lt;tt&gt;ISgfcDocumentWriter&lt;/tt&gt;',['../md__sgf_notes.html#autotoc_md109',1,'']]],
+  ['utf_208_20support_20in_20tt_20isgfcdocumentreader_20tt_24',['UTF-8 support in &lt;tt&gt;ISgfcDocumentReader&lt;/tt&gt;',['../md__sgf_notes.html#autotoc_md108',1,'']]]
 ];

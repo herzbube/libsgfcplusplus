@@ -1,7 +1,7 @@
 var searchData=
 [
   ['w_0',['W',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a61e9c06ea9a85a5088a499df6458d276',1,'LibSgfcPlusPlus']]],
-  ['warning_1',['warning',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'LibSgfcPlusPlus::Warning'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'LibSgfcPlusPlus::Warning']]],
+  ['warning_1',['Warning',['../group__public-api.html#gga9c6f34d212170150f430da96e13bf5c7a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'LibSgfcPlusPlus::Warning'],['../group__public-api.html#gga08dd88fa8a26884fa2fd1f1a0416ecb2a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'LibSgfcPlusPlus::Warning']]],
   ['white_2',['White',['../group__public-api.html#gga161f86c5b117751868dbb6458cff15f3a25a81701fbfa4a1efdf660a950c1d006',1,'LibSgfcPlusPlus']]],
   ['whitewin_3',['WhiteWin',['../group__game.html#ggad269fd3951406775324f379ec4d0b014ad9dd2c310ca3f11a2cffb2e8ff35da9e',1,'LibSgfcPlusPlus']]],
   ['winbyforfeit_4',['WinByForfeit',['../group__game.html#ggaeee635d6330b3c84076355dfba32dd8aaddb833594f2c9e68d18328e8cc484508',1,'LibSgfcPlusPlus']]],

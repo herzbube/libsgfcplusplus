@@ -3,7 +3,7 @@ var searchData=
   ['uc_0',['UC',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a6a2fb30a2dacdda4d74122697262a8b7',1,'LibSgfcPlusPlus']]],
   ['uncertain_1',['Uncertain',['../group__go.html#ggaf211dcf413f8cdbf8ea200ae11f44ba1a5fd6174f8e6640260a150af1a8d2b340',1,'LibSgfcPlusPlus']]],
   ['unexpectedendoffile_2',['UnexpectedEndOfFile',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeac7007939caf11cf04e3448774d6adfb6',1,'LibSgfcPlusPlus']]],
-  ['unknown_3',['unknown',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown'],['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown']]],
+  ['unknown_3',['Unknown',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown'],['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a88183b946cc5f0e8c96b2e66e1c74a7e',1,'LibSgfcPlusPlus::Unknown']]],
   ['unknowncommand_4',['UnknownCommand',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeae186ae062361df4aeb3f0c5420542d8e',1,'LibSgfcPlusPlus']]],
   ['unknowncommandlineoption_5',['UnknownCommandLineOption',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea87a95947c300ea79b77fe3af98a2cbc4',1,'LibSgfcPlusPlus']]],
   ['unknownencodinginargument_6',['UnknownEncodingInArgument',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea01280295177d154b416f2c4962539b4f',1,'LibSgfcPlusPlus']]],

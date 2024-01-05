@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gameinfo_0',['gameinfo',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8',1,'LibSgfcPlusPlus::GameInfo'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea22eeed3b74b8fe69650bbb9e6ec51ed8',1,'LibSgfcPlusPlus::GameInfo']]],
+  ['gameinfo_0',['GameInfo',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7a22eeed3b74b8fe69650bbb9e6ec51ed8',1,'LibSgfcPlusPlus::GameInfo'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573ea22eeed3b74b8fe69650bbb9e6ec51ed8',1,'LibSgfcPlusPlus::GameInfo']]],
   ['gameinfodeleted_1',['GameInfoDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea7954d5dea9e9423941816c9d52990284',1,'LibSgfcPlusPlus']]],
   ['gameinfopropertywithillegalformat_2',['GameInfoPropertyWithIllegalFormat',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeab9d88f0c8f0688227224a389a5ef81d8',1,'LibSgfcPlusPlus']]],
   ['gameisnotgo_3',['GameIsNotGo',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea18dbb1e65de15f244e35fe79aeeb03cf',1,'LibSgfcPlusPlus']]],
