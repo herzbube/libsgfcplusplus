@@ -21,6 +21,8 @@
 #include "../SgfcPrivateConstants.h"
 
 // C++ Standard Library includes
+#include <limits>
+#include <iomanip>
 #include <regex>
 #include <sstream>
 #include <stdexcept>
@@ -119,9 +121,14 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::NoneValueString;
 
     std::stringstream propertyValue;
+
     // Make sure that decimal point is always a period (".") character and that
     // there are no thousands separators
     propertyValue.imbue(std::locale::classic());
+    // Make sure the floating point value of the Score member is converted with
+    // usefully high (although not maximum) precision, and that the conversion
+    // does not use scientific notation
+    propertyValue << std::setprecision(std::numeric_limits<SgfcReal>::max_digits10 - 1);
 
     switch (gameResult.GameResultType)
     {

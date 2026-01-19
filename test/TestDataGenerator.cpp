@@ -143,7 +143,15 @@ namespace LibSgfcPlusPlus
       std::pair<SgfcReal, std::string> { 1.0, "1" },
       std::pair<SgfcReal, std::string> { 42.0, "42" },
       std::pair<SgfcReal, std::string> { 1.234, "1.234" },
-      std::pair<SgfcReal, std::string> { -1.234, "-1.234" }
+      std::pair<SgfcReal, std::string> { -1.234, "-1.234" },
+      // Literals that require more precision than std::stringstream has by default (default is 6)
+      std::pair<SgfcReal, std::string> { 123456789, "123456789" },
+      std::pair<SgfcReal, std::string> { 123456789.12, "123456789.12" },
+      // Literals known to be not exactly representable by double
+      std::pair<SgfcReal, std::string> { 0.3, "0.3" },                               // 0.29999999999999999
+      std::pair<SgfcReal, std::string> { 123456.93258, "123456.93258" },             // 123456.93257999999
+      std::pair<SgfcReal, std::string> { 12345.93258, "12345.93258" },               // 12345.932580000001
+      std::pair<SgfcReal, std::string> { 123456789.123456789, "123456789.1234568" }, // 123456789.12345679
     };
 
     return testData;

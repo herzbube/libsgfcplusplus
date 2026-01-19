@@ -36,6 +36,8 @@
 #include "SgfcPropertyValueFactory.h"
 
 // C++ Standard Library includes
+#include <iomanip>
+#include <limits>
 #include <sstream>
 
 namespace LibSgfcPlusPlus
@@ -63,9 +65,15 @@ namespace LibSgfcPlusPlus
     SgfcReal realValue) const
   {
     std::stringstream stream;
+
     // Make sure that decimal point is always a period (".") character and that
     // there are no thousands separators
     stream.imbue(std::locale::classic());
+    // Make sure the floating point value of the Score member is converted with
+    // usefully high (although not maximum) precision, and that the conversion
+    // does not use scientific notation
+    stream << std::setprecision(std::numeric_limits<SgfcReal>::max_digits10 - 1);
+
     stream << realValue;
 
     std::shared_ptr<ISgfcRealPropertyValue> valueObject = std::shared_ptr<ISgfcRealPropertyValue>(

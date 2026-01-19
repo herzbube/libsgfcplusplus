@@ -53,6 +53,23 @@ By default libsgfc++ handles properties that existed in SGF standards before ver
 
 Library clients that do not want to see pre-FF4 properties can use `SgfcArgumentType::DeleteObsoleteProperties` when they read in SGF content. This does not prevent the conversion of the properties "L" and "M" to their modern FF4 counterparts "LB" and "MA. Library clients that do not want these conversions to occur must use `SgfcArgumentType::DeletePropertyType` to explicitly delete these properties.
 
+## Precision of properties with SGF type `Real`
+
+The SGF standard defines the property value type `Real` to represent signed decimal numbers of arbitrary precision. libsgfc++ defines the corresponding type `SgfcReal`, which uses `double` as the underlying primitive type because C++ does not have a proper decimal type.
+
+Because `double` is a floating point type and not a decimal type, deserialization from text does not work with arbitrary precision. Example: A `Real` value 0.3 that is read in from SGF content is not representable with the binary representation used by the `double` primitive type. Instead you get the closest number which *can* be represented: 0.29999999999999999.
+
+The same happens in the following cases:
+
+- If you assign the literal value 0.3 to a `double` variable in source code - here the compiler performs the text-to-floating-point conversion.
+- If a program performs a calculation such as `3.0 / 10.0` and assigns the result to a `double` variable.
+
+When libsgfc++ converts a `Real` property value back into text, it does so with the help of `std::stringstream`. In order to get an exact string representation of the underlying `double` value, the stream would need to be configured with the precision returned by `std::numeric_limits<SgfcReal>::max_digits10`. Using the example above, this would result in the string "0.29999999999999999" being written into the SGF content. Although programmatically correct, the string "0.3" would obviously be more desirable.
+
+libsgfc++ attempts to work around the problem by performing `Real`-to-text conversions with precision `std::numeric_limits<SgfcReal>::max_digits10 - 1`. Using this *almost* maximum precision causes the least significant part of the floating point data to be lost, which "reverts" the rounding error that occurs when a non-representable `Real` number is stored in a `double` variable. In the example above, the result is that the string "0.3" is written into the SGF content.
+
+With this approach libsgfc++ tries to strike a balance between maximum and useful precision. The assumption libsgfc++ makes is that SGF content does not require maximum precision. A library client that **does** need maximum precision can perform its own string conversion and use `ISgfcPropertyValueFactory::CreateCustomPropertyValue()` to create a property value object with that string value.
+
 ## Property value validation
 
 libsgfc++ makes no attempt to check the validity of property values assigned to a property with, for instance, `ISgfcProperty::SetPropertyValues()`.

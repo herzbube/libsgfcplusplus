@@ -84,6 +84,9 @@ namespace LibSgfcPlusPlus
     /// See the SGF standard specification for the mandatory structure of an
     /// SgfcPropertyType::RE property value.
     ///
+    /// See SgfNotes.md, section "Precision of properties with SGF type Real"
+    /// for details about the floating point precision used during conversion.
+    ///
     /// @return SgfcSimpleText A property value for SgfcPropertyType::RE that
     /// conforms to the SGF standard's mandatory formatting, or
     /// SgfcConstants::NoneValueString if the SgfcGameResult::IsValid

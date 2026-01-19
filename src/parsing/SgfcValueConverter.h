@@ -95,6 +95,9 @@ namespace LibSgfcPlusPlus
 
     /// @brief Converts the specified SgfcReal @a realValue into a string
     /// value and returns that string value.
+    ///
+    /// See SgfNotes.md, section "Precision of properties with SGF type Real"
+    /// for details about the floating point precision used during conversion.
     std::string ConvertRealValueToString(SgfcReal realValue) const;
 
     /// @brief Attempts to convert the specified string value @a stringValue

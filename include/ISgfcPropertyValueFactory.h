@@ -74,6 +74,15 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcRealPropertyValue object
     /// that has the SgfcReal value @a realValue.
+    ///
+    /// The floating point value of @a realValue is converted to text and is
+    /// then used as the raw property value of the resulting
+    /// ISgfcRealPropertyValue object. See SgfNotes.md, section
+    /// "Precision of properties with SGF type Real" for details about the
+    /// floating point precision used during conversion
+    ///
+    /// Use CreateCustomPropertyValue() if you prefer to perform your own
+    /// floating-point to string conversion.
     virtual std::shared_ptr<ISgfcRealPropertyValue> CreateRealPropertyValue(
       SgfcReal realValue) const = 0;
 
