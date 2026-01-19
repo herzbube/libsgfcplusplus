@@ -1,0 +1,13 @@
+diff --git a/src/save.c b/src/save.c
+index e130738..f14bbe6 100644
+--- a/src/save.c
++++ b/src/save.c
+@@ -144,7 +144,7 @@ static int SaveBufferIO_putc(struct SaveFileHandler *sfh, int c)
+ 		memcpy(new_buffer, sfh->fh.memh.buffer, sfh->fh.memh.buffer_size);
+ 		free(sfh->fh.memh.buffer);
+ 		sfh->fh.memh.buffer = new_buffer;
+-		sfh->fh.memh.pos = new_buffer + sfh->fh.memh.buffer_size;
++		sfh->fh.memh.pos = new_buffer + sfh->fh.memh.buffer_size - 1;
+ 		sfh->fh.memh.buffer_size *= 2;
+ 	}
+ 

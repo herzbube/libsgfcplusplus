@@ -32,6 +32,12 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Patching SGFC
+      run: |
+        cd sgfc
+        for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
+        cd ..
+
     - name: Generate build system (macOS and Ubuntu)
       run: |
         mkdir build

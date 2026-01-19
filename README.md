@@ -56,6 +56,7 @@ The project build system is [documented here](doc/Build.md).
 - [SGF notes](doc/SgfNotes.md): SGF features and how libsgfc++ exposes them to the library client.
 - [Library design and working principles](doc/Principles.md)
 - [Assorted SGFC notes](doc/SgfcNotes.md)
+- [SGFC patch notes](doc/SgfcPatches.md).
 - [Other project notes](doc/ProjectNotes.md)
 - [Coding guidelines](doc/CodingGuidelines.md)
 
