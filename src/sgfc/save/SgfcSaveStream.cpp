@@ -133,6 +133,10 @@ namespace LibSgfcPlusPlus
       std::string sgfContent = std::string(sfh->fh.memh.buffer, contentLength);
       saveStreamContents.push_back(sgfContent);
     }
+    else
+    {
+      saveStreamContents.push_back(std::string());
+    }
 
     // Forward the call to the original close hook. It will take care of
     // cleaning up and freeing memory.
