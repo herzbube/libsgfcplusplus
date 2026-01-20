@@ -162,7 +162,8 @@ namespace LibSgfcPlusPlus
     /// @name SGFC command line argument constants
     //@{
     /// @brief Maps values from the enumeration SgfcArgumentType to command line
-    /// options as defined by the SGFC documentation.
+    /// options as defined by the SGFC documentation. Not all enumeration values
+    /// have an entry in this map.
     static const std::map<SgfcArgumentType, std::string> ArgumentTypeToCmdlineOptionMap;
 
     /// @brief Parameter value for #SgfcArgumentType::EncodingMode. Specifies

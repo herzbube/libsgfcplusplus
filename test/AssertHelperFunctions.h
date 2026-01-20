@@ -31,6 +31,7 @@ namespace LibSgfcPlusPlus
   // Forward declarations
   class ISgfcGameInfo;
   class ISgfcProperty;
+  class ISgfcArgument;
 
   // Function prototypes
   void AssertGameInfoHasDefaultValues(std::shared_ptr<ISgfcGameInfo> gameInfo);
@@ -38,4 +39,5 @@ namespace LibSgfcPlusPlus
   void AssertGameInfoHasRootPropertyValues(std::shared_ptr<ISgfcGameInfo> gameInfo, SgfcGameType gameType, SgfcNumber gameTypeAsNumber, SgfcBoardSize boardSize);
   void AssertPropertiesContainRootPropertyValues(std::vector<std::shared_ptr<ISgfcProperty>>& properties, SgfcNumber gameTypeAsNumber, SgfcBoardSize boardSize);
   void AssertPropertiesContainsGameInfoPropertyValue(std::vector<std::shared_ptr<ISgfcProperty>>& properties, SgfcPropertyType propertyType, const SgfcSimpleText& propertyValue);
+  void AssertStringRepresentation(const ISgfcArgument& argument, const std::string& expectedStringRepresentation);
 }

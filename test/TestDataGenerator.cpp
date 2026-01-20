@@ -727,7 +727,8 @@ namespace LibSgfcPlusPlus
       std::make_tuple(SgfcArgumentType::EnableRestrictiveChecking, "-r"),
       std::make_tuple(SgfcArgumentType::CorrectVariationLevelAndRootMoves, "-v"),
       std::make_tuple(SgfcArgumentType::ReverseVariationOrdering, "-z"),
-      std::make_tuple(SgfcArgumentType::ExpandCompressedPointLists, "-e")
+      std::make_tuple(SgfcArgumentType::ExpandCompressedPointLists, "-e"),
+      std::make_tuple(SgfcArgumentType::DoNotAddSgfcApProperty, "")
     };
 
     return testData;
@@ -771,6 +772,16 @@ namespace LibSgfcPlusPlus
     std::vector<SgfcArgumentType> testData =
     {
       SgfcArgumentType::DisableMessageID
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutStringRepresentation()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::DoNotAddSgfcApProperty
     };
 
     return testData;

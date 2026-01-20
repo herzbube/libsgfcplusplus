@@ -460,5 +460,25 @@ namespace LibSgfcPlusPlus
     /// @see SgfcArgumentType::EncodingMode
     /// @see SgfcArgumentType::DefaultEncoding
     ForcedEncoding,
+
+    /// @brief When writing SGF content, do not add an AP property that
+    /// indicates SGFC is the authoring program. This argument has no
+    /// corresponding SGFC command line option.
+    ///
+    /// When writing SGF content, SGFC by default adds the AP property to the
+    /// SGF content, using "SGFC" as the authoring program name, and the version
+    /// with which it was embedded into libsgfc++. If the SGF content already
+    /// contains the AP property, SGFC retains the property but overwrites the
+    /// existing property values with its own values.
+    ///
+    /// A library client that wants to assert its authorship of the SGF content
+    /// can do so by specifying this argument, and by providing an AP property
+    /// with its own program name and version. SGFC in this case will not
+    /// overwrite the AP property provided by the library client.
+    ///
+    /// A library client that does not want to have an AP property in the SGF
+    /// content at all can simply specify this argument but neglect to provide
+    /// its own AP property.
+    DoNotAddSgfcApProperty,
   };
 }

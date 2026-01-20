@@ -179,7 +179,7 @@ namespace LibSgfcPlusPlus
     if (it == SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.cend())
     {
       std::stringstream message;
-      message << "Argument type argument has unsupported value: " << static_cast<int>(argumentType);
+      message << "Argument type argument has no corresponding SGFC command line option: " << static_cast<int>(argumentType);
       throw std::invalid_argument(message.str());
     }
 

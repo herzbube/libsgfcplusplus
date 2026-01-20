@@ -220,9 +220,17 @@ namespace LibSgfcPlusPlus
     void InstallOutOfMemoryErrorHookIfNotYetInstalled();
 
     void ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
+    void SplitArguments(
+      const std::vector<std::shared_ptr<ISgfcArgument>>& arguments,
+      std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithStringRepresentation,
+      std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation) const;
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
-    void InvokeSgfcParseArgs(int argc, const char** argv);
+    void InvokeSgfcParseArgs(
+      int argc,
+      const char** argv,
+      const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation);
+    void ParseArgumentsWithoutStringRepresentation(SGFCOptions* options, const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation);
 
     std::shared_ptr<SgfcBackendLoadResult> LoadSgfContentFromFilesystemOrInMemoryBuffer(
       const std::string& sgfFilePath,

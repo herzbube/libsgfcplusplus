@@ -15,6 +15,7 @@
 // -----------------------------------------------------------------------------
 
 // Library includes
+#include "../../AssertHelperFunctions.h"
 #include "../../TestDataGenerator.h"
 #include <sgfc/argument/SgfcArgument.h>
 
@@ -40,7 +41,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
         REQUIRE( argument.HasStringTypeParameter() == false );
         REQUIRE( argument.HasPropertyTypeParameter() == false );
         REQUIRE( argument.HasMessageIDParameter() == false );
-        REQUIRE( argument.ToString() == std::get<1>(testData) );
+        AssertStringRepresentation(argument, std::get<1>(testData));
       }
     }
 
@@ -72,7 +73,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
         REQUIRE( argument.HasStringTypeParameter() == false );
         REQUIRE( argument.HasPropertyTypeParameter() == false );
         REQUIRE( argument.HasMessageIDParameter() == false );
-        REQUIRE( argument.ToString() == std::get<2>(testData) );
+        AssertStringRepresentation(argument, std::get<2>(testData));
       }
 
       WHEN( "Invalid arguments are passed to the constructor" )
@@ -104,7 +105,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
           REQUIRE( argument.GetStringTypeParameter() == std::get<1>(testData) );
           REQUIRE( argument.HasPropertyTypeParameter() == false );
           REQUIRE( argument.HasMessageIDParameter() == false );
-          REQUIRE( argument.ToString() == std::get<2>(testData) );
+          AssertStringRepresentation(argument, std::get<2>(testData));
         }
 
         WHEN( "Invalid arguments are passed to the constructor" )
@@ -122,7 +123,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
       }
     }
 
-    GIVEN( "The constructor taking an argument type and an SgfcPropertyTYpe parameter is used" )
+    GIVEN( "The constructor taking an argument type and an SgfcPropertyType parameter is used" )
     {
       WHEN( "Valid arguments are passed to the constructor" )
       {
@@ -137,7 +138,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
           REQUIRE( argument.HasPropertyTypeParameter() == true );
           REQUIRE( argument.GetPropertyTypeParameter() == std::get<1>(testData) );
           REQUIRE( argument.HasMessageIDParameter() == false );
-          REQUIRE( argument.ToString() == std::get<2>(testData) );
+          AssertStringRepresentation(argument, std::get<2>(testData));
         }
       }
 
@@ -170,7 +171,7 @@ SCENARIO( "SgfcArgument is constructed", "[argument]" )
           REQUIRE( argument.HasPropertyTypeParameter() == false );
           REQUIRE( argument.HasMessageIDParameter() == true );
           REQUIRE( argument.GetMessageIDParameter() == std::get<1>(testData) );
-          REQUIRE( argument.ToString() == std::get<2>(testData) );
+          AssertStringRepresentation(argument, std::get<2>(testData));
         }
       }
 

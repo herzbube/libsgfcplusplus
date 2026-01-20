@@ -34,6 +34,7 @@ extern "C"
 #include <algorithm>
 #include <fstream>
 #include <mutex>
+#include <sstream>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus
@@ -133,7 +134,11 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments)
   {
-    std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(arguments);
+    std::vector<std::shared_ptr<ISgfcArgument>> argumentsWithStringRepresentation;
+    std::vector<std::shared_ptr<ISgfcArgument>> argumentsWithoutStringRepresentation;
+    SplitArguments(arguments, argumentsWithStringRepresentation, argumentsWithoutStringRepresentation);
+
+    std::vector<std::string> argvArguments = ConvertArgumentsToArgvStyle(argumentsWithStringRepresentation);
 
     int argc = static_cast<int>(argvArguments.size());
     const char** argv = new const char*[argc];
@@ -142,7 +147,7 @@ namespace LibSgfcPlusPlus
     {
       InitializeArgv(argv, argvArguments);
 
-      InvokeSgfcParseArgs(argc, argv);
+      InvokeSgfcParseArgs(argc, argv, argumentsWithoutStringRepresentation);
     }
     catch (...)
     {
@@ -151,6 +156,20 @@ namespace LibSgfcPlusPlus
     }
 
     delete[] argv;
+  }
+
+  void SgfcBackendController::SplitArguments(
+    const std::vector<std::shared_ptr<ISgfcArgument>>& arguments,
+    std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithStringRepresentation,
+    std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation) const
+  {
+    for (auto argument : arguments)
+    {
+      if (argument->HasStringRepresentation())
+        argumentsWithStringRepresentation.push_back(argument);
+      else
+        argumentsWithoutStringRepresentation.push_back(argument);
+    }
   }
 
   std::vector<std::string> SgfcBackendController::ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const
@@ -182,7 +201,10 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcBackendController::InvokeSgfcParseArgs(int argc, const char** argv)
+  void SgfcBackendController::InvokeSgfcParseArgs(
+    int argc,
+    const char** argv,
+    const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation)
   {
     SgfcMessageStream messageStream;
 
@@ -195,6 +217,8 @@ namespace LibSgfcPlusPlus
 
       if (parseArgsResult)
       {
+        ParseArgumentsWithoutStringRepresentation(sgfc->options, argumentsWithoutStringRepresentation);
+
         // Capture the changed SGFC option values so that we can re-apply them
         // later on when we perform a load or save operation. There's no need
         // for doing that if the command line arguments are not valid, because
@@ -219,6 +243,25 @@ namespace LibSgfcPlusPlus
 
     if (sgfc)
       FreeSGFInfo(sgfc);
+  }
+
+  void SgfcBackendController::ParseArgumentsWithoutStringRepresentation(
+    SGFCOptions* options,
+    const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation)
+  {
+    for (auto argument : argumentsWithoutStringRepresentation)
+    {
+      switch (argument->GetArgumentType())
+      {
+        case SgfcArgumentType::DoNotAddSgfcApProperty:
+          options->add_sgfc_ap_property = false;
+          break;
+        default:
+          std::stringstream message;
+          message << "ParseArgumentsWithoutStringRepresentation: Unexpected argument type " << static_cast<int>(argument->GetArgumentType());
+          throw std::logic_error(message.str());
+      }
+    }
   }
 
   std::shared_ptr<SgfcBackendLoadResult> SgfcBackendController::LoadSgfContentFromFilesystemOrInMemoryBuffer(

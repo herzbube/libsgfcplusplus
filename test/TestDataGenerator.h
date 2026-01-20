@@ -82,6 +82,7 @@ namespace LibSgfcPlusPlus
     static std::vector<SgfcArgumentType> GetArgumentTypesWithStringTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithPropertyTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithMessageIDParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutStringRepresentation();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutIntegerTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutStringTypeParameter();

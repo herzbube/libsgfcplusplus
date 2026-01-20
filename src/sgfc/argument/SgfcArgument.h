@@ -81,6 +81,7 @@ namespace LibSgfcPlusPlus
     virtual bool HasMessageIDParameter() const override;
     virtual SgfcMessageID GetMessageIDParameter() const override;
 
+    virtual bool HasStringRepresentation() const override;
     virtual std::string ToString() const override;
 
   private:
@@ -93,5 +94,6 @@ namespace LibSgfcPlusPlus
     SgfcPropertyType propertyTypeParameter;
     bool hasMessageIDParameter;
     SgfcMessageID messageIDParameter;
+    bool hasStringRepresentation;
   };
 }

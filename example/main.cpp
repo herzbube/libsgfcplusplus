@@ -196,6 +196,10 @@ int WriteDocument(std::shared_ptr<ISgfcDocument> document, const std::string& ou
   // Uncomment the following to see an invalid command line
 //  documentWriter->GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
 
+  // Uncomment the following to prevent SGFC from writing an AP property
+  // (allows the library client to write an AP property with its own values)
+//  documentWriter->GetArguments()->AddArgument(SgfcArgumentType::DoNotAddSgfcApProperty);
+
   std::shared_ptr<ISgfcDocumentWriteResult> result = documentWriter->WriteSgfFile(document, outputFilePath);
 
   std::cout << "WriteSgfFile sgfcExitCode = " << static_cast<int>(result->GetExitCode()) << std::endl;
@@ -287,7 +291,10 @@ int DoBuildTree(const std::string& outputFilePath)
   nodeB->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyC });
   nodeB1->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyN });
 
-  auto propertyValueAP = propertyValueFactory->CreateComposedSimpleTextAndSimpleTextPropertyValue("Little Go", "1.2.3.4");
+  // SGFC will overwrite the AP property we create here with its own values.
+  // This can be prevented by using SgfcArgumentType::DoNotAddSgfcApProperty.
+  // Uncomment the corresponding line in WriteDocument() to see the effect.
+  auto propertyValueAP = propertyValueFactory->CreateComposedSimpleTextAndSimpleTextPropertyValue("Example Program", "1.2.3.4");
   std::shared_ptr<ISgfcProperty> propertyAP = propertyFactory->CreateProperty("AP", propertyValueAP);
   rootNode->SetProperty(propertyAP);
 

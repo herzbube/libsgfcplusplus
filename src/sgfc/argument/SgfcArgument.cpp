@@ -33,6 +33,7 @@ namespace LibSgfcPlusPlus
     , propertyTypeParameter(SgfcPropertyType::Unknown)
     , hasMessageIDParameter(false)
     , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
+    , hasStringRepresentation(true)
   {
     switch (argumentType)
     {
@@ -48,6 +49,9 @@ namespace LibSgfcPlusPlus
       case SgfcArgumentType::CorrectVariationLevelAndRootMoves:
       case SgfcArgumentType::ReverseVariationOrdering:
       case SgfcArgumentType::ExpandCompressedPointLists:
+        break;
+      case SgfcArgumentType::DoNotAddSgfcApProperty:
+        this->hasStringRepresentation = false;
         break;
       default:
         std::stringstream message;
@@ -68,6 +72,7 @@ namespace LibSgfcPlusPlus
     , propertyTypeParameter(SgfcPropertyType::Unknown)
     , hasMessageIDParameter(false)
     , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
+    , hasStringRepresentation(true)
   {
     switch (argumentType)
     {
@@ -95,6 +100,7 @@ namespace LibSgfcPlusPlus
     , propertyTypeParameter(SgfcPropertyType::Unknown)
     , hasMessageIDParameter(false)
     , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
+    , hasStringRepresentation(true)
   {
     switch (argumentType)
     {
@@ -120,6 +126,7 @@ namespace LibSgfcPlusPlus
     , propertyTypeParameter(parameter)
     , hasMessageIDParameter(false)
     , messageIDParameter(SgfcMessageID::UnknownSgfcMessageID)
+    , hasStringRepresentation(true)
   {
     switch (argumentType)
     {
@@ -144,6 +151,7 @@ namespace LibSgfcPlusPlus
     , propertyTypeParameter(SgfcPropertyType::Unknown)
     , hasMessageIDParameter(true)
     , messageIDParameter(parameter)
+    , hasStringRepresentation(true)
   {
     switch (argumentType)
     {
@@ -208,9 +216,18 @@ namespace LibSgfcPlusPlus
     return this->messageIDParameter;
   }
 
+  bool SgfcArgument::HasStringRepresentation() const
+  {
+    return this->hasStringRepresentation;
+  }
+
   std::string SgfcArgument::ToString() const
   {
+    if (! this->hasStringRepresentation)
+      return std::string();
+
     std::stringstream argumentAsString;
+    
     // Make sure that decimal point is always a period (".") character and that
     // there are no thousands separators
     argumentAsString.imbue(std::locale::classic());

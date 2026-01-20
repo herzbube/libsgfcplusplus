@@ -149,10 +149,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
     /// if @a argumentType does not appear in
-    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap. In practice this
-    /// should never occur. If it occurs it indicates a programming error in the
-    /// library, i.e. an SgfcArgumentType value was not added to
-    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.
+    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap. This occurs if
+    /// @a argumentType does not have corresponding SGFC command line option.
     static std::string MapArgumentTypeToCmdlineOption(SgfcArgumentType argumentType);
 
     /// @brief Returns the full path of a folder that is suitable for temporary

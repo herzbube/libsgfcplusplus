@@ -16,8 +16,10 @@
 
 // Project includes
 #include "AssertHelperFunctions.h"
+#include "TestDataGenerator.h"
 
 // Library includes
+#include <ISgfcArgument.h>
 #include <ISgfcComposedPropertyValue.h>
 #include <ISgfcGoGameInfo.h>
 #include <ISgfcNumberPropertyValue.h>
@@ -31,6 +33,9 @@
 
 // Unit test library includes
 #include <catch2/catch_test_macros.hpp>
+
+// C++ Standard Library includes
+#include <algorithm>
 
 namespace LibSgfcPlusPlus
 {
@@ -173,5 +178,20 @@ namespace LibSgfcPlusPlus
     }
 
     REQUIRE( didFindGameInfoProperty == true );
+  }
+
+  void AssertStringRepresentation(const ISgfcArgument& argument, const std::string& expectedStringRepresentation)
+  {
+    auto argumentTypesWithoutStringRepresentation = TestDataGenerator::GetArgumentTypesWithoutStringRepresentation();
+
+    auto result = std::find(std::begin(argumentTypesWithoutStringRepresentation),
+                            std::end(argumentTypesWithoutStringRepresentation),
+                            argument.GetArgumentType());
+
+    bool expectedHasStringRepresentation = (result == std::end(argumentTypesWithoutStringRepresentation));
+    REQUIRE( argument.HasStringRepresentation() == expectedHasStringRepresentation );
+
+    if (argument.HasStringRepresentation())
+      REQUIRE( argument.ToString() == expectedStringRepresentation );
   }
 }
