@@ -54,8 +54,9 @@ endif()
 # Specify the C++ standard
 # We need at least C++17 because of literal initializers like this:
 #   const SgfcBoardSize SgfcConstants::BoardSizeMinimum = { 1, 1 };
+# We need at least C++20 because of the use of std::erase_if().
 # Catch2 requires C++11.
-set ( CMAKE_CXX_STANDARD 17 )
+set ( CMAKE_CXX_STANDARD 20 )
 set ( CMAKE_CXX_STANDARD_REQUIRED True )
 
 # Specify the C standard. This comes from SGFC's own CMakeLists.txt.

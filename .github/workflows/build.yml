@@ -12,8 +12,8 @@ jobs:
     # - Since this is a cross-platform library we want to build on all three of
     #   the major operating systems.
     # - We use the *-latest runners because we strive to build with relatively
-    #   new versions of each environment that have modern compilers (we need at
-    #   least C++17, see CMakeLists.txt) and tools.
+    #   new versions of each environment that have modern compilers (see CMakeLists.txt
+    #   for the minimum version of the C++ standard that we need) and tools.
     # - The library should not only be cross-platform, it should also not rely
     #   on any particular compiler. On macOS the clang compiler is used
     #   (AppleClang), on Ubuntu the default is GNU GCC, and on Windows it's

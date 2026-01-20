@@ -315,26 +315,13 @@ namespace LibSgfcPlusPlus
 
     auto propertyName = property->GetPropertyName();
     auto lambdaPropertyName = [&propertyName](auto lambdaProperty)->bool { return lambdaProperty->GetPropertyName() == propertyName; };
-
-    // TODO: Use std::erase_if once C++20 becomes available
-    auto result = std::find_if(
-      std::begin(this->properties),
-      std::end(this->properties),
-      lambdaPropertyName);
-    if (result != std::end(this->properties))
-      this->properties.erase(result);
+    std::erase_if(this->properties, lambdaPropertyName);
 
     auto propertyType = property->GetPropertyType();
     if (propertyType != SgfcPropertyType::Unknown)
     {
       auto lambdaPropertyType = [propertyType](auto lambdaProperty)->bool { return lambdaProperty->GetPropertyType() == propertyType; };
-      // TODO: Use std::erase_if once C++20 becomes available
-      auto result = std::find_if(
-        std::begin(this->properties),
-        std::end(this->properties),
-        lambdaPropertyType);
-      if (result != std::end(this->properties))
-        this->properties.erase(result);
+      std::erase_if(this->properties, lambdaPropertyType);
     }
 
     this->properties.push_back(property);

@@ -154,8 +154,7 @@ namespace LibSgfcPlusPlus
     static std::string MapArgumentTypeToCmdlineOption(SgfcArgumentType argumentType);
 
     /// @brief Returns the full path of a folder that is suitable for temporary
-    /// files. The path is guaranteed to exist and to be a directory. The
-    /// returned path string is UTF-8 encoded.
+    /// files. The path is guaranteed to exist and to be a directory.
     ///
     /// The implementation makes use of std::filesystem::temp_directory_path(),
     /// which is defined in C++17 but may not be available on older platform
@@ -183,8 +182,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the unique absolute path of a file that is extremely
     /// unlikely to already exist in the temporary folder returned by
-    /// GetTempPath(). The returned path string is UTF-8 encoded. This method
-    /// never returns the same value twice.
+    /// GetTempPath(). This method never returns the same value twice.
     ///
     /// This is a convenience function that invokes JoinPathComponents() using
     /// the return values of GetTempFolderPath() and GetUniqueTempFileName().
