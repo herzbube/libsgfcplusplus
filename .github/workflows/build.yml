@@ -23,6 +23,12 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
+    # Use the same shell on all runners so can we use the same scripts. Without this,
+    # the Windows runner would use PowerShell.
+    defaults:
+      run:
+        shell: bash
+
     steps:
     - name: Checking out the sources
       # @v4 refers to the Git tag "v4" in https://github.com/actions/checkout.
