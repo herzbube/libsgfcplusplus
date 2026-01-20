@@ -41,7 +41,11 @@ jobs:
     - name: Patching SGFC
       run: |
         cd sgfc
-        for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
+        if test -f ../patch/*.patch; then
+          for PATCH_FILE in ../patch/*.patch; do git apply "$PATCH_FILE"; done
+        else
+          echo "No patches to apply"
+        fi
         cd ..
 
     - name: Generate build system (macOS and Ubuntu)

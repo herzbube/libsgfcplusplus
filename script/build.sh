@@ -17,8 +17,10 @@ echo "------------------------------------------------------------"
 cd "$SGFC_FOLDER"
 if test -f "$PATCH_MARKER_FILENAME"; then
   echo "Patches were already applied"
+elif test ! -f $PATCH_FOLDER/*.patch; then
+  echo "No patches to apply"
 else
-  for PATCH_FILE in $PATCH_FOLDER/*; do
+  for PATCH_FILE in $PATCH_FOLDER/*.patch; do
     git apply "$PATCH_FILE"
     if test $? -ne 0; then
       echo "Applying patch file $(basename $PATCH_FILE) failed."
@@ -26,7 +28,7 @@ else
     fi
     touch "$PATCH_MARKER_FILENAME"
   done
-  echo "Patching successful."
+  echo "Patches applied successfully."
 fi
 cd "$BASE_FOLDER"
 

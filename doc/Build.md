@@ -18,7 +18,7 @@ After cloning the repository you must first initialize its Git submodules:
 In the next step you apply some patches to SGFC:
 
     cd sgfc
-    for PATCH_FILE in ../patch/*; do git apply "$PATCH_FILE"; done
+    test -f ../patch/*.patch && for PATCH_FILE in ../patch/*.patch; do git apply "$PATCH_FILE"; done
     cd ..
 
 Now you're ready to build. On platforms that support Makefile-based build systems these commands should do it:
