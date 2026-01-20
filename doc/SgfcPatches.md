@@ -15,22 +15,12 @@ for PATCH_FILE in ../patch/*; do
 done
 ```
 
-## Patches 001-010
+## Patches 001-011
 
 These patches were removed because a newer version of SGFC made them obsolete.
 
-## 011-save.c-fix-off-by-one-position-calculation.patch
+## No patches
 
-This patch fixes a bug in the function `SaveBufferIO_putc` in `save.c`.
+Currently no patches exist for SGFC because all issues have been fixed upstream.
 
-The function allocates additional memory when it finds that its current buffer is running out. When it sets the write position in the new buffer it miscalculates the position by one byte, causing one uninitialized byte with a random value in the middle of the buffer.
-
-Original code:
-
-    sfh->fh.memh.pos = new_buffer + sfh->fh.memh.buffer_size;
-
-Patched code:
-
-    sfh->fh.memh.pos = new_buffer + sfh->fh.memh.buffer_size - 1;
-
-**Note:** The bug has been [reported upstream](https://bitbucket.org/arnoh/sgfc/issues/9). Once a fix has been integrated upstream this patch can be removed.
+This documentation and the patching mechanism is kept in place, though, in case it will be needed again in the future.
