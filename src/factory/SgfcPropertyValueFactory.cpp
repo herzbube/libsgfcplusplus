@@ -54,6 +54,11 @@ namespace LibSgfcPlusPlus
     SgfcNumber numberValue) const
   {
     std::stringstream stream;
+
+    // Make sure that decimal point is always a period (".") character and that
+    // there are no thousands separators
+    stream.imbue(std::locale::classic());
+
     stream << numberValue;
 
     std::shared_ptr<ISgfcNumberPropertyValue> valueObject = std::shared_ptr<ISgfcNumberPropertyValue>(
