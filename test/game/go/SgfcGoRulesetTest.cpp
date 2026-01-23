@@ -80,7 +80,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is decomposed", "[game]" )
       auto decomposedPropertyValue = SgfcGoRuleset::FromPropertyValue(std::get<0>(testData));
       auto expectedDecomposedPropertyValue = std::get<1>(testData);
 
-      THEN( "The result of the decomposition are SgfcDate objects" )
+      THEN( "The result of the decomposition is a valid SgfcGoRuleset object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == true );
         REQUIRE( decomposedPropertyValue == expectedDecomposedPropertyValue );
@@ -96,7 +96,7 @@ SCENARIO( "An SgfcPropertyType::RU property value is decomposed", "[game]" )
     {
       auto decomposedPropertyValue = SgfcGoRuleset::FromPropertyValue(testData);
 
-      THEN( "The result of the decomposition is an empty collection" )
+      THEN( "The result of the decomposition is an invalid SgfcGoRuleset object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == false );
       }

@@ -126,7 +126,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is decomposed", "[game]" )
       auto decomposedPropertyValue = SgfcDate::FromPropertyValue(std::get<0>(testData));
       auto expectedDecomposedPropertyValue = std::get<1>(testData);
 
-      THEN( "The result of the decomposition are SgfcDate objects" )
+      THEN( "The result of the decomposition are valid SgfcDate objects" )
       {
         REQUIRE( decomposedPropertyValue.size() == expectedDecomposedPropertyValue.size() );
         REQUIRE( decomposedPropertyValue == expectedDecomposedPropertyValue );

@@ -82,7 +82,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is dec
       auto decomposedPropertyValue = SgfcGoPlayerRank::FromPropertyValue(std::get<0>(testData));
       auto expectedDecomposedPropertyValue = std::get<1>(testData);
 
-      THEN( "The result of the decomposition are SgfcDate objects" )
+      THEN( "The result of the decomposition is a valid SgfcGoPlayerRank object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == true );
         REQUIRE( decomposedPropertyValue == expectedDecomposedPropertyValue );
@@ -98,7 +98,7 @@ SCENARIO( "An SgfcPropertyType::BR or SgfcPropertyType::WR property value is dec
     {
       auto decomposedPropertyValue = SgfcGoPlayerRank::FromPropertyValue(testData);
 
-      THEN( "The result of the decomposition is an empty collection" )
+      THEN( "The result of the decomposition is an invalid SgfcGoPlayerRank object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == false );
       }
