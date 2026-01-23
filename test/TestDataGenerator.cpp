@@ -105,6 +105,7 @@ namespace LibSgfcPlusPlus
       std::pair<std::string, SgfcReal> { "-.2", -0.2 },
       std::pair<std::string, SgfcReal> { "0.", 0.0 },
       std::pair<std::string, SgfcReal> { ".0", 0.0 },
+      // Not really valid according to EBNF in SGF specs, but supported by libsgfc++ anyway
       std::pair<std::string, SgfcReal> { "1.23456e3", 1234.56 },
       std::pair<std::string, SgfcReal> { "1.23456e03", 1234.56 },
       std::pair<std::string, SgfcReal> { "1.23456e+3", 1234.56 },

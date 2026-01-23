@@ -138,4 +138,27 @@ SCENARIO( "An SgfcPropertyType::RE property value is composed", "[game]" )
       }
     }
   }
+
+  GIVEN( "The score value is a floating point value with fractions" )
+  {
+    auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetRealValues()) );
+    SgfcGameResult gameResult = SgfcGameResult
+    {
+      SgfcGameResultType::BlackWin,
+      SgfcWinType::WinWithScore,
+      std::get<0>(testData),
+      true
+    };
+
+    WHEN( "The property value is composed" )
+    {
+      auto composedPropertyValue = SgfcGameResult::ToPropertyValue(gameResult);
+      auto expectedComposedPropertyValue = "B+" + std::get<1>(testData);
+
+      THEN( "The score floating point value is converted to text with almost-maximum precision" )
+      {
+        REQUIRE( composedPropertyValue == expectedComposedPropertyValue );
+      }
+    }
+  }
 }
