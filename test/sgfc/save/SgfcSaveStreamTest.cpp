@@ -36,6 +36,10 @@ extern "C"
 using namespace LibSgfcPlusPlus;
 
 
+static SaveFileHandler* CreateFailingSaveFileHandler();
+static int putcHookReturningEOF(struct SaveFileHandler* sfh, int character);
+static int (*originalPutcHook)(struct SaveFileHandler *, int c) = NULL;
+static int numberOfCharactersUntilPutcHookWillFail = 0;
 static void SetupEmptySgfInfo(SGFInfo* sgfInfo, char* buffer, size_t bufferSize);
 
 
@@ -185,8 +189,52 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
     }
   }
 
+  GIVEN( "The save stream is closed with an error" )
+  {
+    // Let SGFC write some characters into the stream before we fail. Thus we
+    // can verify that SgfcSaveStream does not capture any of the incomplete and
+    // therefore presumably erroneous content.
+    numberOfCharactersUntilPutcHookWillFail = (int) expectedSaveContent.length() / 2;
+
+    SgfcSaveStream saveStream;
+    SaveSGF(sgfInfo, &CreateFailingSaveFileHandler, fileName.c_str());
+
+    WHEN( "SgfcSaveStream is queried" )
+    {
+      auto sgfContents = saveStream.GetSgfContents();
+
+      THEN( "The SgfcSaveStream object has one piece of SGF content that is empty" )
+      {
+        REQUIRE( sgfContents.size() == 1 );
+
+        auto sgfContent = sgfContents.front();
+        REQUIRE( sgfContent->GetSgfContent() == std::string() );
+        REQUIRE( sgfContent->GetFilePath() == fileName );
+      }
+    }
+  }
+
   sgfInfo->buffer = NULL;
   FreeSGFInfo(sgfInfo);
+}
+
+struct SaveFileHandler* CreateFailingSaveFileHandler()
+{
+  struct SaveFileHandler* saveFileHandler = SgfcSaveStream::CreateSaveFileHandler();
+
+  originalPutcHook = saveFileHandler->putc;
+  saveFileHandler->putc = putcHookReturningEOF;
+
+  return saveFileHandler;
+}
+
+int putcHookReturningEOF(struct SaveFileHandler* sfh, int character)
+{
+  if (numberOfCharactersUntilPutcHookWillFail == 0)
+    return EOF;
+
+  numberOfCharactersUntilPutcHookWillFail--;
+  return originalPutcHook(sfh, character);
 }
 
 void SetupEmptySgfInfo(SGFInfo* sgfInfo, char* buffer, size_t bufferSize)
