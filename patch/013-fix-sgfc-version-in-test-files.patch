@@ -1,0 +1,298 @@
+diff --git a/test-files/escaping-result.sgf b/test-files/escaping-result.sgf
+index cac21e3..4e01e73 100644
+--- a/test-files/escaping-result.sgf
++++ b/test-files/escaping-result.sgf
+@@ -1,4 +1,4 @@
+-(;FF[4]CA[UTF-8]GM[19]AP[SGFC:2.0];C[Text : value 中: with 中 unneccessary : escape : characters中]
++(;FF[4]CA[UTF-8]GM[19]AP[SGFC:2.1];C[Text : value 中: with 中 unneccessary : escape : characters中]
+ ;C[中Text : value with [neces\\sary\] escape : characters中]
+ ;N[SimpleText : value 中 with : unneccessary : escape : characters中]
+ ;N[SimpleText value : with [neces\\sary\] : escape characters]
+diff --git a/test-files/mixed-encoding-result.sgf b/test-files/mixed-encoding-result.sgf
+index 2f9d704..7e4bf03 100644
+--- a/test-files/mixed-encoding-result.sgf
++++ b/test-files/mixed-encoding-result.sgf
+@@ -1,10 +1,10 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[hallö! DÜ! ßüper dich zu s\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[hallö! DÜ! ßüper dich zu s\
+ €h€n-])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[hallö! DÜ! ßüper dich zu s\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[hallö! DÜ! ßüper dich zu s\
+ €h€n-])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[s¤h¤n])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[Cho Chikun (Cho Chihun, Japane\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[s¤h¤n])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[Cho Chikun (Cho Chihun, Japane\
+ se: 趙 治勲, Korean: 조치훈)
+ 交通運輸
+ 指揮權])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[Yen: ¥])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[Yen: ¥])
+diff --git a/test-files/reorder-result.sgf b/test-files/reorder-result.sgf
+index 92638ee..d984b87 100644
+--- a/test-files/reorder-result.sgf
++++ b/test-files/reorder-result.sgf
+@@ -1,8 +1,8 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;W[aa];B[bb])
+ (;W[ba])
+ (;AW[eg];B[ef]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[dd];W[aa]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[dd];W[aa]
+ (;B[bb])
+ (;AE[aa];W[ba])
+ (;AW[eg]AE[aa][dd]C[AE removes 2 stones!];B[ef]))
+diff --git a/test-files/reorder-z-result.sgf b/test-files/reorder-z-result.sgf
+index 72dd357..ff15c43 100644
+--- a/test-files/reorder-z-result.sgf
++++ b/test-files/reorder-z-result.sgf
+@@ -1,8 +1,8 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;AW[eg];B[ef])
+ (;W[ba])
+ (;W[aa];B[bb]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[dd];W[aa]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[dd];W[aa]
+ (;AW[eg]AE[aa][dd]C[AE removes 2 stones!];B[ef])
+ (;AE[aa];W[ba])
+ (;B[bb]))
+diff --git a/test-files/strict-result.sgf b/test-files/strict-result.sgf
+index 36394cc..82b72c9 100644
+--- a/test-files/strict-result.sgf
++++ b/test-files/strict-result.sgf
+@@ -1,34 +1,34 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[2]
+ 
+ )
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[2]
+ 
+ AB[aa][bb])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]AB[aa:ab])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]AB[aa:ab])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[2]
+ 
+ AB[aa:ab]AW[cc])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[2]
+ 
+ AW[aa:ab])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[aa];W[cc];B[dd])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];W[bb];B[aa];C[empty]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[aa];W[cc];B[dd])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];W[bb];B[aa];C[empty]
+ ;W[cc];B[dd])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[aa];W[cc];B[dd];C[empty]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[aa];W[cc];B[dd];C[empty]
+ ;B[ee])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[aa];W[cc];B[dd];C[empty]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[aa];W[cc];B[dd];C[empty]
+ ;AB[ee])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[aa];W[cc];AE[cc];B[ee]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[aa];W[cc];AE[cc];B[ee]
+ )
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[aa];W[cg]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[aa];W[cg]
+ (;B[ab];W[cc];AE[ab];W[gh])
+ (;W[ab];B[cc];AW[cb];W[ff])
+ (;B[ab];W[cc];AE[ab];W[dd];B[ee]))
+diff --git a/test-files/test-result.sgf b/test-files/test-result.sgf
+index effd0ac..c8a01b5 100644
+--- a/test-files/test-result.sgf
++++ b/test-files/test-result.sgf
+@@ -1,4 +1,4 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[variation nesting incomplete: \
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[variation nesting incomplete: \
+ add '\]' to end of file];C[unexpected end of file -> see end of file]
+ ;W[ce];N[keep];B[cc]DM[1]BL[34]OB[1]KO[];PL[W];
+ 
+@@ -8,11 +8,11 @@ RE[B+5.75]
+ TM[32400]
+ 
+ ;W[aa];PL[W])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[12]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];N[ illegal ascii code]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[12]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];N[ illegal ascii code]
+ ;N[keep])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]B[aa];AR[aa:cr];LB[ff:text]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]B[aa];AR[aa:cr];LB[ff:text]
+ ;C[Error 26: couldn't open destination file
+    Error 27: couldn't write destination file];C[text1
+ 
+@@ -26,21 +26,21 @@ RE[john wins]
+ 
+ C[Error 34: file not saved because of critical errors]XX[unknown property]
+ ))
+-(;FF[4]CA[UTF-8]GM[1]SZ[12]AP[SGFC:2.0];B[aa];W[ab];MA[aa:ba]
++(;FF[4]CA[UTF-8]GM[1]SZ[12]AP[SGFC:2.1];B[aa];W[ab];MA[aa:ba]
+ [ab];TR[aa];N[keep];LB[aa:a]MA[dd];GB[2]SC[aa][bb][cc];B[cd]
+ DO[];W[dc]IT[];N[keep];
+ 
+ GN[game info node]
+ 
+ ;N[keep])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]LB[aa:txt])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];C[Error 48: no source file spec\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]LB[aa:txt])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];C[Error 48: no source file spec\
+ ified
+   Error 49: error in commandline: e.g. 'sgfc -lb file])
+-(;FF[4]CA[UTF-8]GM[1]SZ[52]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[10:52]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19:25]AP[SGFC:2.0];VW[];VW[aa][bb][cc]
++(;FF[4]CA[UTF-8]GM[1]SZ[52]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[10:52]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19:25]AP[SGFC:2.1];VW[];VW[aa][bb][cc]
+ [dd]C[different game types; occurs in line 19];N[keep];
+ (;W[aa]
+ (;B[bb])
+@@ -57,28 +57,28 @@ KM[5.5]
+ 
+ ;C[file contains more than one game tree; occurs on line xxx]
+ ))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]AB[aa][bb])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]AB[aa][bb])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[3]
+ 
+ ;B[bb])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];W[cc];AB[aa]AE[cc];B[dd]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];W[cc];AB[aa]AE[cc];B[dd]
+ ;W[ee];W[ff];C[too many variations])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;C[var 1])
+ (;C[var 2]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;C[var 1])
+ (;C[var 2]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[unknown command line option, e\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[unknown command line option, e\
+ .g. 'sgfc --versi'];C[unknown encoding as parameter, e.g. 'sgfc --defau\
+ lt-encoding=xyz123'];C[internal iconv error])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[illegal byte sequence: öüä \
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[illegal byte sequence: öüä \
+ (call with option -U: 'sgfc -U test.sgf')])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];C[encoding detection went wrong\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];C[encoding detection went wrong\
+ ; example: >>CA[UTF-8\](;FF[4\]CA[ISO-8859-3\])<<];C[warning: different\
+  charset encodings stored in one file -- option -E2/-E3];C[fatal: diffe\
+ rent charset encodings stored in one file -- option -E1];N[keep]
+diff --git a/test-files/test-roun-result.sgf b/test-files/test-roun-result.sgf
+index e33c979..2d2eeac 100644
+--- a/test-files/test-roun-result.sgf
++++ b/test-files/test-roun-result.sgf
+@@ -1,4 +1,4 @@
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[variation nesting incomplete: \
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[variation nesting incomplete: \
+ add '\]' to end of file];C[unexpected end of file -> see end of file]
+ ;W[ce];N[keep];B[cc]DM[1]BL[34]OB[1]KO[];PL[W];
+ 
+@@ -8,11 +8,11 @@ RE[B+5.75]
+ TM[32400]
+ 
+ ;W[aa];PL[W])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[12]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];N[ illegal ascii code]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[12]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];N[ illegal ascii code]
+ ;N[keep])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]B[aa];AR[aa:cr];LB[ff:text]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]B[aa];AR[aa:cr];LB[ff:text]
+ ;C[Error 26: couldn't open destination file
+    Error 27: couldn't write destination file];C[text1
+ 
+@@ -25,21 +25,21 @@ DT[a sunny afternoon last summer]
+ RE[john wins]
+ 
+ C[Error 34: file not saved because of critical errors]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[12]AP[SGFC:2.0];B[aa];W[ab];MA[aa:ba]
++(;FF[4]CA[UTF-8]GM[1]SZ[12]AP[SGFC:2.1];B[aa];W[ab];MA[aa:ba]
+ [ab];TR[aa];N[keep];LB[aa:a]MA[dd];GB[2];B[cd]DO[];W[dc]IT[]
+ ;N[keep];
+ 
+ GN[game info node]
+ 
+ ;N[keep])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]LB[aa:txt])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];C[Error 48: no source file spec\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]LB[aa:txt])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];C[Error 48: no source file spec\
+ ified
+   Error 49: error in commandline: e.g. 'sgfc -lb file])
+-(;FF[4]CA[UTF-8]GM[1]SZ[52]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[10:52]AP[SGFC:2.0])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19:25]AP[SGFC:2.0];VW[];VW[aa][bb][cc]
++(;FF[4]CA[UTF-8]GM[1]SZ[52]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[10:52]AP[SGFC:2.1])
++(;FF[4]CA[UTF-8]GM[1]SZ[19:25]AP[SGFC:2.1];VW[];VW[aa][bb][cc]
+ [dd]C[different game types; occurs in line 19];N[keep]
+ (;W[aa]
+ (;B[bb])
+@@ -56,28 +56,28 @@ KM[5.5]
+ 
+ ;C[file contains more than one game tree; occurs on line xxx]
+ ))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]AB[aa][bb])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]AB[aa][bb])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ 
+ HA[3]
+ 
+ ;B[bb])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];W[cc];AB[aa]AE[cc];B[dd]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];W[cc];AB[aa]AE[cc];B[dd]
+ ;W[ee];W[ff];C[too many variations])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];B[])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];B[])
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;C[var 1])
+ (;C[var 2]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]
+ (;C[var 1])
+ (;C[var 2]))
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[unknown command line option, e\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[unknown command line option, e\
+ .g. 'sgfc --versi'];C[unknown encoding as parameter, e.g. 'sgfc --defau\
+ lt-encoding=xyz123'];C[internal iconv error])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0]C[illegal byte sequence: öüä \
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1]C[illegal byte sequence: öüä \
+ (call with option -U: 'sgfc -U test.sgf')])
+-(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.0];C[encoding detection went wrong\
++(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:2.1];C[encoding detection went wrong\
+ ; example: >>CA[UTF-8\](;FF[4\]CA[ISO-8859-3\])<<];C[warning: different\
+  charset encodings stored in one file -- option -E2/-E3];C[fatal: diffe\
+ rent charset encodings stored in one file -- option -E1];N[keep]

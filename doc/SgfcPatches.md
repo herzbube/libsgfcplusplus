@@ -19,8 +19,16 @@ done
 
 These patches were removed because a newer version of SGFC made them obsolete.
 
-## No patches
+## 012-fix-sgfc-version-in-ap-property.patch
 
-Currently no patches exist for SGFC because all issues have been fixed upstream.
+SGFC version 2.1 writes version 2.0 into the AP property when it saves an SGF file.
 
-This documentation and the patching mechanism is kept in place, though, in case it will be needed again in the future.
+This patch fixes the hardcoded string in `save.c` to use the correct version.
+
+The issue has been reported [upstream here](https://bitbucket.org/arnoh/sgfc/issues/10).
+
+## 013-fix-sgfc-version-in-test-files.patch
+
+This patch fixes the test files that incorrectly expect "AP[SGFC:2.0]" to expect "AP[SGFC:2.1]" instead.
+
+This patch is not necessary for building libsgfc++. It exists to allow executing the SGFC unit tests.

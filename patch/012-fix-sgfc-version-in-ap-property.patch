@@ -1,0 +1,13 @@
+diff --git a/src/save.c b/src/save.c
+index 3438222..2b9bd4f 100644
+--- a/src/save.c
++++ b/src/save.c
+@@ -400,7 +400,7 @@ static void SetRootProps(struct SaveInfo *save, struct TreeInfo *info, struct No
+ 		NewPropValue(save->sgfc, r, TKN_CA, "UTF-8", NULL, true);
+ 
+ 	if(save->sgfc->options->add_sgfc_ap_property)
+-		NewPropValue(save->sgfc, r, TKN_AP, "SGFC", "2.0", true);
++		NewPropValue(save->sgfc, r, TKN_AP, "SGFC", "2.1", true);
+ 
+ 	if(info->GM == 1)
+ 	{
