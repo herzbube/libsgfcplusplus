@@ -17,7 +17,7 @@ echo "------------------------------------------------------------"
 cd "$SGFC_FOLDER"
 if test -f "$PATCH_MARKER_FILENAME"; then
   echo "Patches were already applied"
-elif test ! -f $PATCH_FOLDER/*.patch; then
+elif test $(ls $PATCH_FOLDER/*.patch 2>/dev/null | wc -l) -eq 0; then
   echo "No patches to apply"
 else
   for PATCH_FILE in $PATCH_FOLDER/*.patch; do
