@@ -1,5 +1,31 @@
 # ChangeLog
 
+## Version 2.1.0 (January 23 2026)
+
+### Features
+
+- Library clients can now set a custom value for the SGF property AP (#45). To do so, a library client must use `SgfcArgumentType::DoNotAddSgfcApProperty` when writing SGF content, in addition to adding the AP property to the document tree. If the library client does not use the argument, then SGFC will write its own AP property with value "SGFC:<sgfc-version>". See [SgfcNotes.md](SgfcNotes.md#the-ap-property) for details.
+
+### Bugfixes
+
+- Fixed a bug in SGFC that, when saving SGF files with 5'000 characters or more, would write one or more random byte values into the file. (#46). When generating SGF content, SGFC uses an internal buffer that starts with a size of 5'000 bytes and then doubles in size whenever the buffer end is reached (5'000, 10'000, 20'000, 40'000, etc.). When the buffer was doubled, the bug caused the byte at position `buffer size - 1` to be skipped, thus introducing a random value at byte positions 4'999, 9'999, 19'999, 39'999, etc.
+- Fixed bugs when converting SGF property values of type "Real" and "Number" to string (#47). Depending on the numeric value, it was possible that "Real" values would be converted using the scientific notation or with a maximum precision of 6 decimal digits, while "Number" values would be converted with thousands separators. After the fix, scientific notation and thousands separators will no longer be used, and "Real" values will have a precision of up to 16 decimal digits. See [SgfNotes.md](SgfNotes.md#precision-of-properties-with-sgf-type-real) for details.
+
+### Regressions
+
+- None
+
+### Technical changes
+
+- Updated SGFC from v2.0 to v2.1.
+- Updated unit test library Catch2 from v3.5.0 to v3.12.0.
+- Update library win-iconv to latest commit.
+- Updated project from the C++17 language standard to C++20.
+
+### GitHub issue list
+
+A list of all issues closed for this release is available [on GitHub](https://github.com/herzbube/libsgfcplusplus/milestone/6?closed=1)
+
 ## Version 2.0.1 (January 5 2024)
 
 This release contains no changes to the libsgfc++ source code at all. The release is made only to fix the SGFC git submodule reference in branch `master`: The git submodule now correctly points to the `V2_0` tag in the SGFC repository.
@@ -17,7 +43,7 @@ Note: The Git tag `2.0.0` in branch `master` points to the wrong commit in the S
 ### Bugfixes
 
 - Fixed numeric value of `SgfcMessageID::IllegalVariationStartCorrected` (#39). The enum value had the same numeric value as `SgfcMessageID::IllegalVariationStartIgnored`.
-- Changed the value type for referencing line and column numbers in messages to `unsigned long`, to match the error reporting interface of SGFC (#40). The old type `int` was insufficient to hold all possible `unsigned long` values, also the there was a signed/unsigned mismatch. The change affects the `ISgfcMessage` getters `GetLineNumber()` and `GetColumnNumber()`, as well as the constants `SgfcConstants::InvalidLineNumber` and `SgfcConstants::InvalidColumnNumber`. The constants also changed their value (previously -1, now 0).
+- Changed the value type for referencing line and column numbers in messages to `unsigned long`, to match the error reporting interface of SGFC (#40). The old type `int` was insufficient to hold all possible `unsigned long` values, also there was a signed/unsigned mismatch. The change affects the `ISgfcMessage` getters `GetLineNumber()` and `GetColumnNumber()`, as well as the constants `SgfcConstants::InvalidLineNumber` and `SgfcConstants::InvalidColumnNumber`. The constants also changed their value (previously -1, now 0).
 
 ### Regressions
 
@@ -33,7 +59,6 @@ Note: The Git tag `2.0.0` in branch `master` points to the wrong commit in the S
 ### GitHub issue list
 
 A list of all issues closed for this release is available [on GitHub](https://github.com/herzbube/libsgfcplusplus/milestone/4?closed=1)
-
 
 ## Version 1.0 (February 23 2021)
 

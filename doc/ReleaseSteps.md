@@ -63,7 +63,7 @@ git commit -m "add API docs for version 0.1"
 - Merge all changes in the release branch into `develop`
   - `git checkout develop`
   - `git merge release-0.1.0`
-- Merge all changes in the release branch into `master`
+- Merge all changes in the `develop` branch into `master`
   - `git checkout master`
   - `git merge develop`
 - Tag and sign the release
