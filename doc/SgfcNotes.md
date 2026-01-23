@@ -109,3 +109,64 @@ A library client that wants to assert its authorship of the SGF content can do s
 According to the SGFC readme document the "KI" property is a private property of the "Smart Game Board" application (SGB). The property name means "integer komi".
 
 SGFC converts "KI" to the Go-specific "KM" property, dividing the original "KI" numeric value by 2 to obtain the new "KM" value. SGFC performs this conversion in all cases, even if the game tree's game type is not Go.
+
+## Building SGFC on macOS
+
+This section covers how to build SGFC (source code and tests) from a fresh clone of the upstream repository.
+
+### Install `check` testing framework
+
+SGFC uses the `check` testing framework for its unit tests. Use your package manager of choice to install `check`, then find out the include and library paths that point to the `check` header files and the `check` library.
+
+For Homebrew, execute this command:
+
+    brew install check
+
+To find the include and library paths, execute these commands:
+
+    echo $(brew --prefix)/include
+    echo $(brew --prefix)/lib
+
+With a modern Homebrew installation, these paths are usually
+
+    /opt/homebrew/include
+    /opt/homebrew/lib
+
+### Modify Makefiles
+
+- `src/Makefile`
+  - Add `-liconv` to the `LIB` variable
+- `tests/Makefile`
+  - Add `-liconv` to the `LIB` variable
+  - Remove `-lrt -lsubunit` from the `LIB` variable
+  - Add `-I/path/to/check-headers -L/path/to/check-lib` to the `OPTIONS` variable. You should have found these paths when you installed the `check` testing framework (see previous section).
+
+### Fix test source code
+
+At the time of writing, one test in `check-encoding.c` fails on macOS: The test `test_basic_conversion` verifies that SGFC can handle the "UTF-16LE" encoding.
+
+For that purpose the test code first uses `iconv` to convert an UTF-8 buffer to UTF-16LE (explicit little-endian). It then passes that buffer to SGFC for conversion back to UTF-8. In that second step, the test code specifes the encoding as "UTF-16", leaving the endian-ness unspecified.
+
+Presumably this works on Linux, but it does not on macOS on a Silicon Mac. The assumption is that the macOS implementation of iconv defaults to use the big-endian version of the encoding.
+
+To fix the test, change this line in `check-encoding.c`:
+
+    cd = iconv_open("UTF-8", "UTF-16");
+
+to this:
+
+    cd = iconv_open("UTF-8", "UTF-16LE");
+
+The issue has been reported [upstream here](https://bitbucket.org/arnoh/sgfc/issues/11).
+
+### Build
+
+Execute these commands to build the vanilla SGFC source code and tests.
+
+```
+cd /path/to/sgfc
+make sgfc
+make tests
+```
+
+Note: `make tests` both builds and executes the tests.
