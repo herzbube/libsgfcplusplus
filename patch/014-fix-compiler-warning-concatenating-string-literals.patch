@@ -1,0 +1,15 @@
+diff --git a/src/error.c b/src/error.c
+index 502b800..6837bdd 100644
+--- a/src/error.c
++++ b/src/error.c
+@@ -45,8 +45,8 @@ static const char *error_mesg[] =
+ 		"lowercase char not allowed in property identifier\n",
+ 		"empty <%s> value %s (deleted)\n",
+ 		"illegal root property <%s> found (assuming %s)\n",
+-		"game stored in tree %d is not Go. Cannot check move & position type"
+-		" -> errors will not get corrected!\n",
++		("game stored in tree %d is not Go. Cannot check move & position type"
++		" -> errors will not get corrected!\n"),
+ 		"property <%s> without any values found (ignored)\n",
+ /* 20 */
+ 		"illegal variation start found (ignored)\n",

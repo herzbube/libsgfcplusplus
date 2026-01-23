@@ -32,3 +32,21 @@ The issue has been reported [upstream here](https://bitbucket.org/arnoh/sgfc/iss
 This patch fixes the test files that incorrectly expect "AP[SGFC:2.0]" to expect "AP[SGFC:2.1]" instead.
 
 This patch is not necessary for building libsgfc++. It exists to allow executing the SGFC unit tests.
+
+## 014-fix-compiler-warning-when-concatenating-string-literals.patch
+
+This patch fixes the following compiler warning emitted by clang:
+
+```
+error.c:49:3: warning: suspicious concatenation of string literals in an array initialization; did you mean to separate the elements with a comma? [-Wstring-concatenation]
+   48 |                 "game stored in tree %d is not Go. Cannot check move & position type"
+      |                                                                                      
+      |                                                                                      ,
+   49 |                 " -> errors will not get corrected!\n",
+      |                 ^
+error.c:48:3: note: place parentheses around the string literal to silence warning
+   48 |                 "game stored in tree %d is not Go. Cannot check move & position type"
+      |                 ^
+```
+
+The patch places parantheses around the two string literals, as suggested by the compiler output.
