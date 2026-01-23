@@ -51,7 +51,7 @@ By default libsgfc++ handles properties that existed in SGF standards before ver
 - Property "M" is converted to "MA"
 - All other pre-FF4 properties are processed and passed on to the library client without conversion. These are the properties: "BS", "CH", "EL", "EX", "ID", "LT", "OM", "OP", "OV", "RG", "SC", "SE", "SI", "TC" and "WS"
 
-Library clients that do not want to see pre-FF4 properties can use `SgfcArgumentType::DeleteObsoleteProperties` when they read in SGF content. This does not prevent the conversion of the properties "L" and "M" to their modern FF4 counterparts "LB" and "MA. Library clients that do not want these conversions to occur must use `SgfcArgumentType::DeletePropertyType` to explicitly delete these properties.
+Library clients that do not want to see pre-FF4 properties can use `SgfcArgumentType::DeleteObsoleteProperties` when they read in SGF content. This does not prevent the conversion of the properties "L" and "M" to their modern FF4 counterparts "LB" and "MA". Library clients that do not want these conversions to occur must use `SgfcArgumentType::DeletePropertyType` to explicitly delete these properties.
 
 ## Precision of properties with SGF type `Real`
 

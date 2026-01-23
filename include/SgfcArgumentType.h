@@ -255,7 +255,7 @@ namespace LibSgfcPlusPlus
     ///
     /// SGFC converts certain obsolete and unknown properties to an FF4
     /// counterpart. To delete these properties you have to specify their
-    /// original type, i.e. the type before the conversion takes place. Exmaple:
+    /// original type, i.e. the type before the conversion takes place. Example:
     /// SGFC converts the "L" property to its FF4 counterpart "LB". You have
     /// to specify SgfcPropertyType::L do delete this property.
     ///

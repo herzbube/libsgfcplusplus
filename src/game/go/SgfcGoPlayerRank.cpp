@@ -104,6 +104,7 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::NoneValueString;
 
     std::stringstream propertyValue;
+    
     // Make sure that decimal point is always a period (".") character and that
     // there are no thousands separators
     propertyValue.imbue(std::locale::classic());

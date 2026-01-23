@@ -120,7 +120,7 @@ namespace LibSgfcPlusPlus
     ///   libsgfc++ attempts to interpret the raw property string value
     ///   according to the value type defined property in the SGF standard.
     ///   HasTypedValue() returns true if that interpretation succeeds,
-    ///   otherwwise it returns false and GetTypeConversionErrorMessage()
+    ///   otherwise it returns false and GetTypeConversionErrorMessage()
     ///   returns a description of why the interpretation failed.
     /// - HasTypedValue() always returns false for values of properties that
     ///   are not defined in the SGF standard (aka "custom properties").
