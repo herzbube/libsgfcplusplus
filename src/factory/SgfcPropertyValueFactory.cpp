@@ -32,13 +32,9 @@
 #include "../game/go/SgfcGoMove.h"
 #include "../game/go/SgfcGoPoint.h"
 #include "../game/go/SgfcGoStone.h"
+#include "../parsing/SgfcValueConverter.h"
 #include "../SgfcUtility.h"
 #include "SgfcPropertyValueFactory.h"
-
-// C++ Standard Library includes
-#include <iomanip>
-#include <limits>
-#include <sstream>
 
 namespace LibSgfcPlusPlus
 {
@@ -53,36 +49,22 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcNumberPropertyValue> SgfcPropertyValueFactory::CreateNumberPropertyValue(
     SgfcNumber numberValue) const
   {
-    std::stringstream stream;
-
-    // Make sure that decimal point is always a period (".") character and that
-    // there are no thousands separators
-    stream.imbue(std::locale::classic());
-
-    stream << numberValue;
+    SgfcValueConverter valueConverter;
+    std::string stringValue = valueConverter.ConvertNumberValueToString(numberValue);
 
     std::shared_ptr<ISgfcNumberPropertyValue> valueObject = std::shared_ptr<ISgfcNumberPropertyValue>(
-      new SgfcNumberPropertyValue(stream.str(), numberValue));
+      new SgfcNumberPropertyValue(stringValue, numberValue));
     return valueObject;
   }
 
   std::shared_ptr<ISgfcRealPropertyValue> SgfcPropertyValueFactory::CreateRealPropertyValue(
     SgfcReal realValue) const
   {
-    std::stringstream stream;
-
-    // Make sure that decimal point is always a period (".") character and that
-    // there are no thousands separators
-    stream.imbue(std::locale::classic());
-    // Make sure the floating point value of the Score member is converted with
-    // usefully high (although not maximum) precision, and that the conversion
-    // does not use scientific notation
-    stream << std::setprecision(std::numeric_limits<SgfcReal>::max_digits10 - 1);
-
-    stream << realValue;
+    SgfcValueConverter valueConverter;
+    std::string stringValue = valueConverter.ConvertRealValueToString(realValue);
 
     std::shared_ptr<ISgfcRealPropertyValue> valueObject = std::shared_ptr<ISgfcRealPropertyValue>(
-      new SgfcRealPropertyValue(stream.str(), realValue));
+      new SgfcRealPropertyValue(stringValue, realValue));
     return valueObject;
   }
 

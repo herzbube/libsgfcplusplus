@@ -91,7 +91,7 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> parentNode,
       int& nodeCount) const;
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node, int nodeNumber) const;
-    void DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
+    void DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
     void DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const;
   };
 }

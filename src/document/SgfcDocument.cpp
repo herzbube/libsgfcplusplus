@@ -38,6 +38,7 @@
 #include "../../include/ISgfcTreeBuilder.h"
 #include "../../include/SgfcPlusPlusFactory.h"
 #include "../parsing/SgfcPropertyDecoder.h"
+#include "../parsing/SgfcValueConverter.h"
 #include "../SgfcUtility.h"
 #include "SgfcDocument.h"
 #include "SgfcProperty.h"
@@ -349,11 +350,11 @@ namespace LibSgfcPlusPlus
           std::cout << "      Value type 1       = " << static_cast<int>(composedPropertyValue->GetValue1()->GetValueType()) << std::endl;
           std::cout << "      Has typed value 1  = " << composedPropertyValue->GetValue1()->HasTypedValue() << std::endl;
           std::cout << "      Raw value 1        = \"" << composedPropertyValue->GetValue1()->GetRawValue() << "\"" << std::endl;
-          DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue1().get());
+          DebugPrintPropertyValueToConsole(composedPropertyValue->GetValue1().get());
           std::cout << "      Value type 2       = " << static_cast<int>(composedPropertyValue->GetValue2()->GetValueType()) << std::endl;
           std::cout << "      Has typed value 2  = " << composedPropertyValue->GetValue2()->HasTypedValue() << std::endl;
           std::cout << "      Raw value 2        = \"" << composedPropertyValue->GetValue2()->GetRawValue() << "\"" << std::endl;
-          DebugPrintGoPropertyValueToConsole(composedPropertyValue->GetValue2().get());
+          DebugPrintPropertyValueToConsole(composedPropertyValue->GetValue2().get());
         }
         else
         {
@@ -361,7 +362,7 @@ namespace LibSgfcPlusPlus
           std::cout << "      Value type         = " << static_cast<int>(singlePropertyValue->GetValueType()) << std::endl;
           std::cout << "      Has typed value    = " << singlePropertyValue->HasTypedValue() << std::endl;
           std::cout << "      Raw value          = \"" << singlePropertyValue->GetRawValue() << "\"" << std::endl;
-          DebugPrintGoPropertyValueToConsole(singlePropertyValue);
+          DebugPrintPropertyValueToConsole(singlePropertyValue);
         }
       }
 
@@ -377,7 +378,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  void SgfcDocument::DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const
+  void SgfcDocument::DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const
   {
     if (! propertyValue->HasTypedValue())
     {
@@ -385,11 +386,15 @@ namespace LibSgfcPlusPlus
     }
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Number)
     {
-      std::cout << "      Number value       = " << propertyValue->ToNumberValue()->GetNumberValue() << std::endl;
+      SgfcValueConverter valueConverter;
+      std::string numberValueAsString = valueConverter.ConvertNumberValueToString(propertyValue->ToNumberValue()->GetNumberValue());
+      std::cout << "      Number value       = " << numberValueAsString << std::endl;
     }
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Real)
     {
-      std::cout << "      Real value         = " << propertyValue->ToRealValue()->GetRealValue() << std::endl;
+      SgfcValueConverter valueConverter;
+      std::string realValueAsString = valueConverter.ConvertRealValueToString(propertyValue->ToRealValue()->GetRealValue());
+      std::cout << "      Real value         = " << realValueAsString << std::endl;
     }
     else if (propertyValue->GetValueType() == SgfcPropertyValueType::Double)
     {
