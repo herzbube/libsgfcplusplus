@@ -27,6 +27,7 @@
 #include <map>
 #include <set>
 #include <sstream>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {

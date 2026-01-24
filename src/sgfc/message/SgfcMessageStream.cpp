@@ -24,6 +24,7 @@
 #include <cstring>  // for strerror() / strerror_s()
 #include <regex>
 #include <sstream>
+#include <stdexcept>
 
 // SGFC includes
 extern "C"
