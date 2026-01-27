@@ -139,25 +139,8 @@ With a modern Homebrew installation, these paths are usually
 - `tests/Makefile`
   - Add `-liconv` to the `LIB` variable
   - Remove `-lrt -lsubunit` from the `LIB` variable
-  - Add `-I/path/to/check-headers -L/path/to/check-lib` to the `OPTIONS` variable. You should have found these paths when you installed the `check` testing framework (see previous section).
-
-### Fix test source code
-
-At the time of writing, one test in `check-encoding.c` fails on macOS: The test `test_basic_conversion` verifies that SGFC can handle the "UTF-16LE" encoding.
-
-For that purpose the test code first uses `iconv` to convert an UTF-8 buffer to UTF-16LE (explicit little-endian). It then passes that buffer to SGFC for conversion back to UTF-8. In that second step, the test code specifes the encoding as "UTF-16", leaving the endian-ness unspecified.
-
-Presumably this works on Linux, but it does not on macOS on a Silicon Mac. The assumption is that the macOS implementation of iconv defaults to use the big-endian version of the encoding.
-
-To fix the test, change this line in `check-encoding.c`:
-
-    cd = iconv_open("UTF-8", "UTF-16");
-
-to this:
-
-    cd = iconv_open("UTF-8", "UTF-16LE");
-
-The issue has been reported [upstream here](https://bitbucket.org/arnoh/sgfc/issues/11).
+  - Add `-I/path/to/check-headers` to the `OPTIONS` variable and `-L/path/to/check-lib` to the `LIB` variable. You should have found these paths when you installed the `check` testing framework (see previous section).
+  - Add `-Wno-gnu-zero-variadic-macro-arguments` to the `OPTIONS` variable. This silences a compiler warning in the headers of the `check` library.
 
 ### Build
 
