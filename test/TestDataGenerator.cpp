@@ -1555,6 +1555,9 @@ namespace LibSgfcPlusPlus
       std::make_tuple("8d", SgfcGoPlayerRank { 8, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
       std::make_tuple("0p", SgfcGoPlayerRank { 0, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
       std::make_tuple("10p", SgfcGoPlayerRank { 10, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+
+      // Numeric limit
+      std::make_tuple("9223372036854775807k", SgfcGoPlayerRank { std::numeric_limits<long>::max(), SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
     };
 
     return testData;
@@ -1585,6 +1588,10 @@ namespace LibSgfcPlusPlus
       "30k!",
       "30k??",
       "30k**",
+      // Negative number
+      "-30k",
+      // Overflow
+      "9223372036854775808k",
     };
 
     return testData;

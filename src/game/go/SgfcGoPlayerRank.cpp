@@ -50,11 +50,7 @@ namespace LibSgfcPlusPlus
     bool conversionResult = valueConverter.TryConvertStringToNumberValue(
       goPlayerRankMatch[1], rank, typeConversionErrorMessage);
     if (! conversionResult)
-    {
-      std::stringstream message;
-      message << "SgfcGoPlayerRank::FromPropertyValue: Unexpected regex match result, unable to determine numeric rank value from string " << goPlayerRankMatch[1];
-      throw std::logic_error(message.str());
-    }
+      return SgfcGoPlayerRank(); // value range exceeded
     goPlayerRank.Rank = rank;
 
     if (goPlayerRankMatch[3].length() > 0)
