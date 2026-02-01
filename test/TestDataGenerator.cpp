@@ -20,6 +20,7 @@
 #include <SgfcConstants.h>
 
 // C++ Standard Library includes
+#include <limits>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus
@@ -38,6 +39,9 @@ namespace LibSgfcPlusPlus
       std::pair<std::string, SgfcNumber> { "+1", 1 },
       std::pair<std::string, SgfcNumber> { "42", 42 },
       std::pair<std::string, SgfcNumber> { "042", 42 },
+      // Regression: Values that exceed the 32-bit value range
+      std::pair<std::string, SgfcNumber> { "-9223372036854775808", std::numeric_limits<long>::min() },
+      std::pair<std::string, SgfcNumber> { "9223372036854775807", std::numeric_limits<long>::max() },
       // Whitespace is ignored
       std::pair<std::string, SgfcNumber> { " \t\r\n123 \t\r\n", 123 },
       // Floating point numbers are parsed up to the decimal point, with no rounding
@@ -1165,6 +1169,8 @@ namespace LibSgfcPlusPlus
       // Shortcuts without a preceding date
       "12-31",
       "12",
+      // Invalid year
+      "10000-01-01",
       // Invalid month
       "2020-13-01",
       // Invalid month days

@@ -52,7 +52,7 @@ namespace LibSgfcPlusPlus
       // We would like to use std::from_chars. Unfortunately at the time of
       // writing only very new versions of gcc have support for
       // std::from_chars, and then only for integers.
-      outNumberValue = stoi(stringValueCopy);
+      outNumberValue = stol(stringValueCopy);
       return true;
     }
     catch (std::invalid_argument&)
