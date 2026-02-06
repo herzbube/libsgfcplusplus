@@ -43,59 +43,10 @@ namespace LibSgfcPlusPlus
     SgfcNumber& outNumberValue,
     std::string& outTypeConversionErrorMessage) const
   {
-    // Originally we used stol() in this function. Unlike stol(),
-    // std::from_chars() does not ignore leading whitespace, so to remain
-    // compatible we perform left-trimming first, in the same way that stol()
-    // does, i.e. using std::isspace.
-    const char* stringValueBuffer = stringValue.c_str();
-    const char* endOfBuffer = stringValueBuffer + stringValue.length();
-    while (stringValueBuffer < endOfBuffer)
-    {
-      // std::isspace uses the current C locale. According to the documentation,
-      // std::isspace requres an unsigned char as input even though the function
-      // prototype uses the type "int" for its argument.
-      // https://en.cppreference.com/w/cpp/string/byte/isspace.html
-      auto characterToExamine = static_cast<unsigned char>(*stringValueBuffer);
-      if (! std::isspace(characterToExamine))
-        break;
-      stringValueBuffer++;
-    }
-
-    // std::from_chars() only recognizes the minus sign, not the plus sign,
-    // so we have to make sure that the plus sign is eliminated
-    if (*stringValueBuffer == '+')
-      stringValueBuffer++;
-
-    // If it fails, std::from_chars does not modify outNumberValue
-    auto from_chars_result = std::from_chars(stringValueBuffer, endOfBuffer, outNumberValue);
-    if (from_chars_result.ec == std::errc{})
-      return true;
-
-    switch (from_chars_result.ec)
-    {
-      case std::errc::invalid_argument:
-      {
-        outTypeConversionErrorMessage = "Raw property string value is not an integer value: " + stringValue;
-        return false;
-      }
-      case std::errc::result_out_of_range:
-      {
-        outTypeConversionErrorMessage = "Raw property string value is an integer value that is out of range";
-        return false;
-      }
-      default:
-      {
-        auto error_code = std::make_error_code(from_chars_result.ec);
-        std::stringstream message;
-        message
-          << "An unexpected error occurred converting the raw property string value into an integer value. Error code: "
-          << error_code.value()
-          << ", error message: "
-          << error_code.message();
-        outTypeConversionErrorMessage = message.str();
-        return false;
-      }
-    }
+    return TryConvertStringToNumericValue(stringValue,
+                                          "an integer value",
+                                          outNumberValue,
+                                          outTypeConversionErrorMessage);
   }
 
   std::string SgfcValueConverter::ConvertNumberValueToString(SgfcNumber numberValue) const
@@ -113,33 +64,10 @@ namespace LibSgfcPlusPlus
     SgfcReal& outRealValue,
     std::string& outTypeConversionErrorMessage) const
   {
-    // std::from_chars() only recognizes the minus sign, not the plus sign,
-    // so we have to make sure that the plus sign is eliminated
-    const char* stringValueBuffer = stringValue.c_str();
-    if (*stringValueBuffer == '+')
-      stringValueBuffer++;
-
-    std::string stringValueCopy = stringValueBuffer;
-
-    try
-    {
-      // We would like to use std::from_chars, just like we do in
-      // TryConvertStringToNumberValue(). Unfortunately at the
-      // time of writing clang still only has integer support for
-      // std::from_chars.
-      outRealValue = stod(stringValueCopy);
-      return true;
-    }
-    catch (std::invalid_argument&)
-    {
-      outTypeConversionErrorMessage = "Raw property string value is not a floating point value";
-      return false;
-    }
-    catch (std::out_of_range&)
-    {
-      outTypeConversionErrorMessage = "Raw property string value is a floating point value that is out of range";
-      return false;
-    }
+    return TryConvertStringToNumericValue(stringValue,
+                                          "a floating point value",
+                                          outRealValue,
+                                          outTypeConversionErrorMessage);
   }
 
   std::string SgfcValueConverter::ConvertRealValueToString(SgfcReal realValue) const
@@ -224,5 +152,67 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::ColorBlackString;
     else
       return SgfcConstants::ColorWhiteString;
+  }
+
+  template<typename TNumeric>
+  bool SgfcValueConverter::TryConvertStringToNumericValue(
+    const std::string& stringValue,
+    const std::string& numericTypeDescriptionForErrorMessage,
+    TNumeric& outNumericValue,
+    std::string& outTypeConversionErrorMessage) const
+  {
+    // Originally we used stol() and stod() for the conversion. Unlike those
+    // functions, std::from_chars() does not ignore leading whitespace, so to
+    // remain compatible we perform left-trimming first, in the same way that
+    // the other functions do (i.e. using std::isspace).
+    const char* stringValueBuffer = stringValue.c_str();
+    const char* endOfBuffer = stringValueBuffer + stringValue.length();
+    while (stringValueBuffer < endOfBuffer)
+    {
+      // std::isspace uses the current C locale. According to the documentation,
+      // std::isspace requres an unsigned char as input even though the function
+      // prototype uses the type "int" for its argument.
+      // https://en.cppreference.com/w/cpp/string/byte/isspace.html
+      auto characterToExamine = static_cast<unsigned char>(*stringValueBuffer);
+      if (! std::isspace(characterToExamine))
+        break;
+      stringValueBuffer++;
+    }
+
+    // std::from_chars() only recognizes the minus sign, not the plus sign,
+    // so we have to make sure that the plus sign is eliminated
+    if (*stringValueBuffer == '+')
+      stringValueBuffer++;
+
+    // If it fails, std::from_chars does not modify outNumberValue
+    auto from_chars_result = std::from_chars(stringValueBuffer, endOfBuffer, outNumericValue);
+    if (from_chars_result.ec == std::errc{})
+      return true;
+
+    switch (from_chars_result.ec)
+    {
+      case std::errc::invalid_argument:
+      {
+        outTypeConversionErrorMessage = "Raw property string value is not " + numericTypeDescriptionForErrorMessage + ": " + stringValue;
+        return false;
+      }
+      case std::errc::result_out_of_range:
+      {
+        outTypeConversionErrorMessage = "Raw property string value is " + numericTypeDescriptionForErrorMessage + " that is out of range";
+        return false;
+      }
+      default:
+      {
+        auto error_code = std::make_error_code(from_chars_result.ec);
+        std::stringstream message;
+        message
+          << "An unexpected error occurred converting the raw property string value into " + numericTypeDescriptionForErrorMessage + ". Error code: "
+          << error_code.value()
+          << ", error message: "
+          << error_code.message();
+        outTypeConversionErrorMessage = message.str();
+        return false;
+      }
+    }
   }
 }

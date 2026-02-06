@@ -137,5 +137,13 @@ namespace LibSgfcPlusPlus
     /// @brief Converts the specified SgfcColor @a colorValue into a string
     /// value and returns that string value.
     std::string ConvertColorValueToString(SgfcColor colorValue) const;
+
+  private:
+    template<typename TNumeric>
+    bool TryConvertStringToNumericValue(
+      const std::string& stringValue,
+      const std::string& numericTypeDescriptionForErrorMessage,
+      TNumeric& outNumericValue,
+      std::string& outTypeConversionErrorMessage) const;
   };
 }
