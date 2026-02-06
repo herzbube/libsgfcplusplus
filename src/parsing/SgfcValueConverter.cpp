@@ -64,10 +64,47 @@ namespace LibSgfcPlusPlus
     SgfcReal& outRealValue,
     std::string& outTypeConversionErrorMessage) const
   {
-    return TryConvertStringToNumericValue(stringValue,
-                                          "a floating point value",
-                                          outRealValue,
-                                          outTypeConversionErrorMessage);
+    // -------------------- Implementation note --------------------
+    // We would like to use std::from_chars, just like we do in
+    // TryConvertStringToNumberValue(). Unfortunately at the
+    // time of writing clang's floating-type support for std::from_chars is
+    // still limited to very new macOS and iOS deployment targets. When
+    // considering to switch in the future, check out the values of macro
+    // _LIBCPP_AVAILABILITY_FROM_CHARS_FLOATING_POINT when compiling on macOS.
+    //
+    // At the time of writing, the GitHub Actions Runner Image "macos-latest"
+    // [1] uses a macOS version in which std::from_chars does not yet support
+    // floating-type conversions. The difficult to understand error message is
+    // "error: call to deleted function 'from_chars'". Even if this error
+    // message goes away in the future because of an updated Runner Image,
+    // the macro mentioned above still needs to be checked, to avoid forcing
+    // clients to increase their iOS deployment target.
+    // [1] https://github.com/actions/runner-images
+    //
+    // Once std::from_chars can be adopted for floating-type conversions, this
+    // code snippet can be used to replace the current implementation:
+    //
+    //   return TryConvertStringToNumericValue(stringValue,
+    //                                         "a floating point value",
+    //                                         outRealValue,
+    //                                         outTypeConversionErrorMessage);
+    // -------------------- Implementation note --------------------
+
+    try
+    {
+      outRealValue = stod(stringValue);
+      return true;
+    }
+    catch (std::invalid_argument&)
+    {
+      outTypeConversionErrorMessage = "Raw property string value is not a floating point value";
+      return false;
+    }
+    catch (std::out_of_range&)
+    {
+      outTypeConversionErrorMessage = "Raw property string value is a floating point value that is out of range";
+      return false;
+    }
   }
 
   std::string SgfcValueConverter::ConvertRealValueToString(SgfcReal realValue) const
