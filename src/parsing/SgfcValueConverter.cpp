@@ -154,7 +154,7 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::ColorWhiteString;
   }
 
-  template<typename TNumeric>
+  template<SgfcNumberOrSgfcReal TNumeric>
   bool SgfcValueConverter::TryConvertStringToNumericValue(
     const std::string& stringValue,
     const std::string& numericTypeDescriptionForErrorMessage,
