@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ namespace LibSgfcPlusPlus
   SgfcMessage::SgfcMessage(
     SgfcMessageID messageID,
     SgfcMessageType messageType,
-    unsigned long lineNumber,
-    unsigned long columnNumber,
+    SgfcTextOffset lineNumber,
+    SgfcTextOffset columnNumber,
     bool isCriticalMessage,
     int libraryErrorNumber,
     const std::string& messageText,
@@ -81,12 +81,12 @@ namespace LibSgfcPlusPlus
     return this->messageType;
   }
 
-  unsigned long SgfcMessage::GetLineNumber() const
+  SgfcTextOffset SgfcMessage::GetLineNumber() const
   {
     return this->lineNumber;
   }
 
-  unsigned long SgfcMessage::GetColumnNumber() const
+  SgfcTextOffset SgfcMessage::GetColumnNumber() const
   {
     return this->columnNumber;
   }

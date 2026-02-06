@@ -78,4 +78,12 @@ namespace LibSgfcPlusPlus
   ///
   /// @ingroup public-api
   typedef std::string SgfcStone;
+
+  /// @brief The SgfcTextOffset type is used to store a value that is either a
+  /// line number or a column number (both 1-based) in a piece of SGF content.
+  ///
+  /// @ingroup public-api
+  ///
+  /// @see ISgfcMessage
+  typedef uint64_t SgfcTextOffset;
 }

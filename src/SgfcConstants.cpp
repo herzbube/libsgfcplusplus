@@ -29,8 +29,8 @@ namespace LibSgfcPlusPlus
 
   // SgfcMessage line and column numbers are 1-based, so value 0 (zero) can be
   // used as indicator for an invalid line or column number.
-  const unsigned long SgfcConstants::InvalidLineNumber = 0;
-  const unsigned long SgfcConstants::InvalidColumnNumber = 0;
+  const SgfcTextOffset SgfcConstants::InvalidLineNumber = 0;
+  const SgfcTextOffset SgfcConstants::InvalidColumnNumber = 0;
 
   const int SgfcConstants::LibraryErrorNumberNoError = 0;
 

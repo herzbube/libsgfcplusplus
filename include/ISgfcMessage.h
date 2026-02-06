@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 // Project includes
 #include "SgfcMessageID.h"
 #include "SgfcMessageType.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -76,13 +77,13 @@ namespace LibSgfcPlusPlus
     /// that caused the message. Returns SgfcConstants::InvalidLineNumber if
     /// the message does not refer to a specific line in the SGF data (most
     /// fatal errors, but also some errors and warnings).
-    virtual unsigned long GetLineNumber() const = 0;
+    virtual SgfcTextOffset GetLineNumber() const = 0;
 
     /// @brief Returns the number of the column (1-based) in the parsed SGF data
     /// that caused the message. Returns SgfcConstants::InvalidColumnNumber if
     /// the message does not refer to a specific column in the SGF data (most
     /// fatal errors, but also some errors and warnings).
-    virtual unsigned long GetColumnNumber() const = 0;
+    virtual SgfcTextOffset GetColumnNumber() const = 0;
 
     /// @brief Returns true if the message describes a critical problem. Only
     /// warning and error messages can be critical. Always returns false for
