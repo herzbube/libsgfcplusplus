@@ -97,12 +97,12 @@ namespace LibSgfcPlusPlus
     }
     catch (std::invalid_argument&)
     {
-      outTypeConversionErrorMessage = "Raw property string value is not a floating point value";
+      outTypeConversionErrorMessage = "String value is not a floating point value";
       return false;
     }
     catch (std::out_of_range&)
     {
-      outTypeConversionErrorMessage = "Raw property string value is a floating point value that is out of range";
+      outTypeConversionErrorMessage = "String value is a floating point value that is out of range";
       return false;
     }
   }
@@ -230,12 +230,12 @@ namespace LibSgfcPlusPlus
     {
       case std::errc::invalid_argument:
       {
-        outTypeConversionErrorMessage = "Raw property string value is not " + numericTypeDescriptionForErrorMessage + ": " + stringValue;
+        outTypeConversionErrorMessage = "String value is not " + numericTypeDescriptionForErrorMessage + ": " + stringValue;
         return false;
       }
       case std::errc::result_out_of_range:
       {
-        outTypeConversionErrorMessage = "Raw property string value is " + numericTypeDescriptionForErrorMessage + " that is out of range";
+        outTypeConversionErrorMessage = "String value is " + numericTypeDescriptionForErrorMessage + " that is out of range";
         return false;
       }
       default:
@@ -243,7 +243,7 @@ namespace LibSgfcPlusPlus
         auto error_code = std::make_error_code(from_chars_result.ec);
         std::stringstream message;
         message
-          << "An unexpected error occurred converting the raw property string value into " + numericTypeDescriptionForErrorMessage + ". Error code: "
+          << "An unexpected error occurred converting the string value into " + numericTypeDescriptionForErrorMessage + ". Error code: "
           << error_code.value()
           << ", error message: "
           << error_code.message();

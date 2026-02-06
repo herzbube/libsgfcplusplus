@@ -31,7 +31,7 @@ SCENARIO( "SgfcGoPoint is constructed", "[go]" )
   {
     WHEN( "SgfcGoPoint is constructed with valid data" )
     {
-      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidGoPointConstructorStrings()) );
 
       SgfcGoPoint goPoint(std::get<0>(testData), std::get<1>(testData));
 

@@ -19,6 +19,7 @@
 // Project includes
 #include "SgfcCoordinateSystem.h"
 #include "SgfcGoPointNotation.h"
+#include "SgfcTypedefs.h"
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
@@ -60,11 +61,11 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the 1-based numeric x-axis position of the point in the
     /// desired coordinate system @a coordinateSystem.
-    virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
+    virtual SgfcGoPointAxisPosition GetXPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
 
     /// @brief Returns the 1-based numeric y-axis position of the point in the
     /// desired coordinate system @a coordinateSystem.
-    virtual unsigned int GetYPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
+    virtual SgfcGoPointAxisPosition GetYPosition(SgfcCoordinateSystem coordinateSystem) const = 0;
 
     /// @brief Returns true if GetPosition(), GetXPosition() and GetYPosition()
     /// return a non-empty string for the desired notation @a goPointNotation.

@@ -1031,7 +1031,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Point string" )
     {
-      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidGoPointPropertyStrings()) );
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object
@@ -1146,7 +1146,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Move string that is not a pass move" )
     {
-      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidGoPointPropertyStrings()) );
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object
@@ -1286,7 +1286,7 @@ SCENARIO( "SgfcPropertyDecoder is constructed with a property that is a basic va
   {
     WHEN( "The property value is a valid Stone string" )
     {
-      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidGoPointPropertyStrings()) );
 
       // Need a local string variable so that we can store a reference to its
       // c_str() in the PropValue object

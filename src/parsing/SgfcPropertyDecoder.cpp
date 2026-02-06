@@ -670,7 +670,7 @@ namespace LibSgfcPlusPlus
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
         SgfcPropertyValueType::Number,
-        outTypeConversionErrorMessage));
+        "Raw property value failed to convert to a Number value: " + outTypeConversionErrorMessage));
     }
   }
 
@@ -698,7 +698,7 @@ namespace LibSgfcPlusPlus
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
         SgfcPropertyValueType::Real,
-        outTypeConversionErrorMessage));
+        "Raw property value failed to convert to a Real value: " + outTypeConversionErrorMessage));
     }
   }
 

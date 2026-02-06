@@ -86,4 +86,18 @@ namespace LibSgfcPlusPlus
   ///
   /// @see ISgfcMessage
   typedef uint64_t SgfcTextOffset;
+
+  /// @brief The SgfcGoPointAxisPosition type is used to store a value that is
+  /// either an x-axis position or an y-axis position (both 1-based) of a point
+  /// on a Go board.
+  ///
+  /// @ingroup public-api
+  ///
+  /// The underlying data type of SgfcGoPointAxisPosition is capable of
+  /// expressing the whole positive value range that SgfcBoardSize::Columns
+  /// and SgfcBoardSize::Rows support. In practice, the SGF standard limits the
+  /// Go board size to SgfcConstants::BoardSizeMaximumGo.
+  ///
+  /// @see ISgfcGoPoint
+  typedef uint64_t SgfcGoPointAxisPosition;
 }

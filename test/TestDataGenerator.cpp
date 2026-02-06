@@ -368,7 +368,7 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> TestDataGenerator::GetGoPointStrings()
+  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> TestDataGenerator::GetValidGoPointPropertyStrings()
   {
     // Element 0 = The SgfcPoint value that is the input to the GoPoint
     //             constructor. Can be a value in any of the 3 notations
@@ -441,13 +441,44 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
+  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> TestDataGenerator::GetValidGoPointConstructorStrings()
+  {
+    // Same structure as in GetGoPointStrings, minus the last 4 elements that
+    // are only used for SgfcPropertyDecoder
+    std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> testData;
+
+    auto testDataToConvert = GetValidGoPointPropertyStrings();
+    for (auto testDataElementToConvert : testDataToConvert)
+    {
+      testData.push_back(std::make_tuple(
+        std::get<0>(testDataElementToConvert),
+        std::get<1>(testDataElementToConvert),
+        std::get<2>(testDataElementToConvert),
+        std::get<3>(testDataElementToConvert),
+        std::get<4>(testDataElementToConvert),
+        std::get<5>(testDataElementToConvert),
+        std::get<6>(testDataElementToConvert),
+        std::get<7>(testDataElementToConvert),
+        std::get<8>(testDataElementToConvert),
+        std::get<9>(testDataElementToConvert),
+        std::get<10>(testDataElementToConvert),
+        std::get<11>(testDataElementToConvert)));
+    }
+
+    return testData;
+  }
+
   std::vector<SgfcBoardSize> TestDataGenerator::GetInvalidGoBoardSizes()
   {
     std::vector<SgfcBoardSize> testData =
     {
       // Below minimum
+      SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns - 1, SgfcConstants::BoardSizeMinimum.Rows },
+      SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns, SgfcConstants::BoardSizeMinimum.Rows - 1 },
       SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns - 1, SgfcConstants::BoardSizeMinimum.Rows - 1 },
       // Above maximum
+      SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns + 1, SgfcConstants::BoardSizeMaximumGo.Rows },
+      SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns, SgfcConstants::BoardSizeMaximumGo.Rows + 1 },
       SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns + 1, SgfcConstants::BoardSizeMaximumGo.Rows + 1 }
     };
 

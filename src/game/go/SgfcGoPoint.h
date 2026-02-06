@@ -56,8 +56,8 @@ namespace LibSgfcPlusPlus
     /// @brief Destroys and cleans up the SgfcGoPoint object.
     virtual ~SgfcGoPoint();
 
-    virtual unsigned int GetXPosition(SgfcCoordinateSystem coordinateSystem) const override;
-    virtual unsigned int GetYPosition(SgfcCoordinateSystem coordinateSystem) const override;
+    virtual SgfcGoPointAxisPosition GetXPosition(SgfcCoordinateSystem coordinateSystem) const override;
+    virtual SgfcGoPointAxisPosition GetYPosition(SgfcCoordinateSystem coordinateSystem) const override;
 
     virtual bool HasPosition(SgfcGoPointNotation goPointNotation) const override;
 
@@ -66,9 +66,9 @@ namespace LibSgfcPlusPlus
     virtual std::string GetYPosition(SgfcGoPointNotation goPointNotation) const override;
 
   private:
-    unsigned int xPositionUpperLeftOrigin;
-    unsigned int yPositionUpperLeftOrigin;
-    unsigned int yPositionLowerLeftOrigin;
+    SgfcGoPointAxisPosition xPositionUpperLeftOrigin;
+    SgfcGoPointAxisPosition yPositionUpperLeftOrigin;
+    SgfcGoPointAxisPosition yPositionLowerLeftOrigin;
     std::string sgfNotation;
     std::string xCompoundSgfNotation;
     std::string yCompoundSgfNotation;
@@ -85,19 +85,21 @@ namespace LibSgfcPlusPlus
     void ParseFigureCompoundsOrThrow(const std::string& xCompoundFigureNotation, const std::string& yCompoundFigureNotation, const SgfcPoint& pointValue, SgfcBoardSize boardSize);
     void ParseHybridCompoundsOrThrow(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
-    void SetPositionOrThrow(int xPositionUpperLeftOrigin, int yPositionUpperLeftOrigin, const SgfcPoint& pointValue, SgfcBoardSize boardSize);
+    void SetPositionOrThrow(SgfcNumber xPositionUpperLeftOrigin, SgfcNumber yPositionUpperLeftOrigin, const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 
     void BuildSgfNotation();
     void BuildFigureNotation();
     void BuildHybridNotation();
 
     bool IsValidSgfCharacter(char character) const;
-    unsigned int MapSgfCharacterToPosition(char character) const;
-    char MapPositionToSgfCharacter(unsigned int position) const;
+    SgfcGoPointAxisPosition MapSgfCharacterToPositionUpperLeftOrigin(char character) const;
+    char MapPositionUpperLeftOriginToSgfCharacter(SgfcGoPointAxisPosition position) const;
+
+    SgfcNumber ConvertFigureCompoundOrThrow(const std::string& compoundFigureNotation, const std::string& axisDescription, const std::string& pointValue);
 
     bool IsValidXCompoundHybridNotation(char character) const;
-    unsigned int MapXCompoundHybridNotationToPosition(char character);
-    char MapPositionToXCompoundHybridNotation(unsigned int position);
+    SgfcGoPointAxisPosition MapXCompoundHybridNotationToPositionUpperLeftOrigin(char character);
+    char MapPositionToXCompoundHybridNotation(SgfcGoPointAxisPosition position);
 
     bool DoesCompoundStringContainNonDigitCharacters(const std::string& compoundString) const;
     bool IsDigit(char character) const;
