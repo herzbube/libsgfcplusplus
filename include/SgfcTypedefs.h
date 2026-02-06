@@ -17,6 +17,7 @@
 #pragma once
 
 // C++ Standard Library includes
+#include <cstdint>
 #include <string>
 
 namespace LibSgfcPlusPlus

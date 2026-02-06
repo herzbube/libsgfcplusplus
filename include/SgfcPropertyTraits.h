@@ -19,6 +19,9 @@
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
 
+// C++ Standard Library includes
+#include <cstdint>
+
 /// @file
 
 namespace LibSgfcPlusPlus
@@ -51,7 +54,7 @@ namespace LibSgfcPlusPlus
   /// @note Using an unsigned numerical type as the underlying type of this
   /// typedef is important to make the bitwise operators, specifically the
   /// shift left and shift right operators, unambiguous and safe to use.
-  typedef unsigned long long SgfcPropertyTraits;
+  typedef uint64_t SgfcPropertyTraits;
 
   /// @brief SgfcPropertyTrait enumerates the individual traits that an
   /// ISgfcProperty object can have. An ISgfcProperty object can have several
