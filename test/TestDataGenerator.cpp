@@ -40,8 +40,8 @@ namespace LibSgfcPlusPlus
       std::pair<std::string, SgfcNumber> { "42", 42 },
       std::pair<std::string, SgfcNumber> { "042", 42 },
       // Regression: Values that exceed the 32-bit value range
-      std::pair<std::string, SgfcNumber> { "-9223372036854775808", std::numeric_limits<long>::min() },
-      std::pair<std::string, SgfcNumber> { "9223372036854775807", std::numeric_limits<long>::max() },
+      std::pair<std::string, SgfcNumber> { "-9223372036854775808", std::numeric_limits<SgfcNumber>::min() },
+      std::pair<std::string, SgfcNumber> { "9223372036854775807", std::numeric_limits<SgfcNumber>::max() },
       // Whitespace is ignored
       std::pair<std::string, SgfcNumber> { " \t\r\n123 \t\r\n", 123 },
       // Floating point numbers are parsed up to the decimal point, with no rounding
@@ -1557,7 +1557,7 @@ namespace LibSgfcPlusPlus
       std::make_tuple("10p", SgfcGoPlayerRank { 10, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
 
       // Numeric limit
-      std::make_tuple("9223372036854775807k", SgfcGoPlayerRank { std::numeric_limits<long>::max(), SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+      std::make_tuple("9223372036854775807k", SgfcGoPlayerRank { std::numeric_limits<SgfcNumber>::max(), SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
     };
 
     return testData;

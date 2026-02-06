@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,13 +22,15 @@
 namespace LibSgfcPlusPlus
 {
   /// @brief The SgfcNumber type represents the Number value type defined by
-  /// the SGF standard. Values are signed integer numbers.
+  /// the SGF standard. Values are signed integer numbers. The underlying data
+  /// type is guaranteed to be 64 bit wide on all platforms.
   ///
   /// @ingroup public-api
-  typedef long SgfcNumber;
+  typedef int64_t SgfcNumber;
 
   /// @brief The SgfcReal type represents the Real value type defined by
-  /// the SGF standard. Values are signed floating point numbers.
+  /// the SGF standard. Values are signed floating point numbers. The underlying
+  /// data type is a double-precision floating point type on all platforms.
   ///
   /// @ingroup public-api
   typedef double SgfcReal;
@@ -36,6 +38,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcSimpleText type represents the SimpleText value type
   /// defined by the SGF standard. Values are strings that contain only space
   /// characters as whitespace, i.e. no linebreaks, tabs, vertical tabs, etc..
+  /// The underlying data type consists of single-byte characters, catering to
+  /// the UTF-8 encoding that is used by the SGFC backend in almost all use
+  /// cases.
   ///
   /// @ingroup public-api
   typedef std::string SgfcSimpleText;
@@ -43,6 +48,9 @@ namespace LibSgfcPlusPlus
   /// @brief The SgfcText type represents the Text value type defined by
   /// the SGF standard. Values are strings that contain only space characters
   /// and linebreaks as whitespace, i.e. no tabs, vertical tabs, etc..
+  /// The underlying data type consists of single-byte characters, catering to
+  /// the UTF-8 encoding that is used by the SGFC backend in almost all use
+  /// cases.
   ///
   /// @ingroup public-api
   typedef std::string SgfcText;
