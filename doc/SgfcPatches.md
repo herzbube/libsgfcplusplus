@@ -15,6 +15,6 @@ for PATCH_FILE in ../patch/*; do
 done
 ```
 
-## Patches 001-014
+## Patches 001-015
 
 These patches were removed because a newer version of SGFC made them obsolete.
