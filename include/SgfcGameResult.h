@@ -17,7 +17,6 @@
 #pragma once
 
 // Project includes
-#include "SgfcConstants.h"
 #include "SgfcGameResultType.h"
 #include "SgfcTypedefs.h"
 #include "SgfcWinType.h"
@@ -49,12 +48,12 @@ namespace LibSgfcPlusPlus
     /// either SgfcGameResultType::BlackWin or SgfcGameResultType::WhiteWin.
     SgfcWinType WinType = SgfcWinType::WinWithScore;
 
-    /// @brief The score. The default is SgfcConstants::KomiNone.
+    /// @brief The score. The default is 0.0.
     ///
     /// The score only has meaning if SgfcGameResult::GameResultType is
     /// either SgfcGameResultType::BlackWin or SgfcGameResultType::WhiteWin and
     /// if SgfcGameResult::WinType is SgfcWinType::WinWithScore.
-    SgfcReal Score = SgfcConstants::KomiNone;
+    SgfcReal Score = 0.0;
 
     /// @brief True if the SgfcGameResult object holds a valid game result.
     /// False if the SgfcGameResult object holds an invalid game result. The
