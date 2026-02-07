@@ -1,15 +1,21 @@
 # ChangeLog
 
-## Version 2.1.0 (January 23 2026)
+## Version 3.0.0 (February 07 2026)
 
 ### Features
 
+- The `SgfcNumber` type now has the underlying fixed width integer type `int64_t`, guaranteeing a 64-bit value range on all platforms (#50). In previous versions of the library, the underlying type was `long`, which was ambiguous and caused the value range of `SgfcNumber` to be platform-dependent. The change is known to affect the Windows platform, when using the MSVC compiler, which treats `long` as a 32-bit value type. Apple platforms (macOS, iOS etc.) should not be affected unless they are very old, because on these platforms `long` has been a 64-bit value type for a long time (pun not intended). On Linux the system architecture decides the size of `long`.
+- In a similar vein, several other data types in the public interface of the library have been changed to use fixed width integer types instead of ambiguous sized data types (#51).
+  - `ISgfcMessage`: Line and column numbers now use `uint64_t` instead of `long`.
+  - `ISgfcGoPoint`: x- and y-position now use `uint64_t` instead of `unsigned int`.
+  - `SgfcNodeTraits` and `SgfcPropertyTraits`: These typedefs now use the underlying type `uint64_t` instead of `unsigned long long`.
 - Library clients can now set a custom value for the SGF property AP (#45). To do so, a library client must use `SgfcArgumentType::DoNotAddSgfcApProperty` when writing SGF content, in addition to adding the AP property to the document tree. If the library client does not use the argument, then SGFC will write its own AP property with value "SGFC:<sgfc-version>". See [SgfcNotes.md](SgfcNotes.md#the-ap-property) for details.
 
 ### Bugfixes
 
 - Fixed a bug in SGFC that, when saving SGF files with 5'000 characters or more, would write one or more random byte values into the file. (#46). When generating SGF content, SGFC uses an internal buffer that starts with a size of 5'000 bytes and then doubles in size whenever the buffer end is reached (5'000, 10'000, 20'000, 40'000, etc.). When the buffer was doubled, the bug caused the byte at position `buffer size - 1` to be skipped, thus introducing a random value at byte positions 4'999, 9'999, 19'999, 39'999, etc.
 - Fixed bugs when converting SGF property values of type "Real" and "Number" to string (#47). Depending on the numeric value, it was possible that "Real" values would be converted using the scientific notation or with a maximum precision of 6 decimal digits, while "Number" values would be converted with thousands separators. After the fix, scientific notation and thousands separators will no longer be used, and "Real" values will have a precision of up to 16 decimal digits. See [SgfNotes.md](SgfNotes.md#precision-of-properties-with-sgf-type-real) for details.
+- `SgfcGoPlayerRank::FromPropertyValue` no longer throws `std::logic_error` if the rank number exceeds the `SgfcNumber` value range (#49). The function instead returns an `SgfcGoPlayerRank` value whose `IsValid` property has value `false`.
 
 ### Regressions
 
@@ -17,7 +23,7 @@
 
 ### Technical changes
 
-- Updated SGFC from v2.0 to v2.1.
+- Updated SGFC from v2.0 to v2.2.
 - Updated unit test library Catch2 from v3.5.0 to v3.12.0.
 - Update library win-iconv to latest commit.
 - Updated project from the C++17 language standard to C++20.
