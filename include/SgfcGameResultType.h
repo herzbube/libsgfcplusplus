@@ -26,7 +26,6 @@ namespace LibSgfcPlusPlus
   /// to determine the exact nature of the game result.
   ///
   /// @ingroup public-api
-  /// @ingroup game
   ///
   /// @see ISgfcGameInfo
   enum class SGFCPLUSPLUS_EXPORT SgfcGameResultType

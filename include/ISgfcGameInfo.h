@@ -88,7 +88,7 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the game type. The default value is
     /// SgfcConstants::DefaultGameType.
     ///
-    /// Returns #SgfcGameType::Unknown if the Number value of the GM property is
+    /// Returns SgfcGameType::Unknown if the Number value of the GM property is
     /// not in the list of valid games defined in the SGF standard.
     ///
     /// @see SgfcPropertyType::GM

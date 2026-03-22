@@ -93,7 +93,7 @@ namespace LibSgfcPlusPlus
     virtual bool IsCommandLineValid() const = 0;
 
     /// @brief Returns an ISgfcMessage object with message type
-    /// #SgfcMessageType::FatalError that describes why the SGFC command
+    /// SgfcMessageType::FatalError that describes why the SGFC command
     /// line arguments that GetArguments() returns are not valid. This method
     /// may only be invoked if IsCommandLineValid() returns false.
     ///
@@ -132,7 +132,7 @@ namespace LibSgfcPlusPlus
     /// have been invoked at least once, and if their invocation did not
     /// generate a fatal error. A fatal error shows up in the collection of
     /// ISgfcMessage objects that GetParseResult() returns, as an ISgfcMessage
-    /// object with message type #SgfcMessageType::FatalError.
+    /// object with message type SgfcMessageType::FatalError.
     ///
     /// @exception std::logic_error Is thrown if IsCommandLineValid() returns
     /// false.

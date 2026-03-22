@@ -197,7 +197,7 @@ namespace LibSgfcPlusPlus
     /// If the game has no root node (HasRootNode() returns false) then the
     /// ISgfcGameInfo object contains default values.
     ///
-    /// If GetGameType() returns #SgfcGameType::Go then the returned object is
+    /// If GetGameType() returns SgfcGameType::Go then the returned object is
     /// an ISgfcGoGameInfo object.
     ///
     /// @see ISgfcNode::CreateGameInfo()

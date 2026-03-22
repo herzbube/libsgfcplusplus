@@ -25,8 +25,6 @@ namespace LibSgfcPlusPlus
   /// to a Go player's rank.
   ///
   /// @ingroup public-api
-  /// @ingroup game
-  /// @ingroup go
   ///
   /// @see ISgfcGameInfo
   enum class SGFCPLUSPLUS_EXPORT SgfcGoPlayerRatingType

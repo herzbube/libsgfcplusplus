@@ -256,7 +256,7 @@ namespace LibSgfcPlusPlus
     /// existing property values with its own values.
     ///
     /// A library client that wants to assert its authorship of the SGF content
-    /// can do so by adding #SgfcArgumentType::DoNotAddSgfcApProperty to the
+    /// can do so by adding SgfcArgumentType::DoNotAddSgfcApProperty to the
     /// arguments of ISgfcDocumentWriter, and by providing an AP property with
     /// its own program name and version. SGFC in this case will not overwrite
     /// the AP property provided by the library client.

@@ -138,7 +138,7 @@ namespace LibSgfcPlusPlus
     bool IsCommandLineValid() const;
 
     /// @brief Returns an ISgfcMessage object with message type
-    /// #SgfcMessageType::FatalError that describes why the SGFC command
+    /// SgfcMessageType::FatalError that describes why the SGFC command
     /// line arguments that GetArguments() returns are not valid. This method
     /// may only be invoked if IsCommandLineValid() returns false.
     ///

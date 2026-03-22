@@ -68,8 +68,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @attention For SGFC-generated messages one and the same message ID can
     /// have different message types, depending on the context in which the
-    /// message is generated. Examples: #SgfcMessageID::EmptyValueDeleted,
-    /// #SgfcMessageID::IllegalSingleValueCorrected, etc.. Refer to the SGFC
+    /// message is generated. Examples: SgfcMessageID::EmptyValueDeleted,
+    /// SgfcMessageID::IllegalSingleValueCorrected, etc.. Refer to the SGFC
     /// documentation for details.
     virtual SgfcMessageType GetMessageType() const = 0;
 

@@ -75,27 +75,27 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines this to be an empty string.
     static const std::string NoneValueString;
     /// @brief The raw string value that corresponds to the Double value
-    /// #SgfcDouble::Normal, as defined by the SGF standard.
+    /// SgfcDouble::Normal, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "1".
     static const std::string DoubleNormalString;
     /// @brief The raw string value that corresponds to the Double value
-    /// #SgfcDouble::Emphasized, as defined by the SGF standard.
+    /// SgfcDouble::Emphasized, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "2".
     static const std::string DoubleEmphasizedString;
     /// @brief The raw string value that corresponds to the Color value
-    /// #SgfcColor::Black, as defined by the SGF standard.
+    /// SgfcColor::Black, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "B".
     static const std::string ColorBlackString;
     /// @brief The raw string value that corresponds to the Color value
-    /// #SgfcColor::White, as defined by the SGF standard.
+    /// SgfcColor::White, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "W".
     static const std::string ColorWhiteString;
     /// @brief The raw string value that corresponds to a pass Move value for
-    /// #SgfcGameType::Go, as defined by the SGF standard.
+    /// SgfcGameType::Go, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be an empty string.
     static const std::string GoMovePassString;
@@ -201,9 +201,9 @@ namespace LibSgfcPlusPlus
     /// A board size is invalid if it violates the constraints defined by the
     /// SGF standard:
     /// - All game types: If the board size is below the minimum size
-    ///   #BoardSizeMinimum.
+    ///   SgfcConstants::BoardSizeMinimum.
     /// - For SgfcGameType::Go: If the board size is above the maximum size
-    ///   #BoardSizeMaximumGo.
+    ///   SgfcConstants::BoardSizeMaximumGo.
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
     /// SgfcPropertyType::SZ property is present in a game's root node but has

@@ -22,7 +22,6 @@ namespace LibSgfcPlusPlus
   /// ISgfcSinglePropertyValue object can appear.
   ///
   /// @ingroup internals
-  /// @ingroup parsing
   enum class SgfcSinglePropertyValueContext
   {
     /// @brief The ISgfcSinglePropertyValue object is the first value of an

@@ -59,7 +59,7 @@ namespace LibSgfcPlusPlus
     /// The SGF data is considered valid if the read operation did not
     /// generate a fatal error. A fatal error shows up in the collection of
     /// ISgfcMessage objects that GetParseResult() returns, as an ISgfcMessage
-    /// object with message type #SgfcMessageType::FatalError.
+    /// object with message type SgfcMessageType::FatalError.
     ///
     /// Typical fatal errors are invalid arguments, or the SGF data could not
     /// be read e.g. because the specified SGF file does not exist.

@@ -25,8 +25,6 @@ namespace LibSgfcPlusPlus
   /// recognized by libsgfc++.
   ///
   /// @ingroup public-api
-  /// @ingroup game
-  /// @ingroup go
   ///
   /// @see ISgfcGameInfo
   enum class SGFCPLUSPLUS_EXPORT SgfcGoRulesetType

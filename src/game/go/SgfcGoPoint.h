@@ -46,10 +46,10 @@ namespace LibSgfcPlusPlus
     /// Is also thrown if @a pointValue is not given in one of the notations
     /// enumerated in SgfcGoPointNotation, or if @a pointValue violates one of
     /// the restrictions imposed by the used notation (e.g. y-axis compound
-    /// larger than 25 when #SgfcGoPointNotation::Hybrid is used), or if
+    /// larger than 25 when SgfcGoPointNotation::Hybrid is used), or if
     /// @a pointValue refers to an invalid location on the board (e.g. an x-axis
     /// or y-axis location that exceeds the board size specified by
-    /// @a boardSize, or a compound < 1 when #SgfcGoPointNotation::Figure is
+    /// @a boardSize, or a compound < 1 when SgfcGoPointNotation::Figure is
     /// used).
     SgfcGoPoint(const SgfcPoint& pointValue, SgfcBoardSize boardSize);
 

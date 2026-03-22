@@ -222,13 +222,13 @@ namespace LibSgfcPlusPlus
     /// info node have default values.
     ///
     /// If the content in the root node indicates that the game type is
-    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
-    /// The game type is #SgfcGameType::Go in the following cases:
-    /// - If the root node contains a property of type #SgfcPropertyType::GM
+    /// SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is SgfcGameType::Go in the following cases:
+    /// - If the root node contains a property of type SgfcPropertyType::GM
     ///   that either has no value, or that has a single Number value, and that
     ///   value is 0.
     /// - Or if the root node does not contain a property of type
-    ///   #SgfcPropertyType::GM.
+    ///   SgfcPropertyType::GM.
     ///
     /// @see ISgfcGame::CreateGameInfo()
     virtual std::shared_ptr<ISgfcGameInfo> CreateGameInfo() const = 0;

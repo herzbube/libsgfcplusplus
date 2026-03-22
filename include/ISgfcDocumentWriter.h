@@ -82,13 +82,13 @@ namespace LibSgfcPlusPlus
   /// is almost exactly the same as when ISgfcDocumentReader had been used to
   /// read the SGF data. If the library client does not do anything special,
   /// this is the default behaviour:
-  /// - #SgfcArgumentType::EncodingMode 1 is used.
+  /// - SgfcArgumentType::EncodingMode 1 is used.
   /// - The first CA property value determines the encoding to use.
-  /// - #SgfcArgumentType::DefaultEncoding UTF-8 is used if there is no
+  /// - SgfcArgumentType::DefaultEncoding UTF-8 is used if there is no
   ///   CA property value.
   ///
   /// The last point is the only difference to ISgfcDocumentReader, which uses
-  /// #SgfcArgumentType::DefaultEncoding ISO-8859-1. ISgfcDocumentWriter uses
+  /// SgfcArgumentType::DefaultEncoding ISO-8859-1. ISgfcDocumentWriter uses
   /// UTF-8 because it assumes that library clients work with UTF-8. A library
   /// client that wants a different default encoding must change the arguments
   /// returned by GetArguments().
@@ -106,9 +106,9 @@ namespace LibSgfcPlusPlus
     /// operation.
     ///
     /// The collection of arguments initially contains
-    /// #SgfcArgumentType::DefaultEncoding with the parameter "UTF-8". This
+    /// SgfcArgumentType::DefaultEncoding with the parameter "UTF-8". This
     /// allows an ISgfcDocument to be passed to ISgfcDocumentWriter for writing
-    /// whose game trees don't contain an #SgfcPropertyType::CA property value.
+    /// whose game trees don't contain an SgfcPropertyType::CA property value.
     /// Read the class documentation for details about encodings.
     ///
     /// Add arguments to the collection to change the way how SGFC writes SGF

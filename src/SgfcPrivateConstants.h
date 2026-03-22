@@ -144,16 +144,16 @@ namespace LibSgfcPlusPlus
     /// @brief The dash character ("-").
     static const std::string DashToken;
     /// @brief The token that marks a message to be of typw
-    /// #SgfcMessageType::Warning.
+    /// SgfcMessageType::Warning.
     static const std::string WarningToken;
     /// @brief The token that marks a message to be of typw
-    /// #SgfcMessageType::Error (beginning with an uppercase letter).
+    /// SgfcMessageType::Error (beginning with an uppercase letter).
     static const std::string ErrorUpperCaseToken;
     /// @brief The token that marks a message to be of typw
-    /// #SgfcMessageType::FatalError.
+    /// SgfcMessageType::FatalError.
     static const std::string FatalToken;
     /// @brief The token that marks a message to be of typw
-    /// #SgfcMessageType::Error (beginning with a lowercase letter).
+    /// SgfcMessageType::Error (beginning with a lowercase letter).
     static const std::string ErrorLowerCaseToken;
     /// @brief The token that marks a message to be a critical message.
     static const std::string CriticalToken;
@@ -166,19 +166,19 @@ namespace LibSgfcPlusPlus
     /// have an entry in this map.
     static const std::map<SgfcArgumentType, std::string> ArgumentTypeToCmdlineOptionMap;
 
-    /// @brief Parameter value for #SgfcArgumentType::EncodingMode. Specifies
+    /// @brief Parameter value for SgfcArgumentType::EncodingMode. Specifies
     /// that a single encoding is used to decode all game trees in the entire
     /// SGF content.
     ///
     /// The numeric value of this constant is 1.
     static const int EncodingModeSingleEncoding;
-    /// @brief Parameter value for #SgfcArgumentType::EncodingMode. Specifies
+    /// @brief Parameter value for SgfcArgumentType::EncodingMode. Specifies
     /// that each game tree in the SGF content is decoded separately with the
     /// encoding specified in the game tree's CA property.
     ///
     /// The numeric value of this constant is 2.
     static const int EncodingModeMultipleEncodings;
-    /// @brief Parameter value for #SgfcArgumentType::EncodingMode. Specifies
+    /// @brief Parameter value for SgfcArgumentType::EncodingMode. Specifies
     /// that no decoding is to be done and that the SGF content is to be read
     /// as-is.
     ///

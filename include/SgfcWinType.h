@@ -26,7 +26,6 @@ namespace LibSgfcPlusPlus
   /// SgfcGameResultType::BlackWin or SgfcGameResultType::WhiteWin.
   ///
   /// @ingroup public-api
-  /// @ingroup game
   ///
   /// @see ISgfcGameInfo
   enum class SGFCPLUSPLUS_EXPORT SgfcWinType
