@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ namespace LibSgfcPlusPlus
   /// ISgfcSinglePropertyValue object can appear.
   ///
   /// @ingroup internals
-  /// @ingroup parsing
   enum class SgfcSinglePropertyValueContext
   {
     /// @brief The ISgfcSinglePropertyValue object is the first value of an

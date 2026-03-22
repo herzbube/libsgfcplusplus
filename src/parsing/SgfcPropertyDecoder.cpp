@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -670,7 +670,7 @@ namespace LibSgfcPlusPlus
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
         SgfcPropertyValueType::Number,
-        outTypeConversionErrorMessage));
+        "Raw property value failed to convert to a Number value: " + outTypeConversionErrorMessage));
     }
   }
 
@@ -698,7 +698,7 @@ namespace LibSgfcPlusPlus
       return std::shared_ptr<ISgfcSinglePropertyValue>(new SgfcSinglePropertyValue(
         rawPropertyValueBuffer,
         SgfcPropertyValueType::Real,
-        outTypeConversionErrorMessage));
+        "Raw property value failed to convert to a Real value: " + outTypeConversionErrorMessage));
     }
   }
 

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,13 +24,13 @@
 namespace LibSgfcPlusPlus
 {
   const std::string SgfcConstants::LibraryName = "libsgfc++";
-  const std::string SgfcConstants::LibraryVersion = "2.0.1";
-  const std::string SgfcConstants::SgfcVersion = "2.0";
+  const std::string SgfcConstants::LibraryVersion = "3.0.0";
+  const std::string SgfcConstants::SgfcVersion = "2.2";
 
   // SgfcMessage line and column numbers are 1-based, so value 0 (zero) can be
   // used as indicator for an invalid line or column number.
-  const unsigned long SgfcConstants::InvalidLineNumber = 0;
-  const unsigned long SgfcConstants::InvalidColumnNumber = 0;
+  const SgfcTextOffset SgfcConstants::InvalidLineNumber = 0;
+  const SgfcTextOffset SgfcConstants::InvalidColumnNumber = 0;
 
   const int SgfcConstants::LibraryErrorNumberNoError = 0;
 

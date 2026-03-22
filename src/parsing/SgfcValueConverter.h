@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,11 +22,16 @@
 #include "../../include/SgfcTypedefs.h"
 
 // C++ Standard Library includes
+#include <concepts>
 #include <string>
+#include <type_traits>
 #include <utility>
 
 namespace LibSgfcPlusPlus
 {
+  template <typename T>
+  concept SgfcNumberOrSgfcReal = std::is_same_v<T, SgfcNumber> || std::is_same_v<T, SgfcReal>;
+
   /// @brief The SgfcValueConverter class converts raw string values into value
   /// types defined by the SGF standard, and vice versa.
   ///
@@ -137,5 +142,13 @@ namespace LibSgfcPlusPlus
     /// @brief Converts the specified SgfcColor @a colorValue into a string
     /// value and returns that string value.
     std::string ConvertColorValueToString(SgfcColor colorValue) const;
+
+  private:
+    template<SgfcNumberOrSgfcReal TNumeric>
+    bool TryConvertStringToNumericValue(
+      const std::string& stringValue,
+      const std::string& numericTypeDescriptionForErrorMessage,
+      TNumeric& outNumericValue,
+      std::string& outTypeConversionErrorMessage) const;
   };
 }

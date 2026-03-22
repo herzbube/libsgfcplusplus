@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ namespace LibSgfcPlusPlus
     /// @brief Returns the game type. The default value is
     /// SgfcConstants::DefaultGameType.
     ///
-    /// Returns #SgfcGameType::Unknown if the Number value of the GM property is
+    /// Returns SgfcGameType::Unknown if the Number value of the GM property is
     /// not in the list of valid games defined in the SGF standard.
     ///
     /// @see SgfcPropertyType::GM

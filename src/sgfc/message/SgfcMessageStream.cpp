@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@
 #include <cstring>  // for strerror() / strerror_s()
 #include <regex>
 #include <sstream>
+#include <stdexcept>
 
 // SGFC includes
 extern "C"
@@ -88,8 +89,8 @@ namespace LibSgfcPlusPlus
     // there are no thousands separators
     formattedMessageTextStream.imbue(std::locale::classic());
 
-    unsigned long lineNumber = sgfcError->row;
-    unsigned long columnNumber = sgfcError->col;
+    SgfcTextOffset lineNumber = sgfcError->row;
+    SgfcTextOffset columnNumber = sgfcError->col;
     if (lineNumber > 0 && columnNumber > 0)
     {
       formattedMessageTextStream

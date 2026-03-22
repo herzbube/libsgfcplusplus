@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@ SCENARIO( "An SgfcPropertyType::RE property value is decomposed", "[game]" )
       auto decomposedPropertyValue = SgfcGameResult::FromPropertyValue(std::get<0>(testData));
       auto expectedDecomposedPropertyValue = std::get<1>(testData);
 
-      THEN( "The result of the decomposition are SgfcDate objects" )
+      THEN( "The result of the decomposition is a valid SgfcGameResult object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == true );
         REQUIRE( decomposedPropertyValue == expectedDecomposedPropertyValue );
@@ -98,7 +98,7 @@ SCENARIO( "An SgfcPropertyType::RE property value is decomposed", "[game]" )
     {
       auto decomposedPropertyValue = SgfcGameResult::FromPropertyValue(testData);
 
-      THEN( "The result of the decomposition is an empty collection" )
+      THEN( "The result of the decomposition is an invalid SgfcGameResult object" )
       {
         REQUIRE( decomposedPropertyValue.IsValid == false );
       }
@@ -135,6 +135,29 @@ SCENARIO( "An SgfcPropertyType::RE property value is composed", "[game]" )
       THEN( "The result of the composition is SgfcConstants::NoneValueString" )
       {
         REQUIRE( composedPropertyValue == SgfcConstants::NoneValueString );
+      }
+    }
+  }
+
+  GIVEN( "The score value is a floating point value with fractions" )
+  {
+    auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetRealValues()) );
+    SgfcGameResult gameResult = SgfcGameResult
+    {
+      SgfcGameResultType::BlackWin,
+      SgfcWinType::WinWithScore,
+      std::get<0>(testData),
+      true
+    };
+
+    WHEN( "The property value is composed" )
+    {
+      auto composedPropertyValue = SgfcGameResult::ToPropertyValue(gameResult);
+      auto expectedComposedPropertyValue = "B+" + std::get<1>(testData);
+
+      THEN( "The score floating point value is converted to text with almost-maximum precision" )
+      {
+        REQUIRE( composedPropertyValue == expectedComposedPropertyValue );
       }
     }
   }

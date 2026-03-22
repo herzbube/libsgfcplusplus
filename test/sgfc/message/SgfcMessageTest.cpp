@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ SCENARIO( "SgfcMessage is constructed from an SGFC message", "[sgfc-message]" )
 {
   SgfcMessageID messageID = SgfcMessageID::CombinationOfPropertiesConverted;
   SgfcMessageType messageType = SgfcMessageType::Warning;
-  unsigned long lineNumber = 10;
-  unsigned long columnNumber = 20;
+  SgfcTextOffset lineNumber = 10;
+  SgfcTextOffset columnNumber = 20;
   bool isCriticalMessage = true;
   int libraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string messageText = "message text";
@@ -311,8 +311,8 @@ SCENARIO( "SgfcMessage is constructed from a libsgfc++ message", "[sgfc-message]
   std::string messageText = "message text";
 
   SgfcMessageType expectedMessageType = SgfcMessageType::FatalError;
-  unsigned long expectedLineNumber = SgfcConstants::InvalidLineNumber;
-  unsigned long expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
+  SgfcTextOffset expectedLineNumber = SgfcConstants::InvalidLineNumber;
+  SgfcTextOffset expectedColumnNumber = SgfcConstants::InvalidColumnNumber;
   bool expectedIsCriticalMessage = false;
   int expectedLibraryInternalNumber = SgfcConstants::LibraryErrorNumberNoError;
   std::string expectedFormattedMessageText = messageText;

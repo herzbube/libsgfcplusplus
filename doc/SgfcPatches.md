@@ -15,12 +15,6 @@ for PATCH_FILE in ../patch/*; do
 done
 ```
 
-## Patches 001-011
+## Patches 001-015
 
 These patches were removed because a newer version of SGFC made them obsolete.
-
-## No patches
-
-Currently no patches exist for SGFC because all issues have been fixed upstream.
-
-This documentation and the patching mechanism is kept in place, though, in case it will be needed again in the future.

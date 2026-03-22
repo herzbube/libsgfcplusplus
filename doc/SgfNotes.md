@@ -70,6 +70,12 @@ libsgfc++ attempts to work around the problem by performing `Real`-to-text conve
 
 With this approach libsgfc++ tries to strike a balance between maximum and useful precision. The assumption libsgfc++ makes is that SGF content does not require maximum precision. A library client that **does** need maximum precision can perform its own string conversion and use `ISgfcPropertyValueFactory::CreateCustomPropertyValue()` to create a property value object with that string value.
 
+## Value range of properties with SGF type `Number`
+
+The SGF standard defines the property value type `Number` to represent signed integer numbers that have an arbitrary value range. libsgfc++ defines the corresponding type `SgfcNumber`, which uses `int64_t` as the underlying primitive type. This means that *in theory* libsgfc++ can handle SGF files with numbers in the 64-bit value range (-9223372036854775808 to 9223372036854775807).
+
+In practice, though, the value range is platform dependent. The reason is that SGFC, which does the heavy lifting of the actual SGF content parsing, uses the type `long` to process property values with the SGF type `Number`, and `long` has no guaranteed *fixed* size across all platforms. The guaranteed *minimum* size of `long` is 4 bytes, so the guaranteed minimum value range of `SgfcNumber` on all platforms is 32-bit (-2147483648 to 2147483647).
+
 ## Property value validation
 
 libsgfc++ makes no attempt to check the validity of property values assigned to a property with, for instance, `ISgfcProperty::SetPropertyValues()`.

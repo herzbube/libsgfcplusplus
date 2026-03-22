@@ -41,7 +41,7 @@ jobs:
     - name: Patching SGFC
       run: |
         cd sgfc
-        if test -f ../patch/*.patch; then
+        if test $(ls ../patch/*.patch 2>/dev/null | wc -l) -gt 0; then
           for PATCH_FILE in ../patch/*.patch; do git apply "$PATCH_FILE"; done
         else
           echo "No patches to apply"

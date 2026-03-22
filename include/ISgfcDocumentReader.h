@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,13 +44,13 @@ namespace LibSgfcPlusPlus
   /// ISgfcDocumentReader invokes the SGFC backend's load/parse functions using
   /// the arguments that GetArguments() returns. If the library client does not
   /// do anything special, this is the default behaviour:
-  /// - #SgfcArgumentType::EncodingMode 1 is used.
+  /// - SgfcArgumentType::EncodingMode 1 is used.
   /// - The first CA property value found in the SGF data determines the
   ///   encoding to use.
-  /// - #SgfcArgumentType::DefaultEncoding ISO-8859-1 is used if there is no
+  /// - SgfcArgumentType::DefaultEncoding ISO-8859-1 is used if there is no
   ///   CA property value.
   ///
-  /// When #SgfcArgumentType::EncodingMode 1 or 2 are used the SGFC backend
+  /// When SgfcArgumentType::EncodingMode 1 or 2 are used the SGFC backend
   /// converts the SGF data it reads into memory to UTF-8. However, without
   /// further measures the document object tree would still contain whatever
   /// CA property values were found in the SGF data. If these values are not
@@ -60,14 +60,14 @@ namespace LibSgfcPlusPlus
   /// because the writer would then use the wrong CA property values. To avoid
   /// this situation ISgfcDocumentReader performs the following manipulations
   /// of the document object tree after the read operation is complete:
-  /// - If #SgfcArgumentType::EncodingMode 1 or 2 were used for reading
+  /// - If SgfcArgumentType::EncodingMode 1 or 2 were used for reading
   ///   ISgfcDocumentReader writes the CA property value "UTF-8" into the root
   ///   node of each ISgfcGame it finds in the document. Only the root node
   ///   needs to be treated such because the CA property is a root property
   ///   which according to the SGF standard is only allowed in the root node.
   ///   Note that the SGFC backend deletes any CA properties that it finds
   ///   outside of a root node.
-  /// - If #SgfcArgumentType::EncodingMode 3 was used for reading
+  /// - If SgfcArgumentType::EncodingMode 3 was used for reading
   ///   ISgfcDocumentReader does not write a CA property value because the SGF
   ///   data was read into memory as-is.
   class SGFCPLUSPLUS_EXPORT ISgfcDocumentReader

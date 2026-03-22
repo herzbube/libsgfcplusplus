@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -44,8 +44,7 @@ namespace LibSgfcPlusPlus
   ///   returned non-const object
   /// The reason: The returned non-const object is actually the same object that
   /// invoked method B, so the const method A would do something non-const to
-  /// itself. See GetRoot() for an example where const'ness is removed to open
-  /// open the described hazard.
+  /// itself. See GetRoot() for an example where const'ness is removed.
   class SgfcNode : public ISgfcNode, public std::enable_shared_from_this<SgfcNode>
   {
   public:

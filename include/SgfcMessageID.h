@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -83,8 +83,8 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found (and corrected) an illegal single property value.
     ///
     /// If the SGF content is in FF3 format this message has
-    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
-    /// message has #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has SgfcMessageType::Error.
     ///
     /// @see SgfcMessageID::IllegalComposedValueCorrected
     IllegalSingleValueCorrected = 15,
@@ -95,7 +95,7 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found (and deleted) an empty property value.
     ///
     /// Depending on the context this message has either
-    /// #SgfcMessageType::Warning or #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning or SgfcMessageType::Error.
     EmptyValueDeleted = 17,
     /// @brief SGFC found (and took action) a root property with an illegal
     /// value. The value may have been deleted or corrected.
@@ -139,8 +139,8 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found a node that contains both setup and move properties.
     ///
     /// If the SGF content is in FF3 format this message has
-    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
-    /// message has #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has SgfcMessageType::Error.
     MixedSetupAndMove = 30,
     /// @brief SGFC found a property with an identifier that consists of more
     /// than two uppercase characters.
@@ -151,8 +151,8 @@ namespace LibSgfcPlusPlus
     /// @brief SGFC found a game info property that is illegally formatted.
     ///
     /// If the SGF content is in FF3 format this message has
-    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
-    /// message has #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has SgfcMessageType::Error.
     GameInfoPropertyWithIllegalFormat = 33,
     /// @brief SGFC did not save the SGF content because parsing generated
     /// one or more critical errors.
@@ -191,8 +191,8 @@ namespace LibSgfcPlusPlus
     /// Combinations of TE and BM get converted to DO and IT.
     ///
     /// If the SGF content is in FF3 format this message has
-    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
-    /// message has #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has SgfcMessageType::Error.
     CombinationOfPropertiesConverted = 42,
     /// @brief SGFC found (and deleted) a move annotation property in a node
     /// that didn't also contain a move property.
@@ -201,8 +201,8 @@ namespace LibSgfcPlusPlus
     /// game info node.
     ///
     /// If the SGF content is in FF3 format this message has
-    /// #SgfcMessageType::Warning. If the SGF content is in FF4 format this
-    /// message has #SgfcMessageType::Error.
+    /// SgfcMessageType::Warning. If the SGF content is in FF4 format this
+    /// message has SgfcMessageType::Error.
     GameInfoDeleted = 44,
     /// @brief SGFC found different file formats in the SGF content.
     DifferentFileFormats = 45,
@@ -313,7 +313,7 @@ namespace LibSgfcPlusPlus
     ///
     /// This message occurs when encoding modes 2 or 3 are used. The message
     /// is a critical warning only, so unlike
-    /// #SgfcMessageID::SgfContentHasDifferentEncodingsFatal the library client
+    /// SgfcMessageID::SgfContentHasDifferentEncodingsFatal the library client
     /// will be able to process the result. If the encodings used are multibyte
     /// encodings there is still a good chance that the encoding phase of SGFC
     /// will produce an unusable result.
@@ -328,7 +328,7 @@ namespace LibSgfcPlusPlus
     /// fatal error because the encoding phase of SGFC is practically
     /// guaranteed to produce an unusable result. The library client must use
     /// encoding modes 2 or 3 to process the SGF content. Even then SGFC will
-    /// generate #SgfcMessageID::SgfContentHasDifferentEncodings.
+    /// generate SgfcMessageID::SgfContentHasDifferentEncodings.
     ///
     /// @see SgfcArgumentType::EncodingMode
     SgfContentHasDifferentEncodingsFatal = 75,

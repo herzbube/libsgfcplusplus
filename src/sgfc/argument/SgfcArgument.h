@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ namespace LibSgfcPlusPlus
     /// @exception std::invalid_argument is thrown if @a argumentType does not
     /// require an SgfcMessageID parameter, or if @a parameter is a message ID
     /// not known to SGFC (libsgfc++ message IDs with an underlying negative
-    /// numeric value, or #SgfcMessageID::UnknownSgfcMessageID).
+    /// numeric value, or SgfcMessageID::UnknownSgfcMessageID).
     SgfcArgument(SgfcArgumentType argumentType, SgfcMessageID parameter);
 
     /// @brief Destroys and cleans up the SgfcArgument object.
