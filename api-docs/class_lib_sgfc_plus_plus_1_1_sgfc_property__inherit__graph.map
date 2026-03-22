@@ -1,0 +1,9 @@
+<map id="LibSgfcPlusPlus::SgfcProperty" name="LibSgfcPlusPlus::SgfcProperty">
+<area shape="rect" id="Node000001" title="The SgfcProperty class provides an implementation of the ISgfcProperty interface. See the interface h..." alt="" coords="103,79,304,105"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_sgfc_board_size_property.html" title="The SgfcBoardSizeProperty class provides an implementation of the ISgfcBoardSizeProperty interface...." alt="" coords="5,153,192,193"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="177,116,126,154,123,150,174,112"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_sgfc_game_type_property.html" title="The SgfcGameTypeProperty class provides an implementation of the ISgfcGameTypeProperty interface...." alt="" coords="216,153,403,193"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="234,112,285,150,282,154,231,116"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node...." alt="" coords="101,5,306,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,46,206,79,201,79,201,46"/>
+</map>

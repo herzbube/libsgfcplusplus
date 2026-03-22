@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::SgfcPropertyComposedValueTypeDescriptor" name="LibSgfcPlusPlus::SgfcPropertyComposedValueTypeDescriptor">
+<area shape="rect" id="Node000001" title="The SgfcPropertyComposedValueTypeDescriptor class provides an implementation of the ISgfcPropertyValu..." alt="" coords="6,94,210,135"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value_type_descriptor.html" title="The ISgfcPropertyValueTypeDescriptor interface provides a description of the potential types of value..." alt="" coords="5,5,211,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,62,111,94,105,94,105,62"/>
+</map>

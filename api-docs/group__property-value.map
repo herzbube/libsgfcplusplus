@@ -1,0 +1,8 @@
+<map id="Property Value" name="Property Value">
+<area shape="rect" id="Node000005" href="$group__factory.html" title="The Factory module contains factory classes, i.e. classes that contain functions to create concrete o..." alt="" coords="384,40,450,66"/>
+<area shape="rect" id="Node000003" href="$group__game.html" title="The Game module contains functionality related to game concepts such as &quot;board size&quot; or &quot;coordinate s..." alt="" coords="389,206,445,231"/>
+<area shape="rect" id="Node000004" href="$group__go.html" title="The Go module contains functionality related to concepts from the game of Go." alt="" coords="398,476,436,502"/>
+<area shape="rect" id="Node000006" href="$group__internals.html" title="The Internals module contains types that are internals, or private implementation details of the libr..." alt="" coords="381,927,452,953"/>
+<area shape="rect" id="Node000001" title="The Property Value module contains functionality related to SGF property values." alt="" coords="5,476,112,502"/>
+<area shape="rect" id="Node000002" href="$group__public-api.html" title="The Public API module contains types that belong to the public API of the library." alt="" coords="376,1603,458,1629"/>
+</map>

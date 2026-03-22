@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game...." alt="" coords="5,42,219,68"/>
+<area shape="rect" id="Node000001" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info..." alt="" coords="285,5,458,46"/>
+<area shape="poly" id="edge10_Node000000_Node000001" title=" " alt="" coords="234,39,284,33,285,38,234,44"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html" title="The SgfcGameInfo class provides an implementation of the ISgfcGameInfo interface. See the interface h..." alt="" coords="267,70,476,96"/>
+<area shape="poly" id="edge12_Node000000_Node000003" title=" " alt="" coords="234,66,266,69,266,74,234,71"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_game_info.html" title="The SgfcGoGameInfo class provides an implementation of the ISgfcGoGameInfo interface...." alt="" coords="524,42,750,68"/>
+<area shape="poly" id="edge11_Node000001_Node000002" title=" " alt="" coords="474,34,524,40,523,45,473,40"/>
+<area shape="poly" id="edge13_Node000003_Node000002" title=" " alt="" coords="491,68,523,64,524,70,492,73"/>
+</map>

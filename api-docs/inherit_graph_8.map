@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS..." alt="" coords="5,5,197,31"/>
+<area shape="rect" id="Node000001" href="$class_lib_sgfc_plus_plus_1_1_sgfc_game.html" title="The SgfcGame class provides an implementation of the ISgfcGame interface. See the interface header fi..." alt="" coords="245,5,432,31"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="212,16,244,16,244,21,212,21"/>
+</map>

@@ -1,0 +1,31 @@
+<map id="LibSgfcPlusPlus::SgfcSinglePropertyValue" name="LibSgfcPlusPlus::SgfcSinglePropertyValue">
+<area shape="rect" id="Node000001" title="The SgfcSinglePropertyValue class provides an implementation of the ISgfcSinglePropertyValue interfac..." alt="" coords="499,267,687,307"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_sgfc_color_property_value.html" title="The SgfcColorPropertyValue class provides an implementation of the ISgfcColorPropertyValue interface...." alt="" coords="743,5,926,46"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="605,251,624,207,652,155,689,102,734,57,754,44,757,49,737,61,693,106,657,158,629,209,610,253"/>
+<area shape="rect" id="Node000005" href="$class_lib_sgfc_plus_plus_1_1_sgfc_double_property_value.html" title="The SgfcDoublePropertyValue class provides an implementation of the ISgfcDoublePropertyValue interfac..." alt="" coords="738,71,931,111"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="613,252,663,187,696,152,734,122,757,110,759,114,737,127,700,156,667,190,617,256"/>
+<area shape="rect" id="Node000006" href="$class_lib_sgfc_plus_plus_1_1_sgfc_move_property_value.html" title="The SgfcMovePropertyValue class provides an implementation of the ISgfcMovePropertyValue interface...." alt="" coords="742,136,927,177"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="631,254,679,220,734,187,763,175,765,180,737,192,682,225,634,259"/>
+<area shape="rect" id="Node000008" href="$class_lib_sgfc_plus_plus_1_1_sgfc_number_property_value.html" title="The SgfcNumberPropertyValue class provides an implementation of the ISgfcNumberPropertyValue interfac..." alt="" coords="735,201,934,242"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="684,260,756,240,757,245,686,265"/>
+<area shape="rect" id="Node000009" href="$class_lib_sgfc_plus_plus_1_1_sgfc_point_property_value.html" title="The SgfcPointPropertyValue class provides an implementation of the ISgfcPointPropertyValue interface...." alt="" coords="743,267,926,307"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="703,284,743,284,743,290,703,290"/>
+<area shape="rect" id="Node000011" href="$class_lib_sgfc_plus_plus_1_1_sgfc_real_property_value.html" title="The SgfcRealPropertyValue class provides an implementation of the ISgfcRealPropertyValue interface...." alt="" coords="745,332,924,373"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="686,309,757,329,756,334,684,314"/>
+<area shape="rect" id="Node000012" href="$class_lib_sgfc_plus_plus_1_1_sgfc_simple_text_property_value.html" title="The SgfcSimpleTextPropertyValue class provides an implementation of the ISgfcSimpleTextPropertyValue ..." alt="" coords="738,397,931,438"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="634,315,682,349,737,382,765,394,763,399,734,387,679,354,631,320"/>
+<area shape="rect" id="Node000013" href="$class_lib_sgfc_plus_plus_1_1_sgfc_stone_property_value.html" title="The SgfcStonePropertyValue class provides an implementation of the ISgfcStonePropertyValue interface...." alt="" coords="741,463,928,503"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="617,318,667,384,700,418,737,447,759,460,757,464,734,452,696,422,663,387,613,322"/>
+<area shape="rect" id="Node000015" href="$class_lib_sgfc_plus_plus_1_1_sgfc_text_property_value.html" title="The SgfcTextPropertyValue class provides an implementation of the ISgfcTextPropertyValue interface...." alt="" coords="746,528,923,569"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="610,321,629,365,657,416,693,468,737,513,757,525,754,530,734,517,689,472,652,419,624,367,605,323"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html" title="The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n..." alt="" coords="259,267,451,307"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="466,284,499,284,499,290,466,290"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node." alt="" coords="5,267,211,307"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,284,258,284,258,290,226,290"/>
+<area shape="rect" id="Node000007" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_move_property_value.html" title="The SgfcGoMovePropertyValue class provides an implementation of the ISgfcGoMovePropertyValue interfac..." alt="" coords="983,136,1184,177"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="942,154,982,154,982,159,942,159"/>
+<area shape="rect" id="Node000010" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_point_property_value.html" title="The SgfcGoPointPropertyValue class provides an implementation of the ISgfcGoPointPropertyValue interf..." alt="" coords="984,267,1183,307"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="941,284,983,284,983,290,941,290"/>
+<area shape="rect" id="Node000014" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_stone_property_value.html" title="The SgfcGoStonePropertyValue class provides an implementation of the ISgfcGoStonePropertyValue interf..." alt="" coords="982,463,1185,503"/>
+<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="943,480,981,480,981,486,943,486"/>
+</map>

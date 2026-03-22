@@ -6,7 +6,7 @@ var searchData=
   ['pl_3',['PL',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a9b7d173b068dc4d5517bfae92d676437',1,'LibSgfcPlusPlus']]],
   ['point_4',['Point',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2a3cd5946cfd317eb99c3d32e35e2d4c',1,'LibSgfcPlusPlus']]],
   ['positionnotunique_5',['PositionNotUnique',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaffb52d60c4a478285212cb343be5d806',1,'LibSgfcPlusPlus']]],
-  ['professionaldan_6',['ProfessionalDan',['../group__go.html#gga8b7a556e59e218a531ff683fe07025f0a0af4c4072d08c5e56aa0fe2cdd00a077',1,'LibSgfcPlusPlus']]],
+  ['professionaldan_6',['ProfessionalDan',['../group__public-api.html#gga8b7a556e59e218a531ff683fe07025f0a0af4c4072d08c5e56aa0fe2cdd00a077',1,'LibSgfcPlusPlus']]],
   ['propertyidentifiertoolong_7',['PropertyIdentifierTooLong',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea3d9997ef8194d783ce608e1ebef4deef',1,'LibSgfcPlusPlus']]],
   ['propertyidentifierwithlowercasecharacter_8',['PropertyIdentifierWithLowercaseCharacter',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaab95e07626a0d855926ed9cd44dccb17',1,'LibSgfcPlusPlus']]],
   ['propertynotdefinedinff_9',['PropertyNotDefinedInFF',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaf4ed2b738facd85fa11a8e7f43eb183b',1,'LibSgfcPlusPlus']]],

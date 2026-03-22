@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::SgfcMessage" name="LibSgfcPlusPlus::SgfcMessage">
+<area shape="rect" id="Node000001" title="The SgfcMessage class provides an implementation of the ISgfcMessage interface. See the interface hea..." alt="" coords="7,79,213,105"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_message.html" title="The ISgfcMessage interface represents a message that is generated when SGF data is loaded and parsed,..." alt="" coords="5,5,215,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,46,113,79,107,79,107,46"/>
+</map>

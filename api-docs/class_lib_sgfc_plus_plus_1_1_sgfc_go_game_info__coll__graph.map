@@ -1,0 +1,10 @@
+<map id="LibSgfcPlusPlus::SgfcGoGameInfo" name="LibSgfcPlusPlus::SgfcGoGameInfo">
+<area shape="rect" id="Node000001" title="The SgfcGoGameInfo class provides an implementation of the ISgfcGoGameInfo interface...." alt="" coords="105,168,331,193"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_game_info.html" title="The SgfcGameInfo class provides an implementation of the ISgfcGameInfo interface. See the interface h..." alt="" coords="5,86,215,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,119,203,165,200,169,137,124"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game...." alt="" coords="111,5,325,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="191,42,128,88,125,84,188,38"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_go_game_info.html" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info..." alt="" coords="239,79,413,120"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="248,38,301,76,298,81,245,42"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,131,236,169,233,165,286,127"/>
+</map>

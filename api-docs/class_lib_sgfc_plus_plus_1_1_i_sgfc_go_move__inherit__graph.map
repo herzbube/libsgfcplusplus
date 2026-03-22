@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcGoMove" name="LibSgfcPlusPlus::ISgfcGoMove">
+<area shape="rect" id="Node000001" title="The ISgfcGoMove interface represents a move in a Go game." alt="" coords="5,5,211,31"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_move.html" title="The SgfcGoMove class provides an implementation of the ISgfcGoMove interface. See the interface heade..." alt="" coords="7,79,209,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,46,111,79,105,79,105,46"/>
+</map>

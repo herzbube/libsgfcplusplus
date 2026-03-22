@@ -1,7 +1,7 @@
 var searchData=
 [
   ['savesgfcontenttofilesystemerror_0',['SaveSgfContentToFilesystemError',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea52b537fa8bbefca14461dc6a46134f44',1,'LibSgfcPlusPlus']]],
-  ['secondvalueofcomposedvalue_1',['SecondValueOfComposedValue',['../group__parsing.html#gga79a65b78a1092a5e1f970e2346de36eeac703cd58af4713de636e23ae55b763bd',1,'LibSgfcPlusPlus']]],
+  ['secondvalueofcomposedvalue_1',['SecondValueOfComposedValue',['../group__internals.html#gga79a65b78a1092a5e1f970e2346de36eeac703cd58af4713de636e23ae55b763bd',1,'LibSgfcPlusPlus']]],
   ['setup_2',['Setup',['../group__public-api.html#gga04c91f52eda3884de1580dd93cc73cf7aad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup'],['../group__public-api.html#gga5fa9f7d6335605ed50e8832d86fc573eaad2376beebecdcf7846ba973fa1a005b',1,'LibSgfcPlusPlus::Setup']]],
   ['setupstonesoutsiderootnode_3',['SetupStonesOutsideRootNode',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeaa681ad37afdc923986ff8ec1f20b40dc',1,'LibSgfcPlusPlus']]],
   ['sgf_4',['Sgf',['../group__public-api.html#gga6356a7e24fdad3ddff553d54ccf9b3eaa668c338524279a8f868d0008b260bf2e',1,'LibSgfcPlusPlus']]],
@@ -15,7 +15,7 @@ var searchData=
   ['sq_12',['SQ',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a1249ab51832d31d2c1a0ac36b9ffaa2d',1,'LibSgfcPlusPlus']]],
   ['squareboardsizecorrected_13',['SquareBoardSizeCorrected',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea6995861a2c0e26e8d4c454618cc65705',1,'LibSgfcPlusPlus']]],
   ['st_14',['ST',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737aec8e57d71f07e31203035548b79d03c8',1,'LibSgfcPlusPlus']]],
-  ['standalone_15',['Standalone',['../group__parsing.html#gga79a65b78a1092a5e1f970e2346de36eea5c80f101108a356211fcb26b3f83eabb',1,'LibSgfcPlusPlus']]],
+  ['standalone_15',['Standalone',['../group__internals.html#gga79a65b78a1092a5e1f970e2346de36eea5c80f101108a356211fcb26b3f83eabb',1,'LibSgfcPlusPlus']]],
   ['stone_16',['Stone',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555a2ff4ab1d379832d3edee28194fb4e7b2',1,'LibSgfcPlusPlus']]],
   ['stop_17',['Stop',['../namespace_lib_sgfc_plus_plus.html#a95a7c2c4606a5762b8c6c55125f00315a11a755d598c0c417f9a36758c3da7481',1,'LibSgfcPlusPlus']]],
   ['surplusvaluesdeleted_18',['SurplusValuesDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eea60f52f83447c460a06a6c505bebb56d5',1,'LibSgfcPlusPlus']]],

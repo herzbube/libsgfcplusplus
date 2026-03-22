@@ -1,0 +1,12 @@
+<map id="LibSgfcPlusPlus::SgfcRealPropertyValue" name="LibSgfcPlusPlus::SgfcRealPropertyValue">
+<area shape="rect" id="Node000001" title="The SgfcRealPropertyValue class provides an implementation of the ISgfcRealPropertyValue interface...." alt="" coords="114,271,293,312"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_single_property_value.html" title="The SgfcSinglePropertyValue class provides an implementation of the ISgfcSinglePropertyValue interfac..." alt="" coords="5,183,194,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,231,182,269,178,273,133,235"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html" title="The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n..." alt="" coords="107,94,300,135"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="170,147,125,184,121,180,167,143"/>
+<area shape="rect" id="Node000005" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_real_property_value.html" title="The ISgfcRealPropertyValue interface provides access to one of the values of a property of an SGF nod..." alt="" coords="217,183,400,223"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="241,143,287,180,283,184,237,147"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node." alt="" coords="101,5,306,46"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="206,62,206,94,201,94,201,62"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="275,235,229,273,226,269,272,231"/>
+</map>

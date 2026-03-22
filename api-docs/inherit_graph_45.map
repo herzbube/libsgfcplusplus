@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="33,5,165,46"/>
+<area shape="rect" id="Node000001" href="$class_lib_sgfc_plus_plus_1_1_sgfc_node.html" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi..." alt="" coords="241,42,424,68"/>
+<area shape="poly" id="edge73_Node000000_Node000001" title=" " alt="" coords="181,33,241,41,240,46,180,38"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes...." alt="" coords="5,70,193,96"/>
+<area shape="poly" id="edge74_Node000002_Node000001" title=" " alt="" coords="208,67,240,63,241,69,208,73"/>
+</map>

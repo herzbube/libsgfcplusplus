@@ -1,0 +1,7 @@
+<map id="LibSgfcPlusPlus::ISgfcComposedPropertyValue" name="LibSgfcPlusPlus::ISgfcComposedPropertyValue">
+<area shape="rect" id="Node000001" title="The ISgfcComposedPropertyValue interface provides access to one of the values of a property of an SGF..." alt="" coords="5,94,225,135"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_sgfc_composed_property_value.html" title="The SgfcComposedPropertyValue class provides an implementation of the ISgfcComposedPropertyValue inte..." alt="" coords="7,183,223,223"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="118,150,118,182,112,182,112,150"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node." alt="" coords="12,5,218,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,62,118,94,112,94,112,62"/>
+</map>

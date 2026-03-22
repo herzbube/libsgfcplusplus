@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::SgfcConstants" name="LibSgfcPlusPlus::SgfcConstants">
+<area shape="rect" id="Node000001" title="The SgfcConstants class is a container class for constants." alt="" coords="5,204,218,229"/>
+<area shape="rect" id="Node000002" href="$struct_lib_sgfc_plus_plus_1_1_sgfc_board_size.html" title="The SgfcBoardSize struct is a simple type that can hold the value of SgfcPropertyType::SZ...." alt="" coords="5,5,218,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,46,114,203,109,203,109,46"/>
+</map>

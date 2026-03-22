@@ -1,0 +1,5 @@
+<map id="Game Tree" name="Game Tree">
+<area shape="rect" id="Node000001" title="The Game Tree module contains functionality related to SGF game trees." alt="" coords="5,153,92,179"/>
+<area shape="rect" id="Node000003" href="$group__internals.html" title="The Internals module contains types that are internals, or private implementation details of the libr..." alt="" coords="350,108,422,133"/>
+<area shape="rect" id="Node000002" href="$group__public-api.html" title="The Public API module contains types that belong to the public API of the library." alt="" coords="345,198,427,224"/>
+</map>

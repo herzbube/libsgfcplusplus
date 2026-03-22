@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_command_line.html" title="The ISgfcCommandLine interface is used to operate the SGFC backend in command line mode...." alt="" coords="5,5,246,31"/>
+<area shape="rect" id="Node000001" href="$class_lib_sgfc_plus_plus_1_1_sgfc_command_line.html" title="The SgfcCommandLine class provides an implementation of the ISgfcCommandLine interface...." alt="" coords="294,5,530,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="261,16,293,16,293,21,261,21"/>
+</map>

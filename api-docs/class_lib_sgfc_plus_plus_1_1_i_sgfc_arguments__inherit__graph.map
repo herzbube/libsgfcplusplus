@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcArguments" name="LibSgfcPlusPlus::ISgfcArguments">
+<area shape="rect" id="Node000001" title="The ISgfcArguments interface represents a collection of arguments to be passed on to SGFC when it rea..." alt="" coords="5,5,225,31"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_arguments.html" title="The SgfcArguments class provides an implementation of the ISgfcArguments interface...." alt="" coords="7,79,223,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,46,118,79,112,79,112,46"/>
+</map>

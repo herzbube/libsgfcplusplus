@@ -1,0 +1,14 @@
+<map id="LibSgfcPlusPlus::ISgfcMovePropertyValue" name="LibSgfcPlusPlus::ISgfcMovePropertyValue">
+<area shape="rect" id="Node000001" title="The ISgfcMovePropertyValue interface provides access to one of the values of a property of an SGF nod..." alt="" coords="99,183,288,223"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_go_move_property_value.html" title="The ISgfcGoMovePropertyValue interface makes the property value data of a property of type SgfcProper..." alt="" coords="5,271,179,312"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="160,236,117,273,113,269,157,232"/>
+<area shape="rect" id="Node000006" href="$class_lib_sgfc_plus_plus_1_1_sgfc_move_property_value.html" title="The SgfcMovePropertyValue class provides an implementation of the ISgfcMovePropertyValue interface...." alt="" coords="202,271,387,312"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="230,232,273,269,270,273,226,236"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html" title="The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n..." alt="" coords="97,94,290,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,150,196,182,191,182,191,150"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node." alt="" coords="91,5,296,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="196,62,196,94,191,94,191,62"/>
+<area shape="rect" id="Node000005" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_move_property_value.html" title="The SgfcGoMovePropertyValue class provides an implementation of the ISgfcGoMovePropertyValue interfac..." alt="" coords="93,360,294,401"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="128,320,172,358,169,362,125,324"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="262,324,218,362,215,358,258,320"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="LibSgfcPlusPlus::SgfcGoPointPropertyValue" name="LibSgfcPlusPlus::SgfcGoPointPropertyValue">
+<area shape="rect" id="Node000001" title="The SgfcGoPointPropertyValue class provides an implementation of the ISgfcGoPointPropertyValue interf..." alt="" coords="966,39,1165,79"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_point_property_value.html" title="The SgfcPointPropertyValue class provides an implementation of the ISgfcPointPropertyValue interface...." alt="" coords="735,5,918,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="933,38,965,42,965,48,933,43"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_sgfc_single_property_value.html" title="The SgfcSinglePropertyValue class provides an implementation of the ISgfcSinglePropertyValue interfac..." alt="" coords="499,5,687,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="703,23,735,23,735,28,703,28"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_single_property_value.html" title="The ISgfcSinglePropertyValue interface provides access to one of the values of a property of an SGF n..." alt="" coords="259,39,451,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="466,41,498,36,499,41,467,46"/>
+<area shape="rect" id="Node000006" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_point_property_value.html" title="The ISgfcPointPropertyValue interface provides access to one of the values of a property of an SGF no..." alt="" coords="500,71,686,111"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="467,71,500,76,499,81,466,77"/>
+<area shape="rect" id="Node000005" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property_value.html" title="The ISgfcPropertyValue interface provides access to one of the values of a property of an SGF node." alt="" coords="5,39,211,79"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="226,56,258,56,258,62,226,62"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="682,63,750,44,752,49,683,69"/>
+<area shape="rect" id="Node000007" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_go_point_property_value.html" title="The ISgfcGoPointPropertyValue interface makes the property value data of a property of type SgfcPrope..." alt="" coords="740,71,913,111"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="702,88,739,88,739,94,702,94"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="929,75,965,70,966,75,929,80"/>
+</map>

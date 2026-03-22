@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['library_0',['Why another library?',['../md__why_another_library.html',1,'']]],
-  ['library_20design_20and_20working_20principles_1',['Library design and working principles',['../md__principles.html',1,'']]],
-  ['libsgfc_2',['libsgfc++',['../index.html',1,'']]],
-  ['list_3',['Todo List',['../todo.html',1,'']]]
+  ['8_20is_20recommended_20for_20programmatically_20creating_20isgfcdocument_20object_20trees_0',['UTF-8 is recommended for programmatically creating ISgfcDocument object trees',['../md__sgf_notes.html#autotoc_md123',1,'']]],
+  ['8_20is_20the_20default_20character_20encoding_20in_20isgfcdocumentwriter_1',['UTF-8 is the default character encoding in &lt;span class=&quot;tt&quot;&gt;ISgfcDocumentWriter&lt;/span&gt;',['../md__sgf_notes.html#autotoc_md125',1,'']]],
+  ['8_20support_20in_20isgfcdocumentreader_2',['UTF-8 support in &lt;span class=&quot;tt&quot;&gt;ISgfcDocumentReader&lt;/span&gt;',['../md__sgf_notes.html#autotoc_md124',1,'']]]
 ];

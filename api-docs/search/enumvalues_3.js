@@ -14,7 +14,8 @@ var searchData=
   ['disablewarningmessages_11',['DisableWarningMessages',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a0a5e672aa4d66f2791a67c5b5ecc438f',1,'LibSgfcPlusPlus']]],
   ['dm_12',['DM',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737a2ecda7a0252b442ac6ecf47462119f51',1,'LibSgfcPlusPlus']]],
   ['do_13',['DO',['../group__public-api.html#ggad09039455b42d7073dda61cc5da0a737ac23fa9996925b610710d93e28c59a3e2',1,'LibSgfcPlusPlus']]],
-  ['double_14',['Double',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555ad909d38d705ce75386dd86e611a82f5b',1,'LibSgfcPlusPlus']]],
-  ['draw_15',['Draw',['../group__game.html#ggad269fd3951406775324f379ec4d0b014a2d03c2d5a7ec65ef4619e0582c272ec2',1,'LibSgfcPlusPlus']]],
-  ['duplicatepropertydeleted_16',['DuplicatePropertyDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeae06056757d4a0a7d54b150e369b3ee0e',1,'LibSgfcPlusPlus']]]
+  ['donotaddsgfcapproperty_14',['DoNotAddSgfcApProperty',['../group__public-api.html#ggafdc227d85ad60d7780ac2eadbd716800a11e911767a1100874832e88e73fe7a3a',1,'LibSgfcPlusPlus']]],
+  ['double_15',['Double',['../group__public-api.html#ggac480db649c9331cbb2a7c88cb8a55555ad909d38d705ce75386dd86e611a82f5b',1,'LibSgfcPlusPlus']]],
+  ['draw_16',['Draw',['../group__public-api.html#ggad269fd3951406775324f379ec4d0b014a2d03c2d5a7ec65ef4619e0582c272ec2',1,'LibSgfcPlusPlus']]],
+  ['duplicatepropertydeleted_17',['DuplicatePropertyDeleted',['../group__public-api.html#ggafa2abf726df4472560967e1b7fc193eeae06056757d4a0a7d54b150e369b3ee0e',1,'LibSgfcPlusPlus']]]
 ];

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_go_stone.html" title="The ISgfcGoStone interface represents a Go stone." alt="" coords="5,5,179,46"/>
+<area shape="rect" id="Node000001" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html" title="The SgfcGoStone class provides an implementation of the ISgfcGoStone interface. See the interface hea..." alt="" coords="227,13,430,38"/>
+<area shape="poly" id="edge16_Node000000_Node000001" title=" " alt="" coords="194,23,226,23,226,28,194,28"/>
+</map>

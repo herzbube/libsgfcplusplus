@@ -1,4 +1,30 @@
 var searchData=
 [
-  ['release_20steps_0',['Release steps',['../md__release_steps.html',1,'']]]
+  ['c_20language_20features_0',['C++ language features',['../md__coding_guidelines.html#autotoc_md50',1,'']]],
+  ['c_20types_1',['Go-specific C++ types',['../md__sgf_notes.html#autotoc_md113',1,'']]],
+  ['callbacks_2',['Hooks/callbacks',['../md__sgfc_notes.html#autotoc_md83',1,'']]],
+  ['cases_3',['cases',['../md__sgf_notes.html#autotoc_md106',1,'Test cases'],['../md__sgf_notes.html#autotoc_md111',1,'Test cases']]],
+  ['catch2_20into_20the_20build_4',['Integrating Catch2 into the build',['../md__build.html#autotoc_md5',1,'']]],
+  ['changelog_5',['ChangeLog',['../md__change_log.html',1,'']]],
+  ['changes_6',['changes',['../md__change_log.html#autotoc_md28',1,'Technical changes'],['../md__change_log.html#autotoc_md35',1,'Technical changes']]],
+  ['character_20encoding_7',['Character encoding',['../md__sgf_notes.html#autotoc_md118',1,'']]],
+  ['character_20encoding_20in_20isgfcdocumentwriter_8',['UTF-8 is the default character encoding in &lt;span class=&quot;tt&quot;&gt;ISgfcDocumentWriter&lt;/span&gt;',['../md__sgf_notes.html#autotoc_md125',1,'']]],
+  ['character_20encodings_9',['Escaping and multi-byte character encodings',['../md__sgf_notes.html#autotoc_md122',1,'']]],
+  ['check_20testing_20framework_10',['Install &lt;span class=&quot;tt&quot;&gt;check&lt;/span&gt; testing framework',['../md__sgfc_notes.html#autotoc_md88',1,'']]],
+  ['cmake_20support_20for_20downstream_20projects_11',['CMake support for downstream projects',['../md__build.html#autotoc_md22',1,'']]],
+  ['code_12',['Sample code',['../md__build.html#autotoc_md8',1,'']]],
+  ['code_20reuse_20in_20a_20software_20library_13',['SGFC code reuse in a software library',['../md__sgfc_notes.html#autotoc_md80',1,'']]],
+  ['code_20structure_14',['Code structure',['../md__coding_guidelines.html#autotoc_md49',1,'']]],
+  ['codesigning_20when_20building_20for_20ios_15',['Codesigning when building for iOS',['../md__build.html#autotoc_md19',1,'']]],
+  ['coding_20guidelines_16',['Coding guidelines',['../md__coding_guidelines.html',1,'']]],
+  ['compatible_20vs_20ascii_20safe_17',['ASCII-compatible vs. ASCII-safe',['../md__sgf_notes.html#autotoc_md121',1,'']]],
+  ['compiling_20for_20ios_18',['Cross-compiling for iOS',['../md__build.html#autotoc_md15',1,'']]],
+  ['compressed_20point_20lists_19',['Compressed point lists',['../md__sgfc_notes.html#autotoc_md78',1,'Compressed point lists'],['../md__sgf_notes.html#autotoc_md108',1,'Compressed point lists'],['../md__sgf_notes.html#autotoc_md115',1,'Compressed point lists']]],
+  ['concept_20',['Document concept',['../md__principles.html#autotoc_md60',1,'']]],
+  ['concurrency_21',['Concurrency',['../md__principles.html#autotoc_md55',1,'']]],
+  ['create_20an_20archive_22',['Create an archive',['../md__release_steps.html#autotoc_md71',1,'']]],
+  ['create_20artifacts_23',['Create artifacts',['../md__release_steps.html#autotoc_md70',1,'']]],
+  ['creating_20isgfcdocument_20object_20trees_24',['UTF-8 is recommended for programmatically creating ISgfcDocument object trees',['../md__sgf_notes.html#autotoc_md123',1,'']]],
+  ['cross_20compiling_20for_20ios_25',['Cross-compiling for iOS',['../md__build.html#autotoc_md15',1,'']]],
+  ['cygwin_26',['Cygwin',['../md__build.html#autotoc_md13',1,'']]]
 ];

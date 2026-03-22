@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcGoStone" name="LibSgfcPlusPlus::ISgfcGoStone">
+<area shape="rect" id="Node000001" title="The ISgfcGoStone interface represents a Go stone." alt="" coords="20,5,194,46"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_stone.html" title="The SgfcGoStone class provides an implementation of the ISgfcGoStone interface. See the interface hea..." alt="" coords="5,94,209,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,62,110,93,104,93,104,62"/>
+</map>

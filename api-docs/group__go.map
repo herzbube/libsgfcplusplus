@@ -1,0 +1,7 @@
+<map id="Go" name="Go">
+<area shape="rect" id="Node000002" href="$group__game.html" title="The Game module contains functionality related to game concepts such as &quot;board size&quot; or &quot;coordinate s..." alt="" coords="5,418,62,443"/>
+<area shape="rect" id="Node000001" title="The Go module contains functionality related to concepts from the game of Go." alt="" coords="326,418,364,443"/>
+<area shape="rect" id="Node000005" href="$group__internals.html" title="The Internals module contains types that are internals, or private implementation details of the libr..." alt="" coords="646,147,717,173"/>
+<area shape="rect" id="Node000004" href="$group__property-value.html" title="The Property Value module contains functionality related to SGF property values." alt="" coords="628,418,734,443"/>
+<area shape="rect" id="Node000003" href="$group__public-api.html" title="The Public API module contains types that belong to the public API of the library." alt="" coords="640,674,722,699"/>
+</map>

@@ -1,0 +1,47 @@
+<map id="/Users/dev/Documents/libsgfcplusplus/include/SgfcPropertyTraits.h" name="/Users/dev/Documents/libsgfcplusplus/include/SgfcPropertyTraits.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="490,5,647,61"/>
+<area shape="rect" id="Node000002" href="$_i_sgfc_property_8h_source.html" title=" " alt="" coords="310,109,467,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="508,71,438,111,436,106,506,67"/>
+<area shape="rect" id="Node000021" href="$_sgfc_constants_8h_source.html" title=" " alt="" coords="490,109,647,165"/>
+<area shape="poly" id="edge22_Node000001_Node000021" title=" " alt="" coords="571,77,571,108,566,108,566,77"/>
+<area shape="rect" id="Node000022" href="$_sgfc_utility_8h_source.html" title=" " alt="" coords="670,109,827,165"/>
+<area shape="poly" id="edge23_Node000001_Node000022" title=" " alt="" coords="631,67,701,106,699,111,629,71"/>
+<area shape="rect" id="Node000003" href="$_i_sgfc_board_size_property_8h_source.html" title=" " alt="" coords="5,213,180,268"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="296,172,173,215,171,210,295,167"/>
+<area shape="rect" id="Node000005" href="$_i_sgfc_game_type_property_8h_source.html" title=" " alt="" coords="400,213,577,268"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="428,174,464,210,460,214,424,178"/>
+<area shape="rect" id="Node000007" href="$_i_sgfc_node_8h_source.html" title=" " alt="" coords="601,213,757,268"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="481,168,602,210,600,215,480,173"/>
+<area shape="rect" id="Node000020" href="$_sgfc_property_8h_source.html" title=" " alt="" coords="204,213,376,268"/>
+<area shape="poly" id="edge19_Node000002_Node000020" title=" " alt="" coords="354,178,318,214,314,210,350,174"/>
+<area shape="rect" id="Node000004" href="$_sgfc_board_size_property_8h_source.html" title=" " alt="" coords="14,316,184,387"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="98,283,100,316,94,316,92,284"/>
+<area shape="rect" id="Node000006" href="$_sgfc_game_type_property_8h_source.html" title=" " alt="" coords="208,316,382,387"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="429,278,358,318,355,313,426,274"/>
+<area shape="rect" id="Node000008" href="$_i_sgfc_game_8h_source.html" title=" " alt="" coords="416,324,572,380"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="621,279,542,326,539,321,618,274"/>
+<area shape="rect" id="Node000016" href="$_sgfc_node_8h_source.html" title=" " alt="" coords="596,324,752,380"/>
+<area shape="poly" id="edge15_Node000007_Node000016" title=" " alt="" coords="680,284,678,324,672,323,674,284"/>
+<area shape="rect" id="Node000017" href="$_sgfc_node_iterator_8h_source.html" title=" " alt="" coords="776,324,972,380"/>
+<area shape="poly" id="edge16_Node000007_Node000017" title=" " alt="" coords="742,274,826,321,824,326,740,279"/>
+<area shape="rect" id="Node000018" href="$_sgfc_game_info_8h_source.html" title=" " alt="" coords="996,324,1152,380"/>
+<area shape="poly" id="edge17_Node000007_Node000018" title=" " alt="" coords="774,259,875,284,984,314,1005,321,1003,326,982,319,874,289,772,264"/>
+<area shape="rect" id="Node000009" href="$_i_sgfc_document_8h_source.html" title=" " alt="" coords="325,435,481,491"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="464,393,428,436,424,433,460,390"/>
+<area shape="rect" id="Node000015" href="$_sgfc_game_8h_source.html" title=" " alt="" coords="505,435,664,491"/>
+<area shape="poly" id="edge14_Node000008_Node000015" title=" " alt="" coords="528,390,564,433,560,436,524,393"/>
+<area shape="rect" id="Node000010" href="$_i_sgfc_document_read_result_8h_source.html" title=" " alt="" coords="198,539,395,594"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="366,503,327,540,323,536,362,500"/>
+<area shape="rect" id="Node000014" href="$_sgfc_document_8h_source.html" title=" " alt="" coords="419,539,603,594"/>
+<area shape="poly" id="edge13_Node000009_Node000014" title=" " alt="" coords="445,500,484,536,480,540,441,503"/>
+<area shape="rect" id="Node000011" href="$_i_sgfc_document_reader_8h_source.html" title=" " alt="" coords="103,650,271,706"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="261,607,216,651,212,648,257,603"/>
+<area shape="rect" id="Node000013" href="$_sgfc_document_read_result_8h_source.html" title=" " alt="" coords="296,642,519,713"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="336,603,374,640,370,644,333,607"/>
+<area shape="rect" id="Node000012" href="$_sgfc_document_reader_8h_source.html" title=" " alt="" coords="65,761,309,817"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="190,721,190,761,184,761,184,721"/>
+<area shape="rect" id="Node000019" href="$_sgfc_go_game_info_8h_source.html" title=" " alt="" coords="978,435,1170,491"/>
+<area shape="poly" id="edge18_Node000018_Node000019" title=" " alt="" coords="1076,395,1076,435,1071,435,1071,395"/>
+<area shape="poly" id="edge20_Node000020_Node000004" title=" " alt="" coords="230,279,161,318,159,313,228,274"/>
+<area shape="poly" id="edge21_Node000020_Node000006" title=" " alt="" coords="295,284,296,316,291,316,289,284"/>
+</map>

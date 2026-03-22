@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::SgfcTreeBuilder" name="LibSgfcPlusPlus::SgfcTreeBuilder">
+<area shape="rect" id="Node000001" title="The SgfcTreeBuilder class provides an implementation of the ISgfcTreeBuilder interface...." alt="" coords="7,94,186,135"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_tree_builder.html" title="The ISgfcTreeBuilder interface provides methods to manipulate the nodes of a game tree." alt="" coords="5,5,188,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,62,99,94,94,94,94,62"/>
+</map>

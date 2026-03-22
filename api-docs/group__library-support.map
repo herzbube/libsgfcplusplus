@@ -1,0 +1,5 @@
+<map id="Library Support" name="Library Support">
+<area shape="rect" id="Node000003" href="$group__internals.html" title="The Internals module contains types that are internals, or private implementation details of the libr..." alt="" coords="359,92,430,118"/>
+<area shape="rect" id="Node000001" title="The Library Support module is the bucket that contains bits and bytes that don&#39;t fit any other module..." alt="" coords="5,117,115,143"/>
+<area shape="rect" id="Node000002" href="$group__public-api.html" title="The Public API module contains types that belong to the public API of the library." alt="" coords="354,141,436,167"/>
+</map>

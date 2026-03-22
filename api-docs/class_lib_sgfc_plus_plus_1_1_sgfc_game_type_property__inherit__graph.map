@@ -1,0 +1,10 @@
+<map id="LibSgfcPlusPlus::SgfcGameTypeProperty" name="LibSgfcPlusPlus::SgfcGameTypeProperty">
+<area shape="rect" id="Node000001" title="The SgfcGameTypeProperty class provides an implementation of the ISgfcGameTypeProperty interface...." alt="" coords="122,168,309,208"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_property.html" title="The SgfcProperty class provides an implementation of the ISgfcProperty interface. See the interface h..." alt="" coords="5,86,207,112"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="135,120,192,165,189,169,131,124"/>
+<area shape="rect" id="Node000003" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_property.html" title="The ISgfcProperty interface provides access to the data of a single property of an SGF node...." alt="" coords="113,5,318,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="188,42,124,88,121,84,185,38"/>
+<area shape="rect" id="Node000004" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game_type_property.html" title="The ISgfcGameTypeProperty interface is a specialization of ISgfcProperty for SgfcPropertyType::GM...." alt="" coords="230,79,422,120"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="246,38,300,76,297,81,243,42"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="291,131,242,169,239,165,288,127"/>
+</map>

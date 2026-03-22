@@ -1,0 +1,6 @@
+<map id="SGFC Backend" name="SGFC Backend">
+<area shape="rect" id="Node000003" href="$group__internals.html" title="The Internals module contains types that are internals, or private implementation details of the libr..." alt="" coords="483,181,554,206"/>
+<area shape="rect" id="Node000002" href="$group__sgfc.html" title="The SGFC module contains classes that are concerned with interfacing with SGFC." alt="" coords="5,206,64,232"/>
+<area shape="rect" id="Node000001" title="The SGFC Backend module contains the library&#45;internal backend functionality for interfacing with SGFC..." alt="" coords="113,206,226,232"/>
+<area shape="rect" id="Node000004" href="$group__sgfc-arguments.html" title="The SGFC Arguments module contains classes that are concerned with passing arguments to SGFC operatio..." alt="" coords="456,230,581,256"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcGoGameInfo" name="LibSgfcPlusPlus::ISgfcGoGameInfo">
+<area shape="rect" id="Node000001" title="The ISgfcGoGameInfo interface is a specialization of ISgfcGameInfo that contains additional game info..." alt="" coords="25,79,199,120"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game_info.html" title="The ISgfcGameInfo interface ia a collection of meta data that describes one SGF game...." alt="" coords="5,5,219,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,46,115,79,109,79,109,46"/>
+</map>

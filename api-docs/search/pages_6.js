@@ -1,4 +1,26 @@
 var searchData=
 [
-  ['notes_0',['notes',['../md__project_notes.html',1,'Project notes'],['../md__sgf_notes.html',1,'SGF notes'],['../md__sgfc_notes.html',1,'SGFC notes']]]
+  ['a_20software_20library_0',['SGFC code reuse in a software library',['../md__sgfc_notes.html#autotoc_md80',1,'']]],
+  ['acknowledgment_1',['Acknowledgment',['../index.html#autotoc_md132',1,'']]],
+  ['alpha_20october_2011_202020_2',['Version 0.1 (alpha) (October 11 2020)',['../md__change_log.html#autotoc_md39',1,'']]],
+  ['an_20archive_3',['Create an archive',['../md__release_steps.html#autotoc_md71',1,'']]],
+  ['and_20formatting_4',['Indentation and formatting',['../md__coding_guidelines.html#autotoc_md46',1,'']]],
+  ['and_20install_20the_20api_20documentation_5',['How to generate and install the API documentation',['../md__build.html#autotoc_md7',1,'']]],
+  ['and_20km_20properties_6',['The &quot;KI&quot; and &quot;KM&quot; properties',['../md__sgf_notes.html#autotoc_md116',1,'']]],
+  ['and_20libsgfcplusplus_7',['Two project names: libsgfc++ and libsgfcplusplus',['../md__project_notes.html#autotoc_md63',1,'']]],
+  ['and_20multi_20byte_20character_20encodings_8',['Escaping and multi-byte character encodings',['../md__sgf_notes.html#autotoc_md122',1,'']]],
+  ['and_20publish_20api_20documentation_9',['Generate and publish API documentation',['../md__release_steps.html#autotoc_md72',1,'']]],
+  ['and_20text_20property_20values_10',['SimpleText and Text property values',['../md__sgf_notes.html#autotoc_md104',1,'']]],
+  ['and_20working_20principles_11',['Library design and working principles',['../md__principles.html',1,'']]],
+  ['angle_20syntax_20vs_20quotes_20syntax_20when_20including_12',['Angle syntax vs. quotes syntax when including',['../md__project_notes.html#autotoc_md67',1,'']]],
+  ['another_20library_13',['Why another library?',['../md__why_another_library.html',1,'']]],
+  ['ap_20property_14',['The &quot;AP&quot; property',['../md__sgfc_notes.html#autotoc_md85',1,'']]],
+  ['api_20documentation_15',['API documentation',['../md__release_steps.html#autotoc_md72',1,'Generate and publish API documentation'],['../md__build.html#autotoc_md7',1,'How to generate and install the API documentation']]],
+  ['api_20vs_20private_20implementation_16',['Public API vs. private implementation',['../md__principles.html#autotoc_md53',1,'']]],
+  ['apply_20the_20patches_17',['How to apply the patches',['../md__sgfc_patches.html#autotoc_md92',1,'']]],
+  ['april_2009_202020_18',['April 09 2020',['../md__change_log.html#autotoc_md42',1,'']]],
+  ['archive_19',['Create an archive',['../md__release_steps.html#autotoc_md71',1,'']]],
+  ['artifacts_20',['Create artifacts',['../md__release_steps.html#autotoc_md70',1,'']]],
+  ['ascii_20compatible_20vs_20ascii_20safe_21',['ASCII-compatible vs. ASCII-safe',['../md__sgf_notes.html#autotoc_md121',1,'']]],
+  ['ascii_20safe_22',['ASCII-compatible vs. ASCII-safe',['../md__sgf_notes.html#autotoc_md121',1,'']]]
 ];

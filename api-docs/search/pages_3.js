@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['design_20and_20working_20principles_0',['Library design and working principles',['../md__principles.html',1,'']]]
+  ['3_200_200_20march_2022_202026_0',['Version 3.0.0 (March 22 2026)',['../md__change_log.html#autotoc_md24',1,'']]],
+  ['3_202024_1',['Version 2.0.0 (January 3 2024)',['../md__change_log.html#autotoc_md31',1,'']]]
 ];

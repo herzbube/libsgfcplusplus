@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcDocumentWriter" name="LibSgfcPlusPlus::ISgfcDocumentWriter">
+<area shape="rect" id="Node000001" title="The ISgfcDocumentWriter interface provides functions to generate SGF data from ISgfcDocument objects ..." alt="" coords="5,5,222,46"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_document_writer.html" title="The SgfcDocumentWriter class provides an implementation of the ISgfcDocumentWriter interface...." alt="" coords="7,94,220,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,62,116,94,111,94,111,62"/>
+</map>

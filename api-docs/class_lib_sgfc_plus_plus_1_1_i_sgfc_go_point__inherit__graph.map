@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::ISgfcGoPoint" name="LibSgfcPlusPlus::ISgfcGoPoint">
+<area shape="rect" id="Node000001" title="The ISgfcGoPoint interface represents a point on a Go board." alt="" coords="18,5,192,46"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_sgfc_go_point.html" title="The SgfcGoPoint class provides an implementation of the ISgfcGoPoint interface. See the interface hea..." alt="" coords="5,94,205,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,62,108,93,102,93,102,62"/>
+</map>

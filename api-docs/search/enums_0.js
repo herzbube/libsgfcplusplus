@@ -7,12 +7,12 @@ var searchData=
   ['sgfcdatalocation_4',['SgfcDataLocation',['../group__internals.html#ga6a21fef64ecbdea6ee14ee06f834c39c',1,'LibSgfcPlusPlus']]],
   ['sgfcdouble_5',['SgfcDouble',['../group__public-api.html#gaef35623d846f19d2bec904dd9b7cf012',1,'LibSgfcPlusPlus']]],
   ['sgfcexitcode_6',['SgfcExitCode',['../group__public-api.html#ga9c6f34d212170150f430da96e13bf5c7',1,'LibSgfcPlusPlus']]],
-  ['sgfcgameresulttype_7',['SgfcGameResultType',['../group__game.html#gad269fd3951406775324f379ec4d0b014',1,'LibSgfcPlusPlus']]],
+  ['sgfcgameresulttype_7',['SgfcGameResultType',['../group__public-api.html#gad269fd3951406775324f379ec4d0b014',1,'LibSgfcPlusPlus']]],
   ['sgfcgametype_8',['SgfcGameType',['../group__public-api.html#ga628677a0792100aa0f813793d9df7750',1,'LibSgfcPlusPlus']]],
-  ['sgfcgoplayerranktype_9',['SgfcGoPlayerRankType',['../group__go.html#ga8b7a556e59e218a531ff683fe07025f0',1,'LibSgfcPlusPlus']]],
-  ['sgfcgoplayerratingtype_10',['SgfcGoPlayerRatingType',['../group__go.html#gaf211dcf413f8cdbf8ea200ae11f44ba1',1,'LibSgfcPlusPlus']]],
+  ['sgfcgoplayerranktype_9',['SgfcGoPlayerRankType',['../group__public-api.html#ga8b7a556e59e218a531ff683fe07025f0',1,'LibSgfcPlusPlus']]],
+  ['sgfcgoplayerratingtype_10',['SgfcGoPlayerRatingType',['../group__public-api.html#gaf211dcf413f8cdbf8ea200ae11f44ba1',1,'LibSgfcPlusPlus']]],
   ['sgfcgopointnotation_11',['SgfcGoPointNotation',['../group__public-api.html#ga6356a7e24fdad3ddff553d54ccf9b3ea',1,'LibSgfcPlusPlus']]],
-  ['sgfcgorulesettype_12',['SgfcGoRulesetType',['../group__go.html#ga4850755a8ee7d7f21d2d4f96d90c020d',1,'LibSgfcPlusPlus']]],
+  ['sgfcgorulesettype_12',['SgfcGoRulesetType',['../group__public-api.html#ga4850755a8ee7d7f21d2d4f96d90c020d',1,'LibSgfcPlusPlus']]],
   ['sgfcmessageid_13',['SgfcMessageID',['../group__public-api.html#gafa2abf726df4472560967e1b7fc193ee',1,'LibSgfcPlusPlus']]],
   ['sgfcmessagetype_14',['SgfcMessageType',['../group__public-api.html#ga08dd88fa8a26884fa2fd1f1a0416ecb2',1,'LibSgfcPlusPlus']]],
   ['sgfcnodeiterationcontinuation_15',['SgfcNodeIterationContinuation',['../namespace_lib_sgfc_plus_plus.html#a95a7c2c4606a5762b8c6c55125f00315',1,'LibSgfcPlusPlus']]],
@@ -22,6 +22,6 @@ var searchData=
   ['sgfcpropertytype_19',['SgfcPropertyType',['../group__public-api.html#gad09039455b42d7073dda61cc5da0a737',1,'LibSgfcPlusPlus']]],
   ['sgfcpropertyvaluetype_20',['SgfcPropertyValueType',['../group__public-api.html#gac480db649c9331cbb2a7c88cb8a55555',1,'LibSgfcPlusPlus']]],
   ['sgfcpropertyvaluetypedescriptortype_21',['SgfcPropertyValueTypeDescriptorType',['../group__internals.html#ga25503f7a9e87904897a8f801834c5f50',1,'LibSgfcPlusPlus']]],
-  ['sgfcsinglepropertyvaluecontext_22',['SgfcSinglePropertyValueContext',['../group__parsing.html#ga79a65b78a1092a5e1f970e2346de36ee',1,'LibSgfcPlusPlus']]],
-  ['sgfcwintype_23',['SgfcWinType',['../group__game.html#gaeee635d6330b3c84076355dfba32dd8a',1,'LibSgfcPlusPlus']]]
+  ['sgfcsinglepropertyvaluecontext_22',['SgfcSinglePropertyValueContext',['../group__internals.html#ga79a65b78a1092a5e1f970e2346de36ee',1,'LibSgfcPlusPlus']]],
+  ['sgfcwintype_23',['SgfcWinType',['../group__public-api.html#gaeee635d6330b3c84076355dfba32dd8a',1,'LibSgfcPlusPlus']]]
 ];

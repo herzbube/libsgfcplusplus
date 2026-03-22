@@ -1,0 +1,5 @@
+<map id="LibSgfcPlusPlus::SgfcGame" name="LibSgfcPlusPlus::SgfcGame">
+<area shape="rect" id="Node000001" title="The SgfcGame class provides an implementation of the ISgfcGame interface. See the interface header fi..." alt="" coords="7,79,195,105"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_game.html" title="The ISgfcGame interface provides access to the data of one SGF game tree, in the form of a tree of IS..." alt="" coords="5,5,197,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,46,104,79,98,79,98,46"/>
+</map>

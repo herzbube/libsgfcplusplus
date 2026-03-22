@@ -1,0 +1,7 @@
+<map id="LibSgfcPlusPlus::SgfcNode" name="LibSgfcPlusPlus::SgfcNode">
+<area shape="rect" id="Node000001" title="The SgfcNode class provides an implementation of the ISgfcNode interface. See the interface header fi..." alt="" coords="107,94,291,120"/>
+<area shape="rect" id="Node000002" href="$class_lib_sgfc_plus_plus_1_1_i_sgfc_node.html" title="The ISgfcNode interface provides access to the data of a single SGF node in a tree of SGF nodes...." alt="" coords="5,13,193,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="128,46,185,91,182,96,124,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="217,5,381,46"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,58,216,95,213,91,261,53"/>
+</map>
