@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -119,9 +119,6 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::NoneValueString;
 
     std::stringstream propertyValue;
-    // Make sure that decimal point is always a period (".") character and that
-    // there are no thousands separators
-    propertyValue.imbue(std::locale::classic());
 
     switch (gameResult.GameResultType)
     {
@@ -165,7 +162,8 @@ namespace LibSgfcPlusPlus
       {
         case SgfcWinType::WinWithScore:
         {
-          propertyValue << gameResult.Score;
+          SgfcValueConverter valueConverter;
+          propertyValue << valueConverter.ConvertRealValueToString(gameResult.Score);
           break;
         }
         case SgfcWinType::WinWithoutScore:

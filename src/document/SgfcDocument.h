@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ namespace LibSgfcPlusPlus
       std::shared_ptr<ISgfcNode> parentNode,
       int& nodeCount) const;
     void DebugPrintNodeToConsole(std::shared_ptr<ISgfcNode> node, int nodeNumber) const;
-    void DebugPrintGoPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
+    void DebugPrintPropertyValueToConsole(const ISgfcSinglePropertyValue* propertyValue) const;
     void DebugPrintGoPointValueToConsole(const ISgfcGoPoint* goPoint) const;
   };
 }

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -126,7 +126,7 @@ SCENARIO( "An SgfcPropertyType::DT property value is decomposed", "[game]" )
       auto decomposedPropertyValue = SgfcDate::FromPropertyValue(std::get<0>(testData));
       auto expectedDecomposedPropertyValue = std::get<1>(testData);
 
-      THEN( "The result of the decomposition are SgfcDate objects" )
+      THEN( "The result of the decomposition are valid SgfcDate objects" )
       {
         REQUIRE( decomposedPropertyValue.size() == expectedDecomposedPropertyValue.size() );
         REQUIRE( decomposedPropertyValue == expectedDecomposedPropertyValue );

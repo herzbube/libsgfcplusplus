@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -138,7 +138,7 @@ namespace LibSgfcPlusPlus
     bool IsCommandLineValid() const;
 
     /// @brief Returns an ISgfcMessage object with message type
-    /// #SgfcMessageType::FatalError that describes why the SGFC command
+    /// SgfcMessageType::FatalError that describes why the SGFC command
     /// line arguments that GetArguments() returns are not valid. This method
     /// may only be invoked if IsCommandLineValid() returns false.
     ///
@@ -220,9 +220,17 @@ namespace LibSgfcPlusPlus
     void InstallOutOfMemoryErrorHookIfNotYetInstalled();
 
     void ParseArguments(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments);
+    void SplitArguments(
+      const std::vector<std::shared_ptr<ISgfcArgument>>& arguments,
+      std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithStringRepresentation,
+      std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation) const;
     std::vector<std::string> ConvertArgumentsToArgvStyle(const std::vector<std::shared_ptr<ISgfcArgument>>& arguments) const;
     void InitializeArgv(const char** argv, const std::vector<std::string>& argvArguments) const;
-    void InvokeSgfcParseArgs(int argc, const char** argv);
+    void InvokeSgfcParseArgs(
+      int argc,
+      const char** argv,
+      const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation);
+    void ParseArgumentsWithoutStringRepresentation(SGFCOptions* options, const std::vector<std::shared_ptr<ISgfcArgument>>& argumentsWithoutStringRepresentation);
 
     std::shared_ptr<SgfcBackendLoadResult> LoadSgfContentFromFilesystemOrInMemoryBuffer(
       const std::string& sgfFilePath,

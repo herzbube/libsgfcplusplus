@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -149,15 +149,12 @@ namespace LibSgfcPlusPlus
     ///
     /// @exception std::invalid_argument Is thrown if there is no mapping, i.e.
     /// if @a argumentType does not appear in
-    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap. In practice this
-    /// should never occur. If it occurs it indicates a programming error in the
-    /// library, i.e. an SgfcArgumentType value was not added to
-    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.
+    /// SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap. This occurs if
+    /// @a argumentType does not have corresponding SGFC command line option.
     static std::string MapArgumentTypeToCmdlineOption(SgfcArgumentType argumentType);
 
     /// @brief Returns the full path of a folder that is suitable for temporary
-    /// files. The path is guaranteed to exist and to be a directory. The
-    /// returned path string is UTF-8 encoded.
+    /// files. The path is guaranteed to exist and to be a directory.
     ///
     /// The implementation makes use of std::filesystem::temp_directory_path(),
     /// which is defined in C++17 but may not be available on older platform
@@ -185,8 +182,7 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns the unique absolute path of a file that is extremely
     /// unlikely to already exist in the temporary folder returned by
-    /// GetTempPath(). The returned path string is UTF-8 encoded. This method
-    /// never returns the same value twice.
+    /// GetTempPath(). This method never returns the same value twice.
     ///
     /// This is a convenience function that invokes JoinPathComponents() using
     /// the return values of GetTempFolderPath() and GetUniqueTempFileName().

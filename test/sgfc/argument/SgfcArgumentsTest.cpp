@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 // -----------------------------------------------------------------------------
 
 // Library includes
+#include "../../AssertHelperFunctions.h"
 #include "../../TestDataGenerator.h"
 #include <sgfc/argument/SgfcArgument.h>
 #include <sgfc/argument/SgfcArguments.h>
@@ -73,7 +74,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->HasStringTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
         REQUIRE( argument->HasMessageIDParameter() == false );
-        REQUIRE( argument->ToString() == std::get<1>(testData) );
+        AssertStringRepresentation(*argument.get(), std::get<1>(testData));
       }
     }
 
@@ -125,7 +126,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->HasStringTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
         REQUIRE( argument->HasMessageIDParameter() == false );
-        REQUIRE( argument->ToString() == std::get<2>(testData) );
+        AssertStringRepresentation(*argument.get(), std::get<2>(testData));
       }
     }
 
@@ -191,7 +192,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->GetStringTypeParameter() == std::get<1>(testData) );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
         REQUIRE( argument->HasMessageIDParameter() == false );
-        REQUIRE( argument->ToString() == std::get<2>(testData) );
+        AssertStringRepresentation(*argument.get(), std::get<2>(testData));
       }
     }
 
@@ -257,7 +258,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->HasPropertyTypeParameter() == true );
         REQUIRE( argument->GetPropertyTypeParameter() == std::get<1>(testData) );
         REQUIRE( argument->HasMessageIDParameter() == false );
-        REQUIRE( argument->ToString() == std::get<2>(testData) );
+        AssertStringRepresentation(*argument.get(), std::get<2>(testData));
       }
     }
 
@@ -300,7 +301,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument1->HasPropertyTypeParameter() == true );
         REQUIRE( argument1->GetPropertyTypeParameter() == parameterValue1 );
         REQUIRE( argument1->HasMessageIDParameter() == false );
-        REQUIRE( argument1->ToString() == "-yGM" );
+        AssertStringRepresentation(*argument1.get(), "-yGM");
 
         auto argument2 = arguments.GetArguments().back();
         REQUIRE( argument2->GetArgumentType() == argumentType );
@@ -309,7 +310,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument2->HasPropertyTypeParameter() == true );
         REQUIRE( argument2->GetPropertyTypeParameter() == parameterValue2 );
         REQUIRE( argument2->HasMessageIDParameter() == false );
-        REQUIRE( argument2->ToString() == "-ySZ" );
+        AssertStringRepresentation(*argument2.get(), "-ySZ");
       }
     }
 
@@ -349,7 +350,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->HasPropertyTypeParameter() == false );
         REQUIRE( argument->HasMessageIDParameter() == true );
         REQUIRE( argument->GetMessageIDParameter() == std::get<1>(testData) );
-        REQUIRE( argument->ToString() == std::get<2>(testData) );
+        AssertStringRepresentation(*argument.get(), std::get<2>(testData));
       }
     }
 
@@ -392,7 +393,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument1->HasPropertyTypeParameter() == false );
         REQUIRE( argument1->HasMessageIDParameter() == true );
         REQUIRE( argument1->GetMessageIDParameter() == parameterValue1 );
-        REQUIRE( argument1->ToString() == "-d35" );
+        AssertStringRepresentation(*argument1.get(), "-d35");
 
         auto argument2 = arguments.GetArguments().back();
         REQUIRE( argument2->GetArgumentType() == argumentType );
@@ -402,7 +403,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument2->HasPropertyTypeParameter() == false );
         REQUIRE( argument2->HasMessageIDParameter() == true );
         REQUIRE( argument2->GetMessageIDParameter() == parameterValue2 );
-        REQUIRE( argument2->ToString() == "-d29" );
+        AssertStringRepresentation(*argument2.get(), "-d29");
       }
     }
 
@@ -442,7 +443,7 @@ SCENARIO( "An argument is added to SgfcArguments", "[argument]" )
         REQUIRE( argument->GetArgumentType() == argumentType );
         REQUIRE( argument->HasIntegerTypeParameter() == false );
         REQUIRE( argument->HasPropertyTypeParameter() == false );
-        REQUIRE( argument->ToString() == "-o" );
+        AssertStringRepresentation(*argument.get(), "-o");
       }
     }
   }

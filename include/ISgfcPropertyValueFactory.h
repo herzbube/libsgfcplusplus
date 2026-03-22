@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -74,6 +74,15 @@ namespace LibSgfcPlusPlus
 
     /// @brief Returns a newly constructed ISgfcRealPropertyValue object
     /// that has the SgfcReal value @a realValue.
+    ///
+    /// The floating point value of @a realValue is converted to text and is
+    /// then used as the raw property value of the resulting
+    /// ISgfcRealPropertyValue object. See SgfNotes.md, section
+    /// "Precision of properties with SGF type Real" for details about the
+    /// floating point precision used during conversion
+    ///
+    /// Use CreateCustomPropertyValue() if you prefer to perform your own
+    /// floating-point to string conversion.
     virtual std::shared_ptr<ISgfcRealPropertyValue> CreateRealPropertyValue(
       SgfcReal realValue) const = 0;
 
@@ -123,17 +132,17 @@ namespace LibSgfcPlusPlus
     //@{
     /// @brief Returns a newly constructed ISgfcNumberPropertyValue object
     /// that has an SgfcNumber value that corresponds to @a gameType.
-    /// @a gameType must not be #SgfcGameType::Unknown.
+    /// @a gameType must not be SgfcGameType::Unknown.
     ///
     /// @exception std::invalid_argument Is thrown if @a gameType is
-    /// #SgfcGameType::Unknown.
+    /// SgfcGameType::Unknown.
     virtual std::shared_ptr<ISgfcNumberPropertyValue> CreateGameTypePropertyValue(
       SgfcGameType gameType) const = 0;
 
     /// @brief Returns a newly constructed ISgfcPropertyValue object that has
     /// a value that corresponds to @a boardSize. @a boardSize must be valid.
     /// @a gameType must be provided for validating @a boardSize. @a gameType
-    /// must not be #SgfcGameType::Unknown.
+    /// must not be SgfcGameType::Unknown.
     ///
     /// The returned ISgfcPropertyValue object is an ISgfcNumberPropertyValue
     /// object if SgfcBoardSize::IsSquare() returns true for @a boardSize.
@@ -143,7 +152,7 @@ namespace LibSgfcPlusPlus
     /// SgfcBoardSize::IsSquare() returns false for @a boardSize.
     ///
     /// @exception std::invalid_argument Is thrown if @a gameType is
-    /// #SgfcGameType::Unknown, or if @a boardSize is not valid, i.e. if it's
+    /// SgfcGameType::Unknown, or if @a boardSize is not valid, i.e. if it's
     /// IsValid() method returns false.
     virtual std::shared_ptr<ISgfcPropertyValue> CreateBoardSizePropertyValue(
       SgfcBoardSize boardSize,
@@ -170,10 +179,10 @@ namespace LibSgfcPlusPlus
     /// Is also thrown if @a pointValue is not given in one of the notations
     /// enumerated in SgfcGoPointNotation, or if @a pointValue violates one of
     /// the restrictions imposed by the used notation (e.g. y-axis compound
-    /// larger than 25 when #SgfcGoPointNotation::Hybrid is used), or if
+    /// larger than 25 when SgfcGoPointNotation::Hybrid is used), or if
     /// @a pointValue refers to an invalid location on the board (e.g. an x-axis
     /// or y-axis location that exceeds the board size specified by
-    /// @a boardSize, or a compound < 1 when #SgfcGoPointNotation::Figure is
+    /// @a boardSize, or a compound < 1 when SgfcGoPointNotation::Figure is
     /// used).
     virtual std::shared_ptr<ISgfcGoPointPropertyValue> CreateGoPointPropertyValue(
       const SgfcPoint& pointValue,
@@ -199,10 +208,10 @@ namespace LibSgfcPlusPlus
     /// Is also thrown if @a moveValue is not given in one of the notations
     /// enumerated in SgfcGoPointNotation, or if @a moveValue violates one of
     /// the restrictions imposed by the used notation (e.g. y-axis compound
-    /// larger than 25 when #SgfcGoPointNotation::Hybrid is used), or if
+    /// larger than 25 when SgfcGoPointNotation::Hybrid is used), or if
     /// @a moveValue refers to an invalid location on the board (e.g. an x-axis
     /// or y-axis location that exceeds the board size specified by
-    /// @a boardSize, or a compound < 1 when #SgfcGoPointNotation::Figure is
+    /// @a boardSize, or a compound < 1 when SgfcGoPointNotation::Figure is
     /// used).
     virtual std::shared_ptr<ISgfcGoMovePropertyValue> CreateGoMovePropertyValue(
       const SgfcMove& moveValue,
@@ -238,10 +247,10 @@ namespace LibSgfcPlusPlus
     /// Is also thrown if @a stoneValue is not given in one of the notations
     /// enumerated in SgfcGoPointNotation, or if @a stoneValue violates one of
     /// the restrictions imposed by the used notation (e.g. y-axis compound
-    /// larger than 25 when #SgfcGoPointNotation::Hybrid is used), or if
+    /// larger than 25 when SgfcGoPointNotation::Hybrid is used), or if
     /// @a stoneValue refers to an invalid location on the board (e.g. an x-axis
     /// or y-axis location that exceeds the board size specified by
-    /// @a boardSize, or a compound < 1 when #SgfcGoPointNotation::Figure is
+    /// @a boardSize, or a compound < 1 when SgfcGoPointNotation::Figure is
     /// used).
     virtual std::shared_ptr<ISgfcGoStonePropertyValue> CreateGoStonePropertyValue(
       const SgfcStone& stoneValue,

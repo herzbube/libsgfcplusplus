@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,8 +31,7 @@ namespace LibSgfcPlusPlus
 {
   /// @brief The ISgfcArgument interface represents a single argument to be
   /// passed on to SGFC when it reads or writes SGF content. Depending on the
-  /// argument type, the argument also has either an integer type or an
-  /// SgfcPropertyType parameter.
+  /// argument type, the argument may have a parameter.
   ///
   /// @ingroup public-api
   /// @ingroup sgfc-arguments
@@ -76,8 +75,13 @@ namespace LibSgfcPlusPlus
     /// return value is undefined if HasMessageIDParameter() returns false.
     virtual SgfcMessageID GetMessageIDParameter() const = 0;
 
+    /// @brief Returns true if the argument has a string representation, i.e.
+    /// if ToString() can be invoked.
+    virtual bool HasStringRepresentation() const = 0;
+
     /// @brief Returns the argument as a string, exactly as it would be
-    /// specified on the SGFC command line. Examples: -n, -b1, -yMA.
+    /// specified on the SGFC command line. Examples: -n, -b1, -yMA. The
+    /// return value is undefined if HasStringRepresentation() returns false.
     virtual std::string ToString() const = 0;
   };
 }

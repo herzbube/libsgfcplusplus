@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 #include "SgfcGoPoint.h"
 #include "../../SgfcPrivateConstants.h"
 #include "../../SgfcUtility.h"
+#include "../../parsing/SgfcValueConverter.h"
 #include "../../../include/SgfcConstants.h"
 
 // C++ Standard Library includes
@@ -31,17 +32,23 @@ namespace LibSgfcPlusPlus
     , yPositionUpperLeftOrigin(0)
     , yPositionLowerLeftOrigin(0)
   {
-    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns)
+    if (boardSize.Columns < SgfcConstants::BoardSizeMinimum.Columns ||
+        boardSize.Rows < SgfcConstants::BoardSizeMinimum.Rows)
     {
       std::stringstream message;
-      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board smaller than the minimum required by the SGF standard (" << SgfcConstants::BoardSizeMinimum.Columns << "). Size = " << boardSize.Columns;
+      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board smaller than the minimum required by the SGF standard ("
+        << SgfcConstants::BoardSizeMinimum.Columns << "x" << SgfcConstants::BoardSizeMinimum.Rows << "). Size = "
+        << boardSize.Columns << "x" << boardSize.Rows;
       throw std::invalid_argument(message.str());
     }
 
-    if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns)
+    if (boardSize.Columns > SgfcConstants::BoardSizeMaximumGo.Columns ||
+        boardSize.Rows > SgfcConstants::BoardSizeMaximumGo.Rows)
     {
       std::stringstream message;
-      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board larger than the maximum allowed by the SGF standard (" << SgfcConstants::BoardSizeMaximumGo.Columns << "). Size = " << boardSize.Columns;
+      message << "SgfcGoPoint constructor failed: Board size parameter indicates a board larger than the maximum allowed by the SGF standard ("
+        << SgfcConstants::BoardSizeMaximumGo.Columns << "x" << SgfcConstants::BoardSizeMaximumGo.Rows << "). Size = "
+        << boardSize.Columns << "x" << boardSize.Rows;
       throw std::invalid_argument(message.str());
     }
 
@@ -52,7 +59,7 @@ namespace LibSgfcPlusPlus
   {
   }
 
-  unsigned int SgfcGoPoint::GetXPosition(SgfcCoordinateSystem coordinateSystem) const
+  SgfcGoPointAxisPosition SgfcGoPoint::GetXPosition(SgfcCoordinateSystem coordinateSystem) const
   {
     switch (coordinateSystem)
     {
@@ -68,7 +75,7 @@ namespace LibSgfcPlusPlus
     }
   }
 
-  unsigned int SgfcGoPoint::GetYPosition(SgfcCoordinateSystem coordinateSystem) const
+  SgfcGoPointAxisPosition SgfcGoPoint::GetYPosition(SgfcCoordinateSystem coordinateSystem) const
   {
     switch (coordinateSystem)
     {
@@ -219,8 +226,8 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument(message.str());
     }
 
-    SetPositionOrThrow(MapSgfCharacterToPosition(xCompoundCharacterSgfNotation),
-                       MapSgfCharacterToPosition(yCompoundCharacterSgfNotation),
+    SetPositionOrThrow(MapSgfCharacterToPositionUpperLeftOrigin(xCompoundCharacterSgfNotation),
+                       MapSgfCharacterToPositionUpperLeftOrigin(yCompoundCharacterSgfNotation),
                        pointValue,
                        boardSize);
   }
@@ -245,8 +252,16 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument(message.str());
     }
 
-    SetPositionOrThrow(stoi(xCompoundFigureNotation),
-                       stoi(yCompoundFigureNotation),
+    SgfcNumber xCompoundFigureNotationAsNumber = ConvertFigureCompoundOrThrow(xCompoundFigureNotation,
+                                                                              "x-axis",
+                                                                              pointValue);
+
+    SgfcNumber yCompoundFigureNotationAsNumber = ConvertFigureCompoundOrThrow(yCompoundFigureNotation,
+                                                                              "y-axis",
+                                                                              pointValue);
+
+    SetPositionOrThrow(xCompoundFigureNotationAsNumber,
+                       yCompoundFigureNotationAsNumber,
                        pointValue,
                        boardSize);
   }
@@ -272,7 +287,11 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument(message.str());
     }
 
-    unsigned int yPositionLowerLeftOrigin = stoi(yCompoundHybridNotation);
+    // The caller of this function has made sure that yCompoundHybridNotation
+    // cannot have more than 2 characters => the y-axis compound is guaranteed
+    // to be in the range 0-99, therefore SgfcValueConverter is not needed,
+    // stoi() is sufficient.
+    SgfcGoPointAxisPosition yPositionLowerLeftOrigin = stoi(yCompoundHybridNotation);
     if (yPositionLowerLeftOrigin > 25)
     {
       std::stringstream message;
@@ -280,17 +299,21 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument(message.str());
     }
 
-    unsigned int yPositionUpperLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - yPositionLowerLeftOrigin);
+    // Can be negative if the point value exceeds the board size => use a signed
+    // data type to store the result
+    SgfcNumber yPositionUpperLeftOrigin = static_cast<SgfcNumber>(boardSize.Rows + 1 - yPositionLowerLeftOrigin);
 
-    SetPositionOrThrow(MapXCompoundHybridNotationToPosition(xCompoundHybridNotation),
+    SetPositionOrThrow(MapXCompoundHybridNotationToPositionUpperLeftOrigin(xCompoundHybridNotation),
                        yPositionUpperLeftOrigin,
                        pointValue,
                        boardSize);
   }
 
+  // Function takes SgfcNumber values, which are signed, because some callers
+  // may supply a negative number
   void SgfcGoPoint::SetPositionOrThrow(
-    int xPositionUpperLeftOrigin,
-    int yPositionUpperLeftOrigin,
+    SgfcNumber xPositionUpperLeftOrigin,
+    SgfcNumber yPositionUpperLeftOrigin,
     const SgfcPoint& pointValue,
     SgfcBoardSize boardSize)
   {
@@ -319,15 +342,18 @@ namespace LibSgfcPlusPlus
       throw std::invalid_argument(message.str());
     }
 
-    this->xPositionUpperLeftOrigin = xPositionUpperLeftOrigin;
-    this->yPositionUpperLeftOrigin = yPositionUpperLeftOrigin;
-    this->yPositionLowerLeftOrigin = static_cast<unsigned int>(boardSize.Rows + 1 - this->yPositionUpperLeftOrigin);
+    this->xPositionUpperLeftOrigin = static_cast<SgfcGoPointAxisPosition>(xPositionUpperLeftOrigin);
+    this->yPositionUpperLeftOrigin = static_cast<SgfcGoPointAxisPosition>(yPositionUpperLeftOrigin);
+    this->yPositionLowerLeftOrigin = static_cast<SgfcGoPointAxisPosition>(boardSize.Rows + 1 - this->yPositionUpperLeftOrigin);
   }
 
   void SgfcGoPoint::BuildSgfNotation()
   {
-    this->xCompoundSgfNotation = MapPositionToSgfCharacter(this->xPositionUpperLeftOrigin);
-    this->yCompoundSgfNotation = MapPositionToSgfCharacter(this->yPositionUpperLeftOrigin);
+    if (this->xPositionUpperLeftOrigin > 52 || this->yPositionUpperLeftOrigin > 52)
+      return;
+
+    this->xCompoundSgfNotation = MapPositionUpperLeftOriginToSgfCharacter(this->xPositionUpperLeftOrigin);
+    this->yCompoundSgfNotation = MapPositionUpperLeftOriginToSgfCharacter(this->yPositionUpperLeftOrigin);
     this->sgfNotation = this->xCompoundSgfNotation + this->yCompoundSgfNotation;
   }
 
@@ -369,7 +395,7 @@ namespace LibSgfcPlusPlus
       return false;
   }
 
-  unsigned int SgfcGoPoint::MapSgfCharacterToPosition(char character) const
+  SgfcGoPointAxisPosition SgfcGoPoint::MapSgfCharacterToPositionUpperLeftOrigin(char character) const
   {
     if (character >= 'a' && character <= 'z')
       return character - 'a' + 1;
@@ -379,7 +405,7 @@ namespace LibSgfcPlusPlus
       return 0;
   }
 
-  char SgfcGoPoint::MapPositionToSgfCharacter(unsigned int position) const
+  char SgfcGoPoint::MapPositionUpperLeftOriginToSgfCharacter(SgfcGoPointAxisPosition position) const
   {
     char characterSgfNotation;
 
@@ -389,6 +415,35 @@ namespace LibSgfcPlusPlus
       characterSgfNotation = 'A' + position - 26 - 1;
 
     return characterSgfNotation;
+  }
+
+  SgfcNumber SgfcGoPoint::ConvertFigureCompoundOrThrow(const std::string& compoundFigureNotation, const std::string& axisDescription, const std::string& pointValue)
+  {
+    // In theory, figure notation has the potential for arbitrary board sizes,
+    // therefore we use SgfcValueConverter to support the whole value range of
+    // rows and columns in SgfcBoardSize. In practice, any value larger than
+    // SgfcConstants::BoardSizeMaximumGo will raise an exception, because the
+    // constructor does not allow boards larger than
+    // SgfcConstants::BoardSizeMaximumGo, hence SetPositionOrThrow() will
+    // throw.
+    SgfcValueConverter valueConverter;
+
+    SgfcNumber compoundFigureNotationAsNumber;
+    std::string typeConversionErrorMessage;
+    bool conversionResult = valueConverter.TryConvertStringToNumberValue(compoundFigureNotation,
+                                                                         compoundFigureNotationAsNumber,
+                                                                         typeConversionErrorMessage);
+    if (! conversionResult)
+    {
+      std::stringstream message;
+      message
+        << "SgfcGoPoint constructor failed: " << axisDescription << " compound of Point value given in Figure notation failed to convert to a number."
+        << " Reason: " << typeConversionErrorMessage << "."
+        << " Point value: " << pointValue;
+      throw std::invalid_argument(message.str());
+    }
+
+    return compoundFigureNotationAsNumber;
   }
 
   bool SgfcGoPoint::IsValidXCompoundHybridNotation(char character) const
@@ -401,7 +456,7 @@ namespace LibSgfcPlusPlus
       return false;
   }
 
-  unsigned int SgfcGoPoint::MapXCompoundHybridNotationToPosition(char character)
+  SgfcGoPointAxisPosition SgfcGoPoint::MapXCompoundHybridNotationToPositionUpperLeftOrigin(char character)
   {
     if (character >= 'A' && character <= 'H')
       return character - 'A' + 1;
@@ -411,7 +466,7 @@ namespace LibSgfcPlusPlus
       return 0;
   }
 
-  char SgfcGoPoint::MapPositionToXCompoundHybridNotation(unsigned int position)
+  char SgfcGoPoint::MapPositionToXCompoundHybridNotation(SgfcGoPointAxisPosition position)
   {
     // Position 9 = letter "I" - we want to skip "I"
     if (position >= 9)

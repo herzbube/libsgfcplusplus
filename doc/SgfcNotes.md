@@ -98,8 +98,58 @@ SGFC offers a software library to tap into parts of its data processing by way o
 
 ## Handling of special properties
 
+#### The "AP" property
+
+When writing SGF content, SGFC by default adds the "AP" property to the SGF content, using "SGFC" as the authoring program name, and the version with which it was embedded into libsgfc++. If the SGF content already contains the AP property, SGFC retains the property but overwrites the existing property values with its own values.
+
+A library client that wants to assert its authorship of the SGF content can do so by adding `SgfcArgumentType::DoNotAddSgfcApProperty` to the arguments of `ISgfcDocumentWriter`, and by providing an AP property with the client's own program name and version. SGFC in this case will not overwrite the AP property provided by the library client.
+
 #### The "KI" property
 
 According to the SGFC readme document the "KI" property is a private property of the "Smart Game Board" application (SGB). The property name means "integer komi".
 
 SGFC converts "KI" to the Go-specific "KM" property, dividing the original "KI" numeric value by 2 to obtain the new "KM" value. SGFC performs this conversion in all cases, even if the game tree's game type is not Go.
+
+## Building SGFC on macOS
+
+This section covers how to build SGFC (source code and tests) from a fresh clone of the upstream repository.
+
+### Install `check` testing framework
+
+SGFC uses the `check` testing framework for its unit tests. Use your package manager of choice to install `check`, then find out the include and library paths that point to the `check` header files and the `check` library.
+
+For Homebrew, execute this command:
+
+    brew install check
+
+To find the include and library paths, execute these commands:
+
+    echo $(brew --prefix)/include
+    echo $(brew --prefix)/lib
+
+With a modern Homebrew installation, these paths are usually
+
+    /opt/homebrew/include
+    /opt/homebrew/lib
+
+### Modify Makefiles
+
+- `src/Makefile`
+  - Add `-liconv` to the `LIB` variable
+- `tests/Makefile`
+  - Add `-liconv` to the `LIB` variable
+  - Remove `-lrt -lsubunit` from the `LIB` variable
+  - Add `-I/path/to/check-headers` to the `OPTIONS` variable and `-L/path/to/check-lib` to the `LIB` variable. You should have found these paths when you installed the `check` testing framework (see previous section).
+  - Add `-Wno-gnu-zero-variadic-macro-arguments` to the `OPTIONS` variable. This silences a compiler warning in the headers of the `check` library.
+
+### Build
+
+Execute these commands to build the vanilla SGFC source code and tests.
+
+```
+cd /path/to/sgfc
+make sgfc
+make tests
+```
+
+Note: `make tests` both builds and executes the tests.

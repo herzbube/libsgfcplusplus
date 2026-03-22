@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@
 // C++ Standard Library includes
 #include <sstream>
 #include <stack>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
@@ -44,8 +45,10 @@ namespace LibSgfcPlusPlus
   std::string SgfcDocumentEncoder::Encode() const
   {
     std::stringstream sgfContentStream;
+
     // Make sure that decimal point is always a period (".") character and that
-    // there are no thousands separators
+    // there are no thousands separators. This is probably unnecessary because
+    // we don't feed numeric data types into the stream.
     sgfContentStream.imbue(std::locale::classic());
 
     int indentationLevel = 0;

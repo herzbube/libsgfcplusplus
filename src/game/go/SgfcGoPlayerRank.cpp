@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -50,11 +50,7 @@ namespace LibSgfcPlusPlus
     bool conversionResult = valueConverter.TryConvertStringToNumberValue(
       goPlayerRankMatch[1], rank, typeConversionErrorMessage);
     if (! conversionResult)
-    {
-      std::stringstream message;
-      message << "SgfcGoPlayerRank::FromPropertyValue: Unexpected regex match result, unable to determine numeric rank value from string " << goPlayerRankMatch[1];
-      throw std::logic_error(message.str());
-    }
+      return SgfcGoPlayerRank(); // value range exceeded
     goPlayerRank.Rank = rank;
 
     if (goPlayerRankMatch[3].length() > 0)
@@ -104,6 +100,7 @@ namespace LibSgfcPlusPlus
       return SgfcConstants::NoneValueString;
 
     std::stringstream propertyValue;
+    
     // Make sure that decimal point is always a period (".") character and that
     // there are no thousands separators
     propertyValue.imbue(std::locale::classic());

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -179,7 +179,7 @@ namespace LibSgfcPlusPlus
     if (it == SgfcPrivateConstants::ArgumentTypeToCmdlineOptionMap.cend())
     {
       std::stringstream message;
-      message << "Argument type argument has unsupported value: " << static_cast<int>(argumentType);
+      message << "Argument type argument has no corresponding SGFC command line option: " << static_cast<int>(argumentType);
       throw std::invalid_argument(message.str());
     }
 
@@ -190,7 +190,7 @@ namespace LibSgfcPlusPlus
   std::string SgfcUtility::GetTempFolderPath()
   {
     std::filesystem::path tempFolderPath = std::filesystem::temp_directory_path();
-    return tempFolderPath.u8string();
+    return tempFolderPath.string();
   }
 
   std::string SgfcUtility::GetUniqueTempFileName()

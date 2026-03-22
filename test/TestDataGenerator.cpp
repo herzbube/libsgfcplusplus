@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 #include <SgfcConstants.h>
 
 // C++ Standard Library includes
+#include <limits>
 #include <stdexcept>
 
 namespace LibSgfcPlusPlus
@@ -38,6 +39,9 @@ namespace LibSgfcPlusPlus
       std::pair<std::string, SgfcNumber> { "+1", 1 },
       std::pair<std::string, SgfcNumber> { "42", 42 },
       std::pair<std::string, SgfcNumber> { "042", 42 },
+      // Regression: Values that exceed the 32-bit value range
+      std::pair<std::string, SgfcNumber> { "-9223372036854775808", std::numeric_limits<SgfcNumber>::min() },
+      std::pair<std::string, SgfcNumber> { "9223372036854775807", std::numeric_limits<SgfcNumber>::max() },
       // Whitespace is ignored
       std::pair<std::string, SgfcNumber> { " \t\r\n123 \t\r\n", 123 },
       // Floating point numbers are parsed up to the decimal point, with no rounding
@@ -105,6 +109,7 @@ namespace LibSgfcPlusPlus
       std::pair<std::string, SgfcReal> { "-.2", -0.2 },
       std::pair<std::string, SgfcReal> { "0.", 0.0 },
       std::pair<std::string, SgfcReal> { ".0", 0.0 },
+      // Not really valid according to EBNF in SGF specs, but supported by libsgfc++ anyway
       std::pair<std::string, SgfcReal> { "1.23456e3", 1234.56 },
       std::pair<std::string, SgfcReal> { "1.23456e03", 1234.56 },
       std::pair<std::string, SgfcReal> { "1.23456e+3", 1234.56 },
@@ -143,7 +148,15 @@ namespace LibSgfcPlusPlus
       std::pair<SgfcReal, std::string> { 1.0, "1" },
       std::pair<SgfcReal, std::string> { 42.0, "42" },
       std::pair<SgfcReal, std::string> { 1.234, "1.234" },
-      std::pair<SgfcReal, std::string> { -1.234, "-1.234" }
+      std::pair<SgfcReal, std::string> { -1.234, "-1.234" },
+      // Literals that require more precision than std::stringstream has by default (default is 6)
+      std::pair<SgfcReal, std::string> { 123456789, "123456789" },
+      std::pair<SgfcReal, std::string> { 123456789.12, "123456789.12" },
+      // Literals known to be not exactly representable by double
+      std::pair<SgfcReal, std::string> { 0.3, "0.3" },                               // 0.29999999999999999
+      std::pair<SgfcReal, std::string> { 123456.93258, "123456.93258" },             // 123456.93257999999
+      std::pair<SgfcReal, std::string> { 12345.93258, "12345.93258" },               // 12345.932580000001
+      std::pair<SgfcReal, std::string> { 123456789.123456789, "123456789.1234568" }, // 123456789.12345679
     };
 
     return testData;
@@ -355,7 +368,7 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
-  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> TestDataGenerator::GetGoPointStrings()
+  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> TestDataGenerator::GetValidGoPointPropertyStrings()
   {
     // Element 0 = The SgfcPoint value that is the input to the GoPoint
     //             constructor. Can be a value in any of the 3 notations
@@ -428,13 +441,44 @@ namespace LibSgfcPlusPlus
     return testData;
   }
 
+  std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> TestDataGenerator::GetValidGoPointConstructorStrings()
+  {
+    // Same structure as in GetGoPointStrings, minus the last 4 elements that
+    // are only used for SgfcPropertyDecoder
+    std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> testData;
+
+    auto testDataToConvert = GetValidGoPointPropertyStrings();
+    for (auto testDataElementToConvert : testDataToConvert)
+    {
+      testData.push_back(std::make_tuple(
+        std::get<0>(testDataElementToConvert),
+        std::get<1>(testDataElementToConvert),
+        std::get<2>(testDataElementToConvert),
+        std::get<3>(testDataElementToConvert),
+        std::get<4>(testDataElementToConvert),
+        std::get<5>(testDataElementToConvert),
+        std::get<6>(testDataElementToConvert),
+        std::get<7>(testDataElementToConvert),
+        std::get<8>(testDataElementToConvert),
+        std::get<9>(testDataElementToConvert),
+        std::get<10>(testDataElementToConvert),
+        std::get<11>(testDataElementToConvert)));
+    }
+
+    return testData;
+  }
+
   std::vector<SgfcBoardSize> TestDataGenerator::GetInvalidGoBoardSizes()
   {
     std::vector<SgfcBoardSize> testData =
     {
       // Below minimum
+      SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns - 1, SgfcConstants::BoardSizeMinimum.Rows },
+      SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns, SgfcConstants::BoardSizeMinimum.Rows - 1 },
       SgfcBoardSize { SgfcConstants::BoardSizeMinimum.Columns - 1, SgfcConstants::BoardSizeMinimum.Rows - 1 },
       // Above maximum
+      SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns + 1, SgfcConstants::BoardSizeMaximumGo.Rows },
+      SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns, SgfcConstants::BoardSizeMaximumGo.Rows + 1 },
       SgfcBoardSize { SgfcConstants::BoardSizeMaximumGo.Columns + 1, SgfcConstants::BoardSizeMaximumGo.Rows + 1 }
     };
 
@@ -719,7 +763,8 @@ namespace LibSgfcPlusPlus
       std::make_tuple(SgfcArgumentType::EnableRestrictiveChecking, "-r"),
       std::make_tuple(SgfcArgumentType::CorrectVariationLevelAndRootMoves, "-v"),
       std::make_tuple(SgfcArgumentType::ReverseVariationOrdering, "-z"),
-      std::make_tuple(SgfcArgumentType::ExpandCompressedPointLists, "-e")
+      std::make_tuple(SgfcArgumentType::ExpandCompressedPointLists, "-e"),
+      std::make_tuple(SgfcArgumentType::DoNotAddSgfcApProperty, "")
     };
 
     return testData;
@@ -763,6 +808,16 @@ namespace LibSgfcPlusPlus
     std::vector<SgfcArgumentType> testData =
     {
       SgfcArgumentType::DisableMessageID
+    };
+
+    return testData;
+  }
+
+  std::vector<SgfcArgumentType> TestDataGenerator::GetArgumentTypesWithoutStringRepresentation()
+  {
+    std::vector<SgfcArgumentType> testData =
+    {
+      SgfcArgumentType::DoNotAddSgfcApProperty
     };
 
     return testData;
@@ -1145,6 +1200,8 @@ namespace LibSgfcPlusPlus
       // Shortcuts without a preceding date
       "12-31",
       "12",
+      // Invalid year
+      "10000-01-01",
       // Invalid month
       "2020-13-01",
       // Invalid month days
@@ -1529,6 +1586,9 @@ namespace LibSgfcPlusPlus
       std::make_tuple("8d", SgfcGoPlayerRank { 8, SgfcGoPlayerRankType::AmateurDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
       std::make_tuple("0p", SgfcGoPlayerRank { 0, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
       std::make_tuple("10p", SgfcGoPlayerRank { 10, SgfcGoPlayerRankType::ProfessionalDan, SgfcGoPlayerRatingType::Unspecified, true }, true ),
+
+      // Numeric limit
+      std::make_tuple("9223372036854775807k", SgfcGoPlayerRank { std::numeric_limits<SgfcNumber>::max(), SgfcGoPlayerRankType::Kyu, SgfcGoPlayerRatingType::Unspecified, true }, true ),
     };
 
     return testData;
@@ -1559,6 +1619,10 @@ namespace LibSgfcPlusPlus
       "30k!",
       "30k??",
       "30k**",
+      // Negative number
+      "-30k",
+      // Overflow
+      "9223372036854775808k",
     };
 
     return testData;

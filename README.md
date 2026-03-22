@@ -30,7 +30,7 @@ The limitations of SGFC also apply to libsgfc++. Quoting from the [SGFC website]
 
 At runtime libsgfc++ depends on the C/C++ runtime library, the C++ standard library and possibly (depending on the platform) an iconv library.
 
-At build time libsgfc++ has the following dependencies:
+At build time libsgfc++ requires a compiler that supports a relatively modern version of the C++ standard (see the top-level [CMakeLists.txt](CMakeLists.txt) which one), and it has the following dependencies:
 
 1. The main dependency, of course, is [SGFC](https://www.red-bean.com/sgf/sgfc/). A transitive dependency inherited from SGFC is [iconv](https://en.wikipedia.org/wiki/Iconv) (more on that see below).
 2. The second dependency is the unit test library [Catch2](https://github.com/catchorg/Catch2).
@@ -56,6 +56,7 @@ The project build system is [documented here](doc/Build.md).
 - [SGF notes](doc/SgfNotes.md): SGF features and how libsgfc++ exposes them to the library client.
 - [Library design and working principles](doc/Principles.md)
 - [Assorted SGFC notes](doc/SgfcNotes.md)
+- [SGFC patch notes](doc/SgfcPatches.md).
 - [Other project notes](doc/ProjectNotes.md)
 - [Coding guidelines](doc/CodingGuidelines.md)
 

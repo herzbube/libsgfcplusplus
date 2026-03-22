@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ namespace LibSgfcPlusPlus
   /// to determine the exact nature of the game result.
   ///
   /// @ingroup public-api
-  /// @ingroup game
   ///
   /// @see ISgfcGameInfo
   enum class SGFCPLUSPLUS_EXPORT SgfcGameResultType

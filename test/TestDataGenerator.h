@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -65,7 +65,8 @@ namespace LibSgfcPlusPlus
 
     static std::vector<std::tuple<std::string, SgfcText, SgfcText, SgfcText>> GetTextStrings();
 
-    static std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> GetGoPointStrings();
+    static std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string, std::string, SgfcMove, SgfcPoint, SgfcStone>> GetValidGoPointPropertyStrings();
+    static std::vector<std::tuple<SgfcPoint, SgfcBoardSize, int, int, int, int, bool, bool, bool, std::string, std::string, std::string>> GetValidGoPointConstructorStrings();
     static std::vector<SgfcBoardSize> GetInvalidGoBoardSizes();
     static std::vector<std::pair<std::string, SgfcBoardSize>> GetInvalidGoPointStrings();
 
@@ -82,6 +83,7 @@ namespace LibSgfcPlusPlus
     static std::vector<SgfcArgumentType> GetArgumentTypesWithStringTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithPropertyTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithMessageIDParameter();
+    static std::vector<SgfcArgumentType> GetArgumentTypesWithoutStringRepresentation();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutIntegerTypeParameter();
     static std::vector<SgfcArgumentType> GetArgumentTypesWithoutStringTypeParameter();

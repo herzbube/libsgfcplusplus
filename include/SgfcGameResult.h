@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -83,6 +83,9 @@ namespace LibSgfcPlusPlus
     ///
     /// See the SGF standard specification for the mandatory structure of an
     /// SgfcPropertyType::RE property value.
+    ///
+    /// See SgfNotes.md, section "Precision of properties with SGF type Real"
+    /// for details about the floating point precision used during conversion.
     ///
     /// @return SgfcSimpleText A property value for SgfcPropertyType::RE that
     /// conforms to the SGF standard's mandatory formatting, or

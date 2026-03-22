@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,11 +32,12 @@
 #include "../game/go/SgfcGoMove.h"
 #include "../game/go/SgfcGoPoint.h"
 #include "../game/go/SgfcGoStone.h"
+#include "../parsing/SgfcValueConverter.h"
 #include "../SgfcUtility.h"
 #include "SgfcPropertyValueFactory.h"
 
 // C++ Standard Library includes
-#include <sstream>
+#include <stdexcept>
 
 namespace LibSgfcPlusPlus
 {
@@ -51,25 +52,22 @@ namespace LibSgfcPlusPlus
   std::shared_ptr<ISgfcNumberPropertyValue> SgfcPropertyValueFactory::CreateNumberPropertyValue(
     SgfcNumber numberValue) const
   {
-    std::stringstream stream;
-    stream << numberValue;
+    SgfcValueConverter valueConverter;
+    std::string stringValue = valueConverter.ConvertNumberValueToString(numberValue);
 
     std::shared_ptr<ISgfcNumberPropertyValue> valueObject = std::shared_ptr<ISgfcNumberPropertyValue>(
-      new SgfcNumberPropertyValue(stream.str(), numberValue));
+      new SgfcNumberPropertyValue(stringValue, numberValue));
     return valueObject;
   }
 
   std::shared_ptr<ISgfcRealPropertyValue> SgfcPropertyValueFactory::CreateRealPropertyValue(
     SgfcReal realValue) const
   {
-    std::stringstream stream;
-    // Make sure that decimal point is always a period (".") character and that
-    // there are no thousands separators
-    stream.imbue(std::locale::classic());
-    stream << realValue;
+    SgfcValueConverter valueConverter;
+    std::string stringValue = valueConverter.ConvertRealValueToString(realValue);
 
     std::shared_ptr<ISgfcRealPropertyValue> valueObject = std::shared_ptr<ISgfcRealPropertyValue>(
-      new SgfcRealPropertyValue(stream.str(), realValue));
+      new SgfcRealPropertyValue(stringValue, realValue));
     return valueObject;
   }
 

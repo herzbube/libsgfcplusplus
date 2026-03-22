@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -46,8 +46,8 @@ namespace LibSgfcPlusPlus
     SgfcMessage(
       SgfcMessageID messageID,
       SgfcMessageType messageType,
-      unsigned long lineNumber,
-      unsigned long columnNumber,
+      SgfcTextOffset lineNumber,
+      SgfcTextOffset columnNumber,
       bool isCriticalMessage,
       int libraryErrorNumber,
       const std::string& messageText,
@@ -73,8 +73,8 @@ namespace LibSgfcPlusPlus
 
     virtual SgfcMessageType GetMessageType() const override;
 
-    virtual unsigned long GetLineNumber() const override;
-    virtual unsigned long GetColumnNumber() const override;
+    virtual SgfcTextOffset GetLineNumber() const override;
+    virtual SgfcTextOffset GetColumnNumber() const override;
 
     virtual bool IsCriticalMessage() const override;
 
@@ -86,8 +86,8 @@ namespace LibSgfcPlusPlus
   private:
     SgfcMessageID messageID;
     SgfcMessageType messageType;
-    unsigned long lineNumber;
-    unsigned long columnNumber;
+    SgfcTextOffset lineNumber;
+    SgfcTextOffset columnNumber;
     bool isCriticalMessage;
     int libraryErrorNumber;
     std::string messageText;

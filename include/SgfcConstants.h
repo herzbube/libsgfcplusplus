@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -58,10 +58,10 @@ namespace LibSgfcPlusPlus
     //@{
     /// @brief Indicates an invalid line number. This is used for messages
     /// that do not refer to a specific line number in a piece of SGF content.
-    static const unsigned long InvalidLineNumber;
+    static const SgfcTextOffset InvalidLineNumber;
     /// @brief Indicates an invalid column number. This is used for messages
     /// that do not refer to a specific column number in a piece of SGF content.
-    static const unsigned long InvalidColumnNumber;
+    static const SgfcTextOffset InvalidColumnNumber;
     /// @brief A library error number (= errno value) indicating "no error".
     /// This is defined to be the value 0 (zero).
     static const int LibraryErrorNumberNoError;
@@ -75,27 +75,27 @@ namespace LibSgfcPlusPlus
     /// The SGF standard defines this to be an empty string.
     static const std::string NoneValueString;
     /// @brief The raw string value that corresponds to the Double value
-    /// #SgfcDouble::Normal, as defined by the SGF standard.
+    /// SgfcDouble::Normal, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "1".
     static const std::string DoubleNormalString;
     /// @brief The raw string value that corresponds to the Double value
-    /// #SgfcDouble::Emphasized, as defined by the SGF standard.
+    /// SgfcDouble::Emphasized, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "2".
     static const std::string DoubleEmphasizedString;
     /// @brief The raw string value that corresponds to the Color value
-    /// #SgfcColor::Black, as defined by the SGF standard.
+    /// SgfcColor::Black, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "B".
     static const std::string ColorBlackString;
     /// @brief The raw string value that corresponds to the Color value
-    /// #SgfcColor::White, as defined by the SGF standard.
+    /// SgfcColor::White, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be the string "W".
     static const std::string ColorWhiteString;
     /// @brief The raw string value that corresponds to a pass Move value for
-    /// #SgfcGameType::Go, as defined by the SGF standard.
+    /// SgfcGameType::Go, as defined by the SGF standard.
     ///
     /// The SGF standard defines this to be an empty string.
     static const std::string GoMovePassString;
@@ -201,9 +201,9 @@ namespace LibSgfcPlusPlus
     /// A board size is invalid if it violates the constraints defined by the
     /// SGF standard:
     /// - All game types: If the board size is below the minimum size
-    ///   #BoardSizeMinimum.
+    ///   SgfcConstants::BoardSizeMinimum.
     /// - For SgfcGameType::Go: If the board size is above the maximum size
-    ///   #BoardSizeMaximumGo.
+    ///   SgfcConstants::BoardSizeMaximumGo.
     ///
     /// ISgfcGame::GetBoardSize() returns this value, for instance, if the
     /// SgfcPropertyType::SZ property is present in a game's root node but has

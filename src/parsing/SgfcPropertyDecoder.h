@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ namespace LibSgfcPlusPlus
     /// characters from SimpleText and Text property values, from
     /// Move/Point/Stone property values if the game type is not
     /// SgfcGameType::Go, and from values for properties that have
-    /// #SgfcPropertyType::Unknown.
+    /// SgfcPropertyType::Unknown.
     ///
     /// The default for this setting used to be true, but beginning with V2.00
     /// SGFC now removes all escape characters for us. The setting is left in

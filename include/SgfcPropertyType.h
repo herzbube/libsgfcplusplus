@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -248,6 +248,18 @@ namespace LibSgfcPlusPlus
     /// @brief Name and version number of the application used to create the
     /// game tree. Property value type: Composed SimpleText/SimpleText (i.e.
     /// "SimpleText:SimpleText").
+    ///
+    /// When writing SGF content, SGFC by default adds this property to the SGF
+    /// content, using "SGFC" as the authoring program name, and the version
+    /// with which it was embedded into libsgfc++. If the SGF content already
+    /// contains the AP property, SGFC retains the property but overwrites the
+    /// existing property values with its own values.
+    ///
+    /// A library client that wants to assert its authorship of the SGF content
+    /// can do so by adding SgfcArgumentType::DoNotAddSgfcApProperty to the
+    /// arguments of ISgfcDocumentWriter, and by providing an AP property with
+    /// its own program name and version. SGFC in this case will not overwrite
+    /// the AP property provided by the library client.
     ///
     /// This is a root property.
     AP,

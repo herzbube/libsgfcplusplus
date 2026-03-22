@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -119,13 +119,13 @@ namespace LibSgfcPlusPlus
     /// default values.
     ///
     /// If the content of @a rootNode indicates that the game type is
-    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
-    /// The game type is #SgfcGameType::Go in the following cases:
-    /// - If @a rootNode contains a property of type #SgfcPropertyType::GM
+    /// SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is SgfcGameType::Go in the following cases:
+    /// - If @a rootNode contains a property of type SgfcPropertyType::GM
     ///   that either has no value, or that has a single Number value, and that
     ///   value is 0.
     /// - Or if @a rootNode does not contain a property of type
-    ///   #SgfcPropertyType::GM.
+    ///   SgfcPropertyType::GM.
     ///
     /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr.
     static std::shared_ptr<ISgfcGameInfo> CreateGameInfo(std::shared_ptr<ISgfcNode> rootNode);
@@ -135,13 +135,13 @@ namespace LibSgfcPlusPlus
     /// node @a gameInfoNode.
     ///
     /// If the content in @a rootNode indicates that the game type is
-    /// #SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
-    /// The game type is #SgfcGameType::Go in the following cases:
-    /// - If @a rootNode contains a property of type #SgfcPropertyType::GM
+    /// SgfcGameType::Go then the returned object is an ISgfcGoGameInfo object.
+    /// The game type is SgfcGameType::Go in the following cases:
+    /// - If @a rootNode contains a property of type SgfcPropertyType::GM
     ///   that either has no value, or that has a single Number value, and that
     ///   value is 0.
     /// - Or if @a rootNode does not contain a property of type
-    ///   #SgfcPropertyType::GM.
+    ///   SgfcPropertyType::GM.
     ///
     /// @exception std::invalid_argument Is thrown if @a rootNode is @e nullptr
     /// or if @a gameInfoNode is @e nullptr.

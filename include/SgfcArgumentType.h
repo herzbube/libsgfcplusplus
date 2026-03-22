@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ namespace LibSgfcPlusPlus
   /// - Options -i, -h and --help. The library does not support these options
   ///   because they are useful only for an interactive command line program.
   /// - Option -U. The library client can achieve the same by specifying
-  ///   #SgfcArgumentType::DefaultEncoding with parameter "UTF-8".
+  ///   SgfcArgumentType::DefaultEncoding with parameter "UTF-8".
   enum class SGFCPLUSPLUS_EXPORT SgfcArgumentType
   {
     /// @brief Select how to search for the beginning of SGF data. This argument
@@ -90,10 +90,10 @@ namespace LibSgfcPlusPlus
     /// messages.
     ///
     /// Hints for a few non-critical warnings that you may wish to disable are
-    /// #SgfcMessageID::EmptyValueDeleted,
-    /// #SgfcMessageID::RequestedPropertyDeleted (since these messages are
+    /// SgfcMessageID::EmptyValueDeleted,
+    /// SgfcMessageID::RequestedPropertyDeleted (since these messages are
     /// generated in response to an explicit request by the library client) and
-    /// #SgfcMessageID::PropertyNotDefinedInFF.
+    /// SgfcMessageID::PropertyNotDefinedInFF.
     DisableMessageID,
 
     /// @brief Disable @b all warning messages. The corresponding SGFC command
@@ -193,7 +193,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @note When a markup property is deleted because of this argument type,
     /// this results in an error type message with
-    /// #SgfcMessageID::PositionNotUnique. Example:
+    /// SgfcMessageID::PositionNotUnique. Example:
     /// "Markup <CR> position not unique ([partially] deleted)".
     DeleteMarkupOnCurrentMove,
 
@@ -206,7 +206,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @note When an empty node is deleted because of this argument type,
     /// this results in a warning type message with
-    /// #SgfcMessageID::EmptyNodeDeleted. Example: "empty node deleted".
+    /// SgfcMessageID::EmptyNodeDeleted. Example: "empty node deleted".
     DeleteEmptyNodes,
 
     /// @brief Delete obsolete properties, i.e. properties that are not part of
@@ -221,10 +221,10 @@ namespace LibSgfcPlusPlus
     ///
     /// @note When an obsolete property is deleted because of this argument
     /// type, this results in a warning type message with
-    /// #SgfcMessageID::RequestedPropertyDeleted. Example:
+    /// SgfcMessageID::RequestedPropertyDeleted. Example:
     /// "obsolete property <EL> deleted". Regardless of whether this argument
     /// type is used or not, SGFC generates a warning type message with
-    /// #SgfcMessageID::PropertyNotDefinedInFF when it encounters an obsolete
+    /// SgfcMessageID::PropertyNotDefinedInFF when it encounters an obsolete
     /// property. Example:
     /// "property <EL> is not defined in FF[4] (parsing done anyway)".
     DeleteObsoleteProperties,
@@ -244,7 +244,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @note When an unknown property is deleted because of this argument
     /// type, this results in a warning type message with
-    /// #SgfcMessageID::UnknownPropertyDeleted. Example:
+    /// SgfcMessageID::UnknownPropertyDeleted. Example:
     /// "unknown property <XX> deleted".
     DeleteUnknownProperties,
 
@@ -255,7 +255,7 @@ namespace LibSgfcPlusPlus
     ///
     /// SGFC converts certain obsolete and unknown properties to an FF4
     /// counterpart. To delete these properties you have to specify their
-    /// original type, i.e. the type before the conversion takes place. Exmaple:
+    /// original type, i.e. the type before the conversion takes place. Example:
     /// SGFC converts the "L" property to its FF4 counterpart "LB". You have
     /// to specify SgfcPropertyType::L do delete this property.
     ///
@@ -267,7 +267,7 @@ namespace LibSgfcPlusPlus
     ///
     /// @note When a property is deleted because of this argument type, this
     /// results in a warning type message with
-    /// #SgfcMessageID::RequestedPropertyDeleted. Example:
+    /// SgfcMessageID::RequestedPropertyDeleted. Example:
     /// "property <FF> deleted".
     DeletePropertyType,
 
@@ -325,8 +325,8 @@ namespace LibSgfcPlusPlus
     ///
     /// @note Variation fixes and root move fixes made because of this argument
     /// type result in warning type messages with
-    /// #SgfcMessageID::VariationLevelCorrected and
-    /// #SgfcMessageID::MoveInRootNodeSplit, respectively.
+    /// SgfcMessageID::VariationLevelCorrected and
+    /// SgfcMessageID::MoveInRootNodeSplit, respectively.
     /// Examples: "variation level corrected" and "move in root node found
     /// (splitted node into two)".
     CorrectVariationLevelAndRootMoves,
@@ -460,5 +460,25 @@ namespace LibSgfcPlusPlus
     /// @see SgfcArgumentType::EncodingMode
     /// @see SgfcArgumentType::DefaultEncoding
     ForcedEncoding,
+
+    /// @brief When writing SGF content, do not add an AP property that
+    /// indicates SGFC is the authoring program. This argument has no
+    /// corresponding SGFC command line option.
+    ///
+    /// When writing SGF content, SGFC by default adds the AP property to the
+    /// SGF content, using "SGFC" as the authoring program name, and the version
+    /// with which it was embedded into libsgfc++. If the SGF content already
+    /// contains the AP property, SGFC retains the property but overwrites the
+    /// existing property values with its own values.
+    ///
+    /// A library client that wants to assert its authorship of the SGF content
+    /// can do so by specifying this argument, and by providing an AP property
+    /// with its own program name and version. SGFC in this case will not
+    /// overwrite the AP property provided by the library client.
+    ///
+    /// A library client that does not want to have an AP property in the SGF
+    /// content at all can simply specify this argument but neglect to provide
+    /// its own AP property.
+    DoNotAddSgfcApProperty,
   };
 }

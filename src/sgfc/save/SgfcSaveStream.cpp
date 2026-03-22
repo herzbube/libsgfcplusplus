@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -132,6 +132,10 @@ namespace LibSgfcPlusPlus
       size_t contentLength = sfh->fh.memh.pos - sfh->fh.memh.buffer;
       std::string sgfContent = std::string(sfh->fh.memh.buffer, contentLength);
       saveStreamContents.push_back(sgfContent);
+    }
+    else
+    {
+      saveStreamContents.push_back(std::string());
     }
 
     // Forward the call to the original close hook. It will take care of

@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,9 @@
 
 // Project includes (generated)
 #include "SgfcPlusPlusExport.h"
+
+// C++ Standard Library includes
+#include <cstdint>
 
 /// @file
 
@@ -51,7 +54,7 @@ namespace LibSgfcPlusPlus
   /// @note Using an unsigned numerical type as the underlying type of this
   /// typedef is important to make the bitwise operators, specifically the
   /// shift left and shift right operators, unambiguous and safe to use.
-  typedef unsigned long long SgfcPropertyTraits;
+  typedef uint64_t SgfcPropertyTraits;
 
   /// @brief SgfcPropertyTrait enumerates the individual traits that an
   /// ISgfcProperty object can have. An ISgfcProperty object can have several

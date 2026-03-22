@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -197,7 +197,7 @@ namespace LibSgfcPlusPlus
     /// If the game has no root node (HasRootNode() returns false) then the
     /// ISgfcGameInfo object contains default values.
     ///
-    /// If GetGameType() returns #SgfcGameType::Go then the returned object is
+    /// If GetGameType() returns SgfcGameType::Go then the returned object is
     /// an ISgfcGoGameInfo object.
     ///
     /// @see ISgfcNode::CreateGameInfo()

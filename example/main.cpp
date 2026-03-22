@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,12 +17,16 @@
 // Library includes
 #include <ISgfcArguments.h>
 #include <ISgfcCommandLine.h>
+#include <ISgfcComposedPropertyValue.h>
 #include <ISgfcDocumentReader.h>
 #include <ISgfcDocumentWriter.h>
 #include <ISgfcDocumentWriteResult.h>
 #include <ISgfcGame.h>
 #include <ISgfcMovePropertyValue.h>
 #include <ISgfcNumberPropertyValue.h>
+#include <ISgfcRealPropertyValue.h>
+#include <ISgfcSimpleTextPropertyValue.h>
+#include <ISgfcTextPropertyValue.h>
 #include <ISgfcPropertyFactory.h>
 #include <ISgfcPropertyValueFactory.h>
 #include <ISgfcTreeBuilder.h>
@@ -192,6 +196,10 @@ int WriteDocument(std::shared_ptr<ISgfcDocument> document, const std::string& ou
   // Uncomment the following to see an invalid command line
 //  documentWriter->GetArguments()->AddArgument(SgfcArgumentType::DeletePropertyType, SgfcPropertyType::BO);
 
+  // Uncomment the following to prevent SGFC from writing an AP property
+  // (allows the library client to write an AP property with its own values)
+//  documentWriter->GetArguments()->AddArgument(SgfcArgumentType::DoNotAddSgfcApProperty);
+
   std::shared_ptr<ISgfcDocumentWriteResult> result = documentWriter->WriteSgfFile(document, outputFilePath);
 
   std::cout << "WriteSgfFile sgfcExitCode = " << static_cast<int>(result->GetExitCode()) << std::endl;
@@ -256,25 +264,39 @@ int DoBuildTree(const std::string& outputFilePath)
   auto propertyValueFactory = SgfcPlusPlusFactory::CreatePropertyValueFactory();
   auto propertyValueGM = propertyValueFactory->CreateNumberPropertyValue(1);
   auto propertyValueSZ = propertyValueFactory->CreateNumberPropertyValue(19);
-  auto propertyValueMove1 = propertyValueFactory->CreateMovePropertyValue("aa");
-  auto propertyValueMove2 = propertyValueFactory->CreateMovePropertyValue("bb");
-
-  auto propertyValueSimpleText = propertyValueFactory->CreateSimpleTextPropertyValue("kk ] ");
-  auto propertyValuePoint1 = propertyValueFactory->CreatePointPropertyValue("aa");
-  auto propertyValuePoint2 = propertyValueFactory->CreatePointPropertyValue("ab");
-  auto propertyValuePoint3 = propertyValueFactory->CreatePointPropertyValue("ba");
-  auto propertyValuePoint4 = propertyValueFactory->CreatePointPropertyValue("bb");
-  auto propertyValuePoint5 = propertyValueFactory->CreatePointPropertyValue("ac");
+  auto propertyValueTM = propertyValueFactory->CreateRealPropertyValue(3600.0); // results in "3600"
+  auto propertyValueB = propertyValueFactory->CreateMovePropertyValue("aa");
+  auto propertyValueBL = propertyValueFactory->CreateRealPropertyValue(3456.78); // results in "3456.7800000000002"
+  auto propertyValueW = propertyValueFactory->CreateMovePropertyValue("bb");
+  auto propertyValueWL = propertyValueFactory->CreateRealPropertyValue(123.456789); // results in 123.456789
+  auto propertyValueC = propertyValueFactory->CreateTextPropertyValue("This is a comment");
+  auto propertyValueN = propertyValueFactory->CreateSimpleTextPropertyValue("Node name");
+  auto propertyValueV = propertyValueFactory->CreateCustomPropertyValue("123456789.123456789");
 
   auto propertyFactory = SgfcPlusPlusFactory::CreatePropertyFactory();
   std::shared_ptr<ISgfcProperty> propertyGM = propertyFactory->CreateProperty(SgfcPropertyType::GM, propertyValueGM);
   std::shared_ptr<ISgfcProperty> propertySZ = propertyFactory->CreateProperty(SgfcPropertyType::SZ, propertyValueSZ);
-  std::shared_ptr<ISgfcProperty> propertyB = propertyFactory->CreateProperty(SgfcPropertyType::B, propertyValueMove1);
-  std::shared_ptr<ISgfcProperty> propertyW = propertyFactory->CreateProperty(SgfcPropertyType::W, propertyValueMove2);
+  std::shared_ptr<ISgfcProperty> propertyTM = propertyFactory->CreateProperty(SgfcPropertyType::TM, propertyValueTM);
+  std::shared_ptr<ISgfcProperty> propertyB = propertyFactory->CreateProperty(SgfcPropertyType::B, propertyValueB);
+  std::shared_ptr<ISgfcProperty> propertyW = propertyFactory->CreateProperty(SgfcPropertyType::W, propertyValueW);
+  std::shared_ptr<ISgfcProperty> propertyBL = propertyFactory->CreateProperty(SgfcPropertyType::BL, propertyValueBL);
+  std::shared_ptr<ISgfcProperty> propertyWL = propertyFactory->CreateProperty(SgfcPropertyType::WL, propertyValueWL);
+  std::shared_ptr<ISgfcProperty> propertyC = propertyFactory->CreateProperty(SgfcPropertyType::C, propertyValueC);
+  std::shared_ptr<ISgfcProperty> propertyN = propertyFactory->CreateProperty(SgfcPropertyType::N, propertyValueN);
+  std::shared_ptr<ISgfcProperty> propertyV = propertyFactory->CreateProperty(SgfcPropertyType::V, propertyValueV);
 
-  rootNode->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyGM, propertySZ });
-  nodeA->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyB });
-  nodeA1->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyW });
+  rootNode->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyGM, propertySZ, propertyTM });
+  nodeA->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyB, propertyBL });
+  nodeA1->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyW, propertyWL, propertyV });
+  nodeB->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyC });
+  nodeB1->SetProperties(std::vector<std::shared_ptr<ISgfcProperty>> { propertyN });
+
+  // SGFC will overwrite the AP property we create here with its own values.
+  // This can be prevented by using SgfcArgumentType::DoNotAddSgfcApProperty.
+  // Uncomment the corresponding line in WriteDocument() to see the effect.
+  auto propertyValueAP = propertyValueFactory->CreateComposedSimpleTextAndSimpleTextPropertyValue("Example Program", "1.2.3.4");
+  std::shared_ptr<ISgfcProperty> propertyAP = propertyFactory->CreateProperty("AP", propertyValueAP);
+  rootNode->SetProperty(propertyAP);
 
   PrintDocumentContent(document);
 

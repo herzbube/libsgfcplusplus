@@ -21,11 +21,11 @@ project (
   # The project version.
   # Sets PROJECT_VERSION, PROJECT_VERSION_MAJOR, PROJECT_VERSION_MINOR,
   # PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK.
-  VERSION 2.0.1
+  VERSION 3.0.0
 
   # Some informational package metadata. Not necessary for the build.
   # Sets PROJECT_HOMEPAGE_URL and PROJECT_DESCRIPTION
-  HOMEPAGE_URL https://github.com/herzbube/libsgfcplusplus
+  HOMEPAGE_URL "https://github.com/herzbube/libsgfcplusplus"
   DESCRIPTION "A C++ library that uses SGFC to read and write SGF (Smart Game Format) data."
 )
 
@@ -54,8 +54,9 @@ endif()
 # Specify the C++ standard
 # We need at least C++17 because of literal initializers like this:
 #   const SgfcBoardSize SgfcConstants::BoardSizeMinimum = { 1, 1 };
+# We need at least C++20 because of the use of std::erase_if().
 # Catch2 requires C++11.
-set ( CMAKE_CXX_STANDARD 17 )
+set ( CMAKE_CXX_STANDARD 20 )
 set ( CMAKE_CXX_STANDARD_REQUIRED True )
 
 # Specify the C standard. This comes from SGFC's own CMakeLists.txt.

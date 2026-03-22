@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -509,6 +509,71 @@ SCENARIO( "SgfcBackendController saves SGF content to a string", "[backend]" )
       THEN( "The save operation succeeds and overwrites the string content with the SGF content" )
       {
         AssertSaveResult(backendSaveResult, sgfContent, expectedStringContentSaved);
+      }
+    }
+  }
+
+  std::string contentBufferWithoutCustomAP = "(;)";
+  std::string contentBufferWithCustomAP = "(;FF[4]AP[Foo:1.2.3.4])";
+  std::string expectedStringContentSavedWithoutAP = "(;FF[4]CA[UTF-8]GM[1]SZ[19])\n";
+  std::string expectedStringContentSavedWithSgfcAP = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
+  std::string expectedStringContentSavedWithCustomAP = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[Foo:1.2.3.4])\n";
+
+  GIVEN( "SGFC should add its own AP property" )
+  {
+    WHEN( "SgfcBackendController performs the save operation with SGF content without a custom AP property" )
+    {
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBufferWithoutCustomAP));
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto backendSaveResult = backendController.SaveSgfContent(contentBufferWithoutCustomAP, backendDataWrapper);
+
+      THEN( "The save operation succeeds and SGFC adds its own AP property" )
+      {
+        AssertSaveResult(backendSaveResult, contentBufferWithoutCustomAP, expectedStringContentSavedWithSgfcAP);
+      }
+    }
+
+    WHEN( "SgfcBackendController performs the save operation with SGF content with a custom AP property" )
+    {
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBufferWithCustomAP));
+      SgfcBackendController backendController(emptyCommandLineArguments);
+      auto backendSaveResult = backendController.SaveSgfContent(contentBufferWithCustomAP, backendDataWrapper);
+
+      THEN( "The save operation succeeds and SGFC overwrites the custom AP property with its own AP property" )
+      {
+        AssertSaveResult(backendSaveResult, contentBufferWithCustomAP, expectedStringContentSavedWithSgfcAP);
+      }
+    }
+  }
+
+  GIVEN( "SGFC should not add its own AP property" )
+  {
+    auto argumentsWithDoNotAddSgfcApProperty = std::vector<std::shared_ptr<ISgfcArgument>>
+    {
+      std::shared_ptr<ISgfcArgument>(new SgfcArgument(SgfcArgumentType::DoNotAddSgfcApProperty))
+    };
+
+    WHEN( "SgfcBackendController performs the save operation with SGF content without a custom AP property" )
+    {
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBufferWithoutCustomAP));
+      SgfcBackendController backendController(argumentsWithDoNotAddSgfcApProperty);
+      auto backendSaveResult = backendController.SaveSgfContent(contentBufferWithoutCustomAP, backendDataWrapper);
+
+      THEN( "The save operation succeeds and the SGF content does not contain an AP property" )
+      {
+        AssertSaveResult(backendSaveResult, contentBufferWithoutCustomAP, expectedStringContentSavedWithoutAP);
+      }
+    }
+
+    WHEN( "SgfcBackendController performs the save operation with SGF content with a custom AP property" )
+    {
+      auto backendDataWrapper = std::shared_ptr<SgfcBackendDataWrapper>(new SgfcBackendDataWrapper(contentBufferWithCustomAP));
+      SgfcBackendController backendController(argumentsWithDoNotAddSgfcApProperty);
+      auto backendSaveResult = backendController.SaveSgfContent(contentBufferWithCustomAP, backendDataWrapper);
+
+      THEN( "The save operation succeeds and the custom AP property is preserved" )
+      {
+        AssertSaveResult(backendSaveResult, contentBufferWithCustomAP, expectedStringContentSavedWithCustomAP);
       }
     }
   }

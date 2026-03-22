@@ -12,8 +12,8 @@ jobs:
     # - Since this is a cross-platform library we want to build on all three of
     #   the major operating systems.
     # - We use the *-latest runners because we strive to build with relatively
-    #   new versions of each environment that have modern compilers (we need at
-    #   least C++17, see CMakeLists.txt) and tools.
+    #   new versions of each environment that have modern compilers (see CMakeLists.txt
+    #   for the minimum version of the C++ standard that we need) and tools.
     # - The library should not only be cross-platform, it should also not rely
     #   on any particular compiler. On macOS the clang compiler is used
     #   (AppleClang), on Ubuntu the default is GNU GCC, and on Windows it's
@@ -23,6 +23,12 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
 
+    # Use the same shell on all runners so can we use the same scripts. Without this,
+    # the Windows runner would use PowerShell.
+    defaults:
+      run:
+        shell: bash
+
     steps:
     - name: Checking out the sources
       # @v4 refers to the Git tag "v4" in https://github.com/actions/checkout.
@@ -31,6 +37,16 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: recursive
+
+    - name: Patching SGFC
+      run: |
+        cd sgfc
+        if test $(ls ../patch/*.patch 2>/dev/null | wc -l) -gt 0; then
+          for PATCH_FILE in ../patch/*.patch; do git apply "$PATCH_FILE"; done
+        else
+          echo "No patches to apply"
+        fi
+        cd ..
 
     - name: Generate build system (macOS and Ubuntu)
       run: |

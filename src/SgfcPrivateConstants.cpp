@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2020 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2020-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -114,7 +114,7 @@ namespace LibSgfcPlusPlus
   // At least one digit, followed by a rank type indicator, followed by an
   // optional rating type indicator.
   // Capture group 0: The entire string
-  // Capture group 1: Rank
+  // Capture group 1: Rank (matches numbers that exceed the maximum value range)
   // Capture group 2: Rank type
   // Capture group 3: k or kyu
   // Capture group 4: d or dan

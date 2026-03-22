@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Copyright 2024 Patrick Näf (herzbube@herzbube.ch)
+// Copyright 2024-2026 Patrick Näf (herzbube@herzbube.ch)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ SCENARIO( "SgfcGoPoint is constructed", "[go]" )
   {
     WHEN( "SgfcGoPoint is constructed with valid data" )
     {
-      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetGoPointStrings()) );
+      auto testData = GENERATE_COPY( from_range(TestDataGenerator::GetValidGoPointConstructorStrings()) );
 
       SgfcGoPoint goPoint(std::get<0>(testData), std::get<1>(testData));
 
