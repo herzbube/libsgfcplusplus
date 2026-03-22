@@ -1,10 +1,10 @@
 # ChangeLog
 
-## Version 3.0.0 (February 07 2026)
+## Version 3.0.0 (March 22 2026)
 
 ### Features
 
-- The `SgfcNumber` type now has the underlying fixed width integer type `int64_t`, guaranteeing a 64-bit value range on all platforms (#50). In previous versions of the library, the underlying type was `long`, which was ambiguous and caused the value range of `SgfcNumber` to be platform-dependent. The change is known to affect the Windows platform, when using the MSVC compiler, which treats `long` as a 32-bit value type. Apple platforms (macOS, iOS etc.) should not be affected unless they are very old, because on these platforms `long` has been a 64-bit value type for a long time (pun not intended). On Linux the system architecture decides the size of `long`.
+- The `SgfcNumber` type now has the underlying fixed width integer type `int64_t`, guaranteeing a 64-bit value range on all platforms (#50). In previous versions of the library, the underlying type was `long`, which was ambiguous and caused the value range of `SgfcNumber` to be platform-dependent. The change is known to affect the Windows platform, when using the MSVC compiler, which treats `long` as a 32-bit value type. Apple platforms (macOS, iOS etc.) should not be affected unless they are very old, because on these platforms `long` has been a 64-bit value type for a long time (pun not intended). On Linux the system architecture decides the size of `long`. **Important:** Behind the scenes, SGFC still uses `long` to process SGF property values with the SGF type `Number`, so in practice the value range of such property values is still platform-dependent. This can be considered a "known bug", and issue #52 exists to track its status.
 - In a similar vein, several other data types in the public interface of the library have been changed to use fixed width integer types instead of ambiguous sized data types (#51).
   - `ISgfcMessage`: Line and column numbers now use `uint64_t` instead of `long`.
   - `ISgfcGoPoint`: x- and y-position now use `uint64_t` instead of `unsigned int`.
@@ -27,6 +27,7 @@
 - Updated unit test library Catch2 from v3.5.0 to v3.12.0.
 - Update library win-iconv to latest commit.
 - Updated project from the C++17 language standard to C++20.
+- Fix Doxygen documentation errors
 
 ### GitHub issue list
 
