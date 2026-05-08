@@ -35,7 +35,7 @@ namespace LibSgfcPlusPlus
   // ----------------------------------------------------------------------
 
   int openHook(struct SaveFileHandler* sfh, const char* path, const char* mode);
-  int closeHook(struct SaveFileHandler* sfh, U_LONG error);
+  int closeHook(struct SaveFileHandler* sfh, uint32_t error);
 
   // ----------------------------------------------------------------------
   // Static variables used by the hook function to store the captured data.
@@ -50,7 +50,7 @@ namespace LibSgfcPlusPlus
 
   static bool capturingIsInProgress = false;
   static int (*originalOpenHook)(struct SaveFileHandler *, const char *, const char *) = NULL;
-  static int (*originalCloseHook)(struct SaveFileHandler *, U_LONG) = NULL;
+  static int (*originalCloseHook)(struct SaveFileHandler *, uint32_t) = NULL;
 
   // ----------------------------------------------------------------------
   // The SgfcSaveStream class.
@@ -125,7 +125,7 @@ namespace LibSgfcPlusPlus
     return originalOpenHook(sfh, path, mode);
   }
 
-  int closeHook(struct SaveFileHandler* sfh, U_LONG error)
+  int closeHook(struct SaveFileHandler* sfh, uint32_t error)
   {
     if (error == E_NO_ERROR)
     {

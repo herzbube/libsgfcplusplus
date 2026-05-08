@@ -94,7 +94,6 @@ namespace LibSgfcPlusPlus
     else
       sgfData->b_end = sgfData->buffer;
 
-    // sgfData->current and sgfData->start will both be set by
-    // LoadSGFFromFileBuffer
+    // sgfData->current will be set by LoadSGFFromFileBuffer
   }
 }

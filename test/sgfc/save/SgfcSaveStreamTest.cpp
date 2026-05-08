@@ -240,8 +240,7 @@ int putcHookReturningEOF(struct SaveFileHandler* sfh, int character)
 void SetupEmptySgfInfo(SGFInfo* sgfInfo, char* buffer, size_t bufferSize)
 {
   sgfInfo->buffer = buffer;
-  sgfInfo->start = sgfInfo->buffer;
-  sgfInfo->b_end = sgfInfo->start + bufferSize;
+  sgfInfo->b_end = sgfInfo->buffer + bufferSize;
   sgfInfo->root = nullptr;
   sgfInfo->tree = nullptr;
 }
