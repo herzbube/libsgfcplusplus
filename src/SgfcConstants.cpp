@@ -25,7 +25,7 @@ namespace LibSgfcPlusPlus
 {
   const std::string SgfcConstants::LibraryName = "libsgfc++";
   const std::string SgfcConstants::LibraryVersion = "3.0.0";
-  const std::string SgfcConstants::SgfcVersion = "2.2";
+  const std::string SgfcConstants::SgfcVersion = "2.3";
 
   // SgfcMessage line and column numbers are 1-based, so value 0 (zero) can be
   // used as indicator for an invalid line or column number.

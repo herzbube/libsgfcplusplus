@@ -48,7 +48,7 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
   // We need this to suppress SGFC messages on stdout
   SgfcMessageStream messageStream;
 
-  SGFInfo* sgfInfo = SetupSGFInfo(NULL);
+  SGFInfo* sgfInfo = SetupSGFInfo(NULL, NULL);
 
   char inputContent[] = "(;)";
   std::string expectedSaveContent = "(;FF[4]CA[UTF-8]GM[1]SZ[19]AP[SGFC:" + SgfcConstants::SgfcVersion + "])\n";
@@ -111,7 +111,7 @@ SCENARIO( "SgfcSaveStream acquires save stream content from SGFC", "[sgfc-save]"
 
     SaveSGF(sgfInfo, &SgfcSaveStream::CreateSaveFileHandler, fileName.c_str());
 
-    SGFInfo* sgfInfo2 = SetupSGFInfo(NULL);
+    SGFInfo* sgfInfo2 = SetupSGFInfo(NULL, NULL);
 
     // Repeat the setup stuff at the beginning of the scenario
     char inputContent2[] = "(;C[a comment])";
@@ -240,8 +240,7 @@ int putcHookReturningEOF(struct SaveFileHandler* sfh, int character)
 void SetupEmptySgfInfo(SGFInfo* sgfInfo, char* buffer, size_t bufferSize)
 {
   sgfInfo->buffer = buffer;
-  sgfInfo->start = sgfInfo->buffer;
-  sgfInfo->b_end = sgfInfo->start + bufferSize;
+  sgfInfo->b_end = sgfInfo->buffer + bufferSize;
   sgfInfo->root = nullptr;
   sgfInfo->tree = nullptr;
 }

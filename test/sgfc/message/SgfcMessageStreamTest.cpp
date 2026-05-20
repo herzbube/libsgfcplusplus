@@ -34,7 +34,7 @@ using namespace LibSgfcPlusPlus;
 
 SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-message]" )
 {
-  SGFInfo* sgfc = SetupSGFInfo(NULL);
+  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
 
   GIVEN( "The message stream is empty" )
   {
@@ -115,7 +115,7 @@ SCENARIO( "SgfcMessageStream acquires message stream content from SGFC", "[sgfc-
 
 SCENARIO( "SgfcMessageStream processes messages with varying content", "[sgfc-message]" )
 {
-  SGFInfo* sgfc = SetupSGFInfo(NULL);
+  SGFInfo* sgfc = SetupSGFInfo(NULL, NULL);
 
   GIVEN( "A non-critical warning message is processed" )
   {
