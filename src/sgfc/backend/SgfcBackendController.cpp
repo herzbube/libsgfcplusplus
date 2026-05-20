@@ -212,7 +212,7 @@ namespace LibSgfcPlusPlus
 
     try
     {
-      sgfc = SetupSGFInfo(NULL);
+      sgfc = SetupSGFInfo(NULL, NULL);
       bool parseArgsResult = ParseArgs(sgfc, argc, argv);
 
       if (parseArgsResult)

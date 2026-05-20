@@ -34,7 +34,7 @@ namespace LibSgfcPlusPlus
     , dataState(SgfcBackendDataState::NotLoaded)
   {
     // SetupSGFInfo() throws std::runtime_error if it fails to allocate memory
-    this->sgfData = SetupSGFInfo(NULL);
+    this->sgfData = SetupSGFInfo(NULL, NULL);
   }
 
   SgfcBackendDataWrapper::SgfcBackendDataWrapper(const std::string& sgfContent)
