@@ -45,7 +45,7 @@ namespace LibSgfcPlusPlus
   // Hook/callback function prototype used to interact with SGFC.
   // ----------------------------------------------------------------------
 
-  static void OutOfMemoryErrorHook(uint32_t error, const char* detail)
+  static ATTRIBUTE_NORETURN void OutOfMemoryErrorHook(uint32_t error, const char* detail)
   {
     // SgfcBackendController handles this exception in a few places
     throw std::runtime_error("SGFC failed to allocate memory");
@@ -128,7 +128,7 @@ namespace LibSgfcPlusPlus
 
   void SgfcBackendController::InstallOutOfMemoryErrorHookIfNotYetInstalled()
   {
-    if (panic_hook != (panic_hook_t)OutOfMemoryErrorHook)
+    if (panic_hook != OutOfMemoryErrorHook)
       panic_hook = OutOfMemoryErrorHook;
   }
 
